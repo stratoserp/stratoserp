@@ -1,0 +1,94 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.se_timekeeping
+    - field.field.comment.se_timekeeping.field_tk_amount
+    - field.field.comment.se_timekeeping.field_tk_billable
+    - field.field.comment.se_timekeeping.field_tk_billed
+    - field.field.comment.se_timekeeping.field_tk_comment
+    - field.field.comment.se_timekeeping.field_tk_date
+    - field.field.comment.se_timekeeping.field_tk_item
+    - field.field.comment.se_timekeeping.field_tk_review
+  module:
+    - datetime
+    - field_layout
+    - layout_discovery
+    - options
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
+id: comment.se_timekeeping.default
+targetEntityType: comment
+bundle: se_timekeeping
+mode: default
+content:
+  field_tk_amount:
+    type: list_default
+    weight: 3
+    region: second
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+  field_tk_billable:
+    type: boolean
+    weight: 4
+    region: second
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+  field_tk_billed:
+    type: boolean
+    weight: 5
+    region: second
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+  field_tk_comment:
+    type: text_default
+    weight: 1
+    region: first
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_tk_date:
+    type: datetime_default
+    weight: 2
+    region: second
+    label: inline
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+  field_tk_item:
+    type: entity_reference_label
+    weight: 6
+    region: second
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_tk_review:
+    type: boolean
+    weight: 7
+    region: second
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+  links:
+    weight: 0
+    region: top
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

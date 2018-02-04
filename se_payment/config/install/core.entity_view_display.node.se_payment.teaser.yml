@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_payment.body
+    - field.field.node.se_payment.field_bu_ref
+    - field.field.node.se_payment.field_pa_id
+    - field.field.node.se_payment.field_pa_items
+    - field.field.node.se_payment.field_pa_total
+    - node.type.se_payment
+  module:
+    - text
+    - user
+id: node.se_payment.teaser
+targetEntityType: node
+bundle: se_payment
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_bu_ref: true
+  field_pa_id: true
+  field_pa_items: true
+  field_pa_total: true

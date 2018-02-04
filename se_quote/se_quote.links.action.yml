@@ -1,0 +1,9 @@
+
+se_quote.add_se_quote:
+  route_name: 'node.add'
+  route_parameters:
+    node_type: 'se_quote'
+  title: 'Add quote'
+  appears_on:
+    - 'view.se_quote_list.page_1'
+

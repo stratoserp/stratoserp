@@ -1,0 +1,9 @@
+
+se_item.add_se_item:
+  route_name: 'node.add'
+  route_parameters:
+    node_type: 'se_item'
+  title: 'Add item'
+  appears_on:
+    - 'view.se_item_list.page_1'
+

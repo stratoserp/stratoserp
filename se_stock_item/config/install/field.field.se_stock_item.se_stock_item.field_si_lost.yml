@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_stock_item.field_si_lost
+  module:
+    - se_stock_item
+id: se_stock_item.se_stock_item.field_si_lost
+field_name: field_si_lost
+entity_type: se_stock_item
+bundle: se_stock_item
+label: Lost
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

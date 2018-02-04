@@ -1,0 +1,9 @@
+
+se_goods_receipt.add_se_goods_receipt:
+  route_name: 'node.add'
+  route_parameters:
+    node_type: 'se_goods_receipt'
+  title: 'Add goods receipt'
+  appears_on:
+    - 'view.se_goods_receipt_list.page_1'
+

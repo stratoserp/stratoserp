@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_attachments
+    - node.type.se_ticket
+  module:
+    - file
+id: node.se_ticket.field_attachments
+field_name: field_attachments
+entity_type: node
+bundle: se_ticket
+label: Attachments
+description: 'Container for legacy files'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'jpg jpeg gif png txt html doc xls pdf ppt pps odt ods odp docx xlsx zip dll tar.gz tgz exe log msg'
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

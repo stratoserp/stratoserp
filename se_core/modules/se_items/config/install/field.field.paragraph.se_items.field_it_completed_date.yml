@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_it_completed_date
+    - paragraphs.paragraphs_type.se_items
+  module:
+    - datetime
+id: paragraph.se_items.field_it_completed_date
+field_name: field_it_completed_date
+entity_type: paragraph
+bundle: se_items
+label: 'Completed date'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

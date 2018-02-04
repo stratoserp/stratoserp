@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ti_owner_ref
+    - node.type.se_ticket
+id: node.se_ticket.field_ti_owner_ref
+field_name: field_ti_owner_ref
+entity_type: node
+bundle: se_ticket
+label: Owner
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

@@ -1,0 +1,22 @@
+add stock item entities:
+  title: 'Create new Stock item entities'
+
+administer stock item entities:
+  title: 'Administer Stock item entities'
+  description: 'Allow to access the administration form to configure Stock item entities.'
+  restrict access: true
+
+delete stock item entities:
+  title: 'Delete Stock item entities'
+
+edit stock item entities:
+  title: 'Edit Stock item entities'
+
+access stock item overview:
+  title: 'Access the Stock item overview page'
+
+view published stock item entities:
+  title: 'View published Stock item entities'
+
+view unpublished stock item entities:
+  title: 'View unpublished Stock item entities'

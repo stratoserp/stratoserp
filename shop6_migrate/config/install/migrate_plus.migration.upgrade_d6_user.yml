@@ -1,0 +1,45 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d6_user
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: 'User accounts'
+source:
+  plugin: d6_user
+process:
+  uid: uid
+  name: name
+  pass: pass
+  mail: mail
+  created: created
+  access: access
+  login: login
+  status: status
+  timezone:
+    plugin: user_update_7002
+    source: timezone
+  langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: false
+  preferred_langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: true
+  preferred_admin_langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: true
+  init: init
+  roles:
+    plugin: migration
+    migration: upgrade_d6_user_role
+    source: roles
+destination:
+  plugin: 'entity:user'
+  md5_passwords: true
+migration_dependencies:
+  required:
+    - upgrade_d6_user_role

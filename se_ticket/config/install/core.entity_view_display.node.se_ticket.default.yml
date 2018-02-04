@@ -1,0 +1,139 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.se_ticket.body
+    - field.field.node.se_ticket.field_bu_ref
+    - field.field.node.se_ticket.field_co_ref
+    - field.field.node.se_ticket.field_ti_id
+    - field.field.node.se_ticket.field_ti_open_date
+    - field.field.node.se_ticket.field_ti_owner_ref
+    - field.field.node.se_ticket.field_ti_priority
+    - field.field.node.se_ticket.field_ti_scheduled
+    - field.field.node.se_ticket.field_ti_status_ref
+    - field.field.node.se_ticket.field_ti_submitter_ref
+    - field.field.node.se_ticket.field_ti_type
+    - field.field.node.se_ticket.field_attachments
+    - node.type.se_ticket
+  module:
+    - datetime_range
+    - text
+    - user
+id: node.se_ticket.default
+targetEntityType: node
+bundle: se_ticket
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_bu_ref:
+    weight: 2
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_co_ref:
+    weight: 3
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_ti_id:
+    weight: 9
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_ti_open_date:
+    weight: 6
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
+    region: content
+  field_ti_owner_ref:
+    weight: 8
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_ti_priority:
+    weight: 5
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_ti_scheduled:
+    weight: 7
+    label: inline
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: daterange_default
+    region: content
+  field_ti_status:
+    weight: 107
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_ti_status_ref:
+    type: entity_reference_label
+    weight: 11
+    region: content
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_ti_submitter_ref:
+    weight: 10
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_ti_type:
+    weight: 4
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_attachments:
+    weight: 4
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

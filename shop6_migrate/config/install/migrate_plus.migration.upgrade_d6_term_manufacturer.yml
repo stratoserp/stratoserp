@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d6_term_manufacturer
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: Manufacturer migration
+source:
+  plugin: upgrade_d6_term_manufacturer
+
+destination:
+  plugin: entity:taxonomy_term
+
+process:
+  vid:
+    plugin: default_value
+    default_value: se_manufacturer
+
+  name:           name
+  description:    description

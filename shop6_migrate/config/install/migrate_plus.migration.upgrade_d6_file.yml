@@ -1,0 +1,43 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d6_file
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: Files
+source:
+  plugin: d6_file
+  constants:
+    source_base_path: shop6
+process:
+  fid: fid
+  filename: filename
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - filepath
+    -
+      plugin: urlencode
+  destination_full_path:
+    plugin: file_uri
+    source:
+      - filepath
+      - file_directory_path
+      - temp_directory_path
+      - is_public
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@destination_full_path'
+  filemime: filemime
+  status: status
+  changed: timestamp
+  uid: uid
+destination:
+  plugin: 'entity:file'
+

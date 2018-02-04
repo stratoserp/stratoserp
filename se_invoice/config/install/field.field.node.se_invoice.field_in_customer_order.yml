@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_in_customer_order
+    - node.type.se_invoice
+id: node.se_invoice.field_in_customer_order
+field_name: field_in_customer_order
+entity_type: node
+bundle: se_invoice
+label: 'Customer order'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

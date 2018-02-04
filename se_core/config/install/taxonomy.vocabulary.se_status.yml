@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Status'
+vid: se_status
+description: 'Status taxonomy'
+hierarchy: 0
+weight: 0

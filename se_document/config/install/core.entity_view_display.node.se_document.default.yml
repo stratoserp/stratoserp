@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.se_document.body
+    - field.field.node.se_document.field_bu_ref
+    - field.field.node.se_document.field_do_images
+    - field.field.node.se_document.field_do_videos
+    - field.field.node.se_document.field_attachments
+    - node.type.se_document
+  module:
+    - file
+    - image
+    - text
+    - user
+id: node.se_document.default
+targetEntityType: node
+bundle: se_document
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_bu_ref:
+    weight: 1
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_do_images:
+    weight: 3
+    label: inline
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  field_do_videos:
+    weight: 4
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  field_attachments:
+    weight: 4
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

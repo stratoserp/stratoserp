@@ -1,0 +1,15 @@
+/**
+ * @file
+ * Styling for the user module icons.
+ */
+
+/**
+ * Toolbar tab icon.
+ */
+.toolbar-bar .toolbar-icon-se-core:before {
+  background-image: url(../images/se_core.svg);
+}
+.toolbar-bar .toolbar-icon-se-core:active:before,
+.toolbar-bar .toolbar-icon-se-core.active:before {
+  background-image: url(../images/se_core.svg);
+}

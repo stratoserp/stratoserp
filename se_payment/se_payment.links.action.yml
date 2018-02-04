@@ -1,0 +1,10 @@
+
+se_payment.add_se_payment:
+  route_name: 'node.add'
+  route_parameters:
+    node_type: 'se_payment'
+  title: 'Add payment'
+  appears_on:
+    - 'entity.entity_view_display.se_customer.default'
+    - 'view.se_payment_list.page_1'
+

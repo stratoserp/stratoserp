@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cu_fax
+    - node.type.se_customer
+  module:
+    - telephone
+id: node.se_customer.field_cu_fax
+field_name: field_cu_fax
+entity_type: node
+bundle: se_customer
+label: Fax
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

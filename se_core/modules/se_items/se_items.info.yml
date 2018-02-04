@@ -1,0 +1,10 @@
+name: Items
+description: 'Provides items paragraph structure for invoices, quotes, purchase orders.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - field
+  - text
+  - se_item
+  - paragraphs

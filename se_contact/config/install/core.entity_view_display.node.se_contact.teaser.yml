@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_contact.field_bu_ref
+    - field.field.node.se_contact.field_co_email
+    - field.field.node.se_contact.field_co_phone
+    - node.type.se_contact
+  module:
+    - user
+id: node.se_contact.teaser
+targetEntityType: node
+bundle: se_contact
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_bu_ref: true
+  field_co_email: true
+  field_co_phone: true

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Payment type'
+vid: pa_type
+description: 'Payment type taxonomy'
+hierarchy: 0
+weight: 0

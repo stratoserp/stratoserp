@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gr_items
+    - node.type.se_goods_receipt
+    - paragraphs.paragraphs_type.se_items
+  module:
+    - entity_reference_revisions
+id: node.se_goods_receipt.field_gr_items
+field_name: field_gr_items
+entity_type: node
+bundle: se_goods_receipt
+label: Items
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      se_items: se_items
+    target_bundles_drag_drop:
+      se_items:
+        enabled: true
+        weight: 2
+field_type: entity_reference_revisions

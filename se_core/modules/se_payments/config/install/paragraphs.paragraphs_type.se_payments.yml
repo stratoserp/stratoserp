@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: se_payments
+label: Payments
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

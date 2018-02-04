@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - node
+id: node.field_se_timekeeping
+field_name: field_se_timekeeping
+entity_type: node
+type: comment
+settings:
+  comment_type: se_timekeeping
+module: comment
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Provide some (un)install helpers for se_payments.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function se_payments_uninstall() {
+  $config_storage = \Drupal::service('config.storage');
+  $config_storage->deleteAll('core.entity_form_display.paragraph.se_payments');
+  $config_storage->deleteAll('core.entity_view_display.paragraph.se_payments');
+  $config_storage->deleteAll('field.field.paragraph.se_payments');
+  $config_storage->deleteAll('field.storage.paragraph.field_pa_amount');
+  $config_storage->deleteAll('field.storage.paragraph.field_pa_date');
+  $config_storage->deleteAll('field.storage.paragraph.field_pa_invoice');
+  $config_storage->deleteAll('field.storage.paragraph.field_pa_type');
+  $config_storage->deleteAll('paragraphs.paragraphs_type.se_payments');
+}

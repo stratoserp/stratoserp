@@ -1,0 +1,83 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.se_timekeeping
+    - field.field.comment.se_timekeeping.field_tk_amount
+    - field.field.comment.se_timekeeping.field_tk_billable
+    - field.field.comment.se_timekeeping.field_tk_billed
+    - field.field.comment.se_timekeeping.field_tk_comment
+    - field.field.comment.se_timekeeping.field_tk_date
+    - field.field.comment.se_timekeeping.field_tk_item
+    - field.field.comment.se_timekeeping.field_tk_review
+  module:
+    - datetime
+    - field_layout
+    - layout_discovery
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
+id: comment.se_timekeeping.default
+targetEntityType: comment
+bundle: se_timekeeping
+mode: default
+content:
+  author:
+    weight: 1
+    region: second
+    settings: {  }
+    third_party_settings: {  }
+  field_tk_amount:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: second
+  field_tk_billable:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: second
+  field_tk_billed:
+    weight: 6
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: second
+  field_tk_comment:
+    weight: 0
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: first
+  field_tk_date:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: second
+  field_tk_item:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: second
+  field_tk_review:
+    weight: 7
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: second
+hidden:
+  subject: true

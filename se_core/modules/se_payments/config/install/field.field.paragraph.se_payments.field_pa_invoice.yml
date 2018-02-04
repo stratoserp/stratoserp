@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pa_invoice
+    - node.type.se_invoice
+    - paragraphs.paragraphs_type.se_payments
+id: paragraph.se_payments.field_pa_invoice
+field_name: field_pa_invoice
+entity_type: paragraph
+bundle: se_payments
+label: Invoice
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      se_invoice: se_invoice
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

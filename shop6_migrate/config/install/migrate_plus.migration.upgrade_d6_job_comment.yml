@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d6_job_comment
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: Job comments
+source:
+  plugin: d6_job_comment
+  constants:
+    entity_type: node
+    destination_field: field_se_timekeeping
+    destination_type: se_timekeeping
+process:
+  #cid: cid
+  pid:
+    plugin: migration
+    migration: upgrade_d6_job_comment
+    source: pid
+  entity_id: nid
+  entity_type: constants/entity_type
+  field_name: constants/destination_field
+  comment_type: constants/destination_type
+  subject: subject
+  uid: uid
+  name: name
+  created: timestamp
+  changed: timestamp
+  status: status
+  thread: thread
+  field_tk_comment/value: comment
+  field_tk_comment/format:
+    plugin: default_value
+    default_value: basic_html
+  field_tk_date: tk_date
+  field_tk_amount: tk_amount
+  field_tk_item: tk_item
+  field_tk_billable: tk_billable
+  field_tk_billed: tk_billed
+  field_tk_review: tk_review
+destination:
+  plugin: 'entity:comment'
+migration_dependencies:
+  required:
+    - upgrade_d6_user
+    - upgrade_d6_node_erp_job

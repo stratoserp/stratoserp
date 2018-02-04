@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_stock_item
+id: se_stock_item.field_si_lost
+field_name: field_si_lost
+entity_type: se_stock_item
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

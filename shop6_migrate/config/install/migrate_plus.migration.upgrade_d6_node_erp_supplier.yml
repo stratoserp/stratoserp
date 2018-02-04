@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d6_node_erp_supplier
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: Suppliers
+source:
+  plugin: upgrade_d6_node_erp_supplier
+  node_type: erp_supplier
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+
+  type:
+    plugin: default_value
+    default_value: se_supplier
+
+  title: title
+  uid: node_uid
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+  sticky: sticky
+  body/format:
+    plugin: default_value
+    default_value: basic_html
+  body/value: body
+
+  field_su_id: supplier_id
+  field_su_phone: phone
+  field_su_mobile: mobile
+  field_su_email:
+    -
+      plugin: callback
+      callable: strtolower
+      source: email
+  field_su_email_format: email_format
+
+  field_su_fax: fax
+
+  field_su_homepage/uri: homepage_uri
+  field_su_homepage/title: homepage_uri
+  field_su_last_contact: field_serp_su_last_contact
+
+  field_su_address: address
+  field_su_postcode: postcode
+  field_su_state: state
+  field_su_suburb: suburb
+
+  # field_fr_ref: fid
+  # field_st_ref: store_id
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: se_supplier
+
+migration_dependencies:
+  required:
+    - upgrade_d6_user

@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d6_user_role
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: 'User roles'
+source:
+  plugin: d6_user_role
+process:
+  id:
+    -
+      plugin: machine_name
+      source: name
+    -
+      plugin: user_update_8002
+  label: name
+  permissions:
+    -
+      plugin: get
+      source: permissions
+      bypass: true
+
+    -
+      plugin: flatten
+    -
+      plugin: filter_format_permission
+destination:
+  plugin: 'entity:user_role'

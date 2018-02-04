@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Provide some (un)install helpers for shop6_migrate.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function shop6_migrate_uninstall() {
+  $config_storage = \Drupal::service('config.storage');
+  $config_storage->deleteAll('migrate_plus.migration');
+}

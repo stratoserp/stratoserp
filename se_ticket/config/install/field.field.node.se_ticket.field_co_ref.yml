@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_co_ref
+    - node.type.se_contact
+    - node.type.se_ticket
+id: node.se_ticket.field_co_ref
+field_name: field_co_ref
+entity_type: node
+bundle: se_ticket
+label: Contact
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      se_contact: se_contact
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

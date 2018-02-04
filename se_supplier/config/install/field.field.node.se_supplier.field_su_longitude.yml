@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_su_longitude
+    - node.type.se_supplier
+id: node.se_supplier.field_su_longitude
+field_name: field_su_longitude
+entity_type: node
+bundle: se_supplier
+label: Longitude
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

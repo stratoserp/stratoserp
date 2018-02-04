@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - geolocation
+id: node.field_cu_location
+field_name: field_cu_location
+entity_type: node
+type: geolocation
+settings: {  }
+module: geolocation
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

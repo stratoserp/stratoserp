@@ -1,0 +1,114 @@
+<?php
+
+/**
+ * @file
+ * Provide some (un)install helpers for se_timekeeping.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+
+/**
+ * Implements hook_install().
+ *
+ * Perform updates upon installAs it is possible to not want timekeeping,
+ * but to want customers.
+ */
+function se_timekeeping_install() {
+  $entity_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_ticket'] as $bundle) {
+    se_timekeeping_install_attach($entity_manager, $bundle);
+  }
+}
+
+/**
+ * Attach the timekeeping comment field to bundles.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param string $bundle
+ *   The bundle type to attach to.
+ */
+function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+
+  $field = $entity_type_manager->getStorage('field_config')->create([
+    'field_name' => 'field_se_timekeeping',
+    'entity_type' => 'node',
+    'bundle' => $bundle,
+    'label' => 'Timekeeping',
+    'region' => 'content',
+    'settings' => [
+      'default_mode' => 0,
+      'preview' => FALSE,
+    ],
+  ]);
+  $field->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display->setComponent('field_se_timekeeping', [
+    'type' => 'comment_default',
+  ]);
+  $form_display->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display->setComponent('field_se_timekeeping', [
+    'type' => 'comment_default',
+  ]);
+  $display->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function se_timekeeping_uninstall() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_customer', 'se_ticket'] as $bundle) {
+    se_timekeeping_uninstall_detach($entity_type_manager, $bundle);
+  }
+
+  $config_storage = \Drupal::service('config.storage');
+  $config_storage->deleteAll('comment.type.se_timekeeping');
+  $config_storage->deleteAll('core.entity_form_display.comment.se_timekeeping');
+  $config_storage->deleteAll('core.entity_view_display.comment.se_timekeeping');
+  $config_storage->deleteAll('field.field.comment.se_timekeeping');
+  $config_storage->deleteAll('field.storage.comment.field_tk');
+  $config_storage->deleteAll('field.storage.node.field_se_timekeeping');
+  $config_storage->deleteAll('views.view.se_timekeeping_by_week');
+  $config_storage->deleteAll('views.view.se_timekeeping_by_date_range');
+}
+
+/**
+ * Detach the timekeeping comment field from bundles.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param string $bundle
+ *   The bundle type to attach to.
+ */
+function se_timekeeping_uninstall_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display->removeComponent('field_se_timekeeping');
+  $form_display->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display->removeComponent('field_se_timekeeping');
+  $display->save();
+
+  $field_storage_config = FieldStorageConfig::loadByName('node', 'field_se_timekeeping');
+  if ($field_storage_config) {
+    $field_storage_config->delete();
+  }
+
+  /** @var \Drupal\field\FieldConfigInterface $field */
+  $field_config = FieldConfig::loadByName('node', $bundle, 'field_se_timekeeping');
+  if ($field_config && !$field_config->isDeleted()) {
+    $field_config->delete();
+  }
+}

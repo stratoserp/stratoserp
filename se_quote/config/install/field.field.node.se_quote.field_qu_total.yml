@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_qu_total
+    - node.type.se_quote
+id: node.se_quote.field_qu_total
+field_name: field_qu_total
+entity_type: node
+bundle: se_quote
+label: Total
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

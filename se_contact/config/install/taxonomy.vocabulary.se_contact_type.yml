@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Contact type'
+vid: se_contact_type
+description: 'Contact type taxonomy'
+hierarchy: 0
+weight: 0

@@ -1,0 +1,9 @@
+name: Shop6 migration
+type: module
+description: 'Provide migration from Drupal 6 shop'
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools

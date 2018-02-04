@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.se_items.field_it_completed_date
+    - field.field.paragraph.se_items.field_it_description
+    - field.field.paragraph.se_items.field_it_price
+    - field.field.paragraph.se_items.field_it_quantity
+    - paragraphs.paragraphs_type.se_items
+  module:
+    - datetime
+    - text
+id: paragraph.se_items.default
+targetEntityType: paragraph
+bundle: se_items
+mode: default
+content:
+  field_it_completed_date:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_it_description:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_it_price:
+    weight: 5
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_it_quantity:
+    weight: 1
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_goods_receipt.body
+    - field.field.node.se_goods_receipt.field_bu_ref
+    - field.field.node.se_goods_receipt.field_co_ref
+    - field.field.node.se_goods_receipt.field_gr_id
+    - field.field.node.se_goods_receipt.field_gr_items
+    - field.field.node.se_goods_receipt.field_gr_status_ref
+    - field.field.node.se_goods_receipt.field_gr_total
+    - node.type.se_goods_receipt
+  module:
+    - text
+    - user
+id: node.se_goods_receipt.teaser
+targetEntityType: node
+bundle: se_goods_receipt
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_bu_ref: true
+  field_co_ref: true
+  field_gr_id: true
+  field_gr_items: true
+  field_gr_status_ref: true
+  field_gr_total: true

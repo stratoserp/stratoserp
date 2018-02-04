@@ -1,0 +1,19 @@
+name: Contact
+description: 'Provides Contact content type and related configuration.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - eva
+  - field
+  - link
+  - menu_ui
+  - node
+  - options
+  - path
+  - se_customer
+  - se_supplier
+  - telephone
+  - text
+  - user
+  - views

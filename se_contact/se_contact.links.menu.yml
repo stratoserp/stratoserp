@@ -1,0 +1,7 @@
+se_contact.add_se_contact:
+  title: 'Add contact'
+  menu_name: stratos-erp
+  route_name: node.add
+  parent: 'views_view:views.se_customer_list.page_1'
+  route_parameters:
+    node_type: 'se_contact'

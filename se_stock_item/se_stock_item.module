@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains se_stock_item.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function se_stock_item_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the se_stock_item module.
+    case 'help.page.se_stock_item':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Stock item') . '</p>';
+      return $output;
+
+    default:
+  }
+}

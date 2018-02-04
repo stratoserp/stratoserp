@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_invoice.body
+    - field.field.node.se_invoice.field_in_items
+    - node.type.se_invoice
+  module:
+    - text
+    - user
+id: node.se_invoice.teaser
+targetEntityType: node
+bundle: se_invoice
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_in_items: true

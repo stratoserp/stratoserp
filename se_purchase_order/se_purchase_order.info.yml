@@ -1,0 +1,20 @@
+name: Purchase order
+description: 'Provides Purchase order content type and related configuration.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - entity_reference_revisions
+  - field
+  - menu_ui
+  - node
+  - paragraphs
+  - path
+  - se_contact
+  - se_core
+  - se_customer
+  - se_items
+  - se_quote
+  - se_supplier
+  - text
+  - user

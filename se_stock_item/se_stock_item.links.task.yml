@@ -1,0 +1,22 @@
+# Stock item routing definition
+se_stock_item.settings_tab:
+  route_name: se_stock_item.settings
+  title: 'Settings'
+  base_route: se_stock_item.settings
+
+entity.se_stock_item.canonical:
+  route_name: entity.se_stock_item.canonical
+  base_route: entity.se_stock_item.canonical
+  title: 'View'
+
+entity.se_stock_item.edit_form:
+  route_name: entity.se_stock_item.edit_form
+  base_route: entity.se_stock_item.canonical
+  title: 'Edit'
+
+entity.se_stock_item.delete_form:
+  route_name:  entity.se_stock_item.delete_form
+  base_route:  entity.se_stock_item.canonical
+  title: Delete
+  weight: 10
+

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Ticket priority'
+vid: ti_priority
+description: 'Ticket priority taxonomy'
+hierarchy: 0
+weight: 0

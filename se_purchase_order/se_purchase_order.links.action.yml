@@ -1,0 +1,9 @@
+
+se_purchase_order.add_se_purchase_order:
+  route_name: 'node.add'
+  route_parameters:
+    node_type: 'se_purchase_order'
+  title: 'Add purchase order'
+  appears_on:
+    - 'view.se_purchase_order_list.page_1'
+

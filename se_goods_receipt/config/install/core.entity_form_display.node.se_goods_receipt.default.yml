@@ -1,0 +1,97 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.se_goods_receipt.body
+    - field.field.node.se_goods_receipt.field_bu_ref
+    - field.field.node.se_goods_receipt.field_co_ref
+    - field.field.node.se_goods_receipt.field_gr_id
+    - field.field.node.se_goods_receipt.field_gr_items
+    - field.field.node.se_goods_receipt.field_gr_status_ref
+    - field.field.node.se_goods_receipt.field_gr_total
+    - node.type.se_goods_receipt
+  module:
+    - paragraphs
+    - text
+id: node.se_goods_receipt.default
+targetEntityType: node
+bundle: se_goods_receipt
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 7
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  field_bu_ref:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_co_ref:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_gr_id:
+    weight: 1
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_gr_items:
+    type: entity_reference_paragraphs
+    weight: 5
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: se_items
+    third_party_settings: {  }
+    region: content
+  field_gr_status_ref:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_gr_total:
+    type: number
+    weight: 6
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

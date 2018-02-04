@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_su_email
+    - node.type.se_supplier
+id: node.se_supplier.field_su_email
+field_name: field_su_email
+entity_type: node
+bundle: se_supplier
+label: Email
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

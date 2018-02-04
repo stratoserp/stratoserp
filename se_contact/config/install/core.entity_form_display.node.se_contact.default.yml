@@ -1,0 +1,102 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.se_contact.field_bu_ref
+    - field.field.node.se_contact.field_co_email
+    - field.field.node.se_contact.field_co_mobile
+    - field.field.node.se_contact.field_co_phone
+    - field.field.node.se_contact.field_co_type
+    - node.type.se_contact
+  module:
+    - path
+    - telephone
+id: node.se_contact.default
+targetEntityType: node
+bundle: se_contact
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_bu_ref:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_co_email:
+    weight: 7
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+    region: content
+  field_co_mobile:
+    weight: 8
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_co_phone:
+    weight: 8
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_co_type:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  path:
+    type: path
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 2
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 3
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden: {  }

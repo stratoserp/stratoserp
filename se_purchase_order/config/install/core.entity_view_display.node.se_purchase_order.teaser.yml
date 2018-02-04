@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_purchase_order.body
+    - field.field.node.se_purchase_order.field_bu_ref
+    - field.field.node.se_purchase_order.field_co_ref
+    - field.field.node.se_purchase_order.field_po_id
+    - field.field.node.se_purchase_order.field_po_items
+    - field.field.node.se_purchase_order.field_po_quote_ref
+    - node.type.se_purchase_order
+  module:
+    - text
+    - user
+id: node.se_purchase_order.teaser
+targetEntityType: node
+bundle: se_purchase_order
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_bu_ref: true
+  field_co_ref: true
+  field_po_id: true
+  field_po_items: true
+  field_po_quote_ref: true

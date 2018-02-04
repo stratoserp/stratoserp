@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.se_timekeeping
+    - field.storage.comment.field_tk_comment
+  module:
+    - text
+id: comment.se_timekeeping.field_tk_comment
+field_name: field_tk_comment
+entity_type: comment
+bundle: se_timekeeping
+label: Comment
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

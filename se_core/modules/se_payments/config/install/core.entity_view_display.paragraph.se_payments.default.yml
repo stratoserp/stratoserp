@@ -1,0 +1,53 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.se_payments.field_pa_amount
+    - field.field.paragraph.se_payments.field_pa_date
+    - field.field.paragraph.se_payments.field_pa_invoice
+    - field.field.paragraph.se_payments.field_pa_type
+    - paragraphs.paragraphs_type.se_payments
+  module:
+    - datetime
+id: paragraph.se_payments.default
+targetEntityType: paragraph
+bundle: se_payments
+mode: default
+content:
+  field_pa_amount:
+    weight: 3
+    label: hidden
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_pa_date:
+    weight: 4
+    label: hidden
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_pa_invoice:
+    weight: 0
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_pa_type:
+    weight: 2
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden: {  }

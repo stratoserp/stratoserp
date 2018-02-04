@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bu_ref
+    - node.type.se_customer
+    - node.type.se_supplier
+    - node.type.se_ticket
+id: node.se_ticket.field_bu_ref
+field_name: field_bu_ref
+entity_type: node
+bundle: se_ticket
+label: Business
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      se_customer: se_customer
+      se_supplier: se_supplier
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: se_customer
+field_type: entity_reference

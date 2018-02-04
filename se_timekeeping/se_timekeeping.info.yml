@@ -1,0 +1,10 @@
+name: Timekeeping
+description: 'Provides Timekeeping components and related configuration.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - charts
+  - comment
+  - views
+  - se_item

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_su_status
+    - node.type.se_supplier
+  module:
+    - options
+id: node.se_supplier.field_su_status
+field_name: field_su_status
+entity_type: node
+bundle: se_supplier
+label: Status
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

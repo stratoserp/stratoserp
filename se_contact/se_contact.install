@@ -1,0 +1,26 @@
+<?php
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ */
+function se_contact_install() {
+  // These are starter contact types from the old drupal6 erp.
+  $terms = [
+    'General contact',
+    'Accounts contact',
+    'Main contact',
+  ];
+
+  foreach ($terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, 'se_contact_type');
+    if (empty($term)) {
+      Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => 'se_contact_type',
+      ])->save();
+    }
+  }
+}

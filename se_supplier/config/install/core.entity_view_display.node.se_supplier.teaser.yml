@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_supplier.field_su_address
+    - field.field.node.se_supplier.field_su_email
+    - field.field.node.se_supplier.field_su_email_format
+    - field.field.node.se_supplier.field_su_fax
+    - field.field.node.se_supplier.field_su_homepage
+    - field.field.node.se_supplier.field_su_id
+    - field.field.node.se_supplier.field_su_latitude
+    - field.field.node.se_supplier.field_su_longitude
+    - field.field.node.se_supplier.field_su_phone
+    - field.field.node.se_supplier.field_su_postal_address
+    - field.field.node.se_supplier.field_su_postal_postcode
+    - field.field.node.se_supplier.field_su_postal_state
+    - field.field.node.se_supplier.field_su_postal_suburb
+    - field.field.node.se_supplier.field_su_postcode
+    - field.field.node.se_supplier.field_su_state
+    - field.field.node.se_supplier.field_su_status
+    - field.field.node.se_supplier.field_su_suburb
+    - node.type.se_supplier
+  module:
+    - user
+id: node.se_supplier.teaser
+targetEntityType: node
+bundle: se_supplier
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_su_address: true
+  field_su_email: true
+  field_su_email_format: true
+  field_su_fax: true
+  field_su_homepage: true
+  field_su_id: true
+  field_su_latitude: true
+  field_su_longitude: true
+  field_su_phone: true
+  field_su_postal_address: true
+  field_su_postal_postcode: true
+  field_su_postal_state: true
+  field_su_postal_suburb: true
+  field_su_postcode: true
+  field_su_state: true
+  field_su_status: true
+  field_su_suburb: true

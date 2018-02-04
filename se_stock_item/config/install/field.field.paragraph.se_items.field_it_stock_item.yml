@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_it_stock_item
+    - paragraphs.paragraphs_type.se_items
+id: paragraph.se_items.field_it_stock_item
+field_name: field_it_stock_item
+entity_type: paragraph
+bundle: se_items
+label: 'Stock item'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:se_stock_item'
+  handler_settings: {  }
+field_type: entity_reference

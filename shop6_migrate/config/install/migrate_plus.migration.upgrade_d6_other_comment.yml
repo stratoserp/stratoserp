@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d6_other_comment
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: Other comments
+source:
+  plugin: d6_other_comment
+  constants:
+    entity_type: node
+    destination_field: comment
+    destination_type: comment
+process:
+  #cid: cid
+  pid:
+    plugin: migration
+    migration: upgrade_d6_other_comment
+    source: pid
+  entity_id: nid
+  entity_type: constants/entity_type
+  field_name: constants/destination_field
+  comment_type: constants/destination_type
+  subject: subject
+  uid: uid
+  name: name
+  created: timestamp
+  changed: timestamp
+  status: status
+  thread: thread
+  comment/value: comment
+  comment/format:
+    plugin: default_value
+    default_value: basic_html
+destination:
+  plugin: 'entity:comment'
+migration_dependencies:
+  required:
+    - upgrade_d6_user
+    - upgrade_d6_node_book
+    - upgrade_d6_node_erp_customer
+    - upgrade_d6_node_erp_job
+    - upgrade_d6_node_erp_item

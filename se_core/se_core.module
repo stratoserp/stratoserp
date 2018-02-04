@@ -1,0 +1,194 @@
+<?php
+
+/**
+ * @file
+ * Core functions for stratos erp modile file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Url;
+
+//use Drupal\se_core\Event\SeCoreEvent;
+//use Drupal\se_core\Event\SeCoreEvents;
+
+define('SE_CORE_NODE_TYPES', [
+  'se_bill', 'se_contact', 'se_customer', 'se_document', 'se_goods_receipt',
+  'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',
+  'se_supplier', 'se_ticket', 'se_timekeeping',
+]);
+
+/**
+ * Implements hook_help().
+ */
+function se_core_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'se_core_main':
+      return t('Main console page.');
+  }
+
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function se_core_presave(NodeInterface $node) {
+  $node->setTitle(t('@date - @user', [
+    '@date' => date('j-m-Y'),
+    '@user' => get_current_user(),
+  ]));
+}
+
+/**
+ * Change the node buttons to be what we want.
+ *
+ * Implements hook_form_alter().
+ */
+function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Make a list of forms from the core types.
+  $se_forms = array_map(function ($value) {
+    return 'node_' . $value . '_form';
+  }, SE_CORE_NODE_TYPES);
+
+  if (in_array($form_id, $se_forms)) {
+    se_core_hide_publish_buttons($form);
+    if (!in_array($form_id, [
+      'node_se_customer_form', 'node_se_document_form',
+      'node_se_item_form', 'node_se_supplier_form',
+    ])) {
+      se_core_hide_title_field($form);
+    }
+  }
+}
+
+/**
+ * Helper function to hide the publish buttons.
+ *
+ * @param array $form
+ *   Form array to be manipulated.
+ */
+function se_core_hide_publish_buttons(array &$form) {
+  // This should work.
+  $form['actions']['unpublish']['#access'] = FALSE;
+  $form['actions']['publish']['#access'] = FALSE;
+
+  // But it doesn't. Sledge hammer time.
+  unset($form['actions']['unpublish']);
+  unset($form['actions']['publish']);
+
+  // Ensure that we can 'Save' as well.
+  $form['actions']['submit']['#access'] = TRUE;
+}
+
+/**
+ * Nodes are handy, but we don't really need the title field.
+ *
+ * @param array $form
+ *   Form array to be manipulated.
+ */
+function se_core_hide_title_field(array &$form) {
+  $form['title']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function se_core_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Alter login form and add own custom submit handler.
+  $form['#submit'][] = '_se_core_user_login_form_submit';
+}
+
+/**
+ * Custom submit handler for login form.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *
+ */
+function _se_core_user_login_form_submit($form, FormStateInterface $form_state) {
+  $form_state->setRedirect('<front>');
+}
+
+function se_core_theme() {
+  return [
+    'se_core_admin_page' => [
+      'variables' => [
+        'counters' => [],
+        'general_info' => [],
+        'requirements' => NULL,
+      ],
+    ],
+  ];
+}
+
+function se_core_toolbar() {
+  // Load the menu tree for shepherd.
+  $menu_tree = \Drupal::service('toolbar.menu_tree');
+  $parameters = new MenuTreeParameters();
+  $parameters->setMinDepth(0)->setMaxDepth(10)->onlyEnabledLinks();
+  $tree = $menu_tree->load('stratos-erp', $parameters);
+  $links = $menu_tree->build($tree);
+
+  // Declare our custom tab and tray.
+  $items['stratos-erp'] = [
+    '#cache' => [
+      'contexts' => [
+        'user.permissions',
+      ],
+    ],
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'link',
+      '#title' => t('Stratos ERP'),
+      '#url' => Url::fromRoute('<front>'),
+      '#attributes' => [
+        'title' => t('Stratos ERP overview'),
+        'class' => ['toolbar-icon', 'toolbar-icon-system-admin-structure'],
+        // A data attribute that indicates to the client to defer loading of
+        // the admin menu subtrees until this tab is activated. Admin menu
+        // subtrees will not render to the DOM if this attribute is removed.
+        // The value of the attribute is intentionally left blank. Only the
+        // presence of the attribute is necessary.
+        'data-drupal-subtrees' => '',
+      ],
+    ],
+    'tray' => [
+      '#heading' => t('Stratos ERP'),
+      '#attached' => '',
+      'stratos-erp' => $links,
+    ],
+    '#weight' => -20,
+  ];
+
+  return $items;
+}
+
+///**
+// * Provide standard events for all the se modules.
+// *
+// * @param \Drupal\node\NodeInterface $node
+// *   Node that is being ssaved.
+// */
+//function se_core_node_insert(NodeInterface $node) {
+//  $type = $node->getType();
+//  if (in_array($type, SE_CORE_NODE_TYPES)) {
+//    $event = new SeCoreEvent($node);
+//    \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::CREATED_NODE, $event);
+//  }
+//}
+//
+///**
+// * Provide standard events for all the se modules.
+// *
+// * @param \Drupal\node\NodeInterface $node
+// *   Node that is being deleted.
+// */
+//function se_core_node_delete(NodeInterface $node) {
+//  $type = $node->getType();
+//  if (in_array($type, SE_CORE_NODE_TYPES)) {
+//    $event = new SeCoreEvent($node);
+//    \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::DELETED_NODE, $event);
+//  }
+//}

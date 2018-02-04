@@ -1,0 +1,7 @@
+se_supplier.add_se_supplier:
+  title: 'Add supplier'
+  menu_name: stratos-erp
+  route_name: node.add
+  parent: 'views_view:views.se_supplier_list.page_1'
+  route_parameters:
+    node_type: 'se_supplier'

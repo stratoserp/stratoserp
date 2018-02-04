@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cu_status
+    - node.type.se_customer
+  module:
+    - options
+id: node.se_customer.field_cu_status
+field_name: field_cu_status
+entity_type: node
+bundle: se_customer
+label: Status
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: '1'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * @file
+ * Provide some (un)install helpers for se_stock_item.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+
+/**
+ * Implements hook_install().
+ *
+ * Perform updates upon installAs it is possible to not want stock items,
+ * but to want items.
+ */
+function se_stock_item_install() {
+  // @todo - ensure that the stock item field is on se_items paragraph type.
+  // @todo - Attach the EVA view to the item node type.
+  $entity_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_items'] as $bundle) {
+    se_stock_item_install_attach($entity_manager, $bundle);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function se_stock_item_uninstall() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_items'] as $bundle) {
+    se_stock_item_uninstall_detach($entity_type_manager, $bundle);
+  }
+}
+
+/**
+ * Attach the stock item field to the se_items paragraph type.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param string $bundle
+ *   The bundle type to attach to.
+ */
+function se_stock_item_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('paragraph.' . $bundle . '.default');
+  $form_display->setComponent('field_it_stock_item', [
+    'type' => 'entity_reference_autocomplete',
+    'settings' => [
+      'match_operator' => 'CONTAINS',
+      'size' => 60,
+      'placeholder' => '',
+    ],
+    'weight' => -1,
+  ]);
+  $form_display->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('paragraph.' . $bundle . '.default');
+  $display->setComponent('field_it_stock_item', [
+    'targetEntityType' => 'se_stock_item',
+    'bundle' => 'se_stock_item',
+    'mode' => 'default',
+    'status' => TRUE,
+  ]);
+  $display->save();
+}
+
+/**
+ * Detach the timekeeping comment field from bundles.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param string $bundle
+ *   The bundle type to attach to.
+ */
+function se_stock_item_uninstall_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('paragraph.' . $bundle . '.default');
+  $form_display->removeComponent('field_it_stock_item');
+  $form_display->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('paragraph.' . $bundle . '.default');
+  $display->removeComponent('field_it_stock_item');
+  $display->save();
+
+  $field_storage_config = FieldStorageConfig::loadByName('paragraph', 'field_it_stock_item');
+  if ($field_storage_config) {
+    $field_storage_config->delete();
+  }
+
+  /** @var \Drupal\field\FieldConfigInterface $field */
+  $field_config = FieldConfig::loadByName('paragraph', $bundle, 'field_it_stock_item');
+  if ($field_config && !$field_config->isDeleted()) {
+    $field_config->delete();
+  }
+}

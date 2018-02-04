@@ -1,0 +1,7 @@
+se_core:
+  path: 'se'
+  defaults:
+    _controller: '\Drupal\se_core\Controller\SeCoreController::home'
+    _title: 'Stratos ERP overview'
+  requirements:
+    _permission: 'access stratos erp'

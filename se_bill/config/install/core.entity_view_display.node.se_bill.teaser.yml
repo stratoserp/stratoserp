@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_bill.body
+    - field.field.node.se_bill.field_bi_items
+    - node.type.se_bill
+  module:
+    - text
+    - user
+id: node.se_bill.teaser
+targetEntityType: node
+bundle: se_bill
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_bi_items: true

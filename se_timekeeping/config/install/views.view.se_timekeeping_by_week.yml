@@ -1,0 +1,431 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.se_timekeeping
+    - system.menu.main
+  module:
+    - charts
+    - comment
+    - node
+    - user
+id: se_timekeeping_by_week
+label: 'Timekeeping by week'
+module: views
+description: ''
+tag: ''
+base_table: comment_field_data
+base_field: cid
+core: 8.x
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Master
+    position: 0
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'access comments'
+      cache:
+        type: tag
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: none
+        options:
+          offset: 0
+      style:
+        type: chart
+        options:
+          library: highcharts
+          type: bar
+          label_field: created
+          fields:
+            table: ''
+          data_fields:
+            created: 0
+            field_tk_amount: field_tk_amount
+          field_colors:
+            created: '#2f7ed8'
+            field_tk_amount: '#007cff'
+          title: 'Timekeeping by week'
+          title_position: out
+          tooltips: ''
+          data_labels: ''
+          legend_position: right
+          background: ''
+          width: ''
+          height: ''
+          xaxis_title: ''
+          xaxis_labels_rotation: '0'
+          yaxis_title: ''
+          yaxis_min: ''
+          yaxis_max: ''
+          yaxis_prefix: ''
+          yaxis_suffix: ''
+          yaxis_decimal_count: ''
+          yaxis_labels_rotation: '0'
+      row:
+        type: fields
+      relationships:
+        node:
+          id: node
+          table: comment_field_data
+          field: node
+          entity_type: comment_field_data
+          required: true
+          plugin_id: standard
+          relationship: none
+          group_type: group
+          admin_label: Content
+      fields:
+        created:
+          id: created
+          table: comment_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Post date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: custom
+            custom_date_format: o-W
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: 0
+          entity_type: comment
+          entity_field: created
+        field_tk_amount:
+          id: field_tk_amount
+          table: comment__field_tk_amount
+          field: field_tk_amount
+          relationship: none
+          group_type: sum
+          admin_label: ''
+          label: Time
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+      filters:
+        status:
+          value: '1'
+          table: comment_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: comment
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        status_node:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          relationship: node
+          entity_type: node
+          entity_field: status
+          id: status_node
+          expose:
+            operator: ''
+          group: 1
+        comment_type:
+          id: comment_type
+          table: comment_field_data
+          field: comment_type
+          value:
+            se_timekeeping: se_timekeeping
+          entity_type: comment
+          entity_field: comment_type
+          plugin_id: bundle
+        field_tk_billable_value:
+          id: field_tk_billable_value
+          table: comment__field_tk_billable
+          field: field_tk_billable_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: Billable
+            description: ''
+            use_operator: false
+            operator: field_tk_billable_value_op
+            identifier: tk_billable
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              staff: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: boolean
+        field_tk_billed_value:
+          id: field_tk_billed_value
+          table: comment__field_tk_billed
+          field: field_tk_billed_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: Billed
+            description: ''
+            use_operator: false
+            operator: field_tk_billed_value_op
+            identifier: tk_billed
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              staff: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: boolean
+        created:
+          id: created
+          table: comment_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: between
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: created_op
+            label: 'Post date'
+            description: ''
+            use_operator: false
+            operator: created_op
+            identifier: created
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              staff: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: comment
+          entity_field: created
+          plugin_id: date
+      sorts: {  }
+      title: 'Timekeeping by week'
+      header: {  }
+      footer: {  }
+      empty: {  }
+      arguments: {  }
+      display_extenders: {  }
+      group_by: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - user.permissions
+      tags: {  }
+  page_1:
+    display_plugin: page
+    id: page_1
+    display_title: Page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: se/timekeeping/by-week
+      menu:
+        type: normal
+        title: 'Timekeeping by week'
+        description: ''
+        expanded: false
+        parent: 'views_view:views.se_timekeeping_list.page_1'
+        weight: 0
+        context: '0'
+        menu_name: stratos-erp
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - user.permissions
+      tags: {  }

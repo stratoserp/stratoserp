@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.se_contact.field_bu_ref
+    - field.field.node.se_contact.field_co_email
+    - field.field.node.se_contact.field_co_mobile
+    - field.field.node.se_contact.field_co_phone
+    - field.field.node.se_contact.field_co_type
+    - node.type.se_contact
+  module:
+    - user
+id: node.se_contact.default
+targetEntityType: node
+bundle: se_contact
+mode: default
+content:
+  field_bu_ref:
+    weight: 101
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_co_email:
+    weight: 103
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_co_mobile:
+    weight: 102
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_co_phone:
+    weight: 104
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_co_type:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

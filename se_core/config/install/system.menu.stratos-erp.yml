@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: stratos-erp
+label: 'Stratos ERP'
+description: ''
+locked: false

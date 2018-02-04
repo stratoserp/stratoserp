@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pa_total
+    - node.type.se_payment
+id: node.se_payment.field_pa_total
+field_name: field_pa_total
+entity_type: node
+bundle: se_payment
+label: Total
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

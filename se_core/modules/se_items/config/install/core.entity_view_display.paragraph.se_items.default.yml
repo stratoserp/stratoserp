@@ -1,0 +1,59 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.se_items.field_it_completed_date
+    - field.field.paragraph.se_items.field_it_description
+    - field.field.paragraph.se_items.field_it_price
+    - field.field.paragraph.se_items.field_it_quantity
+    - paragraphs.paragraphs_type.se_items
+  module:
+    - datetime
+    - text
+id: paragraph.se_items.default
+targetEntityType: paragraph
+bundle: se_items
+mode: default
+content:
+  field_it_completed_date:
+    weight: 2
+    label: hidden
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_it_description:
+    weight: 3
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    type: text_trimmed
+    region: content
+  field_it_price:
+    weight: 5
+    label: hidden
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_it_quantity:
+    weight: 1
+    label: hidden
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+hidden:
+  created: true
+  uid: true

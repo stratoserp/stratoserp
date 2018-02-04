@@ -1,0 +1,60 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d6_node_erp_goods_receipt
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: Goods receipts
+source:
+  plugin: upgrade_d6_node_erp_goods_receipt
+  node_type: erp_goods_receive
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+
+  type:
+    plugin: default_value
+    default_value: se_goods_receipt
+
+  title: title
+  uid: node_uid
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+  sticky: sticky
+
+  body/format:
+    plugin: default_value
+    default_value: basic_html
+  body/value: full_desc
+
+  revision_uid: revision_uid
+  revision_log: log
+  revision_timestamp: timestamp
+
+  field_gr_id: goods_receive_id
+  field_bu_ref/target_id: supplier_ref
+
+  field_gr_items: paragraph_items
+
+  field_gr_status_ref: status_ref
+  field_gr_source_ref/target_id: source_ref
+
+  field_gr_total: total
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: se_goods_receipt
+
+migration_dependencies:
+  required:
+    - upgrade_d6_node_erp_cash_sale
+    - upgrade_d6_node_erp_invoice
+    - upgrade_d6_node_erp_payment
+    - upgrade_d6_node_erp_purchase_order
+    - upgrade_d6_node_erp_quote
+    - upgrade_d6_stock_item

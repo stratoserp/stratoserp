@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_co_mobile
+    - node.type.se_contact
+  module:
+    - telephone
+id: node.se_contact.field_co_mobile
+field_name: field_co_mobile
+entity_type: node
+bundle: se_contact
+label: Mobile
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: se_items
+label: Items
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

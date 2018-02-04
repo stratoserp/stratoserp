@@ -1,0 +1,139 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.se_item.body
+    - field.field.node.se_item.field_bu_ref
+    - field.field.node.se_item.field_it_code
+    - field.field.node.se_item.field_it_images
+    - field.field.node.se_item.field_it_manufacturer_ref
+    - field.field.node.se_item.field_it_min_stock
+    - field.field.node.se_item.field_it_product_type_ref
+    - field.field.node.se_item.field_it_sale_category_ref
+    - field.field.node.se_item.field_it_track_product
+    - node.type.se_item
+  module:
+    - field_group
+    - image
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_it_tabs:
+      children:
+        - group_it_tabs_stock
+      parent_name: ''
+      weight: 10
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+      label: 'Item tabs'
+      region: content
+    group_it_tabs_stock:
+      children:
+        - se_stock_item_eva_entity_view_1
+      parent_name: group_it_tabs
+      weight: 20
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Stock
+      region: content
+id: node.se_item.default
+targetEntityType: node
+bundle: se_item
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_bu_ref:
+    weight: 4
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_it_code:
+    weight: 1
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_it_images:
+    weight: 3
+    label: inline
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  field_it_manufacturer_ref:
+    weight: 8
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_it_min_stock:
+    weight: 6
+    label: inline
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_it_product_type_ref:
+    weight: 7
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_it_sale_category_ref:
+    weight: 9
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_it_track_product:
+    weight: 5
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_stock_item_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

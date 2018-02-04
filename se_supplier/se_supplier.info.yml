@@ -1,0 +1,17 @@
+name: Supplier
+description: 'Provides Supplier content type and related configuration.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - field
+  - field_group
+  - link
+  - menu_ui
+  - node
+  - options
+  - path
+  - telephone
+  - text
+  - user
+  - views

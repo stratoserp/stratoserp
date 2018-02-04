@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pa_items
+    - node.type.se_payment
+    - paragraphs.paragraphs_type.se_payments
+  module:
+    - entity_reference_revisions
+id: node.se_payment.field_pa_items
+field_name: field_pa_items
+entity_type: node
+bundle: se_payment
+label: Payments
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      se_payments: se_payments
+    target_bundles_drag_drop:
+      se_items:
+        weight: 3
+        enabled: false
+      se_payments:
+        enabled: true
+        weight: 4
+field_type: entity_reference_revisions

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Manufacturer'
+vid: se_manufacturer
+description: 'Manufacturer taxonomy'
+hierarchy: 0
+weight: 0

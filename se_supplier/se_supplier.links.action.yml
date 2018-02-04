@@ -1,0 +1,9 @@
+
+se_supplier.add_se_supplier:
+  route_name: 'node.add'
+  route_parameters:
+    node_type: 'se_supplier'
+  title: 'Add supplier'
+  appears_on:
+    - 'view.se_supplier_list.page_1'
+

@@ -1,0 +1,7 @@
+se_core.home:
+  title: Overview
+  route_name: <front>
+  expanded: FALSE
+  weight: -5
+  menu_name: stratos-erp
+

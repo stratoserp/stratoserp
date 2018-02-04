@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_ticket.body
+    - field.field.node.se_ticket.field_bu_ref
+    - field.field.node.se_ticket.field_co_ref
+    - field.field.node.se_ticket.field_ti_id
+    - field.field.node.se_ticket.field_ti_open_date
+    - field.field.node.se_ticket.field_ti_owner_ref
+    - field.field.node.se_ticket.field_ti_priority
+    - field.field.node.se_ticket.field_ti_scheduled
+    - field.field.node.se_ticket.field_ti_status_ref
+    - field.field.node.se_ticket.field_ti_submitter_ref
+    - field.field.node.se_ticket.field_ti_type
+    - node.type.se_ticket
+  module:
+    - text
+    - user
+id: node.se_ticket.teaser
+targetEntityType: node
+bundle: se_ticket
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_bu_ref: true
+  field_co_ref: true
+  field_ti_id: true
+  field_ti_open_date: true
+  field_ti_owner_ref: true
+  field_ti_priority: true
+  field_ti_scheduled: true
+  field_ti_status_ref: true
+  field_ti_submitter_ref: true
+  field_ti_type: true

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: se_timekeeping
+label: Timekeeping
+target_entity_type_id: node
+description: ''

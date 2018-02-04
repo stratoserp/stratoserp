@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies: {  }
+id: migrate_drupal_6
+label: Shop6
+description: 'Migrate from erp shop6'
+source_type: 'Drupal 6'
+module: null
+shared_configuration:
+  source:
+    key: drupal_6

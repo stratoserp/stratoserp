@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_stock_item.field_si_purchase_order_ref
+    - node.type.se_purchase_order
+  module:
+    - se_stock_item
+id: se_stock_item.se_stock_item.field_si_purchase_order_ref
+field_name: field_si_purchase_order_ref
+entity_type: se_stock_item
+bundle: se_stock_item
+label: 'Purchase order'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      se_purchase_order: se_purchase_order
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
