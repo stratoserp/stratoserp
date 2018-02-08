@@ -3,6 +3,9 @@
 namespace Drupal\shop6_migrate;
 
 use Drupal\Core\Database\Database;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\Plugin\MigrateIdMapInterface;
+use Drupal\migrate\Row;
 
 /**
  * Trait Shop6MigrateUtilities.
@@ -115,6 +118,63 @@ trait Shop6MigrateUtilities {
   }
 
   /**
+   * Check/update the phone fields.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The row to work with.
+   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
+   *   The idMap from the migration.
+   *
+   * @throws \Exception
+   *   setSourceProperty() might.
+   */
+  public function normalisePhone(Row $row, MigrateIdMapInterface $idMap) {
+    $fields = [
+      'phone' => '08',
+      'mobile' => '04',
+    ];
+
+    foreach ($fields as $field => $prefix) {
+      $value = $row->getSourceProperty($field);
+      $new_value = trim(preg_replace('/\D+/', '', $value));
+      if (!empty($new_value)) {
+        if (in_array($new_value, [
+          '08', '04', '.', 'TBA', ' ', '.,', '0000', ',', 'unknown', 'N/A', 'n/a',
+        ])) {
+          $row->setSourceProperty($field, '');
+          continue;
+        }
+
+        if (strlen($new_value) == 8) {
+          $new_value = $prefix . $new_value;
+          $row->setSourceProperty($field, $new_value);
+          continue;
+        }
+
+        if (strlen($new_value) != 10) {
+          if ($row->getSourceProperty('type')) {
+            self::logError($row, $idMap,
+              t('normalisePhone: @nid invalid phone @phone, blanked', [
+                '@nid'        => $row->getSourceProperty('nid'),
+                '@phone'      => $new_value,
+              ]), MigrationInterface::MESSAGE_NOTICE);
+          }
+          else {
+            self::logError($row, $idMap,
+              t('normalisePhone: @nid - @contact_id invalid phone @phone for @name, blanked', [
+                '@nid'        => $row->getSourceProperty('nid'),
+                '@contact_id' => $row->getSourceProperty('contact_id'),
+                '@phone'      => $new_value,
+                '@name'       => $row->getSourceProperty('name'),
+              ]), MigrationInterface::MESSAGE_NOTICE);
+          }
+          $row->setSourceProperty($field, '');
+        }
+      }
+    }
+  }
+
+  /**
    * @param $body
    *
    * @return mixed|null|string|string[]
@@ -130,4 +190,29 @@ trait Shop6MigrateUtilities {
     $body = preg_replace("/^(<p>&nbsp;<\/p>\n)+/im", "<p>&nbsp;<\/p>\n", $body);
     return $body;
   }
+
+
+  /**
+   * Log an error the occurred during a migration.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The migrate row reference to work with.
+   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
+   *   The idMap from the migration.
+   * @param string $message
+   *   The message content.
+   * @param int $level
+   *   MigrationInterface message level.
+   */
+  public static function logError(Row $row,
+                                  MigrateIdMapInterface $idMap,
+                                  string $message,
+                                  int $level = MigrationInterface::MESSAGE_INFORMATIONAL) {
+    $idMap->saveMessage(
+      $row->getSourceIdValues(),
+      $message,
+      $level
+    );
+  }
+
 }

@@ -2,6 +2,7 @@
 
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
+use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\Core\Database\Database;
 use Drupal\migrate\Row;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
@@ -16,7 +17,7 @@ use Drupal\shop6_migrate\Shop6MigrateUtilities;
  *   source_module = "contact"
  * )
  */
-class ErpContact extends ErpCore {
+class ErpContact extends SqlBase {
   use Shop6MigrateUtilities;
 
   /**
@@ -74,7 +75,7 @@ class ErpContact extends ErpCore {
       return FALSE;
     }
 
-    parent::normalisePhone($row, $this->idMap);
+    $this->normalisePhone($row, $this->idMap);
 
     $name = trim($row->getSourceProperty('name'));
     if (empty($name)) {
@@ -116,7 +117,7 @@ class ErpContact extends ErpCore {
     // Business ref.
     $nid = $row->getSourceProperty('nid');
     if (!empty($nid)) {
-      $new_id = parent::findNewId($nid, 'nid', 'upgrade_d6_node_erp_customer');
+      $new_id = $this->findNewId($nid, 'nid', 'upgrade_d6_node_erp_customer');
       $row->setSourceProperty('business_ref', $new_id);
       return TRUE;
     }
@@ -130,7 +131,7 @@ class ErpContact extends ErpCore {
 
       if (!empty($customer_nid)) {
         $row->setSourceProperty('business_ref', $customer_nid);
-        parent::logError($row, $this->idMap,
+        $this->logError($row, $this->idMap,
           t('ErpContact: @nid - Name matched @customer as associated business for @name', [
             '@nid'      => $row->getSourceProperty('nid'),
             '@customer' => $customer_nid,
@@ -140,7 +141,7 @@ class ErpContact extends ErpCore {
       }
     }
 
-    parent::logError($row, $this->idMap,
+    $this->logError($row, $this->idMap,
       t('ErpContact: @nid - @code - @name has no associated business, ignored', [
         '@nid'  => $row->getSourceProperty('nid'),
         '@code' => $row->getSourceProperty('contact_id'),
