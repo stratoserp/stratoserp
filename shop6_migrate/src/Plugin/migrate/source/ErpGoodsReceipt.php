@@ -23,7 +23,7 @@ class ErpGoodsReceipt extends ErpCore {
     $query->leftJoin('erp_goods_receive', 'egr', 'n.nid = egr.nid');
     $query->fields('egr');
 
-    $query->orderBy('n.nid', 'DESC');
+    $query->orderBy('n.nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

@@ -29,7 +29,7 @@ class ErpJobComment extends MigrateComment {
 
     $order_by = &$query->getOrderBy();
     unset($order_by['c.timestamp']);
-    $query->orderBy('cid', 'DESC');
+    $query->orderBy('cid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

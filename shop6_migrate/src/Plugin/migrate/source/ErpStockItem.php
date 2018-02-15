@@ -25,7 +25,7 @@ class ErpStockItem extends SqlBase {
     $query = $this->select('erp_stock', 'es');
     $query->fields('es');
 
-    $query->orderBy('stock_nid', 'DESC');
+    $query->orderBy('stock_nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

@@ -27,7 +27,7 @@ class ErpContact extends SqlBase {
     $query = $this->select('erp_contact', 'ec');
     $query->fields('ec');
 
-    $query->orderBy('nid', 'DESC');
+    $query->orderBy('nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

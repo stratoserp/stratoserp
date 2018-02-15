@@ -26,7 +26,7 @@ class ErpOtherComment extends MigrateComment {
     $query = parent::query();
     $query->condition('n.type', 'erp_job', '<>');
 
-    $query->orderBy('cid', 'DESC');
+    $query->orderBy('cid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

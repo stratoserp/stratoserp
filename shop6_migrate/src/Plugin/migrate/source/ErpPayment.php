@@ -26,7 +26,7 @@ class ErpPayment extends ErpCore {
     $query->leftJoin('erp_payment', 'epa', 'n.nid = epa.nid');
     $query->fields('epa');
 
-    $query->orderBy('n.nid', 'DESC');
+    $query->orderBy('n.nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

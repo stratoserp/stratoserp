@@ -23,7 +23,7 @@ class ErpInvoice extends ErpCore {
     $query->leftJoin('erp_invoice', 'ei', 'n.nid = ei.nid');
     $query->fields('ei');
 
-    $query->orderBy('n.nid', 'DESC');
+    $query->orderBy('n.nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

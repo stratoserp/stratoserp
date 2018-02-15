@@ -35,7 +35,7 @@ class ErpItem extends ErpCore {
       'in_stock',
     ]);
 
-    $query->orderBy('nid', 'DESC');
+    $query->orderBy('nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

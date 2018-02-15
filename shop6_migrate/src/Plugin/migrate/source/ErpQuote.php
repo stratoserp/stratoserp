@@ -23,7 +23,7 @@ class ErpQuote extends ErpCore {
     $query->leftJoin('erp_quote', 'eq', 'n.nid = eq.nid');
     $query->fields('eq');
 
-    $query->orderBy('n.nid', 'DESC');
+    $query->orderBy('n.nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

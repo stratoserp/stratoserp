@@ -23,7 +23,7 @@ class ErpPurchaseOrder extends ErpCore {
     $query->leftJoin('erp_purchase_order', 'epo', 'n.nid = epo.nid');
     $query->fields('epo');
 
-    $query->orderBy('n.nid', 'DESC');
+    $query->orderBy('n.nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }
