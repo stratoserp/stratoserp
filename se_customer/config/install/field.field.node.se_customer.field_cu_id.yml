@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.node.field_cu_id
     - node.type.se_customer
+  module:
+    - serial
 id: node.se_customer.field_cu_id
 field_name: field_cu_id
 entity_type: node
@@ -14,9 +16,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  min: null
-  max: null
-  prefix: ''
-  suffix: ''
-field_type: integer
+settings: {  }
+field_type: serial

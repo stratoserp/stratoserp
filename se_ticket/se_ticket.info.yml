@@ -14,10 +14,11 @@ dependencies:
   - node
   - path
   - se_contact
+  - se_core
   - se_customer
   - se_supplier
+  - serial
   - taxonomy
   - text
   - user
   - views
-  - se_core

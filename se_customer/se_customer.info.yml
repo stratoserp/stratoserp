@@ -6,15 +6,15 @@ package: Stratos ERP
 dependencies:
   - charts
   - field
-  - field_group
   - geolocation
   - link
   - menu_ui
   - node
   - options
   - path
+  - se_core
+  - serial
   - telephone
   - text
   - user
   - views
-  - se_core

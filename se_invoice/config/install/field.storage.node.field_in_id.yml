@@ -3,14 +3,13 @@ status: true
 dependencies:
   module:
     - node
+    - serial
 id: node.field_in_id
 field_name: field_in_id
 entity_type: node
-type: integer
-settings:
-  unsigned: false
-  size: normal
-module: core
+type: serial
+settings: {  }
+module: serial
 locked: false
 cardinality: 1
 translatable: true

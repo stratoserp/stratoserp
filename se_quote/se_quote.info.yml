@@ -15,5 +15,6 @@ dependencies:
   - se_customer
   - se_items
   - se_supplier
+  - serial
   - text
   - user

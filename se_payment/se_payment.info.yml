@@ -13,5 +13,6 @@ dependencies:
   - se_contact
   - se_supplier
   - se_payments
+  - serial
   - text
   - user

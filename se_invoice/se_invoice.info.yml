@@ -16,6 +16,7 @@ dependencies:
   - se_items
   - se_quote
   - se_supplier
+  - serial
   - text
   - user
   - views_data_export
