@@ -49,6 +49,6 @@ destination:
   default_bundle: se_payment
 
 migration_dependencies:
-  required:
+  optional:
     - upgrade_d6_node_erp_customer
     - upgrade_d6_node_erp_invoice

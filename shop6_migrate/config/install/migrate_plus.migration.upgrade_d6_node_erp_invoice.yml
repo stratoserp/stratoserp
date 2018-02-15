@@ -54,7 +54,7 @@ destination:
   default_bundle: se_invoice
 
 migration_dependencies:
-  required:
+  optional:
     - upgrade_d6_node_erp_customer
     - upgrade_d6_node_erp_quote
     - upgrade_d6_term_sale_category

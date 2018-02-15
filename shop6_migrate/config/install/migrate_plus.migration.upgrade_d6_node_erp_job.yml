@@ -84,7 +84,7 @@ destination:
   default_bundle: se_ticket
 
 migration_dependencies:
-  required:
+  optional:
     - upgrade_d6_user
     - upgrade_d6_file
     - upgrade_d6_term_erp_job_priority

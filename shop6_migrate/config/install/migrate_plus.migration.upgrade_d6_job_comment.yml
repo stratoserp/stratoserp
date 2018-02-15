@@ -42,6 +42,6 @@ process:
 destination:
   plugin: 'entity:comment'
 migration_dependencies:
-  required:
+  optional:
     - upgrade_d6_user
     - upgrade_d6_node_erp_job

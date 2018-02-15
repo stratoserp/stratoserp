@@ -46,7 +46,7 @@ destination:
   default_bundle: se_quote
 
 migration_dependencies:
-  required:
+  optional:
     - upgrade_d6_node_erp_customer
     - upgrade_d6_stock_item
     - upgrade_d6_term_status

@@ -58,7 +58,7 @@ destination:
   default_bundle: se_document
 
 migration_dependencies:
-  required:
+  optional:
     - upgrade_d6_user
     - upgrade_d6_file
     - upgrade_d6_node_erp_customer
