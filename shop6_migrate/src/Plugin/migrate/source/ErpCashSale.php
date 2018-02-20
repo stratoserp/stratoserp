@@ -23,7 +23,7 @@ class ErpCashSale extends ErpCore {
     $query->leftJoin('erp_cash_sale', 'ec', 'n.nid = ec.nid');
     $query->fields('ec');
 
-    $query->orderBy('n.nid', 'DESC');
+    $query->orderBy('n.nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

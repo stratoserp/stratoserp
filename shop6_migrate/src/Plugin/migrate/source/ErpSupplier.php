@@ -51,7 +51,7 @@ class ErpSupplier extends ErpCore {
       'field_serp_su_username_value',
     ]);
 
-    $query->orderBy('nid', 'DESC');
+    $query->orderBy('nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

@@ -48,7 +48,7 @@ class ErpCustomer extends ErpCore {
       'field_serp_cu_status_value',
     ]);
 
-    $query->orderBy('nid', 'DESC');
+    $query->orderBy('nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

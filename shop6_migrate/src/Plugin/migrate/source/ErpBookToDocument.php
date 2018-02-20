@@ -25,7 +25,7 @@ class ErpBookToDocument extends ErpCore {
     $query->leftJoin('content_field_serp_cu_ref', 'cfscr', 'n.nid = cfscr.nid');
     $query->addField('cfscr', 'field_serp_cu_ref_nid');
 
-    $query->orderBy('nid', 'DESC');
+    $query->orderBy('nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }

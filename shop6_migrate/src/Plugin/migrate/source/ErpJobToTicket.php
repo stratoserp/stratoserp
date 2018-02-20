@@ -46,7 +46,7 @@ class ErpJobToTicket extends ErpCore {
       'field_serp_cu_ref_nid',
     ]);
 
-    $query->orderBy('nid', 'DESC');
+    $query->orderBy('nid', ErpCore::IMPORT_MODE);
 
     return $query;
   }
