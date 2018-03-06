@@ -123,48 +123,6 @@ function se_core_theme() {
   ];
 }
 
-function se_core_toolbar() {
-  // Load the menu tree for shepherd.
-  $menu_tree = \Drupal::service('toolbar.menu_tree');
-  $parameters = new MenuTreeParameters();
-  $parameters->setMinDepth(0)->setMaxDepth(10)->onlyEnabledLinks();
-  $tree = $menu_tree->load('stratos-erp', $parameters);
-  $links = $menu_tree->build($tree);
-
-  // Declare our custom tab and tray.
-  $items['stratos-erp'] = [
-    '#cache' => [
-      'contexts' => [
-        'user.permissions',
-      ],
-    ],
-    '#type' => 'toolbar_item',
-    'tab' => [
-      '#type' => 'link',
-      '#title' => t('Stratos ERP'),
-      '#url' => Url::fromRoute('<front>'),
-      '#attributes' => [
-        'title' => t('Stratos ERP overview'),
-        'class' => ['toolbar-icon', 'toolbar-icon-system-admin-structure'],
-        // A data attribute that indicates to the client to defer loading of
-        // the admin menu subtrees until this tab is activated. Admin menu
-        // subtrees will not render to the DOM if this attribute is removed.
-        // The value of the attribute is intentionally left blank. Only the
-        // presence of the attribute is necessary.
-        'data-drupal-subtrees' => '',
-      ],
-    ],
-    'tray' => [
-      '#heading' => t('Stratos ERP'),
-      '#attached' => '',
-      'stratos-erp' => $links,
-    ],
-    '#weight' => -20,
-  ];
-
-  return $items;
-}
-
 ///**
 // * Provide standard events for all the se modules.
 // *

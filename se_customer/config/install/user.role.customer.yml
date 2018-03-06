@@ -9,6 +9,7 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'access printer-friendly version'
+  - 'access stratos erp'
   - 'add job'
   - 'edit own job'
   - 'erp contact list'

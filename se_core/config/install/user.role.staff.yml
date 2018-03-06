@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies: {  }
+id: staff
+label: Staff
+weight: 7
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access contextual links'
+  - 'access stratos erp'
+  - 'create se_contact content'
+  - 'create se_customer content'
+  - 'create se_document content'
+  - 'create se_invoice content'
+  - 'create se_item content'
+  - 'create se_supplier content'
+  - 'create se_ticket content'
+  - 'edit any se_contact content'
+  - 'edit any se_customer content'
+  - 'edit any se_document content'
+  - 'edit any se_invoice content'
+  - 'edit any se_item content'
+  - 'edit any se_supplier content'
+  - 'edit any se_ticket content'
+  - 'edit own comments'
+  - 'edit own se_contact content'
+  - 'edit own se_customer content'
+  - 'edit own se_document content'
+  - 'edit own se_invoice content'
+  - 'edit own se_item content'
+  - 'edit own se_supplier content'
+  - 'edit own se_ticket content'
+  - 'post comments'
+  - 'skip comment approval'
+  - 'use text format basic_html'
