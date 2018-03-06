@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.node.field_ti_scheduled
     - node.type.se_ticket
+    - user.role.administrator
+    - user.role.staff
   module:
     - calendar
     - datetime_range
@@ -26,9 +28,11 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            administrator: administrator
+            staff: staff
       cache:
         type: tag
         options: {  }
@@ -308,7 +312,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_ti_scheduled'
   page_day:
@@ -432,7 +436,7 @@ display:
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_ti_scheduled'
   page_month:
@@ -516,7 +520,7 @@ display:
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_ti_scheduled'
   page_week:
@@ -634,7 +638,7 @@ display:
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_ti_scheduled'
   page_year:
@@ -752,6 +756,6 @@ display:
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_ti_scheduled'

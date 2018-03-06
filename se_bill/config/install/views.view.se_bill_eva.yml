@@ -4,9 +4,12 @@ dependencies:
   config:
     - field.storage.node.field_bi_id
     - node.type.se_bill
+    - user.role.administrator
+    - user.role.staff
   module:
     - eva
     - node
+    - serial
     - user
 id: se_bill_eva
 label: Bills
@@ -24,9 +27,11 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            administrator: administrator
+            staff: staff
       cache:
         type: tag
         options: {  }
@@ -333,14 +338,14 @@ display:
       display_extenders: {  }
       use_ajax: true
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_bi_id'
   entity_view_1:
@@ -356,13 +361,13 @@ display:
       bundles:
         - se_supplier
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_bi_id'

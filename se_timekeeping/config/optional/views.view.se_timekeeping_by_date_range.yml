@@ -8,7 +8,9 @@ dependencies:
     - field.storage.comment.field_tk_billed
     - field.storage.comment.field_tk_item
     - field.storage.node.field_ti_status_ref
-    - system.menu.main
+    - system.menu.stratos-erp
+    - user.role.administrator
+    - user.role.staff
   module:
     - comment
     - datetime
@@ -31,9 +33,11 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access comments'
+          role:
+            administrator: administrator
+            staff: staff
       cache:
         type: tag
         options: {  }
@@ -750,13 +754,13 @@ display:
       arguments: {  }
       display_extenders: {  }
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.comment.field_tk_amount'
         - 'config:field.storage.comment.field_tk_billable'
@@ -781,13 +785,13 @@ display:
         context: '0'
         menu_name: stratos-erp
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.comment.field_tk_amount'
         - 'config:field.storage.comment.field_tk_billable'

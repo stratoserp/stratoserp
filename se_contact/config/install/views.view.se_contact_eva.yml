@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_co_phone
     - field.storage.node.field_co_type
     - node.type.se_contact
+    - user.role.administrator
+    - user.role.staff
   module:
     - eva
     - node
@@ -26,9 +28,11 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            administrator: administrator
+            staff: staff
       cache:
         type: tag
         options: {  }
@@ -437,14 +441,14 @@ display:
       display_extenders: {  }
       use_ajax: true
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_co_email'
         - 'config:field.storage.node.field_co_phone'
@@ -463,14 +467,14 @@ display:
         - se_customer
         - se_supplier
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_co_email'
         - 'config:field.storage.node.field_co_phone'

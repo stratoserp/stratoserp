@@ -7,6 +7,8 @@ dependencies:
     - field.storage.node.field_su_phone
     - node.type.se_supplier
     - system.menu.stratos-erp
+    - user.role.administrator
+    - user.role.staff
   module:
     - link
     - node
@@ -27,9 +29,11 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            administrator: administrator
+            staff: staff
       cache:
         type: tag
         options: {  }
@@ -537,14 +541,14 @@ display:
           2: OR
       use_ajax: true
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_su_email'
         - 'config:field.storage.node.field_su_homepage'
@@ -567,14 +571,14 @@ display:
         context: '0'
         menu_name: stratos-erp
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_su_email'
         - 'config:field.storage.node.field_su_homepage'

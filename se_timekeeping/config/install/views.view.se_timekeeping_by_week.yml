@@ -3,7 +3,9 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - system.menu.main
+    - system.menu.stratos-erp
+    - user.role.administrator
+    - user.role.staff
   module:
     - charts
     - comment
@@ -25,9 +27,11 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access comments'
+          role:
+            administrator: administrator
+            staff: staff
       cache:
         type: tag
         options: {  }
@@ -402,7 +406,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user.permissions
+        - user.roles
       tags: {  }
   page_1:
     display_plugin: page
@@ -427,5 +431,5 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user.permissions
+        - user.roles
       tags: {  }

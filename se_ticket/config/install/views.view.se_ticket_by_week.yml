@@ -3,6 +3,9 @@ status: true
 dependencies:
   config:
     - node.type.se_ticket
+    - system.menu.stratos-erp
+    - user.role.administrator
+    - user.role.staff
   module:
     - charts
     - node
@@ -23,9 +26,11 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            administrator: administrator
+            staff: staff
       cache:
         type: tag
         options: {  }
@@ -209,7 +214,7 @@ display:
           decimal: .
           separator: ', '
           format_plural: 0
-          format_plural_string: "1\x03@count"
+          format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
           click_sort_column: value
@@ -311,7 +316,7 @@ display:
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags: {  }
   page_1:
     display_plugin: page
@@ -337,5 +342,5 @@ display:
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags: {  }

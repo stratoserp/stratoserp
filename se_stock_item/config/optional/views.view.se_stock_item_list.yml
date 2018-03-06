@@ -8,9 +8,13 @@ dependencies:
     - field.storage.se_stock_item.field_si_item_ref
     - field.storage.se_stock_item.field_si_serial
     - system.menu.stratos-erp
+    - user.role.administrator
+    - user.role.staff
   module:
     - node
     - se_stock_item
+    - serial
+    - user
 id: se_stock_item_list
 label: 'Stock item list'
 module: views
@@ -27,8 +31,11 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            administrator: administrator
+            staff: staff
       cache:
         type: none
         options: {  }
@@ -870,12 +877,13 @@ display:
         groups:
           1: AND
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.node.field_gr_id'
         - 'config:field.storage.node.field_in_id'
@@ -900,12 +908,13 @@ display:
         context: '0'
         menu_name: stratos-erp
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.node.field_gr_id'
         - 'config:field.storage.node.field_in_id'
