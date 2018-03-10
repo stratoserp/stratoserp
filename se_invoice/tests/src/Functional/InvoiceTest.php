@@ -18,11 +18,10 @@ class InvoiceTest extends BrowserTestBase {
   }
 
   public function testTotalCalculation() {
-    $account = $this->drupalCreateUser(['administer drupal']);
+    $account = $this->drupalCreateUser(['access stratos erp']);
     $this->drupalLogin($account);
 
     $this->drupalGet('node/add/se_invoice');
     $this->assertSession()->statusCodeEquals(200);
-
   }
 }
