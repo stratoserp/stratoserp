@@ -312,7 +312,20 @@ display:
       sorts: {  }
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No documents'
+            format: basic_html
+          plugin_id: text
       relationships: {  }
       arguments:
         field_bu_ref_target_id:

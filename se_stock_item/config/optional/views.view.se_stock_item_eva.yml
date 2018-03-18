@@ -800,7 +800,20 @@ display:
       sorts: {  }
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No stock items'
+            format: basic_html
+          plugin_id: text
       relationships:
         field_si_goods_receipt_ref:
           id: field_si_goods_receipt_ref
