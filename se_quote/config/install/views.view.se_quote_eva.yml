@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_qu_id
     - node.type.se_quote
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - eva
@@ -30,7 +30,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: tag

@@ -8,7 +8,7 @@ dependencies:
     - field.storage.se_stock_item.field_si_item_ref
     - field.storage.se_stock_item.field_si_serial
     - system.menu.stratos-erp
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - node
@@ -34,7 +34,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: none

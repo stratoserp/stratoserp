@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_po_id
     - node.type.se_purchase_order
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - eva
@@ -30,7 +30,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: tag

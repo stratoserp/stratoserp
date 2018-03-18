@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_bu_ref
     - node.type.se_bill
     - system.menu.stratos-erp
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - node
@@ -31,7 +31,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: tag

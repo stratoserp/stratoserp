@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_ti_scheduled
     - node.type.se_ticket
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - calendar
@@ -31,7 +31,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: tag

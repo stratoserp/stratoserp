@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - node.type.se_document
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - eva
@@ -28,7 +28,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: tag

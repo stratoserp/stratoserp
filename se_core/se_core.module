@@ -32,16 +32,6 @@ function se_core_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_ENTITY_TYPE_presave().
- */
-function se_core_presave(NodeInterface $node) {
-  $node->setTitle(t('@date - @user', [
-    '@date' => date('j-m-Y'),
-    '@user' => get_current_user(),
-  ]));
-}
-
-/**
  * Change the node buttons to be what we want.
  *
  * Implements hook_form_alter().
@@ -57,6 +47,7 @@ function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     if (!in_array($form_id, [
       'node_se_customer_form', 'node_se_document_form',
       'node_se_item_form', 'node_se_supplier_form',
+      'node_se_ticket_form'
     ])) {
       se_core_hide_title_field($form);
     }
@@ -89,8 +80,13 @@ function se_core_hide_publish_buttons(array &$form) {
  *   Form array to be manipulated.
  */
 function se_core_hide_title_field(array &$form) {
-  $form['title']['#access'] = FALSE;
+  //$form['title']['#hidden'] = TRUE;
+  $form['title']['#default_value'] = t('@date - @user', [
+    '@date' => date('j-m-Y'),
+    '@user' => get_current_user(),
+  ])->render();
 }
+
 
 /**
  * Implements hook_form_FORM_ID_alter().

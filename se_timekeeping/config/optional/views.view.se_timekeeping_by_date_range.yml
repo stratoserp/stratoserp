@@ -9,7 +9,7 @@ dependencies:
     - field.storage.comment.field_tk_item
     - field.storage.node.field_ti_status_ref
     - system.menu.stratos-erp
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - comment
@@ -36,7 +36,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: tag

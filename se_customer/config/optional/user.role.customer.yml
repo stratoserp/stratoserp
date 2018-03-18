@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies: {  }
+id: customer
+label: Customer
+weight: 4
+is_admin: null
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access printer-friendly version'
+  - 'access stratos erp'
+  - 'add job'
+  - 'edit own job'
+  - 'erp contact list'
+  - 'job list'
+  - 'maintain own subscriptions'
+  - 'manage own subscriptions'
+  - 'post comments'
+  - 'skip comment approval'
+  - 'subscribe to content'
+  - 'view erp google map'

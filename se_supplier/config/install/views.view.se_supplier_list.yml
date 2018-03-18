@@ -7,7 +7,7 @@ dependencies:
     - field.storage.node.field_su_phone
     - node.type.se_supplier
     - system.menu.stratos-erp
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - link
@@ -32,7 +32,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: tag

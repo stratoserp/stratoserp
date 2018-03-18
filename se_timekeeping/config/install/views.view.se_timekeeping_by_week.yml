@@ -4,7 +4,7 @@ dependencies:
   config:
     - comment.type.se_timekeeping
     - system.menu.stratos-erp
-    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - charts
@@ -30,7 +30,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            developer: developer
             staff: staff
       cache:
         type: tag
