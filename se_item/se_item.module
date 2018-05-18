@@ -1,0 +1,22 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+function se_item_entity_presave(EntityInterface $entity) {
+  $total = 0;
+
+  $bundles = ['se_invoice'];
+
+  if ($entity->getEntityTypeId() != 'node' || !in_array($entity->bundle(), $bundles)) {
+    return;
+  }
+
+  $items = $entity->get('field_in_items')->referencedEntities();
+
+  foreach ($items as $ref_entity) {
+    $total += $ref_entity->field_it_quantity->value * $ref_entity->field_it_price->value;
+  }
+
+  $entity->field_in_total->setValue($total);
+}
+
