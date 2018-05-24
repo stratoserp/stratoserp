@@ -11,8 +11,15 @@ dependencies:
     - field.field.node.se_quote.field_qu_total
     - node.type.se_quote
   module:
+    - field_layout
+    - layout_discovery
     - paragraphs
+    - serial
     - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
 id: node.se_quote.default
 targetEntityType: node
 bundle: se_quote
@@ -26,8 +33,17 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_bu_ref:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
+  field_co_ref:
     weight: 2
     settings:
       match_operator: CONTAINS
@@ -35,23 +51,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
-  field_co_ref:
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
+    region: first
   field_qu_id:
-    weight: 1
-    settings:
-      placeholder: ''
+    weight: 3
+    settings: {  }
     third_party_settings: {  }
-    type: number
-    region: content
+    type: serial_default_widget
+    region: second
   field_qu_items:
     type: entity_reference_paragraphs
     weight: 5
@@ -63,7 +69,7 @@ content:
       form_display_mode: default
       default_paragraph_type: se_items
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_qu_status_ref:
     weight: 4
     settings:
@@ -72,18 +78,18 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: second
   field_qu_total:
     type: number
     weight: 6
-    region: content
+    region: bottom
     settings:
       placeholder: ''
     third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
-    region: content
+    region: top
     settings:
       size: 60
       placeholder: ''

@@ -10,8 +10,15 @@ dependencies:
     - field.field.node.se_payment.field_pa_total
     - node.type.se_payment
   module:
+    - field_layout
+    - layout_discovery
     - paragraphs
+    - serial
     - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
 id: node.se_payment.default
 targetEntityType: node
 bundle: se_payment
@@ -25,7 +32,7 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_bu_ref:
     weight: 1
     settings:
@@ -34,14 +41,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: first
   field_pa_id:
-    weight: 3
-    settings:
-      placeholder: ''
+    weight: 2
+    settings: {  }
     third_party_settings: {  }
-    type: number
-    region: content
+    type: serial_default_widget
+    region: second
   field_pa_items:
     type: entity_reference_paragraphs
     weight: 4
@@ -53,27 +59,27 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_pa_status_ref:
-    weight: 2
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: second
   field_pa_total:
     weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
-    region: content
+    region: bottom
   title:
     type: string_textfield
     weight: 0
-    region: content
+    region: top
     settings:
       size: 60
       placeholder: ''

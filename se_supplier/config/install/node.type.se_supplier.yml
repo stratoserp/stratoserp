@@ -7,9 +7,9 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: 'Supplier'
+name: Supplier
 type: se_supplier
-description: 'Stratos ERP supplier module'
+description: 'Stratos ERP Supplier module'
 help: ''
 new_revision: false
 preview_mode: 0

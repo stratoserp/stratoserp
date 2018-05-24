@@ -2,13 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - geolocation
     - node
-id: node.field_su_longitude
-field_name: field_su_longitude
+id: node.field_su_location
+field_name: field_su_location
 entity_type: node
-type: float
+type: geolocation
 settings: {  }
-module: core
+module: geolocation
 locked: false
 cardinality: 1
 translatable: true

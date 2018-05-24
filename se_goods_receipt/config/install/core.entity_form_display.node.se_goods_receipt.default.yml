@@ -11,8 +11,15 @@ dependencies:
     - field.field.node.se_goods_receipt.field_gr_total
     - node.type.se_goods_receipt
   module:
+    - field_layout
+    - layout_discovery
     - paragraphs
+    - serial
     - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
 id: node.se_goods_receipt.default
 targetEntityType: node
 bundle: se_goods_receipt
@@ -26,17 +33,8 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_bu_ref:
-    weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_co_ref:
     weight: 3
     settings:
       match_operator: CONTAINS
@@ -44,14 +42,22 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
-  field_gr_id:
-    weight: 1
+    region: second
+  field_co_ref:
+    weight: 4
     settings:
+      match_operator: CONTAINS
+      size: 25
       placeholder: ''
     third_party_settings: {  }
-    type: number
-    region: content
+    type: entity_reference_autocomplete
+    region: second
+  field_gr_id:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: serial_default_widget
+    region: first
   field_gr_items:
     type: entity_reference_paragraphs
     weight: 5
@@ -63,11 +69,11 @@ content:
       form_display_mode: default
       default_paragraph_type: se_items
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_gr_status_ref:
     type: entity_reference_autocomplete
-    weight: 4
-    region: content
+    weight: 2
+    region: first
     settings:
       match_operator: CONTAINS
       size: 60
@@ -76,14 +82,14 @@ content:
   field_gr_total:
     type: number
     weight: 6
-    region: content
+    region: bottom
     settings:
       placeholder: ''
     third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
-    region: content
+    region: first
     settings:
       size: 60
       placeholder: ''

@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.se_item.body
     - field.field.node.se_item.field_bu_ref
+    - field.field.node.se_item.field_it_code
     - field.field.node.se_item.field_it_images
     - field.field.node.se_item.field_it_manufacturer_ref
     - field.field.node.se_item.field_it_min_stock
@@ -13,9 +14,14 @@ dependencies:
     - image.style.thumbnail
     - node.type.se_item
   module:
+    - field_layout
     - image
-    - path
+    - layout_discovery
     - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
 id: node.se_item.default
 targetEntityType: node
 bundle: se_item
@@ -23,112 +29,91 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 31
+    weight: 8
     settings:
       rows: 9
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
-    region: content
-  created:
-    type: datetime_timestamp
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
+    region: bottom
   field_bu_ref:
-    weight: 33
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: first
+  field_it_code:
+    type: string_textfield
+    weight: 2
+    region: first
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_it_images:
-    weight: 32
+    weight: 9
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
-    region: content
+    region: bottom
   field_it_manufacturer_ref:
-    weight: 37
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: second
   field_it_min_stock:
-    weight: 35
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
-    region: content
+    region: first
   field_it_product_type_ref:
-    weight: 36
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: second
   field_it_sale_category_ref:
-    weight: 38
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_it_track_product:
-    weight: 34
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 15
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 16
-    region: content
-    third_party_settings: {  }
-  title:
-    type: string_textfield
-    weight: -5
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
     weight: 5
     settings:
       match_operator: CONTAINS
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: second
+  field_it_track_product:
+    weight: 3
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: first
+  title:
+    type: string_textfield
+    weight: 0
+    region: top
+    settings:
       size: 60
       placeholder: ''
-    region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

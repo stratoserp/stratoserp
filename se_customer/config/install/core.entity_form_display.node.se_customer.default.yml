@@ -21,7 +21,6 @@ dependencies:
     - field.field.node.se_customer.field_cu_suburb
     - node.type.se_customer
   module:
-    - comment
     - field_layout
     - layout_discovery
     - link
@@ -151,7 +150,7 @@ content:
   title:
     type: string_textfield
     weight: 0
-    region: first
+    region: top
     settings:
       size: 60
       placeholder: ''

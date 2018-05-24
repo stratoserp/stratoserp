@@ -12,8 +12,15 @@ dependencies:
     - field.field.node.se_purchase_order.field_po_total
     - node.type.se_purchase_order
   module:
+    - field_layout
+    - layout_discovery
     - paragraphs
+    - serial
     - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
 id: node.se_purchase_order.default
 targetEntityType: node
 bundle: se_purchase_order
@@ -27,32 +34,31 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_bu_ref:
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_co_ref:
-    weight: 4
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_po_id:
     weight: 1
     settings:
+      match_operator: CONTAINS
+      size: 25
       placeholder: ''
     third_party_settings: {  }
-    type: number
-    region: content
+    type: entity_reference_autocomplete
+    region: first
+  field_co_ref:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
+  field_po_id:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: serial_default_widget
+    region: second
   field_po_items:
     type: entity_reference_paragraphs
     weight: 6
@@ -64,36 +70,36 @@ content:
       form_display_mode: default
       default_paragraph_type: se_items
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_po_quote_ref:
-    weight: 2
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: second
   field_po_status_ref:
-    weight: 5
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: second
   field_po_total:
     weight: 7
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
-    region: content
+    region: bottom
   title:
     type: string_textfield
     weight: 0
-    region: content
+    region: top
     settings:
       size: 60
       placeholder: ''

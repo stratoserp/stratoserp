@@ -14,8 +14,15 @@ dependencies:
     - field.field.node.se_invoice.field_in_total
     - node.type.se_invoice
   module:
+    - field_layout
+    - layout_discovery
     - paragraphs
+    - serial
     - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
 id: node.se_invoice.default
 targetEntityType: node
 bundle: se_invoice
@@ -29,40 +36,39 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_bu_ref:
-    weight: 6
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: first
   field_co_ref:
-    weight: 7
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: first
   field_in_customer_order:
-    weight: 3
+    weight: 5
     settings:
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-    region: content
+    region: second
   field_in_id:
-    weight: 1
-    settings:
-      placeholder: ''
+    weight: 4
+    settings: {  }
     third_party_settings: {  }
-    type: number
-    region: content
+    type: serial_default_widget
+    region: second
   field_in_items:
     type: entity_reference_paragraphs
     weight: 8
@@ -74,43 +80,43 @@ content:
       form_display_mode: default
       default_paragraph_type: se_items
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_in_quote_ref:
-    weight: 2
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: second
   field_in_sent:
-    weight: 4
+    weight: 7
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
-    region: content
+    region: second
   field_in_status_ref:
-    weight: 5
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: top
   field_in_total:
     weight: 9
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
-    region: content
+    region: bottom
   title:
     type: string_textfield
     weight: 0
-    region: content
+    region: top
     settings:
       size: 60
       placeholder: ''
