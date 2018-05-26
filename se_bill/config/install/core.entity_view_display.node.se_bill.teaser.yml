@@ -1,14 +1,23 @@
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.se_bill.body
+    - field.field.node.se_bill.field_bi_id
     - field.field.node.se_bill.field_bi_items
+    - field.field.node.se_bill.field_bu_ref
+    - field.field.node.se_bill.field_co_ref
     - node.type.se_bill
   module:
+    - field_layout
+    - layout_discovery
     - text
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_bill.teaser
 targetEntityType: node
 bundle: se_bill
@@ -26,4 +35,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_bi_id: true
   field_bi_items: true
+  field_bu_ref: true
+  field_co_ref: true

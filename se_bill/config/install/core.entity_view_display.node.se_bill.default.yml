@@ -3,15 +3,22 @@ status: true
 dependencies:
   config:
     - field.field.node.se_bill.body
-    - field.field.node.se_bill.field_bu_ref
-    - field.field.node.se_bill.field_co_ref
     - field.field.node.se_bill.field_bi_id
     - field.field.node.se_bill.field_bi_items
+    - field.field.node.se_bill.field_bu_ref
+    - field.field.node.se_bill.field_co_ref
     - node.type.se_bill
   module:
-    - entity_reference_revisions
+    - field_layout
+    - layout_discovery
+    - reference_table_formatter
+    - serial
     - text
     - user
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
 id: node.se_bill.default
 targetEntityType: node
 bundle: se_bill
@@ -23,7 +30,25 @@ content:
     weight: 5
     settings: {  }
     third_party_settings: {  }
-    region: content
+    region: first
+  field_bi_id:
+    weight: 1
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: serial_default_formatter
+    region: first
+  field_bi_items:
+    type: entity_reference_table
+    weight: 4
+    label: inline
+    settings:
+      view_mode: default
+      show_entity_label: false
+      empty_cell_value: ''
+      hide_header: '0'
+    third_party_settings: {  }
+    region: first
   field_bu_ref:
     weight: 2
     label: inline
@@ -31,7 +56,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: first
   field_co_ref:
     weight: 3
     label: inline
@@ -39,28 +64,10 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_bi_id:
-    weight: 1
-    label: inline
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_integer
-    region: content
-  field_bi_items:
-    type: entity_reference_revisions_entity_view
-    weight: 4
-    label: inline
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
+    region: first
   links:
     weight: 0
-    region: content
+    region: first
     settings: {  }
     third_party_settings: {  }
 hidden: {  }

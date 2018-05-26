@@ -14,7 +14,9 @@ dependencies:
     - node.type.se_item
   module:
     - field_group
+    - field_layout
     - image
+    - layout_discovery
     - text
     - user
 third_party_settings:
@@ -23,14 +25,14 @@ third_party_settings:
       children:
         - group_it_tabs_stock
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: tabs
       format_settings:
         id: ''
         classes: ''
         direction: vertical
       label: 'Item tabs'
-      region: content
+      region: bottom
     group_it_tabs_stock:
       children:
         - se_stock_item_eva_entity_view_1
@@ -43,7 +45,10 @@ third_party_settings:
         formatter: closed
         description: ''
       label: Stock
-      region: content
+      region: bottom
+  field_layout:
+    id: layout_twocol
+    settings: {  }
 id: node.se_item.default
 targetEntityType: node
 bundle: se_item
@@ -52,18 +57,18 @@ content:
   body:
     label: hidden
     type: text_default
-    weight: 2
+    weight: 8
     settings: {  }
     third_party_settings: {  }
-    region: content
+    region: bottom
   field_bu_ref:
-    weight: 4
+    weight: 2
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: first
   field_it_code:
     weight: 1
     label: inline
@@ -71,26 +76,26 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
+    region: first
   field_it_images:
-    weight: 3
-    label: inline
+    weight: 10
+    label: above
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
     type: image
-    region: content
+    region: bottom
   field_it_manufacturer_ref:
-    weight: 8
+    weight: 6
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   field_it_min_stock:
-    weight: 6
+    weight: 4
     label: inline
     settings:
       thousand_separator: ''
@@ -99,25 +104,25 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
-    region: content
+    region: first
   field_it_product_type_ref:
+    weight: 5
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
+  field_it_sale_category_ref:
     weight: 7
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_it_sale_category_ref:
-    weight: 9
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
+    region: second
   field_it_track_product:
-    weight: 5
+    weight: 3
     label: inline
     settings:
       format: default
@@ -125,15 +130,15 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
-    region: content
+    region: first
   links:
     weight: 0
-    region: content
+    region: first
     settings: {  }
     third_party_settings: {  }
   se_stock_item_eva_entity_view_1:
     weight: 10
-    region: content
+    region: bottom
     settings: {  }
     third_party_settings: {  }
 hidden: {  }

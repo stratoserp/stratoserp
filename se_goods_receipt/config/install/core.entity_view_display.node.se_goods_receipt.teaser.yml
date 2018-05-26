@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -12,8 +12,14 @@ dependencies:
     - field.field.node.se_goods_receipt.field_gr_total
     - node.type.se_goods_receipt
   module:
+    - field_layout
+    - layout_discovery
     - text
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_goods_receipt.teaser
 targetEntityType: node
 bundle: se_goods_receipt

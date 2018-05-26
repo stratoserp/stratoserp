@@ -38,7 +38,7 @@ content:
     third_party_settings: {  }
     region: bottom
   field_bu_ref:
-    weight: 2
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 25
@@ -47,7 +47,7 @@ content:
     type: entity_reference_autocomplete
     region: first
   field_co_ref:
-    weight: 3
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 25
@@ -64,7 +64,7 @@ content:
     type: string_textfield
     region: second
   field_in_id:
-    weight: 4
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
@@ -98,14 +98,14 @@ content:
     type: boolean_checkbox
     region: second
   field_in_status_ref:
-    weight: 1
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: top
+    region: second
   field_in_total:
     weight: 9
     settings:

@@ -45,12 +45,21 @@ process:
 
   field_su_homepage/uri: homepage_uri
   field_su_homepage/title: homepage_uri
-  field_su_last_contact: field_serp_su_last_contact
+  field_su_last_contact: field_serp_su_last_contact_value
+  field_su_location/lat: field_latitude_value
+  field_su_location/lng: field_longitude_value
 
   field_su_address: address
   field_su_postcode: postcode
   field_su_state: state
   field_su_suburb: suburb
+
+  field_su_postal_address: postal_address
+  field_su_postal_postcode: postal_postcode
+  field_su_postal_state: postal_state
+  field_su_postal_suburb: postal_suburb
+
+  field_su_status: field_serp_cu_status_value
 
   # field_fr_ref: fid
   # field_st_ref: store_id
@@ -62,3 +71,4 @@ destination:
 migration_dependencies:
   optional:
     - upgrade_d6_user
+    - upgrade_d6_term_status

@@ -1,14 +1,28 @@
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.se_invoice.body
+    - field.field.node.se_invoice.field_bu_ref
+    - field.field.node.se_invoice.field_co_ref
+    - field.field.node.se_invoice.field_in_customer_order
+    - field.field.node.se_invoice.field_in_id
     - field.field.node.se_invoice.field_in_items
+    - field.field.node.se_invoice.field_in_quote_ref
+    - field.field.node.se_invoice.field_in_sent
+    - field.field.node.se_invoice.field_in_status_ref
+    - field.field.node.se_invoice.field_in_total
     - node.type.se_invoice
   module:
+    - field_layout
+    - layout_discovery
     - text
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_invoice.teaser
 targetEntityType: node
 bundle: se_invoice
@@ -26,4 +40,12 @@ content:
     weight: 100
     region: content
 hidden:
+  field_bu_ref: true
+  field_co_ref: true
+  field_in_customer_order: true
+  field_in_id: true
   field_in_items: true
+  field_in_quote_ref: true
+  field_in_sent: true
+  field_in_status_ref: true
+  field_in_total: true

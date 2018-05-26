@@ -51,7 +51,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: second
+    region: first
   field_co_ref:
     weight: 1
     settings:
@@ -64,7 +64,7 @@ content:
   title:
     type: string_textfield
     weight: 0
-    region: first
+    region: top
     settings:
       size: 60
       placeholder: ''

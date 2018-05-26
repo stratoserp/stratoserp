@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -7,11 +7,18 @@ dependencies:
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
     - field.field.node.se_payment.field_pa_items
+    - field.field.node.se_payment.field_pa_status_ref
     - field.field.node.se_payment.field_pa_total
     - node.type.se_payment
   module:
+    - field_layout
+    - layout_discovery
     - text
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_payment.teaser
 targetEntityType: node
 bundle: se_payment
@@ -32,4 +39,5 @@ hidden:
   field_bu_ref: true
   field_pa_id: true
   field_pa_items: true
+  field_pa_status_ref: true
   field_pa_total: true

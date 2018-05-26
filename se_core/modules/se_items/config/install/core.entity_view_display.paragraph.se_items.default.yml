@@ -9,7 +9,13 @@ dependencies:
     - paragraphs.paragraphs_type.se_items
   module:
     - datetime
+    - field_layout
+    - layout_discovery
     - text
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: paragraph.se_items.default
 targetEntityType: paragraph
 bundle: se_items
@@ -17,7 +23,7 @@ mode: default
 content:
   field_it_completed_date:
     weight: 2
-    label: hidden
+    label: visually_hidden
     settings:
       format_type: medium
       timezone_override: ''
@@ -26,7 +32,7 @@ content:
     region: content
   field_it_description:
     weight: 3
-    label: hidden
+    label: visually_hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
@@ -34,7 +40,7 @@ content:
     region: content
   field_it_price:
     weight: 5
-    label: hidden
+    label: visually_hidden
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -45,7 +51,7 @@ content:
     region: content
   field_it_quantity:
     weight: 1
-    label: hidden
+    label: visually_hidden
     settings:
       thousand_separator: ''
       decimal_separator: .
