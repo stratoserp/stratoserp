@@ -1,0 +1,28 @@
+<?php
+
+//use Drupal\Core\Form\FormStateInterface;
+//
+//function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+//  if ($form_id == 'comment_se_timekeeping_form') {
+//    if (!empty($form_state->getBuildInfo()['callback_object']->getEntity()
+//      ->get('entity_id')->entity)) {
+//      $node = $form_state->getBuildInfo()['callback_object']->getEntity()
+//        ->get('entity_id')->entity;
+//    }
+//    $temp = 1;
+//
+//    $type = $node->get('field_ti_type')->entity->name->value;
+//
+//    switch ($type) {
+//      case 'in store':
+//        $form['webforms'] = [
+//          '#type' => 'webform',
+//          '#webform' => 'test_webform',
+//        ];
+//        break;
+//      default:
+//        $temp1 = $form_state;
+//    }
+//  }
+//
+//}

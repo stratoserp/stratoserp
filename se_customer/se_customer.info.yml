@@ -5,7 +5,9 @@ core: 8.x
 package: Stratos ERP
 dependencies:
   - field
+  - field_layout
   - geolocation
+  - layout_discovery
   - link
   - menu_ui
   - node

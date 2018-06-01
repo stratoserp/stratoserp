@@ -10,6 +10,7 @@ dependencies:
   - node
   - paragraphs
   - path
+  - reference_table_formatter
   - se_core
   - se_invoice
   - se_items
