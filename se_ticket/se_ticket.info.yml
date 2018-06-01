@@ -8,7 +8,6 @@ dependencies:
   - datetime_range
   - eva
   - field
-  - fullcalendar
   - menu_ui
   - node
   - path
