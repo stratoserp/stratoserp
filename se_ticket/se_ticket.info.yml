@@ -5,7 +5,6 @@ core: 8.x
 package: Stratos ERP
 dependencies:
   - calendar
-  - charts
   - datetime_range
   - eva
   - field

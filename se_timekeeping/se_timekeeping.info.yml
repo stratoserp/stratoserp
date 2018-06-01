@@ -4,7 +4,6 @@ type: module
 core: 8.x
 package: Stratos ERP
 dependencies:
-  - charts
   - comment
   - views
   - se_item
