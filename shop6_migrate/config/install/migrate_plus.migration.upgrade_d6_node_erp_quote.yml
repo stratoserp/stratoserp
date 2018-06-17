@@ -4,6 +4,7 @@ dependencies: {  }
 id: upgrade_d6_node_erp_quote
 migration_tags:
   - 'Drupal 6'
+  - 'Content'
 migration_group: migrate_drupal_6
 label: Quotes
 source:
@@ -48,5 +49,4 @@ destination:
 migration_dependencies:
   optional:
     - upgrade_d6_node_erp_customer
-    - upgrade_d6_stock_item
     - upgrade_d6_term_status

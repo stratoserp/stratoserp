@@ -10,7 +10,7 @@ dependencies:
     - eva
     - node
     - user
-id: se_payments_eva
+id: se_payment_eva
 label: Payments
 module: views
 description: ''

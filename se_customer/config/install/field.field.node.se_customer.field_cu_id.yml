@@ -13,8 +13,9 @@ bundle: se_customer
 label: 'Customer id'
 description: ''
 required: false
-translatable: true
-default_value: {  }
+translatable: false
+default_value:
+  - {  }
 default_value_callback: ''
 settings: {  }
 field_type: serial

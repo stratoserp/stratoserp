@@ -13,6 +13,7 @@ dependencies:
     - layout_discovery
     - paragraphs
     - text
+    - serial
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -22,6 +23,12 @@ targetEntityType: node
 bundle: se_bill
 mode: default
 content:
+  field_bi_id:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: serial_default_widget
+    region: first
   body:
     type: text_textarea_with_summary
     weight: 4
@@ -71,7 +78,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_bi_id: true
   path: true
   promote: true
   status: true

@@ -4,6 +4,7 @@ dependencies: {  }
 id: upgrade_d6_file
 migration_tags:
   - 'Drupal 6'
+  - 'Content'
 migration_group: migrate_drupal_6
 label: Files
 source:
@@ -40,4 +41,3 @@ process:
   uid: uid
 destination:
   plugin: 'entity:file'
-

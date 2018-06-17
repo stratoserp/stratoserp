@@ -8,7 +8,7 @@ dependencies:
     - eva
     - node
     - user
-id: se_goods_receipt
+id: se_goods_receipt_eva
 label: Goods receipts
 module: views
 description: ''

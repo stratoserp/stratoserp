@@ -4,6 +4,7 @@ dependencies: {  }
 id: upgrade_d6_node_erp_goods_receipt
 migration_tags:
   - 'Drupal 6'
+  - 'Content'
 migration_group: migrate_drupal_6
 label: Goods receipts
 source:
@@ -57,4 +58,3 @@ migration_dependencies:
     - upgrade_d6_node_erp_payment
     - upgrade_d6_node_erp_purchase_order
     - upgrade_d6_node_erp_quote
-    - upgrade_d6_stock_item

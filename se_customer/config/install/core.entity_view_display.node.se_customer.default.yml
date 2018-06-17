@@ -21,11 +21,13 @@ dependencies:
     - field.field.node.se_customer.field_cu_suburb
     - node.type.se_customer
   module:
-    - comment
     - field_group
+    - field_layout
     - geolocation
+    - layout_discovery
     - link
     - options
+    - serial
     - telephone
     - user
 third_party_settings:
@@ -42,7 +44,7 @@ third_party_settings:
         - group_cu_tab_purchase_orders
         - group_cu_tab_quotes
       parent_name: ''
-      weight: 20
+      weight: 6
       format_type: tabs
       format_settings:
         id: ''
@@ -165,7 +167,7 @@ third_party_settings:
       region: content
     group_cu_tab_payments:
       children:
-        - se_payments_eva_entity_view_1
+        - se_payment_eva_entity_view_1
       parent_name: group_cu_tabs
       weight: 25
       format_type: tab
@@ -176,6 +178,9 @@ third_party_settings:
         description: ''
       label: Payments
       region: content
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_customer.default
 targetEntityType: node
 bundle: se_customer
@@ -205,7 +210,7 @@ content:
     third_party_settings: {  }
   field_cu_homepage:
     type: link
-    weight: 10
+    weight: 4
     region: content
     label: inline
     settings:
@@ -214,6 +219,13 @@ content:
       url_plain: false
       rel: ''
       target: ''
+    third_party_settings: {  }
+  field_cu_id:
+    type: serial_default_formatter
+    weight: 1
+    region: content
+    label: inline
+    settings: {  }
     third_party_settings: {  }
   field_cu_location:
     weight: 25
@@ -249,7 +261,7 @@ content:
     type: geolocation_map
     region: content
   field_cu_mobile:
-    weight: 27
+    weight: 3
     label: inline
     settings:
       title: ''
@@ -258,7 +270,7 @@ content:
     region: content
   field_cu_phone:
     type: telephone_link
-    weight: 9
+    weight: 2
     region: content
     label: inline
     settings:
@@ -314,7 +326,7 @@ content:
     third_party_settings: {  }
   field_cu_status:
     type: list_default
-    weight: 13
+    weight: 5
     region: content
     label: inline
     settings: {  }
@@ -357,6 +369,11 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  se_payment_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   se_payments_eva_entity_view_1:
     weight: 10
     region: content
@@ -389,4 +406,3 @@ content:
     third_party_settings: {  }
 hidden:
   field_cu_fax: true
-  field_cu_id: true

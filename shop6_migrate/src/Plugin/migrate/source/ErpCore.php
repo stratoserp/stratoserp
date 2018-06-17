@@ -2,6 +2,9 @@
 
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
+use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\State\StateInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
@@ -26,7 +29,7 @@ class ErpCore extends MigrateNode {
   // Provide a quick way to switch between ASC/DESC when importing.
   const IMPORT_MODE = 'DESC';
 
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, \Drupal\migrate\Plugin\MigrationInterface $migration, \Drupal\Core\State\StateInterface $state, \Drupal\Core\Entity\EntityManagerInterface $entity_manager, \Drupal\Core\Extension\ModuleHandler $module_handler) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager, ModuleHandler $module_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager, $module_handler);
 
     if ($this->migration->id() == 'upgrade_d6_node_erp_goods_receipt') {

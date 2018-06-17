@@ -4,14 +4,17 @@ dependencies: { }
 id: upgrade_d6_stock_item
 migration_tags:
   - 'Drupal 6'
+  - 'Content'
 migration_group: migrate_drupal_6
 label: Stock items
 source:
   plugin: upgrade_d6_stock_item
+  node_type: null
 process:
   type:
     plugin: default_value
     default_value: se_stock_item
+
   name: name
   uid:
     plugin: default_value

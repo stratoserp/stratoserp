@@ -4,6 +4,7 @@ dependencies: {  }
 id: upgrade_d6_node_erp_invoice
 migration_tags:
   - 'Drupal 6'
+  - 'Content'
 migration_group: migrate_drupal_6
 label: Invoices
 source:
@@ -59,5 +60,4 @@ migration_dependencies:
     - upgrade_d6_node_erp_quote
     - upgrade_d6_term_sale_category
     - upgrade_d6_term_status
-    - upgrade_d6_stock_item
 
