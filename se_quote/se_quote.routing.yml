@@ -1,0 +1,24 @@
+se_quote.add:
+  path: '/quote/add'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeController::add'
+    _title: 'Add qote'
+    node_type: 'se_quote'
+  requirements:
+    _permission: 'access content'
+
+se_quote.edit:
+  path: '/quote/{node}/edit'
+  defaults:
+    _entity_form: 'node.edit'
+  requirements:
+    node: \d+
+    _permission: 'access content'
+
+se_quote.view:
+  path: '/quote/{node}'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeViewController::view'
+  requirements:
+    node: \d+
+    _permission: 'access content'

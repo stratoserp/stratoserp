@@ -2,6 +2,6 @@
 
 use Drupal\Core\Form\FormStateInterface;
 
-function se_invoice_form_node_se_invoice_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function se_document_form_node_se_document_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   \Drupal::service('se_core.set_business')->setBusiness($form, $form_state);
 }

@@ -87,7 +87,6 @@ function se_core_hide_title_field(array &$form) {
   ])->render();
 }
 
-
 /**
  * Implements hook_form_FORM_ID_alter().
  */

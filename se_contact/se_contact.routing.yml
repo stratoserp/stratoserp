@@ -1,0 +1,24 @@
+se_contact.add:
+  path: '/contact/add'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeController::add'
+    _title: 'Add contact'
+    node_type: 'se_contact'
+  requirements:
+    _permission: 'access content'
+
+se_contact.edit:
+  path: '/contact/{node}/edit'
+  defaults:
+    _entity_form: 'node.edit'
+  requirements:
+    node: \d+
+    _permission: 'access content'
+
+se_contact.view:
+  path: '/contact/{node}'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeViewController::view'
+  requirements:
+    node: \d+
+    _permission: 'access content'

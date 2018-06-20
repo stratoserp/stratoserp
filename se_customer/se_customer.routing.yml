@@ -1,0 +1,24 @@
+se_customer.add:
+  path: '/customer/add'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeController::add'
+    _title: 'Add customer'
+    node_type: 'se_customer'
+  requirements:
+    _permission: 'access content'
+
+se_customer.edit:
+  path: '/customer/{node}/edit'
+  defaults:
+    _entity_form: 'node.edit'
+  requirements:
+    node: \d+
+    _permission: 'access content'
+
+se_customer.view:
+  path: '/customer/{node}'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeViewController::view'
+  requirements:
+    node: \d+
+    _permission: 'access content'

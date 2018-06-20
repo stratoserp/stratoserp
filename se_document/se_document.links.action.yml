@@ -1,0 +1,9 @@
+
+se_document.add_se_document:
+  route_name: 'node.add'
+  route_parameters:
+    node_type: 'se_document'
+  title: 'Add document'
+  appears_on:
+    - 'view.se_document_list.page_1'
+

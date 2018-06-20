@@ -5,5 +5,6 @@ se_contact.add_se_contact:
     node_type: 'se_contact'
   title: 'Add contact'
   appears_on:
-    - 'entity.entity_view_display.se_customer.default'
+    - 'view.se_contact_list.page_1'
+    - 'view.se_contact_eva.entity_view_1'
 
