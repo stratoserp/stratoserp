@@ -5,6 +5,8 @@ namespace Drupal\se_core\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Link;
+use Drupal\Core\TypedData\Plugin\DataType\Uri;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 
 /**
@@ -20,6 +22,8 @@ class NavigationBlock extends BlockBase {
   /** @var NodeInterface */
   protected $node;
 
+  protected $destination;
+
   protected $button_class;
 
   /**
@@ -31,31 +35,45 @@ class NavigationBlock extends BlockBase {
     $this->node = \Drupal::routeMatch()->getParameter('node');
 
     if ($this->node instanceof NodeInterface) {
+      $this->destination = Url::fromUri('internal:/node/' . $this->node->id())->toString();
 
       switch($this->node->getType()) {
-        case 'se_customer':
-          $items = $this->customerLinks();
+        case 'se_bill':
+          $items = $this->billLinks();
           break;
 
         case 'se_contact':
           $items = $this->contactLinks();
           break;
 
-        case 'se_quote':
-          $items = $this->quoteLinks();
-          break;
-
-        case 'se_invoice':
-          $items = $this->invoiceLinks();
+        case 'se_customer':
+          $items = $this->customerLinks();
           break;
 
         case 'se_goods_receipt':
           $items = $this->goodsReceiptLinks();
           break;
 
+        case 'se_invoice':
+          $items = $this->invoiceLinks();
+          break;
+
+        case 'se_payment':
+          $items = $this->paymentLinks();
+          break;
+
         case 'se_purchase_order':
           $items = $this->purchaseOrderLinks();
           break;
+
+        case 'se_quote':
+          $items = $this->quoteLinks();
+          break;
+
+        case 'se_supplier':
+          $items = $this->supplierLinks();
+          break;
+
       }
 
       if (isset($items)) {
@@ -82,25 +100,15 @@ class NavigationBlock extends BlockBase {
     return Cache::mergeContexts(parent::getCacheContexts(), array('route'));
   }
 
-  private function customerLinks() {
+  private function billLinks() {
     $items = [];
 
-    $items[] = Link::createFromRoute('Add contact', 'node.add', [
-      'node_type' => 'se_contact',
-      'business_ref' => $this->node->id()
+    $items[] = Link::createFromRoute('Pay bill', 'node.add', [
+      'node_type'    => 'se_payment',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
     ], $this->button_class);
-    $items[] = Link::createFromRoute('Add customer', 'node.add', [
-      'node_type' => 'se_customer',
-      'business_ref' => $this->node->id()
-    ], $this->button_class);
-    $items[] = Link::createFromRoute('Add document', 'node.add', [
-      'node_type' => 'se_document',
-      'business_ref' => $this->node->id()
-    ], $this->button_class);
-    $items[] = Link::createFromRoute('Add ticket', 'node.add', [
-      'node_type' => 'se_ticket',
-      'business_ref' => $this->node->id()
-    ], $this->button_class);
+
     return $items;
   }
 
@@ -109,30 +117,82 @@ class NavigationBlock extends BlockBase {
 
     $items[] = Link::createFromRoute('Add customer', 'node.add', [
       'node_type' => 'se_customer',
-      'contact_ref' => $this->node->id()
-    ], $this->button_class);
-    $items[] = Link::createFromRoute('Add quote', 'node.add', [
-      'node_type' => 'se_quote',
-      'contact_ref' => $this->node->id()
+      'field_co_ref' => $this->node->id(),
+      'destination'  => $this->destination,
     ], $this->button_class);
     $items[] = Link::createFromRoute('Add document', 'node.add', [
       'node_type' => 'se_document',
-      'contact_ref' => $this->node->id()
+      'field_co_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add invoice', 'node.add', [
+      'node_type' => 'se_invoice',
+      'field_co_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add payment', 'node.add', [
+      'node_type' => 'se_payment',
+      'field_co_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add quote', 'node.add', [
+      'node_type' => 'se_quote',
+      'field_co_ref' => $this->node->id(),
+      'destination'  => $this->destination,
     ], $this->button_class);
     $items[] = Link::createFromRoute('Add ticket', 'node.add', [
       'node_type' => 'se_ticket',
-      'contact_ref' => $this->node->id()
+      'field_co_ref' => $this->node->id(),
+      'destination'  => $this->destination,
     ], $this->button_class);
 
     return $items;
   }
 
-  private function quoteLinks() {
+  private function customerLinks() {
     $items = [];
 
-    $items[] = Link::createFromRoute('Add purchase order', 'node.add', [
-      'node_type' => 'se_purchase_order',
-      'business_ref' => $this->node->id()
+    $items[] = Link::createFromRoute('Add contact', 'node.add', [
+      'node_type' => 'se_contact',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add document', 'node.add', [
+      'node_type' => 'se_document',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add invoice', 'node.add', [
+      'node_type' => 'se_invoice',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add payment', 'node.add', [
+      'node_type' => 'se_payment',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add quote', 'node.add', [
+      'node_type' => 'se_quote',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add ticket', 'node.add', [
+      'node_type' => 'se_ticket',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+
+    return $items;
+  }
+
+  private function goodsReceiptLinks() {
+    $items = [];
+
+    $items[] = Link::createFromRoute('Pay bill', 'node.add', [
+      'node_type' => 'se_payment',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
     ], $this->button_class);
 
     return $items;
@@ -143,19 +203,21 @@ class NavigationBlock extends BlockBase {
 
     $items[] = Link::createFromRoute('Add payment', 'node.add', [
       'node_type' => 'se_purchase_order',
-      'business_ref' => $this->node->id()
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
     ], $this->button_class);
 
     return $items;
   }
 
-  private function goodsReceiptLinks() {
+  private function paymentLinks() {
     $items = [];
 
-//    $items[] = Link::createFromRoute('Add purchase order', 'node.add', [
-//      'node_type' => 'se_purchase_order',
-//      'business_ref' => $this->node->id()
-//    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add payment', 'node.add', [
+      'node_type' => 'se_payment',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
 
     return $items;
   }
@@ -165,12 +227,45 @@ class NavigationBlock extends BlockBase {
 
     $items[] = Link::createFromRoute('Add goods receipt', 'node.add', [
       'node_type' => 'se_purchase_order',
-      'business_ref' => $this->node->id()
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
     ], $this->button_class);
 
     return $items;
   }
 
+  private function quoteLinks() {
+    $items = [];
 
+    $items[] = Link::createFromRoute('Add invoice', 'node.add', [
+      'node_type' => 'se_invoice',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+
+    return $items;
+  }
+
+  private function supplierLinks() {
+    $items = [];
+
+    $items[] = Link::createFromRoute('Add contact', 'node.add', [
+      'node_type' => 'se_contact',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add document', 'node.add', [
+      'node_type' => 'se_document',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+    $items[] = Link::createFromRoute('Add ticket', 'node.add', [
+      'node_type' => 'se_ticket',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+
+    return $items;
+  }
 
 }

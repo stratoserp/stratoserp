@@ -71,8 +71,10 @@ class FormAlter {
    */
   public function setBusiness(array &$form, FormStateInterface $form_state) {
     $variables = [
-      'business_ref' => 'field_bu_ref',
-      'contact_ref' => 'field_co_ref'
+      'field_bu_ref' => 'field_bu_ref',
+      'field_co_ref' => 'field_co_ref',
+      'field_in_ref' => 'field_in_ref',
+      'field_po_ref' => 'field_po_ref',
     ];
 
     foreach ($variables as $var => $form_var) {
