@@ -186,17 +186,17 @@ class NavigationBlock extends BlockBase {
     return $items;
   }
 
-  private function goodsReceiptLinks() {
-    $items = [];
-
-    $items[] = Link::createFromRoute('Pay bill', 'node.add', [
-      'node_type' => 'se_payment',
-      'field_bu_ref' => $this->node->id(),
-      'destination'  => $this->destination,
-    ], $this->button_class);
-
-    return $items;
-  }
+//  private function goodsReceiptLinks() {
+//    $items = [];
+//
+//    $items[] = Link::createFromRoute('Pay bill', 'node.add', [
+//      'node_type' => 'se_payment',
+//      'field_bu_ref' => $this->node->id(),
+//      'destination'  => $this->destination,
+//    ], $this->button_class);
+//
+//    return $items;
+//  }
 
   private function invoiceLinks() {
     $items = [];
@@ -242,7 +242,11 @@ class NavigationBlock extends BlockBase {
       'field_bu_ref' => $this->node->id(),
       'destination'  => $this->destination,
     ], $this->button_class);
-
+    $items[] = Link::createFromRoute('Add purchase order', 'node.add', [
+      'node_type' => 'se_purchase_order',
+      'field_bu_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
     return $items;
   }
 

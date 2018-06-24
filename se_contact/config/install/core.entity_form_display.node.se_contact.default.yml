@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.se_contact.field_bu_ref
     - field.field.node.se_contact.field_co_email
+    - field.field.node.se_contact.field_co_id
     - field.field.node.se_contact.field_co_mobile
     - field.field.node.se_contact.field_co_phone
     - field.field.node.se_contact.field_co_type
@@ -11,6 +12,7 @@ dependencies:
   module:
     - field_layout
     - layout_discovery
+    - serial
     - telephone
 third_party_settings:
   field_layout:
@@ -38,6 +40,12 @@ content:
     third_party_settings: {  }
     type: email_default
     region: second
+  field_co_id:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: serial_default_widget
+    region: first
   field_co_mobile:
     weight: 2
     settings:

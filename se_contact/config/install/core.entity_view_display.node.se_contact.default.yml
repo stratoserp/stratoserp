@@ -4,19 +4,27 @@ dependencies:
   config:
     - field.field.node.se_contact.field_bu_ref
     - field.field.node.se_contact.field_co_email
+    - field.field.node.se_contact.field_co_id
     - field.field.node.se_contact.field_co_mobile
     - field.field.node.se_contact.field_co_phone
     - field.field.node.se_contact.field_co_type
     - node.type.se_contact
   module:
+    - field_layout
+    - layout_discovery
+    - serial
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_contact.default
 targetEntityType: node
 bundle: se_contact
 mode: default
 content:
   field_bu_ref:
-    weight: 101
+    weight: 2
     label: inline
     settings:
       link: true
@@ -24,14 +32,21 @@ content:
     type: entity_reference_label
     region: content
   field_co_email:
-    weight: 103
+    weight: 4
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
+  field_co_id:
+    weight: 1
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: serial_default_formatter
+    region: content
   field_co_mobile:
-    weight: 102
+    weight: 3
     label: inline
     settings:
       link_to_entity: false
@@ -39,7 +54,7 @@ content:
     type: string
     region: content
   field_co_phone:
-    weight: 104
+    weight: 5
     label: inline
     settings:
       link_to_entity: false
@@ -47,7 +62,7 @@ content:
     type: string
     region: content
   field_co_type:
-    weight: 105
+    weight: 6
     label: above
     settings:
       link: true
@@ -55,7 +70,7 @@ content:
     type: entity_reference_label
     region: content
   links:
-    weight: 100
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
