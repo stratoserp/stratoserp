@@ -9,7 +9,7 @@ id: node.se_item.field_bu_ref
 field_name: field_bu_ref
 entity_type: node
 bundle: se_item
-label: Business
+label: Supplier
 description: ''
 required: false
 translatable: true
