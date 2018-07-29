@@ -20,9 +20,30 @@ class StockItemSelection extends DefaultSelection {
    * {@inheritdoc}
    */
   protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS') {
+    $in_stock = TRUE;
+    $supplier = FALSE;
+
+    // An '@' at the front means in stock or not.
+    if (strpos($match, '@') === 0) {
+      $in_stock = TRUE;
+      $match = ltrim($match, '@');
+    }
+
+    if (strpos($match, ':')) {
+      list($supplier, $item_string) = explode(':', $match);
+      // Load supplier
+      $match = $item_string;
+    }
+
     $query = parent::buildEntityQuery($match, $match_operator);
 
-    // Extended stock query stuff here.
+    if ($in_stock) {
+      $query->condition('field_si_virtual', TRUE);
+    }
+
+    if ($supplier) {
+      // Add tables and conditions to filter by supplier
+    }
 
     return $query;
   }
