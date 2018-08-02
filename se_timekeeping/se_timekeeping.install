@@ -38,7 +38,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
     'entity_type' => 'node',
     'bundle' => $bundle,
     'label' => 'Timekeeping',
-    'region' => 'content',
+    'region' => 'bottom',
     'settings' => [
       'default_mode' => 0,
       'preview' => FALSE,
@@ -57,6 +57,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
   $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
   $display->setComponent('field_se_timekeeping', [
     'type' => 'comment_default',
+    'region' => 'bottom',
   ]);
   $display->save();
 }
