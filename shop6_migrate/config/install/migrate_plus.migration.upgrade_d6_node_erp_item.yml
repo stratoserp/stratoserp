@@ -5,6 +5,8 @@ id: upgrade_d6_node_erp_item
 migration_tags:
   - 'Drupal 6'
   - 'Content'
+  - 'Stratos ERP'
+  - 'Item'
 migration_group: migrate_drupal_6
 label: Items
 source:

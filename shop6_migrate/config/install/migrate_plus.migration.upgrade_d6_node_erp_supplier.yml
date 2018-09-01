@@ -5,6 +5,7 @@ id: upgrade_d6_node_erp_supplier
 migration_tags:
   - 'Drupal 6'
   - 'Content'
+  - 'Stratos ERP'
 migration_group: migrate_drupal_6
 label: Suppliers
 source:

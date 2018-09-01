@@ -6,7 +6,6 @@ use Drupal\Core\Extension\ModuleHandler;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\migrate\Event\MigrateEvents;
-use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\Plugin\migrate\source\d6\Node as MigrateNode;
@@ -28,16 +27,6 @@ class ErpCore extends MigrateNode {
 
   // Provide a quick way to switch between ASC/DESC when importing.
   const IMPORT_MODE = 'DESC';
-
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager, ModuleHandler $module_handler) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager, $module_handler);
-
-    if ($this->migration->id() == 'upgrade_d6_node_erp_goods_receipt') {
-      \Drupal::service('event_dispatcher')
-        ->addListener(MigrateEvents::POST_IMPORT,
-          [$this, 'postImportEventRecorder']);
-    }
-  }
 
   /**
    * Retrieve the list of items for a content type and store them as paragraphs.
@@ -545,100 +534,5 @@ class ErpCore extends MigrateNode {
 
     return $static_term_id_name_cache[$old_vid][$term_id];
   }
-
-  /**
-   * As this is the last migration that will affect the stock items, we can now
-   * do a run through and update their data one final time.
-   *
-   * @param \Drupal\migrate\Event\MigrateImportEvent $event
-   * @param $name
-   *
-   * @return bool
-   */
-  public function postImportEventRecorder(MigrateImportEvent $event, $name) {
-    $migration = $event->getMigration();
-
-    // Only run this when we're up to the other comment section, which is last.
-    if ($migration->id() != 'upgrade_d6_node_erp_goods_receipt') {
-      return TRUE;
-    }
-    else {
-      if (\Drupal::state()->get('postImportRun')) {
-        return TRUE;
-      }
-    }
-
-    // Set the state so we don't run more than once.
-    \Drupal::state()->set('postImportRun', TRUE);
-
-    // Connect to the old database to query the stock table for items with a serial number.
-    $db = Database::getConnection('default', 'drupal_6');
-    /** @var \Drupal\Core\Database\Query\Select $query */
-    $query = $db->select('erp_stock', 'es');
-    $query->fields('es');
-    $query->condition('es.serial', '', '<>');
-    $query->isNotNull('es.serial');
-    $results = $query->execute()->fetchAll();
-
-    echo "Assigning Goods Receive, PO and Invoices references to items.\n";
-    echo count($results) . " to process, this may take some time.\n";
-
-    // Loop through the d6 stock items, loading and updating the d8 items
-    $count = 0;
-    $updated = 0;
-    foreach ($results as $d6_stock_item) {
-      $stock_item_ref = self::findNewId($d6_stock_item->stock_nid, 'nid', 'upgrade_d6_node_erp_item');
-      $serial = $d6_stock_item->serial;
-
-      $query = \Drupal::entityQuery('se_stock_item');
-      $query->condition('field_si_item_ref', $stock_item_ref);
-      $query->condition('field_si_serial', $serial);
-      $result = $query->execute();
-
-      // If there wasn't a new stock item to match, move along.
-      if (!$stock_item_id = reset($result)) {
-        continue;
-      }
-
-      // load the new stock item
-      $se_stock_item = StockItem::load($stock_item_id);
-      if ($se_stock_item) {
-        $update_required = FALSE;
-        $gr_nid = $d6_stock_item->receipt_nid;
-        $po_nid = $d6_stock_item->purchase_order_nid;
-
-        if (!isset($se_stock_item->get('field_si_goods_receipt_ref')->target_id) && !empty($gr_nid)) {
-          if ($gr_ref = self::findNewId($gr_nid, 'nid', 'upgrade_d6_node_erp_goods_receipt')) {
-            $se_stock_item->set('field_si_goods_receipt_ref', $gr_ref);
-            $update_required = TRUE;
-          }
-        }
-
-        if (!isset($se_stock_item->get('field_si_purchase_order_ref')->target_id) && !empty($po_nid)) {
-          if ($po_ref = self::findNewId($po_nid, 'nid', 'upgrade_d6_node_erp_purchase_order')) {
-            $se_stock_item->set('field_si_purchase_order_ref', $po_ref);
-            $update_required = TRUE;
-          }
-        }
-
-        if (!isset($se_stock_item->get('field_si_invoice_ref')->target_id)) {
-          if ($invoice_ref = self::findInvoiceBySerial($d6_stock_item->stock_nid, $serial)) {
-            $se_stock_item->set('field_si_invoice_ref', $invoice_ref);
-            $update_required = TRUE;
-          }
-        }
-
-        if ($update_required) {
-          $se_stock_item->save();
-          $updated++;
-        }
-      }
-
-      if (++$count % 1000 == 0) {
-        echo "Processed $count stock_items, $updated updated\n";
-      }
-    }
-  }
-
 
 }
