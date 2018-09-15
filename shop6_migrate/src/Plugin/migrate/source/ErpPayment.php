@@ -63,6 +63,15 @@ class ErpPayment extends ErpCore {
    *   setSourceProperty() might
    */
   public function setPayments(Row $row, MigrateIdMapInterface $idMap, string $data_table) {
+
+    $payment_types = [
+      1 => 'Cash',
+      2 => 'Eftpos',
+      3 => 'Credit card',
+      4 => 'Cheque',
+      5 => 'Direct deposit'
+    ];
+
     // We need the original node id multiple times, make a variable.
     $nid = $row->getSourceProperty('nid');
 
@@ -84,8 +93,10 @@ class ErpPayment extends ErpCore {
       $invoice = parent::findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice');
       $paragraph->set('field_pa_invoice', ['target_id' => $invoice]);
       $paragraph->set('field_pa_date', ['value' => $line->payment_date]);
-      // @TODO Create taxonomy term for payment type.
-      //$paragraph->set('field_pa_type', ['value' => $line->payment_type]);
+
+      $term_id = parent::findCreateTerm($payment_types[$line->payment_type], 'pa_type');
+
+      $paragraph->set('field_pa_type', ['target_id' => $term_id]);
       $paragraph->set('field_pa_amount', ['value' => $line->payment_amount]);
       $paragraph->save();
 
@@ -93,7 +104,7 @@ class ErpPayment extends ErpCore {
         'target_id' => $paragraph->id(),
         'target_revision_id' => $paragraph->getRevisionId(),
       ];
-      $total += ($line->qty * $line->price);
+      $total += $line->payment_amount;
     }
 
     $row->setSourceProperty('paragraph_items', $payments);

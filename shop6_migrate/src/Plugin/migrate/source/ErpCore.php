@@ -470,29 +470,43 @@ class ErpCore extends MigrateNode {
                                         string $name,
                                         string $vocabulary,
                                         string $destination) {
-    static $static_term_id_cache = [];
 
-    if (!isset($static_term_id_cache[$vocabulary][$name])) {
+    $id = $this->findCreateTerm($name, $vocabulary);
+    $static_term_id_cache[$vocabulary][$name] = $id;
+    $row->setSourceProperty($destination, $id);
+  }
+
+  /**
+   * @param $name
+   * @param $vocabulary
+   *
+   * @return mixed
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function findCreateTerm(string $name, string $vocabulary) {
+    static $static_term_name_cache = [];
+
+    if ($id = $static_term_name_cache[$vocabulary][$name]) {
+      return $id;
+    }
+
+    $terms = taxonomy_term_load_multiple_by_name($name, $vocabulary);
+
+    if (!$terms) {
+      Term::create([
+        'parent' => [],
+        'name'   => $name,
+        'vid'    => $vocabulary,
+      ])->save();
+
+      // Now retrieve the term again.
       $terms = taxonomy_term_load_multiple_by_name($name, $vocabulary);
-
-      if (!$terms) {
-        Term::create([
-          'parent' => [],
-          'name'   => $name,
-          'vid'    => $vocabulary,
-        ])->save();
-
-        // Now retrieve the term again.
-        $terms = taxonomy_term_load_multiple_by_name($name, $vocabulary);
-      }
-
-      $term = reset($terms);
-      $static_term_id_cache[$vocabulary][$name] = $term->id();
-      $row->setSourceProperty($destination, $term->id());
     }
-    else {
-      $row->setSourceProperty($destination, $static_term_id_cache[$vocabulary][$name]);
-    }
+
+    $term = reset($terms);
+    $static_term_name_cache[$vocabulary][$name] = $term->id();
+
+    return $term->id();
   }
 
   /**
