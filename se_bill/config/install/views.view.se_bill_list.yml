@@ -70,8 +70,8 @@ display:
             offset: false
             offset_label: Offset
           tags:
-            previous: ‹‹
-            next: ››
+            previous: ‹
+            next: ›
       style:
         type: table
         options:

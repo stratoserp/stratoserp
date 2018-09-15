@@ -64,8 +64,8 @@ display:
           tags:
             previous: '‹ Previous'
             next: 'Next ›'
-            first: '« First'
-            last: 'Last »'
+            first: '‹‹'
+            last: '››'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
