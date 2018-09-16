@@ -41,5 +41,5 @@ destination:
   plugin: 'entity:se_stock_item'
   default_bundle: se_stock_item
 migration_dependencies:
-  optional:
+  required:
     - upgrade_d6_node_erp_item

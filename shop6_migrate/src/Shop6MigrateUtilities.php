@@ -207,12 +207,15 @@ trait Shop6MigrateUtilities {
   public static function logError(Row $row,
                                   MigrateIdMapInterface $idMap,
                                   string $message,
-                                  int $level = MigrationInterface::MESSAGE_INFORMATIONAL) {
-    $idMap->saveMessage(
-      $row->getSourceIdValues(),
-      $message,
-      $level
-    );
+                                  int $level = MigrationInterface::MESSAGE_NOTICE) {
+
+    if ($level < MigrationInterface::MESSAGE_INFORMATIONAL) {
+      $idMap->saveMessage(
+        $row->getSourceIdValues(),
+        $message,
+        $level
+      );
+    }
   }
 
 }

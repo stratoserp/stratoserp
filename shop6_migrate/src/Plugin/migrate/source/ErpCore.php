@@ -146,14 +146,14 @@ class ErpCore extends MigrateNode {
         t('stockItemCreateVirtual: @nid - added virtual - @stock_id', [
           '@nid' => $item_nid,
           '@stock_id' => $stock_item->id(),
-        ]));
+        ]), MigrationInterface::MESSAGE_INFORMATIONAL);
     }
     else {
       self::logError($row, $idMap,
         t('stockItemCreateVirtual: @nid - found virtual - @stock_id', [
           '@nid' => $item_nid,
           '@stock_id' => $stock_item->id(),
-        ]));
+        ]), MigrationInterface::MESSAGE_INFORMATIONAL);
     }
 
     return $stock_item->id();
@@ -266,6 +266,7 @@ class ErpCore extends MigrateNode {
           t('setBusinessRef: @nid - Name matched @customer for @name', [
             '@nid'      => $row->getSourceProperty('nid'),
             '@customer' => $customer_nid,
+            '@name'     => $name,
           ]));
         return TRUE;
       }

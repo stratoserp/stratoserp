@@ -53,3 +53,5 @@ migration_dependencies:
     - upgrade_d6_node_erp_quote
     - upgrade_d6_term_sale_category
     - upgrade_d6_term_status
+  required:
+    - upgrade_d6_stock_item

@@ -94,6 +94,13 @@ class ErpPayment extends ErpCore {
       $paragraph->set('field_pa_invoice', ['target_id' => $invoice]);
       $paragraph->set('field_pa_date', ['value' => $line->payment_date]);
 
+      if (empty($line->payment_type)) {
+        $line->payment_type = 1;
+        self::logError($row, $idMap,
+          t('setPayments: @nid - invalid payment type', [
+            '@nid' => $row->getSourceProperty('nid'),
+          ]));
+      }
       $term_id = parent::findCreateTerm($payment_types[$line->payment_type], 'pa_type');
 
       $paragraph->set('field_pa_type', ['target_id' => $term_id]);
