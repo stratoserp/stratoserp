@@ -42,6 +42,7 @@ class ErpPurchaseOrder extends ErpCore {
 
     parent::setItems($row, $this->idMap, 'erp_purchase_order_data');
     parent::setBusinessRef($row, $this->idMap);
+    parent::setSupplierRef($row, $this->idMap);
 
     switch ($row->getSourceProperty('invoice_status')) {
       case '0':

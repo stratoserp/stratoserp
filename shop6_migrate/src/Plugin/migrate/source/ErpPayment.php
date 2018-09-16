@@ -107,7 +107,7 @@ class ErpPayment extends ErpCore {
       $total += $line->payment_amount;
     }
 
-    $row->setSourceProperty('paragraph_items', $payments);
+    $row->setSourceProperty('pa_items', $payments);
     $row->setSourceProperty('total', $total);
   }
 
