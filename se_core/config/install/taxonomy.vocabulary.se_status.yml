@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-name: 'Status'
+name: Status
 vid: se_status
 description: 'Status taxonomy'
 hierarchy: 0

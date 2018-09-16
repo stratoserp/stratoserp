@@ -7,7 +7,7 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: 'Customer'
+name: Customer
 type: se_customer
 description: 'Stratos ERP Customer module'
 help: ''

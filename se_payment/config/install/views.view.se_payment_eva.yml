@@ -6,9 +6,9 @@ dependencies:
     - field.storage.node.field_pa_total
     - node.type.se_payment
   module:
-    - entity_reference_revisions
     - eva
     - node
+    - reference_table_formatter
     - user
 id: se_payment_eva
 label: Payments
@@ -74,11 +74,7 @@ display:
       style:
         type: table
         options:
-          grouping:
-            -
-              field: ''
-              rendered: true
-              rendered_strip: false
+          grouping: {  }
           row_class: ''
           default_row_class: true
           override: true
@@ -87,10 +83,32 @@ display:
           summary: ''
           description: ''
           columns:
+            created: created
             title: title
+            field_pa_items: field_pa_items
+            field_pa_total: field_pa_total
           info:
+            created:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             title:
-              sortable: false
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_pa_items:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_pa_total:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -106,6 +124,139 @@ display:
           hide_empty: false
           default_field_elements: true
       fields:
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ID
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Created
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: 'node/{{ nid }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: html_date
+            custom_date_format: ''
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: created
+          plugin_id: field
         title:
           id: title
           table: node_field_data
@@ -184,7 +335,7 @@ display:
             alter_text: false
             text: ''
             make_link: false
-            path: ''
+            path: 'node/{{ nid }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -220,9 +371,74 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: entity_reference_revisions_entity_view
+          type: entity_reference_table
           settings:
+            relationship: none
+            fieldsets:
+              - more
+              - admin_label
+            custom_label: 1
+            label: Payments
+            element_label_colon: 1
+            exclude: 0
+            element_type_enable: 0
+            element_type: ''
+            element_class_enable: 0
+            element_class: ''
+            element_label_type_enable: 0
+            element_label_type: ''
+            element_label_class_enable: 0
+            element_label_class: ''
+            element_wrapper_type_enable: 0
+            element_wrapper_type: ''
+            element_wrapper_class_enable: 0
+            element_wrapper_class: ''
+            element_default_classes: 1
+            alter:
+              alter_text: 0
+              text: ''
+              make_link: 0
+              path: 'node/{{ nid }}'
+              absolute: 0
+              replace_spaces: 0
+              external: 0
+              path_case: none
+              link_class: ''
+              alt: ''
+              rel: ''
+              prefix: ''
+              suffix: ''
+              target: ''
+              trim: 0
+              max_length: '0'
+              word_boundary: 1
+              ellipsis: 1
+              more_link: 0
+              more_link_text: ''
+              more_link_path: ''
+              html: 0
+              strip_tags: 0
+              preserve_tags: ''
+              trim_whitespace: 0
+              nl2br: 0
+            empty: ''
+            empty_zero: 0
+            hide_empty: 0
+            hide_alter_empty: 1
+            group_rows: 1
+            multi_type: separator
+            separator: ', '
+            delta_limit: '0'
+            delta_offset: '0'
+            delta_reversed: 0
+            delta_first_last: 0
+            click_sort_column: target_id
+            type: entity_reference_table
+            field_api_classes: 0
             view_mode: default
+            show_entity_label: false
+            hide_header: '0'
+            empty_cell_value: ''
           group_column: ''
           group_columns: {  }
           group_rows: true
@@ -246,8 +462,8 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: false
-            path: ''
+            make_link: true
+            path: 'node/{{ nid }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -422,7 +638,7 @@ display:
       display_extenders: {  }
       use_ajax: true
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -447,7 +663,7 @@ display:
         - se_customer
         - se_supplier
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'

@@ -9,6 +9,12 @@ dependencies:
     - paragraphs.paragraphs_type.se_payments
   module:
     - datetime
+    - field_layout
+    - layout_discovery
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: paragraph.se_payments.default
 targetEntityType: paragraph
 bundle: se_payments

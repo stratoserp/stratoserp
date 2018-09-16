@@ -24,8 +24,8 @@ dependencies:
     - field_layout
     - layout_discovery
     - link
-    - telephone
     - serial
+    - telephone
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -43,12 +43,6 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  field_cu_id:
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
-    type: serial_default_widget
-    region: first
   field_cu_email:
     type: email_default
     weight: 9
@@ -78,6 +72,12 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
+  field_cu_id:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: serial_default_widget
+    region: first
   field_cu_mobile:
     type: telephone_default
     weight: 2

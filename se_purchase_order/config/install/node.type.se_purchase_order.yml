@@ -7,7 +7,7 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: Purchase order
+name: 'Purchase order'
 type: se_purchase_order
 description: 'Stratos ERP Purchase order module'
 help: ''

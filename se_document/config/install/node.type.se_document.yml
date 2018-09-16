@@ -7,7 +7,7 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: 'Document'
+name: Document
 type: se_document
 description: 'Stratos ERP document module'
 help: ''

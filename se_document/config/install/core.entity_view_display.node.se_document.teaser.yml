@@ -4,13 +4,20 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.se_document.body
+    - field.field.node.se_document.field_attachments
     - field.field.node.se_document.field_bu_ref
     - field.field.node.se_document.field_do_images
     - field.field.node.se_document.field_do_videos
     - node.type.se_document
   module:
+    - field_layout
+    - layout_discovery
     - text
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_document.teaser
 targetEntityType: node
 bundle: se_document
@@ -28,6 +35,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_attachments: true
   field_bu_ref: true
   field_do_images: true
   field_do_videos: true

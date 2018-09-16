@@ -22,7 +22,13 @@ dependencies:
     - field.field.node.se_customer.field_cu_suburb
     - node.type.se_customer
   module:
+    - field_layout
+    - layout_discovery
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_customer.teaser
 targetEntityType: node
 bundle: se_customer

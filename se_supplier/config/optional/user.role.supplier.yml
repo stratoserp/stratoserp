@@ -5,3 +5,4 @@ id: supplier
 label: Supplier
 weight: 4
 is_admin: null
+permissions: {  }

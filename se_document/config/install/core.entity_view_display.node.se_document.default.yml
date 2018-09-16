@@ -3,16 +3,22 @@ status: true
 dependencies:
   config:
     - field.field.node.se_document.body
+    - field.field.node.se_document.field_attachments
     - field.field.node.se_document.field_bu_ref
     - field.field.node.se_document.field_do_images
     - field.field.node.se_document.field_do_videos
-    - field.field.node.se_document.field_attachments
     - node.type.se_document
   module:
+    - field_layout
     - file
     - image
+    - layout_discovery
     - text
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_document.default
 targetEntityType: node
 bundle: se_document
@@ -24,6 +30,13 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_attachments:
+    weight: 4
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
     region: content
   field_bu_ref:
     weight: 1
@@ -43,13 +56,6 @@ content:
     type: image
     region: content
   field_do_videos:
-    weight: 4
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
-    type: file_default
-    region: content
-  field_attachments:
     weight: 4
     label: inline
     settings: {  }

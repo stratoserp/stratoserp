@@ -7,7 +7,7 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: Goods receipt
+name: 'Goods receipt'
 type: se_goods_receipt
 description: 'Stratos ERP goods receipt module'
 help: ''

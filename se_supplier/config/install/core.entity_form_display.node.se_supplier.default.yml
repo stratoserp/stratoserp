@@ -24,8 +24,8 @@ dependencies:
     - field_layout
     - layout_discovery
     - link
-    - telephone
     - serial
+    - telephone
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -35,12 +35,6 @@ targetEntityType: node
 bundle: se_supplier
 mode: default
 content:
-  field_su_id:
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
-    type: serial_default_widget
-    region: first
   field_su_address:
     type: string_textfield
     weight: 4
@@ -78,6 +72,12 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
+  field_su_id:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: serial_default_widget
+    region: first
   field_su_mobile:
     type: telephone_default
     weight: 2

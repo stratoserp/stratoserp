@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
     - geolocation
+    - node
 id: node.field_cu_location
 field_name: field_cu_location
 entity_type: node

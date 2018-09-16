@@ -9,10 +9,18 @@ dependencies:
     - field.field.node.se_purchase_order.field_po_id
     - field.field.node.se_purchase_order.field_po_items
     - field.field.node.se_purchase_order.field_po_quote_ref
+    - field.field.node.se_purchase_order.field_po_status_ref
+    - field.field.node.se_purchase_order.field_po_total
     - node.type.se_purchase_order
   module:
+    - field_layout
+    - layout_discovery
     - text
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_purchase_order.teaser
 targetEntityType: node
 bundle: se_purchase_order
@@ -35,3 +43,5 @@ hidden:
   field_po_id: true
   field_po_items: true
   field_po_quote_ref: true
+  field_po_status_ref: true
+  field_po_total: true

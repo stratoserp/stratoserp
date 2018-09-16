@@ -11,6 +11,7 @@ dependencies:
   module:
     - eva
     - node
+    - telephone
     - user
 id: se_contact_eva
 label: Contacts
@@ -78,11 +79,7 @@ display:
       style:
         type: table
         options:
-          grouping:
-            -
-              field: ''
-              rendered: true
-              rendered_strip: false
+          grouping: {  }
           row_class: ''
           default_row_class: true
           override: true
@@ -92,15 +89,33 @@ display:
           description: ''
           columns:
             title: title
+            field_co_email: field_co_email
+            field_co_phone: field_co_phone
+            field_co_type: field_co_type
           info:
             title:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
+              responsive: priority-medium
+            field_co_email:
+              align: ''
+              separator: ''
+              empty_column: false
               responsive: ''
-          default: '-1'
+            field_co_phone:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_co_type:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-medium
+          default: title
           empty_table: false
       row:
         type: fields
@@ -224,7 +239,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: basic_string
+          type: email_mailto
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -286,9 +301,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
+          type: telephone_link
           settings:
-            link_to_entity: false
+            title: ''
           group_column: value
           group_columns: {  }
           group_rows: true

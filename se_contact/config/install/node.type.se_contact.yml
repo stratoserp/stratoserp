@@ -7,7 +7,7 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: 'Contact'
+name: Contact
 type: se_contact
 description: 'Stratos ERP contact module'
 help: ''

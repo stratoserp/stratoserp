@@ -72,6 +72,8 @@ display:
           tags:
             previous: ‹
             next: ›
+            first: '‹‹'
+            last: '››'
       style:
         type: table
         options:

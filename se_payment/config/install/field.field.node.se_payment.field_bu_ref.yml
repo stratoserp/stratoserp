@@ -3,8 +3,8 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_bu_ref
-    - node.type.se_payment
     - node.type.se_customer
+    - node.type.se_payment
     - node.type.se_supplier
 id: node.se_payment.field_bu_ref
 field_name: field_bu_ref

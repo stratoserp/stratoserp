@@ -5,10 +5,19 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.se_contact.field_bu_ref
     - field.field.node.se_contact.field_co_email
+    - field.field.node.se_contact.field_co_id
+    - field.field.node.se_contact.field_co_mobile
     - field.field.node.se_contact.field_co_phone
+    - field.field.node.se_contact.field_co_type
     - node.type.se_contact
   module:
+    - field_layout
+    - layout_discovery
     - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
 id: node.se_contact.teaser
 targetEntityType: node
 bundle: se_contact
@@ -20,4 +29,7 @@ content:
 hidden:
   field_bu_ref: true
   field_co_email: true
+  field_co_id: true
+  field_co_mobile: true
   field_co_phone: true
+  field_co_type: true

@@ -2,9 +2,12 @@ langcode: en
 status: true
 dependencies: {  }
 id: upgrade_d6_node_erp_job
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags:
   - 'Drupal 6'
-  - 'Content'
+  - Content
   - 'Stratos ERP'
 migration_group: migrate_drupal_6
 label: Jobs
@@ -16,11 +19,9 @@ process:
     plugin: default_value
     source: language
     default_value: und
-
   type:
     plugin: default_value
     default_value: se_ticket
-
   title: title
   uid: node_uid
   status: status
@@ -28,12 +29,10 @@ process:
   changed: changed
   promote: promote
   sticky: sticky
-
   body/format:
     plugin: default_value
     default_value: basic_html
   body/value: job_desc
-
   revision_uid: revision_uid
   revision_log: log
   revision_timestamp: timestamp
@@ -59,7 +58,6 @@ process:
     -
       plugin: default_value
       default_value: 0
-
   field_ti_type: job_type_ref
   field_bu_ref/target_id: business_ref
   field_ti_id: job_id
@@ -67,7 +65,6 @@ process:
   field_ti_priority: job_priority_ref
   field_ti_status_ref: job_status_ref
   field_ti_submitter_ref: field_serp_jo_submitter_value
-
   field_attachments:
     plugin: iterator
     source: attachments
@@ -80,11 +77,9 @@ process:
         plugin: default_value
         default_value: 1
       description: description
-
 destination:
   plugin: 'entity:node'
   default_bundle: se_ticket
-
 migration_dependencies:
   optional:
     - upgrade_d6_user

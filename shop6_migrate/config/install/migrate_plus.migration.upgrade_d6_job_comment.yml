@@ -2,12 +2,15 @@ langcode: en
 status: true
 dependencies: {  }
 id: upgrade_d6_job_comment
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags:
   - 'Drupal 6'
-  - 'Content'
+  - Content
   - 'Stratos ERP'
 migration_group: migrate_drupal_6
-label: Job comments
+label: 'Job comments'
 source:
   plugin: d6_job_comment
   constants:
@@ -15,7 +18,6 @@ source:
     destination_field: field_se_timekeeping
     destination_type: se_timekeeping
 process:
-  #cid: cid
   pid:
     plugin: migration
     migration: upgrade_d6_job_comment

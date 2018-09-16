@@ -7,7 +7,7 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: 'Ticket'
+name: Ticket
 type: se_ticket
 description: 'Stratos ERP ticket module'
 help: ''
