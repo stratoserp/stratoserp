@@ -75,8 +75,8 @@ display:
           tags:
             previous: ‹
             next: ›
-            first: '‹‹'
-            last: '››'
+            first: ‹‹
+            last: ››
       style:
         type: table
         options:

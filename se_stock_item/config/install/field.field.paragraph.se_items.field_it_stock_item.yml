@@ -15,6 +15,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_stock_item'
-  handler_settings: {  }
+  handler: se_stock_item
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: 0
 field_type: entity_reference

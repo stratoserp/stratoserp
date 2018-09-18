@@ -9,7 +9,7 @@ use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
  *
  * @EntityReferenceSelection(
  *   id = "se_stock_item",
- *   label = @Translation("Se stock item: selection"),
+ *   label = @Translation("Stock item selection"),
  *   group = "se_stock_item",
  *   weight = 0
  * )
