@@ -132,7 +132,7 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
     // Check that the view is valid and the display still exists.
     $this->view = Views::getView($view_name);
     if (!$this->view || !$this->view->access($display_name)) {
-      drupal_set_message(t('The reference view %view_name cannot be found.', ['%view_name' => $view_name]), 'warning');
+      \Drupal::messenger()->addWarning(t('The reference view %view_name cannot be found.', ['%view_name' => $view_name]));
       return FALSE;
     }
     $this->view->setDisplay($display_name);
@@ -164,9 +164,11 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
     if ($result) {
       foreach ($this->view->result as $row) {
         $entity = $row->_entity;
+        // This will be the actual item.
         $relationship_entity = reset($row->_relationship_entities);
-        $code = $entity->get('field_it_code')->value;
-        $serial = $relationship_entity->get('field_si_serial')->value;
+        $code = $relationship_entity->field_it_code->value;
+        $serial = $entity->field_si_serial->value;
+        // Build the list for display.
         $return[$entity->bundle()][$entity->id() . ':' . $relationship_entity->id()] = $code . ' - ' . $serial . ' - ' . $entity->label();
         //$return[$entity->bundle()][$entity->id()] = $entity->label();
       }

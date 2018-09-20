@@ -89,7 +89,7 @@ class ErpStockItem extends SqlBase {
     if ($item_ref = self::findNewId($stock_nid, 'nid', 'upgrade_d6_node_erp_item')) {
       $row->setSourceProperty('item_ref', $item_ref);
       if ($item = Node::load($item_ref)) {
-        $row->setSourceProperty('name', $item->get('title')->value);
+        $row->setSourceProperty('name', $item->title->value);
       }
     }
     else {
@@ -116,21 +116,21 @@ class ErpStockItem extends SqlBase {
     if ($se_stock_item) {
       $update_required = FALSE;
 
-      if (!isset($se_stock_item->get('field_si_goods_receipt_ref')->target_id) && !empty($gr_nid)) {
+      if (!isset($se_stock_item->field_si_goods_receipt_ref->target_id) && !empty($gr_nid)) {
         if ($gr_ref = self::findNewId($gr_nid, 'nid', 'upgrade_d6_node_erp_goods_receipt')) {
           $se_stock_item->set('field_si_goods_receipt_ref', $gr_ref);
           $update_required = TRUE;
         }
       }
 
-      if (!isset($se_stock_item->get('field_si_purchase_order_ref')->target_id) && !empty($po_nid)) {
+      if (!isset($se_stock_item->field_si_purchase_order_ref->target_id) && !empty($po_nid)) {
         if ($po_ref = self::findNewId($po_nid, 'nid', 'upgrade_d6_node_erp_purchase_order')) {
           $se_stock_item->set('field_si_purchase_order_ref', $po_ref);
           $update_required = TRUE;
         }
       }
 
-      if (!isset($se_stock_item->get('field_si_invoice_ref')->target_id)) {
+      if (!isset($se_stock_item->field_si_invoice_ref->target_id)) {
         if ($invoice_ref = self::findInvoiceBySerial($stock_nid, $serial)) {
           $se_stock_item->set('field_si_invoice_ref', $invoice_ref);
           $update_required = TRUE;

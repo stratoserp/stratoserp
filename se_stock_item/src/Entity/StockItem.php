@@ -71,7 +71,7 @@ class StockItem extends ContentEntityBase implements StockItemInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return $this->get('name')->value;
+    return $this->get->name->value;
   }
 
   /**
@@ -86,7 +86,7 @@ class StockItem extends ContentEntityBase implements StockItemInterface {
    * {@inheritdoc}
    */
   public function getCreatedTime() {
-    return $this->get('created')->value;
+    return $this->get->created->value;
   }
 
   /**
@@ -101,14 +101,14 @@ class StockItem extends ContentEntityBase implements StockItemInterface {
    * {@inheritdoc}
    */
   public function getOwner() {
-    return $this->get('user_id')->entity;
+    return $this->get->user_id->entity;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getOwnerId() {
-    return $this->get('user_id')->target_id;
+    return $this->get->user_id->target_id;
   }
 
   /**

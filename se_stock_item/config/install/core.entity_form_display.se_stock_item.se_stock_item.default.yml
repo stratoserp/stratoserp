@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.se_stock_item.se_stock_item.field_si_code
     - field.field.se_stock_item.se_stock_item.field_si_goods_receipt_ref
     - field.field.se_stock_item.se_stock_item.field_si_invoice_ref
     - field.field.se_stock_item.se_stock_item.field_si_item_ref
@@ -26,6 +27,14 @@ targetEntityType: se_stock_item
 bundle: se_stock_item
 mode: default
 content:
+  field_si_code:
+    weight: 20
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_si_goods_receipt_ref:
     weight: 9
     settings:

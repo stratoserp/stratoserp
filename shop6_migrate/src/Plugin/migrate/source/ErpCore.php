@@ -80,7 +80,7 @@ class ErpCore extends MigrateNode {
           if (empty($line->serial) || preg_match('/TK - [0-9]+/', $line->serial)) {
             // Blank serial, make/use dummy serial entry
             $new_item = Node::load($migrated_id);
-            $item = self::stockItemFindCreateVirtual($row, $this->idMap, $new_item->get('title')->value, $migrated_id);
+            $item = self::stockItemFindCreateVirtual($row, $this->idMap, $new_item->title->value, $migrated_id);
           }
           else {
             if (!$stock_item = self::findItemBySerial($migrated_id, $line->serial)) {
