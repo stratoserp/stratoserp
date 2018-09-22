@@ -43,7 +43,10 @@ function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   }, SE_CORE_NODE_TYPES);
 
   if (in_array($form_id, $se_forms)) {
+    // We don't need the publish button, anywhere.
     se_core_hide_publish_buttons($form);
+
+    // Hide the title fields for some node types.
     if (!in_array($form_id, [
       'node_se_customer_form', 'node_se_document_form',
       'node_se_item_form', 'node_se_supplier_form',

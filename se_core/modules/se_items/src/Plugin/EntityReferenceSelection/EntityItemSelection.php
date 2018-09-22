@@ -152,11 +152,28 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
    * {@inheritdoc}
    */
   public function getReferenceableEntities($match = NULL, $match_operator = 'CONTAINS', $limit = 0) {
+    // By default, show all items
+    $virtual = FALSE;
+
     $display_name = $this->getConfiguration()['view']['display_name'];
     $arguments = $this->getConfiguration()['view']['arguments'];
     $result = [];
+
+    // @ at the start means show virtual items as well.
+    if (stripos($match, '@') === 0) {
+      $match = ltrim($match, '@');
+      $virtual = TRUE;
+    }
     if ($this->initializeView($match, $match_operator, $limit)) {
-      // Get the results.
+      // Adjust the filters before the results are retrieved.
+      $filters = $this->view->display_handler->getOption('filters');
+
+      // The default for the view is to_not show virtual,
+      // so removing that will show all items.
+      if ($virtual) {
+        unset($filters['field_si_virtual_value']['value']);
+      }
+      $this->view->display_handler->overrideOption('filters', $filters);
       $result = $this->view->executeDisplay($display_name, $arguments);
     }
 
@@ -164,13 +181,22 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
     if ($result) {
       foreach ($this->view->result as $row) {
         $entity = $row->_entity;
-        // This will be the actual item.
+
+        // This will be the item node.
         $relationship_entity = reset($row->_relationship_entities);
         $code = $relationship_entity->field_it_code->value;
-        $serial = $entity->field_si_serial->value;
-        // Build the list for display.
-        $return[$entity->bundle()][$entity->id() . ':' . $relationship_entity->id()] = $code . ' - ' . $serial . ' - ' . $entity->label();
-        //$return[$entity->bundle()][$entity->id()] = $entity->label();
+
+        // Construct the serial number, if this is not a virtual/service item.
+        $serial = '';
+        if (!$entity->field_si_virtual->value) {
+          $serial = '#' . $entity->field_si_serial->value . '#';
+        }
+
+        // TODO - Currency format here?
+        $price = $entity->field_si_sale_price->value;
+
+        // Format - Code #Serial# Desc - Price
+        $return[$entity->bundle()][$entity->id() . ':' . $relationship_entity->id()] = $code . ' ' . $serial . ' ' . $entity->label() . ' - ' . $price;
       }
     }
     return $return;

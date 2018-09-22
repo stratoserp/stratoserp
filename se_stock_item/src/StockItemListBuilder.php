@@ -13,7 +13,6 @@ use Drupal\Core\Link;
  */
 class StockItemListBuilder extends EntityListBuilder {
 
-
   /**
    * {@inheritdoc}
    */

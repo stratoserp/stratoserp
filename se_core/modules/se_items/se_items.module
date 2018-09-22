@@ -1,2 +1,28 @@
 <?php
 
+/**
+ * @file
+ * Custom functions for item manipulation.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+define('SE_ITEM_NODE_TYPES', [
+  'se_bill', 'se_goods_receipt', 'se_invoice', 'se_purchase_order', 'se_quote',
+]);
+
+/**
+ * Change the node buttons to be what we want.
+ *
+ * Implements hook_form_alter().
+ */
+function se_items_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Make a list of forms from the core types.
+  $se_item_forms = array_map(function ($value) {
+    return 'node_' . $value . '_form';
+  }, SE_ITEM_NODE_TYPES);
+
+  if (in_array($form_id, $se_item_forms)) {
+    $form['#attached']['library'][] = 'se_items/drupal.autocomplete';
+  }
+}
