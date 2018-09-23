@@ -101,7 +101,8 @@ trait Shop6MigrateUtilities {
     // Find and add uploaded files.
     $query = \Drupal::entityQuery('se_stock_item')
       ->condition('field_si_item_ref', $id)
-      ->condition('field_si_serial', $serial);
+      ->condition('field_si_serial', $serial)
+      ->condition('field_si_sale_date', 0);
     if ($virtual) {
       $query->condition('field_si_virtual', TRUE);
     }

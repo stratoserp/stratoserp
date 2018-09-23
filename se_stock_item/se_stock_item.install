@@ -31,6 +31,10 @@ function se_stock_item_install() {
 function se_stock_item_uninstall() {
   $entity_type_manager = \Drupal::entityTypeManager();
 
+  db_delete('config')->condition('name', 'views.view.se_stock_item_autocomplete')->execute();
+  db_delete('config')->condition('name', 'views.view.se_stock_item_eva')->execute();
+  db_delete('config')->condition('name', 'views.view.se_stock_item_list')->execute();
+
   foreach (['se_items'] as $bundle) {
     se_stock_item_uninstall_detach($entity_type_manager, $bundle);
   }

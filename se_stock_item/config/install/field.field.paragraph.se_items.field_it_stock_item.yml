@@ -17,8 +17,8 @@ default_value_callback: ''
 settings:
   handler: se_stock_item
   handler_settings:
-    target_bundles: null
-    sort:
-      field: _none
-    auto_create: 0
+    view:
+      view_name: se_stock_item_autocomplete
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

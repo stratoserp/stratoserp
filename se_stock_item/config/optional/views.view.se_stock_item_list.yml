@@ -15,6 +15,9 @@ dependencies:
     - se_stock_item
     - serial
     - user
+  enforced:
+    module:
+      - se_stock_item
 id: se_stock_item_list
 label: 'Stock item list'
 module: views

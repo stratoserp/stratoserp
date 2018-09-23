@@ -37,6 +37,9 @@ process:
   field_si_sale_price: sell_price
   field_si_serial: serial
   field_si_lost: lost
+  field_si_virtual:
+    plugin: default_value
+    default_value: 0
 destination:
   plugin: 'entity:se_stock_item'
   default_bundle: se_stock_item

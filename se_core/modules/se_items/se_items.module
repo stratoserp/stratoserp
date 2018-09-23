@@ -12,7 +12,8 @@ define('SE_ITEM_NODE_TYPES', [
 ]);
 
 /**
- * Change the node buttons to be what we want.
+ * Wherever the se_items are used, replace the drupal autocomplete
+ * with our own that does price field updates.
  *
  * Implements hook_form_alter().
  */

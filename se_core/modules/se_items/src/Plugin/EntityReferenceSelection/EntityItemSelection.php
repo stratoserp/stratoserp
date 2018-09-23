@@ -13,9 +13,9 @@ use Drupal\views\Views;
 * Plugin implementation of the 'selection' entity_reference.
 *
 * @EntityReferenceSelection(
-*   id = "views_items",
-*   label = @Translation("Views: Entity item selection"),
-*   group = "views_items",
+*   id = "se_stock_item",
+*   label = @Translation("Stock item selection"),
+*   group = "se_stock_item",
 *   weight = 1
 * )
 */
@@ -171,7 +171,7 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
       // The default for the view is to_not show virtual,
       // so removing that will show all items.
       if ($virtual) {
-        unset($filters['field_si_virtual_value']['value']);
+        $filters['field_si_virtual_value']['value'] = "All";
       }
       $this->view->display_handler->overrideOption('filters', $filters);
       $result = $this->view->executeDisplay($display_name, $arguments);

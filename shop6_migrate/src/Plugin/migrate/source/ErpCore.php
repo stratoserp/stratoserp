@@ -130,16 +130,15 @@ class ErpCore extends MigrateNode {
    * @return int|null|string
    */
   public function stockItemFindCreateVirtual($row, $idMap, $title, $item_nid) {
-    // Define a text 'serial' for virtual items
-    $virtual_placeholder = 'VIRTUAL_ITEM_ONLY';
-    if (!$stock_item = self::findItemBySerial($item_nid, $virtual_placeholder, TRUE)) {
+    if (!$stock_item = self::findItemBySerial($item_nid, '', TRUE)) {
       $stock_item = StockItem::create([
         'type' => 'se_stock_item',
         'user_id' => '1',
         'name' => $title,
-        'field_si_serial' => $virtual_placeholder,
+        'field_si_serial' => '',
         'field_si_item_ref' => [['target_id' => $item_nid]],
         'field_si_virtual' => TRUE,
+        'field_si_sale_date' => ['value' => 0],
       ]);
       $stock_item->save();
       self::logError($row, $idMap,
