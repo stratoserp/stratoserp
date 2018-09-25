@@ -171,7 +171,7 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
       // The default for the view is to_not show virtual,
       // so removing that will show all items.
       if ($virtual) {
-        $filters['field_si_virtual_value']['value'] = "All";
+        $filters['field_si_virtual_value']['value'] = 1;
       }
       $this->view->display_handler->overrideOption('filters', $filters);
       $result = $this->view->executeDisplay($display_name, $arguments);
@@ -196,7 +196,7 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
         $price = $entity->field_si_sale_price->value;
 
         // Format - Code #Serial# Desc - Price
-        $return[$entity->bundle()][$entity->id() . ':' . $relationship_entity->id()] = $code . ' ' . $serial . ' ' . $entity->label() . ' - ' . $price;
+        $return[$entity->bundle()][$entity->id()] = $code . ' ' . $serial . ' ' . $entity->label() . ' - ' . $price;
       }
     }
     return $return;
@@ -217,7 +217,6 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
     $display_name = $this->getConfiguration()['view']['display_name'];
     $arguments = $this->getConfiguration()['view']['arguments'];
     $result = [];
-    list($id, $serial) = explode(':', reset($ids));
     if ($this->initializeView(NULL, 'CONTAINS', 0, $ids)) {
       // Get the results.
       $entities = $this->view->executeDisplay($display_name, $arguments);

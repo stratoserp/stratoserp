@@ -458,7 +458,8 @@ display:
       display_extenders: {  }
       filter_groups:
         operator: AND
-        groups: {  }
+        groups:
+          1: OR
     cache_metadata:
       max-age: -1
       contexts:

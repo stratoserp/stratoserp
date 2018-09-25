@@ -32,8 +32,35 @@ class ErpItem extends ErpCore {
    * {@inheritdoc}
    */
   public function query() {
-    $query = parent::query();
+    // Create our own query as we dont need some fields and
+    // they cause duplicates.
+    $query = $this->select('node_revisions', 'nr');
+    $query->innerJoin('node', 'n', static::JOIN);
+    $this->handleTranslations($query);
 
+    $query->fields('n', [
+      'nid',
+      'type',
+      'language',
+      'status',
+      'created',
+      'changed',
+      'comment',
+      'promote',
+      'moderate',
+      'sticky',
+      'tnid',
+      'translate',
+    ])
+    ->fields('nr', [
+      'title',
+      'body',
+      'teaser',
+      'log',
+      'format',
+    ]);
+    $query->addField('n', 'uid', 'node_uid');
+    $query->condition('n.type', $this->configuration['node_type']);
     $query->leftJoin('erp_item', 'ei', 'n.nid = ei.nid');
     $query->fields('ei', [
       'supplier_nid',

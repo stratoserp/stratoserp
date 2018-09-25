@@ -135,9 +135,9 @@ class ErpCore extends MigrateNode {
         'type' => 'se_stock_item',
         'user_id' => '1',
         'name' => $title,
-        'field_si_serial' => '',
+        'field_si_serial' => ['value' => ''],
         'field_si_item_ref' => [['target_id' => $item_nid]],
-        'field_si_virtual' => TRUE,
+        'field_si_virtual' => ['value' => 1],
         'field_si_sale_date' => ['value' => 0],
       ]);
       $stock_item->save();
