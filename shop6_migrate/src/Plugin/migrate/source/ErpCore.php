@@ -129,7 +129,7 @@ class ErpCore extends MigrateNode {
    *
    * @return int|null|string
    */
-  public function stockItemFindCreateVirtual($row, $idMap, $title, $item_nid) {
+  public function stockItemFindCreateVirtual(Row $row, MigrateIdMapInterface $idMap, string $title, int $item_nid) {
     if (!$stock_item = self::findItemBySerial($item_nid, '', TRUE)) {
       $stock_item = StockItem::create([
         'type' => 'se_stock_item',

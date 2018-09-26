@@ -185,6 +185,7 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
         // This will be the item node.
         $relationship_entity = reset($row->_relationship_entities);
         $code = $relationship_entity->field_it_code->value;
+        $price = $relationship_entity->field_it_price->value;
 
         // Construct the serial number, if this is not a virtual/service item.
         $serial = '';

@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.se_item.field_it_images
     - field.field.node.se_item.field_it_manufacturer_ref
     - field.field.node.se_item.field_it_min_stock
+    - field.field.node.se_item.field_it_price
     - field.field.node.se_item.field_it_product_type_ref
     - field.field.node.se_item.field_it_sale_category_ref
     - field.field.node.se_item.field_it_track_product
@@ -96,6 +97,17 @@ content:
     region: second
   field_it_min_stock:
     weight: 4
+    label: inline
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: first
+  field_it_price:
+    weight: 21
     label: inline
     settings:
       thousand_separator: ''

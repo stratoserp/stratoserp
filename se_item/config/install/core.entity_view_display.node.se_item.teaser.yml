@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.se_item.field_it_images
     - field.field.node.se_item.field_it_manufacturer_ref
     - field.field.node.se_item.field_it_min_stock
+    - field.field.node.se_item.field_it_price
     - field.field.node.se_item.field_it_product_type_ref
     - field.field.node.se_item.field_it_sale_category_ref
     - field.field.node.se_item.field_it_track_product
@@ -44,6 +45,7 @@ hidden:
   field_it_images: true
   field_it_manufacturer_ref: true
   field_it_min_stock: true
+  field_it_price: true
   field_it_product_type_ref: true
   field_it_sale_category_ref: true
   field_it_track_product: true
