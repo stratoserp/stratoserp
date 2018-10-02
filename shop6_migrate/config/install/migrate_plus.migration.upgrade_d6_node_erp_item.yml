@@ -55,8 +55,7 @@ process:
   field_it_manufacturer_ref: field_it_manufacturer_ref
   field_it_sale_category_ref: field_it_sale_category_ref
 destination:
-  plugin: 'entity:node'
-  default_bundle: se_item
+  plugin: upgrade_d6_node_erp_item
 migration_dependencies:
   optional:
     - upgrade_d6_term_manufacturer

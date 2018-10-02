@@ -3,7 +3,6 @@
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
 use Drupal\Core\Database\Database;
-use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Row;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -39,12 +38,8 @@ class ErpPayment extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
-      return FALSE;
-    }
-
-    $this->setPayments($row, $this->idMap, 'erp_payment_data');
-    parent::setBusinessRef($row, $this->idMap);
+    $this->setPayments($row, 'erp_payment_data');
+    $this->setBusinessRef($row);
 
     return TRUE;
   }
@@ -54,15 +49,13 @@ class ErpPayment extends ErpCore {
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
-   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
-   *   The idMap from the migration.
    * @param string $data_table
    *   The data table from drupal6 erp to query for items.
    *
    * @throws \Exception
    *   setSourceProperty() might
    */
-  public function setPayments(Row $row, MigrateIdMapInterface $idMap, string $data_table) {
+  public function setPayments(Row $row, string $data_table) {
 
     $payment_types = [
       1 => 'Cash',
@@ -90,18 +83,18 @@ class ErpPayment extends ErpCore {
     foreach ($lines as $line) {
       /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
       $paragraph = Paragraph::create(['type' => 'se_payments']);
-      $invoice = parent::findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice');
+      $invoice = $this->findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice');
       $paragraph->set('field_pa_invoice', ['target_id' => $invoice]);
       $paragraph->set('field_pa_date', ['value' => $line->payment_date]);
 
       if (empty($line->payment_type)) {
         $line->payment_type = 1;
-        self::logError($row, $idMap,
+        $this->logError($row,
           t('setPayments: @nid - invalid payment type', [
             '@nid' => $row->getSourceProperty('nid'),
           ]));
       }
-      $term_id = parent::findCreateTerm($payment_types[$line->payment_type], 'pa_type');
+      $term_id = $this->findCreateTerm($payment_types[$line->payment_type], 'pa_type');
 
       $paragraph->set('field_pa_type', ['target_id' => $term_id]);
       $paragraph->set('field_pa_amount', ['value' => $line->payment_amount]);

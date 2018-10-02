@@ -42,11 +42,7 @@ class ErpJobComment extends MigrateComment {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('cid'), 'cid', $this->migration->id())) {
-      return FALSE;
-    }
-
-    $comment = self::repairBody($row->getSourceProperty('comment'));
+    $comment = $this->repairBody($row->getSourceProperty('comment'));
     $row->setSourceProperty('comment', $comment);
     $type = $row->getSourceProperty('type');
 
@@ -54,10 +50,10 @@ class ErpJobComment extends MigrateComment {
       return FALSE;
     }
 
-    $result = self::jobComment($row);
+    $result = $this->jobComment($row);
 
     if (!$result) {
-      ErpCore::logError($row, $this->idMap,
+      $this->logError($row,
         t('ErpOtherComment: @nid - @cid - @type - @subject has no associated job, ignored', [
           '@nid' => $row->getSourceProperty('nid'),
           '@cid' => $row->getSourceProperty('cid'),
@@ -95,7 +91,7 @@ class ErpJobComment extends MigrateComment {
           strftime("%FT%T", (int) $timekeeping->field_serp_tk_date_value)
         );
         $row->setSourceProperty('tk_amount', $timekeeping->field_serp_tk_taken_value);
-        if (!empty($timekeeping->field_serp_tk_type_nid) && $tk_id = self::findNewId($timekeeping->field_serp_tk_type_nid, 'nid', 'upgrade_d6_node_erp_item')) {
+        if (!empty($timekeeping->field_serp_tk_type_nid) && $tk_id = $this->findNewId($timekeeping->field_serp_tk_type_nid, 'nid', 'upgrade_d6_node_erp_item')) {
           $row->setSourceProperty('tk_item', $tk_id);
         }
         $row->setSourceProperty('tk_billable', $timekeeping->field_serp_tk_billable_value);
@@ -106,7 +102,7 @@ class ErpJobComment extends MigrateComment {
 
     $nid = $row->getSourceProperty('nid');
     if (!empty($nid)) {
-      $new_id = self::findNewId($nid, 'nid', 'upgrade_d6_node_erp_job');
+      $new_id = $this->findNewId($nid, 'nid', 'upgrade_d6_node_erp_job');
       if ($new_id) {
         $row->setSourceProperty('nid', $new_id);
         return TRUE;

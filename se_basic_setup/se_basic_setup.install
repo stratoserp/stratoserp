@@ -1,0 +1,89 @@
+<?php
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ */
+function se_basic_setup_install() {
+  // Some basic terms to get things started.
+  $sale_category_terms = [
+    'Consumables',
+    'Contracting',
+    'Hardware',
+    'Hosting service',
+    'Managed service',
+    'Service',
+    'Software',
+  ];
+
+  foreach ($sale_category_terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, 'se_sale_category');
+    if (empty($term)) {
+      Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => 'se_sale_category',
+      ])->save();
+    }
+  }
+
+  $status_terms = [
+    '1. Open',
+    '2. Ordered',
+    '3. Closed',
+  ];
+
+  foreach ($status_terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, 'se_status');
+    if (empty($term)) {
+      Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => 'se_status',
+      ])->save();
+    }
+  }
+
+  $ticket_priority_terms = [
+    'High',
+    'Low',
+    'Urgent',
+    'Whenever',
+  ];
+
+  foreach ($ticket_priority_terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, 'se_ticket_priority');
+    if (empty($term)) {
+      Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => 'se_ticket_priority',
+      ])->save();
+    }
+  }
+
+  $ticket_type_terms = [
+    'appt',
+    'call',
+    'follow up',
+    'in store',
+    'onsite',
+    'quote',
+    'remote',
+    'todo',
+    'warranty',
+  ];
+
+  foreach ($ticket_type_terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, 'ti_type');
+    if (empty($term)) {
+      Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => 'ti_type',
+      ])->save();
+    }
+  }
+
+}

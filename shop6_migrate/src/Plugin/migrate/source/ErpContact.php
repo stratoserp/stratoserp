@@ -71,11 +71,11 @@ class ErpContact extends SqlBase {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('contact_id'), 'contact_id', $this->migration->id())) {
+    if ($this->findNewId($row->getSourceProperty('contact_id'), 'contact_id')) {
       return FALSE;
     }
 
-    $this->normalisePhone($row, $this->idMap);
+    $this->normalisePhone($row);
 
     $name = trim($row->getSourceProperty('name'));
     if (empty($name)) {
@@ -131,7 +131,7 @@ class ErpContact extends SqlBase {
 
       if (!empty($customer_nid)) {
         $row->setSourceProperty('business_ref', $customer_nid);
-        $this->logError($row, $this->idMap,
+        $this->logError($row,
           t('ErpContact: @nid - Name matched @customer as associated business for @name', [
             '@nid'      => $row->getSourceProperty('nid'),
             '@customer' => $customer_nid,
@@ -141,7 +141,7 @@ class ErpContact extends SqlBase {
       }
     }
 
-    $this->logError($row, $this->idMap,
+    $this->logError($row,
       t('ErpContact: @nid - @code - @name has no associated business, ignored', [
         '@nid'  => $row->getSourceProperty('nid'),
         '@code' => $row->getSourceProperty('contact_id'),

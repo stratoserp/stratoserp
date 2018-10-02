@@ -36,32 +36,28 @@ class ErpInvoice extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
-      return FALSE;
-    }
-
-    parent::setItems($row, $this->idMap, 'erp_invoice_data');
-    parent::setBusinessRef($row, $this->idMap);
+    $this->setItems($row, 'erp_invoice_data');
+    $this->setBusinessRef($row);
 
     switch ($row->getSourceProperty('invoice_status')) {
       case '0':
       case 'O':
-        parent::setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
+        $this->setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
         break;
 
       case '1':
       case 'C':
-        parent::setTaxonomyTermByName($row, 'Close', 'se_status', 'status_ref');
+        $this->setTaxonomyTermByName($row, 'Close', 'se_status', 'status_ref');
         break;
 
       case 'S':
-        parent::setTaxonomyTermByName($row, 'Sales order', 'se_status', 'status_ref');
+        $this->setTaxonomyTermByName($row, 'Sales order', 'se_status', 'status_ref');
         break;
 
     }
 
     if ($ref = $row->getSourceProperty('refs')) {
-      if ($new_id = parent::findNewId($ref, 'nid', 'upgrade_d6_node_erp_quote')) {
+      if ($new_id = $this->findNewId($ref, 'nid', 'upgrade_d6_node_erp_quote')) {
         $row->setSourceProperty('quote_ref', $new_id);
       }
     }

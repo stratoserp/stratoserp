@@ -36,12 +36,8 @@ class ErpGoodsReceipt extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
-      return FALSE;
-    }
-
-    parent::setItems($row, $this->idMap, 'erp_goods_receive_data');
-    parent::setSupplierRef($row, $this->idMap);
+    $this->setItems($row, 'erp_goods_receive_data');
+    $this->setSupplierRef($row);
 
     return TRUE;
   }

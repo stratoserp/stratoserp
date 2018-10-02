@@ -38,10 +38,6 @@ class ErpBookToDocument extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
-      return FALSE;
-    }
-
     // Skip entries that are just the book header page.
     $body = $row->getSourceProperty('body');
     $title = $row->getSourceProperty('title');
@@ -51,7 +47,7 @@ class ErpBookToDocument extends ErpCore {
     }
 
     // Fix up weird newlines from older Drupal versions.
-    $body = self::repairBody($body);
+    $body = $this->repairBody($body);
     $row->setSourceProperty('body', $body);
 
     // Find and add uploaded files.
@@ -66,13 +62,13 @@ class ErpBookToDocument extends ErpCore {
 
     if (count($files)) {
       $row->setSourceProperty('attachments', $files);
-      parent::logError($row, $this->idMap,
+      $this->logError($row,
         t('ErpBook: @nid - Attached files to node', [
           '@nid' => $row->getSourceProperty('nid'),
         ]), MigrationInterface::MESSAGE_NOTICE);
     }
 
-    parent::setBusinessRef($row, $this->idMap);
+    $this->setBusinessRef($row);
 
     return TRUE;
   }

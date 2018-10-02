@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_ti_type
     - node.type.se_ticket
-    - taxonomy.vocabulary.ti_type
+    - taxonomy.vocabulary.se_ticket_type
 id: node.se_ticket.field_ti_type
 field_name: field_ti_type
 entity_type: node
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      ti_type: ti_type
+      se_ticket_type: se_ticket_type
     sort:
       field: _none
     auto_create: true

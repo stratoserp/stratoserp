@@ -4,8 +4,8 @@ namespace Drupal\shop6_migrate;
 
 use Drupal\Core\Database\Database;
 use Drupal\migrate\Plugin\MigrationInterface;
-use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Row;
+use Drupal\se_stock_item\Entity\StockItem;
 
 /**
  * Trait Shop6MigrateUtilities.
@@ -29,9 +29,8 @@ trait Shop6MigrateUtilities {
    * @return bool|int
    *   Return the value, if found.
    */
-  public function findNewId(int $old_id,
-                            string $identifier,
-                            string $upgrade_type) {
+  public function findNewId(int $old_id, string $identifier,
+                            string $upgrade_type = NULL) {
     static $manager = FALSE;
     static $instance = [];
     static $ids = [];
@@ -40,14 +39,21 @@ trait Shop6MigrateUtilities {
       return $ids[$old_id];
     }
 
+    // If an upgrade type is passed in, we need to lookup values from another
+    // migration. This means creating a new migration manager and creating
+    // an instance of the migration we want to work with.
+    if (!isset($upgrade_type)) {
+      $new_id = $this->migration->getIdMap()->lookupDestinationIds([$identifier => $old_id]);
+      return $new_id;
+    }
+
     if (!$manager) {
       $manager = \Drupal::service('plugin.manager.migration');
     }
 
     /** @var \Drupal\migrate\Plugin\MigrateIdMapInterface $new_id_map */
     if (!isset($instance[$upgrade_type])) {
-      $instance[$upgrade_type] = $manager->createInstance($upgrade_type)
-        ->getIdMap();
+      $instance[$upgrade_type] = $manager->createInstance($upgrade_type)->getIdMap();
     }
 
     if ($new_id = $instance[$upgrade_type]->lookupDestinationIds([$identifier => $old_id])) {
@@ -69,9 +75,7 @@ trait Shop6MigrateUtilities {
    * @return bool|int
    *   The id for the imported invoice.
    */
-  public function findInvoiceBySerial(int $old_nid,
-                                      string $serial
-  ) {
+  public function findInvoiceBySerial(int $old_nid, string $serial) {
     // Connect to the old database to query the data table.
     $db = Database::getConnection('default', 'drupal_6');
     /** @var \Drupal\Core\Database\Query\Select $query */
@@ -81,7 +85,7 @@ trait Shop6MigrateUtilities {
     $query->condition('eid.serial', $serial);
 
     if ($invoice = $query->execute()->fetch()) {
-      $new_id = self::findNewId($invoice->nid, 'nid', 'upgrade_d6_node_erp_invoice');
+      $new_id = $this->findNewId($invoice->nid, 'nid', 'upgrade_d6_node_erp_invoice');
 
       return $new_id;
     }
@@ -97,11 +101,10 @@ trait Shop6MigrateUtilities {
    *
    * @return bool|\Drupal\Core\Entity\EntityInterface|mixed
    */
-  public function findItemBySerial(int $id, string $serial, bool $virtual = FALSE) {
-    // Find and add uploaded files.
+  public function findItemBySerial(int $id, string $serial,
+                                   bool $virtual = FALSE) {
     $query = \Drupal::entityQuery('se_stock_item')
-      ->condition('field_si_item_ref', $id)
-      ->condition('field_si_sale_date', 0);
+      ->condition('field_si_item_ref', $id);
     if (!empty($serial)) {
       $query->condition('field_si_serial', $serial);
     }
@@ -125,13 +128,11 @@ trait Shop6MigrateUtilities {
    *
    * @param \Drupal\migrate\Row $row
    *   The row to work with.
-   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
-   *   The idMap from the migration.
    *
    * @throws \Exception
    *   setSourceProperty() might.
    */
-  public function normalisePhone(Row $row, MigrateIdMapInterface $idMap) {
+  public function normalisePhone(Row $row) {
     $fields = [
       'phone' => '08',
       'mobile' => '04',
@@ -156,14 +157,14 @@ trait Shop6MigrateUtilities {
 
         if (strlen($new_value) != 10) {
           if ($row->getSourceProperty('type')) {
-            self::logError($row, $idMap,
+            $this->logError($row,
               t('normalisePhone: @nid invalid phone @phone, blanked', [
                 '@nid'        => $row->getSourceProperty('nid'),
                 '@phone'      => $new_value,
               ]), MigrationInterface::MESSAGE_NOTICE);
           }
           else {
-            self::logError($row, $idMap,
+            $this->logError($row,
               t('normalisePhone: @nid - @contact_id invalid phone @phone for @name, blanked', [
                 '@nid'        => $row->getSourceProperty('nid'),
                 '@contact_id' => $row->getSourceProperty('contact_id'),
@@ -200,25 +201,62 @@ trait Shop6MigrateUtilities {
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
-   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
-   *   The idMap from the migration.
    * @param string $message
    *   The message content.
    * @param int $level
    *   MigrationInterface message level.
    */
-  public static function logError(Row $row,
-                                  MigrateIdMapInterface $idMap,
-                                  string $message,
-                                  int $level = MigrationInterface::MESSAGE_NOTICE) {
+  public function logError(Row $row, string $message,
+                           int $level = MigrationInterface::MESSAGE_NOTICE) {
+
 
     if ($level < MigrationInterface::MESSAGE_INFORMATIONAL) {
-      $idMap->saveMessage(
+      $this->migration->getIdMap()->saveMessage(
         $row->getSourceIdValues(),
         $message,
         $level
       );
     }
+  }
+
+  /**
+   * Create a virtual stock item for items that don't really track stock.
+   *
+   * @param $row
+   * @param $title
+   * @param $item_nid
+   *
+   * @return int|null|string
+   */
+  public function stockItemFindCreateVirtual(Row $row, string $title,
+                                             int $item_nid) {
+
+    if (!$stock_item = $this->findItemBySerial($item_nid, '', TRUE)) {
+      $stock_item = StockItem::create([
+        'type' => 'se_stock_item',
+        'user_id' => '1',
+        'name' => $title,
+        'field_si_serial' => ['value' => ''],
+        'field_si_item_ref' => [['target_id' => $item_nid]],
+        'field_si_virtual' => ['value' => 1],
+        'field_si_sale_date' => ['value' => 0],
+      ]);
+      $stock_item->save();
+      $this->logError($row,
+        t('stockItemCreateVirtual: @nid - added virtual - @stock_id', [
+          '@nid' => $item_nid,
+          '@stock_id' => $stock_item->id(),
+        ]), MigrationInterface::MESSAGE_INFORMATIONAL);
+    }
+    else {
+      $this->logError($row,
+        t('stockItemCreateVirtual: @nid - found virtual - @stock_id', [
+          '@nid' => $item_nid,
+          '@stock_id' => $stock_item->id(),
+        ]), MigrationInterface::MESSAGE_INFORMATIONAL);
+    }
+
+    return $stock_item->id();
   }
 
 }

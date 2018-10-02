@@ -16,7 +16,7 @@ source:
 process:
   vid:
     plugin: default_value
-    default_value: ti_priority
+    default_value: se_ticket_priority
   name: name
   description: description
 destination:

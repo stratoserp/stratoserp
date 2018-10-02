@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: 'Ticket status'
-vid: ti_status
+vid: se_ticket_status
 description: 'Ticket status taxonomy'
 hierarchy: 0
 weight: 0

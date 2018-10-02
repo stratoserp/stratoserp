@@ -61,12 +61,12 @@ class ErpCustomer extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
+    if ($this->findNewId($row->getSourceProperty('nid'), 'nid')) {
       return FALSE;
     }
 
-    parent::normalisePhone($row, $this->idMap);
-    parent::setBusinessHomepage($row, $this->idMap, 'homepage');
+    $this->normalisePhone($row);
+    $this->setBusinessHomepage($row, 'homepage');
 
     return TRUE;
   }

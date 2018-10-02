@@ -2,11 +2,6 @@
 
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
-use Drupal\Core\Extension\ModuleHandler;
-use Drupal\Core\State\StateInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\migrate\Event\MigrateEvents;
-use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\Plugin\migrate\source\d6\Node as MigrateNode;
 use Drupal\migrate\Row;
@@ -14,7 +9,6 @@ use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\se_stock_item\Entity\StockItem;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 use Drupal\user\Entity\User;
 use Drupal\taxonomy\Entity\Term;
@@ -33,14 +27,12 @@ class ErpCore extends MigrateNode {
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
-   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
-   *   The idMap from the migration.
    * @param string $data_table
    *   The data table from drupal6 erp to query for items.
    *
    * @throws \Exception setSourceProperty() might
    */
-  public function setItems(Row $row, MigrateIdMapInterface $idMap, string $data_table) {
+  public function setItems(Row $row, string $data_table) {
     $nid = $row->getSourceProperty('nid');
 
     // Connect to the old database to query the data table.
@@ -60,7 +52,7 @@ class ErpCore extends MigrateNode {
       $paragraph = Paragraph::create(['type' => 'se_items']);
       // If no item nid, log an error
       if (empty($line->item_nid) || $line->item_nid == 0) {
-        self::logError($row, $idMap,
+        $this->logError($row,
           t('setItems: @nid - has zero item', [
             '@nid' => $nid,
           ]));
@@ -68,8 +60,8 @@ class ErpCore extends MigrateNode {
       }
       else {
         // If there is an nid, try and find it
-        if (!$migrated_id = self::findNewId($line->item_nid, 'nid', 'upgrade_d6_node_erp_item')) {
-          self::logError($row, $idMap,
+        if (!$migrated_id = $this->findNewId($line->item_nid, 'nid', 'upgrade_d6_node_erp_item')) {
+          $this->logError($row,
             t('setItems: @nid - has deleted item', [
               '@nid' => $nid,
             ]));
@@ -80,11 +72,11 @@ class ErpCore extends MigrateNode {
           if (empty($line->serial) || preg_match('/TK - [0-9]+/', $line->serial)) {
             // Blank serial, make/use dummy serial entry
             $new_item = Node::load($migrated_id);
-            $item = self::stockItemFindCreateVirtual($row, $this->idMap, $new_item->title->value, $migrated_id);
+            $item = $this->stockItemFindCreateVirtual($row, $new_item->title->value, $migrated_id);
           }
           else {
-            if (!$stock_item = self::findItemBySerial($migrated_id, $line->serial)) {
-              self::logError($row, $idMap,
+            if (!$stock_item = $this->findItemBySerial($migrated_id, $line->serial)) {
+              $this->logError($row,
                 t('setItems: @nid - has zero item', [
                   '@nid' => $nid,
                 ]));
@@ -120,51 +112,10 @@ class ErpCore extends MigrateNode {
   }
 
   /**
-   * Create a virtual stock item for items that don't really track stock.
-   *
-   * @param $row
-   * @param $idMap
-   * @param $title
-   * @param $item_nid
-   *
-   * @return int|null|string
-   */
-  public function stockItemFindCreateVirtual(Row $row, MigrateIdMapInterface $idMap, string $title, int $item_nid) {
-    if (!$stock_item = self::findItemBySerial($item_nid, '', TRUE)) {
-      $stock_item = StockItem::create([
-        'type' => 'se_stock_item',
-        'user_id' => '1',
-        'name' => $title,
-        'field_si_serial' => ['value' => ''],
-        'field_si_item_ref' => [['target_id' => $item_nid]],
-        'field_si_virtual' => ['value' => 1],
-        'field_si_sale_date' => ['value' => 0],
-      ]);
-      $stock_item->save();
-      self::logError($row, $idMap,
-        t('stockItemCreateVirtual: @nid - added virtual - @stock_id', [
-          '@nid' => $item_nid,
-          '@stock_id' => $stock_item->id(),
-        ]), MigrationInterface::MESSAGE_INFORMATIONAL);
-    }
-    else {
-      self::logError($row, $idMap,
-        t('stockItemCreateVirtual: @nid - found virtual - @stock_id', [
-          '@nid' => $item_nid,
-          '@stock_id' => $stock_item->id(),
-        ]), MigrationInterface::MESSAGE_INFORMATIONAL);
-    }
-
-    return $stock_item->id();
-  }
-
-  /**
    * Set the supplier id for the passed row.
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
-   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
-   *   The idMap from the migration.
    * @param string $field
    *   The field to set.
    *
@@ -174,17 +125,16 @@ class ErpCore extends MigrateNode {
    *   setSourceProperty() might
    */
   public function setSupplierRef(Row $row,
-                                 MigrateIdMapInterface $idMap,
                                  string $field = 'supplier_ref') {
 
     if ($supplier_nid = $row->getSourceProperty('supplier_nid')) {
-      if ($new_id = self::findNewId($supplier_nid, 'nid', 'upgrade_d6_node_erp_supplier')) {
+      if ($new_id = $this->findNewId($supplier_nid, 'nid', 'upgrade_d6_node_erp_supplier')) {
         $row->setSourceProperty($field, $new_id);
         return TRUE;
       }
     }
 
-    self::logError($row, $idMap,
+    $this->logError($row,
       t('setBusinessRef: @nid - @title ignored', [
         '@nid'   => $row->getSourceProperty('nid'),
         '@title' => $row->getSourceProperty('title'),
@@ -198,8 +148,6 @@ class ErpCore extends MigrateNode {
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
-   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
-   *   The idMap from the migration.
    * @param string $field
    *   The field to set.
    *
@@ -209,11 +157,10 @@ class ErpCore extends MigrateNode {
    *   setSourceProperty() might
    */
   public function setBusinessRef(Row $row,
-                                 MigrateIdMapInterface $idMap,
                                  string $field = 'business_ref') {
 
     if ($customer_nid = $row->getSourceProperty('customer_nid')) {
-      $new_id = self::findNewId($customer_nid, 'nid', 'upgrade_d6_node_erp_customer');
+      $new_id = $this->findNewId($customer_nid, 'nid', 'upgrade_d6_node_erp_customer');
       if ($new_id) {
         $row->setSourceProperty($field, $new_id);
         return TRUE;
@@ -221,7 +168,7 @@ class ErpCore extends MigrateNode {
     }
 
     if ($customer_nid = $row->getSourceProperty('field_serp_cu_ref_nid')) {
-      $new_id = self::findNewId($customer_nid, 'nid', 'upgrade_d6_node_erp_customer');
+      $new_id = $this->findNewId($customer_nid, 'nid', 'upgrade_d6_node_erp_customer');
       if ($new_id) {
         $row->setSourceProperty($field, $new_id);
         return TRUE;
@@ -240,10 +187,10 @@ class ErpCore extends MigrateNode {
 
       // If there was one, cool.
       if ($customer_nid) {
-        $new_id = self::findNewId($customer_nid, 'nid', 'upgrade_d6_node_erp_customer');
+        $new_id = $this->findNewId($customer_nid, 'nid', 'upgrade_d6_node_erp_customer');
         if ($new_id) {
           $row->setSourceProperty($field, $new_id);
-          self::logError($row, $idMap,
+          $this->logError($row,
             t('setBusinessRef: @nid - Customer link matched with @customer', [
               '@nid'      => $row->getSourceProperty('nid'),
               '@customer' => $new_id,
@@ -261,7 +208,7 @@ class ErpCore extends MigrateNode {
         ->execute();
       $customer_nid = reset($result);
       if ($customer_nid) {
-        self::logError($row, $idMap,
+        $this->logError($row,
           t('setBusinessRef: @nid - Name matched @customer for @name', [
             '@nid'      => $row->getSourceProperty('nid'),
             '@customer' => $customer_nid,
@@ -279,10 +226,10 @@ class ErpCore extends MigrateNode {
       $supplier_nid = reset($result);
 
       if ($supplier_nid) {
-        $new_id = self::findNewId($supplier_nid, 'nid', 'upgrade_d6_node_erp_supplier');
+        $new_id = $this->findNewId($supplier_nid, 'nid', 'upgrade_d6_node_erp_supplier');
         if ($new_id) {
           $row->setSourceProperty($field, $new_id);
-          self::logError($row, $idMap,
+          $this->logError($row,
             t('setBusinessRef: @nid - Name matched with @supplier', [
               '@nid'      => $row->getSourceProperty('nid'),
               '@supplier' => $new_id,
@@ -292,7 +239,7 @@ class ErpCore extends MigrateNode {
       }
     }
 
-    self::logError($row, $this->idMap,
+    $this->logError($row,
       t('setBusinessRef: @nid - @title ignored', [
         '@nid'   => $row->getSourceProperty('nid'),
         '@title' => $row->getSourceProperty('title'),
@@ -337,8 +284,6 @@ class ErpCore extends MigrateNode {
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
-   * @param \Drupal\migrate\Plugin\MigrateIdMapInterface $idMap
-   *   The idMap from the migration.
    * @param string $field
    *   The field name from the row that contains the homepage.
    *
@@ -346,7 +291,6 @@ class ErpCore extends MigrateNode {
    *   setSourceProperty() might
    */
   public function setBusinessHomepage(Row $row,
-                                      MigrateIdMapInterface $idMap,
                                       string $field) {
     $message = NULL;
     $status = NULL;
@@ -362,7 +306,7 @@ class ErpCore extends MigrateNode {
           ->toString());
       }
       catch (\InvalidArgumentException $e) {
-        self::logError($row, $idMap,
+        $this->logError($row,
           t('setBusinessHomepage: @nid - @code invalid url, ignored', [
             '@nid'  => $row->getSourceProperty('nid'),
             '@code' => $homepage,
@@ -399,19 +343,19 @@ class ErpCore extends MigrateNode {
         case 2:
           $destination_vocabulary = 'se_product_type';
           $destination_field = 'field_it_product_type_ref';
-          self::setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
+          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
           break;
 
         case 10:
           $destination_vocabulary = 'se_manufacturer';
           $destination_field = 'field_it_manufacturer_ref';
-          self::setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
+          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
           break;
 
         case 12:
           $destination_vocabulary = 'se_sale_category';
           $destination_field = 'field_it_sale_category_ref';
-          self::setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
+          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
           break;
 
       }
@@ -446,7 +390,7 @@ class ErpCore extends MigrateNode {
       $term_name = $this->getTermNameById($term_id, $source_vocabulary);
 
       if (!empty($term_name)) {
-        self::setTaxonomyTermByName($row, $term_name, $destination_vocabulary, $destination_field);
+        $this->setTaxonomyTermByName($row, $term_name, $destination_vocabulary, $destination_field);
       }
     }
   }

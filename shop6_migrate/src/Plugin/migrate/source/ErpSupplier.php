@@ -64,12 +64,8 @@ class ErpSupplier extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
-      return FALSE;
-    }
-
-    parent::normalisePhone($row, $this->idMap);
-    parent::setBusinessHomepage($row, $this->idMap, 'homepage');
+    $this->normalisePhone($row);
+    $this->setBusinessHomepage($row, 'homepage');
 
     return TRUE;
   }

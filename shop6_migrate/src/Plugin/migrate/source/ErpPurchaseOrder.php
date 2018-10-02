@@ -36,29 +36,25 @@ class ErpPurchaseOrder extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
-      return FALSE;
-    }
-
-    parent::setItems($row, $this->idMap, 'erp_purchase_order_data');
-    parent::setBusinessRef($row, $this->idMap);
-    parent::setSupplierRef($row, $this->idMap);
+    $this->setItems($row, 'erp_purchase_order_data');
+    $this->setBusinessRef($row);
+    $this->setSupplierRef($row);
 
     switch ($row->getSourceProperty('invoice_status')) {
       case '0':
       case 'O':
-        parent::setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
+        $this->setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
         break;
 
       case '1':
       case 'C':
-        parent::setTaxonomyTermByName($row, 'Close', 'se_status', 'status_ref');
+        $this->setTaxonomyTermByName($row, 'Close', 'se_status', 'status_ref');
         break;
 
     }
 
     if ($ref = $row->getSourceProperty('refs')) {
-      if ($new_id = parent::findNewId($ref, 'nid', 'upgrade_d6_node_erp_quote')) {
+      if ($new_id = $this->findNewId($ref, 'nid', 'upgrade_d6_node_erp_quote')) {
         $row->setSourceProperty('source_ref', $new_id);
       }
     }

@@ -59,10 +59,6 @@ class ErpJobToTicket extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
-      return FALSE;
-    }
-
     // Find and add uploaded files.
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $this->select('upload', 'u')
@@ -74,17 +70,17 @@ class ErpJobToTicket extends ErpCore {
 
     if (count($files)) {
       $row->setSourceProperty('attachments', $files);
-      parent::logError($row, $this->idMap,
+      $this->logError($row,
         t('ErpTicket: @nid - Attached files to node', [
           '@nid' => $row->getSourceProperty('nid'),
         ]), MigrationInterface::MESSAGE_NOTICE);
     }
 
-    parent::setBusinessRef($row, $this->idMap);
-    parent::setOwnerRef($row);
-    self::setStatusRef($row);
-    parent::setTaxonomyTermByRef($row, 'field_job_type_value', 3, 'ti_type', 'job_type_ref');
-    parent::setTaxonomyTermByRef($row, 'field_jo_priority_value', 7, 'ti_priority', 'job_priority_ref');
+    $this->setBusinessRef($row);
+    $this->setOwnerRef($row);
+    $this->setStatusRef($row);
+    $this->setTaxonomyTermByRef($row, 'field_job_type_value', 3, 'se_ticket_type', 'job_type_ref');
+    $this->setTaxonomyTermByRef($row, 'field_jo_priority_value', 7, 'se_ticket_priority', 'job_priority_ref');
 
     return TRUE;
   }
@@ -122,7 +118,7 @@ class ErpJobToTicket extends ErpCore {
         break;
 
     }
-    parent::setTaxonomyTermByName($row, $term_name, 'ti_status', 'job_status_ref');
+    $this->setTaxonomyTermByName($row, $term_name, 'se_ticket_status', 'job_status_ref');
   }
 
 }

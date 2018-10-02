@@ -46,11 +46,12 @@ destination:
   plugin: 'entity:node'
   default_bundle: se_goods_receipt
 migration_dependencies:
+  required:
+    - upgrade_d6_node_erp_item
+    - upgrade_d6_stock_item
   optional:
     - upgrade_d6_node_erp_cash_sale
     - upgrade_d6_node_erp_invoice
     - upgrade_d6_node_erp_payment
     - upgrade_d6_node_erp_purchase_order
     - upgrade_d6_node_erp_quote
-  required:
-    - upgrade_d6_stock_item

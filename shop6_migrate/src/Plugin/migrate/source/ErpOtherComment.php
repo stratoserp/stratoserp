@@ -39,11 +39,7 @@ class ErpOtherComment extends MigrateComment {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('cid'), 'cid', $this->migration->id())) {
-      return FALSE;
-    }
-
-    $comment = self::repairBody($row->getSourceProperty('comment'));
+    $comment = $this->repairBody($row->getSourceProperty('comment'));
     $row->setSourceProperty('comment', $comment);
     $type = $row->getSourceProperty('type');
 
@@ -51,10 +47,10 @@ class ErpOtherComment extends MigrateComment {
       return FALSE;
     }
 
-    $result = self::otherComment($row, $type);
+    $result = $this->otherComment($row, $type);
 
     if (!$result) {
-      ErpCore::logError($row, $this->idMap,
+      $this->logError($row,
         t('ErpOtherComment: @nid - @cid - @type - @subject has no associated node, ignored', [
           '@nid' => $row->getSourceProperty('nid'),
           '@cid' => $row->getSourceProperty('cid'),
@@ -109,7 +105,7 @@ class ErpOtherComment extends MigrateComment {
           break;
       }
       if (isset($migration)) {
-        $new_id = self::findNewId($nid, 'nid', $migration);
+        $new_id = $this->findNewId($nid, 'nid', $migration);
         if ($new_id) {
           $row->setSourceProperty('nid', $new_id);
           return TRUE;

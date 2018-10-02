@@ -36,22 +36,18 @@ class ErpQuote extends ErpCore {
       return FALSE;
     }
 
-    if (self::findNewId($row->getSourceProperty('nid'), 'nid', $this->migration->id())) {
-      return FALSE;
-    }
-
-    parent::setItems($row, $this->idMap, 'erp_quote_data');
-    parent::setBusinessRef($row, $this->idMap);
+    $this->setItems($row, 'erp_quote_data');
+    $this->setBusinessRef($row);
 
     switch ($row->getSourceProperty('invoice_status')) {
       case '0':
       case 'O':
-        parent::setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
+        $this->setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
         break;
 
       case '1':
       case 'C':
-        parent::setTaxonomyTermByName($row, 'Close', 'se_status', 'status_ref');
+        $this->setTaxonomyTermByName($row, 'Close', 'se_status', 'status_ref');
         break;
 
     }

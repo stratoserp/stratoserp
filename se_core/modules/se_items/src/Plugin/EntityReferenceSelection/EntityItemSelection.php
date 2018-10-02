@@ -193,10 +193,8 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
           $serial = '#' . $entity->field_si_serial->value . '#';
         }
 
-        // TODO - Currency format here?
-        $price = $entity->field_si_sale_price->value;
-
         // Format - Code #Serial# Desc - Price
+        // TODO Currency format for price?
         $return[$entity->bundle()][$entity->id()] = $code . ' ' . $serial . ' ' . $entity->label() . ' - ' . $price;
       }
     }
