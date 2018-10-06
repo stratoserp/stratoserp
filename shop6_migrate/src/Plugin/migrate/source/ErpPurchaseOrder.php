@@ -40,7 +40,7 @@ class ErpPurchaseOrder extends ErpCore {
     $this->setBusinessRef($row);
     $this->setSupplierRef($row);
 
-    switch ($row->getSourceProperty('invoice_status')) {
+    switch ($row->getSourceProperty('purchase_order_status')) {
       case '0':
       case 'O':
         $this->setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');

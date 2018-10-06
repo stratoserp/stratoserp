@@ -39,7 +39,7 @@ class ErpQuote extends ErpCore {
     $this->setItems($row, 'erp_quote_data');
     $this->setBusinessRef($row);
 
-    switch ($row->getSourceProperty('invoice_status')) {
+    switch ($row->getSourceProperty('quote_status')) {
       case '0':
       case 'O':
         $this->setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
