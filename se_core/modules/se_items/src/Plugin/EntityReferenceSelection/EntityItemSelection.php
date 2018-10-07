@@ -213,14 +213,48 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
    * {@inheritdoc}
    */
   public function validateReferenceableEntities(array $ids) {
-    $display_name = $this->getConfiguration()['view']['display_name'];
-    $arguments = $this->getConfiguration()['view']['arguments'];
+    // Most of this code is from Drupal\Core\Entity\Plugin\EntityReferenceSelection
     $result = [];
-    if ($this->initializeView(NULL, 'CONTAINS', 0, $ids)) {
-      // Get the results.
-      $entities = $this->view->executeDisplay($display_name, $arguments);
-      $result = array_keys($entities);
+    $validate_stock = TRUE;
+
+    if ($ids) {
+      $node = \Drupal::routeMatch()->getParameter('node');
+      if ($node->getType() !== 'se_quote') {
+        $validate_stock = TRUE;
+      }
+
+      $configuration = $this->getConfiguration();
+      $target_type = $configuration['target_type'];
+      $entity_type = $this->entityManager->getDefinition($target_type);
+      $query = $this->entityManager->getStorage($target_type)->getQuery();
+      // Add entity-access tag.
+      $query->addTag($target_type . '_access');
+
+      // Add the Selection handler for system_query_entity_reference_alter().
+      $query->addTag('entity_reference');
+      $query->addMetaData('entity_reference_selection_handler', $this);
+
+      $result = $query
+        ->condition($entity_type->getKey('id'), $ids, 'IN')
+        ->execute();
+
+      $entities = $this->entityManager->getStorage($target_type)->loadMultiple($result);
+      foreach ($entities as $item) {
+        // Virtual items can be sold multiple times.
+        if ($item->field_si_virtual->value) {
+          continue;
+        }
+
+        // If the item is sold, its invalid.
+        if ($validate_stock && !$item->field_si_sale_date->value !== 0) {
+          // Unless its in the current node!
+          if ($node->id() != $item->field_si_invoice_ref->target_id) {
+            unset($result[$item->id()]);
+          }
+        }
+      }
     }
+
     return $result;
   }
 
