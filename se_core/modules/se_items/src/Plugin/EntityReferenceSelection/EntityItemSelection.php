@@ -219,7 +219,7 @@ class EntityItemSelection extends SelectionPluginBase implements ContainerFactor
 
     if ($ids) {
       $node = \Drupal::routeMatch()->getParameter('node');
-      if ($node->getType() !== 'se_quote') {
+      if ($node->getType() == 'se_invoice') {
         $validate_stock = TRUE;
       }
 

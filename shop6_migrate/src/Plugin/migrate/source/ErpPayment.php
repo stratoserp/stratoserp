@@ -62,7 +62,8 @@ class ErpPayment extends ErpCore {
       2 => 'Eftpos',
       3 => 'Credit card',
       4 => 'Cheque',
-      5 => 'Direct deposit'
+      5 => 'Direct deposit',
+      6 => 'Existing credit',
     ];
 
     // We need the original node id multiple times, make a variable.
