@@ -1,0 +1,6 @@
+services:
+  se_item.item_saved:
+    class: Drupal\se_item\EventSubscriber\SeItemSaved
+    arguments: ['@entity_type.manager']
+    tags:
+    - { name: event_subscriber }

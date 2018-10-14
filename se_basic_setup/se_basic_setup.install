@@ -1,13 +1,36 @@
 <?php
 
 use Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\node;
 
 /**
  * Implements hook_install().
  */
 function se_basic_setup_install() {
   // Some basic terms to get things started.
-  $sale_category_terms = [
+
+  se_basic_setup_create_terms('se_manufacturer', [
+    'Acer',
+    'ASUS',
+    'HP',
+    'Intel',
+    'Internal',
+    'Kingston',
+    'Microsoft',
+    'Lenovo',
+    'Seagate',
+    'Western digital',
+  ]);
+
+  se_basic_setup_create_terms('se_product_type', [
+    'CPU',
+    'Keyboard',
+    'Memory',
+    'Onsite service',
+    'Video card',
+  ]);
+
+  se_basic_setup_create_terms('se_sale_category', [
     'Consumables',
     'Contracting',
     'Hardware',
@@ -15,55 +38,22 @@ function se_basic_setup_install() {
     'Managed service',
     'Service',
     'Software',
-  ];
+  ]);
 
-  foreach ($sale_category_terms as $new_term) {
-    $term = taxonomy_term_load_multiple_by_name($new_term, 'se_sale_category');
-    if (empty($term)) {
-      Term::create([
-        'parent' => [],
-        'name'   => $new_term,
-        'vid'    => 'se_sale_category',
-      ])->save();
-    }
-  }
+  se_basic_setup_create_terms('se_status', [
+    'Open',
+    'Ordered',
+    'Closed',
+  ]);
 
-  $status_terms = [
-    '1. Open',
-    '2. Ordered',
-    '3. Closed',
-  ];
-
-  foreach ($status_terms as $new_term) {
-    $term = taxonomy_term_load_multiple_by_name($new_term, 'se_status');
-    if (empty($term)) {
-      Term::create([
-        'parent' => [],
-        'name'   => $new_term,
-        'vid'    => 'se_status',
-      ])->save();
-    }
-  }
-
-  $ticket_priority_terms = [
+  se_basic_setup_create_terms('se_ticket_priority', [
     'High',
     'Low',
     'Urgent',
     'Whenever',
-  ];
+  ]);
 
-  foreach ($ticket_priority_terms as $new_term) {
-    $term = taxonomy_term_load_multiple_by_name($new_term, 'se_ticket_priority');
-    if (empty($term)) {
-      Term::create([
-        'parent' => [],
-        'name'   => $new_term,
-        'vid'    => 'se_ticket_priority',
-      ])->save();
-    }
-  }
-
-  $ticket_type_terms = [
+  se_basic_setup_create_terms('se_ticket_type', [
     'appt',
     'call',
     'follow up',
@@ -73,17 +63,47 @@ function se_basic_setup_install() {
     'remote',
     'todo',
     'warranty',
-  ];
+  ]);
 
-  foreach ($ticket_type_terms as $new_term) {
-    $term = taxonomy_term_load_multiple_by_name($new_term, 'ti_type');
+  $nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties(['title' => 'Technical service']);
+
+  if (!$project = reset($nodes)) {
+    /** @var \Drupal\taxonomy\Entity\Term $sale_category */
+    $sale_category = reset(taxonomy_term_load_multiple_by_name('Service', 'se_sale_category'));
+    /** @var \Drupal\taxonomy\Entity\Term $product_type */
+    $product_type = reset(taxonomy_term_load_multiple_by_name('Onsite service', 'se_product_type'));
+    /** @var \Drupal\taxonomy\Entity\Term $manufacturer */
+    $manufacturer = reset(taxonomy_term_load_multiple_by_name('Internal', 'se_manufacturer'));
+
+    $project = Node::create([
+      'type'                       => 'se_item',
+      'langcode'                   => 'en',
+      'uid'                        => '1',
+      'status'                     => 1,
+      'title'                      => 'Technical service',
+      'body'                       => 'Technical service by one of our qualified technicians.',
+      'field_it_code'              => [['value' => 'TECHSERVICE']],
+      'field_it_price'             => [['value' => 160.00]],
+      'field_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
+      'field_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
+      'field_it_product_type_ref'  => [['target_id' => $product_type->id()]],
+    ]);
+    $project->save();
+  }
+}
+
+function se_basic_setup_create_terms($taxonomy, $terms) {
+  foreach ($terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, $taxonomy);
     if (empty($term)) {
       Term::create([
         'parent' => [],
         'name'   => $new_term,
-        'vid'    => 'ti_type',
+        'vid'    => $taxonomy,
       ])->save();
     }
   }
-
 }
+

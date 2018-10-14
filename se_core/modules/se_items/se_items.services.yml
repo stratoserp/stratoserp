@@ -1,0 +1,6 @@
+services:
+  se_items.items_presave:
+    class: Drupal\se_items\EventSubscriber\SeItemsPresave
+    arguments: ['@entity_type.manager']
+    tags:
+    - { name: event_subscriber }
