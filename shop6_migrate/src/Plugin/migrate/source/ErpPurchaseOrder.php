@@ -48,7 +48,7 @@ class ErpPurchaseOrder extends ErpCore {
 
       case '1':
       case 'C':
-        $this->setTaxonomyTermByName($row, 'Close', 'se_status', 'status_ref');
+        $this->setTaxonomyTermByName($row, 'Closed', 'se_status', 'status_ref');
         break;
 
     }

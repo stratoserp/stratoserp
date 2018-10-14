@@ -40,7 +40,7 @@ class ErpCashSale extends ErpCore {
     $this->setBusinessRef($row);
 
     // All cash sales have to be considered closed.
-    $this->setTaxonomyTermByName($row, 'Close', 'se_status', 'status_ref');
+    $this->setTaxonomyTermByName($row, 'Closed', 'se_status', 'status_ref');
 
     return TRUE;
   }
