@@ -18,7 +18,7 @@ class SeItemsPresave implements EventSubscriberInterface {
   protected $entityTypeManager;
 
   /**
-   * SeItemSaved constructor.
+   * SeItemPresave constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    */

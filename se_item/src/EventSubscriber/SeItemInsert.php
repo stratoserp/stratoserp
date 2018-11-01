@@ -17,7 +17,7 @@ class SeItemInsert implements EventSubscriberInterface {
   protected $entityTypeManager;
 
   /**
-   * SeItemSaved constructor.
+   * SeItemInsert constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    */
