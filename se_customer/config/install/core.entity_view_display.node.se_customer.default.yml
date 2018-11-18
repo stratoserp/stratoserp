@@ -21,10 +21,10 @@ dependencies:
     - field.field.node.se_customer.field_cu_suburb
     - node.type.se_customer
   module:
+    - ds
     - field_group
     - field_layout
     - geolocation
-    - layout_discovery
     - link
     - options
     - serial
@@ -35,28 +35,31 @@ third_party_settings:
     group_cu_tabs:
       children:
         - group_cu_tab_details
-        - group_cu_tab_tickets
-        - group_cu_tab_contacts
-        - group_cu_tab_documents
         - group_cu_tab_location
+        - group_cu_tab_contacts
+        - group_cu_tab_tickets
+        - group_cu_tab_documents
         - group_cu_tab_invoices
         - group_cu_tab_payments
         - group_cu_tab_purchase_orders
         - group_cu_tab_quotes
       parent_name: ''
-      weight: 6
+      weight: 0
       format_type: tabs
       format_settings:
         id: ''
         classes: ''
         direction: vertical
+        effect: none
+        open: false
+        required_fields: false
       label: 'Customer tabs'
       region: content
     group_cu_tab_tickets:
       children:
         - se_ticket_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 20
+      weight: 16
       format_type: tab
       format_settings:
         id: ''
@@ -69,7 +72,7 @@ third_party_settings:
       children:
         - se_contact_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 21
+      weight: 15
       format_type: tab
       format_settings:
         id: ''
@@ -82,7 +85,7 @@ third_party_settings:
       children:
         - se_document_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 22
+      weight: 17
       format_type: tab
       format_settings:
         id: ''
@@ -102,9 +105,10 @@ third_party_settings:
         - field_cu_postal_state
         - field_cu_postal_postcode
         - field_cu_email
+        - field_cu_fax
         - field_cu_email_format
       parent_name: group_cu_tabs
-      weight: 19
+      weight: 13
       format_type: tab
       format_settings:
         id: ''
@@ -117,7 +121,7 @@ third_party_settings:
       children:
         - field_cu_location
       parent_name: group_cu_tabs
-      weight: 23
+      weight: 14
       format_type: tab
       format_settings:
         id: ''
@@ -130,7 +134,7 @@ third_party_settings:
       children:
         - se_invoice_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 24
+      weight: 18
       format_type: tab
       format_settings:
         id: ''
@@ -143,7 +147,7 @@ third_party_settings:
       children:
         - se_purchase_order_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 26
+      weight: 20
       format_type: tab
       format_settings:
         id: ''
@@ -156,7 +160,7 @@ third_party_settings:
       children:
         - se_quote_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 27
+      weight: 21
       format_type: tab
       format_settings:
         id: ''
@@ -169,7 +173,7 @@ third_party_settings:
       children:
         - se_payment_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 25
+      weight: 19
       format_type: tab
       format_settings:
         id: ''
@@ -181,6 +185,50 @@ third_party_settings:
   field_layout:
     id: layout_onecol
     settings: {  }
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      content:
+        - group_cu_tabs
+        - links
+        - field_cu_id
+        - field_cu_phone
+        - field_cu_mobile
+        - field_cu_homepage
+        - field_cu_status
+        - field_cu_location
+        - se_document_eva_entity_view_1
+        - group_cu_tab_details
+        - se_contact_eva_entity_view_1
+        - se_invoice_eva_entity_view_1
+        - se_ticket_eva_entity_view_1
+        - group_cu_tab_location
+        - group_cu_tab_contacts
+        - se_payment_eva_entity_view_1
+        - group_cu_tab_tickets
+        - se_purchase_order_eva_entity_view_1
+        - group_cu_tab_documents
+        - se_quote_eva_entity_view_1
+        - group_cu_tab_invoices
+        - field_cu_address
+        - group_cu_tab_payments
+        - group_cu_tab_purchase_orders
+        - field_cu_suburb
+        - group_cu_tab_quotes
+        - field_cu_state
+        - field_cu_postcode
+        - field_cu_postal_address
+        - field_cu_postal_suburb
+        - field_cu_postal_state
+        - field_cu_postal_postcode
+        - field_cu_email
+        - field_cu_fax
+        - field_cu_email_format
 id: node.se_customer.default
 targetEntityType: node
 bundle: se_customer
@@ -188,7 +236,7 @@ mode: default
 content:
   field_cu_address:
     type: string
-    weight: 1
+    weight: 19
     region: content
     label: inline
     settings:
@@ -196,21 +244,29 @@ content:
     third_party_settings: {  }
   field_cu_email:
     type: basic_string
-    weight: 9
+    weight: 27
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
   field_cu_email_format:
     type: list_default
-    weight: 10
+    weight: 29
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
+  field_cu_fax:
+    type: telephone_link
+    weight: 28
+    region: content
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
   field_cu_homepage:
     type: link
-    weight: 4
+    weight: 5
     region: content
     label: inline
     settings:
@@ -222,13 +278,13 @@ content:
     third_party_settings: {  }
   field_cu_id:
     type: serial_default_formatter
-    weight: 1
+    weight: 2
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
   field_cu_location:
-    weight: 25
+    weight: 10
     label: inline
     settings:
       set_marker: '1'
@@ -261,7 +317,7 @@ content:
     type: geolocation_map
     region: content
   field_cu_mobile:
-    weight: 3
+    weight: 4
     label: inline
     settings:
       title: ''
@@ -270,7 +326,7 @@ content:
     region: content
   field_cu_phone:
     type: telephone_link
-    weight: 2
+    weight: 3
     region: content
     label: inline
     settings:
@@ -278,7 +334,7 @@ content:
     third_party_settings: {  }
   field_cu_postal_address:
     type: string
-    weight: 5
+    weight: 23
     region: content
     label: inline
     settings:
@@ -286,7 +342,7 @@ content:
     third_party_settings: {  }
   field_cu_postal_postcode:
     type: string
-    weight: 8
+    weight: 26
     region: content
     label: inline
     settings:
@@ -294,7 +350,7 @@ content:
     third_party_settings: {  }
   field_cu_postal_state:
     type: string
-    weight: 7
+    weight: 25
     region: content
     label: inline
     settings:
@@ -302,7 +358,7 @@ content:
     third_party_settings: {  }
   field_cu_postal_suburb:
     type: string
-    weight: 6
+    weight: 24
     region: content
     label: inline
     settings:
@@ -310,7 +366,7 @@ content:
     third_party_settings: {  }
   field_cu_postcode:
     type: string
-    weight: 4
+    weight: 22
     region: content
     label: inline
     settings:
@@ -318,7 +374,7 @@ content:
     third_party_settings: {  }
   field_cu_state:
     type: string
-    weight: 3
+    weight: 21
     region: content
     label: inline
     settings:
@@ -326,21 +382,21 @@ content:
     third_party_settings: {  }
   field_cu_status:
     type: list_default
-    weight: 5
+    weight: 6
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
   field_cu_suburb:
     type: string
-    weight: 2
+    weight: 20
     region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
   links:
-    weight: 0
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -350,17 +406,17 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_contact_eva_entity_view_1:
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   se_document_eva_entity_view_1:
-    weight: 10
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   se_invoice_eva_entity_view_1:
-    weight: 10
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -370,7 +426,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_payment_eva_entity_view_1:
-    weight: 10
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -380,7 +436,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_purchase_order_eva_entity_view_1:
-    weight: 10
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -390,7 +446,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_quote_eva_entity_view_1:
-    weight: 10
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -400,9 +456,8 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_ticket_eva_entity_view_1:
-    weight: 15
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden:
-  field_cu_fax: true
+hidden: {  }
