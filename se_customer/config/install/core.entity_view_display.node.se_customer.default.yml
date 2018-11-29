@@ -21,7 +21,6 @@ dependencies:
     - field.field.node.se_customer.field_cu_suburb
     - node.type.se_customer
   module:
-    - ds
     - field_group
     - field_layout
     - geolocation
