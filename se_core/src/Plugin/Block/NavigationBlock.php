@@ -58,6 +58,10 @@ class NavigationBlock extends BlockBase {
           $items = $this->invoiceLinks();
           break;
 
+        case 'se_item':
+          $items = $this->itemLinks();
+          break;
+
         case 'se_payment':
           $items = $this->paymentLinks();
           break;
@@ -202,7 +206,7 @@ class NavigationBlock extends BlockBase {
     $items = [];
 
     $items[] = Link::createFromRoute('Add payment', 'node.add', [
-      'node_type' => 'se_purchase_order',
+      'node_type' => 'se_payment',
       'field_bu_ref' => $this->node->id(),
       'destination'  => $this->destination,
     ], $this->button_class);
@@ -210,6 +214,16 @@ class NavigationBlock extends BlockBase {
     return $items;
   }
 
+  private function itemLinks() {
+    $items = [];
+
+    $items[] = Link::createFromRoute('Add stock', 'entity.se_stock_item.add_form', [
+      'field_si_item_ref' => $this->node->id(),
+      'destination'  => $this->destination,
+    ], $this->button_class);
+
+    return $items;
+  }
   private function paymentLinks() {
     $items = [];
 

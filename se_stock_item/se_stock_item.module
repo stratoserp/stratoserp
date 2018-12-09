@@ -5,7 +5,6 @@
  * Contains se_stock_item.module.
  */
 
-use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -25,3 +24,6 @@ function se_stock_item_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
+function se_stock_item_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::service('se_stock_item.set_item')->setItem($form, $form_state);
+}
