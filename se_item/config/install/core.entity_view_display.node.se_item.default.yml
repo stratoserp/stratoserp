@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.comment.default
     - field.field.node.se_item.body
     - field.field.node.se_item.field_bu_ref
     - field.field.node.se_item.field_it_code
@@ -12,8 +13,10 @@ dependencies:
     - field.field.node.se_item.field_it_product_type_ref
     - field.field.node.se_item.field_it_sale_category_ref
     - field.field.node.se_item.field_it_track_product
+    - field.field.node.se_item.field_se_comments
     - node.type.se_item
   module:
+    - comment
     - field_group
     - field_layout
     - image
@@ -143,6 +146,15 @@ content:
     third_party_settings: {  }
     type: boolean
     region: first
+  field_se_comments:
+    weight: 22
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: first
   links:
     weight: 0
     region: first
@@ -153,4 +165,7 @@ content:
     region: bottom
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

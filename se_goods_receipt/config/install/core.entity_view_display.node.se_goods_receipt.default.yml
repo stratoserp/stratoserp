@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.comment.default
     - field.field.node.se_goods_receipt.body
     - field.field.node.se_goods_receipt.field_bu_ref
     - field.field.node.se_goods_receipt.field_co_ref
@@ -9,8 +10,10 @@ dependencies:
     - field.field.node.se_goods_receipt.field_gr_items
     - field.field.node.se_goods_receipt.field_gr_status_ref
     - field.field.node.se_goods_receipt.field_gr_total
+    - field.field.node.se_goods_receipt.field_se_comments
     - node.type.se_goods_receipt
   module:
+    - comment
     - field_layout
     - layout_discovery
     - reference_table_formatter
@@ -86,9 +89,21 @@ content:
       scale: 2
       prefix_suffix: true
     third_party_settings: {  }
+  field_se_comments:
+    weight: 8
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: first
   links:
     weight: 0
     region: first
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

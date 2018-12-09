@@ -7,8 +7,10 @@ dependencies:
     - field.field.node.se_document.field_bu_ref
     - field.field.node.se_document.field_do_images
     - field.field.node.se_document.field_do_videos
+    - field.field.node.se_document.field_se_comments
     - node.type.se_document
   module:
+    - comment
     - field_layout
     - file
     - image
@@ -62,9 +64,21 @@ content:
     third_party_settings: {  }
     type: file_default
     region: content
+  field_se_comments:
+    weight: 5
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: content
   links:
     weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

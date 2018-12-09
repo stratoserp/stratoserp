@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.comment.default
     - field.field.node.se_customer.field_cu_address
     - field.field.node.se_customer.field_cu_email
     - field.field.node.se_customer.field_cu_email_format
@@ -19,11 +20,14 @@ dependencies:
     - field.field.node.se_customer.field_cu_state
     - field.field.node.se_customer.field_cu_status
     - field.field.node.se_customer.field_cu_suburb
+    - field.field.node.se_customer.field_se_comments
     - node.type.se_customer
   module:
+    - comment
     - field_group
     - field_layout
     - geolocation
+    - layout_discovery
     - link
     - options
     - serial
@@ -184,50 +188,6 @@ third_party_settings:
   field_layout:
     id: layout_onecol
     settings: {  }
-  ds:
-    layout:
-      id: layout_onecol
-      library: layout_discovery/onecol
-      disable_css: false
-      entity_classes: all_classes
-      settings: {  }
-    regions:
-      content:
-        - group_cu_tabs
-        - links
-        - field_cu_id
-        - field_cu_phone
-        - field_cu_mobile
-        - field_cu_homepage
-        - field_cu_status
-        - field_cu_location
-        - se_document_eva_entity_view_1
-        - group_cu_tab_details
-        - se_contact_eva_entity_view_1
-        - se_invoice_eva_entity_view_1
-        - se_ticket_eva_entity_view_1
-        - group_cu_tab_location
-        - group_cu_tab_contacts
-        - se_payment_eva_entity_view_1
-        - group_cu_tab_tickets
-        - se_purchase_order_eva_entity_view_1
-        - group_cu_tab_documents
-        - se_quote_eva_entity_view_1
-        - group_cu_tab_invoices
-        - field_cu_address
-        - group_cu_tab_payments
-        - group_cu_tab_purchase_orders
-        - field_cu_suburb
-        - group_cu_tab_quotes
-        - field_cu_state
-        - field_cu_postcode
-        - field_cu_postal_address
-        - field_cu_postal_suburb
-        - field_cu_postal_state
-        - field_cu_postal_postcode
-        - field_cu_email
-        - field_cu_fax
-        - field_cu_email_format
 id: node.se_customer.default
 targetEntityType: node
 bundle: se_customer
@@ -394,6 +354,15 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_se_comments:
+    weight: 30
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: content
   links:
     weight: 1
     region: content
@@ -459,4 +428,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

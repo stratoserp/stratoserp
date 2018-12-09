@@ -47,22 +47,19 @@ class ErpOtherComment extends MigrateComment {
       return FALSE;
     }
 
-    $result = $this->otherComment($row, $type);
-
-    if (!$result) {
-      $this->logError($row,
-        t('ErpOtherComment: @nid - @cid - @type - @subject has no associated node, ignored', [
-          '@nid' => $row->getSourceProperty('nid'),
-          '@cid' => $row->getSourceProperty('cid'),
-          '@subject' => $row->getSourceProperty('subject'),
-          '@type' => $row->getSourceProperty('type')
-        ]), MigrationInterface::MESSAGE_NOTICE);
-      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
-      return FALSE;
-    }
-    else {
+    if ($this->otherComment($row, $type)) {
       return TRUE;
     }
+
+    $this->logError($row,
+      t('ErpOtherComment: @nid - @cid - @type - @subject has no associated node, ignored', [
+        '@nid' => $row->getSourceProperty('nid'),
+        '@cid' => $row->getSourceProperty('cid'),
+        '@subject' => $row->getSourceProperty('subject'),
+        '@type' => $row->getSourceProperty('type')
+      ]), MigrationInterface::MESSAGE_NOTICE);
+    $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+    return FALSE;
   }
 
   /**
@@ -74,9 +71,7 @@ class ErpOtherComment extends MigrateComment {
    * @throws \Exception
    */
   private function otherComment(Row $row, $type) {
-    $nid = $row->getSourceProperty('nid');
-    if (!empty($nid)) {
-      // @TODO Move this to be usable by all.
+    if ($nid = $row->getSourceProperty('nid')) {
       $migration = NULL;
       switch ($type) {
         case 'book':
@@ -103,16 +98,17 @@ class ErpOtherComment extends MigrateComment {
         case 'erp_quote':
           $migration = 'upgrade_d6_node_erp_quote';
           break;
+        default:
+          return FALSE;
+          break;
       }
-      if (isset($migration)) {
-        $new_id = $this->findNewId($nid, 'nid', $migration);
-        if ($new_id) {
-          $row->setSourceProperty('nid', $new_id);
-          return TRUE;
-        }
+
+      if ($new_id = $this->findNewId($nid, 'nid', $migration)) {
+        $row->setSourceProperty('nid', $new_id);
+        return TRUE;
       }
     }
+
     return FALSE;
   }
-
 }

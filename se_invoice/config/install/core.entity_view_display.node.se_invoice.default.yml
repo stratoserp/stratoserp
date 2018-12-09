@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.comment.default
     - field.field.node.se_invoice.body
     - field.field.node.se_invoice.field_bu_ref
     - field.field.node.se_invoice.field_co_ref
@@ -12,8 +13,10 @@ dependencies:
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_status_ref
     - field.field.node.se_invoice.field_in_total
+    - field.field.node.se_invoice.field_se_comments
     - node.type.se_invoice
   module:
+    - comment
     - field_layout
     - layout_discovery
     - reference_table_formatter
@@ -115,9 +118,21 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: bottom
+  field_se_comments:
+    weight: 11
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: first
   links:
     weight: 0
     region: first
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

@@ -10,8 +10,10 @@ dependencies:
     - field.field.node.se_purchase_order.field_po_quote_ref
     - field.field.node.se_purchase_order.field_po_status_ref
     - field.field.node.se_purchase_order.field_po_total
+    - field.field.node.se_purchase_order.field_se_comments
     - node.type.se_purchase_order
   module:
+    - comment
     - field_layout
     - layout_discovery
     - paragraphs
@@ -96,6 +98,12 @@ content:
     third_party_settings: {  }
     type: number
     region: bottom
+  field_se_comments:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: comment_default
+    region: first
   title:
     type: string_textfield
     weight: 0

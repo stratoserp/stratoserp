@@ -9,8 +9,10 @@ dependencies:
     - field.field.node.se_goods_receipt.field_gr_items
     - field.field.node.se_goods_receipt.field_gr_status_ref
     - field.field.node.se_goods_receipt.field_gr_total
+    - field.field.node.se_goods_receipt.field_se_comments
     - node.type.se_goods_receipt
   module:
+    - comment
     - field_layout
     - layout_discovery
     - paragraphs
@@ -86,6 +88,12 @@ content:
     settings:
       placeholder: ''
     third_party_settings: {  }
+  field_se_comments:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: comment_default
+    region: first
   title:
     type: string_textfield
     weight: 0

@@ -7,9 +7,11 @@ dependencies:
     - field.field.node.se_document.field_bu_ref
     - field.field.node.se_document.field_do_images
     - field.field.node.se_document.field_do_videos
+    - field.field.node.se_document.field_se_comments
     - image.style.thumbnail
     - node.type.se_document
   module:
+    - comment
     - field_layout
     - file
     - image
@@ -57,6 +59,12 @@ content:
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
+  field_se_comments:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: comment_default
+    region: content
   title:
     type: string_textfield
     weight: 0

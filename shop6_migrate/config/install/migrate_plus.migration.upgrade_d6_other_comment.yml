@@ -15,7 +15,7 @@ source:
   plugin: d6_other_comment
   constants:
     entity_type: node
-    destination_field: comment
+    destination_field: field_se_comments
     destination_type: comment
 process:
   pid:
