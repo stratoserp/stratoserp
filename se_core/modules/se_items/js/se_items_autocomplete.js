@@ -3,7 +3,7 @@
 * See the following change record for more information,
 * https://www.drupal.org/node/2815083
 * @preserve
-**/
+**/'use strict';
 
 (function ($, Drupal) {
   var autocomplete = void 0;
@@ -100,21 +100,32 @@
 
     terms.push(ui.item.value);
 
+    var type = getType(event.target.getAttribute('data-drupal-selector'));
     var code = getCode(ui.item.value);
     var price = getPrice(ui.item.value);
-    var serial = getSerial(ui.item.value);
-    var output = code + ' ' + serial;
+
+    var entity_id = getId(ui.item.value);
+    var output = code + ' (' + entity_id + ')';
 
     var index = event.target.name.substring(event.target.name.indexOf("[") + 1, event.target.name.indexOf("]"));
-    $('#edit-field-in-items-' + index + '-subform-field-it-price-0-value').val(price);
+
+    $('input[data-drupal-selector=edit-field-' + type + '-items-' + index + '-subform-field-it-price-0-value]').val(price);
 
     event.target.value = output.toString();
 
     return false;
   }
 
+  function getType(type) {
+    return type.replace(/edit-field-/, "").substring(0, 2);
+  }
+
+  function getId(itemDesc) {
+    return itemDesc.substring(itemDesc.indexOf("(") + 1, itemDesc.indexOf(")"));
+  }
+
   function getCode(itemDesc) {
-    return itemDesc.substring(0, itemDesc.indexOf(" "));
+    return itemDesc.substring(0, itemDesc.indexOf(" ")).replace('"', '');
   }
 
   function getPrice(itemDesc) {
@@ -130,7 +141,7 @@
   }
 
   Drupal.behaviors.autocomplete = {
-    attach: function attach(context) {
+    attach(context) {
       var $autocomplete = $(context).find('input.form-autocomplete').once('autocomplete');
       if ($autocomplete.length) {
         var blacklist = $autocomplete.attr('data-autocomplete-first-character-blacklist');
@@ -150,7 +161,7 @@
         });
       }
     },
-    detach: function detach(context, settings, trigger) {
+    detach(context, settings, trigger) {
       if (trigger === 'unload') {
         $(context).find('input.form-autocomplete').removeOnce('autocomplete').autocomplete('destroy');
       }
@@ -161,14 +172,14 @@
     cache: {},
 
     splitValues: autocompleteSplitValues,
-    extractLastTerm: extractLastTerm,
+    extractLastTerm,
 
     options: {
       source: sourceData,
       focus: focusHandler,
       search: searchHandler,
       select: selectHandler,
-      renderItem: renderItem,
+      renderItem,
       minLength: 1,
 
       firstCharacterBlacklist: '',

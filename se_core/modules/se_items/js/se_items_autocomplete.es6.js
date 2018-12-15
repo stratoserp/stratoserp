@@ -174,32 +174,50 @@
    */
   function selectHandler(event, ui) {
     const terms = autocomplete.splitValues(event.target.value);
+
     // Remove the current input.
     terms.pop();
+
     // Add the selected item.
     terms.push(ui.item.value);
 
+    let type = getType(event.target.getAttribute('data-drupal-selector'));
     let code = getCode(ui.item.value);
     let price = getPrice(ui.item.value);
-    let serial = getSerial(ui.item.value);
-    let output = code + ' ' + serial;
+    //let serial = getSerial(ui.item.value);
+    let entity_id = getId(ui.item.value);
+    let output = code + ' (' + entity_id + ')';
 
     let index = event.target.name.substring(
       event.target.name.indexOf("[") + 1, event.target.name.indexOf("]"));
-    $('#edit-field-in-items-' + index + '-subform-field-it-price-0-value').val(price);
+    //$('input[data-drupal-selector]=edit-field-' + type + '-items-' + index + '-subform-field-it-serial-0-value').val(serial);
+    $('input[data-drupal-selector=edit-field-' + type + '-items-' + index + '-subform-field-it-price-0-value]').val(price);
 
     event.target.value = output.toString();
 
-    //event.target.value = terms.join(', ');
     // Return false to tell jQuery UI that we've filled in the value already.
     return false;
+  }
+
+  /**
+   * Extract the type of node from the target field
+   */
+  function getType(type) {
+    return type.replace(/edit-field-/, "").substring(0, 2);
+  }
+
+  /**
+   * Extract the entity id
+   */
+  function getId(itemDesc) {
+    return itemDesc.substring(itemDesc.indexOf("(") + 1, itemDesc.indexOf(")"));
   }
 
   /**
    * Extract the code
    */
   function getCode(itemDesc) {
-    return itemDesc.substring(0, itemDesc.indexOf(" "));
+    return itemDesc.substring(0, itemDesc.indexOf(" ")).replace('"', '');
   }
 
   /**

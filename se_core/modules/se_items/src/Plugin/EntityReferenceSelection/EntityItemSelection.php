@@ -2,289 +2,298 @@
 
 namespace Drupal\se_items\Plugin\EntityReferenceSelection;
 
-use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginBase;
-use Drupal\Core\Entity\EntityReferenceSelection\SelectionTrait;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Url;
-use Drupal\views\Views;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
+use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Session\AccountInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
-* Plugin implementation of the 'selection' entity_reference.
-*
-* @EntityReferenceSelection(
-*   id = "se_stock_item",
-*   label = @Translation("Stock item selection"),
-*   group = "se_stock_item",
-*   weight = 1
-* )
-*/
-class EntityItemSelection extends SelectionPluginBase implements ContainerFactoryPluginInterface {
+ * Plugin implementation of the 'selection' entity_reference.
+ *
+ * @EntityReferenceSelection(
+ *   id = "se_stock_item",
+ *   label = @Translation("Stock item selection"),
+ *   group = "se_stock_item",
+ *   weight = 1
+ * )
+ */
+class EntityItemSelection extends DefaultSelection {
 
-  use SelectionTrait;
+  protected $limit = 10;
+  protected $virtual_only = FALSE;
 
-  /**
-   * The loaded View object.
-   *
-   * @var \Drupal\views\ViewExecutable;
-   */
-  protected $view;
+  const FILTER_VIRTUAL = '@';
+
+  protected $filterCharacters = [
+    "virtual" => EntityItemSelection::FILTER_VIRTUAL,
+  ];
 
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
-    return [
-        'view' => [
-          'view_name' => NULL,
-          'display_name' => NULL,
-          'arguments' => [],
-        ],
-      ] + parent::defaultConfiguration();
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager, ModuleHandlerInterface $module_handler, AccountInterface $current_user) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_manager, $module_handler, $current_user);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildConfigurationForm($form, $form_state);
-
-    $view_settings = $this->getConfiguration()['view'];
-    $displays = Views::getApplicableViews('entity_reference_display');
-    // Filter views that list the entity type we want, and group the separate
-    // displays by view.
-    $entity_type = $this->entityManager->getDefinition($this->configuration['target_type']);
-    $view_storage = $this->entityManager->getStorage('view');
-
-    $options = [];
-    foreach ($displays as $data) {
-      list($view_id, $display_id) = $data;
-      $view = $view_storage->load($view_id);
-      if (in_array($view->get('base_table'), [$entity_type->getBaseTable(), $entity_type->getDataTable()])) {
-        $display = $view->get('display');
-        $options[$view_id . ':' . $display_id] = $view_id . ' - ' . $display[$display_id]['display_title'];
-      }
-    }
-
-    // The value of the 'view_and_display' select below will need to be split
-    // into 'view_name' and 'view_display' in the final submitted values, so
-    // we massage the data at validate time on the wrapping element (not
-    // ideal).
-    $form['view']['#element_validate'] = [[get_called_class(), 'settingsFormValidate']];
-
-    if ($options) {
-      $default = !empty($view_settings['view_name']) ? $view_settings['view_name'] . ':' . $view_settings['display_name'] : NULL;
-      $form['view']['view_and_display'] = [
-        '#type' => 'select',
-        '#title' => $this->t('View used to select the entities'),
-        '#required' => TRUE,
-        '#options' => $options,
-        '#default_value' => $default,
-        '#description' => '<p>' . $this->t('Choose the view and display that select the entities that can be referenced.<br />Only views with a display of type "Entity Reference" are eligible.') . '</p>',
-      ];
-
-      $default = !empty($view_settings['arguments']) ? implode(', ', $view_settings['arguments']) : '';
-      $form['view']['arguments'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('View arguments'),
-        '#default_value' => $default,
-        '#required' => FALSE,
-        '#description' => $this->t('Provide a comma separated list of arguments to pass to the view.'),
-      ];
-    }
-    else {
-      if ($this->currentUser->hasPermission('administer views') && $this->moduleHandler->moduleExists('views_ui')) {
-        $form['view']['no_view_help'] = [
-          '#markup' => '<p>' . $this->t('No eligible views were found. <a href=":create">Create a view</a> with an <em>Entity Reference</em> display, or add such a display to an <a href=":existing">existing view</a>.', [
-              ':create' => Url::fromRoute('views_ui.add')->toString(),
-              ':existing' => Url::fromRoute('entity.view.collection')->toString(),
-            ]) . '</p>',
-        ];
-      }
-      else {
-        $form['view']['no_view_help']['#markup'] = '<p>' . $this->t('No eligible views were found.') . '</p>';
-      }
-    }
-    return $form;
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('entity.manager'),
+      $container->get('module_handler'),
+      $container->get('current_user')
+    );
   }
 
   /**
-   * Initializes a view.
+   * Get the number of results to return.
    *
-   * @param string|null $match
-   *   (Optional) Text to match the label against. Defaults to NULL.
-   * @param string $match_operator
-   *   (Optional) The operation the matching should be done with. Defaults
-   *   to "CONTAINS".
+   * @return int
+   *   The number of results to return.
+   */
+  public function getLimit() {
+    return $this->limit;
+  }
+
+  /**
+   * Set the number of results to return.
+   *
    * @param int $limit
-   *   Limit the query to a given number of items. Defaults to 0, which
-   *   indicates no limiting.
-   * @param array|null $ids
-   *   Array of entity IDs. Defaults to NULL.
-   *
-   * @return bool
-   *   Return TRUE if the view was initialized, FALSE otherwise.
+   *   The number of results to return.
    */
-  protected function initializeView($match = NULL, $match_operator = 'CONTAINS', $limit = 0, $ids = NULL) {
-    $view_name = $this->getConfiguration()['view']['view_name'];
-    $display_name = $this->getConfiguration()['view']['display_name'];
-
-    // Check that the view is valid and the display still exists.
-    $this->view = Views::getView($view_name);
-    if (!$this->view || !$this->view->access($display_name)) {
-      \Drupal::messenger()->addWarning(t('The reference view %view_name cannot be found.', ['%view_name' => $view_name]));
-      return FALSE;
-    }
-    $this->view->setDisplay($display_name);
-
-    // Pass options to the display handler to make them available later.
-    $entity_reference_options = [
-      'match' => $match,
-      'match_operator' => $match_operator,
-      'limit' => $limit,
-      'ids' => $ids,
-    ];
-    $this->view->displayHandlers->get($display_name)->setOption('entity_reference_options', $entity_reference_options);
-    return TRUE;
+  public function setLimit($limit) {
+    $this->limit = $limit;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getReferenceableEntities($match = NULL, $match_operator = 'CONTAINS', $limit = 0) {
-    // By default, show all items
-    $virtual = FALSE;
+    $target_type = $this->getConfiguration()['target_type'];
 
-    $display_name = $this->getConfiguration()['view']['display_name'];
-    $arguments = $this->getConfiguration()['view']['arguments'];
-    $result = [];
+    $filters = [];
 
-    // @ at the start means show virtual items as well.
-    if (stripos($match, '@') === 0) {
-      $match = ltrim($match, '@');
-      $virtual = TRUE;
-    }
-    if ($this->initializeView($match, $match_operator, $limit)) {
-      // Adjust the filters before the results are retrieved.
-      $filters = $this->view->display_handler->getOption('filters');
+    $this->setLimit($limit);
 
-      // The default for the view is to_not show virtual,
-      // so removing that will show all items.
-      if ($virtual) {
-        $filters['field_si_virtual_value']['value'] = 1;
-      }
-      $this->view->display_handler->overrideOption('filters', $filters);
-      $result = $this->view->executeDisplay($display_name, $arguments);
+    if ($match != NULL) {
+      $filters = $this->extractFilters($match);
+      $match = $this->removeFiltersFromMatch($filters, $this->filterCharacters, $match);
     }
 
-    $return = [];
-    if ($result) {
-      foreach ($this->view->result as $row) {
-        $entity = $row->_entity;
+    $query = $this->buildEntityQuery($match, $match_operator, $filters);
+    $limit = $this->getLimit();
+    if ($limit > 0) {
+      $query->range(0, $limit);
+    }
 
-        // This will be the item node.
-        $relationship_entity = reset($row->_relationship_entities);
-        $code = $relationship_entity->field_it_code->value;
-        $price = $relationship_entity->field_it_price->value;
+    $query_string = $query->__toString();
+    \Drupal::logger('se_stock_item')->info($query_string);
 
-        // Construct the serial number, if this is not a virtual/service item.
-        $serial = '';
-        if (!$entity->field_si_virtual->value) {
-          $serial = '#' . $entity->field_si_serial->value . '#';
+    $result = $query->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $options = [];
+    $entities = $this->entityManager->getStorage($target_type)->loadMultiple($result);
+    foreach ($entities as $entity_id => $entity) {
+      $bundle = $entity->bundle();
+
+      $references = $entity->referencedEntities();
+      foreach ($references as $entity_ref) {
+        if ($entity_ref->bundle() == 'se_item') {
+          $stock_item = $entity_ref;
         }
-
-        // Format - Code #Serial# Desc - Price
-        // TODO Currency format for price?
-        $return[$entity->bundle()][$entity->id()] = $code . ' ' . $serial . ' ' . $entity->label() . ' - ' . $price;
       }
+
+      $code = $stock_item->field_it_code->value;
+      $price = $stock_item->field_it_price->value;
+
+      // Construct the serial number, if this is not a virtual/service item.
+      $serial = '';
+      if (!$entity->field_si_virtual->value) {
+        $serial = '#' . $entity->field_si_serial->value . '#';
+      }
+      $label = substr($entity->label(), 0, 80);
+
+      // Format - Code #Serial# Desc - Price
+      // TODO Currency format for price?
+      $options[$bundle][$entity_id] = $code . ' ' . $serial . ' ' . $label . ' - ' . $price;
     }
-    return $return;
+
+    return $options;
   }
 
   /**
-   * {@inheritdoc}
+   * Builds an EntityQuery to get referenceable entities.
+   *
+   * @param string|null $match
+   *   Text to match the label against. Defaults to NULL.
+   * @param string $match_operator
+   *   The operation the matching should be done with. Defaults
+   *   to "CONTAINS".
+   * @param array $filters
+   *   Array of filters to apply to the query.
+   *
+   * @return \Drupal\Core\Entity\Query\QueryInterface
+   *   The EntityQuery object with the basic conditions and sorting applied to
+   *   it.
    */
-  public function countReferenceableEntities($match = NULL, $match_operator = 'CONTAINS') {
-    $this->getReferenceableEntities($match, $match_operator);
-    return $this->view->pager->getTotalItems();
+  protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS', array $filters = []) {
+    // Call parent to build the base query. Do not provide the $match
+    // parameter, because we want to implement our own logic and we can't
+    // unset conditions.
+    /** @var \Drupal\Core\Entity\Query\Sql\Query  $query */
+    $query = parent::buildEntityQuery(NULL, $match_operator);
+
+    // Include virtual items, or not.
+    $query->condition('field_si_virtual', $this->virtual_only);
+
+    $configuration = $this->getConfiguration();
+    $target_type = $configuration['target_type'];
+    $entity_type = $this->entityManager->getDefinition($target_type);
+
+    if (isset($match) && $label_key = $entity_type->getKey('label')) {
+      $matches = explode(' ', $match);
+      foreach ($matches as $partial) {
+        $query->condition($label_key, $partial, $match_operator);
+      }
+
+      // Apply the filters supplied by the user.
+      $query = $this->applyFilters($query, $filters, $label_key);
+    }
+
+    return $query;
+  }
+
+  /**
+   * Extracts filters from the query.
+   *
+   * @param string|null $match
+   *   (Optional) Text to match the label against. Defaults to NULL.
+   *
+   * @return array
+   *   An array of filters to apply to the search.
+   */
+  protected function extractFilters($match = NULL) {
+    $filters = [];
+    $matches = explode(' ', $match);
+
+    foreach ($matches as $partial) {
+      $first_char = substr($partial, 0, 1);
+      switch ($first_char) {
+        case EntityItemSelection::FILTER_VIRTUAL:
+          $filters['virtual'][0] = substr($partial, 1);
+          $this->virtual_only = TRUE;
+          break;
+      }
+    }
+
+    return $filters;
+  }
+
+  /**
+   * Extract and set the limit for our selection.
+   *
+   * @param string|null $match
+   *   Text to match the label against, that might contain a limit filter.
+   *
+   * @return null|string
+   *   The text to match the label against with all limit filters removed.
+   */
+  protected function extractLimit($match = NULL) {
+    if ($match != NULL) {
+      $matches = explode(" ", $match);
+
+      foreach ($matches as $search_part) {
+        // Find the parameter that tells us what our limit should be.
+        if (strpos($search_part, '#') === 0) {
+          $input_limit = str_replace('#', '', $search_part);
+
+          if (is_numeric($input_limit) && $input_limit > 0) {
+            $this->setLimit($input_limit);
+          }
+          // Remove the limit string from the original search query.
+          $match = str_replace($search_part, '', $match);
+          $match = trim($match);
+        }
+      }
+    }
+    return $match;
+  }
+
+  /**
+   * Remove filters from the query.
+   *
+   * @param array $filters
+   *   The filters found in the query, that sould be removed.
+   * @param array $filter_characters
+   *   The filter character mapping.
+   * @param string|null $match
+   *   The query that we want to find matches for.
+   *
+   * @return string|null
+   *   The cleaned query string, all filters removed.
+   */
+  protected function removeFiltersFromMatch(array $filters, array $filter_characters, $match = NULL) {
+    if ($match != NULL) {
+      foreach ($filters as $filter_type => $type_filters) {
+        foreach ($type_filters as $type_filter) {
+          $replace = $filter_characters[$filter_type] . $type_filter;
+          $match = str_replace($replace, '', $match);
+        }
+      }
+      return trim($match);
+    }
+    return $match;
+  }
+
+  /**
+   * Apply the filters the user entered to the selection query.
+   *
+   * @param \Drupal\Core\Entity\Query\QueryInterface $query
+   *   The query object to add the filters to.
+   * @param array $filters
+   *   The array of filters to apply.
+   * @param string $label_key
+   *   The field we apply the filters on.
+   *
+   * @return \Drupal\Core\Entity\Query\QueryInterface
+   *   The altered query object, filters applied.
+   */
+  protected function applyFilters(QueryInterface $query, array $filters, $label_key) {
+    if (isset($filters['virtual'])) {
+      foreach ($filters['virtual'] as $filter) {
+        $query->condition($label_key, $filter, 'STARTS_WITH');
+      }
+    }
+
+    return $query;
   }
 
   /**
    * {@inheritdoc}
    */
   public function validateReferenceableEntities(array $ids) {
-    // Most of this code is from Drupal\Core\Entity\Plugin\EntityReferenceSelection
     $result = [];
-    $validate_stock = TRUE;
-
     if ($ids) {
-      $node = \Drupal::routeMatch()->getParameter('node');
-      if ($node->getType() == 'se_invoice') {
-        $validate_stock = TRUE;
-      }
-
-      $configuration = $this->getConfiguration();
-      $target_type = $configuration['target_type'];
+      $target_type = $this->configuration['target_type'];
       $entity_type = $this->entityManager->getDefinition($target_type);
-      $query = $this->entityManager->getStorage($target_type)->getQuery();
-      // Add entity-access tag.
-      $query->addTag($target_type . '_access');
-
-      // Add the Selection handler for system_query_entity_reference_alter().
-      $query->addTag('entity_reference');
-      $query->addMetaData('entity_reference_selection_handler', $this);
-
+      $query = parent::buildEntityQuery();
       $result = $query
         ->condition($entity_type->getKey('id'), $ids, 'IN')
         ->execute();
-
-      $entities = $this->entityManager->getStorage($target_type)->loadMultiple($result);
-      foreach ($entities as $item) {
-        // Virtual items can be sold multiple times.
-        if ($item->field_si_virtual->value) {
-          continue;
-        }
-
-        // If the item is sold, its invalid.
-        if ($validate_stock && !$item->field_si_sale_date->value !== 0) {
-          // Unless its in the current node!
-          if ($node->id() != $item->field_si_invoice_ref->target_id) {
-            unset($result[$item->id()]);
-          }
-        }
-      }
     }
 
     return $result;
-  }
-
-  /**
-   * Element validate; Check View is valid.
-   */
-  public static function settingsFormValidate($element, FormStateInterface $form_state, $form) {
-    // Split view name and display name from the 'view_and_display' value.
-    if (!empty($element['view_and_display']['#value'])) {
-      list($view, $display) = explode(':', $element['view_and_display']['#value']);
-    }
-    else {
-      $form_state->setError($element, t('The views entity selection mode requires a view.'));
-      return;
-    }
-
-    // Explode the 'arguments' string into an actual array. Beware, explode()
-    // turns an empty string into an array with one empty string. We'll need an
-    // empty array instead.
-    $arguments_string = trim($element['arguments']['#value']);
-    if ($arguments_string === '') {
-      $arguments = [];
-    }
-    else {
-      // array_map() is called to trim whitespaces from the arguments.
-      $arguments = array_map('trim', explode(',', $arguments_string));
-    }
-
-    $value = ['view_name' => $view, 'display_name' => $display, 'arguments' => $arguments];
-    $form_state->setValueForElement($element, $value);
   }
 
 }
