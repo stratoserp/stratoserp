@@ -67,7 +67,6 @@ class ErpStockItem extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $node = new Node();
     if (parent::prepareRow($row) === FALSE) {
       return FALSE;
     }
@@ -76,8 +75,8 @@ class ErpStockItem extends SqlBase {
 
     if ($item_ref = $this->findNewId($stock_nid, 'nid', 'upgrade_d6_node_erp_item')) {
       $row->setSourceProperty('item_ref', $item_ref);
-      if ($node->load($item_ref)) {
-        $row->setSourceProperty('name', $node->title->value);
+      if ($item = Node::load($item_ref)) {
+        $row->setSourceProperty('name', $item->title->value);
       }
       return TRUE;
     }

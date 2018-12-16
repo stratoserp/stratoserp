@@ -12,6 +12,4 @@ class EntityReferenceSelectionTest extends UnitTestCase {
     \Drupal::setContainer($container);
   }
 
-
-
 }

@@ -9,9 +9,8 @@ dependencies:
     - user.role.developer
     - user.role.staff
   module:
-    - datetime
     - node
-    - se_stock_item
+    - se_item
     - user
 id: se_item_list
 label: 'Item list'
@@ -254,75 +253,6 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_si_item_ref:
-          id: field_si_item_ref
-          table: se_stock_item__field_si_item_ref
-          field: field_si_item_ref
-          relationship: reverse__se_stock_item__field_si_item_ref
-          group_type: count
-          admin_label: ''
-          label: 'Stock amount'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          set_precision: false
-          precision: 0
-          decimal: .
-          separator: ', '
-          format_plural: 0
-          format_plural_string: !!binary MQNAY291bnQ=
-          prefix: ''
-          suffix: ''
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings: {  }
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          field_api_classes: false
-          plugin_id: field
         field_it_price:
           id: field_it_price
           table: node__field_it_price
@@ -389,6 +319,56 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
+        se_item_stock_count:
+          id: se_item_stock_count
+          table: node
+          field: se_item_stock_count
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Stock count'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          entity_type: node
+          plugin_id: se_item_stock_count
       filters:
         status:
           value: '1'
@@ -495,85 +475,6 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: string
-        field_si_sale_date_value:
-          id: field_si_sale_date_value
-          table: se_stock_item__field_si_sale_date
-          field: field_si_sale_date_value
-          relationship: reverse__se_stock_item__field_si_item_ref
-          group_type: group
-          admin_label: ''
-          operator: '>'
-          value:
-            min: ''
-            max: ''
-            value: '1970-01-01 00:00:00'
-            type: offset
-          group: 2
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: datetime
-        field_si_virtual_value:
-          id: field_si_virtual_value
-          table: se_stock_item__field_si_virtual
-          field: field_si_virtual_value
-          relationship: reverse__se_stock_item__field_si_item_ref
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: '1'
-          group: 2
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: boolean
       sorts:
         created:
           id: created
@@ -594,21 +495,11 @@ display:
       header: {  }
       footer: {  }
       empty: {  }
-      relationships:
-        reverse__se_stock_item__field_si_item_ref:
-          id: reverse__se_stock_item__field_si_item_ref
-          table: node_field_data
-          field: reverse__se_stock_item__field_si_item_ref
-          relationship: none
-          group_type: group
-          admin_label: field_si_item_ref
-          required: false
-          entity_type: node
-          plugin_id: entity_reverse
+      relationships: {  }
       arguments: {  }
       display_extenders: {  }
       use_ajax: true
-      group_by: true
+      group_by: false
       filter_groups:
         operator: AND
         groups:

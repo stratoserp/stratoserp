@@ -51,7 +51,7 @@ trait Shop6MigrateUtilities {
     }
 
     if (!$manager) {
-      $manager = \Drupal::service('manager.plugin.migration');
+      $manager = \Drupal::service('plugin.manager.migration');
     }
 
     /** @var \Drupal\migrate\Plugin\MigrateIdMapInterface $new_id_map */

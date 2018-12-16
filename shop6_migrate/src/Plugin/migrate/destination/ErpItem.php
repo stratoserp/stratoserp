@@ -40,29 +40,11 @@ class ErpItem extends EntityContentBase {
     return parent::fields();
   }
 
-  // Every item has a 'virtual item' to go with it, some
-  // have stock which is done later.
   public function import(Row $row, array $old_destination_id_values = []) {
     $destination_id_values = parent::import($row, $old_destination_id_values);
 
-    $title = $row->getSourceProperty('title');
-
-    $stock_item = StockItem::create([
-      'type' => 'se_stock_item',
-      'user_id' => '1',
-      'name' => $title,
-      'field_si_serial' => ['value' => ''],
-      'field_si_item_ref' => [['target_id' => reset($destination_id_values)]],
-      'field_si_virtual' => ['value' => 1],
-      'field_si_sale_date' => ['value' => 0],
-    ]);
-    $stock_item->save();
-    $this->logError($row,
-      t('stockItemCreateVirtual: @nid - added virtual - @stock_id', [
-        '@nid' => $item_nid,
-        '@stock_id' => $stock_item->id(),
-      ]), MigrationInterface::MESSAGE_INFORMATIONAL);
-
+    // Virtual stock item will be automatically created by
+    // se_item module on insert event. Stock is done in another migrate.
     return $destination_id_values;
   }
 

@@ -272,7 +272,7 @@ class EntityItemSelection extends DefaultSelection {
   protected function applyFilters(QueryInterface $query, array $filters, $label_key) {
     if (isset($filters['virtual'])) {
       foreach ($filters['virtual'] as $filter) {
-        $query->condition($label_key, $filter, 'STARTS_WITH');
+        $query->condition($label_key, $filter, 'CONTAINS');
       }
     }
 

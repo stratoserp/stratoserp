@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\se_items\EventSubscriber;
+namespace Drupal\se_payments\EventSubscriber;
 
 use Drupal\se_core\Event\SeCoreEvent;
 use Drupal\se_core\Event\SeCoreEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 
-class SeItemsPresave implements EventSubscriberInterface {
+class SePaymentsPresave implements EventSubscriberInterface {
   /**
    * Drupal\Core\Entity\EntityTypeManager definition.
    *
@@ -16,7 +16,7 @@ class SeItemsPresave implements EventSubscriberInterface {
   protected $entityTypeManager;
 
   /**
-   * SeItemsPresave constructor.
+   * SePaymentsPresave constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    */
@@ -44,11 +44,7 @@ class SeItemsPresave implements EventSubscriberInterface {
     $total = 0;
 
     $bundles = [
-      'se_bill'           => 'bi',
-      'se_goods_receipt'  => 'gr',
-      'se_invoice'        => 'in',
-      'se_quote'          => 'qu',
-      'se_purchase_order' => 'po',
+      'se_payment'        => 'pa',
     ];
 
     if (!in_array($node->bundle(), array_keys($bundles))) {
@@ -59,7 +55,7 @@ class SeItemsPresave implements EventSubscriberInterface {
     $items = $node->{'field_' . $bundles[$node->bundle()] . '_items'}->referencedEntities();
 
     foreach ($items as $ref_entity) {
-      $total += $ref_entity->field_it_quantity->value * $ref_entity->field_it_price->value;
+      $total += $ref_entity->field_pa_amount->value;
     }
 
     /** @var \Drupal\node\Entity\Node $entity */

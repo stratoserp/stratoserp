@@ -1,0 +1,6 @@
+services:
+  se_purchase_order.se_purchase_order_saved:
+    class: Drupal\se_purchase_order\EventSubscriber\SePurchaseOrderInsert
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
