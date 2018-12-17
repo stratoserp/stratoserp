@@ -29,7 +29,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 6
+    weight: 7
     settings:
       rows: 9
       summary_rows: 3
@@ -46,7 +46,7 @@ content:
     type: entity_reference_autocomplete
     region: first
   field_co_ref:
-    weight: 2
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 25
@@ -55,14 +55,14 @@ content:
     type: entity_reference_autocomplete
     region: first
   field_gr_id:
-    weight: 1
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
     region: first
   field_gr_items:
     type: entity_reference_paragraphs
-    weight: 4
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -74,7 +74,7 @@ content:
     region: bottom
   field_gr_status_ref:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 4
     region: second
     settings:
       match_operator: CONTAINS
@@ -83,17 +83,17 @@ content:
     third_party_settings: {  }
   field_gr_total:
     type: number
-    weight: 5
+    weight: 6
     region: bottom
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_se_comments:
-    weight: 26
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: comment_default
-    region: first
+    region: bottom
   title:
     type: string_textfield
     weight: 0

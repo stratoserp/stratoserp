@@ -116,11 +116,11 @@ content:
     type: number
     region: bottom
   field_se_comments:
-    weight: 26
+    weight: 11
     settings: {  }
     third_party_settings: {  }
     type: comment_default
-    region: first
+    region: bottom
   title:
     type: string_textfield
     weight: 0
