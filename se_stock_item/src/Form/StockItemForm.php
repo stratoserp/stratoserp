@@ -30,7 +30,7 @@ class StockItemForm extends ContentEntityForm {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
-    if (empty($values['field_si_serial'][0]['value']) && empty($values['field_si_virtual'][0]['value'])) {
+    if (empty($values['field_si_serial'][0]['value']) && empty($values['field_si_virtual']['value'])) {
       $form_state->setErrorByName('field_si_serial',
         $this->t('Non virtual stock items require a serial number.'));
     }
