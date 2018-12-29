@@ -3,14 +3,14 @@
 namespace Drupal\se_customer\Tests;
 
 use Drupal\entity_reference_revisions\Tests\EntityReferenceRevisionsCoreVersionUiTestTrait;
-use Drupal\field_ui\Tests\FieldUiTestTrait;
+use Drupal\Tests\field_ui\Traits\FieldUiTestTrait;
 use Drupal\node\Entity\Node;
 use Drupal\simpletest\WebTestBase;
 
 /**
  * Tests site configuration.
  *
- * @group se_customer
+ * @group shop8
  */
 class CustomerWebTest extends WebTestBase {
 
