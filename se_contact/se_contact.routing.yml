@@ -22,3 +22,11 @@ se_contact.view:
   requirements:
     node: \d+
     _permission: 'access content'
+
+se_contact.configure:
+  path: '/se/contacts/settings'
+  defaults:
+    _form: '\Drupal\se_contact\Form\SettingsForm'
+    _title: 'StratosERP Contact Settings'
+  requirements:
+    _permission: 'administer site configuration'

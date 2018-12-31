@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
 
 use Drupal\se_core\Event\SeCoreEvent;
@@ -20,19 +21,27 @@ define('SE_CORE_NODE_TYPES', [
 
 /**
  * Implements hook_help().
+ *
+ * @param $route_name
+ * @param RouteMatchInterface $route_match
+ *
+ * @return TranslatableMarkup
  */
 function se_core_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'se_core_main':
       return t('Main console page.');
   }
-
 }
 
 /**
  * Change the node buttons to be what we want.
  *
  * Implements hook_form_alter().
+ *
+ * @param $form
+ * @param FormStateInterface $form_state
+ * @param $form_id
  */
 function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Make a list of forms from the core types.
@@ -90,6 +99,10 @@ function se_core_hide_title_field(array &$form) {
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @param $form
+ * @param FormStateInterface $form_state
+ * @param $form_id
  */
 function se_core_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Alter login form and add own custom submit handler.
@@ -100,7 +113,7 @@ function se_core_form_user_login_form_alter(&$form, FormStateInterface $form_sta
  * Custom submit handler for login form.
  *
  * @param $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param FormStateInterface $form_state
  *
  */
 function _se_core_user_login_form_submit($form, FormStateInterface $form_state) {
@@ -121,46 +134,65 @@ function se_core_theme() {
 
 // Drupal core doesn't actually define events for when content is created
 // or saved, so here we hijack hooks to do the right thing for the future.
+
+/**
+ * Provide standard events for all the se modules.
+ *
+ * @param NodeInterface $node
+ *   Node that is being saved.
+ *
+ * @return object|array
+ */
 function se_core_node_presave(NodeInterface $node) {
   $type = $node->getType();
   if (in_array($type, SE_CORE_NODE_TYPES)) {
     $event = new SeCoreEvent($node);
     \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_PRESAVE, $event);
+    return $event->getNode();
   }
+  return [];
 }
 
 /**
  * Provide standard events for all the se modules.
  *
- * @param \Drupal\node\NodeInterface $node
- *   Node that is being ssaved.
+ * @param NodeInterface $node
+ *   Node that is being saved.
+ *
+ * @return object|array
  */
 function se_core_node_insert(NodeInterface $node) {
   $type = $node->getType();
   if (in_array($type, SE_CORE_NODE_TYPES)) {
     $event = new SeCoreEvent($node);
     \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_CREATED, $event);
+    return $event->getNode();
   }
+  return [];
 }
 
 /**
  * Provide standard events for all the se modules.
  *
- * @param \Drupal\node\NodeInterface $node
- *   Node that is being ssaved.
+ * @param NodeInterface $node
+ *   Node that is being saved.
+ *
+ * @return object|array
  */
 function se_core_node_update(NodeInterface $node) {
   $type = $node->getType();
   if (in_array($type, SE_CORE_NODE_TYPES)) {
     $event = new SeCoreEvent($node);
     \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_UPDATED, $event);
+    return $event->getNode();
   }
+  return [];
 }
 
 /**
  * Provide standard events for all the se modules.
  *
- * @param \Drupal\node\NodeInterface $node
+ * @param NodeInterface $node
  *   Node that is being deleted.
  */
 function se_core_node_delete(NodeInterface $node) {
