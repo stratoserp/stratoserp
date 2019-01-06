@@ -2,10 +2,14 @@
 
 namespace Drupal\se_core\Event;
 
+use Drupal\node\Entity\Node;
 use Symfony\Component\EventDispatcher\Event;
 
 class SeCoreEvent extends Event {
 
+  /**
+   * @var Node $node;
+   */
   protected $node;
 
   /**
@@ -20,6 +24,8 @@ class SeCoreEvent extends Event {
 
   /**
    * Get the class node value.
+   *
+   * @return Node;
    */
   public function getNode() {
     return $this->node;

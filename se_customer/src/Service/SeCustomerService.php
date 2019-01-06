@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\se_contact\Service;
+namespace Drupal\se_customer\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
-class SeContactService {
+class SeCustomerService {
 
   /**
    * The config factory.
@@ -35,28 +35,18 @@ class SeContactService {
   }
 
   /**
-   * Given a customer node, return the main contact for that customer.
+   * Given any node with a customer, return the customer.
    *
    * @param \Drupal\node\Entity\Node $node
    *
    * @return array|bool|int
    */
-  public function loadMainContactByCustomer(Node $node) {
-    $config = $this->configFactory->get('se_contact.settings');
-
-    // If no main contact term is selected, bail.
-    if (!$term_id = $config->get('main_contact_term')) {
-      return FALSE;
+  public function lookupCustomer(Node $node) {
+    foreach ($node->referencedEntities() as $entity) {
+      if ($entity->bundle() == 'se_customer') {
+        return $entity;
+      }
     }
-
-    $term = Term::load($term_id);
-
-    $contacts = \Drupal::entityQuery('node')
-      ->condition('type', 'se_contact')
-      ->condition('field_bu_ref', $node->id())
-      ->condition('field_co_type', $term->id())
-      ->execute();
-
-    return $contacts;
+    return FALSE;
   }
 }
