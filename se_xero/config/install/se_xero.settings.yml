@@ -1,0 +1,8 @@
+system:
+  currency: 'AUD'
+  enabled: false
+invoice:
+  sync_timestamp: 0
+  account: 0
+customer:
+  sync_timestamp: 0

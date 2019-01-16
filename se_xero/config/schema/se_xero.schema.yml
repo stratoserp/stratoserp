@@ -1,0 +1,28 @@
+se_xero.settings:
+  type: mapping
+  label: Stratos ERP Xero settings
+  mapping:
+    system:
+      type: mapping
+      label: System settings
+      mapping:
+        enabled:
+          type: boolean
+          label: 'Enable sync with Xero.'
+    invoice:
+      type: mapping
+      label: Invoice settings
+      mapping:
+        sync_timestamp:
+          type: integer
+          label: 'Last invoice sync time stamp.'
+        account:
+          type: integer
+          label: 'Invoice account number in Xero.'
+    customer:
+      type: mapping
+      label: Customer settings
+      mapping:
+        sync_timestamp:
+          type: integer
+          label: 'Last customer sync time stamp.'

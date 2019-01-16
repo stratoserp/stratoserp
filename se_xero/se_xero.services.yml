@@ -1,0 +1,16 @@
+services:
+  logger.channel.se_xero:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: ['se_xero']
+  se_xero.customer_saved:
+    class: Drupal\se_xero\EventSubscriber\SeCustomerInsert
+    arguments: ['@se_xero.contact_service']
+    tags:
+    - { name: event_subscriber }
+  se_xero.contact_service:
+    class: \Drupal\se_xero\Service\SeXeroContactService
+    arguments: ['@logger.channel.se_xero', '@typed_data_manager', '@xero.query.factory']
+  se_xero.invoice_service:
+    class: \Drupal\se_xero\Service\SeXeroInvoiceService
+    arguments: ['@logger.channel.se_xero', '@typed_data_manager', '@xero.query.factory']

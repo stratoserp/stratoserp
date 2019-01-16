@@ -1,0 +1,5 @@
+services:
+  se_xero.commands:
+    class: \Drupal\se_xero\Commands\SeXeroCommands
+    tags:
+      - { name: drush.command }

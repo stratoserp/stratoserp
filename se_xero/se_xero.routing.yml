@@ -1,0 +1,7 @@
+se_contact.configure:
+  path: '/se/xero/settings'
+  defaults:
+    _form: '\Drupal\se_xero\Form\SettingsForm'
+    _title: 'StratosERP Xero Settings'
+  requirements:
+    _permission: 'administer site configuration'
