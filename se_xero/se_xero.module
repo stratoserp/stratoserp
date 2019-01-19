@@ -4,7 +4,7 @@
  * @file
  * StratosERP Xero sync module.
  *
- * Synchronises various content with Xero
+ * Synchronises various content with Xero.
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -30,9 +30,8 @@ function se_xero_entity_base_field_info(EntityTypeInterface $entity_type) {
         'label' => 'hidden',
         'region' => 'hidden',
       ])
-      //        ->setComputed(TRUE)
       ->setDisplayOptions('form', [
-        'region' => 'hidden'
+        'region' => 'hidden',
       ]);
   }
 

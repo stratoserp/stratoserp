@@ -18,7 +18,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 function se_timekeeping_install() {
   $entity_manager = \Drupal::entityTypeManager();
 
-  foreach (['se_ticket'] as $bundle) {
+  foreach (['se_customer', 'se_ticket'] as $bundle) {
     se_timekeeping_install_attach($entity_manager, $bundle);
   }
 }
