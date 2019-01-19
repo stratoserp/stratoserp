@@ -19,7 +19,6 @@ dependencies:
     - field.field.node.se_customer.field_cu_state
     - field.field.node.se_customer.field_cu_status
     - field.field.node.se_customer.field_cu_suburb
-    - field.field.node.se_customer.field_se_comments
     - node.type.se_customer
   module:
     - comment
@@ -39,7 +38,7 @@ mode: default
 content:
   field_cu_address:
     type: string_textfield
-    weight: 5
+    weight: 4
     region: first
     settings:
       size: 25
@@ -61,7 +60,7 @@ content:
     third_party_settings: {  }
   field_cu_fax:
     type: telephone_default
-    weight: 4
+    weight: 3
     region: first
     settings:
       placeholder: ''
@@ -75,21 +74,21 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
   field_cu_id:
-    weight: 1
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
-    region: first
+    region: second
   field_cu_mobile:
     type: telephone_default
-    weight: 3
+    weight: 2
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_cu_phone:
     type: telephone_default
-    weight: 2
+    weight: 1
     region: first
     settings:
       placeholder: ''
@@ -128,7 +127,7 @@ content:
     third_party_settings: {  }
   field_cu_postcode:
     type: string_textfield
-    weight: 8
+    weight: 7
     region: first
     settings:
       size: 10
@@ -136,7 +135,7 @@ content:
     third_party_settings: {  }
   field_cu_state:
     type: string_textfield
-    weight: 7
+    weight: 6
     region: first
     settings:
       size: 25
@@ -150,18 +149,12 @@ content:
     third_party_settings: {  }
   field_cu_suburb:
     type: string_textfield
-    weight: 6
+    weight: 5
     region: first
     settings:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  field_se_comments:
-    weight: 17
-    settings: {  }
-    third_party_settings: {  }
-    type: comment_default
-    region: bottom
   title:
     type: string_textfield
     weight: 0

@@ -2,14 +2,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - comment
-    - duration_field
-id: comment.field_tk_amount
-field_name: field_tk_amount
-entity_type: comment
-type: duration
+    - node
+id: node.field_bi_total
+field_name: field_bi_total
+entity_type: node
+type: float
 settings: {  }
-module: duration_field
+module: core
 locked: false
 cardinality: 1
 translatable: true

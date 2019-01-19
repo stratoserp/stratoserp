@@ -16,7 +16,7 @@ dependencies:
     - user
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings: {  }
 id: node.se_contact.default
 targetEntityType: node
@@ -24,43 +24,43 @@ bundle: se_contact
 mode: default
 content:
   field_bu_ref:
-    weight: 2
+    weight: 5
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   field_co_email:
-    weight: 4
+    weight: 3
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-    region: content
+    region: first
   field_co_id:
-    weight: 1
+    weight: 4
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: serial_default_formatter
-    region: content
+    region: second
   field_co_mobile:
-    weight: 3
+    weight: 1
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
+    region: first
   field_co_phone:
-    weight: 5
+    weight: 2
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
+    region: first
   field_co_type:
     weight: 6
     label: above
@@ -68,10 +68,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   links:
     weight: 0
-    region: content
+    region: top
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

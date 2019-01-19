@@ -45,7 +45,7 @@ content:
     third_party_settings: {  }
   field_su_email:
     type: email_default
-    weight: 9
+    weight: 10
     region: second
     settings:
       placeholder: ''
@@ -53,7 +53,7 @@ content:
     third_party_settings: {  }
   field_su_email_format:
     type: options_select
-    weight: 10
+    weight: 11
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -66,18 +66,18 @@ content:
     third_party_settings: {  }
   field_su_homepage:
     type: link_default
-    weight: 8
+    weight: 9
     region: second
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
   field_su_id:
-    weight: 1
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
-    region: first
+    region: second
   field_su_mobile:
     type: telephone_default
     weight: 2
@@ -94,7 +94,7 @@ content:
     third_party_settings: {  }
   field_su_postal_address:
     type: string_textfield
-    weight: 12
+    weight: 13
     region: second
     settings:
       size: 25
@@ -102,7 +102,7 @@ content:
     third_party_settings: {  }
   field_su_postal_postcode:
     type: string_textfield
-    weight: 15
+    weight: 16
     region: second
     settings:
       size: 10
@@ -110,7 +110,7 @@ content:
     third_party_settings: {  }
   field_su_postal_state:
     type: string_textfield
-    weight: 14
+    weight: 15
     region: second
     settings:
       size: 25
@@ -118,7 +118,7 @@ content:
     third_party_settings: {  }
   field_su_postal_suburb:
     type: string_textfield
-    weight: 13
+    weight: 14
     region: second
     settings:
       size: 25
@@ -142,7 +142,7 @@ content:
     third_party_settings: {  }
   field_su_status:
     type: options_select
-    weight: 11
+    weight: 12
     region: second
     settings: {  }
     third_party_settings: {  }

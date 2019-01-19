@@ -46,7 +46,7 @@ content:
     type: entity_reference_autocomplete
     region: first
   field_co_ref:
-    weight: 3
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 25
@@ -55,11 +55,11 @@ content:
     type: entity_reference_autocomplete
     region: first
   field_gr_id:
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
-    region: first
+    region: second
   field_gr_items:
     type: entity_reference_paragraphs
     weight: 5

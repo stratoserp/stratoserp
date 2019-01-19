@@ -19,7 +19,7 @@ dependencies:
     - text
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings: {  }
 id: node.se_document.default
 targetEntityType: node
@@ -29,7 +29,7 @@ content:
   body:
     type: text_textarea_with_summary
     weight: 2
-    region: content
+    region: bottom
     settings:
       rows: 9
       summary_rows: 3
@@ -43,11 +43,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: first
   field_do_images:
     type: image_image
     weight: 3
-    region: content
+    region: bottom
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -55,20 +55,20 @@ content:
   field_do_videos:
     type: file_generic
     weight: 4
-    region: content
+    region: bottom
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
   field_se_comments:
-    weight: 26
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: comment_default
-    region: content
+    region: bottom
   title:
     type: string_textfield
     weight: 0
-    region: content
+    region: top
     settings:
       size: 60
       placeholder: ''

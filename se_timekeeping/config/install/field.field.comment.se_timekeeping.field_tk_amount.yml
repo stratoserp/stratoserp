@@ -5,7 +5,7 @@ dependencies:
     - comment.type.se_timekeeping
     - field.storage.comment.field_tk_amount
   module:
-    - options
+    - duration_field
 id: comment.se_timekeeping.field_tk_amount
 field_name: field_tk_amount
 entity_type: comment
@@ -16,5 +16,6 @@ required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
-field_type: list_float
+settings:
+  granularity: 'h:i'
+field_type: duration

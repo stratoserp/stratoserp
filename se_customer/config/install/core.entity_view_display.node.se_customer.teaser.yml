@@ -43,10 +43,33 @@ content:
   se_document_eva_entity_view_1:
     weight: 10
     region: content
+  se_invoice_eva_entity_view_1:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  se_payment_eva_entity_view_1:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  se_purchase_order_eva_entity_view_1:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  se_quote_eva_entity_view_1:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   se_ticket_eva_entity_view_1:
     weight: 10
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_cu_address: true
   field_cu_email: true
   field_cu_email_format: true

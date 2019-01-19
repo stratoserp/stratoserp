@@ -5,6 +5,8 @@ dependencies:
     - field.field.node.se_bill.body
     - field.field.node.se_bill.field_bi_id
     - field.field.node.se_bill.field_bi_items
+    - field.field.node.se_bill.field_bi_status
+    - field.field.node.se_bill.field_bi_total
     - field.field.node.se_bill.field_bu_ref
     - field.field.node.se_bill.field_co_ref
     - node.type.se_bill
@@ -25,7 +27,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 4
+    weight: 7
     settings:
       rows: 9
       summary_rows: 3
@@ -33,14 +35,14 @@ content:
     third_party_settings: {  }
     region: bottom
   field_bi_id:
-    weight: 1
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
-    region: first
+    region: second
   field_bi_items:
-    type: entity_reference_paragraphs
-    weight: 3
+    type: paragraphs
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -48,10 +50,32 @@ content:
       add_mode: button
       form_display_mode: default
       default_paragraph_type: se_items
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
     region: bottom
+  field_bi_status:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: second
+  field_bi_total:
+    weight: 6
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: bottom
   field_bu_ref:
-    weight: 2
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 25
@@ -60,7 +84,7 @@ content:
     type: entity_reference_autocomplete
     region: first
   field_co_ref:
-    weight: 1
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 25

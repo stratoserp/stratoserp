@@ -54,12 +54,12 @@ content:
     type: entity_reference_label
     region: first
   field_po_id:
-    weight: 4
+    weight: 3
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: serial_default_formatter
-    region: second
+    region: top
   field_po_items:
     type: entity_reference_table
     weight: 6
@@ -72,7 +72,7 @@ content:
     third_party_settings: {  }
     region: bottom
   field_po_quote_ref:
-    weight: 3
+    weight: 4
     label: inline
     settings:
       link: true
@@ -106,10 +106,10 @@ content:
       pager_id: 0
     third_party_settings: {  }
     type: comment_default
-    region: first
+    region: bottom
   links:
     weight: 0
-    region: first
+    region: top
     settings: {  }
     third_party_settings: {  }
 hidden:

@@ -12,6 +12,7 @@ dependencies:
     - field.field.comment.se_timekeeping.field_tk_review
   module:
     - datetime
+    - duration_field
     - field_layout
     - layout_discovery
     - text
@@ -28,7 +29,7 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: duration_widget
     region: second
   field_tk_billable:
     weight: 4

@@ -126,10 +126,10 @@ content:
       pager_id: 0
     third_party_settings: {  }
     type: comment_default
-    region: first
+    region: bottom
   links:
     weight: 0
-    region: first
+    region: top
     settings: {  }
     third_party_settings: {  }
 hidden:
