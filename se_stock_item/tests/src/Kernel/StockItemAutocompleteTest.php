@@ -13,8 +13,11 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Tests the autocomplete functionality.
+ * TODO actual/better testing.
  *
  * @group Entity
+ * @group se_stock_item
+ * @group stratoserp
  */
 class StockItemAutocompleteTest extends EntityKernelTestBase {
 

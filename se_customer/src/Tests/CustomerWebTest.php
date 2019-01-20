@@ -9,8 +9,10 @@ use Drupal\simpletest\WebTestBase;
 
 /**
  * Tests site configuration.
+ * TODO actual/better testing.
  *
- * @group shop8
+ * @group se_customer
+ * @group stratoserp
  */
 class CustomerWebTest extends WebTestBase {
 

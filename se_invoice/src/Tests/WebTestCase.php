@@ -6,8 +6,10 @@ use Drupal\simpletest\WebTestBase;
 
 /**
  * Tests site configuration.
+ * TODO actual/better testing.
  *
  * @group se_invoice
+ * @group stratoserp
  */
 class WebTestCase extends WebTestBase {
 
