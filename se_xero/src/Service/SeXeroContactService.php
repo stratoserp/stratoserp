@@ -172,6 +172,9 @@ class SeXeroContactService {
    */
   public function sync(Node &$node) {
     $settings = \Drupal::configFactory()->get('se_xero.settings');
+    if (!$settings->get('system.enabled')) {
+      return FALSE;
+    }
 
     // Setup the data structure
     $list_definition = $this->typedDataManager->createListDataDefinition('xero_contact');

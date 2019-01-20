@@ -106,6 +106,9 @@ class SeXeroInvoiceService {
    */
   public function sync(Node &$node) {
     $settings = \Drupal::configFactory()->get('se_xero.settings');
+    if (!$settings->get('system.enabled')) {
+      return FALSE;
+    }
 
     // If the invoice has zero value, bail.
     if ($node->field_in_total->value == 0) {
