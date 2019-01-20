@@ -6,6 +6,13 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 
+/**
+ * Test Description
+ * TODO actual/better testing.
+ *
+ * @group se_invoice
+ * @group stratoserp
+ */
 class InvoiceCreateTest extends KernelTestBase {
   use NodeCreationTrait;
   use UserCreationTrait;
