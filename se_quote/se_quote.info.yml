@@ -6,6 +6,7 @@ package: Stratos ERP
 dependencies:
   - entity_reference_revisions
   - field
+  - flat_comments
   - menu_ui
   - node
   - paragraphs
