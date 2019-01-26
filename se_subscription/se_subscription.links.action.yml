@@ -1,0 +1,11 @@
+entity.se_subscription.add_form:
+  route_name: entity.se_subscription.add_page
+  title: 'Add Subscription'
+  appears_on:
+    - entity.se_subscription.collection
+entity.se_subscription_type.add_form:
+  route_name: entity.se_subscription_type.add_form
+  title: 'Add Subscription type'
+  appears_on:
+    - entity.se_subscription_type.collection
+

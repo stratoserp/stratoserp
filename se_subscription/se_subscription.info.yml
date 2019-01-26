@@ -1,0 +1,7 @@
+name: Subscription
+description: 'Provide Subscription for items and related entities.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - se_item

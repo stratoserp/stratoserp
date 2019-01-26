@@ -1,0 +1,110 @@
+<?php
+
+/**
+ * @file
+ * Provide some (un)install helpers for se_subscription.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+
+/**
+ * Implements hook_install().
+ *
+ * Perform updates upon installAs it is possible to not want subscription,
+ * but to want customers.
+ */
+function se_subscription_install() {
+  $entity_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_item'] as $bundle) {
+    //se_subscription_install_attach($entity_manager, $bundle);
+  }
+}
+
+/**
+ * Attach the subscription comment field to bundles.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param string $bundle
+ *   The bundle type to attach to.
+ */
+function se_subscription_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+
+  $field = $entity_type_manager->getStorage('field_config')->create([
+    'field_name' => 'field_it_subscription_period',
+    'entity_type' => 'node',
+    'bundle' => $bundle,
+    'label' => 'Subscription',
+    'region' => 'first',
+    'settings' => [
+      'default_mode' => 0,
+      'preview' => FALSE,
+    ],
+  ]);
+  $field->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display->setComponent('field_it_subscription_period', [
+    'type' => 'duration_widget',
+    'region' => 'first',
+  ]);
+  $form_display->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display->setComponent('field_it_subscription_period', [
+    'type' => 'duration_human_display',
+    'settings' => [
+      'text_length' => 'full',
+      'separator' => 'space',
+    ],
+    'region' => 'first',
+  ]);
+  $display->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function se_subscription_uninstall() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_item'] as $bundle) {
+    //se_subscription_uninstall_detach($entity_type_manager, $bundle);
+  }
+}
+
+/**
+ * Detach the subscription comment field from bundles.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param string $bundle
+ *   The bundle type to attach to.
+ */
+function se_subscription_uninstall_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display->removeComponent('field_it_subscription_period');
+  $form_display->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display->removeComponent('field_it_subscription_period');
+  $display->save();
+
+  $field_storage_config = FieldStorageConfig::loadByName('node', 'field_it_subscription_period');
+  if ($field_storage_config) {
+    $field_storage_config->delete();
+  }
+
+  /** @var \Drupal\field\FieldConfigInterface $field */
+  $field_config = FieldConfig::loadByName('node', $bundle, 'field_it_subscription_period');
+  if ($field_config && !$field_config->isDeleted()) {
+    $field_config->delete();
+  }
+}
