@@ -11,7 +11,7 @@ field_name: body
 entity_type: node
 bundle: se_item
 label: Body
-description: ''
+description: 'Enter a long description of the item.'
 required: false
 translatable: true
 default_value: {  }

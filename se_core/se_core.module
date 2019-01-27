@@ -9,9 +9,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
-
 use Drupal\se_core\Event\SeCoreEvent;
 use Drupal\se_core\Event\SeCoreEvents;
+use Drupal\taxonomy\Entity\Term;
 
 define('SE_CORE_NODE_TYPES', [
   'se_bill', 'se_contact', 'se_customer', 'se_document', 'se_goods_receipt',
@@ -203,3 +203,22 @@ function se_core_node_delete(NodeInterface $node) {
   }
 
 }
+
+/**
+ * Helper function for modules to install their own terms.
+ * @param $taxonomy
+ * @param $terms
+ */
+function se_core_create_terms($taxonomy, $terms) {
+  foreach ($terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, $taxonomy);
+    if (empty($term)) {
+      Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => $taxonomy,
+      ])->save();
+    }
+  }
+}
+

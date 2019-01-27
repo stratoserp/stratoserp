@@ -10,7 +10,7 @@ field_name: field_it_sale_category_ref
 entity_type: node
 bundle: se_item
 label: 'Sale category'
-description: ''
+description: 'When this item is sold, what is the classification for reporting, eg Service, Consumable, Hosting, Managed service.'
 required: false
 translatable: false
 default_value: {  }

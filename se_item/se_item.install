@@ -3,8 +3,9 @@
 /**
  * Implements hook_install().
  */
-function se_subscription_install() {
+function se_item_install() {
   se_core_create_terms('se_item_type', [
-    'Subscription'
+    'Stock item',
+    'Service'
   ]);
 }

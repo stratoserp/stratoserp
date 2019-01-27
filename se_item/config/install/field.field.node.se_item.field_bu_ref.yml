@@ -10,7 +10,7 @@ field_name: field_bu_ref
 entity_type: node
 bundle: se_item
 label: Supplier
-description: ''
+description: 'If this is a stock item, enter supplier(s) that can supply it, eg Ingram micro, Synnex, Dell.'
 required: false
 translatable: true
 default_value: {  }

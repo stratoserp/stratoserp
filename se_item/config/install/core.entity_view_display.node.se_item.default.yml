@@ -12,7 +12,7 @@ dependencies:
     - field.field.node.se_item.field_it_price
     - field.field.node.se_item.field_it_product_type_ref
     - field.field.node.se_item.field_it_sale_category_ref
-    - field.field.node.se_item.field_it_track_product
+    - field.field.node.se_item.field_it_type
     - field.field.node.se_item.field_se_comments
     - node.type.se_item
   module:
@@ -136,15 +136,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_it_track_product:
-    weight: 3
-    label: inline
+  field_it_type:
+    weight: 23
+    label: above
     settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
+      link: true
     third_party_settings: {  }
-    type: boolean
+    type: entity_reference_label
     region: first
   field_se_comments:
     weight: 22

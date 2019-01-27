@@ -10,7 +10,7 @@ field_name: field_it_manufacturer_ref
 entity_type: node
 bundle: se_item
 label: Manufacturer
-description: ''
+description: 'For physical/stock items, enter the manufacturer name, eg Lenovo, Apple, Dell, System76.'
 required: false
 translatable: false
 default_value: {  }

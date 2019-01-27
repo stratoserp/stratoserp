@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.se_item.field_it_price
     - field.field.node.se_item.field_it_product_type_ref
     - field.field.node.se_item.field_it_sale_category_ref
-    - field.field.node.se_item.field_it_track_product
+    - field.field.node.se_item.field_it_type
     - field.field.node.se_item.field_se_comments
     - image.style.thumbnail
     - node.type.se_item
@@ -91,7 +91,7 @@ content:
     weight: 8
     settings:
       match_operator: CONTAINS
-      size: 25
+      size: 60
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
@@ -105,12 +105,11 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second
-  field_it_track_product:
-    weight: 3
-    settings:
-      display_label: true
+  field_it_type:
+    weight: 26
+    settings: {  }
     third_party_settings: {  }
-    type: boolean_checkbox
+    type: options_select
     region: first
   field_se_comments:
     weight: 11

@@ -3,11 +3,13 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_it_track_product
-field_name: field_it_track_product
+    - taxonomy
+id: node.field_it_type
+field_name: field_it_type
 entity_type: node
-type: boolean
-settings: {  }
+type: entity_reference
+settings:
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: 1

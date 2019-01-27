@@ -1,15 +1,18 @@
 <?php
 
-use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\node;
 
 /**
  * Implements hook_install().
  */
 function se_basic_setup_install() {
-  // Some basic terms to get things started.
+  se_basic_setup_taxonomy_terms();
+  se_basic_setup_example_service_items();
+  se_basic_setup_example_subscription_items();
+}
 
-  se_basic_setup_create_terms('se_manufacturer', [
+function se_basic_setup_taxonomy_terms() {
+  se_core_create_terms('se_manufacturer', [
     'Acer',
     'ASUS',
     'HP',
@@ -22,7 +25,7 @@ function se_basic_setup_install() {
     'Western digital',
   ]);
 
-  se_basic_setup_create_terms('se_product_type', [
+  se_core_create_terms('se_product_type', [
     'CPU',
     'Keyboard',
     'Memory',
@@ -30,7 +33,7 @@ function se_basic_setup_install() {
     'Video card',
   ]);
 
-  se_basic_setup_create_terms('se_sale_category', [
+  se_core_create_terms('se_sale_category', [
     'Consumables',
     'Contracting',
     'Hardware',
@@ -40,20 +43,20 @@ function se_basic_setup_install() {
     'Software',
   ]);
 
-  se_basic_setup_create_terms('se_status', [
+  se_core_create_terms('se_status', [
     'Open',
     'Ordered',
     'Closed',
   ]);
 
-  se_basic_setup_create_terms('se_ticket_priority', [
+  se_core_create_terms('se_ticket_priority', [
     'High',
     'Low',
     'Urgent',
     'Whenever',
   ]);
 
-  se_basic_setup_create_terms('se_ticket_type', [
+  se_core_create_terms('se_ticket_type', [
     'appt',
     'call',
     'follow up',
@@ -64,46 +67,76 @@ function se_basic_setup_install() {
     'todo',
     'warranty',
   ]);
+}
 
-  $nodes = \Drupal::entityTypeManager()
-    ->getStorage('node')
-    ->loadByProperties(['title' => 'Technical service']);
+function se_basic_setup_example_service_items() {
+  $node_defaults = se_basic_setup_item_node_defaults('Service');
 
-  if (!$project = reset($nodes)) {
-    /** @var \Drupal\taxonomy\Entity\Term $sale_category */
-    $sale_category = reset(taxonomy_term_load_multiple_by_name('Service', 'se_sale_category'));
-    /** @var \Drupal\taxonomy\Entity\Term $product_type */
-    $product_type = reset(taxonomy_term_load_multiple_by_name('Onsite service', 'se_product_type'));
-    /** @var \Drupal\taxonomy\Entity\Term $manufacturer */
-    $manufacturer = reset(taxonomy_term_load_multiple_by_name('Internal', 'se_manufacturer'));
-
-    $project = Node::create([
-      'type'                       => 'se_item',
-      'langcode'                   => 'en',
-      'uid'                        => '1',
-      'status'                     => 1,
-      'title'                      => 'Technical service',
-      'body'                       => 'Technical service by one of our qualified technicians.',
-      'field_it_code'              => [['value' => 'TECHSERVICE']],
-      'field_it_price'             => [['value' => 160.00]],
-      'field_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
-      'field_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
-      'field_it_product_type_ref'  => [['target_id' => $product_type->id()]],
+  $item = Node::create($node_defaults + [
+      'title' => 'Technical service',
+      'body' => 'Technical service by one of our qualified technicians.',
+      'field_it_code' => [['value' => 'TECHSERVICE']],
+      'field_it_price' => [['value' => 160.00]],
     ]);
-    $project->save();
-  }
+  $item->save();
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Workshop service',
+      'body' => 'Workshop service by one of our qualified technicians.',
+      'field_it_code' => [['value' => 'WORKSHOP']],
+      'field_it_price' => [['value' => 120.00]],
+    ]);
+  $item->save();
 }
 
-function se_basic_setup_create_terms($taxonomy, $terms) {
-  foreach ($terms as $new_term) {
-    $term = taxonomy_term_load_multiple_by_name($new_term, $taxonomy);
-    if (empty($term)) {
-      Term::create([
-        'parent' => [],
-        'name'   => $new_term,
-        'vid'    => $taxonomy,
-      ])->save();
-    }
-  }
+function se_basic_setup_example_subscription_items() {
+  $node_defaults = se_basic_setup_item_node_defaults('Subscription');
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Domain name registration',
+      'body' => 'Domain name registration - yearly.',
+      'field_it_code' => [['value' => 'DOMAINNAME-YEARLY']],
+      'field_it_price' => [['value' => 60.00]],
+    ]);
+  $item->save();
+
+  $duration = new \DateInterval('P1Y');
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Domain hosting',
+      'body' => 'Domain hosting - yearly.',
+      'field_it_code' => [['value' => 'DOMAINHOSTING-YEARLY']],
+      'field_it_price' => [['value' => 240.00]],
+      'field_it_subscription_period' => [['value' => $duration]],
+    ]);
+  $item->save();
 }
+
+function se_basic_setup_item_node_defaults($type) {
+  $term = taxonomy_term_load_multiple_by_name('Service', 'se_sale_category');
+  $sale_category = reset($term);
+
+  $term = taxonomy_term_load_multiple_by_name('Onsite service', 'se_product_type');
+  $product_type = reset($term);
+
+  $term = taxonomy_term_load_multiple_by_name('Internal', 'se_manufacturer');
+  $manufacturer = reset($term);
+
+  $term = taxonomy_term_load_multiple_by_name($type, 'se_item_type');
+  $item_type = reset($term);
+
+  $node_defaults = [
+    'type' => 'se_item',
+    'langcode' => 'en',
+    'uid' => '1',
+    'status' => 1,
+    'field_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
+    'field_it_manufacturer_ref' => [['target_id' => $manufacturer->id()]],
+    'field_it_product_type_ref' => [['target_id' => $product_type->id()]],
+    'field_it_type_ref' => [['target_id' => $item_type->id()]],
+  ];
+
+  return $node_defaults;
+}
+
 
