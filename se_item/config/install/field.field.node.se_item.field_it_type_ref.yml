@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_it_type
+    - field.storage.node.field_it_type_ref
     - node.type.se_item
     - taxonomy.vocabulary.se_item_type
-id: node.se_item.field_it_type
-field_name: field_it_type
+id: node.se_item.field_it_type_ref
+field_name: field_it_type_ref
 entity_type: node
 bundle: se_item
 label: Type

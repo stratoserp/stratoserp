@@ -1,10 +1,41 @@
 <?php
 
 /**
+ * @file
+ * Provide some (un)install helpers for se_timekeeping
+ */
+
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+
+/**
  * Implements hook_install().
  */
 function se_subscription_install() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_item'] as $bundle) {
+    se_subscription_install_attach($entity_type_manager, $bundle);
+  }
+
   se_core_create_terms('se_item_type', [
     'Subscription'
   ]);
+}
+
+function se_subscription_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display->setComponent('field_it_subscription_period', [
+    'type' => 'duration_widget',
+    'region' => 'first',
+  ]);
+  $form_display->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display->setComponent('field_it_subscription_period', [
+    'type' => 'duration_human_display',
+    'region' => 'first',
+  ]);
+  $display->save();
 }

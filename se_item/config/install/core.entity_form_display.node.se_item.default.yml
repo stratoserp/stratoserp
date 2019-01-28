@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.se_item.field_it_price
     - field.field.node.se_item.field_it_product_type_ref
     - field.field.node.se_item.field_it_sale_category_ref
-    - field.field.node.se_item.field_it_type
+    - field.field.node.se_item.field_it_type_ref
     - field.field.node.se_item.field_se_comments
     - image.style.thumbnail
     - node.type.se_item
@@ -105,7 +105,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second
-  field_it_type:
+  field_it_type_ref:
     weight: 26
     settings: {  }
     third_party_settings: {  }

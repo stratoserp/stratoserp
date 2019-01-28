@@ -9,30 +9,10 @@ function se_basic_setup_install() {
   se_basic_setup_taxonomy_terms();
   se_basic_setup_example_service_items();
   se_basic_setup_example_subscription_items();
+  se_basic_setup_example_stock_items();
 }
 
 function se_basic_setup_taxonomy_terms() {
-  se_core_create_terms('se_manufacturer', [
-    'Acer',
-    'ASUS',
-    'HP',
-    'Intel',
-    'Internal',
-    'Kingston',
-    'Microsoft',
-    'Lenovo',
-    'Seagate',
-    'Western digital',
-  ]);
-
-  se_core_create_terms('se_product_type', [
-    'CPU',
-    'Keyboard',
-    'Memory',
-    'Onsite service',
-    'Video card',
-  ]);
-
   se_core_create_terms('se_sale_category', [
     'Consumables',
     'Contracting',
@@ -43,6 +23,34 @@ function se_basic_setup_taxonomy_terms() {
     'Software',
   ]);
 
+  se_core_create_terms('se_product_type', [
+    'CPU',
+    'Domain name',
+    'Ink cartridge',
+    'Keyboard',
+    'Memory',
+    'Notebook',
+    'Onsite service',
+    'Video card',
+  ]);
+
+  se_core_create_terms('se_manufacturer', [
+    'Acer',
+    'ASUS',
+    'Canon',
+    'Dell',
+    'HP',
+    'Intel',
+    'Internal',
+    'Kingston',
+    'Microsoft',
+    'Lenovo',
+    'Seagate',
+    'System76',
+    'Western digital',
+  ]);
+
+  // Status for tickets, purchase orders, invoices.
   se_core_create_terms('se_status', [
     'Open',
     'Ordered',
@@ -70,7 +78,7 @@ function se_basic_setup_taxonomy_terms() {
 }
 
 function se_basic_setup_example_service_items() {
-  $node_defaults = se_basic_setup_item_node_defaults('Service');
+  $node_defaults = se_basic_setup_item_node_defaults('Service', 'Domain name', 'Internal', 'Service');
 
   $item = Node::create($node_defaults + [
       'title' => 'Technical service',
@@ -90,36 +98,112 @@ function se_basic_setup_example_service_items() {
 }
 
 function se_basic_setup_example_subscription_items() {
-  $node_defaults = se_basic_setup_item_node_defaults('Subscription');
+  $node_defaults = se_basic_setup_item_node_defaults('Hosting Service', 'Domain name', 'Internal', 'Subscription');
 
+  // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
   $item = Node::create($node_defaults + [
       'title' => 'Domain name registration',
       'body' => 'Domain name registration - yearly.',
       'field_it_code' => [['value' => 'DOMAINNAME-YEARLY']],
       'field_it_price' => [['value' => 60.00]],
+      'field_it_subscription_period' => [['duration' => 'P1Y']],
     ]);
   $item->save();
 
-  $duration = new \DateInterval('P1Y');
+  $item = Node::create($node_defaults + [
+      'title' => 'Domain name - biennually',
+      'body' => 'Domain name - biennually.',
+      'field_it_code' => [['value' => 'DOMAINNAME-BIENNUALLY']],
+      'field_it_price' => [['value' => 120.00]],
+      'field_it_subscription_period' => [['duration' => 'P2Y']],
+    ]);
+  $item->save();
+
+  $node_defaults = se_basic_setup_item_node_defaults('Hosting service', 'Domain name', 'Internal', 'Subscription');
 
   $item = Node::create($node_defaults + [
       'title' => 'Domain hosting',
       'body' => 'Domain hosting - yearly.',
       'field_it_code' => [['value' => 'DOMAINHOSTING-YEARLY']],
       'field_it_price' => [['value' => 240.00]],
-      'field_it_subscription_period' => [['value' => $duration]],
+      'field_it_subscription_period' => [['duration' => 'P1Y']],
     ]);
   $item->save();
 }
 
-function se_basic_setup_item_node_defaults($type) {
-  $term = taxonomy_term_load_multiple_by_name('Service', 'se_sale_category');
+function se_basic_setup_example_stock_items() {
+  $node_defaults = se_basic_setup_item_node_defaults('Hardware', 'Keyboard', 'Microsoft', 'Stock item');
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Microsoft KB600',
+      'body' => 'Microsoft KB600',
+      'field_it_code' => [['value' => 'MS-KB-600']],
+      'field_it_price' => [['value' => 45.00]],
+    ]);
+  $item->save();
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Microsoft KB800',
+      'body' => 'Microsoft KB800',
+      'field_it_code' => [['value' => 'MS-KB-800']],
+      'field_it_price' => [['value' => 55.00]],
+    ]);
+  $item->save();
+
+  $node_defaults = se_basic_setup_item_node_defaults('Hardware', 'Notebook', 'Lenovo', 'Stock item');
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Lenovo 11e',
+      'body' => 'Lenovo 11e',
+      'field_it_code' => [['value' => 'LN-11E']],
+      'field_it_price' => [['value' => 899]],
+    ]);
+  $item->save();
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Lenovo x280',
+      'body' => 'Lenovo x280',
+      'field_it_code' => [['value' => 'LN-X280']],
+      'field_it_price' => [['value' => 1299]],
+    ]);
+  $item->save();
+
+  $node_defaults = se_basic_setup_item_node_defaults('Consumables', 'Ink cartridge', 'Canon', 'Stock item');
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Canon PIXMA - Cyan',
+      'body' => 'Canon PIXMA - Cyan',
+      'field_it_code' => [['value' => 'CN-PIXMA-CYAN']],
+      'field_it_price' => [['value' => 14.99]],
+    ]);
+  $item->save();
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Canon PIXMA - Yellow',
+      'body' => 'Canon PIXMA - Yellow',
+      'field_it_code' => [['value' => 'CN-PIXMA-YELLOW']],
+      'field_it_price' => [['value' => 14.99]],
+    ]);
+  $item->save();
+
+  $item = Node::create($node_defaults + [
+      'title' => 'Canon PIXMA - Magenta',
+      'body' => 'Canon PIXMA - Magenta',
+      'field_it_code' => [['value' => 'CN-PIXMA-MAGENTA']],
+      'field_it_price' => [['value' => 14.99]],
+    ]);
+  $item->save();
+
+}
+
+function se_basic_setup_item_node_defaults($category, $product_type, $manufacturer, $type) {
+  $term = taxonomy_term_load_multiple_by_name($category, 'se_sale_category');
   $sale_category = reset($term);
 
-  $term = taxonomy_term_load_multiple_by_name('Onsite service', 'se_product_type');
+  $term = taxonomy_term_load_multiple_by_name($product_type, 'se_product_type');
   $product_type = reset($term);
 
-  $term = taxonomy_term_load_multiple_by_name('Internal', 'se_manufacturer');
+  $term = taxonomy_term_load_multiple_by_name($manufacturer, 'se_manufacturer');
   $manufacturer = reset($term);
 
   $term = taxonomy_term_load_multiple_by_name($type, 'se_item_type');
