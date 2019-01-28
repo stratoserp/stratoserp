@@ -52,8 +52,7 @@ class SeCustomerInsert implements EventSubscriberInterface {
    */
   public function onInsert(SeCoreEvent $event) {
     $node = $event->getNode();
-    if ($node->bundle() == 'se_customer' && !$node->isSyncing()) {
-      // Call Xero service, abuse? isSyncing to avoid ininite recursion.
+    if ($node->bundle() == 'se_customer' && !$node->xero_syncing) {
       if ($result = $this->contactService->sync($node)) {
         $event->setNode($node);
       }

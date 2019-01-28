@@ -158,7 +158,7 @@ class SeXeroInvoiceService {
       $createdXeroInvoice = $result->get(0);
       $remote_id = $createdXeroInvoice->get('InvoiceID')->getValue();
       $node->set('se_xero_uuid', $remote_id);
-      $node->setSyncing(TRUE);
+      $node->xero_syncing = TRUE;
       $node->save();
 
       $this->logger->log(LogLevel::INFO, (string) new FormattableMarkup('Created invoice @invoice with remote id @remote_id.', [

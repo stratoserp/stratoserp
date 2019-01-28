@@ -211,7 +211,7 @@ class SeXeroContactService {
       $createdXeroContact = $result->get(0);
       $remote_id = $createdXeroContact->get('ContactID')->getValue();
       $node->set('se_xero_uuid', $remote_id);
-      $node->setSyncing(TRUE);
+      $node->xero_syncing = TRUE;
       $node->save();
 
       $this->logger->log(LogLevel::INFO, (string) new FormattableMarkup('Created contact @customer with remote id @remote_id.', [

@@ -52,8 +52,7 @@ class SeInvoiceInsert implements EventSubscriberInterface {
    */
   public function onInsert(SeCoreEvent $event) {
     $node = $event->getNode();
-    if ($node->bundle() == 'se_invoice' && !$node->isSyncing()) {
-      // Call Xero service, abuse? isSyncing to avoid ininite recursion.
+    if ($node->bundle() == 'se_invoice' && !$node->xero_syncing) {
       if ($result = $this->invoiceService->sync($node)) {
         $event->setNode($node);
       }
