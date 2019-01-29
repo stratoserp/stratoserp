@@ -12,7 +12,7 @@ use Drupal\Tests\user\Traits\UserCreationTrait;
  * @group se_subscription
  * @group stratoserp
  *
- * @coversDefaultClass \Drupal\se_subscription\Service\SubscriptionAutoCreator
+ * @coversDefaultClass \Drupal\se_subscription\Service\AutoCreator
  */
 class SubscriptionAutoCreatorTest extends KernelTestBase {
   use NodeCreationTrait;

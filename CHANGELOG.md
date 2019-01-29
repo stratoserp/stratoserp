@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## 0.0.1 - 2019-01-28
+## 2019-01-29
+### Added
+- Service to auto create subscription entity on invoice save.
+- Added subscription type reference field to item.
+- Started autocomplete search to dashboard. 
+
+### Changed
+- Fixed missing services for xero module.
+
+## 2019-01-28
 ### Added
 - Added basic changelog.
 - Added subscription module.

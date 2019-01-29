@@ -30,6 +30,7 @@
 ## Item
 - Remove comment settings etc
 - Add flag field - Timekeeping field
+- Don't show stock block at bottom for non-stock items
 
 ## Payments
 - Auto populate outstanding invoices when creating a payment
@@ -38,6 +39,7 @@
 
 ## Subscription
 - Auto create subscription on invoice submission
+- Auto combine subscriptions for the same day to create a single invoice
 
 ## Ticket
 

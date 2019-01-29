@@ -6,7 +6,7 @@ use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_subscription\Entity\Subscription;
 
-class SubscriptionAutoCreator {
+class AutoCreator {
 
   public function create(Node $node) {
     $paragraphs = $node->field_in_items->getValue();

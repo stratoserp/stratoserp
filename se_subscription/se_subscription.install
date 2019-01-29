@@ -2,9 +2,14 @@
 
 /**
  * @file
- * Provide some (un)install helpers for se_timekeeping
+ * Provide some (un)install helpers for se_subscription.
+ *
+ * This module is potentially optional, so the install/uninstall is done
+ * separately for flexibility.
  */
 
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
@@ -17,11 +22,32 @@ function se_subscription_install() {
     se_subscription_install_attach($entity_type_manager, $bundle);
   }
 
+  // Add it a new item 'type' for subscriptions.
   se_core_create_terms('se_item_type', [
     'Subscription'
   ]);
 }
 
+function se_subscription_uninstall() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_item'] as $bundle) {
+    se_subscription_install_detach($entity_type_manager, $bundle);
+  }
+}
+
+/**
+ * Attach this modules fields to the existing item type.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param $bundle
+ *   The bundle type to attach to.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
 function se_subscription_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
   $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
@@ -29,7 +55,13 @@ function se_subscription_install_attach(EntityTypeManagerInterface $entity_type_
     'type' => 'duration_widget',
     'region' => 'first',
   ]);
+  $form_display->setComponent('field_it_subscription_item', [
+    'type' => 'entity_reference_autocomplete',
+    'region' => 'first',
+  ]);
+
   $form_display->save();
+
 
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
   $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
@@ -37,5 +69,58 @@ function se_subscription_install_attach(EntityTypeManagerInterface $entity_type_
     'type' => 'duration_human_display',
     'region' => 'first',
   ]);
+  $display->setComponent('field_it_subscription_item', [
+    'type' => 'entity_reference_label',
+    'region' => 'first',
+  ]);
   $display->save();
+}
+
+/**
+ * Detach the fields and remove their storage.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param $bundle
+ *   The bundle type to detach from.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function se_subscription_install_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')
+    ->load('node.' . $bundle . '.default');
+  $form_display->removeComponent('field_it_subscription_period');
+  $form_display->removeComponent('field_it_subscription_item');
+  $form_display->save();
+
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')
+    ->load('node.' . $bundle . '.default');
+  $display->removeComponent('field_it_subscription_period');
+  $display->removeComponent('field_it_subscription_item');
+  $display->save();
+
+  $field_storage_config = FieldStorageConfig::loadByName('node', 'field_it_subscription_period');
+  if ($field_storage_config) {
+    $field_storage_config->delete();
+  }
+
+  $field_storage_config = FieldStorageConfig::loadByName('node', 'field_it_subscription_item');
+  if ($field_storage_config) {
+    $field_storage_config->delete();
+  }
+
+  $field_config = FieldConfig::loadByName('node', $bundle, 'field_it_subscription_period');
+  if ($field_config && !$field_config->isDeleted()) {
+    $field_config->delete();
+  }
+
+  $field_config = FieldConfig::loadByName('node', $bundle, 'field_it_subscription_item');
+  if ($field_config && !$field_config->isDeleted()) {
+    $field_config->delete();
+  }
 }

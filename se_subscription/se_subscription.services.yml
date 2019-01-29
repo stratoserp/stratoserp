@@ -4,4 +4,4 @@ services:
     tags:
       - { name: event_subscriber }
   se_subscription.auto_creator:
-    class: \Drupal\se_subscription\Service\SubscriptionAutoCreator
+    class: \Drupal\se_subscription\Service\AutoCreator
