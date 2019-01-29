@@ -8,6 +8,11 @@ services:
     arguments: ['@se_xero.contact_service']
     tags:
     - { name: event_subscriber }
+  se_xero.invoice_saved:
+    class: Drupal\se_xero\EventSubscriber\SeInvoiceInsert
+    arguments: ['@se_xero.invoice_service']
+    tags:
+      - { name: event_subscriber }
   se_xero.contact_service:
     class: \Drupal\se_xero\Service\SeXeroContactService
     arguments: ['@logger.channel.se_xero', '@typed_data_manager', '@xero.query.factory']

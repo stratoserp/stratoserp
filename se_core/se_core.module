@@ -221,4 +221,3 @@ function se_core_create_terms($taxonomy, $terms) {
     }
   }
 }
-
