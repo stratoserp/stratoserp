@@ -16,7 +16,7 @@ class AutoCreator {
 
     foreach ($paragraphs as $paragraph) {
       $line = Paragraph::load($paragraph['target_id']);
-      $item_ref = $line->field_it_stock_item->target_id;
+      $item_ref = $line->field_it_line_item->target_id;
       $item = Node::load($item_ref);
       if (empty($item->field_it_subscription_period->duration)) {
         continue;

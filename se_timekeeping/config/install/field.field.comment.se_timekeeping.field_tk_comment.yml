@@ -10,7 +10,7 @@ id: comment.se_timekeeping.field_tk_comment
 field_name: field_tk_comment
 entity_type: comment
 bundle: se_timekeeping
-label: Comment
+label: Timekeeping
 description: ''
 required: false
 translatable: false

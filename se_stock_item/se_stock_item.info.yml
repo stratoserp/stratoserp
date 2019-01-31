@@ -10,3 +10,5 @@ dependencies:
   - se_item
   - se_purchase_order
   - se_quote
+  - se_ticket
+  - se_timekeeping

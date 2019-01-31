@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - dynamic_entity_reference
+    - paragraphs
+    - se_stock_item
+id: paragraph.field_it_line_item
+field_name: field_it_line_item
+entity_type: paragraph
+type: dynamic_entity_reference
+settings:
+  exclude_entity_types: false
+  entity_type_ids:
+    comment: comment
+    se_stock_item: se_stock_item
+module: dynamic_entity_reference
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -52,7 +52,7 @@ function se_stock_item_uninstall() {
 function se_stock_item_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
   $form_display = $entity_type_manager->getStorage('entity_form_display')->load('paragraph.' . $bundle . '.default');
-  $form_display->setComponent('field_it_stock_item', [
+  $form_display->setComponent('field_it_line_item', [
     'type' => 'entity_reference_autocomplete',
     'settings' => [
       'match_operator' => 'CONTAINS',
@@ -65,7 +65,7 @@ function se_stock_item_install_attach(EntityTypeManagerInterface $entity_type_ma
 
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
   $display = $entity_type_manager->getStorage('entity_view_display')->load('paragraph.' . $bundle . '.default');
-  $display->setComponent('field_it_stock_item', [
+  $display->setComponent('field_it_line_item', [
     'targetEntityType' => 'se_stock_item',
     'bundle' => 'se_stock_item',
     'mode' => 'default',
@@ -85,21 +85,21 @@ function se_stock_item_install_attach(EntityTypeManagerInterface $entity_type_ma
 function se_stock_item_uninstall_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
   $form_display = $entity_type_manager->getStorage('entity_form_display')->load('paragraph.' . $bundle . '.default');
-  $form_display->removeComponent('field_it_stock_item');
+  $form_display->removeComponent('field_it_line_item');
   $form_display->save();
 
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
   $display = $entity_type_manager->getStorage('entity_view_display')->load('paragraph.' . $bundle . '.default');
-  $display->removeComponent('field_it_stock_item');
+  $display->removeComponent('field_it_line_item');
   $display->save();
 
-  $field_storage_config = FieldStorageConfig::loadByName('paragraph', 'field_it_stock_item');
+  $field_storage_config = FieldStorageConfig::loadByName('paragraph', 'field_it_line_item');
   if ($field_storage_config) {
     $field_storage_config->delete();
   }
 
   /** @var \Drupal\field\FieldConfigInterface $field */
-  $field_config = FieldConfig::loadByName('paragraph', $bundle, 'field_it_stock_item');
+  $field_config = FieldConfig::loadByName('paragraph', $bundle, 'field_it_line_item');
   if ($field_config && !$field_config->isDeleted()) {
     $field_config->delete();
   }

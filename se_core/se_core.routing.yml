@@ -1,10 +1,23 @@
-se_core:
+
+se_core.search_form:
   path: 'se'
   defaults:
-    _controller: '\Drupal\se_core\Controller\SeCoreController::home'
-    _title: 'Stratos ERP overview'
+    _form: '\Drupal\se_core\Form\SearchForm'
+    _title_callback: '\Drupal\se_core\Form\SearchForm::getPageTitle'
+    _title: 'Search'
+  options:
+    no_cache: TRUE
   requirements:
-    _permission: 'access stratos erp'
+    _permission: 'access administration pages'
+
+se_core.search:
+  path: '/se/core-search'
+  defaults:
+    _controller: '\Drupal\se_core\Controller\AutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _permission: 'access administration pages'
+
 se_core.admin_config_stratoserp:
   path: '/admin/config/stratoserp'
   defaults:
@@ -12,3 +25,4 @@ se_core.admin_config_stratoserp:
     _title: 'Stratos ERP'
   requirements:
     _permission: 'access administration pages'
+
