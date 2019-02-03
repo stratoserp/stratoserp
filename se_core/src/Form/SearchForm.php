@@ -27,7 +27,6 @@ class SearchForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $build['search'] = [
-//      '#id' => 'search',
       '#title' => t('Enter customer name or id of invoice, ticket, quote for matches'),
       '#type' => 'textfield',
       '#autocomplete_route_name' => 'se_core.search',
@@ -49,18 +48,22 @@ class SearchForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->cleanValues();
     $values = $form_state->getValues();
-    if ($values['search']) {
-      if (preg_match("/.+\s\(([^\)]+)\)/", $values['search'], $matches)) {
-        $match = $matches[1];
-      }
-    }
 
-    if (!empty($match)) {
-      $form_state->setRedirect('entity.node.canonical', ['node' => $match]);
+    if (empty($values['search'])) {
+      drupal_set_message(t('No search string found'));
       return;
     }
 
-    drupal_set_message(t('No match found'));
+    if (preg_match("/.+\s\(([^)]+)\)/", $values['search'], $matches)) {
+      $match = $matches[1];
+      if (empty($match)) {
+        drupal_set_message(t('No matches found'));
+        return;
+      }
+
+      $form_state->setRedirect('entity.node.canonical', ['node' => $match]);
+      return;
+    }
   }
 
 }

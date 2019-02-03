@@ -12,6 +12,7 @@
 - Add more types to frontpage search.
 - Add stock in basic setup.
 - Fix up permissions.
+- Convert to use phpmoney class?
 
 ## Bill
 - Add sync to Xero.
@@ -49,6 +50,8 @@
 - Auto statements.
 
 ## Item
+- Remove custom autocomplete and change to ajaxcommand.
+  https://www.agoradesign.at/blog/drupal-quick-tip-day-autocompleteclose-event
 - Remove comment settings etc.
 - WAT - Add flag field - Timekeeping field.
 - Don't show stock block at bottom for non-stock items.
@@ -69,6 +72,9 @@
 ## Subscription
 - Auto create subscription on invoice submission.
 - Auto combine subscriptions for the same day to create a single invoice.
+
+## Tax
+- What do.
 
 ## Ticket
 - Incoming email to ticket
