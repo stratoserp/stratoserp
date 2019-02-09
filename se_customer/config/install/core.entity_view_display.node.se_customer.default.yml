@@ -19,7 +19,6 @@ dependencies:
     - field.field.node.se_customer.field_cu_state
     - field.field.node.se_customer.field_cu_status
     - field.field.node.se_customer.field_cu_suburb
-    - field.field.node.se_customer.field_se_timekeeping
     - node.type.se_customer
   module:
     - field_group
@@ -441,4 +440,3 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_se_timekeeping: true

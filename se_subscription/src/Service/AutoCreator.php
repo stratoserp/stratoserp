@@ -25,9 +25,7 @@ class AutoCreator {
       $subscription = Subscription::create([
         'user_id' => get_current_user(),
         'name' => $this->subscriptionName($item),
-        'period' => $item->field_it_subscription_period->duration,
-        'last_billed' => time(),
-        'field_su_invoice_ref' => $node->id(),
+        'field_bu_ref' => $node->field_bu_ref->target_id,
       ]);
       $subscription->save();
     }

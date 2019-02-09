@@ -59,9 +59,7 @@ function se_subscription_install_attach(EntityTypeManagerInterface $entity_type_
     'type' => 'entity_reference_autocomplete',
     'region' => 'first',
   ]);
-
   $form_display->save();
-
 
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
   $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
@@ -74,7 +72,20 @@ function se_subscription_install_attach(EntityTypeManagerInterface $entity_type_
     'region' => 'first',
   ]);
   $display->save();
-}
+
+//   $line_item_storage = $entity_type_manager->getStorage('field_storage_config')->loadByProperties(['field_name' => 'field_it_line_item']);
+//   /** @var FieldStorageConfig $paragraph_field_it_line_item */
+//   $paragraph_field_it_line_item = reset($line_item_storage);
+//   $current_settings = $paragraph_field_it_line_item->getSettings();
+//   $current_settings['entity_type_ids']['se_subscription'] = 'se_subscription';
+//   $paragraph_field_it_line_item->setSettings($current_settings);
+//   $paragraph_field_it_line_item->save();
+
+//   /** @var FieldConfig $line_item_settings */
+//   $line_item_settings = $entity_type_manager->getStorage('field_config')->loadByProperties(['field_name' => 'field_it_line_item']);
+//   $paragraph_field_config_field_it_line_item = reset($line_item_settings);
+//   $current_settings = $paragraph_field_config_field_it_line_item->getSettings();
+ }
 
 /**
  * Detach the fields and remove their storage.

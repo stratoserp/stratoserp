@@ -72,9 +72,13 @@
 ## Subscription
 - Auto create subscription on invoice submission.
 - Auto combine subscriptions for the same day to create a single invoice.
+- Move the 'types' into their own modules to show how to hook in and make more.
+- If there are already subscriptions created for an item, don't allow changing
+  the subscription period.
 
 ## Tax
-- What do.
+- What do, we do everything 'inc' tax, but other countries have differing
+  requirements. Need to be flexible. Probably later.
 
 ## Ticket
 - Incoming email to ticket
@@ -148,3 +152,6 @@
 ## RMM Integration
 - Pull in records from rmm.
 - Provide deep linking direct to machines.
+
+## Stock item
+- Assembly entity type for building things from multiple parts for sale (eg server/pc).
