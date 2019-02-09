@@ -44,11 +44,11 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/se_stock_item/{se_stock_item}",
- *     "add-form" = "/admin/structure/se_stock_item/add",
- *     "edit-form" = "/admin/structure/se_stock_item/{se_stock_item}/edit",
- *     "delete-form" = "/admin/structure/se_stock_item/{se_stock_item}/delete",
- *     "collection" = "/admin/structure/se_stock_item",
+ *     "canonical" = "/se/stock_item/{se_stock_item}",
+ *     "add-form" = "/se/stock_item/add",
+ *     "edit-form" = "/se/stock_item/{se_stock_item}/edit",
+ *     "delete-form" = "/se/stock_item/{se_stock_item}/delete",
+ *     "collection" = "/se/stock_item",
  *   },
  *   field_ui_base_route = "se_stock_item.settings"
  * )

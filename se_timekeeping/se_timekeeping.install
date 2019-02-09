@@ -3,6 +3,9 @@
 /**
  * @file
  * Provide some (un)install helpers for se_timekeeping.
+ *
+ * This module is potentially optional, so the install/uninstall is done
+ * separately for flexibility.
  */
 
 use Drupal\field\Entity\FieldStorageConfig;
@@ -11,9 +14,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Implements hook_install().
- *
- * Perform updates upon installAs it is possible to not want timekeeping,
- * but to want customers.
  */
 function se_timekeeping_install() {
   $entity_type_manager = \Drupal::entityTypeManager();
@@ -30,6 +30,10 @@ function se_timekeeping_install() {
  *   Passed in entity type manager.
  * @param string $bundle
  *   The bundle type to attach to.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
 
@@ -90,7 +94,11 @@ function se_timekeeping_uninstall() {
  * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
  *   Passed in entity type manager.
  * @param string $bundle
- *   The bundle type to attach to.
+ *   The bundle type to detach from.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_timekeeping_uninstall_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
@@ -108,7 +116,6 @@ function se_timekeeping_uninstall_detach(EntityTypeManagerInterface $entity_type
     $field_storage_config->delete();
   }
 
-  /** @var \Drupal\field\FieldConfigInterface $field */
   $field_config = FieldConfig::loadByName('node', $bundle, 'field_se_timekeeping');
   if ($field_config && !$field_config->isDeleted()) {
     $field_config->delete();

@@ -88,7 +88,7 @@ class ErpCore extends MigrateNode {
           }
         }
       }
-      $paragraph->set('field_it_stock_item', ['target_id' => $item]);
+      $paragraph->set('field_it_line_item', ['target_id' => $item]);
       $paragraph->set('field_it_quantity', ['value' => $line->qty]);
       $paragraph->set('field_it_price', ['value' => $line->price]);
       $paragraph->set('field_it_description', [

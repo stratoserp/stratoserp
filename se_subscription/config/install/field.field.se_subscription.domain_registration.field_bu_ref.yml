@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.field_bu_ref
+    - node.type.se_customer
+    - se_subscription.se_subscription_type.domain_registration
+id: se_subscription.domain_registration.field_bu_ref
+field_name: field_bu_ref
+entity_type: se_subscription
+bundle: domain_registration
+label: Customer
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      se_customer: se_customer
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

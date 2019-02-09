@@ -21,7 +21,6 @@ dependencies:
     - field.field.node.se_customer.field_cu_suburb
     - node.type.se_customer
   module:
-    - comment
     - field_group
     - field_layout
     - geolocation
@@ -45,8 +44,9 @@ third_party_settings:
         - group_cu_tab_payments
         - group_cu_tab_purchase_orders
         - group_cu_tab_quotes
+        - group_cu_tab_subscriptions
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: tabs
       format_settings:
         id: ''
@@ -61,7 +61,7 @@ third_party_settings:
       children:
         - se_ticket_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 5
+      weight: 4
       format_type: tab
       format_settings:
         id: ''
@@ -74,7 +74,7 @@ third_party_settings:
       children:
         - se_contact_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 4
+      weight: 3
       format_type: tab
       format_settings:
         id: ''
@@ -87,7 +87,7 @@ third_party_settings:
       children:
         - se_document_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 6
+      weight: 5
       format_type: tab
       format_settings:
         id: ''
@@ -110,7 +110,7 @@ third_party_settings:
         - field_cu_fax
         - field_cu_email_format
       parent_name: group_cu_tabs
-      weight: 2
+      weight: 1
       format_type: tab
       format_settings:
         id: ''
@@ -123,7 +123,7 @@ third_party_settings:
       children:
         - field_cu_location
       parent_name: group_cu_tabs
-      weight: 3
+      weight: 2
       format_type: tab
       format_settings:
         id: ''
@@ -136,7 +136,7 @@ third_party_settings:
       children:
         - se_invoice_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 7
+      weight: 6
       format_type: tab
       format_settings:
         id: ''
@@ -149,7 +149,7 @@ third_party_settings:
       children:
         - se_purchase_order_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 9
+      weight: 8
       format_type: tab
       format_settings:
         id: ''
@@ -162,7 +162,7 @@ third_party_settings:
       children:
         - se_quote_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 10
+      weight: 9
       format_type: tab
       format_settings:
         id: ''
@@ -175,7 +175,7 @@ third_party_settings:
       children:
         - se_payment_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 8
+      weight: 7
       format_type: tab
       format_settings:
         id: ''
@@ -183,6 +183,19 @@ third_party_settings:
         formatter: closed
         description: ''
       label: Payments
+      region: content
+    group_cu_tab_subscriptions:
+      children:
+        - se_subscriptions_eva_entity_view_1
+      parent_name: group_cu_tabs
+      weight: 10
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Subscriptions
       region: content
   field_layout:
     id: layout_onecol
@@ -224,7 +237,7 @@ content:
     third_party_settings: {  }
   field_cu_homepage:
     type: link
-    weight: 5
+    weight: 4
     region: content
     label: inline
     settings:
@@ -236,7 +249,7 @@ content:
     third_party_settings: {  }
   field_cu_id:
     type: serial_default_formatter
-    weight: 2
+    weight: 1
     region: content
     label: inline
     settings: {  }
@@ -275,7 +288,7 @@ content:
     type: geolocation_map
     region: content
   field_cu_mobile:
-    weight: 4
+    weight: 3
     label: inline
     settings:
       title: ''
@@ -284,7 +297,7 @@ content:
     region: content
   field_cu_phone:
     type: telephone_link
-    weight: 3
+    weight: 2
     region: content
     label: inline
     settings:
@@ -340,7 +353,7 @@ content:
     third_party_settings: {  }
   field_cu_status:
     type: list_default
-    weight: 6
+    weight: 5
     region: content
     label: inline
     settings: {  }
@@ -410,6 +423,11 @@ content:
     third_party_settings: {  }
   se_quotes_eva_entity_view_1:
     weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_subscriptions_eva_entity_view_1:
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
