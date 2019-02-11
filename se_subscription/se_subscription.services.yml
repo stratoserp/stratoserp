@@ -1,7 +1,0 @@
-services:
-  se_subscription.invoice_saved:
-    class: Drupal\se_subscription\EventSubscriber\InvoiceInsert
-    tags:
-      - { name: event_subscriber }
-  se_subscription.auto_creator:
-    class: \Drupal\se_subscription\Service\AutoCreator

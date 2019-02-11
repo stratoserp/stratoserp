@@ -1,0 +1,30 @@
+add item entities:
+  title: 'Create new Item entities'
+
+administer item entities:
+  title: 'Administer Item entities'
+  description: 'Allow to access the administration form to configure Item entities.'
+  restrict access: true
+
+delete item entities:
+  title: 'Delete Item entities'
+
+edit item entities:
+  title: 'Edit Item entities'
+
+view published item entities:
+  title: 'View published Item entities'
+
+view unpublished item entities:
+  title: 'View unpublished Item entities'
+
+view all item revisions:
+  title: 'View all Item revisions'
+
+revert all item revisions:
+  title: 'Revert all Item revisions'
+  description: 'Role requires permission <em>view Item revisions</em> and <em>edit rights</em> for item entities in question or <em>administer item entities</em>.'
+
+delete all item revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Item revisions</em> and <em>delete rights</em> for item entities in question or <em>administer item entities</em>.'

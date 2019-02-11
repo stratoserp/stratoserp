@@ -1,5 +1,0 @@
-entity.se_stock_item.add_form:
-  route_name: entity.se_stock_item.add_form
-  title: 'Add Stock item'
-  appears_on:
-    - entity.se_stock_item.collection
