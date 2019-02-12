@@ -19,7 +19,7 @@ class ItemSettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'item_settings';
+    return 'se_item_settings';
   }
 
   /**
@@ -46,7 +46,7 @@ class ItemSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['item_settings']['#markup'] = 'Settings form for Item entities. Manage field settings here.';
+    $form['se_item_settings']['#markup'] = 'Settings form for Item entities. Manage field settings here.';
     return $form;
   }
 

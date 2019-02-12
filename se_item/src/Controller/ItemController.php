@@ -151,7 +151,7 @@ class ItemController extends ControllerBase implements ContainerInjectionInterfa
       }
     }
 
-    $build['item_revisions_table'] = [
+    $build['se_item_revisions_table'] = [
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,

@@ -34,7 +34,7 @@ function se_item_theme() {
     'file' => 'se_item.page.inc',
     'template' => 'se_item',
   ];
-  $theme['item_content_add_list'] = [
+  $theme['se_item_content_add_list'] = [
     'render element' => 'content',
     'variables' => ['content' => NULL],
     'file' => 'se_item.page.inc',
@@ -50,11 +50,11 @@ function se_item_theme_suggestions_item(array $variables) {
   $entity = $variables['elements']['#item'];
   $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
 
-  $suggestions[] = 'item__' . $sanitized_view_mode;
-  $suggestions[] = 'item__' . $entity->bundle();
-  $suggestions[] = 'item__' . $entity->bundle() . '__' . $sanitized_view_mode;
-  $suggestions[] = 'item__' . $entity->id();
-  $suggestions[] = 'item__' . $entity->id() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'se_item__' . $sanitized_view_mode;
+  $suggestions[] = 'se_item__' . $entity->bundle();
+  $suggestions[] = 'se_item__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'se_item__' . $entity->id();
+  $suggestions[] = 'se_item__' . $entity->id() . '__' . $sanitized_view_mode;
   return $suggestions;
 }
 

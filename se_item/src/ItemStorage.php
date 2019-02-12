@@ -49,7 +49,7 @@ class ItemStorage extends SqlContentEntityStorage implements ItemStorageInterfac
    * {@inheritdoc}
    */
   public function clearRevisionsLanguage(LanguageInterface $language) {
-    return $this->database->update('item_revision')
+    return $this->database->update('se_item_revision')
       ->fields(['langcode' => LanguageInterface::LANGCODE_NOT_SPECIFIED])
       ->condition('langcode', $language->getId())
       ->execute();

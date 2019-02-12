@@ -207,7 +207,7 @@ function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $
   $manufacturer = reset($term);
 
   $defaults = [
-    'type' => 'se_item',
+    'type' => 'item',
     'bundle' => $type,
     'langcode' => 'en',
     'uid' => '1',

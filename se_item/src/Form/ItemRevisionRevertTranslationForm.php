@@ -61,7 +61,7 @@ class ItemRevisionRevertTranslationForm extends ItemRevisionRevertForm {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'item_revision_revert_translation_confirm';
+    return 'se_item_revision_revert_translation_confirm';
   }
 
   /**

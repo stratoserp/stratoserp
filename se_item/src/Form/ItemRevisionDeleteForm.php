@@ -66,7 +66,7 @@ class ItemRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'item_revision_delete_confirm';
+    return 'se_item_revision_delete_confirm';
   }
 
   /**
