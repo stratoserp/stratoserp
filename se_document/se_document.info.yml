@@ -4,19 +4,3 @@ type: module
 core: 8.x
 package: Stratos ERP
 dependencies:
-  - eva
-  - field
-  - file
-  - flat_comments
-  - image
-  - link
-  - menu_ui
-  - node
-  - options
-  - path
-  - se_contact
-  - se_customer
-  - se_supplier
-  - text
-  - user
-  - views

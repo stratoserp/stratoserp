@@ -1,0 +1,90 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_item.se_subscription.field_it_code
+    - field.field.se_item.se_subscription.field_it_manufacturer_ref
+    - field.field.se_item.se_subscription.field_it_price
+    - field.field.se_item.se_subscription.field_it_product_type_ref
+    - field.field.se_item.se_subscription.field_it_sale_category_ref
+    - field.field.se_item.se_subscription.field_it_subscription_period
+    - se_item.se_item_type.se_subscription
+  module:
+    - duration_field
+    - field_layout
+    - layout_discovery
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: se_item.se_subscription.default
+targetEntityType: se_item
+bundle: se_subscription
+mode: default
+content:
+  field_it_code:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_it_manufacturer_ref:
+    weight: 30
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_it_price:
+    weight: 27
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_it_product_type_ref:
+    weight: 31
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_it_sale_category_ref:
+    weight: 29
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_it_subscription_period:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: duration_widget
+    region: content
+  name:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden: {  }

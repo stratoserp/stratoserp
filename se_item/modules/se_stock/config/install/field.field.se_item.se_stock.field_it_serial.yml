@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_item.field_it_serial
+    - se_item.se_item_type.se_stock
+id: se_item.se_stock.field_it_serial
+field_name: field_it_serial
+entity_type: se_item
+bundle: se_stock
+label: Serial
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

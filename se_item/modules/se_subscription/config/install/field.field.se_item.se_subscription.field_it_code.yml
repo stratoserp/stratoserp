@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_item.field_it_code
+    - se_item.se_item_type.se_subscription
+id: se_item.se_subscription.field_it_code
+field_name: field_it_code
+entity_type: se_item
+bundle: se_subscription
+label: Code
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

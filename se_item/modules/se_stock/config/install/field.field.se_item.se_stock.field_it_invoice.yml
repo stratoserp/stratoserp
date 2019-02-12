@@ -2,24 +2,24 @@ langcode: en
 status: true
 dependencies:
   config:
-    - comment.type.se_timekeeping
-    - field.storage.comment.field_tk_item
-    - se_item.se_item_type.se_service
-id: comment.se_timekeeping.field_tk_item
-field_name: field_tk_item
-entity_type: comment
-bundle: se_timekeeping
-label: Type
+    - field.storage.se_item.field_it_invoice
+    - node.type.se_invoice
+    - se_item.se_item_type.se_stock
+id: se_item.se_stock.field_it_invoice
+field_name: field_it_invoice
+entity_type: se_item
+bundle: se_stock
+label: Invoice
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_item'
+  handler: 'default:node'
   handler_settings:
     target_bundles:
-      se_service: se_service
+      se_invoice: se_invoice
     sort:
       field: _none
     auto_create: false

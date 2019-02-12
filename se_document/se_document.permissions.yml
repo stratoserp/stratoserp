@@ -1,0 +1,30 @@
+add document entities:
+  title: 'Create new Document entities'
+
+administer document entities:
+  title: 'Administer Document entities'
+  description: 'Allow to access the administration form to configure Document entities.'
+  restrict access: true
+
+delete document entities:
+  title: 'Delete Document entities'
+
+edit document entities:
+  title: 'Edit Document entities'
+
+view published document entities:
+  title: 'View published Document entities'
+
+view unpublished document entities:
+  title: 'View unpublished Document entities'
+
+view all document revisions:
+  title: 'View all Document revisions'
+
+revert all document revisions:
+  title: 'Revert all Document revisions'
+  description: 'Role requires permission <em>view Document revisions</em> and <em>edit rights</em> for document entities in question or <em>administer document entities</em>.'
+
+delete all document revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Document revisions</em> and <em>delete rights</em> for document entities in question or <em>administer document entities</em>.'

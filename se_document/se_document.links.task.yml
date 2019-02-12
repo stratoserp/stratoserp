@@ -1,0 +1,23 @@
+# Document routing definition
+
+entity.se_document.canonical:
+  route_name: entity.se_document.canonical
+  base_route: entity.se_document.canonical
+  title: 'View'
+
+entity.se_document.edit_form:
+  route_name: entity.se_document.edit_form
+  base_route: entity.se_document.canonical
+  title: 'Edit'
+
+entity.se_document.version_history:
+  route_name: entity.se_document.version_history
+  base_route: entity.se_document.canonical
+  title: 'Revisions'
+
+entity.se_document.delete_form:
+  route_name:  entity.se_document.delete_form
+  base_route:  entity.se_document.canonical
+  title: Delete
+  weight: 10
+
