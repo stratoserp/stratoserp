@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_it_manufacturer_ref
-    - node.type.se_item
+    - field.storage.item.field_it_manufacturer_ref
+    - se_item.item_type.se_assembly
     - taxonomy.vocabulary.se_manufacturer
-id: node.se_item.field_it_manufacturer_ref
+id: item.se_assembly.field_it_manufacturer_ref
 field_name: field_it_manufacturer_ref
-entity_type: node
-bundle: se_item
+entity_type: item
+bundle: se_assembly
 label: Manufacturer
-description: 'For physical/stock items, enter the manufacturer name, eg Lenovo, Apple, Dell, System76.'
+description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -21,7 +21,8 @@ settings:
     target_bundles:
       se_manufacturer: se_manufacturer
     sort:
-      field: _none
+      field: name
+      direction: asc
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

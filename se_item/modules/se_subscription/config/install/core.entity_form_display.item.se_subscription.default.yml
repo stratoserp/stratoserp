@@ -3,9 +3,14 @@ status: true
 dependencies:
   config:
     - field.field.item.se_subscription.field_it_code
+    - field.field.item.se_subscription.field_it_manufacturer_ref
     - field.field.item.se_subscription.field_it_price
+    - field.field.item.se_subscription.field_it_product_type_ref
+    - field.field.item.se_subscription.field_it_sale_category_ref
+    - field.field.item.se_subscription.field_it_subscription_period
     - se_item.item_type.se_subscription
   module:
+    - duration_field
     - field_layout
     - layout_discovery
 third_party_settings:
@@ -25,12 +30,45 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_it_manufacturer_ref:
+    weight: 30
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_it_price:
     weight: 27
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  field_it_product_type_ref:
+    weight: 31
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_it_sale_category_ref:
+    weight: 29
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_it_subscription_period:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: duration_widget
     region: content
   name:
     type: string_textfield

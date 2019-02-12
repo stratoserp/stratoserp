@@ -1,32 +1,42 @@
 
 # List of things remaining to be implemented.
 
-# MVP - Minimum viable product
+## Global blockers
+- Remove unnecessary smurf naming.
+- Don't show stock block at bottom for non-stock items.
 
-## Global
+
+## Global non blockers
 - Change comments so they appear in the right spot for all content types.
 - Ensure consistent display on all content types.
-- Remove unnecessary smurf naming.
 - End of day processing.
 - Faceted search.
 - Add more types to frontpage search.
-- Add stock in basic setup.
 - Fix up permissions.
 - Convert to use phpmoney class?
 
-## Bill
-- Add sync to Xero.
-- BUG - Error on adding bill atm.
+
+# Alpha - Workable, things will change
+
+## Customer
+- Store current balance for more flexible payment acceptance.
+
+## Payments
+- Select outstanding invoices when creating a payment.
+
+## Setup
+- Add stock in basic setup.
+
+# Beta - Database/fields stable
 
 ## Calendar
 - Make nice calendar view.
 
 ## Customer
 - Add invoice button/link to aggregate outstanding time entries and create an invoice.
-- Store current balance for more flexible payment acceptance.
 
 ## Document
-- Redo as to Content Entity Type.
+- Redo as to Content entity type.
 - Provide default templates:
   - Documentation page.
   - Password record.
@@ -38,15 +48,29 @@
 
 ## Goods receive
 - Auto populate from Purchase order.
-- Auto create bill on entry.
 
 ## Invoices
-- Add recurring invoice functionality.
 - Auto populate from Quote.
 - Auto populate from Timekeeping.
 - Emailing invoices.
 - Templating invoices.
 - Printing invoices.
+
+## Payments
+- Auto populate outstanding invoices when creating a payment.
+
+# MVP - Minimum viable product
+
+## Bill
+- Add sync to Xero.
+- BUG - Error on adding bill atm.
+
+## Goods receive
+- Auto populate from Purchase order.
+- Auto create bill on entry.
+
+## Invoices
+- Add recurring invoice functionality.
 - Auto statements.
 
 ## Item
@@ -54,9 +78,9 @@
   https://www.agoradesign.at/blog/drupal-quick-tip-day-autocompleteclose-event
 - Remove comment settings etc.
 - WAT - Add flag field - Timekeeping field.
-- Don't show stock block at bottom for non-stock items.
 
 ## Line items (items)
+- Redo as Content entity type.
 - Add something like der_extra that works nicely.
 
 ## Payments
@@ -86,6 +110,7 @@
 
 ## Timekeeping
 - Timekeeping type is not using the correct source, needs to be a list of Service.
+- Base fields same as line item
 - Change timekeeping list to show something instead of blank title.
 - Calculate and store dollar value on save to be simpler when adding as line item..
 
@@ -114,9 +139,9 @@
 - SMS ability
 
 ## Documents
-- Encypted password field type
+- Encypted password document/field type
 
-## Invoices
+## Invoice features
 - Expiring discount for payment within X days.
 
 ## Item
@@ -126,11 +151,14 @@
 - Auto lookup product from barcode on amazon or similar?
 
 ## Pabx
-- Add PABX module with asterisk sub-module for importing phone records.
+- Add PABX module with asterisk sub-module for auto importing phone records.
 
 ## Payments
 - Auto populate invoices when Total amount typed in; or
 - Calculate the Total as the invoices are selected.
+
+## Reports
+- Export email addresses
 
 ## Stock item
 - Stocktake process

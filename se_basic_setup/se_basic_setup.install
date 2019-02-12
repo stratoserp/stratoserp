@@ -1,6 +1,6 @@
 <?php
 
-use Drupal\node\Entity\node;
+use Drupal\se_item\Entity\Item;
 
 /**
  * Implements hook_install().
@@ -78,53 +78,53 @@ function se_basic_setup_taxonomy_terms() {
 }
 
 function se_basic_setup_example_service_items() {
-  $node_defaults = se_basic_setup_item_node_defaults('Service', 'Domain name', 'Internal', 'Service');
+  $defaults = se_basic_setup_item_defaults('Service', 'Domain name', 'Internal', 'se_service');
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Technical service',
+  $item = Item::create($defaults + [
+      'name' => 'Technical service',
       'body' => 'Technical service by one of our qualified technicians.',
-      'field_it_code' => [['value' => 'TECHSERVICE']],
+      'field_it_code'  => [['value' => 'TECHSERVICE']],
       'field_it_price' => [['value' => 160.00]],
     ]);
   $item->save();
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Workshop service',
+  $item = Item::create($defaults + [
+      'name' => 'Workshop service',
       'body' => 'Workshop service by one of our qualified technicians.',
-      'field_it_code' => [['value' => 'WORKSHOP']],
+      'field_it_code'  => [['value' => 'WORKSHOP']],
       'field_it_price' => [['value' => 120.00]],
     ]);
   $item->save();
 }
 
 function se_basic_setup_example_subscription_items() {
-  $node_defaults = se_basic_setup_item_node_defaults('Hosting Service', 'Domain name', 'Internal', 'Subscription');
+  $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_subscription');
 
   // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
-  $item = Node::create($node_defaults + [
-      'title' => 'Domain name registration',
+  $item = Item::create($defaults + [
+      'name' => 'Domain name registration',
       'body' => 'Domain name registration - yearly.',
-      'field_it_code' => [['value' => 'DOMAINNAME-YEARLY']],
+      'field_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
       'field_it_price' => [['value' => 60.00]],
       'field_it_subscription_period' => [['duration' => 'P1Y']],
     ]);
   $item->save();
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Domain name - biennually',
+  $item = Item::create($defaults + [
+      'name' => 'Domain name - biennually',
       'body' => 'Domain name - biennually.',
-      'field_it_code' => [['value' => 'DOMAINNAME-BIENNUALLY']],
+      'field_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
       'field_it_price' => [['value' => 120.00]],
       'field_it_subscription_period' => [['duration' => 'P2Y']],
     ]);
   $item->save();
 
-  $node_defaults = se_basic_setup_item_node_defaults('Hosting service', 'Domain name', 'Internal', 'Subscription');
+  $defaults = se_basic_setup_item_defaults('Hosting service', 'Domain name', 'Internal', 'se_subscription');
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Domain hosting',
+  $item = Item::create($defaults + [
+      'name' => 'Domain hosting',
       'body' => 'Domain hosting - yearly.',
-      'field_it_code' => [['value' => 'DOMAINHOSTING-YEARLY']],
+      'field_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
       'field_it_price' => [['value' => 240.00]],
       'field_it_subscription_period' => [['duration' => 'P1Y']],
     ]);
@@ -132,71 +132,71 @@ function se_basic_setup_example_subscription_items() {
 }
 
 function se_basic_setup_example_stock_items() {
-  $node_defaults = se_basic_setup_item_node_defaults('Hardware', 'Keyboard', 'Microsoft', 'Stock item');
+  $defaults = se_basic_setup_item_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Microsoft KB600',
+  $item = Item::create($defaults + [
+      'name' => 'Microsoft KB600',
       'body' => 'Microsoft KB600',
-      'field_it_code' => [['value' => 'MS-KB-600']],
+      'field_it_code'  => [['value' => 'MS-KB-600']],
       'field_it_price' => [['value' => 45.00]],
     ]);
   $item->save();
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Microsoft KB800',
+  $item = Item::create($defaults + [
+      'name' => 'Microsoft KB800',
       'body' => 'Microsoft KB800',
-      'field_it_code' => [['value' => 'MS-KB-800']],
+      'field_it_code'  => [['value' => 'MS-KB-800']],
       'field_it_price' => [['value' => 55.00]],
     ]);
   $item->save();
 
-  $node_defaults = se_basic_setup_item_node_defaults('Hardware', 'Notebook', 'Lenovo', 'Stock item');
+  $defaults = se_basic_setup_item_defaults('Hardware', 'Notebook', 'Lenovo', 'se_stock');
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Lenovo 11e',
+  $item = Item::create($defaults + [
+      'name' => 'Lenovo 11e',
       'body' => 'Lenovo 11e',
-      'field_it_code' => [['value' => 'LN-11E']],
+      'field_it_code'  => [['value' => 'LN-11E']],
       'field_it_price' => [['value' => 899]],
     ]);
   $item->save();
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Lenovo x280',
+  $item = Item::create($defaults + [
+      'name' => 'Lenovo x280',
       'body' => 'Lenovo x280',
-      'field_it_code' => [['value' => 'LN-X280']],
+      'field_it_code'  => [['value' => 'LN-X280']],
       'field_it_price' => [['value' => 1299]],
     ]);
   $item->save();
 
-  $node_defaults = se_basic_setup_item_node_defaults('Consumables', 'Ink cartridge', 'Canon', 'Stock item');
+  $defaults = se_basic_setup_item_defaults('Consumables', 'Ink cartridge', 'Canon', 'se_stock');
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Canon PIXMA - Cyan',
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Cyan',
       'body' => 'Canon PIXMA - Cyan',
-      'field_it_code' => [['value' => 'CN-PIXMA-CYAN']],
+      'field_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
       'field_it_price' => [['value' => 14.99]],
     ]);
   $item->save();
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Canon PIXMA - Yellow',
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Yellow',
       'body' => 'Canon PIXMA - Yellow',
-      'field_it_code' => [['value' => 'CN-PIXMA-YELLOW']],
+      'field_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
       'field_it_price' => [['value' => 14.99]],
     ]);
   $item->save();
 
-  $item = Node::create($node_defaults + [
-      'title' => 'Canon PIXMA - Magenta',
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Magenta',
       'body' => 'Canon PIXMA - Magenta',
-      'field_it_code' => [['value' => 'CN-PIXMA-MAGENTA']],
+      'field_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
       'field_it_price' => [['value' => 14.99]],
     ]);
   $item->save();
 
 }
 
-function se_basic_setup_item_node_defaults($category, $product_type, $manufacturer, $type) {
+function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $type) {
   $term = taxonomy_term_load_multiple_by_name($category, 'se_sale_category');
   $sale_category = reset($term);
 
@@ -206,21 +206,18 @@ function se_basic_setup_item_node_defaults($category, $product_type, $manufactur
   $term = taxonomy_term_load_multiple_by_name($manufacturer, 'se_manufacturer');
   $manufacturer = reset($term);
 
-  $term = taxonomy_term_load_multiple_by_name($type, 'se_item_type');
-  $item_type = reset($term);
-
-  $node_defaults = [
+  $defaults = [
     'type' => 'se_item',
+    'bundle' => $type,
     'langcode' => 'en',
     'uid' => '1',
     'status' => 1,
     'field_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
-    'field_it_manufacturer_ref' => [['target_id' => $manufacturer->id()]],
-    'field_it_product_type_ref' => [['target_id' => $product_type->id()]],
-    'field_it_type_ref' => [['target_id' => $item_type->id()]],
+    'field_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
+    'field_it_product_type_ref'  => [['target_id' => $product_type->id()]],
   ];
 
-  return $node_defaults;
+  return $defaults;
 }
 
 

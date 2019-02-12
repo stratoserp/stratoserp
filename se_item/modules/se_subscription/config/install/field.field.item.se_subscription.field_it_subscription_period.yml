@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.item.field_it_subscription_period
+    - se_item.item_type.se_subscription
+  module:
+    - duration_field
+id: item.se_subscription.field_it_subscription_period
+field_name: field_it_subscription_period
+entity_type: item
+bundle: se_subscription
+label: 'Subscription period'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  granularity: 'y:m:d'
+field_type: duration

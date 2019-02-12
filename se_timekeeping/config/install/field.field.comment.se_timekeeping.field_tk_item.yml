@@ -4,7 +4,7 @@ dependencies:
   config:
     - comment.type.se_timekeeping
     - field.storage.comment.field_tk_item
-    - node.type.se_item
+    - se_item.item_type.se_service
 id: comment.se_timekeeping.field_tk_item
 field_name: field_tk_item
 entity_type: comment
@@ -16,12 +16,12 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: 'default:item'
   handler_settings:
     target_bundles:
-      se_item: se_item
+      se_service: se_service
     sort:
       field: _none
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: se_service
 field_type: entity_reference

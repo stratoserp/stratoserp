@@ -1,9 +1,11 @@
-
-se_item.add_se_item:
-  route_name: 'node.add'
-  route_parameters:
-    node_type: 'se_item'
-  title: 'Add item'
+entity.item.add_form:
+  route_name: entity.item.add_page
+  title: 'Add Item'
   appears_on:
-    - 'view.se_item_list.page_1'
+    - entity.item.collection
+entity.item_type.add_form:
+  route_name: entity.item_type.add_form
+  title: 'Add Item type'
+  appears_on:
+    - entity.item_type.collection
 

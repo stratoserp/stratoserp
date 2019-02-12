@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_it_sale_category_ref
-    - node.type.se_item
+    - field.storage.item.field_it_sale_category_ref
+    - se_item.item_type.se_stock
     - taxonomy.vocabulary.se_sale_category
-id: node.se_item.field_it_sale_category_ref
+id: item.se_stock.field_it_sale_category_ref
 field_name: field_it_sale_category_ref
-entity_type: node
-bundle: se_item
+entity_type: item
+bundle: se_stock
 label: 'Sale category'
-description: 'When this item is sold, what is the classification for reporting, eg Service, Consumable, Hosting, Managed service.'
+description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -21,7 +21,8 @@ settings:
     target_bundles:
       se_sale_category: se_sale_category
     sort:
-      field: _none
+      field: name
+      direction: asc
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

@@ -3,13 +3,13 @@ status: true
 dependencies:
   module:
     - comment
-    - node
+    - se_item
 id: comment.field_tk_item
 field_name: field_tk_item
 entity_type: comment
 type: entity_reference
 settings:
-  target_type: node
+  target_type: item
 module: core
 locked: false
 cardinality: 1

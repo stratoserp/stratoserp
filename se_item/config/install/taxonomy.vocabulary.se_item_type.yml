@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Item type'
-vid: se_item_type
-description: ''
-hierarchy: 0
-weight: 0

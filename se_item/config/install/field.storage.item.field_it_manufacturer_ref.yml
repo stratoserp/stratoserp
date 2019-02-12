@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - se_item
     - taxonomy
-id: node.field_it_product_type_ref
-field_name: field_it_product_type_ref
-entity_type: node
+id: item.field_it_manufacturer_ref
+field_name: field_it_manufacturer_ref
+entity_type: item
 type: entity_reference
 settings:
   target_type: taxonomy_term

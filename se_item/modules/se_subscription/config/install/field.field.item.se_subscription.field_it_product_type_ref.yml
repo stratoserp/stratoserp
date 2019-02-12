@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_it_product_type_ref
-    - node.type.se_item
+    - field.storage.item.field_it_product_type_ref
+    - se_item.item_type.se_subscription
     - taxonomy.vocabulary.se_product_type
-id: node.se_item.field_it_product_type_ref
+id: item.se_subscription.field_it_product_type_ref
 field_name: field_it_product_type_ref
-entity_type: node
-bundle: se_item
+entity_type: item
+bundle: se_subscription
 label: 'Product type'
-description: 'For physical/stock items, enter the type of product, eg Keyboard, Monitor, Notebook, Mouse.'
+description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -21,7 +21,8 @@ settings:
     target_bundles:
       se_product_type: se_product_type
     sort:
-      field: _none
+      field: name
+      direction: asc
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

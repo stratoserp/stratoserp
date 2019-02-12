@@ -58,9 +58,9 @@ class NavigationBlock extends BlockBase {
           $items = $this->invoiceLinks();
           break;
 
-        case 'se_item':
-          $items = $this->itemLinks();
-          break;
+//        case 'se_item':
+//          $items = $this->itemLinks();
+//          break;
 
         case 'se_payment':
           $items = $this->paymentLinks();

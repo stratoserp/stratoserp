@@ -1,7 +1,18 @@
-se_item.add_se_item:
-  title: 'Add item'
-  menu_name: stratos-erp
-  route_name: node.add
-  parent: 'views_view:views.se_item_list.page_1'
-  route_parameters:
-    node_type: 'se_item'
+
+# Item menu items definition
+entity.item.collection:
+  title: 'Item list'
+  route_name: entity.item.collection
+  description: 'List Item entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# Item type menu items definition
+entity.item_type.collection:
+  title: 'Item type'
+  route_name: entity.item_type.collection
+  description: 'List Item type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
