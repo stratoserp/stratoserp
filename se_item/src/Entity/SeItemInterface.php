@@ -12,7 +12,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup se_item
  */
-interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
+interface SeItemInterface extends ContentEntityInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
   // Add get/set methods for your configuration properties here.
 
@@ -30,7 +30,7 @@ interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, En
    * @param string $name
    *   The Item name.
    *
-   * @return \Drupal\se_item\Entity\ItemInterface
+   * @return \Drupal\se_item\Entity\SeItemInterface
    *   The called Item entity.
    */
   public function setName($name);
@@ -49,7 +49,7 @@ interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, En
    * @param int $timestamp
    *   The Item creation timestamp.
    *
-   * @return \Drupal\se_item\Entity\ItemInterface
+   * @return \Drupal\se_item\Entity\SeItemInterface
    *   The called Item entity.
    */
   public function setCreatedTime($timestamp);
@@ -70,7 +70,7 @@ interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, En
    * @param bool $published
    *   TRUE to set this Item to published, FALSE to set it to unpublished.
    *
-   * @return \Drupal\se_item\Entity\ItemInterface
+   * @return \Drupal\se_item\Entity\SeItemInterface
    *   The called Item entity.
    */
   public function setPublished($published);
@@ -89,7 +89,7 @@ interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, En
    * @param int $timestamp
    *   The UNIX timestamp of when this revision was created.
    *
-   * @return \Drupal\se_item\Entity\ItemInterface
+   * @return \Drupal\se_item\Entity\SeItemInterface
    *   The called Item entity.
    */
   public function setRevisionCreationTime($timestamp);
@@ -108,7 +108,7 @@ interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, En
    * @param int $uid
    *   The user ID of the revision author.
    *
-   * @return \Drupal\se_item\Entity\ItemInterface
+   * @return \Drupal\se_item\Entity\SeItemInterface
    *   The called Item entity.
    */
   public function setRevisionUserId($uid);

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Route;
  * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
+class SeItemHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -64,7 +64,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route
         ->setDefaults([
           '_title' => "{$entity_type->getLabel()} revisions",
-          '_controller' => '\Drupal\se_item\Controller\ItemController::revisionOverview',
+          '_controller' => '\Drupal\se_item\Controller\SeItemController::revisionOverview',
         ])
         ->setRequirement('_permission', 'access item revisions')
         ->setOption('_admin_route', TRUE);
@@ -87,8 +87,8 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route($entity_type->getLinkTemplate('revision'));
       $route
         ->setDefaults([
-          '_controller' => '\Drupal\se_item\Controller\ItemController::revisionShow',
-          '_title_callback' => '\Drupal\se_item\Controller\ItemController::revisionPageTitle',
+          '_controller' => '\Drupal\se_item\Controller\SeItemController::revisionShow',
+          '_title_callback' => '\Drupal\se_item\Controller\SeItemController::revisionPageTitle',
         ])
         ->setRequirement('_permission', 'access item revisions')
         ->setOption('_admin_route', TRUE);
@@ -111,7 +111,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route($entity_type->getLinkTemplate('revision_revert'));
       $route
         ->setDefaults([
-          '_form' => '\Drupal\se_item\Form\ItemRevisionRevertForm',
+          '_form' => '\Drupal\se_item\Form\SeItemRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
         ->setRequirement('_permission', 'revert all item revisions')
@@ -135,7 +135,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route($entity_type->getLinkTemplate('revision_delete'));
       $route
         ->setDefaults([
-          '_form' => '\Drupal\se_item\Form\ItemRevisionDeleteForm',
+          '_form' => '\Drupal\se_item\Form\SeItemRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
         ->setRequirement('_permission', 'delete all item revisions')
@@ -159,7 +159,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route($entity_type->getLinkTemplate('translation_revert'));
       $route
         ->setDefaults([
-          '_form' => '\Drupal\se_item\Form\ItemRevisionRevertTranslationForm',
+          '_form' => '\Drupal\se_item\Form\SeItemRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
         ->setRequirement('_permission', 'revert all item revisions')
@@ -183,7 +183,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route("/admin/structure/{$entity_type->id()}/settings");
       $route
         ->setDefaults([
-          '_form' => 'Drupal\se_item\Form\ItemSettingsForm',
+          '_form' => 'Drupal\se_item\Form\SeItemSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
         ->setRequirement('_permission', $entity_type->getAdminPermission())

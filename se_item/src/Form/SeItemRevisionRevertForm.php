@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\se_item\Entity\ItemInterface;
+use Drupal\se_item\Entity\SeItemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -15,13 +15,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup se_item
  */
-class ItemRevisionRevertForm extends ConfirmFormBase {
+class SeItemRevisionRevertForm extends ConfirmFormBase {
 
 
   /**
    * The Item revision.
    *
-   * @var \Drupal\se_item\Entity\ItemInterface
+   * @var \Drupal\se_item\Entity\SeItemInterface
    */
   protected $revision;
 
@@ -30,7 +30,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $ItemStorage;
+  protected $SeItemStorage;
 
   /**
    * The date formatter service.
@@ -40,7 +40,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
   protected $dateFormatter;
 
   /**
-   * Constructs a new ItemRevisionRevertForm.
+   * Constructs a new SeItemRevisionRevertForm.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $entity_storage
    *   The Item storage.
@@ -48,7 +48,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
    *   The date formatter service.
    */
   public function __construct(EntityStorageInterface $entity_storage, DateFormatterInterface $date_formatter) {
-    $this->ItemStorage = $entity_storage;
+    $this->SeItemStorage = $entity_storage;
     $this->dateFormatter = $date_formatter;
   }
 
@@ -80,7 +80,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.item.version_history', ['se_item' => $this->revision->id()]);
+    return new Url('entity.se_item.version_history', ['se_item' => $this->revision->id()]);
   }
 
   /**
@@ -100,8 +100,8 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $item_revision = NULL) {
-    $this->revision = $this->ItemStorage->loadRevision($item_revision);
+  public function buildForm(array $form, FormStateInterface $form_state, $se_item_revision = NULL) {
+    $this->revision = $this->SeItemStorage->loadRevision($se_item_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -122,7 +122,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
     $this->logger('content')->notice('Item: reverted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
     drupal_set_message(t('Item %title has been reverted to the revision from %revision-date.', ['%title' => $this->revision->label(), '%revision-date' => $this->dateFormatter->format($original_revision_timestamp)]));
     $form_state->setRedirect(
-      'entity.item.version_history',
+      'entity.se_item.version_history',
       ['se_item' => $this->revision->id()]
     );
   }
@@ -130,15 +130,15 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
   /**
    * Prepares a revision to be reverted.
    *
-   * @param \Drupal\se_item\Entity\ItemInterface $revision
+   * @param \Drupal\se_item\Entity\SeItemInterface $revision
    *   The revision to be reverted.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    *
-   * @return \Drupal\se_item\Entity\ItemInterface
+   * @return \Drupal\se_item\Entity\SeItemInterface
    *   The prepared revision ready to be stored.
    */
-  protected function prepareRevertedRevision(ItemInterface $revision, FormStateInterface $form_state) {
+  protected function prepareRevertedRevision(SeItemInterface $revision, FormStateInterface $form_state) {
     $revision->setNewRevision();
     $revision->isDefaultRevision(TRUE);
     $revision->setRevisionCreationTime(REQUEST_TIME);

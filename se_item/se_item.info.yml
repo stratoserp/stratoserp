@@ -3,15 +3,3 @@ description: 'Provides Item content type and related configuration.'
 type: module
 core: 8.x
 package: Stratos ERP
-dependencies:
-  - field
-  - file
-  - flat_comments
-  - image
-  - menu_ui
-  - node
-  - path
-  - se_contact
-  - se_supplier
-  - text
-  - user

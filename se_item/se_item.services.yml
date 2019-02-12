@@ -1,4 +1,0 @@
-services:
-  se_item.service:
-    class: Drupal\se_item\Service\SeItem
-    arguments: ['@entity_type.manager']

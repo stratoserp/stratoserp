@@ -1,4 +1,4 @@
-se_item.item_type.*:
+se_item.se_item_type.*:
   type: config_entity
   label: 'Item type config'
   mapping:

@@ -11,7 +11,7 @@ use Drupal\Core\Link;
  *
  * @ingroup se_item
  */
-class ItemListBuilder extends EntityListBuilder {
+class SeItemListBuilder extends EntityListBuilder {
 
 
   /**
@@ -27,11 +27,11 @@ class ItemListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\se_item\Entity\Item */
+    /* @var $entity \Drupal\se_item\Entity\SeItem */
     $row['id'] = $entity->id();
     $row['name'] = Link::createFromRoute(
       $entity->label(),
-      'entity.item.edit_form',
+      'entity.se_item.edit_form',
       ['se_item' => $entity->id()]
     );
     return $row + parent::buildRow($entity);

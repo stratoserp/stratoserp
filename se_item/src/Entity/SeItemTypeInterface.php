@@ -7,7 +7,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 /**
  * Provides an interface for defining Item type entities.
  */
-interface ItemTypeInterface extends ConfigEntityInterface {
+interface SeItemTypeInterface extends ConfigEntityInterface {
 
   // Add get/set methods for your configuration properties here.
 }

@@ -7,7 +7,7 @@ use Drupal\views\EntityViewsData;
 /**
  * Provides Views data for Item entities.
  */
-class ItemViewsData extends EntityViewsData {
+class SeItemViewsData extends EntityViewsData {
 
   /**
    * {@inheritdoc}

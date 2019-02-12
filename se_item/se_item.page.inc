@@ -10,7 +10,7 @@
 use Drupal\Core\Render\Element;
 
 /**
- * Prepares variables for SeItem templates.
+ * Prepares variables for Item templates.
  *
  * Default template: se_item.html.twig.
  *
@@ -20,8 +20,8 @@ use Drupal\Core\Render\Element;
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_se_item(array &$variables) {
-  // Fetch Item Entity Object.
-  $se_item = $variables['elements']['#item'];
+  // Fetch SeItem Entity Object.
+  $se_item = $variables['elements']['#se_item'];
 
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {

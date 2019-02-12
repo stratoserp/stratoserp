@@ -16,31 +16,31 @@ use Drupal\user\UserInterface;
  * @ingroup se_item
  *
  * @ContentEntityType(
- *   id = "item",
+ *   id = "se_item",
  *   label = @Translation("Item"),
  *   bundle_label = @Translation("Item type"),
  *   handlers = {
- *     "storage" = "Drupal\se_item\ItemStorage",
+ *     "storage" = "Drupal\se_item\SeItemStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\se_item\ItemListBuilder",
- *     "views_data" = "Drupal\se_item\Entity\ItemViewsData",
- *     "translation" = "Drupal\se_item\ItemTranslationHandler",
+ *     "list_builder" = "Drupal\se_item\SeItemListBuilder",
+ *     "views_data" = "Drupal\se_item\Entity\SeItemViewsData",
+ *     "translation" = "Drupal\se_item\SeItemTranslationHandler",
  *
  *     "form" = {
- *       "default" = "Drupal\se_item\Form\ItemForm",
- *       "add" = "Drupal\se_item\Form\ItemForm",
- *       "edit" = "Drupal\se_item\Form\ItemForm",
- *       "delete" = "Drupal\se_item\Form\ItemDeleteForm",
+ *       "default" = "Drupal\se_item\Form\SeItemForm",
+ *       "add" = "Drupal\se_item\Form\SeItemForm",
+ *       "edit" = "Drupal\se_item\Form\SeItemForm",
+ *       "delete" = "Drupal\se_item\Form\SeItemDeleteForm",
  *     },
- *     "access" = "Drupal\se_item\ItemAccessControlHandler",
+ *     "access" = "Drupal\se_item\SeItemAccessControlHandler",
  *     "route_provider" = {
- *       "html" = "Drupal\se_item\ItemHtmlRouteProvider",
+ *       "html" = "Drupal\se_item\SeItemHtmlRouteProvider",
  *     },
  *   },
- *   base_table = "item",
- *   data_table = "item_field_data",
- *   revision_table = "item_revision",
- *   revision_data_table = "item_field_revision",
+ *   base_table = "se_item",
+ *   data_table = "se_item_field_data",
+ *   revision_table = "se_item_revision",
+ *   revision_data_table = "se_item_field_revision",
  *   translatable = TRUE,
  *   admin_permission = "administer item entities",
  *   entity_keys = {
@@ -54,23 +54,23 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/se/admin/structure/item/{item}",
- *     "add-page" = "/se/admin/structure/item/add",
- *     "add-form" = "/se/admin/structure/item/add/{item_type}",
- *     "edit-form" = "/se/admin/structure/item/{item}/edit",
- *     "delete-form" = "/se/admin/structure/item/{item}/delete",
- *     "version-history" = "/se/admin/structure/item/{item}/revisions",
- *     "revision" = "/se/admin/structure/item/{item}/revisions/{item_revision}/view",
- *     "revision_revert" = "/se/admin/structure/item/{item}/revisions/{item_revision}/revert",
- *     "revision_delete" = "/se/admin/structure/item/{item}/revisions/{item_revision}/delete",
- *     "translation_revert" = "/se/admin/structure/item/{item}/revisions/{item_revision}/revert/{langcode}",
- *     "collection" = "/se/admin/structure/item",
+ *     "canonical" = "/se/admin/structure/se_item/{se_item}",
+ *     "add-page" = "/se/admin/structure/se_item/add",
+ *     "add-form" = "/se/admin/structure/se_item/add/{se_item_type}",
+ *     "edit-form" = "/se/admin/structure/se_item/{se_item}/edit",
+ *     "delete-form" = "/se/admin/structure/se_item/{se_item}/delete",
+ *     "version-history" = "/se/admin/structure/se_item/{se_item}/revisions",
+ *     "revision" = "/se/admin/structure/se_item/{se_item}/revisions/{se_item_revision}/view",
+ *     "revision_revert" = "/se/admin/structure/se_item/{se_item}/revisions/{se_item_revision}/revert",
+ *     "revision_delete" = "/se/admin/structure/se_item/{se_item}/revisions/{se_item_revision}/delete",
+ *     "translation_revert" = "/se/admin/structure/se_item/{se_item}/revisions/{se_item_revision}/revert/{langcode}",
+ *     "collection" = "/se/admin/structure/se_item",
  *   },
- *   bundle_entity_type = "item_type",
- *   field_ui_base_route = "entity.item_type.edit_form"
+ *   bundle_entity_type = "se_item_type",
+ *   field_ui_base_route = "entity.se_item_type.edit_form"
  * )
  */
-class Item extends RevisionableContentEntityBase implements ItemInterface {
+class SeItem extends RevisionableContentEntityBase implements SeItemInterface {
 
   use EntityChangedTrait;
 
@@ -115,7 +115,7 @@ class Item extends RevisionableContentEntityBase implements ItemInterface {
       }
     }
 
-    // If no revision author has been set explicitly, make the item owner the
+    // If no revision author has been set explicitly, make the se_item owner the
     // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());

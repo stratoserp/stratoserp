@@ -10,13 +10,13 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @ingroup se_item
  */
-class ItemForm extends ContentEntityForm {
+class SeItemForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\se_item\Entity\Item */
+    /* @var $entity \Drupal\se_item\Entity\SeItem */
     $form = parent::buildForm($form, $form_state);
 
     if (!$this->entity->isNew()) {
@@ -65,7 +65,7 @@ class ItemForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.item.canonical', ['se_item' => $entity->id()]);
+    $form_state->setRedirect('entity.se_item.canonical', ['se_item' => $entity->id()]);
   }
 
 }

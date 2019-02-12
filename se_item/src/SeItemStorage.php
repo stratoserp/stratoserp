@@ -5,7 +5,7 @@ namespace Drupal\se_item;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\se_item\Entity\ItemInterface;
+use Drupal\se_item\Entity\SeItemInterface;
 
 /**
  * Defines the storage handler class for Item entities.
@@ -15,14 +15,14 @@ use Drupal\se_item\Entity\ItemInterface;
  *
  * @ingroup se_item
  */
-class ItemStorage extends SqlContentEntityStorage implements ItemStorageInterface {
+class SeItemStorage extends SqlContentEntityStorage implements SeItemStorageInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function revisionIds(ItemInterface $entity) {
+  public function revisionIds(SeItemInterface $entity) {
     return $this->database->query(
-      'SELECT vid FROM {item_revision} WHERE id=:id ORDER BY vid',
+      'SELECT vid FROM {se_item_revision} WHERE id=:id ORDER BY vid',
       [':id' => $entity->id()]
     )->fetchCol();
   }
@@ -32,7 +32,7 @@ class ItemStorage extends SqlContentEntityStorage implements ItemStorageInterfac
    */
   public function userRevisionIds(AccountInterface $account) {
     return $this->database->query(
-      'SELECT vid FROM {item_field_revision} WHERE uid = :uid ORDER BY vid',
+      'SELECT vid FROM {se_item_field_revision} WHERE uid = :uid ORDER BY vid',
       [':uid' => $account->id()]
     )->fetchCol();
   }
@@ -40,8 +40,8 @@ class ItemStorage extends SqlContentEntityStorage implements ItemStorageInterfac
   /**
    * {@inheritdoc}
    */
-  public function countDefaultLanguageRevisions(ItemInterface $entity) {
-    return $this->database->query('SELECT COUNT(*) FROM {item_field_revision} WHERE id = :id AND default_langcode = 1', [':id' => $entity->id()])
+  public function countDefaultLanguageRevisions(SeItemInterface $entity) {
+    return $this->database->query('SELECT COUNT(*) FROM {se_item_field_revision} WHERE id = :id AND default_langcode = 1', [':id' => $entity->id()])
       ->fetchField();
   }
 

@@ -6,7 +6,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\se_item\Entity\ItemInterface;
+use Drupal\se_item\Entity\SeItemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup se_item
  */
-class ItemRevisionRevertTranslationForm extends ItemRevisionRevertForm {
+class SeItemRevisionRevertTranslationForm extends SeItemRevisionRevertForm {
 
 
   /**
@@ -32,7 +32,7 @@ class ItemRevisionRevertTranslationForm extends ItemRevisionRevertForm {
   protected $languageManager;
 
   /**
-   * Constructs a new ItemRevisionRevertTranslationForm.
+   * Constructs a new SeItemRevisionRevertTranslationForm.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $entity_storage
    *   The Item storage.
@@ -74,9 +74,9 @@ class ItemRevisionRevertTranslationForm extends ItemRevisionRevertForm {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $item_revision = NULL, $langcode = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $se_item_revision = NULL, $langcode = NULL) {
     $this->langcode = $langcode;
-    $form = parent::buildForm($form, $form_state, $item_revision);
+    $form = parent::buildForm($form, $form_state, $se_item_revision);
 
     $form['revert_untranslated_fields'] = [
       '#type' => 'checkbox',
@@ -90,11 +90,11 @@ class ItemRevisionRevertTranslationForm extends ItemRevisionRevertForm {
   /**
    * {@inheritdoc}
    */
-  protected function prepareRevertedRevision(ItemInterface $revision, FormStateInterface $form_state) {
+  protected function prepareRevertedRevision(SeItemInterface $revision, FormStateInterface $form_state) {
     $revert_untranslated_fields = $form_state->getValue('revert_untranslated_fields');
 
-    /** @var \Drupal\se_item\Entity\ItemInterface $default_revision */
-    $latest_revision = $this->ItemStorage->load($revision->id());
+    /** @var \Drupal\se_item\Entity\SeItemInterface $default_revision */
+    $latest_revision = $this->SeItemStorage->load($revision->id());
     $latest_revision_translation = $latest_revision->getTranslation($this->langcode);
 
     $revision_translation = $revision->getTranslation($this->langcode);

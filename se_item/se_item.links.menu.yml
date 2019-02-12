@@ -1,17 +1,17 @@
 
 # Item menu items definition
-entity.item.collection:
+entity.se_item.collection:
   title: 'Item list'
-  route_name: entity.item.collection
+  route_name: entity.se_item.collection
   description: 'List Item entities'
   parent: system.admin_structure
   weight: 100
 
 
 # Item type menu items definition
-entity.item_type.collection:
+entity.se_item_type.collection:
   title: 'Item type'
-  route_name: entity.item_type.collection
+  route_name: entity.se_item_type.collection
   description: 'List Item type (bundles)'
   parent: system.admin_structure
   weight: 99
