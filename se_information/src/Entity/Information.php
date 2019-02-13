@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_item\Entity;
+namespace Drupal\se_information\Entity;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -11,38 +11,38 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the Item entity.
+ * Defines the Information entity.
  *
- * @ingroup se_item
+ * @ingroup se_information
  *
  * @ContentEntityType(
- *   id = "se_item",
- *   label = @Translation("Item"),
- *   bundle_label = @Translation("Item type"),
+ *   id = "se_information",
+ *   label = @Translation("Information"),
+ *   bundle_label = @Translation("Information type"),
  *   handlers = {
- *     "storage" = "Drupal\se_item\SeItemStorage",
+ *     "storage" = "Drupal\se_information\InformationStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\se_item\SeItemListBuilder",
- *     "views_data" = "Drupal\se_item\Entity\SeItemViewsData",
- *     "translation" = "Drupal\se_item\SeItemTranslationHandler",
+ *     "list_builder" = "Drupal\se_information\InformationListBuilder",
+ *     "views_data" = "Drupal\se_information\Entity\InformationViewsData",
+ *     "translation" = "Drupal\se_information\InformationTranslationHandler",
  *
  *     "form" = {
- *       "default" = "Drupal\se_item\Form\SeItemForm",
- *       "add" = "Drupal\se_item\Form\SeItemForm",
- *       "edit" = "Drupal\se_item\Form\SeItemForm",
- *       "delete" = "Drupal\se_item\Form\SeItemDeleteForm",
+ *       "default" = "Drupal\se_information\Form\InformationForm",
+ *       "add" = "Drupal\se_information\Form\InformationForm",
+ *       "edit" = "Drupal\se_information\Form\InformationForm",
+ *       "delete" = "Drupal\se_information\Form\InformationDeleteForm",
  *     },
- *     "access" = "Drupal\se_item\SeItemAccessControlHandler",
+ *     "access" = "Drupal\se_information\InformationAccessControlHandler",
  *     "route_provider" = {
- *       "html" = "Drupal\se_item\SeItemHtmlRouteProvider",
+ *       "html" = "Drupal\se_information\InformationHtmlRouteProvider",
  *     },
  *   },
- *   base_table = "se_item",
- *   data_table = "se_item_field_data",
- *   revision_table = "se_item_revision",
- *   revision_data_table = "se_item_field_revision",
+ *   base_table = "se_information",
+ *   data_table = "se_information_field_data",
+ *   revision_table = "se_information_revision",
+ *   revision_data_table = "se_information_field_revision",
  *   translatable = TRUE,
- *   admin_permission = "administer item entities",
+ *   admin_permission = "administer information entities",
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "vid",
@@ -54,23 +54,23 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/se/item/{se_item}",
- *     "add-page" = "/se/item/add",
- *     "add-form" = "/se/item/add/{se_item_type}",
- *     "edit-form" = "/se/item/{se_item}/edit",
- *     "delete-form" = "/se/item/{se_item}/delete",
- *     "version-history" = "/se/item/{se_item}/revisions",
- *     "revision" = "/se/item/{se_item}/revisions/{se_item_revision}/view",
- *     "revision_revert" = "/se/item/{se_item}/revisions/{se_item_revision}/revert",
- *     "revision_delete" = "/se/item/{se_item}/revisions/{se_item_revision}/delete",
- *     "translation_revert" = "/se/item/{se_item}/revisions/{se_item_revision}/revert/{langcode}",
- *     "collection" = "/se/item",
+ *     "canonical" = "/se/information/structure/se_information/{se_information}",
+ *     "add-page" = "/se/information/structure/se_information/add",
+ *     "add-form" = "/se/information/structure/se_information/add/{se_information_type}",
+ *     "edit-form" = "/se/information/structure/se_information/{se_information}/edit",
+ *     "delete-form" = "/se/information/structure/se_information/{se_information}/delete",
+ *     "version-history" = "/se/information/structure/se_information/{se_information}/revisions",
+ *     "revision" = "/se/information/structure/se_information/{se_information}/revisions/{se_information_revision}/view",
+ *     "revision_revert" = "/se/information/structure/se_information/{se_information}/revisions/{se_information_revision}/revert",
+ *     "revision_delete" = "/se/information/structure/se_information/{se_information}/revisions/{se_information_revision}/delete",
+ *     "translation_revert" = "/se/information/structure/se_information/{se_information}/revisions/{se_information_revision}/revert/{langcode}",
+ *     "collection" = "/se/information/structure/se_information",
  *   },
- *   bundle_entity_type = "se_item_type",
- *   field_ui_base_route = "entity.se_item_type.edit_form"
+ *   bundle_entity_type = "se_information_type",
+ *   field_ui_base_route = "entity.se_information_type.edit_form"
  * )
  */
-class SeItem extends RevisionableContentEntityBase implements SeItemInterface {
+class Information extends RevisionableContentEntityBase implements InformationInterface {
 
   use EntityChangedTrait;
 
@@ -115,7 +115,7 @@ class SeItem extends RevisionableContentEntityBase implements SeItemInterface {
       }
     }
 
-    // If no revision author has been set explicitly, make the se_item owner the
+    // If no revision author has been set explicitly, make the se_information owner the
     // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
@@ -205,7 +205,7 @@ class SeItem extends RevisionableContentEntityBase implements SeItemInterface {
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Item entity.'))
+      ->setDescription(t('The user ID of author of the Information entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
@@ -230,7 +230,7 @@ class SeItem extends RevisionableContentEntityBase implements SeItemInterface {
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Item entity.'))
+      ->setDescription(t('The name of the Information entity.'))
       ->setRevisionable(TRUE)
       ->setSettings([
         'max_length' => 50,
@@ -252,7 +252,7 @@ class SeItem extends RevisionableContentEntityBase implements SeItemInterface {
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
-      ->setDescription(t('A boolean indicating whether the Item is published.'))
+      ->setDescription(t('A boolean indicating whether the Information is published.'))
       ->setRevisionable(TRUE)
       ->setDefaultValue(TRUE)
       ->setDisplayOptions('form', [

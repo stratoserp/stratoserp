@@ -1,0 +1,12 @@
+se_information.se_information_type.*:
+  type: config_entity
+  label: 'Information type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

@@ -181,10 +181,10 @@ class NavigationBlock extends BlockBase {
       'field_bu_ref' => $this->node->id(),
       'destination'  => $this->destination,
     ], $this->button_class);
-    $items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page', [
-      'field_bu_ref' => $this->node->id(),
-      'destination'  => $this->destination,
-    ], $this->button_class);
+//    $items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page', [
+//      'field_bu_ref' => $this->node->id(),
+//      'destination'  => $this->destination,
+//    ], $this->button_class);
     $items[] = Link::createFromRoute('Add ticket', 'node.add', [
       'node_type' => 'se_ticket',
       'field_bu_ref' => $this->node->id(),

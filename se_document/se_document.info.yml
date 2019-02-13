@@ -1,6 +1,0 @@
-name: Document
-description: 'Provides Document content type and related configuration.'
-type: module
-core: 8.x
-package: Stratos ERP
-dependencies:

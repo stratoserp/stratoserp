@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_information.field_if_body
+    - se_information.se_information_type.se_document
+  module:
+    - text
+id: se_information.se_document.field_if_body
+field_name: field_if_body
+entity_type: se_information
+bundle: se_document
+label: Body
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,23 @@
+# Information routing definition
+
+entity.se_information.canonical:
+  route_name: entity.se_information.canonical
+  base_route: entity.se_information.canonical
+  title: 'View'
+
+entity.se_information.edit_form:
+  route_name: entity.se_information.edit_form
+  base_route: entity.se_information.canonical
+  title: 'Edit'
+
+entity.se_information.version_history:
+  route_name: entity.se_information.version_history
+  base_route: entity.se_information.canonical
+  title: 'Revisions'
+
+entity.se_information.delete_form:
+  route_name:  entity.se_information.delete_form
+  base_route:  entity.se_information.canonical
+  title: Delete
+  weight: 10
+

@@ -1,0 +1,18 @@
+
+# Information menu items definition
+entity.se_information.collection:
+  title: 'Information list'
+  route_name: entity.se_information.collection
+  description: 'List Information entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# Information type menu items definition
+entity.se_information_type.collection:
+  title: 'Information type'
+  route_name: entity.se_information_type.collection
+  description: 'List Information type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+

@@ -1,0 +1,30 @@
+add information entities:
+  title: 'Create new Information entities'
+
+administer information entities:
+  title: 'Administer Information entities'
+  description: 'Allow to access the administration form to configure Information entities.'
+  restrict access: true
+
+delete information entities:
+  title: 'Delete Information entities'
+
+edit information entities:
+  title: 'Edit Information entities'
+
+view published information entities:
+  title: 'View published Information entities'
+
+view unpublished information entities:
+  title: 'View unpublished Information entities'
+
+view all information revisions:
+  title: 'View all Information revisions'
+
+revert all information revisions:
+  title: 'Revert all Information revisions'
+  description: 'Role requires permission <em>view Information revisions</em> and <em>edit rights</em> for information entities in question or <em>administer information entities</em>.'
+
+delete all information revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Information revisions</em> and <em>delete rights</em> for information entities in question or <em>administer information entities</em>.'

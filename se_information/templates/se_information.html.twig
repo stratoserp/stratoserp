@@ -1,0 +1,22 @@
+{#
+/**
+ * @file se_information.html.twig
+ * Default theme implementation to present Information data.
+ *
+ * This template is used when viewing Information pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_se_information()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('se_information') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

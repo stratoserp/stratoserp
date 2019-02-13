@@ -1,0 +1,11 @@
+entity.se_information.add_form:
+  route_name: entity.se_information.add_page
+  title: 'Add Information'
+  appears_on:
+    - entity.se_information.collection
+entity.se_information_type.add_form:
+  route_name: entity.se_information_type.add_form
+  title: 'Add Information type'
+  appears_on:
+    - entity.se_information_type.collection
+
