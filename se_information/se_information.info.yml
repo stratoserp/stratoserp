@@ -5,3 +5,6 @@ core: 8.x
 package: Stratos ERP
 dependencies:
   - se_core
+  - se_item
+  - se_customer
+  - se_supplier

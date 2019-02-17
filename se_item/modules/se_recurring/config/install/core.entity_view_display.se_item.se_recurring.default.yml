@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_subscription.field_it_code
-    - field.field.se_item.se_subscription.field_it_cost_price
-    - field.field.se_item.se_subscription.field_it_manufacturer_ref
-    - field.field.se_item.se_subscription.field_it_sell_price
-    - field.field.se_item.se_subscription.field_it_product_type_ref
-    - field.field.se_item.se_subscription.field_it_sale_category_ref
-    - field.field.se_item.se_subscription.field_it_subscription_period
-    - se_item.se_item_type.se_subscription
+    - field.field.se_item.se_recurring.field_it_code
+    - field.field.se_item.se_recurring.field_it_cost_price
+    - field.field.se_item.se_recurring.field_it_manufacturer_ref
+    - field.field.se_item.se_recurring.field_it_sell_price
+    - field.field.se_item.se_recurring.field_it_product_type_ref
+    - field.field.se_item.se_recurring.field_it_sale_category_ref
+    - field.field.se_item.se_recurring.field_it_recurring_period
+    - se_item.se_item_type.se_recurring
   module:
     - duration_field
     - field_layout
@@ -19,9 +19,9 @@ third_party_settings:
   field_layout:
     id: layout_onecol
     settings: {  }
-id: se_item.se_subscription.default
+id: se_item.se_recurring.default
 targetEntityType: se_item
-bundle: se_subscription
+bundle: se_recurring
 mode: default
 content:
   field_it_code:
@@ -78,7 +78,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_it_subscription_period:
+  field_it_recurring_period:
     weight: 3
     label: above
     settings:

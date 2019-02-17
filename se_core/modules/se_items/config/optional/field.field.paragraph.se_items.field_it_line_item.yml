@@ -6,7 +6,7 @@ dependencies:
     - paragraphs.paragraphs_type.se_items
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
-    - se_item.se_item_type.se_subscription
+    - se_item.se_item_type.se_recurring
 id: paragraph.se_items.field_it_line_item
 field_name: field_it_line_item
 entity_type: paragraph
@@ -23,7 +23,7 @@ settings:
     target_bundles:
       se_service: se_service
       se_stock: se_stock
-      se_subscription: se_subscription
+      se_recurring: se_recurring
     sort:
       field: _none
     auto_create: false

@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_sale_category_ref
-    - se_item.se_item_type.se_subscription
-    - taxonomy.vocabulary.se_sale_category
-id: se_item.se_subscription.field_it_sale_category_ref
-field_name: field_it_sale_category_ref
+    - field.storage.se_item.field_it_manufacturer_ref
+    - se_item.se_item_type.se_recurring
+    - taxonomy.vocabulary.se_manufacturer
+id: se_item.se_recurring.field_it_manufacturer_ref
+field_name: field_it_manufacturer_ref
 entity_type: se_item
-bundle: se_subscription
-label: 'Sale category'
+bundle: se_recurring
+label: Manufacturer
 description: ''
 required: false
 translatable: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      se_sale_category: se_sale_category
+      se_manufacturer: se_manufacturer
     sort:
       field: name
       direction: asc

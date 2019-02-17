@@ -3,12 +3,12 @@ status: true
 dependencies:
   config:
     - field.storage.se_information.field_it_item_ref
-    - se_information.se_information_type.se_if_subscription
-    - se_item.se_item_type.se_subscription
-id: se_information.se_if_subscription.field_it_item_ref
+    - se_information.se_information_type.se_subscription
+    - se_item.se_item_type.se_recurring
+id: se_information.se_subscription.field_it_item_ref
 field_name: field_it_item_ref
 entity_type: se_information
-bundle: se_if_subscription
+bundle: se_subscription
 label: Item
 description: ''
 required: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:se_item'
   handler_settings:
     target_bundles:
-      se_subscription: se_subscription
+      se_recurring: se_recurring
     sort:
       field: _none
     auto_create: false

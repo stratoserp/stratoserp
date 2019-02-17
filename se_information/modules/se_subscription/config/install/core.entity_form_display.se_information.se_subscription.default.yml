@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_information.se_if_subscription.field_bu_ref
-    - field.field.se_information.se_if_subscription.field_if_active
-    - field.field.se_information.se_if_subscription.field_if_price
-    - field.field.se_information.se_if_subscription.field_it_item_ref
-    - se_information.se_information_type.se_if_subscription
+    - field.field.se_information.se_subscription.field_bu_ref
+    - field.field.se_information.se_subscription.field_if_active
+    - field.field.se_information.se_subscription.field_if_price
+    - field.field.se_information.se_subscription.field_it_item_ref
+    - se_information.se_information_type.se_subscription
   module:
     - field_layout
     - layout_discovery
@@ -14,9 +14,9 @@ third_party_settings:
   field_layout:
     id: layout_onecol
     settings: {  }
-id: se_information.se_if_subscription.default
+id: se_information.se_subscription.default
 targetEntityType: se_information
-bundle: se_if_subscription
+bundle: se_subscription
 mode: default
 content:
   field_bu_ref:

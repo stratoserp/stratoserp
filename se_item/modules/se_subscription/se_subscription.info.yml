@@ -1,7 +1,0 @@
-name: 'Subscription line item'
-description: 'Provides a selectable line item for subscriptions.'
-type: module
-core: 8.x
-package: Stratos ERP
-dependencies:
-  - se_item

@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.se_information.field_if_price
-    - se_information.se_information_type.se_if_subscription
-id: se_information.se_if_subscription.field_if_price
+    - se_information.se_information_type.se_subscription
+id: se_information.se_subscription.field_if_price
 field_name: field_if_price
 entity_type: se_information
-bundle: se_if_subscription
+bundle: se_subscription
 label: Price
 description: ''
 required: false

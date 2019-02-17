@@ -1,0 +1,7 @@
+name: 'Recurring line item'
+description: 'Provides a selectable line item for Recurring items.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - se_item

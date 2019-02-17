@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.se_item.field_it_sell_price
-    - se_item.se_item_type.se_subscription
-id: se_item.se_subscription.field_it_sell_price
+    - se_item.se_item_type.se_recurring
+id: se_item.se_recurring.field_it_sell_price
 field_name: field_it_sell_price
 entity_type: se_item
-bundle: se_subscription
+bundle: se_recurring
 label: Price
 description: ''
 required: false
