@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.field.se_item.se_stock.field_it_code
+    - field.field.se_item.se_stock.field_it_cost_price
     - field.field.se_item.se_stock.field_it_lost
     - field.field.se_item.se_stock.field_it_manufacturer_ref
-    - field.field.se_item.se_stock.field_it_price
+    - field.field.se_item.se_stock.field_it_sell_price
     - field.field.se_item.se_stock.field_it_product_type_ref
-    - field.field.se_item.se_stock.field_it_purchase_price
     - field.field.se_item.se_stock.field_it_sale_category_ref
     - field.field.se_item.se_stock.field_it_sale_date
     - field.field.se_item.se_stock.field_it_sale_price
@@ -34,6 +34,13 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_it_cost_price:
+    weight: 9
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_it_lost:
     weight: 11
     settings:
@@ -50,7 +57,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_it_price:
+  field_it_sell_price:
     weight: 4
     settings:
       placeholder: ''
@@ -66,13 +73,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_it_purchase_price:
-    weight: 9
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   field_it_sale_category_ref:
     type: entity_reference_autocomplete
     weight: 7

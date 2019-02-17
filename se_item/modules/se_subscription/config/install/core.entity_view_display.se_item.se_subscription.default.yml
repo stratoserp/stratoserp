@@ -3,8 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.se_item.se_subscription.field_it_code
+    - field.field.se_item.se_subscription.field_it_cost_price
     - field.field.se_item.se_subscription.field_it_manufacturer_ref
-    - field.field.se_item.se_subscription.field_it_price
+    - field.field.se_item.se_subscription.field_it_sell_price
     - field.field.se_item.se_subscription.field_it_product_type_ref
     - field.field.se_item.se_subscription.field_it_sale_category_ref
     - field.field.se_item.se_subscription.field_it_subscription_period
@@ -31,6 +32,17 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_it_cost_price:
+    weight: 7
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
   field_it_manufacturer_ref:
     weight: 5
     label: above
@@ -39,7 +51,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_it_price:
+  field_it_sell_price:
     weight: 2
     label: above
     settings:

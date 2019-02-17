@@ -2,12 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - se_information
     - se_item
-id: se_item.field_it_price
-field_name: field_it_price
-entity_type: se_item
-type: float
-settings: {  }
+id: se_information.field_it_item_ref
+field_name: field_it_item_ref
+entity_type: se_information
+type: entity_reference
+settings:
+  target_type: se_item
 module: core
 locked: false
 cardinality: 1

@@ -1,0 +1,5 @@
+langcode: en
+status: true
+dependencies: {  }
+id: se_if_subscription
+label: Subscription

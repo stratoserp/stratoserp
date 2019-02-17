@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_price
-    - se_item.se_item_type.se_stock
-id: se_item.se_stock.field_it_price
-field_name: field_it_price
+    - field.storage.se_item.field_it_cost_price
+    - se_item.se_item_type.se_subscription
+id: se_item.se_subscription.field_it_cost_price
+field_name: field_it_cost_price
 entity_type: se_item
-bundle: se_stock
-label: Price
+bundle: se_subscription
+label: 'Purchase price'
 description: ''
 required: false
 translatable: true

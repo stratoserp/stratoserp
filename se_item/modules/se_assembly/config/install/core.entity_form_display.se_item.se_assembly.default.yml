@@ -4,8 +4,9 @@ dependencies:
   config:
     - field.field.se_item.se_assembly.field_as_items
     - field.field.se_item.se_assembly.field_it_code
+    - field.field.se_item.se_assembly.field_it_cost_price
     - field.field.se_item.se_assembly.field_it_manufacturer_ref
-    - field.field.se_item.se_assembly.field_it_price
+    - field.field.se_item.se_assembly.field_it_sell_price
     - field.field.se_item.se_assembly.field_it_product_type_ref
     - field.field.se_item.se_assembly.field_it_sale_category_ref
     - se_item.se_item_type.se_assembly
@@ -42,6 +43,13 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_it_cost_price:
+    weight: 32
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_it_manufacturer_ref:
     weight: 30
     settings:
@@ -51,7 +59,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_it_price:
+  field_it_sell_price:
     weight: 27
     settings:
       placeholder: ''

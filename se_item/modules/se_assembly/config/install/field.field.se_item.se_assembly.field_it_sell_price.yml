@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_item.field_it_sell_price
+    - se_item.se_item_type.se_assembly
+id: se_item.se_assembly.field_it_sell_price
+field_name: field_it_sell_price
+entity_type: se_item
+bundle: se_assembly
+label: Price
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

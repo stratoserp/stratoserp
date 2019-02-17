@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_information
+id: se_information.field_if_price
+field_name: field_if_price
+entity_type: se_information
+type: float
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

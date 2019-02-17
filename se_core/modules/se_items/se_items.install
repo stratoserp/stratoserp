@@ -15,7 +15,7 @@ function se_items_uninstall() {
   $config_storage->deleteAll('field.field.paragraph.se_items');
   $config_storage->deleteAll('field.storage.paragraph.field_it_description');
   $config_storage->deleteAll('field.storage.paragraph.field_it_item');
-  $config_storage->deleteAll('field.storage.paragraph.field_it_price ');
+  $config_storage->deleteAll('field.storage.paragraph.field_it_price');
   $config_storage->deleteAll('field.storage.paragraph.field_it_quantity');
   $config_storage->deleteAll('paragraphs.paragraphs_type.se_items');
 }

@@ -115,7 +115,7 @@ class EntityItemSelection extends DefaultSelection {
       }
 
       $code = $stock_item->field_it_code->value;
-      $price = $stock_item->field_it_price->value;
+      $price = $stock_item->field_it_sell_price->value;
 
       // Construct the serial number, if this is not a virtual/service item.
       $serial = '';

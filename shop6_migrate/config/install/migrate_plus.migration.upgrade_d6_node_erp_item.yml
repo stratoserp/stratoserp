@@ -40,7 +40,7 @@ process:
   field_it_images:
     plugin: d6_cck_file
     source: field_serp_it_images
-  field_it_price: sell_price
+  field_it_sell_price: sell_price
   field_it_type: item_type
   field_it_code: code
   field_it_barcode: barcode
