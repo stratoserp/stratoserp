@@ -77,15 +77,6 @@ function se_timekeeping_uninstall() {
     se_timekeeping_uninstall_detach($entity_type_manager, $bundle);
   }
 
-  $config_storage = \Drupal::service('config.storage');
-  $config_storage->deleteAll('comment.type.se_timekeeping');
-  $config_storage->deleteAll('core.entity_form_display.comment.se_timekeeping');
-  $config_storage->deleteAll('core.entity_view_display.comment.se_timekeeping');
-  $config_storage->deleteAll('field.field.comment.se_timekeeping');
-  $config_storage->deleteAll('field.storage.comment.field_tk');
-  $config_storage->deleteAll('field.storage.node.field_se_timekeeping');
-  $config_storage->deleteAll('views.view.se_timekeeping_by_week');
-  $config_storage->deleteAll('views.view.se_timekeeping_by_date_range');
 }
 
 /**

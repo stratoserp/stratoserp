@@ -3,12 +3,12 @@ status: true
 dependencies:
   config:
     - field.field.se_item.se_stock.field_it_code
-    - field.field.se_item.se_stock.field_it_goods_receipt
-    - field.field.se_item.se_stock.field_it_invoice
     - field.field.se_item.se_stock.field_it_lost
+    - field.field.se_item.se_stock.field_it_manufacturer_ref
     - field.field.se_item.se_stock.field_it_price
-    - field.field.se_item.se_stock.field_it_purchase_order
+    - field.field.se_item.se_stock.field_it_product_type_ref
     - field.field.se_item.se_stock.field_it_purchase_price
+    - field.field.se_item.se_stock.field_it_sale_category_ref
     - field.field.se_item.se_stock.field_it_sale_date
     - field.field.se_item.se_stock.field_it_sale_price
     - field.field.se_item.se_stock.field_it_serial
@@ -27,76 +27,76 @@ bundle: se_stock
 mode: default
 content:
   field_it_code:
-    weight: 26
+    weight: 2
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_it_goods_receipt:
-    weight: 27
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_it_invoice:
-    weight: 28
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_it_lost:
-    weight: 30
+    weight: 11
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_it_price:
-    weight: 35
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
+  field_it_manufacturer_ref:
+    type: entity_reference_autocomplete
+    weight: 5
     region: content
-  field_it_purchase_order:
-    weight: 29
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_it_purchase_price:
-    weight: 31
+  field_it_price:
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
+  field_it_product_type_ref:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_it_purchase_price:
+    weight: 9
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_it_sale_category_ref:
+    type: entity_reference_autocomplete
+    weight: 7
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_it_sale_date:
-    weight: 32
+    weight: 13
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_it_sale_price:
-    weight: 33
+    weight: 14
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_it_serial:
-    weight: 34
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -105,7 +105,7 @@ content:
     region: content
   name:
     type: string_textfield
-    weight: -4
+    weight: 0
     region: content
     settings:
       size: 60
@@ -113,7 +113,7 @@ content:
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60

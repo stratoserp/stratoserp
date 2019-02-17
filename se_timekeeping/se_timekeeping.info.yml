@@ -8,3 +8,4 @@ dependencies:
   - duration_field
   - views
   - se_item
+  - se_service

@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.se_items.field_it_completed_date
     - field.field.paragraph.se_items.field_it_description
+    - field.field.paragraph.se_items.field_it_line_item
     - field.field.paragraph.se_items.field_it_price
     - field.field.paragraph.se_items.field_it_quantity
     - paragraphs.paragraphs_type.se_items
@@ -14,7 +15,7 @@ dependencies:
     - text
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings: {  }
 id: paragraph.se_items.default
 targetEntityType: paragraph
@@ -22,24 +23,32 @@ bundle: se_items
 mode: default
 content:
   field_it_completed_date:
-    weight: 2
+    weight: 1
     label: visually_hidden
     settings:
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
-    region: content
+    region: first
   field_it_description:
-    weight: 3
+    weight: 4
     label: visually_hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
     type: text_trimmed
-    region: content
+    region: second
+  field_it_line_item:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
   field_it_price:
-    weight: 5
+    weight: 2
     label: visually_hidden
     settings:
       thousand_separator: ''
@@ -48,9 +57,9 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
-    region: content
+    region: first
   field_it_quantity:
-    weight: 1
+    weight: 0
     label: visually_hidden
     settings:
       thousand_separator: ''
@@ -59,7 +68,10 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
-    region: content
+    region: first
 hidden:
   created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   uid: true

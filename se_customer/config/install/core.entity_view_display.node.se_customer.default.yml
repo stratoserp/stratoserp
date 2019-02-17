@@ -38,13 +38,12 @@ third_party_settings:
         - group_cu_tab_details
         - group_cu_tab_location
         - group_cu_tab_contacts
+        - group_cu_tab_information
         - group_cu_tab_tickets
-        - group_cu_tab_documents
         - group_cu_tab_invoices
         - group_cu_tab_payments
         - group_cu_tab_purchase_orders
         - group_cu_tab_quotes
-        - group_cu_tab_subscriptions
       parent_name: ''
       weight: 0
       format_type: tabs
@@ -61,7 +60,7 @@ third_party_settings:
       children:
         - se_ticket_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 4
+      weight: 5
       format_type: tab
       format_settings:
         id: ''
@@ -82,19 +81,6 @@ third_party_settings:
         formatter: closed
         description: ''
       label: Contacts
-      region: content
-    group_cu_tab_documents:
-      children:
-        - se_document_eva_entity_view_1
-      parent_name: group_cu_tabs
-      weight: 5
-      format_type: tab
-      format_settings:
-        id: ''
-        classes: ''
-        formatter: closed
-        description: ''
-      label: Documents
       region: content
     group_cu_tab_details:
       children:
@@ -184,18 +170,18 @@ third_party_settings:
         description: ''
       label: Payments
       region: content
-    group_cu_tab_subscriptions:
+    group_cu_tab_information:
       children:
-        - se_subscriptions_eva_entity_view_1
+        - se_information_eva_entity_view_1
       parent_name: group_cu_tabs
-      weight: 10
+      weight: 4
       format_type: tab
       format_settings:
         id: ''
         classes: ''
         formatter: closed
         description: ''
-      label: Subscriptions
+      label: Information
       region: content
   field_layout:
     id: layout_onecol
@@ -386,6 +372,11 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  se_information_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   se_invoice_eva_entity_view_1:
     weight: 14
     region: content
@@ -440,3 +431,4 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_se_timekeeping: true

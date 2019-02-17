@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - se_item
+id: paragraph.field_it_line_item
+field_name: field_it_line_item
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: se_item
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
