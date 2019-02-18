@@ -1,4 +1,4 @@
-<?php
+1<?php
 
 use Drupal\se_item\Entity\SeItem;
 
@@ -8,7 +8,7 @@ use Drupal\se_item\Entity\SeItem;
 function se_basic_setup_install() {
   se_basic_setup_taxonomy_terms();
   se_basic_setup_example_service_items();
-  se_basic_setup_example_subscription_items();
+  se_basic_setup_example_recurring_items();
   se_basic_setup_example_stock_items();
 }
 
@@ -85,6 +85,7 @@ function se_basic_setup_example_service_items() {
       'body' => 'Technical service by one of our qualified technicians.',
       'field_it_code'  => [['value' => 'TECHSERVICE']],
       'field_it_sell_price' => [['value' => 160.00]],
+      'field_it_cost_price' => [['value' => 55.00]],
     ]);
   $item->save();
 
@@ -93,12 +94,13 @@ function se_basic_setup_example_service_items() {
       'body' => 'Workshop service by one of our qualified technicians.',
       'field_it_code'  => [['value' => 'WORKSHOP']],
       'field_it_sell_price' => [['value' => 120.00]],
+      'field_it_cost_price' => [['value' => 55.00]],
     ]);
   $item->save();
 }
 
-function se_basic_setup_example_subscription_items() {
-  $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_subscription');
+function se_basic_setup_example_recurring_items() {
+  $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
 
   // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
   $item = SeItem::create($defaults + [
@@ -106,7 +108,8 @@ function se_basic_setup_example_subscription_items() {
       'body' => 'Domain name registration - yearly.',
       'field_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
       'field_it_sell_price' => [['value' => 60.00]],
-      'field_it_subscription_period' => [['duration' => 'P1Y']],
+      'field_it_recurring_period' => [['duration' => 'P1Y']],
+      'field_it_cost_price' => [['value' => 20.00]],
     ]);
   $item->save();
 
@@ -115,18 +118,20 @@ function se_basic_setup_example_subscription_items() {
       'body' => 'Domain name - biennually.',
       'field_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
       'field_it_sell_price' => [['value' => 120.00]],
-      'field_it_subscription_period' => [['duration' => 'P2Y']],
+      'field_it_recurring_period' => [['duration' => 'P2Y']],
+      'field_it_cost_price' => [['value' => 40.00]],
     ]);
   $item->save();
 
-  $defaults = se_basic_setup_item_defaults('Hosting service', 'Domain name', 'Internal', 'se_subscription');
+  $defaults = se_basic_setup_item_defaults('Hosting service', 'Domain name', 'Internal', 'se_recurring');
 
   $item = SeItem::create($defaults + [
       'name' => 'Domain hosting',
       'body' => 'Domain hosting - yearly.',
       'field_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
       'field_it_sell_price' => [['value' => 240.00]],
-      'field_it_subscription_period' => [['duration' => 'P1Y']],
+      'field_it_recurring_period' => [['duration' => 'P1Y']],
+      'field_it_cost_price' => [['value' => 120.00]],
     ]);
   $item->save();
 }
@@ -139,6 +144,7 @@ function se_basic_setup_example_stock_items() {
       'body' => 'Microsoft KB600',
       'field_it_code'  => [['value' => 'MS-KB-600']],
       'field_it_sell_price' => [['value' => 45.00]],
+      'field_it_cost_price' => [['value' => 25.00]],
     ]);
   $item->save();
 
@@ -147,6 +153,7 @@ function se_basic_setup_example_stock_items() {
       'body' => 'Microsoft KB800',
       'field_it_code'  => [['value' => 'MS-KB-800']],
       'field_it_sell_price' => [['value' => 55.00]],
+      'field_it_cost_price' => [['value' => 30.00]],
     ]);
   $item->save();
 
@@ -157,6 +164,7 @@ function se_basic_setup_example_stock_items() {
       'body' => 'Lenovo 11e',
       'field_it_code'  => [['value' => 'LN-11E']],
       'field_it_sell_price' => [['value' => 899]],
+      'field_it_cost_price' => [['value' => 679]],
     ]);
   $item->save();
 
@@ -165,6 +173,7 @@ function se_basic_setup_example_stock_items() {
       'body' => 'Lenovo x280',
       'field_it_code'  => [['value' => 'LN-X280']],
       'field_it_sell_price' => [['value' => 1299]],
+      'field_it_cost_price' => [['value' => 1001]],
     ]);
   $item->save();
 
@@ -175,6 +184,7 @@ function se_basic_setup_example_stock_items() {
       'body' => 'Canon PIXMA - Cyan',
       'field_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
       'field_it_sell_price' => [['value' => 14.99]],
+      'field_it_cost_price' => [['value' => 10.00]],
     ]);
   $item->save();
 
@@ -183,6 +193,7 @@ function se_basic_setup_example_stock_items() {
       'body' => 'Canon PIXMA - Yellow',
       'field_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
       'field_it_sell_price' => [['value' => 14.99]],
+      'field_it_cost_price' => [['value' => 10.00]],
     ]);
   $item->save();
 
@@ -191,6 +202,7 @@ function se_basic_setup_example_stock_items() {
       'body' => 'Canon PIXMA - Magenta',
       'field_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
       'field_it_sell_price' => [['value' => 14.99]],
+      'field_it_cost_price' => [['value' => 10.00]],
     ]);
   $item->save();
 
@@ -218,5 +230,3 @@ function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $
 
   return $defaults;
 }
-
-
