@@ -57,6 +57,7 @@ permissions:
   - 'edit subscription entities'
   - 'post comments'
   - 'skip comment approval'
+  - 'use text format basic_html'
   - 'view published item entities'
   - 'view published stock item entities'
   - 'view published subscription entities'
