@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.se_timekeeping
+    - core.entity_view_mode.comment.hide_comments
+    - field.field.comment.se_timekeeping.field_tk_amount
+    - field.field.comment.se_timekeeping.field_tk_billable
+    - field.field.comment.se_timekeeping.field_tk_billed
+    - field.field.comment.se_timekeeping.field_tk_comment
+    - field.field.comment.se_timekeeping.field_tk_date
+    - field.field.comment.se_timekeeping.field_tk_item
+    - field.field.comment.se_timekeeping.field_tk_review
+  module:
+    - field_layout
+    - layout_discovery
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: comment.se_timekeeping.hide_comments
+targetEntityType: comment
+bundle: se_timekeeping
+mode: hide_comments
+content: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_tk_amount: true
+  field_tk_billable: true
+  field_tk_billed: true
+  field_tk_comment: true
+  field_tk_date: true
+  field_tk_item: true
+  field_tk_review: true
+  links: true

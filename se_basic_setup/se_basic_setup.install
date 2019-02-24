@@ -1,4 +1,4 @@
-1<?php
+<?php
 
 use Drupal\se_item\Entity\SeItem;
 
