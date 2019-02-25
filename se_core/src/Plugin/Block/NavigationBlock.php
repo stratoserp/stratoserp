@@ -209,9 +209,10 @@ class NavigationBlock extends BlockBase {
   private function invoiceLinks() {
     $items = [];
 
+    $business = reset($this->node->{'field_bu_ref'}->referencedEntities());
     $items[] = Link::createFromRoute('Add payment', 'node.add', [
       'node_type' => 'se_payment',
-      'field_bu_ref' => $this->node->id(),
+      'field_bu_ref' => $business->id(),
       'destination'  => $this->destination,
     ], $this->button_class);
 
