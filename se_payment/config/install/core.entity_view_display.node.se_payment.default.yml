@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
     - field.field.node.se_payment.field_pa_items
-    - field.field.node.se_payment.field_pa_status_ref
     - field.field.node.se_payment.field_pa_total
     - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
@@ -31,7 +30,7 @@ content:
   body:
     label: hidden
     type: text_default
-    weight: 7
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     region: bottom
@@ -44,7 +43,7 @@ content:
     type: entity_reference_label
     region: first
   field_pa_id:
-    weight: 3
+    weight: 2
     label: inline
     settings: {  }
     third_party_settings: {  }
@@ -52,7 +51,7 @@ content:
     region: second
   field_pa_items:
     type: entity_reference_table
-    weight: 5
+    weight: 3
     label: above
     settings:
       view_mode: default
@@ -61,16 +60,8 @@ content:
       hide_header: '0'
     third_party_settings: {  }
     region: bottom
-  field_pa_status_ref:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: second
   field_pa_total:
-    weight: 6
+    weight: 4
     label: above
     settings:
       thousand_separator: ''
@@ -81,14 +72,14 @@ content:
     type: number_decimal
     region: bottom
   field_se_comments:
-    weight: 2
+    weight: 6
     label: above
     settings:
       view_mode: default
       pager_id: 0
     third_party_settings: {  }
     type: comment_default
-    region: first
+    region: bottom
   links:
     weight: 0
     region: top

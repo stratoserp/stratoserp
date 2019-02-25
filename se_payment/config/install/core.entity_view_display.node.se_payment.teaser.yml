@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
     - field.field.node.se_payment.field_pa_items
-    - field.field.node.se_payment.field_pa_status_ref
     - field.field.node.se_payment.field_pa_total
     - node.type.se_payment
   module:
@@ -39,5 +38,4 @@ hidden:
   field_bu_ref: true
   field_pa_id: true
   field_pa_items: true
-  field_pa_status_ref: true
   field_pa_total: true

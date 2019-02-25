@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
     - field.field.node.se_payment.field_pa_items
-    - field.field.node.se_payment.field_pa_status_ref
     - field.field.node.se_payment.field_pa_total
     - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
@@ -68,15 +67,6 @@ content:
         collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
     region: bottom
-  field_pa_status_ref:
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: second
   field_pa_total:
     weight: 5
     settings:
