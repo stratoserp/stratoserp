@@ -161,8 +161,8 @@ class NavigationBlock extends BlockBase {
       'field_bu_ref' => $this->node->id(),
       'destination'  => $this->destination,
     ], $this->button_class);
-    $items[] = Link::createFromRoute('Add document', 'node.add', [
-      'node_type' => 'se_document',
+    $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form', [
+      'se_information_type' => 'se_document',
       'field_bu_ref' => $this->node->id(),
       'destination'  => $this->destination,
     ], $this->button_class);
