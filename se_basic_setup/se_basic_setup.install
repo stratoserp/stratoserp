@@ -75,6 +75,14 @@ function se_basic_setup_taxonomy_terms() {
     'todo',
     'warranty',
   ]);
+
+  se_core_create_terms('pa_type', [
+    'Cash',
+    'Credit/Debit',
+    'Cheque',
+    'Direct deposit',
+    'Paypal',
+  ]);
 }
 
 function se_basic_setup_example_service_items() {
