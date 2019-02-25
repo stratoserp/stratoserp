@@ -5,6 +5,7 @@
  * Contains se_information.module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -55,4 +56,8 @@ function se_information_theme_suggestions_se_information(array $variables) {
   $suggestions[] = 'se_information__' . $entity->id();
   $suggestions[] = 'se_information__' . $entity->id() . '__' . $sanitized_view_mode;
   return $suggestions;
+}
+
+function se_information_form_se_information_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::service('se_core.set_business')->setBusiness($form, $form_state);
 }
