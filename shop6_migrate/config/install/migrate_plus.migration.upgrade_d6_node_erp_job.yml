@@ -64,7 +64,6 @@ process:
   field_ti_owner_ref: owner_ref
   field_ti_priority: job_priority_ref
   field_ti_status_ref: job_status_ref
-  field_ti_submitter_ref: field_serp_jo_submitter_value
   field_attachments:
     plugin: iterator
     source: attachments

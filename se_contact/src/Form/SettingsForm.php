@@ -3,13 +3,12 @@
 namespace Drupal\se_contact\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class SettingsForm extends ConfigFormBase implements ContainerInjectionInterface {
+class SettingsForm extends ConfigFormBase {
 
   /**
    * The entity type manager.
@@ -34,28 +33,31 @@ class SettingsForm extends ConfigFormBase implements ContainerInjectionInterface
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'se_contact_configuration_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getEditableConfigNames() {
+  public function getEditableConfigNames(): array {
     return ['se_contact.settings'];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = self::config('se_contact.settings');
+  public function buildForm(array $form, FormStateInterface $form_state): array {
+    $config = $this->config('se_contact.settings');
     $vocab_options = [];
     $term_options = [];
 
     $vocabulary_storage = $this->entityTypeManager->getStorage('taxonomy_vocabulary');
-    $vocabularies = $vocabulary_storage->loadByProperties([]);
+    $vocabularies = $vocabulary_storage->loadByProperties();
 
+    /**
+     * @var \Drupal\taxonomy\Entity\Vocabulary $vocab
+     */
     foreach ($vocabularies as $vid => $vocab) {
       $vocab_options[$vid] = $vocab->get('name');
     }
@@ -72,6 +74,9 @@ class SettingsForm extends ConfigFormBase implements ContainerInjectionInterface
       $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
       $terms = $term_storage->loadByProperties(['vid' => $vocabulary]);
 
+      /**
+       * @var \Drupal\taxonomy\Entity\Term $term
+       */
       foreach ($terms as $tid => $term) {
         $term_options[$tid] = $term->getName();
       }
@@ -87,8 +92,8 @@ class SettingsForm extends ConfigFormBase implements ContainerInjectionInterface
     return parent::buildForm($form, $form_state);
   }
 
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = self::config('se_contact.settings');
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $config = $this->config('se_contact.settings');
     $form_state_values = $form_state->getValues();
     $config
       ->set('vocabulary', $form_state_values['se_contact_vocabulary'])

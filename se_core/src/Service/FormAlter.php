@@ -14,6 +14,17 @@ class FormAlter {
   use StringTranslationTrait;
   use DependencySerializationTrait;
 
+  private static $business_variables = [
+    'field_bu_ref' => 'field_bu_ref',
+    'field_co_ref' => 'field_co_ref',
+    'field_in_ref' => 'field_in_ref',
+    'field_po_ref' => 'field_po_ref',
+  ];
+
+  private static $contact_variables = [
+    'field_bu_ref' => 'field_co_ref',
+  ];
+
   /**
    * Request service.
    *
@@ -69,23 +80,35 @@ class FormAlter {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Form State.
    */
-  public function setBusiness(array &$form, FormStateInterface $form_state) {
-    $variables = [
-      'field_bu_ref' => 'field_bu_ref',
-      'field_co_ref' => 'field_co_ref',
-      'field_in_ref' => 'field_in_ref',
-      'field_po_ref' => 'field_po_ref',
-    ];
-
-    foreach ($variables as $var => $form_var) {
+  public function setBusiness(array &$form, FormStateInterface $form_state): void {
+    foreach (self::$business_variables as $var => $form_var) {
       $value = $this->currentRequest->get($var);
 
       // Load the form with the passed value.
-      if (isset($value)) {
-        $value_node = Node::load($value);
+      if (isset($value) && $value_node = Node::load($value)) {
         $form[$form_var]['widget'][0]['target_id']['#default_value'] = $value_node;
       }
     }
-
   }
+
+  /**
+   * Apply alterations to node add form.
+   *
+   * @param array $form
+   *   Form render array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form State.
+   */
+  public function setContact(array &$form, FormStateInterface $form_state): void {
+    foreach (self::$contact_variables as $var => $form_var) {
+      $value = $this->currentRequest->get($var);
+
+      // Load the form with the passed value.
+      if (isset($value) && ($value_node = Node::load($value))
+      && ($contacts = \Drupal::service('se_contact.service')->loadMainContactByCustomer($value_node))) {
+        $form[$form_var]['widget'][0]['target_id']['#default_value'] = Node::load(reset($contacts));
+      }
+    }
+  }
+
 }

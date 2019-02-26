@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.se_ticket.field_ti_priority
     - field.field.node.se_ticket.field_ti_scheduled
     - field.field.node.se_ticket.field_ti_status_ref
-    - field.field.node.se_ticket.field_ti_submitter_ref
     - field.field.node.se_ticket.field_ti_type
     - node.type.se_ticket
   module:
@@ -51,5 +50,4 @@ hidden:
   field_ti_priority: true
   field_ti_scheduled: true
   field_ti_status_ref: true
-  field_ti_submitter_ref: true
   field_ti_type: true

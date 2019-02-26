@@ -55,9 +55,7 @@ function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
     // Hide the title fields for some node types.
     if (!in_array($form_id, [
-      'node_se_customer_form', 'node_se_document_form',
-      'node_se_item_form', 'node_se_supplier_form',
-      'node_se_ticket_form'
+      'node_se_customer_form', 'node_se_supplier_form', 'node_se_ticket_form'
     ])) {
       se_core_hide_title_field($form);
     }
@@ -76,8 +74,7 @@ function se_core_hide_publish_buttons(array &$form) {
   $form['actions']['publish']['#access'] = FALSE;
 
   // But it doesn't. Sledge hammer time.
-  unset($form['actions']['unpublish']);
-  unset($form['actions']['publish']);
+  unset($form['actions']['unpublish'], $form['actions']['publish']);
 
   // Ensure that we can 'Save' as well.
   $form['actions']['submit']['#access'] = TRUE;

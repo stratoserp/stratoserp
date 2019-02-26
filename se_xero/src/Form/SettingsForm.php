@@ -3,14 +3,13 @@
 namespace Drupal\se_xero\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\xero\XeroQuery;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class SettingsForm extends ConfigFormBase implements ContainerInjectionInterface {
+class SettingsForm extends ConfigFormBase {
 
   /**
    * The entity type manager.
@@ -44,18 +43,23 @@ class SettingsForm extends ConfigFormBase implements ContainerInjectionInterface
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'se_xero_configuration_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getEditableConfigNames() {
+  public function getEditableConfigNames(): array {
     return ['se_xero.settings'];
   }
 
-  public function retrieveAccountList() {
+  /**
+   * Retrieve the list of accounts from Xero.
+   *
+   * @return array
+   */
+  public function retrieveAccountList(): array {
     $account_options = [];
     if (!$accounts = $this->xeroQuery->getCache('xero_account')) {
       return [];
@@ -78,8 +82,8 @@ class SettingsForm extends ConfigFormBase implements ContainerInjectionInterface
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = self::config('se_xero.settings');
+  public function buildForm(array $form, FormStateInterface $form_state): array {
+    $config = $this->config('se_xero.settings');
 
     $account_options = $this->retrieveAccountList();
 
@@ -102,8 +106,8 @@ class SettingsForm extends ConfigFormBase implements ContainerInjectionInterface
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = self::config('se_xero.settings');
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $config = $this->config('se_xero.settings');
     $form_state_values = $form_state->getValues();
     $config
       ->set('system.enabled', $form_state_values['se_xero_enabled'])

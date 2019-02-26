@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.se_ticket.field_ti_priority
     - field.field.node.se_ticket.field_ti_scheduled
     - field.field.node.se_ticket.field_ti_status_ref
-    - field.field.node.se_ticket.field_ti_submitter_ref
     - field.field.node.se_ticket.field_ti_type
     - node.type.se_ticket
   module:
@@ -103,15 +102,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second
-  field_ti_submitter_ref:
-    weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: top
   field_ti_type:
     weight: 5
     settings:

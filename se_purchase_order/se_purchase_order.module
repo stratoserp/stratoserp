@@ -3,5 +3,5 @@
 use Drupal\Core\Form\FormStateInterface;
 
 function se_purchase_order_form_node_se_purchase_order_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  \Drupal::service('se_core.set_business')->setBusiness($form, $form_state);
+  \Drupal::service('se_core.set_field')->setBusiness($form, $form_state);
 }

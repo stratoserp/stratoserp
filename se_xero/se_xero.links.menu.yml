@@ -1,0 +1,6 @@
+se_xero.configure_settings:
+  title: 'Xero settings'
+  route_name: se_xero.configure
+  parent: se_core.admin_config_stratoserp
+  description: 'Configure xero.'
+  weight: 99
