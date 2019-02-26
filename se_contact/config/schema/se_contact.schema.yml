@@ -1,6 +1,6 @@
 se_contact.settings:
   type: mapping
-  label: 'StratosERP contact settings'
+  label: 'Contact settings'
   mapping:
     vocabulary:
       type: string

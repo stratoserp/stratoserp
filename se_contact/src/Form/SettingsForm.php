@@ -33,6 +33,16 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('entity_type.manager')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId(): string {
     return 'se_contact_configuration_form';
   }
@@ -101,13 +111,4 @@ class SettingsForm extends ConfigFormBase {
     $config->save();
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('entity_type.manager')
-    );
-  }
 }

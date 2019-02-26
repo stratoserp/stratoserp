@@ -27,6 +27,6 @@ se_contact.configure:
   path: 'se/contacts/settings'
   defaults:
     _form: '\Drupal\se_contact\Form\SettingsForm'
-    _title: 'StratosERP Contact Settings'
+    _title: 'Contact settings'
   requirements:
     _permission: 'administer site configuration'

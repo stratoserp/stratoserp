@@ -1,0 +1,8 @@
+
+se_ticket.configure:
+  path: 'se/ticket/settings'
+  defaults:
+    _form: '\Drupal\se_ticket\Form\SettingsForm'
+    _title: 'Ticket settings'
+  requirements:
+    _permission: 'administer site configuration'

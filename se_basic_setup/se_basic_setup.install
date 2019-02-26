@@ -50,7 +50,7 @@ function se_basic_setup_taxonomy_terms() {
     'Western digital',
   ]);
 
-  // Status for tickets, purchase orders, invoices.
+  // Status for quotes, purchase orders, invoices.
   se_core_create_terms('se_status', [
     'Open',
     'Ordered',
@@ -74,6 +74,13 @@ function se_basic_setup_taxonomy_terms() {
     'remote',
     'todo',
     'warranty',
+  ]);
+
+  se_core_create_terms('se_ticket_status', [
+    'Open',
+    'In progress',
+    'Wait customer',
+    'Closed',
   ]);
 
   se_core_create_terms('pa_type', [

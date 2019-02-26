@@ -5,3 +5,10 @@ se_ticket.add_se_ticket:
   parent: 'views_view:views.se_ticket_list.page_1'
   route_parameters:
     node_type: 'se_ticket'
+
+se_ticket.configure_settings:
+  title: 'Ticket settings'
+  route_name: se_ticket.configure
+  parent: se_core.admin_config_stratoserp
+  description: 'Configure ticket.'
+  weight: 1

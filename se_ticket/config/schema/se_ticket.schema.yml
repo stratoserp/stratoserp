@@ -1,0 +1,22 @@
+se_ticket.settings:
+  type: mapping
+  label: 'Ticket settings'
+  mapping:
+    status_vocabulary:
+      type: string
+      label: 'Default taxonomy vocab for ticket status.'
+    status_default_term:
+      type: string
+      label: 'Default taxonomy term for ticket status.'
+    priority_vocabulary:
+      type: string
+      label: 'Default taxonomy vocab for ticket priority.'
+    priority_default_term:
+      type: string
+      label: 'Default taxonomy term for ticket priority.'
+    type_vocabulary:
+      type: string
+      label: 'Default taxonomy vocab for ticket type.'
+    type_default_term:
+      type: string
+      label: 'Default taxonomy term for ticket type.'
