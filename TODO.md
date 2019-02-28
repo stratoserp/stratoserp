@@ -27,6 +27,7 @@
 ## Setup
 - Add stock in basic setup.
 
+
 # Beta - Database/fields stable
 
 ## Calendar
@@ -183,3 +184,6 @@
 
 ## Stock item
 - Assembly entity type for building things from multiple parts for sale (eg server/pc).
+
+## Loyalty system
+- Printer inks, 10th for free.

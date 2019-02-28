@@ -1,0 +1,7 @@
+se_payment.configure:
+  path: 'se/payments/settings'
+  defaults:
+    _form: '\Drupal\se_payment\Form\SettingsForm'
+    _title: 'Payment settings'
+  requirements:
+    _permission: 'administer site configuration'

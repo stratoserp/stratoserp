@@ -74,36 +74,36 @@ class SettingsForm extends ConfigFormBase {
     $form_parts = [
       'se_ticket_status' => [
         'vocab' => [
-          'title' => $this->t('Select vocabulary for ticket status.'),
+          'title' => $this->t('Select ticket status vocabulary.'),
           'field' => 'se_ticket_status_vocabulary',
           'config' => 'status_vocabulary',
         ],
         'term' => [
-          'title' => $this->t('Select default term for ticket status.'),
+          'title' => $this->t('Select default ticket status.'),
           'field' => 'se_ticket_status_ticket_term',
           'config' => 'status_default_term',
         ],
       ],
       'se_ticket_priority' => [
         'vocab' => [
-          'title' => $this->t('Select vocabulary for ticket priority.'),
+          'title' => $this->t('Select ticket priority vocabulary.'),
           'field' => 'se_ticket_priority_vocabulary',
           'config' => 'priority_vocabulary',
         ],
         'term' => [
-          'title' => $this->t('Select default term for ticket priority.'),
+          'title' => $this->t('Select default ticket priority.'),
           'field' => 'se_ticket_priority_ticket_term',
           'config' => 'priority_default_term',
         ],
       ],
       'se_ticket_type' => [
         'vocab' => [
-          'title' => $this->t('Select vocabulary for ticket type.'),
+          'title' => $this->t('Select ticket type vocabulary.'),
           'field' => 'se_ticket_type_vocabulary',
           'config' => 'type_vocabulary',
         ],
         'term' => [
-          'title' => $this->t('Select default term for ticket type.'),
+          'title' => $this->t('Select default ticket type.'),
           'field' => 'se_ticket_type_ticket_term',
           'config' => 'type_default_term',
         ],

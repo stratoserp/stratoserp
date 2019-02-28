@@ -1,0 +1,10 @@
+se_contact.settings:
+  type: mapping
+  label: 'Contact settings'
+  mapping:
+    vocabulary:
+      type: string
+      label: 'Taxonomy vocab for the contact types.'
+    main_contact_term:
+      type: string
+      label: 'Taxonomy term for the main contact for a business.'

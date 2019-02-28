@@ -1,0 +1,10 @@
+se_purchase_order.settings:
+  type: mapping
+  label: 'Purchase order settings'
+  mapping:
+    vocabulary:
+      type: string
+      label: 'Taxonomy vocab for purchase orders types.'
+    main_contact_term:
+      type: string
+      label: 'Default term for new purchase orders.'

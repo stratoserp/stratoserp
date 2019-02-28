@@ -1,0 +1,7 @@
+se_purchase_order.configure:
+  path: 'se/purchase_orders/settings'
+  defaults:
+    _form: '\Drupal\se_purchase_order\Form\SettingsForm'
+    _title: 'Purchase order settings'
+  requirements:
+    _permission: 'administer site configuration'

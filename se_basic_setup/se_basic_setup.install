@@ -10,6 +10,7 @@ function se_basic_setup_install() {
   se_basic_setup_example_service_items();
   se_basic_setup_example_recurring_items();
   se_basic_setup_example_stock_items();
+//  se_basic_setup_config_defaults();
 }
 
 function se_basic_setup_taxonomy_terms() {
@@ -58,6 +59,7 @@ function se_basic_setup_taxonomy_terms() {
   ]);
 
   se_core_create_terms('se_ticket_priority', [
+    'Normal',
     'High',
     'Low',
     'Urgent',
@@ -65,15 +67,15 @@ function se_basic_setup_taxonomy_terms() {
   ]);
 
   se_core_create_terms('se_ticket_type', [
-    'appt',
-    'call',
-    'follow up',
-    'in store',
-    'onsite',
-    'quote',
-    'remote',
-    'todo',
-    'warranty',
+    'Appointment',
+    'Call',
+    'Follow up',
+    'In store',
+    'Onsite',
+    'Quote',
+    'Remote',
+    'Todo',
+    'Warranty',
   ]);
 
   se_core_create_terms('se_ticket_status', [
