@@ -59,6 +59,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
   $form_display->setComponent('field_se_timekeeping', [
     'type' => 'comment_default',
     'region' => 'content',
+    'weight' => 25,
   ]);
   $form_display->save();
 
@@ -67,8 +68,9 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
   $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
   $display->setComponent('field_se_timekeeping', [
     'type' => 'comment_default',
-    'region' => 'content',
+    'region' => 'bottom',
     'label' => 'hidden',
+    'weight' => 25,
     'settings' => [
       'view_mode' => $bundle === 'se_customer' ? 'hide_comments' : 'default',
       'pager_id' => 1,
