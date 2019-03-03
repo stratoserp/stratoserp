@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * @file
+ * Provide some (un)install helpers for se_webform_integration.
+ *
+ * This module is potentially optional, so the install/uninstall is done
+ * separately for flexibility.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_install().
+ */
+function se_webform_integration_install() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_ticket'] as $bundle) {
+    se_webform_integration_install_attach($entity_type_manager, $bundle);
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Attach the webform field to bundles.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param string $bundle
+ *   The bundle type to attach to.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function se_webform_integration_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+  // Create the storage.
+  $field = $entity_type_manager->getStorage('field_config')->create([
+    'field_name' => 'field_ti_forms',
+    'entity_type' => 'node',
+    'bundle' => $bundle,
+    'label' => 'Form',
+    'settings' => [
+      'target_type' => 'webform',
+    ],
+  ]);
+  $field->save();
+
+  // Set the form display.
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display->setComponent('field_ti_forms', [
+    'type' => 'webform_integration_entity_reference_select',
+    'region' => 'bottom',
+    'weight' => 20,
+  ]);
+  $form_display->save();
+
+  // Add the webform field to the entity view display.
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display->setComponent('field_ti_forms', [
+    'type' => 'webform_entity_reference_link',
+    'region' => 'bottom',
+    'label' => 'above',
+    'weight' => 20,
+    'settings' => [
+      'label' => '[webform:title]',
+      'view_mode' => 'default',
+      'pager_id' => 1,
+      'dialog' => 'normal',
+    ],
+  ]);
+  $display->setComponent('wi_submissions_entity_view_1', [
+    'region' => 'bottom',
+    'weight' => 21,
+  ]);
+  $display->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function se_webform_integration_uninstall() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach (['se_ticket'] as $bundle) {
+    se_webform_integration_uninstall_detach($entity_type_manager, $bundle);
+  }
+
+  $config_storage = \Drupal::service('config.storage');
+  $config_path = drupal_get_path('module', 'se_webform_integration') . '/config/install';
+  $source = new FileStorage($config_path);
+  $configs = $source->listAll();
+
+  foreach ($configs as $config) {
+    // Delete config if it exists.
+    if ($config_storage->exists($config) && !(strpos($config, 'view') === 0)) {
+      $config_storage->delete($config);
+    }
+  }
+}
+
+/**
+ * Detach the webform field from bundles.
+ *
+ * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+ *   Passed in entity type manager.
+ * @param string $bundle
+ *   The bundle type to detach from.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function se_webform_integration_uninstall_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display->removeComponent('field_ti_forms');
+  $form_display->save();
+
+  /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display->removeComponent('field_ti_forms');
+  $display->save();
+
+  $field_storage_config = FieldStorageConfig::loadByName('node', 'field_ti_forms');
+  if ($field_storage_config) {
+    $field_storage_config->delete();
+  }
+
+  $field_config = FieldConfig::loadByName('node', $bundle, 'field_ti_forms');
+  if ($field_config && !$field_config->isDeleted()) {
+    $field_config->delete();
+  }
+}

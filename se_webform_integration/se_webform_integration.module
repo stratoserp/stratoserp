@@ -1,0 +1,104 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\CloseDialogCommand;
+use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function se_webform_integration_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  /** @var \Drupal\Core\Field\FieldItemListInterface $items */
+  $items = $context['items'];
+  $field_definition = $items->getFieldDefinition();
+  if ($field_definition->getType() !== 'webform') {
+    return;
+  }
+  if ($items->getEntity()->getEntityTypeId() !== 'node') {
+    return;
+  }
+
+  // The webform node module adds in the access group setting,
+  // but we don't want that.
+  unset($element['settings']['webform_access_group']);
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Make sure that our form alter is called AFTER the same hook provided in xxx
+ */
+function se_webform_integration_module_implements_alter(&$implementations, $hook) {
+  if ($hook === 'field_widget_form_alter') {
+    // Move my_module_form_alter() to the end of the list. module_implements()
+    // iterates through $implementations with a foreach loop which PHP iterates
+    // in the order that the items were added, so to move an item to the end of
+    // the array, we remove it and then add it.
+    $group = $implementations['se_webform_integration'];
+    unset($implementations['se_webform_integration']);
+    $implementations['se_webform_integration'] = $group;
+  }
+}
+
+/**
+ * If this webform is ajax, modal or a dialog, add in a
+ * callback to auto close it.
+ *
+ * Code from: https://www.drupal.org/project/webform/issues/3002966
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ */
+function se_webform_integration_webform_submission_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
+  // Determine if current request is Ajax
+  // @see \Drupal\Core\Ajax\AjaxHelperTrait
+  $is_ajax = FALSE;
+  $wrapper_format = \Drupal::request()->get(MainContentViewSubscriber::WRAPPER_FORMAT);
+  foreach (['drupal_ajax', 'drupal_modal', 'drupal_dialog'] as $wrapper) {
+    if (strpos($wrapper_format, $wrapper) !== FALSE) {
+      $is_ajax = TRUE;
+      break;
+    }
+  }
+
+  // We always want to do this.
+  // Check if custom ?_close_dialog query string parameter.
+  //$has_close_dialog = isset($_GET['_close_dialog']);
+
+  // Alter only the submit button's #ajax callback.
+  if ($is_ajax && isset($form['actions']['submit']['#ajax'])) {
+    $form['actions']['submit']['#ajax']['callback'] = '_se_webform_integration_webform_submission_form_submit_ajax';
+  }
+}
+
+/**
+ * Hook for the ajax callback.
+ *
+ * Code from: https://www.drupal.org/project/webform/issues/3002966
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *
+ * @return \Drupal\Core\Ajax\AjaxResponse
+ */
+function _se_webform_integration_webform_submission_form_submit_ajax(array &$form, FormStateInterface $form_state) {
+  // If form is valid then close the dialog without displaying any confirmation.
+  if (!$form_state->hasAnyErrors()) {
+    $response = new AjaxResponse();
+    $response->addCommand(new CloseDialogCommand());
+    return $response;
+  }
+
+  // Call the default #ajax callback.
+  // @see \Drupal\webform\Form\WebformAjaxFormTrait::submitAjaxForm
+
+  /** @var \Drupal\webform\WebformSubmissionForm $form_object */
+  $form_object = $form_state->getFormObject();
+
+  /** @var \Drupal\Core\Ajax\AjaxResponse $response */
+  $response = $form_object->submitAjaxForm($form, $form_state) ;
+
+  return $response;
+}

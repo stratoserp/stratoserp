@@ -1,0 +1,11 @@
+name: Webform integration
+description: 'Provides the ability to attach forms to tickets.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - se_ticket
+  - webform
+  - webform_access
+  - webform_node
+  - webform_views
