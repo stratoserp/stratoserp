@@ -148,11 +148,18 @@ class SettingsForm extends ConfigFormBase {
     $form_state_values = $form_state->getValues();
     $config
       ->set('status_vocabulary', $form_state_values['se_ticket_status_vocabulary'])
-      ->set('status_default_term', $form_state_values['se_ticket_status_ticket_term'])
       ->set('priority_vocabulary', $form_state_values['se_ticket_priority_vocabulary'])
-      ->set('priority_default_term', $form_state_values['se_ticket_priority_ticket_term'])
-      ->set('type_vocabulary', $form_state_values['se_ticket_type_vocabulary'])
-      ->set('type_default_term', $form_state_values['se_ticket_type_ticket_term']);
+      ->set('type_vocabulary', $form_state_values['se_ticket_type_vocabulary']);
+
+    if (isset($form_state_values['se_ticket_status_ticket_term'])) {
+      $config->set('status_default_term', $form_state_values['se_ticket_status_ticket_term']);
+    }
+    if (isset($form_state_values['se_ticket_priority_ticket_term'])) {
+      $config->set('priority_default_term', $form_state_values['se_ticket_priority_ticket_term']);
+    }
+    if (isset($form_state_values['se_ticket_type_ticket_term'])) {
+      $config->set('type_default_term', $form_state_values['se_ticket_type_ticket_term']);
+    }
     $config->save();
   }
 }

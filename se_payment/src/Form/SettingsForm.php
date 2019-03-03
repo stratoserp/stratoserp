@@ -105,9 +105,10 @@ class SettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('se_payment.settings');
     $form_state_values = $form_state->getValues();
-    $config
-      ->set('vocabulary', $form_state_values['se_payment_vocabulary'])
-      ->set('main_payment_term', $form_state_values['se_payment_main_payment_term']);
+    $config->set('vocabulary', $form_state_values['se_payment_vocabulary']);
+    if (isset($form_state_values['se_payment_main_payment_term'])) {
+      $config->set('main_payment_term', $form_state_values['se_payment_main_payment_term']);
+    }
     $config->save();
   }
 

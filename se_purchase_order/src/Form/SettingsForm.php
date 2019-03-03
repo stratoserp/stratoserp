@@ -105,9 +105,10 @@ class SettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('se_purchase_order.settings');
     $form_state_values = $form_state->getValues();
-    $config
-      ->set('vocabulary', $form_state_values['se_purchase_order_vocabulary'])
-      ->set('main_purchase_order_term', $form_state_values['se_purchase_order_main_purchase_order_term']);
+    $config->set('vocabulary', $form_state_values['se_purchase_order_vocabulary']);
+    if (isset($form_state_values['se_purchase_order_main_purchase_order_term'])) {
+      $config->set('main_purchase_order_term', $form_state_values['se_purchase_order_main_purchase_order_term']);
+    }
     $config->save();
   }
 
