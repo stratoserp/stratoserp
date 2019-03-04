@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
-class SeContactService {
+class ContactService {
 
   /**
    * The config factory.
@@ -49,6 +49,7 @@ class SeContactService {
       return FALSE;
     }
 
+    /** @var Term $term */
     $term = Term::load($term_id);
 
     $contacts = \Drupal::entityQuery('node')

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_contact\Form;
+namespace Drupal\se_invoice\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManager;
@@ -44,21 +44,21 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId(): string {
-    return 'se_contact_configuration_form';
+    return 'se_invoice_configuration_form';
   }
 
   /**
    * {@inheritdoc}
    */
   public function getEditableConfigNames(): array {
-    return ['se_contact.settings'];
+    return ['se_invoice.settings'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $config = $this->config('se_contact.settings');
+    $config = $this->config('se_invoice.settings');
     $vocab_options = [];
     $term_options = [];
 
@@ -72,8 +72,8 @@ class SettingsForm extends ConfigFormBase {
       $vocab_options[$vid] = $vocab->get('name');
     }
 
-    $form['se_contact_vocabulary'] = [
-      '#title' => $this->t('Select contact type vocabulary.'),
+    $form['se_invoice_status_vocabulary'] = [
+      '#title' => $this->t('Select invoice status vocabulary.'),
       '#type' => 'select',
       '#options' => $vocab_options,
       '#default_value' => $config->get('vocabulary'),
@@ -91,26 +91,23 @@ class SettingsForm extends ConfigFormBase {
         $term_options[$tid] = $term->getName();
       }
 
-      $form['se_contact_main_contact_term'] = [
-        '#title' => $this->t('Select main contact identifying term.'),
+      $form['se_invoice_invoice_status_term'] = [
+        '#title' => $this->t('Select default invoice status.'),
         '#type' => 'select',
         '#options' => $term_options,
-        '#default_value' => $config->get('main_contact_term'),
+        '#default_value' => $config->get('invoice_status_term'),
       ];
     }
 
     return parent::buildForm($form, $form_state);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $config = $this->config('se_contact.settings');
+    $config = $this->config('se_invoice.settings');
     $form_state_values = $form_state->getValues();
-    $config->set('vocabulary', $form_state_values['se_contact_vocabulary']);
-    if (isset($form_state_values['se_contact_main_contact_term'])) {
-      $config->set('main_contact_term', $form_state_values['se_contact_main_contact_term']);
+    $config->set('vocabulary', $form_state_values['se_invoice_status_vocabulary']);
+    if (isset($form_state_values['se_invoice_invoice_status_term'])) {
+      $config->set('invoice_status_term', $form_state_values['se_invoice_invoice_status_term']);
     }
     $config->save();
   }

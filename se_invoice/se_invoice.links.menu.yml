@@ -1,0 +1,6 @@
+se_invoice.configure_settings:
+  title: 'Invoice settings'
+  route_name: se_invoice.configure
+  parent: se_core.admin_config_stratoserp
+  description: 'Configure invoice.'
+  weight: 1

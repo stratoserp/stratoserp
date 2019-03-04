@@ -8,22 +8,12 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class FormAlter {
-  use StringTranslationTrait;
-  use DependencySerializationTrait;
-
-  private static $business_variables = [
-    'field_bu_ref' => 'field_bu_ref',
-    'field_co_ref' => 'field_co_ref',
-    'field_in_ref' => 'field_in_ref',
-    'field_po_ref' => 'field_po_ref',
-  ];
-
-  private static $contact_variables = [
-    'field_bu_ref' => 'field_co_ref',
-  ];
+//  use StringTranslationTrait;
+//  use DependencySerializationTrait;
 
   /**
    * Request service.
@@ -72,43 +62,48 @@ class FormAlter {
     $this->currentUser = $currentUser;
   }
 
+
   /**
-   * Apply alterations to node add form.
+   * Alter reference field on node form.
    *
    * @param array $form
    *   Form render array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Form State.
+   * @param string $field
+   * @param string $var
+   *
+   * @return \Drupal\node\Entity\Node|NULL
    */
-  public function setBusiness(array &$form, FormStateInterface $form_state): void {
-    foreach (self::$business_variables as $var => $form_var) {
-      $value = $this->currentRequest->get($var);
-
-      // Load the form with the passed value.
-      if (isset($value) && $value_node = Node::load($value)) {
-        $form[$form_var]['widget'][0]['target_id']['#default_value'] = $value_node;
-      }
+  public function setReferenceField(array &$form, string $field, string $var) {
+    $value = $this->currentRequest->get($var);
+    if (!isset($value) || !($node = Node::load($value))) {
+      return NULL;
     }
+
+    if (empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+      $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
+    }
+
+    return $node;
   }
 
   /**
-   * Apply alterations to node add form.
+   * Alter taxonomy field on node form
    *
    * @param array $form
-   *   Form render array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Form State.
+   * @param string $field
+   * @param int $term_id
+   *
+   * @return \Drupal\taxonomy\Entity\Term
    */
-  public function setContact(array &$form, FormStateInterface $form_state): void {
-    foreach (self::$contact_variables as $var => $form_var) {
-      $value = $this->currentRequest->get($var);
-
-      // Load the form with the passed value.
-      if (isset($value) && ($value_node = Node::load($value))
-      && ($contacts = \Drupal::service('se_contact.service')->loadMainContactByCustomer($value_node))) {
-        $form[$form_var]['widget'][0]['target_id']['#default_value'] = Node::load(reset($contacts));
-      }
+  public function setTaxonomyField(array &$form, string $field, int $term_id): Term {
+    if (!$term = Term::load($term_id)) {
+      return NULL;
     }
-  }
 
+    if (empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+      $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
+    }
+
+    return $term;
+  }
 }

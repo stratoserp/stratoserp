@@ -14,7 +14,7 @@ use Drupal\se_core\Event\SeCoreEvents;
 use Drupal\taxonomy\Entity\Term;
 
 define('SE_CORE_NODE_TYPES', [
-  'se_bill', 'se_contact', 'se_customer', 'se_document', 'se_goods_receipt',
+  'se_bill', 'se_contact', 'se_customer', 'se_goods_receipt',
   'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',
   'se_supplier', 'se_ticket', 'se_timekeeping',
 ]);
@@ -28,10 +28,10 @@ define('SE_CORE_NODE_TYPES', [
  * @return TranslatableMarkup
  */
 function se_core_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    case 'se_core_main':
-      return t('Main console page.');
+  if ($route_name === 'se_core_main') {
+    return t('Main console page.');
   }
+  return NULL;
 }
 
 /**
@@ -49,7 +49,7 @@ function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     return 'node_' . $value . '_form';
   }, SE_CORE_NODE_TYPES);
 
-  if (in_array($form_id, $se_forms)) {
+  if (in_array($form_id, $se_forms, TRUE)) {
     // We don't need the publish button, anywhere.
     se_core_hide_publish_buttons($form);
 
@@ -57,7 +57,8 @@ function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     if (!in_array($form_id, [
       'node_se_customer_form', 'node_se_supplier_form', 'node_se_ticket_form'
     ])) {
-      se_core_hide_title_field($form);
+      // Pre-fill the title field with sensible values.
+      se_core_populate_title_field($form);
     }
   }
 }
@@ -86,11 +87,11 @@ function se_core_hide_publish_buttons(array &$form) {
  * @param array $form
  *   Form array to be manipulated.
  */
-function se_core_hide_title_field(array &$form) {
+function se_core_populate_title_field(array &$form) {
   //$form['title']['#hidden'] = TRUE;
-  $form['title']['#default_value'] = t('@date - @user', [
-    '@date' => date('j-m-Y'),
+  $form['title']['widget'][0]['value']['#default_value'] = t('@user - @date', [
     '@user' => get_current_user(),
+    '@date' => date('j-m-Y'),
   ])->render();
 }
 
@@ -142,7 +143,7 @@ function se_core_theme() {
  */
 function se_core_node_presave(NodeInterface $node) {
   $type = $node->getType();
-  if (in_array($type, SE_CORE_NODE_TYPES)) {
+  if (in_array($type, SE_CORE_NODE_TYPES, TRUE)) {
     $event = new SeCoreEvent($node);
     \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_PRESAVE, $event);
     return $event->getNode();
@@ -160,7 +161,7 @@ function se_core_node_presave(NodeInterface $node) {
  */
 function se_core_node_insert(NodeInterface $node) {
   $type = $node->getType();
-  if (in_array($type, SE_CORE_NODE_TYPES)) {
+  if (in_array($type, SE_CORE_NODE_TYPES, TRUE)) {
     $event = new SeCoreEvent($node);
     \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_CREATED, $event);
     return $event->getNode();
@@ -178,7 +179,7 @@ function se_core_node_insert(NodeInterface $node) {
  */
 function se_core_node_update(NodeInterface $node) {
   $type = $node->getType();
-  if (in_array($type, SE_CORE_NODE_TYPES)) {
+  if (in_array($type, SE_CORE_NODE_TYPES, TRUE)) {
     $event = new SeCoreEvent($node);
     \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_UPDATED, $event);
     return $event->getNode();
@@ -194,7 +195,7 @@ function se_core_node_update(NodeInterface $node) {
  */
 function se_core_node_delete(NodeInterface $node) {
   $type = $node->getType();
-  if (in_array($type, SE_CORE_NODE_TYPES)) {
+  if (in_array($type, SE_CORE_NODE_TYPES, TRUE)) {
     $event = new SeCoreEvent($node);
     \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_DELETED, $event);
   }

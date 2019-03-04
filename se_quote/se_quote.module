@@ -3,6 +3,6 @@
 use Drupal\Core\Form\FormStateInterface;
 
 function se_quote_form_node_se_quote_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  \Drupal::service('se_core.set_field')->setBusiness($form, $form_state);
-  \Drupal::service('se_core.set_field')->setContact($form, $form_state);
+  \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_bu_ref', 'field_bu_ref');
+  \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_co_ref', 'field_co_ref');
 }

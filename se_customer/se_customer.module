@@ -3,5 +3,5 @@
 use Drupal\Core\Form\FormStateInterface;
 
 function se_customer_form_node_se_customer_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  \Drupal::service('se_core.set_field')->setBusiness($form, $form_state);
+  \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_bu_ref', 'field_bu_ref');
 }

@@ -1,0 +1,10 @@
+se_invoice.settings:
+  type: mapping
+  label: 'Invoice settings'
+  mapping:
+    vocabulary:
+      type: string
+      label: 'Taxonomy vocab for invoice status.'
+    invoice_status_term:
+      type: string
+      label: 'Taxonomy term for the default status of an invoice.'

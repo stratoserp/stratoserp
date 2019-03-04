@@ -1,0 +1,7 @@
+se_invoice.configure:
+  path: 'se/invoice/settings'
+  defaults:
+    _form: '\Drupal\se_invoice\Form\SettingsForm'
+    _title: 'Invoice settings'
+  requirements:
+    _permission: 'administer site configuration'

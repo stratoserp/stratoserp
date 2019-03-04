@@ -22,3 +22,11 @@ se_quote.view:
   requirements:
     node: \d+
     _permission: 'access content'
+
+se_quote.configure:
+  path: 'se/quote/settings'
+  defaults:
+    _form: '\Drupal\se_quote\Form\SettingsForm'
+    _title: 'Quote settings'
+  requirements:
+    _permission: 'administer site configuration'

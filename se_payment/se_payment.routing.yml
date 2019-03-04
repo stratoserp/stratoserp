@@ -1,5 +1,5 @@
 se_payment.configure:
-  path: 'se/payments/settings'
+  path: 'se/payment/settings'
   defaults:
     _form: '\Drupal\se_payment\Form\SettingsForm'
     _title: 'Payment settings'

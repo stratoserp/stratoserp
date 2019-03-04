@@ -91,11 +91,11 @@ class SettingsForm extends ConfigFormBase {
         $term_options[$tid] = $term->getName();
       }
 
-      $form['se_purchase_order_main_purchase_order_term'] = [
+      $form['se_purchase_order_status_term'] = [
         '#title' => $this->t('Select default status for purchase orders.'),
         '#type' => 'select',
         '#options' => $term_options,
-        '#default_value' => $config->get('main_purchase_order_term'),
+        '#default_value' => $config->get('purchase_order_status_term'),
       ];
     }
 
@@ -106,8 +106,8 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('se_purchase_order.settings');
     $form_state_values = $form_state->getValues();
     $config->set('vocabulary', $form_state_values['se_purchase_order_vocabulary']);
-    if (isset($form_state_values['se_purchase_order_main_purchase_order_term'])) {
-      $config->set('main_purchase_order_term', $form_state_values['se_purchase_order_main_purchase_order_term']);
+    if (isset($form_state_values['se_purchase_order_status_term'])) {
+      $config->set('purchase_order_status_term', $form_state_values['se_purchase_order_status_term']);
     }
     $config->save();
   }

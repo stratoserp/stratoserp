@@ -1,0 +1,9 @@
+name: Warranty
+description: 'Provides warranty processing for stock items related configuration.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - se_goods_receipt
+  - se_item
+  - se_purchase_order
