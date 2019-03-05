@@ -9,10 +9,10 @@ dependencies:
     - field.field.node.se_ticket.field_ti_id
     - field.field.node.se_ticket.field_ti_open_date
     - field.field.node.se_ticket.field_ti_owner_ref
-    - field.field.node.se_ticket.field_ti_priority
+    - field.field.node.se_ticket.field_ti_priority_ref
     - field.field.node.se_ticket.field_ti_scheduled
     - field.field.node.se_ticket.field_ti_status_ref
-    - field.field.node.se_ticket.field_ti_type
+    - field.field.node.se_ticket.field_ti_type_ref
     - node.type.se_ticket
   module:
     - comment
@@ -78,7 +78,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: top
-  field_ti_priority:
+  field_ti_priority_ref:
     weight: 10
     settings:
       match_operator: CONTAINS
@@ -102,7 +102,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second
-  field_ti_type:
+  field_ti_type_ref:
     weight: 5
     settings:
       match_operator: CONTAINS

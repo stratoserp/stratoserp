@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_co_email
     - field.storage.node.field_co_phone
-    - field.storage.node.field_co_type
+    - field.storage.node.field_co_type_ref
     - node.type.se_contact
     - system.menu.stratos-erp
     - user.role.developer
@@ -92,7 +92,7 @@ display:
             title_1: title_1
             field_co_email: field_co_email
             field_co_phone: field_co_phone
-            field_co_type: field_co_type
+            field_co_type_ref: field_co_type_ref
           info:
             title:
               sortable: true
@@ -118,7 +118,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_co_type:
+            field_co_type_ref:
               align: ''
               separator: ''
               empty_column: false
@@ -318,10 +318,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_co_type:
-          id: field_co_type
-          table: node__field_co_type
-          field: field_co_type
+        field_co_type_ref:
+          id: field_co_type_ref
+          table: node__field_co_type_ref
+          field: field_co_type_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -629,7 +629,7 @@ display:
       tags:
         - 'config:field.storage.node.field_co_email'
         - 'config:field.storage.node.field_co_phone'
-        - 'config:field.storage.node.field_co_type'
+        - 'config:field.storage.node.field_co_type_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -659,4 +659,4 @@ display:
       tags:
         - 'config:field.storage.node.field_co_email'
         - 'config:field.storage.node.field_co_phone'
-        - 'config:field.storage.node.field_co_type'
+        - 'config:field.storage.node.field_co_type_ref'

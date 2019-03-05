@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - taxonomy
-id: node.field_ti_priority
-field_name: field_ti_priority
+id: node.field_ti_priority_ref
+field_name: field_ti_priority_ref
 entity_type: node
 type: entity_reference
 settings:

@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_pa_type
+    - field.storage.paragraph.field_pa_type_ref
     - paragraphs.paragraphs_type.se_payments
     - taxonomy.vocabulary.se_payment_type
-id: paragraph.se_payments.field_pa_type
-field_name: field_pa_type
+id: paragraph.se_payments.field_pa_type_ref
+field_name: field_pa_type_ref
 entity_type: paragraph
 bundle: se_payments
 label: Type

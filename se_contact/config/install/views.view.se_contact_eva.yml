@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_co_email
     - field.storage.node.field_co_phone
-    - field.storage.node.field_co_type
+    - field.storage.node.field_co_type_ref
     - node.type.se_contact
     - user.role.developer
     - user.role.staff
@@ -91,7 +91,7 @@ display:
             title: title
             field_co_email: field_co_email
             field_co_phone: field_co_phone
-            field_co_type: field_co_type
+            field_co_type_ref: field_co_type_ref
           info:
             title:
               sortable: true
@@ -110,7 +110,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_co_type:
+            field_co_type_ref:
               align: ''
               separator: ''
               empty_column: false
@@ -315,10 +315,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_co_type:
-          id: field_co_type
-          table: node__field_co_type
-          field: field_co_type
+        field_co_type_ref:
+          id: field_co_type_ref
+          table: node__field_co_type_ref
+          field: field_co_type_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -480,7 +480,7 @@ display:
       tags:
         - 'config:field.storage.node.field_co_email'
         - 'config:field.storage.node.field_co_phone'
-        - 'config:field.storage.node.field_co_type'
+        - 'config:field.storage.node.field_co_type_ref'
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -506,4 +506,4 @@ display:
       tags:
         - 'config:field.storage.node.field_co_email'
         - 'config:field.storage.node.field_co_phone'
-        - 'config:field.storage.node.field_co_type'
+        - 'config:field.storage.node.field_co_type_ref'

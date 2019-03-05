@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_ti_type
-    - node.type.se_ticket
-    - taxonomy.vocabulary.se_ticket_type
-id: node.se_ticket.field_ti_type
-field_name: field_ti_type
+    - field.storage.node.field_bi_status_ref
+    - node.type.se_bill
+    - taxonomy.vocabulary.se_status
+id: node.se_bill.field_bi_status_ref
+field_name: field_bi_status_ref
 entity_type: node
-bundle: se_ticket
-label: 'Ticket type'
+bundle: se_bill
+label: Status
 description: ''
 required: false
 translatable: false
@@ -19,9 +19,10 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      se_ticket_type: se_ticket_type
+      se_status: se_status
     sort:
-      field: _none
-    auto_create: true
+      field: name
+      direction: asc
+    auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

@@ -5,7 +5,7 @@ dependencies:
     - field.field.node.se_bill.body
     - field.field.node.se_bill.field_bi_id
     - field.field.node.se_bill.field_bi_items
-    - field.field.node.se_bill.field_bi_status
+    - field.field.node.se_bill.field_bi_status_ref
     - field.field.node.se_bill.field_bi_total
     - field.field.node.se_bill.field_bu_ref
     - field.field.node.se_bill.field_co_ref
@@ -58,7 +58,7 @@ content:
         collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
     region: bottom
-  field_bi_status:
+  field_bi_status_ref:
     weight: 4
     settings:
       match_operator: CONTAINS

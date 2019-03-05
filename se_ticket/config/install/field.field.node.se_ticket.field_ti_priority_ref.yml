@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_ti_priority
+    - field.storage.node.field_ti_priority_ref
     - node.type.se_ticket
     - taxonomy.vocabulary.se_ticket_priority
-id: node.se_ticket.field_ti_priority
-field_name: field_ti_priority
+id: node.se_ticket.field_ti_priority_ref
+field_name: field_ti_priority_ref
 entity_type: node
 bundle: se_ticket
 label: 'Ticket priority'

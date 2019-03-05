@@ -14,12 +14,12 @@ function se_ticket_form_node_se_ticket_form_alter(&$form, FormStateInterface $fo
 
   if ($ticket_priority = $config->get('priority_default_term')) {
     \Drupal::service('se_core.set_field')
-      ->setTaxonomyField($form, 'field_ti_priority', $ticket_priority);
+      ->setTaxonomyField($form, 'field_ti_priority_ref', $ticket_priority);
   }
 
   if ($ticket_type = $config->get('type_default_term')) {
     \Drupal::service('se_core.set_field')
-      ->setTaxonomyField($form, 'field_ti_type', $ticket_type);
+      ->setTaxonomyField($form, 'field_ti_type_ref', $ticket_type);
   }
 
 

@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.se_contact.field_co_id
     - field.field.node.se_contact.field_co_mobile
     - field.field.node.se_contact.field_co_phone
-    - field.field.node.se_contact.field_co_type
+    - field.field.node.se_contact.field_co_type_ref
     - node.type.se_contact
   module:
     - field_layout
@@ -35,4 +35,4 @@ hidden:
   field_co_id: true
   field_co_mobile: true
   field_co_phone: true
-  field_co_type: true
+  field_co_type_ref: true

@@ -11,7 +11,7 @@
 //    }
 //    $temp = 1;
 //
-//    $type = $node->get('field_ti_type')->entity->name->value;
+//    $type = $node->get('field_ti_type_ref')->entity->name->value;
 //
 //    switch ($type) {
 //      case 'in store':
