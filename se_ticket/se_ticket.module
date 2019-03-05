@@ -5,4 +5,22 @@ use Drupal\Core\Form\FormStateInterface;
 function se_ticket_form_node_se_ticket_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_bu_ref', 'field_bu_ref');
   \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_co_ref', 'field_co_ref');
+
+  $config = \Drupal::configFactory()->get('se_ticket.settings');
+  if ($ticket_status = $config->get('status_default_term')) {
+    \Drupal::service('se_core.set_field')
+      ->setTaxonomyField($form, 'field_ti_status_ref', $ticket_status);
+  }
+
+  if ($ticket_priority = $config->get('priority_default_term')) {
+    \Drupal::service('se_core.set_field')
+      ->setTaxonomyField($form, 'field_ti_priority', $ticket_priority);
+  }
+
+  if ($ticket_type = $config->get('type_default_term')) {
+    \Drupal::service('se_core.set_field')
+      ->setTaxonomyField($form, 'field_ti_type', $ticket_type);
+  }
+
+
 }

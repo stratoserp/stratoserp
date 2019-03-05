@@ -91,11 +91,11 @@ class SettingsForm extends ConfigFormBase {
         $term_options[$tid] = $term->getName();
       }
 
-      $form['se_payment_main_payment_term'] = [
+      $form['se_payment_default_payment_term'] = [
         '#title' => $this->t('Select default payment type.'),
         '#type' => 'select',
         '#options' => $term_options,
-        '#default_value' => $config->get('main_payment_term'),
+        '#default_value' => $config->get('default_payment_term'),
       ];
     }
 
@@ -106,8 +106,8 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('se_payment.settings');
     $form_state_values = $form_state->getValues();
     $config->set('vocabulary', $form_state_values['se_payment_vocabulary']);
-    if (isset($form_state_values['se_payment_main_payment_term'])) {
-      $config->set('main_payment_term', $form_state_values['se_payment_main_payment_term']);
+    if (isset($form_state_values['se_payment_default_payment_term'])) {
+      $config->set('default_payment_term', $form_state_values['se_payment_default_payment_term']);
     }
     $config->save();
   }

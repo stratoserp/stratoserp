@@ -9,3 +9,4 @@ dependencies:
   - webform_access
   - webform_node
   - webform_views
+  - webform_templates

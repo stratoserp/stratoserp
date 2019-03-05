@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.paragraph.field_pa_type
     - paragraphs.paragraphs_type.se_payments
-    - taxonomy.vocabulary.pa_type
+    - taxonomy.vocabulary.se_payment_type
 id: paragraph.se_payments.field_pa_type
 field_name: field_pa_type
 entity_type: paragraph
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      pa_type: pa_type
+      se_payment_type: se_payment_type
     sort:
       field: name
       direction: asc

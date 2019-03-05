@@ -95,7 +95,7 @@ class ErpPayment extends ErpCore {
             '@nid' => $row->getSourceProperty('nid'),
           ]));
       }
-      $term_id = $this->findCreateTerm($payment_types[$line->payment_type], 'pa_type');
+      $term_id = $this->findCreateTerm($payment_types[$line->payment_type], 'se_payment_type');
 
       $paragraph->set('field_pa_type', ['target_id' => $term_id]);
       $paragraph->set('field_pa_amount', ['value' => $line->payment_amount]);
