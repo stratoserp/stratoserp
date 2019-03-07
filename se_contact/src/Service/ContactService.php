@@ -55,7 +55,7 @@ class ContactService {
     $contacts = \Drupal::entityQuery('node')
       ->condition('type', 'se_contact')
       ->condition('field_bu_ref', $node->id())
-      ->condition('field_co_type', $term->id())
+      ->condition('field_co_type_ref', $term->id())
       ->execute();
 
     return $contacts;

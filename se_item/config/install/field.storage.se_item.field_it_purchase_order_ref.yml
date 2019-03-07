@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - se_item
-id: se_item.field_it_invoice
-field_name: field_it_invoice
+id: se_item.field_it_purchase_order_ref
+field_name: field_it_purchase_order_ref
 entity_type: se_item
 type: entity_reference
 settings:

@@ -4,18 +4,21 @@ dependencies:
   config:
     - field.field.se_item.se_stock.field_it_code
     - field.field.se_item.se_stock.field_it_cost_price
+    - field.field.se_item.se_stock.field_it_images
     - field.field.se_item.se_stock.field_it_lost
     - field.field.se_item.se_stock.field_it_manufacturer_ref
-    - field.field.se_item.se_stock.field_it_sell_price
     - field.field.se_item.se_stock.field_it_product_type_ref
     - field.field.se_item.se_stock.field_it_sale_category_ref
     - field.field.se_item.se_stock.field_it_sale_date
     - field.field.se_item.se_stock.field_it_sale_price
+    - field.field.se_item.se_stock.field_it_sell_price
     - field.field.se_item.se_stock.field_it_serial
+    - image.style.thumbnail
     - se_item.se_item_type.se_stock
   module:
     - datetime
     - field_layout
+    - image
     - layout_discovery
 third_party_settings:
   field_layout:
@@ -35,14 +38,22 @@ content:
     type: string_textfield
     region: content
   field_it_cost_price:
-    weight: 9
+    weight: 8
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
+  field_it_images:
+    weight: 12
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
   field_it_lost:
-    weight: 11
+    weight: 9
     settings:
       display_label: true
     third_party_settings: {  }
@@ -57,16 +68,18 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_it_sell_price:
-    weight: 4
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   field_it_product_type_ref:
     type: entity_reference_autocomplete
     weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_it_purchase_order_ref:
+    type: entity_reference_autocomplete
+    weight: 15
     region: content
     settings:
       match_operator: CONTAINS
@@ -83,13 +96,20 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_it_sale_date:
-    weight: 13
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_it_sale_price:
-    weight: 14
+    weight: 11
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_it_sell_price:
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }

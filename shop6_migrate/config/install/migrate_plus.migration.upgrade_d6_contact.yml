@@ -30,7 +30,7 @@ process:
     default_value: 1
   field_co_email: email
   field_co_phone: phone
-  field_co_type: contact_type
+  field_co_type_ref: contact_type
   field_bu_ref/target_id: business_ref
 destination:
   plugin: 'entity:node'

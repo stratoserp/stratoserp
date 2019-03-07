@@ -43,6 +43,7 @@ third_party_settings:
         - group_su_tab_goods_receipts
         - group_su_tab_bills
         - group_su_tab_payments
+        - group_su_tab_timekeeping
       parent_name: ''
       weight: 1
       format_type: tabs
@@ -78,9 +79,9 @@ third_party_settings:
         description: ''
       label: Contacts
       region: content
-    group_su_tab_documents:
+    group_su_tab_information:
       children:
-        - se_document_eva_entity_view_1
+        - se_information_eva_entity_view_1
       parent_name: group_su_tabs
       weight: 27
       format_type: tab
@@ -89,7 +90,7 @@ third_party_settings:
         classes: ''
         formatter: closed
         description: ''
-      label: Documents
+      label: Information
       region: content
     group_su_tab_details:
       children:
@@ -143,7 +144,7 @@ third_party_settings:
       children:
         - se_payment_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 31
+      weight: 32
       format_type: tab
       format_settings:
         id: ''
@@ -169,7 +170,7 @@ third_party_settings:
       children:
         - se_bill_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 30
+      weight: 31
       format_type: tab
       format_settings:
         id: ''
@@ -177,6 +178,19 @@ third_party_settings:
         formatter: closed
         description: ''
       label: Bills
+      region: content
+    group_su_tab_timekeeping:
+      children:
+        - se_timekeeping_eva_entity_view_1
+      parent_name: group_su_tabs
+      weight: 33
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Timekeeping
       region: content
   field_layout:
     id: layout_onecol
@@ -351,6 +365,11 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  se_information_eva_entity_view_1:
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   se_payment_eva_entity_view_1:
     weight: 10
     region: content
@@ -365,6 +384,11 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_ticket_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_timekeeping_eva_entity_view_1:
     weight: 10
     region: content
     settings: {  }

@@ -233,7 +233,7 @@ class SeItem extends RevisionableContentEntityBase implements SeItemInterface {
       ->setDescription(t('The name of the Item entity.'))
       ->setRevisionable(TRUE)
       ->setSettings([
-        'max_length' => 50,
+        'max_length' => 128,
         'text_processing' => 0,
       ])
       ->setDefaultValue('')

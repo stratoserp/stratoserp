@@ -91,7 +91,7 @@ display:
             title_1: title_1
             field_co_email: field_co_email
             field_co_phone: field_co_phone
-            field_co_type: field_co_type
+            field_co_type_ref: field_co_type_ref
           info:
             title:
               sortable: true
