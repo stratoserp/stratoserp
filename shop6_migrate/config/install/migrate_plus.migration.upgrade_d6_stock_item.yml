@@ -18,38 +18,36 @@ source:
 process:
   type:
     plugin: default_value
-    default_value: se_stock_item
-  name: name
+    default_value: se_stock
+  name: title
   uid:
     plugin: default_value
     default_value: 0
-  sticky:
+  field_it_code: code
+  field_it_sell_price: sell_price
+  field_it_cost_price: receipt_price
+  field_it_description/format:
     plugin: default_value
-    default_value: 0
-  status:
-    plugin: default_value
-    default_value: 1
-  field_si_item_ref/target_id: item_ref
-  field_si_purchase_order_ref/target_id:
+    default_value: basic_html
+  field_it_description/value: full_desc
+  field_it_sale_date: sell_date
+  field_it_serial: serial
+  field_it_lost: lost
+  field_it_purchase_order_ref/target_id:
     plugin: stock_item_purchase_order
     source: purchase_order_nid
-  field_si_goods_receipt_ref/target_id:
+  field_it_goods_receipt_ref/target_id:
     plugin: stock_item_goods_receipt
     source: receipt_nid
-  field_si_invoice_ref/target_id:
+  field_it_invoice_ref/target_id:
     plugin: stock_item_invoice
     source: stock_nid
-  field_si_sale_date: sell_date
-  field_si_sale_price: sell_price
-  field_si_serial: serial
-  field_si_lost: lost
-  field_si_virtual:
-    plugin: default_value
-    default_value: 0
+  field_it_images:
+    plugin: d6_cck_file
+    source: field_serp_it_images
 destination:
-  plugin: 'entity:se_stock_item'
-  default_bundle: se_stock_item
-migration_dependencies:
-  required:
-    - upgrade_d6_node_erp_item
+  plugin: 'entity:se_item'
+  default_bundle: 'se_stock'
+migration_dependencies: {  }
+
 

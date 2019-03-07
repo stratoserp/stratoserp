@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_item.field_it_description
+    - se_item.se_item_type.se_service
+  module:
+    - text
+id: se_item.se_service.field_it_description
+field_name: field_it_description
+entity_type: se_item
+bundle: se_service
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

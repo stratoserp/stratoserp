@@ -5,15 +5,17 @@ dependencies:
     - field.field.se_item.se_assembly.field_as_items
     - field.field.se_item.se_assembly.field_it_code
     - field.field.se_item.se_assembly.field_it_cost_price
+    - field.field.se_item.se_assembly.field_it_description
     - field.field.se_item.se_assembly.field_it_manufacturer_ref
-    - field.field.se_item.se_assembly.field_it_sell_price
     - field.field.se_item.se_assembly.field_it_product_type_ref
     - field.field.se_item.se_assembly.field_it_sale_category_ref
+    - field.field.se_item.se_assembly.field_it_sell_price
     - se_item.se_item_type.se_assembly
   module:
     - entity_reference_revisions
     - field_layout
     - layout_discovery
+    - text
     - user
 third_party_settings:
   field_layout:
@@ -52,6 +54,13 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
+  field_it_description:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
   field_it_manufacturer_ref:
     weight: 5
     label: above
@@ -59,17 +68,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_it_sell_price:
-    weight: 2
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_decimal
     region: content
   field_it_product_type_ref:
     weight: 6
@@ -86,6 +84,17 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_it_sell_price:
+    weight: 2
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
     region: content
   name:
     label: above

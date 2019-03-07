@@ -4,14 +4,16 @@ dependencies:
   config:
     - field.field.se_item.se_service.field_it_code
     - field.field.se_item.se_service.field_it_cost_price
+    - field.field.se_item.se_service.field_it_description
     - field.field.se_item.se_service.field_it_manufacturer_ref
-    - field.field.se_item.se_service.field_it_sell_price
     - field.field.se_item.se_service.field_it_product_type_ref
     - field.field.se_item.se_service.field_it_sale_category_ref
+    - field.field.se_item.se_service.field_it_sell_price
     - se_item.se_item_type.se_service
   module:
     - field_layout
     - layout_discovery
+    - text
 third_party_settings:
   field_layout:
     id: layout_onecol
@@ -36,6 +38,14 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  field_it_description:
+    weight: 32
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_it_manufacturer_ref:
     weight: 29
     settings:
@@ -44,13 +54,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
-  field_it_sell_price:
-    weight: 26
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
     region: content
   field_it_product_type_ref:
     weight: 30
@@ -69,6 +72,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_it_sell_price:
+    weight: 26
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   name:
     type: string_textfield

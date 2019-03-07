@@ -259,12 +259,15 @@ class NavigationBlock extends BlockBase {
     ];
     if ($this->node->bundle() === 'se_customer') {
       $route_parameters['field_bu_ref'] = $this->node->id();
-      $contacts = \Drupal::service('se_contact.service')->loadMainContactByCustomer($this->node);
+      $contacts = \Drupal::service('se_contact.service')
+        ->loadMainContactByCustomer($this->node);
     }
     else {
-      $business = reset($this->node->{'field_bu_ref'}->referencedEntities());
-      $route_parameters['field_bu_ref'] = $business->id();
-      $contacts = \Drupal::service('se_contact.service')->loadMainContactByCustomer($business);
+      if ($business = reset($this->node->{'field_bu_ref'}->referencedEntities())) {
+        $route_parameters['field_bu_ref'] = $business->id();
+        $contacts = \Drupal::service('se_contact.service')
+          ->loadMainContactByCustomer($business);
+      }
     }
 
     if ($include_contact && $contacts) {
