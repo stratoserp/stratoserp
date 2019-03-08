@@ -3,6 +3,7 @@
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Row;
+use Drupal\shop6_migrate\Shop6MigrateUtilities;
 
 /**
  * Migration of contacts from drupal6 erp system.
@@ -13,6 +14,7 @@ use Drupal\migrate\Row;
  * )
  */
 class ErpServiceItem extends ErpCore {
+  use Shop6MigrateUtilities;
 
   /**
    * {@inheritdoc}
@@ -50,43 +52,8 @@ class ErpServiceItem extends ErpCore {
       return FALSE;
     }
 
-//    // Connect to the old database to query the data table.
-//    $db = Database::getConnection('default', 'drupal_6');
-//    /** @var \Drupal\Core\Database\Query\Select $query */
-//    $query = $db->select('node', 'n');
-//    $query->fields('n');
-//    $query->condition('n.nid', $row->getSourceProperty('stock_nid'));
-//    $query->join('content_type_erp_item', 'ctei', 'ctei.nid = n.nid AND ctei.vid = n.vid');
-//    $query->fields('ctei');
-//    $result = $query->execute();
-//    $items = $result->fetchAll();
-//    $item = reset($items);
-
-//    $result = \Drupal::entityQuery('node')
-//      ->condition('type', 'erp_item', 'IN')
-//      ->condition('status', 1)
-//      ->condition('nid', )
-//      ->execute();
-//    $item = reset($result);
-
-//    // Find and add uploaded files.
-//    /** @var \Drupal\Core\Database\Query\Select $query */
-//    $query = $this->select('upload', 'u')
-//      ->distinct()
-//      ->fields('u', ['fid', 'description', 'list'])
-//      ->condition('u.nid', $row->getSourceProperty('nid'))
-//      ->condition('u.vid', $row->getSourceProperty('vid'));
-//    $files = $query->execute()->fetchAll();
-//
-//    if (count($files)) {
-//      $row->setSourceProperty('attachments', $files);
-//      $this->logError($row,
-//        t('ErpTicket: @nid - Attached files to node', [
-//          '@nid' => $row->getSourceProperty('nid'),
-//        ]), MigrationInterface::MESSAGE_NOTICE);
-//    }
-
     $row->setSourceProperty('title', substr($row->getSourceProperty('title'), 0, 128));
+    $this->setItemTaxonomyTerms($row);
 
     return TRUE;
   }

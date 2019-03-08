@@ -316,53 +316,6 @@ class ErpCore extends MigrateNode {
   }
 
   /**
-   * Set all the taxonomy terms for an item.
-   *
-   * @param \Drupal\migrate\Row $row
-   *   The migrate row.
-   *
-   * @throws \Exception
-   *   setSourceProperty() might in setTaxonomyTermByName()
-   */
-  public function setItemTaxonomyTerms(Row $row) {
-    $current_nid = $row->getSourceProperty('nid');
-    $current_vid = $row->getSourceProperty('vid');
-
-    $db = Database::getConnection('default', 'drupal_6');
-    $query = $db->select('term_node', 'tn');
-    $query->fields('tn');
-    $query->leftJoin('term_data', 'td', 'td.tid = tn.tid');
-    $query->fields('td');
-    $query->condition('tn.nid', $current_nid);
-    $query->condition('tn.vid', $current_vid);
-
-    $terms = $query->execute()->fetchAll();
-
-    foreach ($terms as $term) {
-      switch ($term->vid) {
-        case 2:
-          $destination_vocabulary = 'se_product_type';
-          $destination_field = 'field_it_product_type_ref';
-          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
-          break;
-
-        case 10:
-          $destination_vocabulary = 'se_manufacturer';
-          $destination_field = 'field_it_manufacturer_ref';
-          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
-          break;
-
-        case 12:
-          $destination_vocabulary = 'se_sale_category';
-          $destination_field = 'field_it_sale_category_ref';
-          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
-          break;
-
-      }
-    }
-  }
-
-  /**
    * Set taxonomy term.
    *
    * @param \Drupal\migrate\Row $row

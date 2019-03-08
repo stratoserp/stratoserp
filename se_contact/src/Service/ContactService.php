@@ -46,7 +46,7 @@ class ContactService {
 
     // If no main contact term is selected, bail.
     if (!$term_id = $config->get('main_contact_term')) {
-      return FALSE;
+      return [];
     }
 
     /** @var Term $term */

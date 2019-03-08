@@ -107,7 +107,7 @@ class NavigationBlock extends BlockBase {
   }
 
   private function billLinks(): array {
-//    $items = [];
+    $items = [];
 //
 //    $items[] = Link::createFromRoute('Add payment', 'node.add',
 //      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
@@ -257,13 +257,14 @@ class NavigationBlock extends BlockBase {
     $route_parameters = [
       'destination' => $this->destination,
     ];
-    if ($this->node->bundle() === 'se_customer') {
+    if (in_array($this->node->bundle(), ['se_customer', 'se_supplier'], TRUE)) {
       $route_parameters['field_bu_ref'] = $this->node->id();
       $contacts = \Drupal::service('se_contact.service')
         ->loadMainContactByCustomer($this->node);
     }
     else {
-      if ($business = reset($this->node->{'field_bu_ref'}->referencedEntities())) {
+      $entities = $this->node->{'field_bu_ref'}->referencedEntities();
+      if ($business = reset($entities)) {
         $route_parameters['field_bu_ref'] = $business->id();
         $contacts = \Drupal::service('se_contact.service')
           ->loadMainContactByCustomer($business);

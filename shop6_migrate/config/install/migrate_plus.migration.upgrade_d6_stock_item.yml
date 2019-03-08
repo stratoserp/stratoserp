@@ -42,6 +42,9 @@ process:
   field_it_invoice_ref/target_id:
     plugin: stock_item_invoice
     source: stock_nid
+  field_it_product_type_ref: field_it_product_type_ref
+  field_it_manufacturer_ref: field_it_manufacturer_ref
+  field_it_sale_category_ref: field_it_sale_category_ref
   field_it_images:
     plugin: d6_cck_file
     source: field_serp_it_images

@@ -71,19 +71,21 @@ class FormAlter {
    * @param string $field
    * @param string $var
    *
-   * @return \Drupal\node\Entity\Node|NULL
    */
   public function setReferenceField(array &$form, string $field, string $var) {
-    $value = $this->currentRequest->get($var);
-    if (!isset($value) || !($node = Node::load($value))) {
+    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
       return NULL;
     }
 
-    if (empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-      $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
+    if ($value = $this->currentRequest->get($var)) {
+      if (is_numeric($value)) {
+        //\Drupal::logger('se_core')->info(print_r($var, TRUE));
+        $node = Node::load($value);
+        if ($node) {
+          $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
+        }
+      }
     }
-
-    return $node;
   }
 
   /**
