@@ -2,23 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_bi_id
-    - field.storage.node.field_bu_ref
-    - node.type.se_bill
     - system.menu.stratos-erp
-    - user.role.developer
     - user.role.staff
   module:
-    - node
-    - serial
+    - se_information
     - user
-id: se_bill_list
-label: Bills
+id: se_information_list
+label: 'Information list'
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
-base_field: nid
+base_table: se_information_field_data
+base_field: id
 core: 8.x
 display:
   default:
@@ -31,7 +26,6 @@ display:
         type: role
         options:
           role:
-            developer: developer
             staff: staff
       cache:
         type: tag
@@ -76,69 +70,45 @@ display:
             last: ››
       style:
         type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            title: title
-            field_bu_ref: field_bu_ref
-            field_bi_id: field_bi_id
-          info:
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_bu_ref:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_bi_id:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: field_bi_id
-          empty_table: false
       row:
         type: fields
       fields:
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          entity_type: node
-          entity_field: title
-          label: ''
-          alter:
-            alter_text: false
-            make_link: false
-            absolute: false
-            trim: false
-            word_boundary: false
-            ellipsis: false
-            strip_tags: false
-            html: false
-          hide_empty: false
-          empty_zero: false
-          settings:
-            link_to_entity: true
-          plugin_id: field
+        name:
+          id: name
+          table: se_information_field_data
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
+          label: Name
           exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
           element_type: ''
           element_class: ''
           element_label_type: ''
@@ -148,9 +118,13 @@ display:
           element_wrapper_class: ''
           element_default_classes: true
           empty: ''
+          hide_empty: false
+          empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: string
+          settings:
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -161,14 +135,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_bu_ref:
-          id: field_bu_ref
-          table: node__field_bu_ref
-          field: field_bu_ref
+          entity_type: null
+          entity_field: name
+          plugin_id: field
+        type:
+          id: type
+          table: se_information_field_data
+          field: type
           relationship: none
           group_type: group
           admin_label: ''
-          label: Business
+          label: 'Information type'
           exclude: false
           alter:
             alter_text: false
@@ -223,126 +200,27 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
-        field_bi_id:
-          id: field_bi_id
-          table: node__field_bi_id
-          field: field_bi_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: bill
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-      filters:
-        status:
-          value: '1'
-          table: node_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: node
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-          group: 1
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          value:
-            se_bill: se_bill
-          entity_type: node
+          entity_type: se_information
           entity_field: type
-          plugin_id: bundle
-      sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          order: DESC
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          exposed: false
-          expose:
-            label: ''
-          granularity: second
-      title: 'Bill list'
+          plugin_id: field
+      filters: {  }
+      sorts: {  }
+      title: Information
       header: {  }
       footer: {  }
       empty: {  }
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
-      tags:
-        - 'config:field.storage.node.field_bi_id'
-        - 'config:field.storage.node.field_bu_ref'
+      tags: {  }
   page_1:
     display_plugin: page
     id: page_1
@@ -350,14 +228,14 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/bill-list
+      path: se/information
       menu:
         type: normal
-        title: Bills
+        title: Information
         description: ''
         expanded: false
-        parent: 'views_view:views.se_supplier_list.page_1'
-        weight: -50
+        parent: ''
+        weight: 0
         context: '0'
         menu_name: stratos-erp
     cache_metadata:
@@ -366,8 +244,5 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
-      tags:
-        - 'config:field.storage.node.field_bi_id'
-        - 'config:field.storage.node.field_bu_ref'
+      tags: {  }

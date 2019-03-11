@@ -67,7 +67,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_item\Controller\ItemController::revisionOverview',
         ])
         ->setRequirement('_permission', 'access item revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setOption('_admin_route', FALSE);
 
       return $route;
     }
@@ -91,7 +91,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title_callback' => '\Drupal\se_item\Controller\ItemController::revisionPageTitle',
         ])
         ->setRequirement('_permission', 'access item revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setOption('_admin_route', FALSE);
 
       return $route;
     }
@@ -115,7 +115,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => 'Revert to earlier revision',
         ])
         ->setRequirement('_permission', 'revert all item revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setOption('_admin_route', FALSE);
 
       return $route;
     }
@@ -139,7 +139,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => 'Delete earlier revision',
         ])
         ->setRequirement('_permission', 'delete all item revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setOption('_admin_route', FALSE);
 
       return $route;
     }
@@ -163,7 +163,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => 'Revert to earlier revision of a translation',
         ])
         ->setRequirement('_permission', 'revert all item revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setOption('_admin_route', FALSE);
 
       return $route;
     }
@@ -187,7 +187,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} settings",
         ])
         ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setOption('_admin_route', FALSE);
 
       return $route;
     }

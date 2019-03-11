@@ -1,0 +1,5 @@
+services:
+  se_item.route_subscriber:
+    class: Drupal\se_item\Routing\ItemRouteSubscriber
+    tags:
+      - { name: event_subscriber }

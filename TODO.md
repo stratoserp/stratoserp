@@ -91,7 +91,7 @@
 ## Purchase order
 - Auto populate from Quote.
 
-## Stock item
+## Item - Stock
 - Stocktake list
 
 ## Subscription
@@ -161,7 +161,7 @@
 ## Reports
 - Export email addresses
 
-## Stock item
+## Item - Stock
 - Stocktake process
 
 ## Ticket
@@ -182,7 +182,7 @@
 - Pull in records from rmm.
 - Provide deep linking direct to machines.
 
-## Stock item
+## Item - Assembly
 - Assembly entity type for building things from multiple parts for sale (eg server/pc).
 
 ## Loyalty system

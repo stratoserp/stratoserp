@@ -45,8 +45,6 @@ class SeInvoiceInsert implements EventSubscriberInterface {
   }
 
   /**
-   * When an item is saved, create an associated stock item.
-   *
    * @param SeCoreEvent $event
    *
    */

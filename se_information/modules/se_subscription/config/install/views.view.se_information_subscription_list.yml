@@ -2,17 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_cost_price
-    - field.storage.se_item.field_it_sell_price
-    - se_item.se_item_type.se_assembly
+    - se_information.se_information_type.se_subscription
+    - system.menu.stratos-erp
+    - user.role.staff
   module:
-    - se_item
-id: se_item_assembly_items
-label: 'Assembly items'
+    - se_information
+    - user
+id: se_information_subscription_list
+label: 'Subscription list'
 module: views
 description: ''
 tag: ''
-base_table: se_item_field_data
+base_table: se_information_field_data
 base_field: id
 core: 8.x
 display:
@@ -23,8 +24,10 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            staff: staff
       cache:
         type: tag
         options: {  }
@@ -47,9 +50,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: mini
+        type: full
         options:
-          items_per_page: 10
+          items_per_page: 20
           offset: 0
           id: 0
           total_pages: null
@@ -62,20 +65,19 @@ display:
             offset: false
             offset_label: Offset
           tags:
-            previous: ‹‹
-            next: ››
+            previous: ‹
+            next: ›
+            first: ‹‹
+            last: ››
       style:
         type: table
       row:
         type: fields
       fields:
         name:
-          table: se_item_field_data
-          field: name
           id: name
-          entity_type: null
-          entity_field: name
-          plugin_id: field
+          table: se_information_field_data
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
@@ -122,72 +124,8 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_it_cost_price:
-          id: field_it_cost_price
-          table: se_item__field_it_cost_price
-          field: field_it_cost_price
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Purchase price'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_decimal
           settings:
-            thousand_separator: ''
-            prefix_suffix: true
-            decimal_separator: .
-            scale: 2
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -198,15 +136,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: null
+          entity_field: name
           plugin_id: field
-        field_it_sell_price:
-          id: field_it_sell_price
-          table: se_item__field_it_sell_price
-          field: field_it_sell_price
+        type:
+          id: type
+          table: se_information_field_data
+          field: type
           relationship: none
           group_type: group
           admin_label: ''
-          label: Price
+          label: 'Information type'
           exclude: false
           alter:
             alter_text: false
@@ -247,14 +187,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: number_decimal
+          click_sort_column: target_id
+          type: entity_reference_label
           settings:
-            thousand_separator: ''
-            prefix_suffix: true
-            decimal_separator: .
-            scale: 2
-          group_column: value
+            link: true
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -264,18 +201,20 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: se_information
+          entity_field: type
           plugin_id: field
       filters:
         type:
           id: type
-          table: se_item_field_data
+          table: se_information_field_data
           field: type
           relationship: none
           group_type: group
           admin_label: ''
           operator: in
           value:
-            se_assembly: se_assembly
+            se_subscription: se_subscription
           group: 1
           exposed: false
           expose:
@@ -303,26 +242,26 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: se_item
+          entity_type: se_information
           entity_field: type
           plugin_id: bundle
       sorts: {  }
-      title: 'Assembly items'
+      title: Subscriptions
       header: {  }
       footer: {  }
       empty: {  }
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-      tags:
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_sell_price'
+        - user.roles
+      tags: {  }
   page_1:
     display_plugin: page
     id: page_1
@@ -330,13 +269,13 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/item/assembly-items
+      path: se/information/subscription-list
       menu:
         type: normal
-        title: 'Assembly items'
+        title: Subscriptions
         description: ''
         expanded: false
-        parent: 'views_view:views.se_items.page_1'
+        parent: 'views_view:views.se_information_list.page_1'
         weight: 0
         context: '0'
         menu_name: stratos-erp
@@ -346,6 +285,5 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-      tags:
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_sell_price'
+        - user.roles
+      tags: {  }
