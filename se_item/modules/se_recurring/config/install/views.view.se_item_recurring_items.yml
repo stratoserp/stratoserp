@@ -336,7 +336,7 @@ display:
         title: 'Recurring items'
         description: ''
         expanded: false
-        parent: se_items
+        parent: 'views_view:views.se_items.page_1'
         weight: 0
         context: '0'
         menu_name: stratos-erp

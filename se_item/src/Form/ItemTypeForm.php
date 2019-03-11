@@ -6,9 +6,9 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class SeItemTypeForm.
+ * Class ItemTypeForm.
  */
-class SeItemTypeForm extends EntityForm {
+class ItemTypeForm extends EntityForm {
 
   /**
    * {@inheritdoc}
@@ -30,7 +30,7 @@ class SeItemTypeForm extends EntityForm {
       '#type' => 'machine_name',
       '#default_value' => $se_item_type->id(),
       '#machine_name' => [
-        'exists' => '\Drupal\se_item\Entity\SeItemType::load',
+        'exists' => '\Drupal\se_item\Entity\ItemType::load',
       ],
       '#disabled' => !$se_item_type->isNew(),
     ];

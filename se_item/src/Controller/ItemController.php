@@ -6,14 +6,14 @@ use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
-use Drupal\se_item\Entity\SeItemInterface;
+use Drupal\se_item\Entity\ItemInterface;
 
 /**
- * Class SeItemController.
+ * Class ItemController.
  *
  *  Returns responses for Item routes.
  */
-class SeItemController extends ControllerBase implements ContainerInjectionInterface {
+class ItemController extends ControllerBase implements ContainerInjectionInterface {
 
   /**
    * Displays a Item  revision.
@@ -48,13 +48,13 @@ class SeItemController extends ControllerBase implements ContainerInjectionInter
   /**
    * Generates an overview table of older revisions of a Item .
    *
-   * @param \Drupal\se_item\Entity\SeItemInterface $se_item
+   * @param \Drupal\se_item\Entity\ItemInterface $se_item
    *   A Item  object.
    *
    * @return array
    *   An array as expected by drupal_render().
    */
-  public function revisionOverview(SeItemInterface $se_item) {
+  public function revisionOverview(ItemInterface $se_item) {
     $account = $this->currentUser();
     $langcode = $se_item->language()->getId();
     $langname = $se_item->language()->getName();
@@ -75,7 +75,7 @@ class SeItemController extends ControllerBase implements ContainerInjectionInter
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_item\SeItemInterface $revision */
+      /** @var \Drupal\se_item\ItemInterface $revision */
       $revision = $se_item_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.

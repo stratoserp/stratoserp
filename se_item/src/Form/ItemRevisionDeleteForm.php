@@ -14,13 +14,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup se_item
  */
-class SeItemRevisionDeleteForm extends ConfirmFormBase {
+class ItemRevisionDeleteForm extends ConfirmFormBase {
 
 
   /**
    * The Item revision.
    *
-   * @var \Drupal\se_item\Entity\SeItemInterface
+   * @var \Drupal\se_item\Entity\ItemInterface
    */
   protected $revision;
 
@@ -29,7 +29,7 @@ class SeItemRevisionDeleteForm extends ConfirmFormBase {
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $SeItemStorage;
+  protected $ItemStorage;
 
   /**
    * The database connection.
@@ -39,7 +39,7 @@ class SeItemRevisionDeleteForm extends ConfirmFormBase {
   protected $connection;
 
   /**
-   * Constructs a new SeItemRevisionDeleteForm.
+   * Constructs a new ItemRevisionDeleteForm.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $entity_storage
    *   The entity storage.
@@ -47,7 +47,7 @@ class SeItemRevisionDeleteForm extends ConfirmFormBase {
    *   The database connection.
    */
   public function __construct(EntityStorageInterface $entity_storage, Connection $connection) {
-    $this->SeItemStorage = $entity_storage;
+    $this->ItemStorage = $entity_storage;
     $this->connection = $connection;
   }
 
@@ -94,7 +94,7 @@ class SeItemRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $se_item_revision = NULL) {
-    $this->revision = $this->SeItemStorage->loadRevision($se_item_revision);
+    $this->revision = $this->ItemStorage->loadRevision($se_item_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -104,7 +104,7 @@ class SeItemRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->SeItemStorage->deleteRevision($this->revision->getRevisionId());
+    $this->ItemStorage->deleteRevision($this->revision->getRevisionId());
 
     $this->logger('content')->notice('Item: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
     drupal_set_message(t('Revision from %revision-date of Item %title has been deleted.', ['%revision-date' => format_date($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));

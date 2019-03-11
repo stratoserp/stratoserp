@@ -6,7 +6,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\se_item\Entity\SeItemInterface;
+use Drupal\se_item\Entity\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup se_item
  */
-class SeItemRevisionRevertTranslationForm extends SeItemRevisionRevertForm {
+class ItemRevisionRevertTranslationForm extends ItemRevisionRevertForm {
 
 
   /**
@@ -32,7 +32,7 @@ class SeItemRevisionRevertTranslationForm extends SeItemRevisionRevertForm {
   protected $languageManager;
 
   /**
-   * Constructs a new SeItemRevisionRevertTranslationForm.
+   * Constructs a new ItemRevisionRevertTranslationForm.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $entity_storage
    *   The Item storage.
@@ -90,11 +90,11 @@ class SeItemRevisionRevertTranslationForm extends SeItemRevisionRevertForm {
   /**
    * {@inheritdoc}
    */
-  protected function prepareRevertedRevision(SeItemInterface $revision, FormStateInterface $form_state) {
+  protected function prepareRevertedRevision(ItemInterface $revision, FormStateInterface $form_state) {
     $revert_untranslated_fields = $form_state->getValue('revert_untranslated_fields');
 
-    /** @var \Drupal\se_item\Entity\SeItemInterface $default_revision */
-    $latest_revision = $this->SeItemStorage->load($revision->id());
+    /** @var \Drupal\se_item\Entity\ItemInterface $default_revision */
+    $latest_revision = $this->ItemStorage->load($revision->id());
     $latest_revision_translation = $latest_revision->getTranslation($this->langcode);
 
     $revision_translation = $revision->getTranslation($this->langcode);

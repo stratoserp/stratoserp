@@ -20,21 +20,21 @@ use Drupal\user\UserInterface;
  *   label = @Translation("Item"),
  *   bundle_label = @Translation("Item type"),
  *   handlers = {
- *     "storage" = "Drupal\se_item\SeItemStorage",
+ *     "storage" = "Drupal\se_item\ItemStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\se_item\SeItemListBuilder",
- *     "views_data" = "Drupal\se_item\Entity\SeItemViewsData",
- *     "translation" = "Drupal\se_item\SeItemTranslationHandler",
+ *     "list_builder" = "Drupal\se_item\ItemListBuilder",
+ *     "views_data" = "Drupal\se_item\Entity\ItemViewsData",
+ *     "translation" = "Drupal\se_item\ItemTranslationHandler",
  *
  *     "form" = {
- *       "default" = "Drupal\se_item\Form\SeItemForm",
- *       "add" = "Drupal\se_item\Form\SeItemForm",
- *       "edit" = "Drupal\se_item\Form\SeItemForm",
- *       "delete" = "Drupal\se_item\Form\SeItemDeleteForm",
+ *       "default" = "Drupal\se_item\Form\ItemForm",
+ *       "add" = "Drupal\se_item\Form\ItemForm",
+ *       "edit" = "Drupal\se_item\Form\ItemForm",
+ *       "delete" = "Drupal\se_item\Form\ItemDeleteForm",
  *     },
- *     "access" = "Drupal\se_item\SeItemAccessControlHandler",
+ *     "access" = "Drupal\se_item\ItemAccessControlHandler",
  *     "route_provider" = {
- *       "html" = "Drupal\se_item\SeItemHtmlRouteProvider",
+ *       "html" = "Drupal\se_item\ItemHtmlRouteProvider",
  *     },
  *   },
  *   base_table = "se_item",
@@ -54,23 +54,23 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/se/item/{se_item}",
- *     "add-page" = "/se/item/add",
- *     "add-form" = "/se/item/add/{se_item_type}",
- *     "edit-form" = "/se/item/{se_item}/edit",
- *     "delete-form" = "/se/item/{se_item}/delete",
- *     "version-history" = "/se/item/{se_item}/revisions",
- *     "revision" = "/se/item/{se_item}/revisions/{se_item_revision}/view",
- *     "revision_revert" = "/se/item/{se_item}/revisions/{se_item_revision}/revert",
- *     "revision_delete" = "/se/item/{se_item}/revisions/{se_item_revision}/delete",
- *     "translation_revert" = "/se/item/{se_item}/revisions/{se_item_revision}/revert/{langcode}",
- *     "collection" = "/se/item",
+ *     "canonical" = "/item/{se_item}",
+ *     "add-page" = "/item/add",
+ *     "add-form" = "/item/add/{se_item_type}",
+ *     "edit-form" = "/item/{se_item}/edit",
+ *     "delete-form" = "/item/{se_item}/delete",
+ *     "version-history" = "/item/{se_item}/revisions",
+ *     "revision" = "/item/{se_item}/revisions/{se_item_revision}/view",
+ *     "revision_revert" = "/item/{se_item}/revisions/{se_item_revision}/revert",
+ *     "revision_delete" = "/item/{se_item}/revisions/{se_item_revision}/delete",
+ *     "translation_revert" = "/item/{se_item}/revisions/{se_item_revision}/revert/{langcode}",
+ *     "collection" = "/admin/item",
  *   },
  *   bundle_entity_type = "se_item_type",
  *   field_ui_base_route = "entity.se_item_type.edit_form"
  * )
  */
-class SeItem extends RevisionableContentEntityBase implements SeItemInterface {
+class Item extends RevisionableContentEntityBase implements ItemInterface {
 
   use EntityChangedTrait;
 

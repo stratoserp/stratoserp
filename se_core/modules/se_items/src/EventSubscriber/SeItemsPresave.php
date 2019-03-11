@@ -51,7 +51,7 @@ class SeItemsPresave implements EventSubscriberInterface {
       'se_purchase_order' => 'po',
     ];
 
-    if (!in_array($node->bundle(), array_keys($bundles))) {
+    if (!array_key_exists($node->bundle(), $bundles)) {
       return;
     }
 

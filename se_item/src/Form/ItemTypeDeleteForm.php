@@ -9,7 +9,7 @@ use Drupal\Core\Url;
 /**
  * Builds the form to delete Item type entities.
  */
-class SeItemTypeDeleteForm extends EntityConfirmFormBase {
+class ItemTypeDeleteForm extends EntityConfirmFormBase {
 
   /**
    * {@inheritdoc}

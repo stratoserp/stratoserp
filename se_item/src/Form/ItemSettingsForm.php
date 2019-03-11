@@ -6,11 +6,11 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class SeItemSettingsForm.
+ * Class ItemSettingsForm.
  *
  * @ingroup se_item
  */
-class SeItemSettingsForm extends FormBase {
+class ItemSettingsForm extends FormBase {
 
   /**
    * Returns a unique string identifying the form.
@@ -19,7 +19,7 @@ class SeItemSettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'seitem_settings';
+    return 'item_settings';
   }
 
   /**
@@ -46,7 +46,7 @@ class SeItemSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['seitem_settings']['#markup'] = 'Settings form for Item entities. Manage field settings here.';
+    $form['item_settings']['#markup'] = 'Settings form for Item entities. Manage field settings here.';
     return $form;
   }
 

@@ -10,15 +10,15 @@ use Drupal\Core\Access\AccessResult;
 /**
  * Access controller for the Item entity.
  *
- * @see \Drupal\se_item\Entity\SeItem.
+ * @see \Drupal\se_item\Entity\Item.
  */
-class SeItemAccessControlHandler extends EntityAccessControlHandler {
+class ItemAccessControlHandler extends EntityAccessControlHandler {
 
   /**
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /** @var \Drupal\se_item\Entity\SeItemInterface $entity */
+    /** @var \Drupal\se_item\Entity\ItemInterface $entity */
     switch ($operation) {
       case 'view':
         if (!$entity->isPublished()) {

@@ -12,14 +12,14 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   label = @Translation("Item type"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\se_item\SeItemTypeListBuilder",
+ *     "list_builder" = "Drupal\se_item\ItemTypeListBuilder",
  *     "form" = {
- *       "add" = "Drupal\se_item\Form\SeItemTypeForm",
- *       "edit" = "Drupal\se_item\Form\SeItemTypeForm",
- *       "delete" = "Drupal\se_item\Form\SeItemTypeDeleteForm"
+ *       "add" = "Drupal\se_item\Form\ItemTypeForm",
+ *       "edit" = "Drupal\se_item\Form\ItemTypeForm",
+ *       "delete" = "Drupal\se_item\Form\ItemTypeDeleteForm"
  *     },
  *     "route_provider" = {
- *       "html" = "Drupal\se_item\SeItemTypeHtmlRouteProvider",
+ *       "html" = "Drupal\se_item\ItemTypeHtmlRouteProvider",
  *     },
  *   },
  *   config_prefix = "se_item_type",
@@ -31,15 +31,15 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/se/item_type/{se_item_type}",
- *     "add-form" = "/se/item_type/add",
- *     "edit-form" = "/se/item_type/{se_item_type}/edit",
- *     "delete-form" = "/se/item_type/{se_item_type}/delete",
- *     "collection" = "/se/item_type"
+ *     "canonical" = "/admin/item_type/{se_item_type}",
+ *     "add-form" = "/admin/item_type/add",
+ *     "edit-form" = "/admin/item_type/{se_item_type}/edit",
+ *     "delete-form" = "/admin/item_type/{se_item_type}/delete",
+ *     "collection" = "/admin/item_type"
  *   }
  * )
  */
-class SeItemType extends ConfigEntityBundleBase implements SeItemTypeInterface {
+class ItemType extends ConfigEntityBundleBase implements ItemTypeInterface {
 
   /**
    * The Item type ID.

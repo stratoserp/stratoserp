@@ -10,13 +10,13 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @ingroup se_item
  */
-class SeItemForm extends ContentEntityForm {
+class ItemForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\se_item\Entity\SeItem */
+    /* @var $entity \Drupal\se_item\Entity\Item */
     $form = parent::buildForm($form, $form_state);
 
     if (!$this->entity->isNew()) {

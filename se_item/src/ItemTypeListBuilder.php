@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityInterface;
 /**
  * Provides a listing of Item type entities.
  */
-class SeItemTypeListBuilder extends ConfigEntityListBuilder {
+class ItemTypeListBuilder extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}

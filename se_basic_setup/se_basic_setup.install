@@ -1,6 +1,6 @@
 <?php
 
-use Drupal\se_item\Entity\SeItem;
+use Drupal\se_item\Entity\Item;
 use Drupal\Core\Config\FileStorage;
 
 /**
@@ -98,7 +98,7 @@ function se_basic_setup_taxonomy_terms() {
 function se_basic_setup_example_service_items() {
   $defaults = se_basic_setup_item_defaults('Service', 'Domain name', 'Internal', 'se_service');
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Technical service',
       'body' => 'Technical service by one of our qualified technicians.',
       'field_it_code'  => [['value' => 'TECHSERVICE']],
@@ -107,7 +107,7 @@ function se_basic_setup_example_service_items() {
     ]);
   $item->save();
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Workshop service',
       'body' => 'Workshop service by one of our qualified technicians.',
       'field_it_code'  => [['value' => 'WORKSHOP']],
@@ -121,7 +121,7 @@ function se_basic_setup_example_recurring_items() {
   $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
 
   // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Domain name registration',
       'body' => 'Domain name registration - yearly.',
       'field_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
@@ -131,7 +131,7 @@ function se_basic_setup_example_recurring_items() {
     ]);
   $item->save();
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Domain name - biennually',
       'body' => 'Domain name - biennually.',
       'field_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
@@ -143,7 +143,7 @@ function se_basic_setup_example_recurring_items() {
 
   $defaults = se_basic_setup_item_defaults('Hosting service', 'Domain name', 'Internal', 'se_recurring');
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Domain hosting',
       'body' => 'Domain hosting - yearly.',
       'field_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
@@ -157,7 +157,7 @@ function se_basic_setup_example_recurring_items() {
 function se_basic_setup_example_stock_items() {
   $defaults = se_basic_setup_item_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Microsoft KB600',
       'body' => 'Microsoft KB600',
       'field_it_code'  => [['value' => 'MS-KB-600']],
@@ -166,7 +166,7 @@ function se_basic_setup_example_stock_items() {
     ]);
   $item->save();
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Microsoft KB800',
       'body' => 'Microsoft KB800',
       'field_it_code'  => [['value' => 'MS-KB-800']],
@@ -177,7 +177,7 @@ function se_basic_setup_example_stock_items() {
 
   $defaults = se_basic_setup_item_defaults('Hardware', 'Notebook', 'Lenovo', 'se_stock');
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Lenovo 11e',
       'body' => 'Lenovo 11e',
       'field_it_code'  => [['value' => 'LN-11E']],
@@ -186,7 +186,7 @@ function se_basic_setup_example_stock_items() {
     ]);
   $item->save();
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Lenovo x280',
       'body' => 'Lenovo x280',
       'field_it_code'  => [['value' => 'LN-X280']],
@@ -197,7 +197,7 @@ function se_basic_setup_example_stock_items() {
 
   $defaults = se_basic_setup_item_defaults('Consumables', 'Ink cartridge', 'Canon', 'se_stock');
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Canon PIXMA - Cyan',
       'body' => 'Canon PIXMA - Cyan',
       'field_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
@@ -206,7 +206,7 @@ function se_basic_setup_example_stock_items() {
     ]);
   $item->save();
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Canon PIXMA - Yellow',
       'body' => 'Canon PIXMA - Yellow',
       'field_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
@@ -215,7 +215,7 @@ function se_basic_setup_example_stock_items() {
     ]);
   $item->save();
 
-  $item = SeItem::create($defaults + [
+  $item = Item::create($defaults + [
       'name' => 'Canon PIXMA - Magenta',
       'body' => 'Canon PIXMA - Magenta',
       'field_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],

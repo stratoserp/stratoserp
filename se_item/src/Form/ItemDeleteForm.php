@@ -9,7 +9,7 @@ use Drupal\Core\Entity\ContentEntityDeleteForm;
  *
  * @ingroup se_item
  */
-class SeItemDeleteForm extends ContentEntityDeleteForm {
+class ItemDeleteForm extends ContentEntityDeleteForm {
 
 
 }
