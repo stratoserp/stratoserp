@@ -23,19 +23,32 @@ function se_items_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     return 'node_' . $value . '_form';
   }, SE_ITEM_NODE_TYPES);
 
-  if (in_array($form_id, $se_item_forms)) {
-    $form['#attached'] = [
-      'library' => [
-        'core/drupal.ajax',
-      ]
+  if (in_array($form_id, $se_item_forms, TRUE)) {
+    $form['#attached']['library'][] = 'core/drupal.ajax';
+  }
+}
+
+/**
+ * Alter for paragraphs 'classic'.
+ *
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function se_items_field_widget_entity_reference_paragraphs_form_alter(&$element, &$form_state, $context) {
+  if ($element['#paragraph_type'] === 'se_items') {
+    $element['subform']['field_it_line_item']['widget'][0]['target_id']['#ajax'] = [
+      'callback' => 'Drupal\se_items\Controller\ItemsController::updatePrice',
+      'event' => 'autocompleteclose',
+      'progress' => FALSE,
     ];
   }
 }
 
 /**
+ * Alter for paragraphs 'experimental'.
+ *
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
  */
-function se_items_field_widget_entity_reference_paragraphs_form_alter(&$element, &$form_state, $context) {
+function se_items_field_widget_paragraphs_form_alter(&$element, &$form_state, $context) {
   if ($element['#paragraph_type'] === 'se_items') {
     $element['subform']['field_it_line_item']['widget'][0]['target_id']['#ajax'] = [
       'callback' => 'Drupal\se_items\Controller\ItemsController::updatePrice',
