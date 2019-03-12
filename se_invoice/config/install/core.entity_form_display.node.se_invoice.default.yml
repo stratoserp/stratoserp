@@ -72,7 +72,7 @@ content:
     type: serial_default_widget
     region: second
   field_in_items:
-    type: entity_reference_paragraphs
+    type: paragraphs
     weight: 8
     settings:
       title: Paragraph
@@ -81,6 +81,12 @@ content:
       add_mode: button
       form_display_mode: default
       default_paragraph_type: se_items
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
     region: bottom
   field_in_quote_ref:
