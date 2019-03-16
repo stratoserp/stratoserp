@@ -41,6 +41,8 @@ class ItemsController extends ControllerBase {
 
     // TODO - Copy the items description to that field?
 
+    // TODO - Update invoice total here.
+
     return $response;
   }
 

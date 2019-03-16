@@ -26,6 +26,7 @@ class ErpStockItem extends SqlBase {
 
     $query->leftJoin('erp_item', 'ei', 'es.stock_nid = ei.nid');
     $query->fields('ei');
+    $query->condition('ei.item_type', 'stock item');
 
     $query->leftJoin('node', 'n', 'n.nid = es.stock_nid');
     $query->fields('n');

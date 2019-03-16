@@ -46,7 +46,7 @@ class ErpJobComment extends MigrateComment {
     $row->setSourceProperty('comment', $comment);
     $type = $row->getSourceProperty('type');
 
-    if ($type != 'erp_job') {
+    if ($type !== 'erp_job') {
       return FALSE;
     }
 
@@ -83,7 +83,12 @@ class ErpJobComment extends MigrateComment {
       ->condition('ctet.field_serp_tk_comment_id_value', $row->getSourceProperty('cid'));
     $query->orderBy('ctet.vid', 'desc');
     $query->range(NULL, 1);
-    $timekeeping_entries = $query->execute()->fetchAll();
+
+    $results = $query->execute();
+    if (!$results) {
+      return FALSE;
+    }
+    $timekeeping_entries = $results->fetchAll();
 
     if (count($timekeeping_entries)) {
       foreach ($timekeeping_entries as $timekeeping) {
@@ -91,7 +96,7 @@ class ErpJobComment extends MigrateComment {
           strftime("%FT%T", (int) $timekeeping->field_serp_tk_date_value)
         );
         $row->setSourceProperty('tk_amount', $timekeeping->field_serp_tk_taken_value);
-        if (!empty($timekeeping->field_serp_tk_type_nid) && $tk_id = $this->findNewId($timekeeping->field_serp_tk_type_nid, 'nid', 'upgrade_d6_node_erp_item')) {
+        if (!empty($timekeeping->field_serp_tk_type_nid) && $tk_id = $this->findNewId($timekeeping->field_serp_tk_type_nid, 'nid', 'upgrade_d6_service_item')) {
           $row->setSourceProperty('tk_item', $tk_id);
         }
         $row->setSourceProperty('tk_billable', $timekeeping->field_serp_tk_billable_value);

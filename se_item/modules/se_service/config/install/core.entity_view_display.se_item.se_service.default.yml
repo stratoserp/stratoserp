@@ -14,10 +14,9 @@ dependencies:
     - field_layout
     - layout_discovery
     - text
-    - user
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings: {  }
 id: se_item.se_service.default
 targetEntityType: se_item
@@ -25,15 +24,15 @@ bundle: se_service
 mode: default
 content:
   field_it_code:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
+    region: top
   field_it_cost_price:
-    weight: 6
+    weight: 3
     label: above
     settings:
       thousand_separator: ''
@@ -42,22 +41,22 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
-    region: content
+    region: second
   field_it_description:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
-    region: content
+    region: bottom
   field_it_manufacturer_ref:
-    weight: 4
+    weight: 6
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   field_it_product_type_ref:
     weight: 5
     label: above
@@ -65,17 +64,17 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   field_it_sale_category_ref:
-    weight: 3
+    weight: 4
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   field_it_sell_price:
-    weight: 1
+    weight: 2
     label: above
     settings:
       thousand_separator: ''
@@ -84,23 +83,17 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
-    region: content
+    region: first
   name:
     label: above
     type: string
-    weight: -4
-    region: content
+    weight: 0
+    region: top
     settings:
       link_to_entity: false
-    third_party_settings: {  }
-  user_id:
-    label: hidden
-    type: author
-    weight: 0
-    region: content
-    settings: {  }
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  user_id: true

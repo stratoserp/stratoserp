@@ -77,7 +77,11 @@ class ErpPayment extends ErpCore {
     $query->condition('ecd.nid', $nid);
     $query->orderBy('ecd.line', 'ASC');
 
-    $lines = $query->execute()->fetchAll();
+    if (!$result = $query->execute()) {
+      return;
+    }
+
+    $lines = $result->fetchAll();
 
     $payments = [];
     $total = 0;
@@ -95,9 +99,9 @@ class ErpPayment extends ErpCore {
             '@nid' => $row->getSourceProperty('nid'),
           ]));
       }
-      $term_id = $this->findCreateTerm($payment_types[$line->payment_type], 'se_payment_type');
+      $term_id = self::findCreateTerm($payment_types[$line->payment_type], 'se_payment_type');
 
-      $paragraph->set('field_pa_type', ['target_id' => $term_id]);
+      $paragraph->set('field_pa_type_ref', ['target_id' => $term_id]);
       $paragraph->set('field_pa_amount', ['value' => $line->payment_amount]);
       $paragraph->save();
 
@@ -111,6 +115,5 @@ class ErpPayment extends ErpCore {
     $row->setSourceProperty('paragraph_items', $payments);
     $row->setSourceProperty('total', $total);
   }
-
 
 }

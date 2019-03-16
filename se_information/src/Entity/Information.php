@@ -64,7 +64,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/information/{se_information}/revisions/{se_information_revision}/revert",
  *     "revision_delete" = "/information/{se_information}/revisions/{se_information_revision}/delete",
  *     "translation_revert" = "/information/{se_information}/revisions/{se_information_revision}/revert/{langcode}",
- *     "collection" = "/admin/information",
+ *     "collection" = "/admin/content/information",
  *   },
  *   bundle_entity_type = "se_information_type",
  *   field_ui_base_route = "entity.se_information_type.edit_form"
@@ -233,7 +233,7 @@ class Information extends RevisionableContentEntityBase implements InformationIn
       ->setDescription(t('The name of the Information entity.'))
       ->setRevisionable(TRUE)
       ->setSettings([
-        'max_length' => 50,
+        'max_length' => 128,
         'text_processing' => 0,
       ])
       ->setDefaultValue('')

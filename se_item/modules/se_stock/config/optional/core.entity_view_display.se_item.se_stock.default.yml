@@ -23,10 +23,9 @@ dependencies:
     - image
     - layout_discovery
     - text
-    - user
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings: {  }
 id: se_item.se_stock.default
 targetEntityType: se_item
@@ -35,17 +34,17 @@ mode: default
 content:
   field_it_code:
     type: string
-    weight: 2
-    region: content
-    label: above
+    weight: 1
+    region: first
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
   field_it_cost_price:
     type: number_decimal
-    weight: 3
-    region: content
-    label: above
+    weight: 7
+    region: second
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -53,16 +52,16 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
   field_it_description:
-    weight: 15
+    weight: 13
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
-    region: content
+    region: bottom
   field_it_images:
     type: image
     weight: 14
-    region: content
+    region: bottom
     label: above
     settings:
       image_style: ''
@@ -70,17 +69,17 @@ content:
     third_party_settings: {  }
   field_it_invoice_ref:
     type: entity_reference_label
-    weight: 4
-    region: content
-    label: above
+    weight: 12
+    region: second
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
   field_it_lost:
     type: boolean
-    weight: 5
-    region: content
-    label: above
+    weight: 3
+    region: first
+    label: inline
     settings:
       format: default
       format_custom_false: ''
@@ -88,50 +87,50 @@ content:
     third_party_settings: {  }
   field_it_manufacturer_ref:
     type: entity_reference_label
-    weight: 6
-    region: content
-    label: above
+    weight: 10
+    region: second
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
   field_it_product_type_ref:
     type: entity_reference_label
-    weight: 7
-    region: content
-    label: above
+    weight: 9
+    region: second
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
   field_it_purchase_order_ref:
     type: entity_reference_label
-    weight: 8
-    region: content
-    label: above
+    weight: 11
+    region: second
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
   field_it_sale_category_ref:
     type: entity_reference_label
-    weight: 9
-    region: content
-    label: above
+    weight: 8
+    region: second
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
   field_it_sale_date:
     type: datetime_default
-    weight: 10
-    region: content
-    label: above
+    weight: 6
+    region: first
+    label: inline
     settings:
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
   field_it_sale_price:
     type: number_decimal
-    weight: 11
-    region: content
-    label: above
+    weight: 5
+    region: first
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -140,9 +139,9 @@ content:
     third_party_settings: {  }
   field_it_sell_price:
     type: number_decimal
-    weight: 12
-    region: content
-    label: above
+    weight: 4
+    region: first
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -151,28 +150,22 @@ content:
     third_party_settings: {  }
   field_it_serial:
     type: string
-    weight: 13
-    region: content
-    label: above
+    weight: 2
+    region: first
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
   name:
-    label: above
+    label: inline
     type: string
     weight: 0
-    region: content
+    region: top
     settings:
       link_to_entity: false
-    third_party_settings: {  }
-  user_id:
-    label: hidden
-    type: author
-    weight: 1
-    region: content
-    settings: {  }
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  user_id: true

@@ -2,15 +2,20 @@ langcode: en
 status: true
 dependencies:
   module:
+    - comment
+    - dynamic_entity_reference
     - paragraphs
     - se_item
 id: paragraph.field_it_line_item
 field_name: field_it_line_item
 entity_type: paragraph
-type: entity_reference
+type: dynamic_entity_reference
 settings:
-  target_type: se_item
-module: core
+  exclude_entity_types: false
+  entity_type_ids:
+    comment: comment
+    se_item: se_item
+module: dynamic_entity_reference
 locked: false
 cardinality: 1
 translatable: true

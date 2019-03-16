@@ -5,7 +5,8 @@ namespace Drupal\shop6_migrate;
 use Drupal\Core\Database\Database;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
-use Drupal\se_stock_item\Entity\StockItem;
+use Drupal\shop6_migrate\Plugin\migrate\source\ErpCore;
+
 
 /**
  * Trait Shop6MigrateUtilities.
@@ -46,6 +47,7 @@ trait Shop6MigrateUtilities {
     // migration. This means creating a new migration manager and creating
     // an instance of the migration we want to work with.
     if (!isset($upgrade_type)) {
+      /** @var \Drupal\migrate\Plugin\Migration $this->migration */
       $new_id = $this->migration->getIdMap()->lookupDestinationIds([$item_identifier => $old_id]);
       return $new_id;
     }
@@ -87,10 +89,9 @@ trait Shop6MigrateUtilities {
     $query->condition('eid.item_nid', $old_nid);
     $query->condition('eid.serial', $serial);
 
-    if ($invoice = $query->execute()->fetch()) {
-      $new_id = $this->findNewId($invoice->nid, 'nid', 'upgrade_d6_node_erp_invoice');
-
-      return $new_id;
+    $result = $query->execute();
+    if ($invoice = $result->fetch()) {
+      return $this->findNewId($invoice->nid, 'nid', 'upgrade_d6_node_erp_invoice');
     }
     return NULL;
   }
@@ -98,32 +99,33 @@ trait Shop6MigrateUtilities {
   /**
    * Retrieve an item by nid and serial number.
    *
-   * @param int $item_id
-   *   The item id to search for.
+   * @param \Drupal\migrate\Row $row
+   * @param string $code
+   *   The stock code to search for.
    * @param string $serial
    *   The serial number to search for.
-   * @param bool $virtual
-   *   Whether to return virtual items.
    *
    * @return bool|\Drupal\Core\Entity\EntityInterface
    *   Return an item if found.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function findItemBySerial(
-    int $item_id,
-    string $serial,
-    bool $virtual = FALSE) {
+  public function findItemBySerial(Row $row, string $code, string $serial) {
+    $query = \Drupal::entityQuery('se_item')
+      ->condition('type', 'se_stock')
+      ->condition('field_it_code', $code)
+      ->condition('field_it_serial', $serial);
 
-    $query = \Drupal::entityQuery('se_stock_item')
-      ->condition('field_si_item_ref', $item_id);
-    if (!empty($serial)) {
-      $query->condition('field_si_serial', $serial);
-    }
-    $query->condition('field_si_virtual', $virtual);
     $items = $query->execute();
-
     if (!empty($items)) {
-      $stock_item_storage = \Drupal::entityTypeManager()->getStorage('se_stock_item');
+      $stock_item_storage = \Drupal::entityTypeManager()->getStorage('se_item');
       if ($item = $stock_item_storage->loadMultiple($items)) {
+        if (count($items) > 1) {
+          $this->logError($row,
+            t('findItemBySerial: @serial - item not unique.', [
+              '@serial' => $serial,
+            ]));
+        }
         return reset($item);
       }
     }
@@ -231,50 +233,6 @@ trait Shop6MigrateUtilities {
     }
   }
 
-  /**
-   * Create a virtual stock item for items that don't really track stock.
-   *
-   * @param \Drupal\migrate\Row $row
-   *   The migrate row reference to work with.
-   * @param string $title
-   *   The title of the item.
-   * @param int $item_nid
-   *   Node id ot the item.
-   *
-   * @return int|null|string
-   *   Return the id if there is one.
-   */
-  public function stockItemFindCreateVirtual(
-    Row $row,
-    string $title,
-    int $item_nid) {
-
-    if (!$stock_item = $this->findItemBySerial($item_nid, '', TRUE)) {
-      $stock_item = StockItem::create([
-        'type' => 'se_stock_item',
-        'user_id' => '1',
-        'name' => $title,
-        'field_si_serial' => ['value' => ''],
-        'field_si_item_ref' => [['target_id' => $item_nid]],
-        'field_si_virtual' => ['value' => 1],
-        'field_si_sale_date' => ['value' => 0],
-      ]);
-      $stock_item->save();
-      $this->logError($row,
-        t('stockItemCreateVirtual: @nid - added virtual - @stock_id', [
-          '@nid' => $item_nid,
-          '@stock_id' => $stock_item->id(),
-        ]), MigrationInterface::MESSAGE_INFORMATIONAL);
-      return $stock_item->id();
-    }
-
-    $this->logError($row,
-      t('stockItemCreateVirtual: @nid - found virtual - @stock_id', [
-        '@nid' => $item_nid,
-        '@stock_id' => $stock_item->id(),
-      ]), MigrationInterface::MESSAGE_INFORMATIONAL);
-  }
-
 
   /**
    * Set all the taxonomy terms for an item.
@@ -297,26 +255,29 @@ trait Shop6MigrateUtilities {
     $query->condition('tn.nid', $current_nid);
     $query->condition('tn.vid', $current_vid);
 
-    $terms = $query->execute()->fetchAll();
+    if (!$results = $query->execute()) {
+      return;
+    }
+    $terms = $results->fetchAll();
 
     foreach ($terms as $term) {
       switch ($term->vid) {
         case 2:
           $destination_vocabulary = 'se_product_type';
           $destination_field = 'field_it_product_type_ref';
-          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
+          ErpCore::setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
           break;
 
         case 10:
           $destination_vocabulary = 'se_manufacturer';
           $destination_field = 'field_it_manufacturer_ref';
-          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
+          ErpCore::setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
           break;
 
         case 12:
           $destination_vocabulary = 'se_sale_category';
           $destination_field = 'field_it_sale_category_ref';
-          $this->setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
+          ErpCore::setTaxonomyTermByName($row, $term->name, $destination_vocabulary, $destination_field);
           break;
 
       }

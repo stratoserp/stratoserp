@@ -42,16 +42,16 @@ class ErpInvoice extends ErpCore {
     switch ($row->getSourceProperty('invoice_status')) {
       case '0':
       case 'O':
-        $this->setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
+        self::setTaxonomyTermByName($row, 'Open', 'se_status', 'status_ref');
         break;
 
       case '1':
       case 'C':
-        $this->setTaxonomyTermByName($row, 'Closed', 'se_status', 'status_ref');
+        self::setTaxonomyTermByName($row, 'Closed', 'se_status', 'status_ref');
         break;
 
       case 'S':
-        $this->setTaxonomyTermByName($row, 'Sales order', 'se_status', 'status_ref');
+        self::setTaxonomyTermByName($row, 'Sales order', 'se_status', 'status_ref');
         break;
 
     }

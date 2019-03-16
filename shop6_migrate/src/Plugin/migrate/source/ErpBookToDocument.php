@@ -41,7 +41,7 @@ class ErpBookToDocument extends ErpCore {
     // Skip entries that are just the book header page.
     $body = $row->getSourceProperty('body');
     $title = $row->getSourceProperty('title');
-    if ($body == $title . ' Documentation') {
+    if ($body === $title . ' Documentation') {
       $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
       return FALSE;
     }
@@ -58,7 +58,8 @@ class ErpBookToDocument extends ErpCore {
       ->fields('u', ['fid', 'description', 'list'])
       ->condition('u.nid', $row->getSourceProperty('nid'))
       ->condition('u.vid', $row->getSourceProperty('vid'));
-    $files = $query->execute()->fetchAll();
+    $results = $query->execute();
+    $files = $results->fetchAll();
 
     if (count($files)) {
       $row->setSourceProperty('attachments', $files);

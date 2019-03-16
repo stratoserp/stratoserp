@@ -2,13 +2,13 @@
 
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
-use Drupal\node\Entity\Node;
 use Drupal\node\Plugin\migrate\source\d6\Node as MigrateNode;
 use Drupal\migrate\Row;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\se_item\Entity\Item;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 use Drupal\user\Entity\User;
 use Drupal\taxonomy\Entity\Term;
@@ -41,13 +41,23 @@ class ErpCore extends MigrateNode {
     $query = $db->select($data_table, 'ecd');
     $query->fields('ecd');
     $query->condition('ecd.nid', $nid);
+    $query->join('node', 'n', 'ecd.item_nid = n.nid');
+    $query->fields('n');
+    $query->join('erp_item', 'ei', 'ei.nid = n.nid');
+    $query->fields('ei');
     $query->orderBy('ecd.line', 'ASC');
 
-    $lines = $query->execute()->fetchAll();
+    $result = $query->execute();
+    if (!$result) {
+      return;
+    }
+    $lines = $result->fetchAll();
 
     $items = [];
     $total = 0;
     foreach ($lines as $line) {
+      unset($item);
+
       /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
       $paragraph = Paragraph::create(['type' => 'se_items']);
       // If no item nid, log an error
@@ -56,39 +66,35 @@ class ErpCore extends MigrateNode {
           t('setItems: @nid - has zero item', [
             '@nid' => $nid,
           ]));
-        $item = 0;
       }
       else {
-        // If there is an nid, try and find it
-        if (!$migrated_id = $this->findNewId($line->item_nid, 'nid', 'upgrade_d6_node_erp_item')) {
-          $this->logError($row,
-            t('setItems: @nid - has deleted item', [
-              '@nid' => $nid,
-            ]));
-          $item = 0;
-        }
-        else {
+        if ($service_node = $this->findNewId($line->item_nid, 'nid', 'upgrade_d6_service_item')) {
           // Found nid, try and match serial
           if (empty($line->serial) || preg_match('/TK - [0-9]+/', $line->serial)) {
-            // Blank serial, make/use dummy serial entry
-            $new_item = Node::load($migrated_id);
-            $item = $this->stockItemFindCreateVirtual($row, $new_item->title->value, $migrated_id);
-          }
-          else {
-            if (!$stock_item = $this->findItemBySerial($migrated_id, $line->serial)) {
-              $this->logError($row,
-                t('setItems: @nid - has zero item', [
-                  '@nid' => $nid,
-                ]));
-              $item = 0;
-            }
-            else {
-              $item = $stock_item->id();
+            if ($service_item = Item::load($service_node)) {
+              $item = $service_item->id();
             }
           }
         }
+
+        if ((!empty($line->serial) && !empty($line->code)) && $stock_item = $this->findItemBySerial($row, $line->code, $line->serial)) {
+          $item = $stock_item->id();
+        }
       }
-      $paragraph->set('field_it_line_item', ['target_id' => $item]);
+
+      // If no item, warn and move on.
+      if (!$item) {
+        $this->logError($row,
+          t('setItems: @nid - can\'t identify item', [
+            '@nid' => $nid,
+          ]));
+        continue;
+      }
+
+      $paragraph->set('field_it_line_item', [
+        'target_id' => $item,
+        'target_type' => 'se_item'
+      ]);
       $paragraph->set('field_it_quantity', ['value' => $line->qty]);
       $paragraph->set('field_it_price', ['value' => $line->price]);
       $paragraph->set('field_it_description', [
@@ -108,7 +114,6 @@ class ErpCore extends MigrateNode {
     // Set the paragraph items
     $row->setSourceProperty('paragraph_items', $items);
     $row->setSourceProperty('total', $total);
-
   }
 
   /**
@@ -177,13 +182,14 @@ class ErpCore extends MigrateNode {
 
     // Have to try harder.
     $nid = $row->getSourceProperty('nid');
-    if ($row->getSourceProperty('type') == 'book') {
+    if ($row->getSourceProperty('type') === 'book') {
       $db = Database::getConnection('default', 'drupal_6');
       /** @var \Drupal\Core\Database\Query\Select $query */
       $query = $db->select('erp_customer_link', 'ecl')
         ->fields('ecl', ['customer_nid'])
         ->condition('ecl.nid', $nid);
-      $customer_nid = $query->execute()->fetchField();
+      $result = $query->execute();
+      $customer_nid = $result->fetchField();
 
       // If there was one, cool.
       if ($customer_nid) {
@@ -267,7 +273,8 @@ class ErpCore extends MigrateNode {
     $query = $db->select('content_field_serp_jo_owner', 'cfsjo')
       ->fields('cfsjo')
       ->condition('cfsjo.nid', $nid);
-    $owners = $query->execute()->fetchAll();
+    $result = $query->execute();
+    $owners = $result->fetchAll();
 
     $users = [];
     foreach ($owners as $user_object) {
@@ -298,7 +305,7 @@ class ErpCore extends MigrateNode {
     $homepage = trim($row->getSourceProperty($field));
     if (!empty($homepage)) {
       // Try and fix up common issues.
-      if (substr($homepage, 0, 3) != 'http' && substr($homepage, 0, 3) == 'www') {
+      if (strpos($homepage, 'http') !== 0 && strpos($homepage, 'www') === 0) {
         $homepage = 'http://' . $homepage;
       }
       try {
@@ -343,7 +350,7 @@ class ErpCore extends MigrateNode {
       $term_name = $this->getTermNameById($term_id, $source_vocabulary);
 
       if (!empty($term_name)) {
-        $this->setTaxonomyTermByName($row, $term_name, $destination_vocabulary, $destination_field);
+        self::setTaxonomyTermByName($row, $term_name, $destination_vocabulary, $destination_field);
       }
     }
   }
@@ -363,12 +370,12 @@ class ErpCore extends MigrateNode {
    * @throws \Exception
    *   setSourceProperty() might.
    */
-  public function setTaxonomyTermByName(Row $row,
+  public static function setTaxonomyTermByName(Row $row,
                                         string $name,
                                         string $vocabulary,
                                         string $destination) {
 
-    $id = $this->findCreateTerm($name, $vocabulary);
+    $id = self::findCreateTerm($name, $vocabulary);
     $static_term_id_cache[$vocabulary][$name] = $id;
     $row->setSourceProperty($destination, $id);
   }
@@ -380,7 +387,7 @@ class ErpCore extends MigrateNode {
    * @return mixed
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function findCreateTerm(string $name, string $vocabulary) {
+  public static function findCreateTerm(string $name, string $vocabulary) {
     static $static_term_name_cache = [];
 
     if ($id = $static_term_name_cache[$vocabulary][$name]) {
@@ -434,7 +441,8 @@ class ErpCore extends MigrateNode {
       ]);
       $query->condition('td.tid', $term_id);
       $query->condition('td.vid', $old_vid);
-      $d6_term = $query->execute()->fetch();
+      $result = $query->execute();
+      $d6_term = $result->fetch();
       if ($d6_term) {
         $static_term_id_name_cache[$old_vid][$term_id] = $d6_term->name;
       }

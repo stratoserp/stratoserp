@@ -11,3 +11,6 @@ dependencies:
   - se_stock
   - se_subscription
   - paragraphs
+  - se_ticket
+  - se_timekeeping
+  - dynamic_entity_reference

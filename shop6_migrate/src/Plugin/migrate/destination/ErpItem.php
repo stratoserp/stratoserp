@@ -9,7 +9,6 @@ use Drupal\se_stock_item\Entity\StockItem;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-
 /**
  * Migration of item nodes from drupal6 erp system.
  *
@@ -41,11 +40,7 @@ class ErpItem extends EntityContentBase {
   }
 
   public function import(Row $row, array $old_destination_id_values = []) {
-    $destination_id_values = parent::import($row, $old_destination_id_values);
-
-    // Virtual stock item will be automatically created by
-    // se_item module on insert event. Stock is done in another migrate.
-    return $destination_id_values;
+    return parent::import($row, $old_destination_id_values);
   }
 
 }

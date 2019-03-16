@@ -16,10 +16,9 @@ dependencies:
     - field_layout
     - layout_discovery
     - text
-    - user
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings: {  }
 id: se_item.se_recurring.default
 targetEntityType: se_item
@@ -28,15 +27,15 @@ mode: default
 content:
   field_it_code:
     weight: 1
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
+    region: first
   field_it_cost_price:
-    weight: 7
-    label: above
+    weight: 4
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -44,50 +43,50 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
-    region: content
+    region: second
   field_it_description:
     weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
-    region: content
+    region: bottom
   field_it_manufacturer_ref:
-    weight: 5
-    label: above
+    weight: 7
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   field_it_product_type_ref:
     weight: 6
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   field_it_recurring_period:
     weight: 3
-    label: above
+    label: inline
     settings:
       text_length: full
       separator: space
     third_party_settings: {  }
     type: duration_human_display
-    region: content
+    region: first
   field_it_sale_category_ref:
-    weight: 4
-    label: above
+    weight: 5
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
+    region: second
   field_it_sell_price:
     weight: 2
-    label: above
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -95,23 +94,17 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
-    region: content
+    region: first
   name:
-    label: above
+    label: inline
     type: string
-    weight: -4
-    region: content
+    weight: 0
+    region: top
     settings:
       link_to_entity: false
-    third_party_settings: {  }
-  user_id:
-    label: hidden
-    type: author
-    weight: 0
-    region: content
-    settings: {  }
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  user_id: true
