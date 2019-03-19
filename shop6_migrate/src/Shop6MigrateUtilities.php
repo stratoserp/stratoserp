@@ -52,6 +52,7 @@ trait Shop6MigrateUtilities {
       return $new_id;
     }
 
+    // If we need to, create a manager.
     if (!$manager) {
       $manager = \Drupal::service('plugin.manager.migration');
     }
@@ -61,6 +62,7 @@ trait Shop6MigrateUtilities {
       $instance[$upgrade_type] = $manager->createInstance($upgrade_type)->getIdMap();
     }
 
+    // Finally we can try and lookup the id.
     if ($new_id = $instance[$upgrade_type]->lookupDestinationIds([$item_identifier => $old_id])) {
       $item_ids[$old_id] = reset($new_id[0]);
       return $item_ids[$old_id];
@@ -97,7 +99,7 @@ trait Shop6MigrateUtilities {
   }
 
   /**
-   * Retrieve an item by nid and serial number.
+   * Retrieve an item by code and serial number.
    *
    * @param \Drupal\migrate\Row $row
    * @param string $code
@@ -131,6 +133,67 @@ trait Shop6MigrateUtilities {
     }
 
     return NULL;
+  }
+
+  /**
+   * Retrieve an item by code.
+   *
+   * @param \Drupal\migrate\Row $row
+   * @param string $code
+   *   The stock code to search for.
+   *
+   * @return bool|\Drupal\Core\Entity\EntityInterface
+   *   Return an item if found.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function findItemByCode(Row $row, string $code = NULL) {
+    $query = \Drupal::entityQuery('se_item')
+      ->condition('type', 'se_stock')
+      ->notExists('field_it_serial');
+
+    if (!empty($code)) {
+      $query->condition('field_it_code', $code);
+    }
+    else {
+      $query->condition('field_it_code', $row->getSourceProperty('code'));
+    }
+
+    $items = $query->execute();
+    if (!empty($items)) {
+      $stock_item_storage = \Drupal::entityTypeManager()->getStorage('se_item');
+      if ($item = $stock_item_storage->loadMultiple($items)) {
+        return reset($item);
+      }
+    }
+
+    return NULL;
+  }
+
+  /**
+   * @param $timekeeping_id
+   *
+   * @return bool
+   */
+  public function findTimekeepingById($timekeeping_id) {
+    // Retrieve the associated comment for a timekeeping entry.
+    $db = Database::getConnection('default', 'drupal_6');
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $db->select('content_type_erp_timekeeping', 'ctet')
+      ->fields('ctet')
+      ->condition('ctet.nid', $timekeeping_id);
+    $query->orderBy('ctet.vid', 'desc');
+    $query->range(NULL, 1);
+
+    $results = $query->execute();
+    if (!$results) {
+      return FALSE;
+    }
+
+    if ($timekeeping = $results->fetchAll()) {
+      return reset($timekeeping);
+    }
+    return FALSE;
   }
 
   /**

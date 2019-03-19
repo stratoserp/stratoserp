@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: se_if_comments
+label: 'Information comments'
+target_entity_type_id: se_information
+description: ''

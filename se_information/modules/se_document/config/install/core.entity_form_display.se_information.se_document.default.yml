@@ -4,8 +4,10 @@ dependencies:
   config:
     - field.field.se_information.se_document.field_bu_ref
     - field.field.se_information.se_document.field_if_body
+    - field.field.se_information.se_document.field_if_comments
     - se_information.se_information_type.se_document
   module:
+    - comment
     - field_layout
     - layout_discovery
     - text
@@ -34,6 +36,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_if_comments:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: comment_default
     region: content
   name:
     type: string_textfield

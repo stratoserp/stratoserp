@@ -3,6 +3,7 @@
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Row;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 
@@ -73,6 +74,12 @@ class ErpStockItem extends SqlBase {
    */
   public function prepareRow(Row $row) {
     if (parent::prepareRow($row) === FALSE) {
+      return FALSE;
+    }
+
+    // If there is no serial, and we already have one with no serial, ignore.
+    if (empty($row->getSourceProperty('serial')) && $this->findItemByCode($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
       return FALSE;
     }
 

@@ -4,7 +4,6 @@ namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
 use Drupal\comment\Plugin\migrate\source\d6\Comment as MigrateComment;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
-use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 
@@ -24,8 +23,10 @@ class ErpOtherComment extends MigrateComment {
    */
   public function query() {
     $query = parent::query();
-    $query->condition('n.type', 'erp_job', '<>');
+    $query->condition('n.type', ['erp_job', 'erp_customer'], 'NOT IN');
 
+    $order_by = &$query->getOrderBy();
+    unset($order_by['c.timestamp']);
     $query->orderBy('cid', ErpCore::IMPORT_MODE);
 
     return $query;
@@ -43,7 +44,9 @@ class ErpOtherComment extends MigrateComment {
     $row->setSourceProperty('comment', $comment);
     $type = $row->getSourceProperty('type');
 
-    if ($type == 'erp_job') {
+    // Import and except job comments.
+    if ($type === 'erp_job' || $type === 'erp_customer') {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
       return FALSE;
     }
 
@@ -57,7 +60,7 @@ class ErpOtherComment extends MigrateComment {
         '@cid' => $row->getSourceProperty('cid'),
         '@subject' => $row->getSourceProperty('subject'),
         '@type' => $row->getSourceProperty('type')
-      ]), MigrationInterface::MESSAGE_NOTICE);
+      ]));
     $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
     return FALSE;
   }
@@ -74,9 +77,6 @@ class ErpOtherComment extends MigrateComment {
     if ($nid = $row->getSourceProperty('nid')) {
       $migration = NULL;
       switch ($type) {
-        case 'book':
-          $migration = 'upgrade_d6_node_book';
-          break;
         case 'erp_customer':
           $migration = 'upgrade_d6_node_erp_customer';
           break;
@@ -85,9 +85,6 @@ class ErpOtherComment extends MigrateComment {
           break;
         case 'erp_invoice':
           $migration = 'upgrade_d6_node_erp_invoice';
-          break;
-        case 'erp_item':
-          $migration = 'upgrade_d6_node_erp_item';
           break;
         case 'erp_payment':
           $migration = 'upgrade_d6_node_erp_payment';
@@ -107,6 +104,21 @@ class ErpOtherComment extends MigrateComment {
         $row->setSourceProperty('nid', $new_id);
         return TRUE;
       }
+
+      switch ($type) {
+        case 'book':
+          $migration = 'upgrade_d6_node_book';
+          break;
+//        case 'erp_item':
+//          $migration = 'upgrade_d6_node_erp_item';
+//          break;
+      }
+
+      if ($new_id = $this->findNewId($nid, 'nid', $migration)) {
+        $row->setSourceProperty('id', $new_id);
+        return TRUE;
+      }
+
     }
 
     return FALSE;

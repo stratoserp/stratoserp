@@ -2,11 +2,11 @@
 
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
+use Drupal\comment\Entity\Comment;
 use Drupal\node\Plugin\migrate\source\d6\Node as MigrateNode;
 use Drupal\migrate\Row;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
-use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_item\Entity\Item;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
@@ -19,8 +19,11 @@ use Drupal\taxonomy\Entity\Term;
 class ErpCore extends MigrateNode {
   use Shop6MigrateUtilities;
 
+  // Provide a quick way to indicate resuming/full imports.
+  const IMPORT_CONTINUE = TRUE;
+
   // Provide a quick way to switch between ASC/DESC when importing.
-  const IMPORT_MODE = 'DESC';
+  const IMPORT_MODE = 'ASC';
 
   /**
    * Retrieve the list of items for a content type and store them as paragraphs.
@@ -34,6 +37,7 @@ class ErpCore extends MigrateNode {
    */
   public function setItems(Row $row, string $data_table) {
     $nid = $row->getSourceProperty('nid');
+    $node_type = $row->getSourceProperty('type');
 
     // Connect to the old database to query the data table.
     $db = Database::getConnection('default', 'drupal_6');
@@ -56,34 +60,57 @@ class ErpCore extends MigrateNode {
     $items = [];
     $total = 0;
     foreach ($lines as $line) {
-      unset($item);
+      unset($item, $type);
+      if ($line->serial === 'N;') {
+        $line->serial = '';
+      }
 
       /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
       $paragraph = Paragraph::create(['type' => 'se_items']);
-      // If no item nid, log an error
-      if (empty($line->item_nid) || $line->item_nid == 0) {
+      // If no item nid, log an error and move on.
+      if (empty($line->item_nid) || $line->item_nid === 0) {
         $this->logError($row,
           t('setItems: @nid - has zero item', [
             '@nid' => $nid,
           ]));
+        continue;
       }
-      else {
+
+      // Probably a service.
+      if (empty($line->serial)) {
         if ($service_node = $this->findNewId($line->item_nid, 'nid', 'upgrade_d6_service_item')) {
-          // Found nid, try and match serial
-          if (empty($line->serial) || preg_match('/TK - [0-9]+/', $line->serial)) {
-            if ($service_item = Item::load($service_node)) {
-              $item = $service_item->id();
-            }
+          if ($service_item = Item::load($service_node)) {
+            $item = $service_item->id();
+            $type = 'se_item';
           }
         }
+      }
 
-        if ((!empty($line->serial) && !empty($line->code)) && $stock_item = $this->findItemBySerial($row, $line->code, $line->serial)) {
-          $item = $stock_item->id();
+      // Hmm maybe its timekeeping, but we only do that for invoices.
+      if (empty($item) && preg_match('/TK - ([0-9]+)/', $line->serial, $matches) && $node_type === 'erp_invoice') {
+        if (($timekeeping = $this->findTimekeepingById($matches[1])) && isset($timekeeping->field_serp_tk_comment_id_value)) {
+          if (($tk_entity_id = $this->findNewId($timekeeping->field_serp_tk_comment_id_value, 'cid', 'upgrade_d6_job_comment')) &&
+             $comment = Comment::load($tk_entity_id)) {
+            $item = $comment->id();
+            $type = 'comment';
+          }
         }
       }
 
-      // If no item, warn and move on.
-      if (!$item) {
+      // It must be a stock item
+      if (empty($item) && (!empty($line->serial) && !empty($line->code)) && $stock_item = $this->findItemBySerial($row, $line->code, $line->serial)) {
+        $item = $stock_item->id();
+        $type = 'se_item';
+      }
+
+      // But... somebody didn't use a serial
+      if (empty($item) && $non_stock_item = $this->findItemByCode($row, $line->code)) {
+        $item = $non_stock_item->id();
+        $type = 'se_item';
+      }
+
+      // If still no item, warn and move on with life.
+      if (empty($item)) {
         $this->logError($row,
           t('setItems: @nid - can\'t identify item', [
             '@nid' => $nid,
@@ -93,7 +120,7 @@ class ErpCore extends MigrateNode {
 
       $paragraph->set('field_it_line_item', [
         'target_id' => $item,
-        'target_type' => 'se_item'
+        'target_type' => $type,
       ]);
       $paragraph->set('field_it_quantity', ['value' => $line->qty]);
       $paragraph->set('field_it_price', ['value' => $line->price]);
@@ -143,7 +170,7 @@ class ErpCore extends MigrateNode {
       t('setBusinessRef: @nid - @title ignored', [
         '@nid'   => $row->getSourceProperty('nid'),
         '@title' => $row->getSourceProperty('title'),
-      ]), MigrationInterface::MESSAGE_NOTICE);
+      ]));
 
     return FALSE;
   }
@@ -249,7 +276,7 @@ class ErpCore extends MigrateNode {
       t('setBusinessRef: @nid - @title ignored', [
         '@nid'   => $row->getSourceProperty('nid'),
         '@title' => $row->getSourceProperty('title'),
-      ]), MigrationInterface::MESSAGE_NOTICE);
+      ]));
 
     return FALSE;
   }
@@ -317,7 +344,7 @@ class ErpCore extends MigrateNode {
           t('setBusinessHomepage: @nid - @code invalid url, ignored', [
             '@nid'  => $row->getSourceProperty('nid'),
             '@code' => $homepage,
-          ]), MigrationInterface::MESSAGE_NOTICE);
+          ]));
       }
     }
   }

@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.se_if_comments
+    - field.field.comment.se_if_comments.comment_body
+  module:
+    - field_layout
+    - layout_discovery
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: comment.se_if_comments.default
+targetEntityType: comment
+bundle: se_if_comments
+mode: default
+content:
+  comment_body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

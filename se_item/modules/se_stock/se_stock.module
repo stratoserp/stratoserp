@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function entity_validation_examples_entity_type_alter(array &$entity_types) {
+
+  /** @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
+  $entity = $entity_types['se_item'];
+  $entity->addConstraint('CodeSerialUnique');
+}

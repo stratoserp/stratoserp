@@ -46,26 +46,24 @@ class ErpJobComment extends MigrateComment {
     $row->setSourceProperty('comment', $comment);
     $type = $row->getSourceProperty('type');
 
+    // Only import job comments.
     if ($type !== 'erp_job') {
       return FALSE;
     }
 
-    $result = $this->jobComment($row);
-
-    if (!$result) {
-      $this->logError($row,
-        t('ErpOtherComment: @nid - @cid - @type - @subject has no associated job, ignored', [
-          '@nid' => $row->getSourceProperty('nid'),
-          '@cid' => $row->getSourceProperty('cid'),
-          '@subject' => $row->getSourceProperty('subject'),
-          '@type' => $row->getSourceProperty('type')
-        ]), MigrationInterface::MESSAGE_NOTICE);
-      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
-      return FALSE;
-    }
-    else {
+    if ($this->jobComment($row)) {
       return TRUE;
     }
+
+    $this->logError($row,
+      t('ErpOtherComment: @nid - @cid - @type - @subject has no associated job, ignored', [
+        '@nid' => $row->getSourceProperty('nid'),
+        '@cid' => $row->getSourceProperty('cid'),
+        '@subject' => $row->getSourceProperty('subject'),
+        '@type' => $row->getSourceProperty('type')
+      ]));
+    $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+    return FALSE;
   }
 
   /**

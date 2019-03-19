@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - se_information
+id: se_information.field_if_comments
+field_name: field_if_comments
+entity_type: se_information
+type: comment
+settings:
+  comment_type: se_if_comments
+module: comment
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
