@@ -8,3 +8,5 @@ dependencies:
   - se_supplier
   - se_invoice
   - xero
+  - hook_event_dispatcher
+

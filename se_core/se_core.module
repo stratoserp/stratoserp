@@ -9,8 +9,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
-use Drupal\se_core\Event\SeCoreEvent;
-use Drupal\se_core\Event\SeCoreEvents;
 use Drupal\taxonomy\Entity\Term;
 
 define('SE_CORE_NODE_TYPES', [
@@ -128,78 +126,6 @@ function se_core_theme() {
       ],
     ],
   ];
-}
-
-// Drupal core doesn't actually define events for when content is created
-// or saved, so here we hijack hooks to do the right thing for the future.
-
-/**
- * Provide standard events for all the se modules.
- *
- * @param NodeInterface $node
- *   Node that is being saved.
- *
- * @return object|array
- */
-function se_core_node_presave(NodeInterface $node) {
-  $type = $node->getType();
-  if (in_array($type, SE_CORE_NODE_TYPES, TRUE)) {
-    $event = new SeCoreEvent($node);
-    \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_PRESAVE, $event);
-    return $event->getNode();
-  }
-  return [];
-}
-
-/**
- * Provide standard events for all the se modules.
- *
- * @param NodeInterface $node
- *   Node that is being saved.
- *
- * @return object|array
- */
-function se_core_node_insert(NodeInterface $node) {
-  $type = $node->getType();
-  if (in_array($type, SE_CORE_NODE_TYPES, TRUE)) {
-    $event = new SeCoreEvent($node);
-    \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_CREATED, $event);
-    return $event->getNode();
-  }
-  return [];
-}
-
-/**
- * Provide standard events for all the se modules.
- *
- * @param NodeInterface $node
- *   Node that is being saved.
- *
- * @return object|array
- */
-function se_core_node_update(NodeInterface $node) {
-  $type = $node->getType();
-  if (in_array($type, SE_CORE_NODE_TYPES, TRUE)) {
-    $event = new SeCoreEvent($node);
-    \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_UPDATED, $event);
-    return $event->getNode();
-  }
-  return [];
-}
-
-/**
- * Provide standard events for all the se modules.
- *
- * @param NodeInterface $node
- *   Node that is being deleted.
- */
-function se_core_node_delete(NodeInterface $node) {
-  $type = $node->getType();
-  if (in_array($type, SE_CORE_NODE_TYPES, TRUE)) {
-    $event = new SeCoreEvent($node);
-    \Drupal::service('event_dispatcher')->dispatch(SeCoreEvents::NODE_DELETED, $event);
-  }
-
 }
 
 /**

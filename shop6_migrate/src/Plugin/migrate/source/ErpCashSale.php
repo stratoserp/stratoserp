@@ -2,6 +2,7 @@
 
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
+use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Row;
 
 /**
@@ -33,6 +34,11 @@ class ErpCashSale extends ErpCore {
    */
   public function prepareRow(Row $row) {
     if (parent::prepareRow($row) === FALSE) {
+      return FALSE;
+    }
+
+    if (ErpCore::IMPORT_CONTINUE && $this->findNewId($row->getSourceProperty('nid'), 'nid', 'upgrade_d6_node_erp_cash_sale')) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IMPORTED);
       return FALSE;
     }
 

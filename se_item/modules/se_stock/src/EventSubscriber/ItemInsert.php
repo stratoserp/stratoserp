@@ -2,55 +2,52 @@
 
 namespace Drupal\se_stock\EventSubscriber;
 
-use Drupal\se_core\Event\SeCoreEvent;
-use Drupal\se_core\Event\SeCoreEvents;
+use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\Core\Entity\EntityTypeManager;
 
 class ItemInsert implements EventSubscriberInterface {
-  /**
-   * Drupal\Core\Entity\EntityTypeManager definition.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
-   */
-  protected $entityTypeManager;
-
-  /**
-   * Constructor.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
-   */
-  public function __construct(EntityTypeManager $entity_type_manager) {
-    $this->entityTypeManager = $entity_type_manager;
-  }
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
     return [
-      SeCoreEvents::NODE_CREATED => 'onInsert',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'itemInsert',
     ];
   }
 
   /**
-   * When an item is saved, create an associated stock item.
+   * When a stock item is saved, if it has a serial number and no existing
+   * stock item exists with no serial number, create one with no serial.
    *
-   * @param SeCoreEvent $event
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @param EntityInsertEvent $event
    */
-  public function onInsert(SeCoreEvent $event) {
-    $node = $event->getNode();
-    if ($node->bundle() == 'se_stock') {
-      $stock_item = Item::create([
-        'type'    => 'se_stock',
-        'user_id' => '1',
-        'name'    => $node->title->value,
-        'field_it_serial'    => ['value' => ''],
-      ]);
-      $stock_item->save();
+  public function itemInsert(EntityInsertEvent $event) {
+    $entity = $event->getEntity();
+    if (!empty($entity->field_it_serial->value) && $entity->bundle() === 'se_stock') {
+      $query = \Drupal::entityQuery('se_item')
+        ->condition('type', 'se_stock')
+        ->notExists('field_it_serial')
+        ->condition('field_it_code', $entity->field_it_code->value);
+      $items = $query->execute();
+
+      if (empty($items)) {
+        $stock_item = Item::create([
+          'type' => 'se_stock',
+          'user_id' => $entity->user_id->target_id,
+          'name' => $entity->name->value,
+          'field_it_code' => ['value' => $entity->field_it_code->value],
+          'field_it_serial' => ['value' => ''],
+          'field_it_sell_price' => ['value' => $entity->field_it_sell_price->value],
+          'field_it_cost_price' => ['value' => $entity->field_it_cost_price->value],
+          'field_it_product_type_ref' => ['target_id' => $entity->field_it_product_type_ref->target_id],
+          'field_it_manufacturer_ref' => ['target_id' => $entity->field_it_manufacturer_ref->target_id],
+          'field_it_category_ref' => ['target_id' => $entity->field_it_category_ref->target_id],
+        ]);
+        $stock_item->save();
+      }
     }
   }
 

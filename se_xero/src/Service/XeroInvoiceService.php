@@ -11,7 +11,7 @@ use Drupal\xero\XeroQueryFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
-class SeXeroInvoiceService {
+class XeroInvoiceService {
 
   /**
    * A logger instance.
@@ -104,7 +104,7 @@ class SeXeroInvoiceService {
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public function sync(Node &$node) {
+  public function sync(Node $node) {
     $settings = \Drupal::configFactory()->get('se_xero.settings');
     if (!$settings->get('system.enabled')) {
       return FALSE;
@@ -158,7 +158,6 @@ class SeXeroInvoiceService {
       $createdXeroInvoice = $result->get(0);
       $remote_id = $createdXeroInvoice->get('InvoiceID')->getValue();
       $node->set('se_xero_uuid', $remote_id);
-      $node->xero_syncing = TRUE;
       $node->save();
 
       $this->logger->log(LogLevel::INFO, (string) new FormattableMarkup('Created invoice @invoice with remote id @remote_id.', [

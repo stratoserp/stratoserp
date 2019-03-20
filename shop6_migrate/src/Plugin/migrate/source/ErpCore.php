@@ -20,7 +20,8 @@ class ErpCore extends MigrateNode {
   use Shop6MigrateUtilities;
 
   // Provide a quick way to indicate resuming/full imports.
-  const IMPORT_CONTINUE = TRUE;
+  // Beware this majorly slows things down though, debugging only.
+  const IMPORT_CONTINUE = FALSE;
 
   // Provide a quick way to switch between ASC/DESC when importing.
   const IMPORT_MODE = 'ASC';
@@ -61,9 +62,7 @@ class ErpCore extends MigrateNode {
     $total = 0;
     foreach ($lines as $line) {
       unset($item, $type);
-      if ($line->serial === 'N;') {
-        $line->serial = '';
-      }
+      $line->serial = $this->cleanupSerial($line->serial);
 
       /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
       $paragraph = Paragraph::create(['type' => 'se_items']);
@@ -86,21 +85,25 @@ class ErpCore extends MigrateNode {
         }
       }
 
-      // Hmm maybe its timekeeping, but we only do that for invoices.
-      if (empty($item) && preg_match('/TK - ([0-9]+)/', $line->serial, $matches) && $node_type === 'erp_invoice') {
-        if (($timekeeping = $this->findTimekeepingById($matches[1])) && isset($timekeeping->field_serp_tk_comment_id_value)) {
-          if (($tk_entity_id = $this->findNewId($timekeeping->field_serp_tk_comment_id_value, 'cid', 'upgrade_d6_job_comment')) &&
-             $comment = Comment::load($tk_entity_id)) {
-            $item = $comment->id();
-            $type = 'comment';
+      // We only do these for invoices.
+      if ($node_type === 'erp_invoice') {
+        // Timekeeping entry
+        if (empty($item) && preg_match('/TK - ([0-9]+)/', $line->serial, $matches)) {
+          if (($timekeeping = $this->findTimekeepingById($matches[1])) && isset($timekeeping->field_serp_tk_comment_id_value)) {
+            if (($tk_entity_id = $this->findNewId($timekeeping->field_serp_tk_comment_id_value, 'cid', 'upgrade_d6_job_comment')) &&
+              $comment = Comment::load($tk_entity_id)) {
+              $item = $comment->id();
+              $type = 'comment';
+            }
           }
         }
-      }
 
-      // It must be a stock item
-      if (empty($item) && (!empty($line->serial) && !empty($line->code)) && $stock_item = $this->findItemBySerial($row, $line->code, $line->serial)) {
-        $item = $stock_item->id();
-        $type = 'se_item';
+        // It must be a stock item
+        if (empty($item) && (!empty($line->serial) && !empty($line->code)) &&
+          $stock_item = $this->findItemBySerial($row, $line->code, $line->serial)) {
+          $item = $stock_item->id();
+          $type = 'se_item';
+        }
       }
 
       // But... somebody didn't use a serial

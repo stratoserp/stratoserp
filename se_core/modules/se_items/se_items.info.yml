@@ -14,3 +14,4 @@ dependencies:
   - se_ticket
   - se_timekeeping
   - dynamic_entity_reference
+  - hook_event_dispatcher

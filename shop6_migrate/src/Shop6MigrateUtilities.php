@@ -273,6 +273,27 @@ trait Shop6MigrateUtilities {
   }
 
   /**
+   * Remove junk from serial
+   *
+   * @param string $serial
+   *   Serial number from item to cleanup.
+   *
+   * @return string|string[]|null
+   */
+  public function cleanupSerial($serial) {
+    $serial = trim($serial);
+    $serial = preg_replace('/^na$/i', '', $serial);
+    $serial = preg_replace('/^n\/a$/i', '', $serial);
+    $serial = preg_replace('/^n\/p$/i', '', $serial);
+    $serial = preg_replace('/^---$/', '', $serial);
+    $serial = preg_replace('/^--$/', '', $serial);
+    $serial = preg_replace('/^-$/', '', $serial);
+    $serial = preg_replace('/N;/', '', $serial);
+
+    return $serial;
+  }
+
+  /**
    * Log an error the occurred during a migration.
    *
    * @param \Drupal\migrate\Row $row

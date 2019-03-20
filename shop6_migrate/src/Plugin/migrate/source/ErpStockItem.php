@@ -77,12 +77,19 @@ class ErpStockItem extends SqlBase {
       return FALSE;
     }
 
-    // If there is no serial, and we already have one with no serial, ignore.
-    if (empty($row->getSourceProperty('serial')) && $this->findItemByCode($row)) {
-      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+    if (ErpCore::IMPORT_CONTINUE && $this->findNewId($row->getSourceProperty('stock_id'), 'stock_id', 'upgrade_d6_stock_item')) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IMPORTED);
       return FALSE;
     }
 
+    // If there is no serial, and we already have one with no serial, its imported already.
+    $serial = $this->cleanupSerial($row->getSourceProperty('serial'));
+    if (empty($serial) && $this->findItemByCode($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IMPORTED);
+      return FALSE;
+    }
+
+    $row->setSourceProperty('serial', $serial);
     $row->setSourceProperty('title', substr($row->getSourceProperty('title'), 0, 128));
     $this->setItemTaxonomyTerms($row);
 

@@ -8,3 +8,4 @@ dependencies:
   - text
   - se_invoice
   - paragraphs
+  - hook_event_dispatcher

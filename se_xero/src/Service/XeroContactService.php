@@ -11,7 +11,7 @@ use Drupal\xero\XeroQueryFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
-class SeXeroContactService {
+class XeroContactService {
 
   /**
    * A logger instance.
@@ -170,7 +170,7 @@ class SeXeroContactService {
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public function sync(Node &$node) {
+  public function sync(Node $node) {
     $settings = \Drupal::configFactory()->get('se_xero.settings');
     if (!$settings->get('system.enabled')) {
       return FALSE;
