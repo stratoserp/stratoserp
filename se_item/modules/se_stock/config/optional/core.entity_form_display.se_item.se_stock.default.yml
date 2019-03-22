@@ -5,6 +5,7 @@ dependencies:
     - field.field.se_item.se_stock.field_it_code
     - field.field.se_item.se_stock.field_it_cost_price
     - field.field.se_item.se_stock.field_it_description
+    - field.field.se_item.se_stock.field_it_goods_receipt_ref
     - field.field.se_item.se_stock.field_it_images
     - field.field.se_item.se_stock.field_it_invoice_ref
     - field.field.se_item.se_stock.field_it_lost
@@ -26,7 +27,7 @@ dependencies:
     - text
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings: {  }
 id: se_item.se_stock.default
 targetEntityType: se_item
@@ -36,38 +37,47 @@ content:
   field_it_code:
     type: string_textfield
     weight: 2
-    region: content
+    region: first
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   field_it_cost_price:
     type: number
-    weight: 3
-    region: content
+    weight: 14
+    region: second
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_it_description:
-    weight: 26
+    weight: 15
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-    region: content
+    region: bottom
+  field_it_goods_receipt_ref:
+    weight: 13
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: second
   field_it_images:
     type: image_image
-    weight: 14
-    region: content
+    weight: 16
+    region: bottom
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
   field_it_invoice_ref:
     type: entity_reference_autocomplete
-    weight: 4
-    region: content
+    weight: 6
+    region: first
     settings:
       match_operator: CONTAINS
       size: 60
@@ -76,14 +86,14 @@ content:
   field_it_lost:
     type: boolean_checkbox
     weight: 5
-    region: content
+    region: first
     settings:
       display_label: true
     third_party_settings: {  }
   field_it_manufacturer_ref:
     type: entity_reference_autocomplete
-    weight: 6
-    region: content
+    weight: 10
+    region: second
     settings:
       match_operator: CONTAINS
       size: 60
@@ -91,8 +101,8 @@ content:
     third_party_settings: {  }
   field_it_product_type_ref:
     type: entity_reference_autocomplete
-    weight: 7
-    region: content
+    weight: 9
+    region: second
     settings:
       match_operator: CONTAINS
       size: 60
@@ -100,8 +110,8 @@ content:
     third_party_settings: {  }
   field_it_purchase_order_ref:
     type: entity_reference_autocomplete
-    weight: 8
-    region: content
+    weight: 12
+    region: second
     settings:
       match_operator: CONTAINS
       size: 60
@@ -109,8 +119,8 @@ content:
     third_party_settings: {  }
   field_it_sale_category_ref:
     type: entity_reference_autocomplete
-    weight: 9
-    region: content
+    weight: 11
+    region: second
     settings:
       match_operator: CONTAINS
       size: 60
@@ -118,28 +128,28 @@ content:
     third_party_settings: {  }
   field_it_sale_date:
     type: datetime_default
-    weight: 10
-    region: content
+    weight: 7
+    region: first
     settings: {  }
     third_party_settings: {  }
   field_it_sale_price:
     type: number
-    weight: 11
-    region: content
+    weight: 8
+    region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_it_sell_price:
     type: number
-    weight: 12
-    region: content
+    weight: 4
+    region: top
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_it_serial:
     type: string_textfield
-    weight: 13
-    region: content
+    weight: 3
+    region: top
     settings:
       size: 60
       placeholder: ''
@@ -147,7 +157,7 @@ content:
   name:
     type: string_textfield
     weight: 0
-    region: content
+    region: top
     settings:
       size: 60
       placeholder: ''
@@ -159,6 +169,6 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
-    region: content
+    region: first
     third_party_settings: {  }
 hidden: {  }

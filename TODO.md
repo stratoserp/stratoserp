@@ -1,11 +1,6 @@
 
 # List of things remaining to be implemented.
 
-## Global blockers
-- Remove unnecessary smurf naming.
-- Don't show stock block at bottom for non-stock items.
-
-
 ## Global non blockers
 - Change comments so they appear in the right spot for all content types.
 - Ensure consistent display on all content types.
@@ -24,10 +19,6 @@
 ## Payments
 - Select outstanding invoices when creating a payment.
 
-## Setup
-- Add stock in basic setup.
-
-
 # Beta - Database/fields stable
 
 ## Calendar
@@ -37,7 +28,6 @@
 - Add invoice button/link to aggregate outstanding time entries and create an invoice.
 
 ## Document
-- Redo as to Content entity type.
 - Provide default templates:
   - Documentation page.
   - Password record.
@@ -74,19 +64,9 @@
 - Add recurring invoice functionality.
 - Auto statements.
 
-## Item
-- Remove custom autocomplete and change to ajaxcommand.
-  https://www.agoradesign.at/blog/drupal-quick-tip-day-autocompleteclose-event
-- Remove comment settings etc.
-- WAT - Add flag field - Timekeeping field.
-
-## Line items (items)
-- Redo as Content entity type.
-- Add something like der_extra that works nicely.
-
 ## Payments
 - Auto populate outstanding invoices when creating a payment.
-- Method of identifying which register/pos was used.
+- Method of identifying which register/pos was used?
 
 ## Purchase order
 - Auto populate from Quote.
@@ -97,7 +77,6 @@
 ## Subscription
 - Auto create subscription on invoice submission.
 - Auto combine subscriptions for the same day to create a single invoice.
-- Move the 'types' into their own modules to show how to hook in and make more.
 - If there are already subscriptions created for an item, don't allow changing
   the subscription period.
 
@@ -106,14 +85,13 @@
   requirements. Need to be flexible. Probably later.
 
 ## Ticket
-- Incoming email to ticket
-- Add webform integration
+- Incoming email to ticket?
 
 ## Timekeeping
 - Timekeeping type is not using the correct source, needs to be a list of Service.
 - Base fields same as line item
 - Change timekeeping list to show something instead of blank title.
-- Calculate and store dollar value on save to be simpler when adding as line item..
+- Calculate and store dollar value on save to be simpler when adding as line item?
 
 ## Webform
 - Example webform
@@ -148,7 +126,7 @@
 ## Item
 - Lookup product on supplier to check stock levels on viewing.
 - Lookup product on shopping site to get price range.
-- Provide bookmarklet or similar for easy entry of product.
+- Provide bookmarklet, chrome addon or similar for easy entry of product.
 - Auto lookup product from barcode on amazon or similar?
 
 ## Pabx
@@ -185,5 +163,5 @@
 ## Item - Assembly
 - Assembly entity type for building things from multiple parts for sale (eg server/pc).
 
-## Loyalty system
-- Printer inks, 10th for free.
+## Loyalty system things
+- eg. Printer inks, 10th for free.

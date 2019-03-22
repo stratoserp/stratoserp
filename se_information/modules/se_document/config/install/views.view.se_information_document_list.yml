@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.se_information.field_bu_ref
     - se_information.se_information_type.se_document
     - system.menu.stratos-erp
     - user.role.staff
@@ -71,6 +72,41 @@ display:
             last: ››
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            name: name
+            field_bu_ref: field_bu_ref
+            type: type
+          info:
+            name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_bu_ref:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: '-1'
+          empty_table: false
       row:
         type: fields
       fields:
@@ -139,14 +175,14 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
-        type:
-          id: type
-          table: se_information_field_data
-          field: type
+        field_bu_ref:
+          id: field_bu_ref
+          table: se_information__field_bu_ref
+          field: field_bu_ref
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Information type'
+          label: Business
           exclude: false
           alter:
             alter_text: false
@@ -201,8 +237,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: se_information
-          entity_field: type
           plugin_id: field
       filters:
         type:
@@ -245,6 +279,51 @@ display:
           entity_type: se_information
           entity_field: type
           plugin_id: bundle
+        name:
+          id: name
+          table: se_information_field_data
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: name_op
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: se_information
+          entity_field: name
+          plugin_id: string
       sorts: {  }
       title: Documents
       header: {  }
@@ -259,9 +338,11 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.se_information.field_bu_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -284,6 +365,8 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.se_information.field_bu_ref'

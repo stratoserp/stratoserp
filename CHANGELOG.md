@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2019-03-21
+### Changed
+- Changed items to be a custom entity with multiple types
+- Changed documents to be a custom 'information' entity with multiple types
+- Got migration working with new types
+- Removed Smurfiness from various services and components
+- Stock system totally build into stock_item custom entity now
+- Added new items and information creation in basic setup
+- Custom autocomplete changed to ajaxcommand
+- Added basic webform integration with tickets
+- Many various other changes
+
 ## 2019-01-31
 ### Changed
 - Change autocomplete field for Dynamic Entity Reference.
