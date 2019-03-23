@@ -22,7 +22,7 @@ class ErpJobPriority extends SqlBase {
 
     $query->fields('td');
     $query->where('vid = 7');
-    $query->orderBy('tid', 'ASC');
+    $query->orderBy('tid');
 
     return $query;
   }

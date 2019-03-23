@@ -152,12 +152,10 @@ trait Shop6MigrateUtilities {
       ->condition('type', 'se_stock')
       ->notExists('field_it_serial');
 
-    if (!empty($code)) {
-      $query->condition('field_it_code', $code);
+    if (empty($code)) {
+      $code = $row->getSourceProperty('code');
     }
-    else {
-      $query->condition('field_it_code', $row->getSourceProperty('code'));
-    }
+    $query->condition('field_it_code', $code);
 
     $items = $query->execute();
     if (!empty($items)) {

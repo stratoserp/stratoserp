@@ -81,20 +81,26 @@ class ErpPayment extends ErpCore {
     $query = $db->select($data_table, 'ecd');
     $query->fields('ecd');
     $query->condition('ecd.nid', $nid);
-    $query->orderBy('ecd.line', 'ASC');
+    $query->orderBy('ecd.line');
 
     if (!$result = $query->execute()) {
       return;
     }
-
     $lines = $result->fetchAll();
 
     $payments = [];
     $total = 0;
     foreach ($lines as $line) {
+      if (!$invoice = $this->findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice')) {
+        $this->logError($row,
+          t('setPayments: @nid - invoice doesn\'t exist', [
+            '@nid' => $line->invoice_nid,
+          ]));
+        continue;
+      }
+
       /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
       $paragraph = Paragraph::create(['type' => 'se_payments']);
-      $invoice = $this->findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice');
       $paragraph->set('field_pa_invoice', ['target_id' => $invoice]);
       $paragraph->set('field_pa_date', ['value' => $line->payment_date]);
 
@@ -102,7 +108,7 @@ class ErpPayment extends ErpCore {
         $line->payment_type = 1;
         $this->logError($row,
           t('setPayments: @nid - invalid payment type', [
-            '@nid' => $row->getSourceProperty('nid'),
+            '@nid' => $nid,
           ]));
       }
       $term_id = self::findCreateTerm($payment_types[$line->payment_type], 'se_payment_type');
@@ -115,6 +121,7 @@ class ErpPayment extends ErpCore {
         'target_id' => $paragraph->id(),
         'target_revision_id' => $paragraph->getRevisionId(),
       ];
+
       $total += $line->payment_amount;
     }
 

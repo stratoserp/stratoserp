@@ -71,7 +71,8 @@ class ErpContact extends SqlBase {
       return FALSE;
     }
 
-    if ($this->findNewId($row->getSourceProperty('contact_id'), 'contact_id')) {
+    if (ErpCore::IMPORT_CONTINUE && $this->findNewId($row->getSourceProperty('contact_id'), 'contact_id')) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IMPORTED);
       return FALSE;
     }
 
@@ -146,7 +147,7 @@ class ErpContact extends SqlBase {
         '@nid'  => $row->getSourceProperty('nid'),
         '@code' => $row->getSourceProperty('contact_id'),
         '@name' => $row->getSourceProperty('name'),
-      ]), MigrationInterface::MESSAGE_NOTICE);
+      ]));
     $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
     return FALSE;
   }

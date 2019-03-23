@@ -21,10 +21,13 @@ class ErpCore extends MigrateNode {
 
   // Provide a quick way to indicate resuming/full imports.
   // Beware this majorly slows things down though, debugging only.
-  const IMPORT_CONTINUE = FALSE;
+  // Setting this to TRUE will mess with --update. Only use TRUE
+  // here if you've broken an import halfway through and are
+  // testing.
+  public const IMPORT_CONTINUE = TRUE;
 
   // Provide a quick way to switch between ASC/DESC when importing.
-  const IMPORT_MODE = 'ASC';
+  public const IMPORT_MODE = 'ASC';
 
   /**
    * Retrieve the list of items for a content type and store them as paragraphs.
@@ -37,6 +40,8 @@ class ErpCore extends MigrateNode {
    * @throws \Exception setSourceProperty() might
    */
   public function setItems(Row $row, string $data_table) {
+    static $services = [];
+
     $nid = $row->getSourceProperty('nid');
     $node_type = $row->getSourceProperty('type');
 
@@ -50,7 +55,7 @@ class ErpCore extends MigrateNode {
     $query->fields('n');
     $query->join('erp_item', 'ei', 'ei.nid = n.nid');
     $query->fields('ei');
-    $query->orderBy('ecd.line', 'ASC');
+    $query->orderBy('ecd.line');
 
     $result = $query->execute();
     if (!$result) {
@@ -64,8 +69,6 @@ class ErpCore extends MigrateNode {
       unset($item, $type);
       $line->serial = $this->cleanupSerial($line->serial);
 
-      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-      $paragraph = Paragraph::create(['type' => 'se_items']);
       // If no item nid, log an error and move on.
       if (empty($line->item_nid) || $line->item_nid === 0) {
         $this->logError($row,
@@ -75,20 +78,31 @@ class ErpCore extends MigrateNode {
         continue;
       }
 
-      // Probably a service.
+      // If no serial number, its likely to be a service.
       if (empty($line->serial)) {
-        if ($service_node = $this->findNewId($line->item_nid, 'nid', 'upgrade_d6_service_item')) {
-          if ($service_item = Item::load($service_node)) {
-            $item = $service_item->id();
-            $type = 'se_item';
+        // Check static var
+        if (!isset($services[$line->item_nid])) {
+          if ($service_node = $this->findNewId($line->item_nid, 'nid', 'upgrade_d6_service_item')) {
+            if ($service_item = Item::load($service_node)) {
+              $item = $service_item->id();
+              $type = 'se_item';
+
+              // Set static var
+              $services[$line->item_nid] = $service_item->id();
+            }
           }
+        }
+        else {
+          // Use existing static var.
+          $item = $services[$line->item_nid];
+          $type = 'se_item';
         }
       }
 
       // We only do these for invoices.
       if ($node_type === 'erp_invoice') {
         // Timekeeping entry
-        if (empty($item) && preg_match('/TK - ([0-9]+)/', $line->serial, $matches)) {
+        if (empty($item) && preg_match('/TK - ([\d]+)/', $line->serial, $matches)) {
           if (($timekeeping = $this->findTimekeepingById($matches[1])) && isset($timekeeping->field_serp_tk_comment_id_value)) {
             if (($tk_entity_id = $this->findNewId($timekeeping->field_serp_tk_comment_id_value, 'cid', 'upgrade_d6_job_comment')) &&
               $comment = Comment::load($tk_entity_id)) {
@@ -97,16 +111,27 @@ class ErpCore extends MigrateNode {
             }
           }
         }
+      }
 
-        // It must be a stock item
-        if (empty($item) && (!empty($line->serial) && !empty($line->code)) &&
+      // If no code, well, we're screwed, log and abort.
+      if (empty($item) && empty($line->code)) {
+        $this->logError($row,
+          t('setItems: @nid - codeless item', [
+            '@nid' => $nid,
+          ]));
+        continue;
+      }
+
+      // For invoices and goods receipts, we should be able to use serial numbers.
+      if ($node_type === 'erp_invoice' || $node_type === 'erp_goods_receive') {
+        if (empty($item) && !empty($line->serial) &&
           $stock_item = $this->findItemBySerial($row, $line->code, $line->serial)) {
           $item = $stock_item->id();
           $type = 'se_item';
         }
       }
 
-      // But... somebody didn't use a serial
+      // Wow .. maybe its a non service without a serial, tsk tsk tsk.
       if (empty($item) && $non_stock_item = $this->findItemByCode($row, $line->code)) {
         $item = $non_stock_item->id();
         $type = 'se_item';
@@ -121,6 +146,9 @@ class ErpCore extends MigrateNode {
         continue;
       }
 
+      // Got an item, create, populate and save a new paragraph entry.
+      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+      $paragraph = Paragraph::create(['type' => 'se_items']);
       $paragraph->set('field_it_line_item', [
         'target_id' => $item,
         'target_type' => $type,
@@ -170,7 +198,7 @@ class ErpCore extends MigrateNode {
     }
 
     $this->logError($row,
-      t('setBusinessRef: @nid - @title ignored', [
+      t('setBusinessRef: @nid - @title could not match supplier', [
         '@nid'   => $row->getSourceProperty('nid'),
         '@title' => $row->getSourceProperty('title'),
       ]));
@@ -276,7 +304,7 @@ class ErpCore extends MigrateNode {
     }
 
     $this->logError($row,
-      t('setBusinessRef: @nid - @title ignored', [
+      t('setBusinessRef: @nid - @title could not match with a business', [
         '@nid'   => $row->getSourceProperty('nid'),
         '@title' => $row->getSourceProperty('title'),
       ]));

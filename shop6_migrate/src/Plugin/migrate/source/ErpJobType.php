@@ -22,7 +22,7 @@ class ErpJobType extends SqlBase {
 
     $query->fields('td');
     $query->where('vid = 3');
-    $query->orderBy('tid', 'ASC');
+    $query->orderBy('tid');
 
     return $query;
   }

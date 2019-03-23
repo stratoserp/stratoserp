@@ -22,7 +22,7 @@ class ErpProductType extends SqlBase {
 
     $query->fields('td');
     $query->where('vid = 2');
-    $query->orderBy('tid', 'ASC');
+    $query->orderBy('tid');
 
     return $query;
   }

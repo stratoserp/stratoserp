@@ -4,7 +4,6 @@ namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Row;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
-use Drupal\migrate\Plugin\MigrationInterface;
 
 /**
  * Migration of book nodes from drupal6 erp system.
@@ -22,8 +21,8 @@ class ErpBookToDocument extends ErpCore {
   public function query() {
     $query = parent::query();
 
-    $query->leftJoin('content_field_serp_cu_ref', 'cfscr', 'n.nid = cfscr.nid');
-    $query->addField('cfscr', 'field_serp_cu_ref_nid');
+    $query->leftJoin('erp_customer_link', 'ecl', 'n.nid = ecl.nid');
+    $query->addField('ecl', 'customer_nid');
 
     $query->orderBy('nid', ErpCore::IMPORT_MODE);
 
@@ -66,7 +65,7 @@ class ErpBookToDocument extends ErpCore {
       $this->logError($row,
         t('ErpBook: @nid - Attached files to node', [
           '@nid' => $row->getSourceProperty('nid'),
-        ]), MigrationInterface::MESSAGE_NOTICE);
+        ]));
     }
 
     $this->setBusinessRef($row);

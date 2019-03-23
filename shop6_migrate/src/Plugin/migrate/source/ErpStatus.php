@@ -22,7 +22,7 @@ class ErpStatus extends SqlBase {
 
     $query->fields('td');
     $query->where('vid = 11');
-    $query->orderBy('tid', 'ASC');
+    $query->orderBy('tid');
 
     return $query;
   }
