@@ -12,4 +12,10 @@ class ErpCore {
     'se_purchase_order' => 'po',
   ];
 
+  public const CORE_NODE_TYPES = [
+    'se_bill', 'se_contact', 'se_customer', 'se_goods_receipt',
+    'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',
+    'se_supplier', 'se_ticket', 'se_timekeeping',
+  ];
+
 }

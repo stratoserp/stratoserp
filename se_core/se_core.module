@@ -10,12 +10,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
-
-define('SE_CORE_NODE_TYPES', [
-  'se_bill', 'se_contact', 'se_customer', 'se_goods_receipt',
-  'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',
-  'se_supplier', 'se_ticket', 'se_timekeeping',
-]);
+use Drupal\se_core\ErpCore;
 
 /**
  * Implements hook_help().
@@ -45,7 +40,7 @@ function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Make a list of forms from the core types.
   $se_forms = array_map(function ($value) {
     return 'node_' . $value . '_form';
-  }, SE_CORE_NODE_TYPES);
+  }, ErpCore::CORE_NODE_TYPES);
 
   if (in_array($form_id, $se_forms, TRUE)) {
     // We don't need the publish button, anywhere.
