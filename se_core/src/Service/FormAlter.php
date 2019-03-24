@@ -5,13 +5,10 @@ namespace Drupal\se_core\Service;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\node\Entity\Node;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class FormAlter {
-//  use StringTranslationTrait;
-//  use DependencySerializationTrait;
 
   /**
    * Request service.

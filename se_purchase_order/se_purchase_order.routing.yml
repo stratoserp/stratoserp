@@ -1,7 +1,23 @@
 se_purchase_order.configure:
-  path: 'se/purchase_orders/settings'
+  path: 'se/purchase-orders/settings'
   defaults:
     _form: '\Drupal\se_purchase_order\Form\SettingsForm'
     _title: 'Purchase order settings'
   requirements:
     _permission: 'administer site configuration'
+
+se_purchase_order.add:
+  path: '/po/add/{source}'
+  defaults:
+    _controller: '\Drupal\se_purchase_order\Controller\NodeController::add'
+    _title_callback: '\Drupal\node\Controller\NodeController::addPageTitle'
+    node_type: se_purchase_order
+  requirements:
+    _node_add_access: 'node:se_purchase_order'
+  options:
+    _node_operation_route: TRUE
+    parameters:
+      node_type:
+        with_config_overrides: TRUE
+      source:
+        type: 'entity:node'

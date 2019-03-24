@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2019-03-24
+### Added
+- Auto populate items from other types
+  - quote -> invoice
+  - quote -> purchase order
+  - purchase order -> goods receipt
+
 ## 2019-03-21
 ### Changed
 - Changed items to be a custom entity with multiple types

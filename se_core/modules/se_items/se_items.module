@@ -6,6 +6,9 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\se_item\Entity\Item;
 
 define('SE_ITEM_NODE_TYPES', [
   'se_bill', 'se_goods_receipt', 'se_invoice', 'se_purchase_order', 'se_quote',
@@ -57,3 +60,35 @@ function se_items_field_widget_paragraphs_form_alter(&$element, &$form_state, $c
     ];
   }
 }
+
+///**
+// * Implements hook_entity_extra_field_info().
+// */
+//function se_items_entity_extra_field_info() {
+//  $extra = [];
+//
+//  $extra['paragraph']['se_items']['display']['field_it_virtual_serial_number'] = [
+//    'label' => t('Serial number'),
+//    'description' => t('The serial number for the stock item.'),
+//    'weight' => 0,
+//  ];
+//
+//  return $extra;
+//}
+//
+///**
+// * Implements hook_entity_view_alter().
+// */
+//function se_items_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+//  if ($entity->getType() !== 'se_items') {
+//    return;
+//  }
+//
+//  $component = $display->getComponent('field_it_virtual_serial_number');
+//  $build['_field_layout']['first']['serial_number'] = [
+//    '#type' => 'text',
+//    '#title' => 'Serial number',
+//    '#markup' => $entity->field_it_line_item->referencedEntities()[0]->field_it_serial->value,
+//    '#weight' => $component['weight'],
+//  ];
+//}

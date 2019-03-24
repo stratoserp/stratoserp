@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_invoice\Controller;
+namespace Drupal\se_purchase_order\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;

@@ -10,19 +10,12 @@
 - Fix up permissions.
 - Convert to use phpmoney class?
 
-
-# Alpha - Workable, things will change
+# Alpha - Barely workable, things will change
 
 ## Customer
 - Store current balance for more flexible payment acceptance.
 
-## Payments
-- Select outstanding invoices when creating a payment.
-
 # Beta - Database/fields stable
-
-## Calendar
-- Make nice calendar view.
 
 ## Customer
 - Add invoice button/link to aggregate outstanding time entries and create an invoice.
@@ -37,11 +30,7 @@
   - Computers.
   - Printers.
 
-## Goods receive
-- Auto populate from Purchase order.
-
 ## Invoices
-- Auto populate from Quote.
 - Auto populate from Timekeeping.
 - Emailing invoices.
 - Templating invoices.
@@ -49,6 +38,7 @@
 
 ## Payments
 - Auto populate outstanding invoices when creating a payment.
+- Select outstanding invoices when creating a payment.
 
 # MVP - Minimum viable product
 
@@ -56,8 +46,10 @@
 - Add sync to Xero.
 - BUG - Error on adding bill atm.
 
+## Calendar
+- Make nice calendar view.
+
 ## Goods receive
-- Auto populate from Purchase order.
 - Auto create bill on entry.
 
 ## Invoices
@@ -65,11 +57,7 @@
 - Auto statements.
 
 ## Payments
-- Auto populate outstanding invoices when creating a payment.
 - Method of identifying which register/pos was used?
-
-## Purchase order
-- Auto populate from Quote.
 
 ## Item - Stock
 - Stocktake list
@@ -94,14 +82,14 @@
 - Calculate and store dollar value on save to be simpler when adding as line item?
 
 ## Webform
-- Example webform
+- More example webform's
 
 # NXT - Next wanted things
 
 ## Global
 - Dashboard of 'all the things'
-- Need front page dashboard/customer autocomplete selection screen
-- Theme - improvements
+- Front page selection screen additional type searches
+- Theme improvements
 - Authentication via LDAP/AD
 
 ## Calendar
@@ -139,7 +127,7 @@
 ## Reports
 - Export email addresses
 
-## Item - Stock
+## Stock
 - Stocktake process
 
 ## Ticket
@@ -159,9 +147,6 @@
 ## RMM Integration
 - Pull in records from rmm.
 - Provide deep linking direct to machines.
-
-## Item - Assembly
-- Assembly entity type for building things from multiple parts for sale (eg server/pc).
 
 ## Loyalty system things
 - eg. Printer inks, 10th for free.

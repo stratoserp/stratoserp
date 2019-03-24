@@ -213,8 +213,9 @@ class NavigationBlock extends BlockBase {
     $items = [];
     $route_parameters = $this->setRouteParameters();
 
-    $items[] = Link::createFromRoute('Add goods receipt', 'node.add', $route_parameters + [
+    $items[] = Link::createFromRoute('Add goods receipt', 'se_goods_receipt.add', $route_parameters + [
       'node_type' => 'se_purchase_order',
+      'source' => $this->node->id(),
     ], $this->button_class);
 
     return $items;
@@ -229,10 +230,10 @@ class NavigationBlock extends BlockBase {
         'node_type' => 'se_invoice',
         'source' => $this->node->id(),
       ]), $this->button_class);
-    $items[] = Link::createFromRoute('Add purchase order', 'node.add',
+    $items[] = Link::createFromRoute('Add purchase order', 'se_purchase_order.add',
       $this->setRouteParameters(TRUE, [
-        'node_type' => 'se_purchase_order',
-        'field_qu_ref' => $this->node->id(),
+        'node_type' => 'se_invoice',
+        'source' => $this->node->id(),
       ]), $this->button_class);
     return $items;
   }

@@ -5,6 +5,7 @@ namespace Drupal\se_items\EventSubscriber;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
+use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ItemsPresave implements EventSubscriberInterface {
@@ -26,24 +27,18 @@ class ItemsPresave implements EventSubscriberInterface {
    *
    */
   public function itemsPreSave(EntityPresaveEvent $event) {
-    $node = $event->getEntity();
-    $total = 0;
+    $entity = $event->getEntity();
 
-
-
-    if (!array_key_exists($node->bundle(), ErpCore::ITEMS_BUNDLE_MAP)) {
-      return;
+    if ($entity->getEntityTypeId() === 'paragraph' && $entity->bundle() === 'se_items') {
+      foreach ($entity->field_it_line_item as $index => $item) {
+        // Manually set the serial number field, if its a stock item.
+        if ($item = Item::load($item->target_id)) {
+          if (!empty($item->field_it_serial->value) && empty($entity->field_it_serial->value)) {
+            $entity->field_it_serial->value = $item->field_it_serial->value;
+          }
+        }
+      }
     }
-
-    /** @var \Drupal\node\Entity\Node $node */
-    $items = $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->referencedEntities();
-
-    foreach ($items as $ref_entity) {
-      $total += $ref_entity->field_it_quantity->value * $ref_entity->field_it_price->value;
-    }
-
-    /** @var \Drupal\node\Entity\Node $entity */
-    $node->{'field_' . $bundles[$node->bundle()] . '_total'}->value = $total;
   }
 
 }

@@ -5,4 +5,15 @@ use Drupal\Core\Form\FormStateInterface;
 function se_goods_receipt_form_node_se_goods_receipt_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_bu_ref', 'field_bu_ref');
   \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_po_ref', 'field_po_ref');
+
+  // Perform some goods receipt specific tweaks.
+  foreach ($form['field_gr_items']['widget'] as $index => $value) {
+    // We only want the paragraph lines.
+    // TODO I'm sure there is a better way to filter these out.
+    if (is_numeric($index)) {
+      // Remove all other options, we can only goods receipt stock.
+      $form['field_gr_items']['widget'][$index]['subform']['field_it_line_item']['widget'][0]['target_type']['#options'] = ['se_item:se_stock'];
+      $form['field_gr_items']['widget'][$index]['subform']['field_it_line_item']['widget'][0]['target_type']['#type'] = 'value';
+    }
+  }
 }

@@ -7,9 +7,11 @@ dependencies:
     - field.field.paragraph.se_items.field_it_line_item
     - field.field.paragraph.se_items.field_it_price
     - field.field.paragraph.se_items.field_it_quantity
+    - field.field.paragraph.se_items.field_it_serial
     - paragraphs.paragraphs_type.se_items
   module:
     - datetime
+    - dynamic_entity_reference
     - field_layout
     - layout_discovery
     - text
@@ -32,7 +34,7 @@ content:
     type: datetime_default
     region: first
   field_it_description:
-    weight: 4
+    weight: 5
     label: visually_hidden
     settings:
       trim_length: 600
@@ -40,15 +42,15 @@ content:
     type: text_trimmed
     region: second
   field_it_line_item:
-    weight: 3
+    weight: 2
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    type: dynamic_entity_reference_label
     region: first
   field_it_price:
-    weight: 2
+    weight: 4
     label: visually_hidden
     settings:
       thousand_separator: ''
@@ -68,6 +70,14 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
+    region: first
+  field_it_serial:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: first
 hidden:
   created: true

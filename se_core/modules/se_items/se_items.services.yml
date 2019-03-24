@@ -3,3 +3,8 @@ services:
     class: Drupal\se_items\EventSubscriber\ItemsPresave
     tags:
     - { name: event_subscriber }
+
+  se_items.node_presave:
+    class: Drupal\se_items\EventSubscriber\NodePresave
+    tags:
+      - { name: event_subscriber }

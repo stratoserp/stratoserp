@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_invoice\Controller;
+namespace Drupal\se_goods_receipt\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
@@ -88,15 +88,19 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
       'type' => $node_type->id(),
     ]);
 
-    // TODO - Make this a service?
     foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $value) {
       $new_value = $value->getValue();
       if ($source_paragraph = Paragraph::load($new_value['target_id'])) {
-        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($source_paragraph->createDuplicate());
+        // TODO - Ensure we're using the non-serialised item here?
+        $item_count = $source_paragraph->field_it_quantity->value;
+        if ($item_count > 1) {
+          for ($i = 0; $i < $item_count; $i++) {
+            $source_paragraph->field_it_quantity->value = 1;
+            $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($source_paragraph->createDuplicate());
+          }
+        }
       }
     }
-
-    $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);
   }
