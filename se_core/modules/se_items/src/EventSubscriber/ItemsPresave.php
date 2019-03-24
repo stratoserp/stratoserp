@@ -4,6 +4,7 @@ namespace Drupal\se_items\EventSubscriber;
 
 use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ItemsPresave implements EventSubscriberInterface {
@@ -28,20 +29,14 @@ class ItemsPresave implements EventSubscriberInterface {
     $node = $event->getEntity();
     $total = 0;
 
-    $bundles = [
-      'se_bill'           => 'bi',
-      'se_goods_receipt'  => 'gr',
-      'se_invoice'        => 'in',
-      'se_quote'          => 'qu',
-      'se_purchase_order' => 'po',
-    ];
 
-    if (!array_key_exists($node->bundle(), $bundles)) {
+
+    if (!array_key_exists($node->bundle(), ErpCore::ITEMS_BUNDLE_MAP)) {
       return;
     }
 
     /** @var \Drupal\node\Entity\Node $node */
-    $items = $node->{'field_' . $bundles[$node->bundle()] . '_items'}->referencedEntities();
+    $items = $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->referencedEntities();
 
     foreach ($items as $ref_entity) {
       $total += $ref_entity->field_it_quantity->value * $ref_entity->field_it_price->value;

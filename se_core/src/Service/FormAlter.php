@@ -2,12 +2,10 @@
 
 namespace Drupal\se_core\Service;
 
-use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -71,20 +69,19 @@ class FormAlter {
    * @param string $field
    * @param string $var
    *
+   * @return null
    */
   public function setReferenceField(array &$form, string $field, string $var) {
     if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
       return NULL;
     }
 
-    if ($value = $this->currentRequest->get($var)) {
-      if (is_numeric($value)) {
-        //\Drupal::logger('se_core')->info(print_r($var, TRUE));
-        $node = Node::load($value);
-        if ($node) {
-          $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
-        }
-      }
+    if (!$value = $this->currentRequest->get($var)) {
+      return NULL;
+    }
+
+    if (is_numeric($value) && $node = Node::load($value)) {
+      $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
     }
   }
 
@@ -95,7 +92,7 @@ class FormAlter {
    * @param string $field
    * @param int $term_id
    *
-   * @return \Drupal\taxonomy\Entity\Term
+   * @return \Drupal\taxonomy\Entity\Term|null
    */
   public function setTaxonomyField(array &$form, string $field, int $term_id): Term {
     if (!$term = Term::load($term_id)) {
@@ -108,4 +105,5 @@ class FormAlter {
 
     return $term;
   }
+
 }
