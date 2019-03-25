@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_items\EventSubscriber;
+namespace Drupal\se_goods_receipt\EventSubscriber;
 
 use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
@@ -20,24 +20,23 @@ class ItemsPresave implements EventSubscriberInterface {
   }
 
   /**
-   * The 'serial' field at the node level is really just display only,
-   * except for in goods receipt, where its used to enter serial numbers.
-   *
-   * On save, if that field is empty, fill it out.
+   * For goods receipts, We need to make new stock items for everything that
+   * has a serial number, and then update the list of items with the new
+   * stock item ids.
    *
    * @param EntityPresaveEvent $event
    *
    */
   public function itemsPreSave(EntityPresaveEvent $event) {
     $entity = $event->getEntity();
-
     if ($entity->getEntityTypeId() === 'paragraph' && $entity->bundle() === 'se_items') {
-      foreach ($entity->field_it_line_item as $index => $entity_item) {
-        if (empty($entity->field_it_serial->value) &&
-          $item = Item::load($entity_item->target_id)) {
-          if (!empty($item->field_it_serial->value)) {
-            $entity->field_it_serial->value = $item->field_it_serial->value;
-          }
+      if (!empty($entity->field_it_serial->value) &&
+        $item = Item::load($entity->field_it_line_item->target_id)) {
+        if ($item->field_it_serial->value !== $entity->field_it_serial->value) {
+          $new_item = $item->createDuplicate();
+          $new_item->field_it_serial->value = $entity->field_it_serial->value;
+          $new_item->save();
+          $entity->field_it_line_item->target_id = $new_item->id();
         }
       }
     }

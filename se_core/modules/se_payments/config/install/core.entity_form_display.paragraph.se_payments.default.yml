@@ -13,7 +13,7 @@ dependencies:
     - layout_discovery
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings: {  }
 id: paragraph.se_payments.default
 targetEntityType: paragraph
@@ -21,18 +21,18 @@ bundle: se_payments
 mode: default
 content:
   field_pa_amount:
-    weight: 1
+    weight: 2
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
-    region: content
+    region: second
   field_pa_date:
-    weight: 3
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
-    region: content
+    region: first
   field_pa_invoice:
     weight: 0
     settings:
@@ -41,16 +41,16 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: first
   field_pa_type_ref:
-    weight: 2
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: second
 hidden:
   created: true
   status: true

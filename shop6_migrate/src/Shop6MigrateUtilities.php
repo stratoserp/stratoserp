@@ -215,24 +215,24 @@ trait Shop6MigrateUtilities {
       if (!empty($new_value)) {
         if (in_array($new_value, [
           '08', '04', '.', 'TBA', ' ', '.,', '0000', ',', 'unknown', 'N/A', 'n/a',
-        ])) {
+        ], TRUE)) {
           $row->setSourceProperty($field, '');
           continue;
         }
 
-        if (strlen($new_value) == 8) {
+        if (strlen($new_value) === 8) {
           $new_value = $prefix . $new_value;
           $row->setSourceProperty($field, $new_value);
           continue;
         }
 
-        if (strlen($new_value) != 10) {
+        if (strlen($new_value) !== 10) {
           if ($row->getSourceProperty('type')) {
             $this->logError($row,
               t('normalisePhone: @nid invalid phone @phone, blanked', [
                 '@nid'        => $row->getSourceProperty('nid'),
                 '@phone'      => $new_value,
-              ]), MigrationInterface::MESSAGE_NOTICE);
+              ]));
           }
           else {
             $this->logError($row,
@@ -241,7 +241,7 @@ trait Shop6MigrateUtilities {
                 '@contact_id' => $row->getSourceProperty('contact_id'),
                 '@phone'      => $new_value,
                 '@name'       => $row->getSourceProperty('name'),
-              ]), MigrationInterface::MESSAGE_NOTICE);
+              ]));
           }
           $row->setSourceProperty($field, '');
         }
@@ -260,11 +260,11 @@ trait Shop6MigrateUtilities {
    */
   public function repairBody($body) {
     // Remove weird div's.
-    $body = preg_replace("/<div>/im", "<p>", $body);
+    $body = preg_replace('/<div>/im', '<p>', $body);
     // Remove weird div's.
     $body = preg_replace("/<\/div>\n/im", "<\/p>\n", $body);
     // Remove repeated blank lines.
-    $body = preg_replace("/^(\\n|\\r|<p>&nbsp;<\/p>\\n)+/im", "", $body);
+    $body = preg_replace("/^(\\n|\\r|<p>&nbsp;<\/p>\\n)+/im", '', $body);
     // Remove repeated nbsp; lines.
     $body = preg_replace("/^(<p>&nbsp;<\/p>\n)+/im", "<p>&nbsp;<\/p>\n", $body);
     return $body;

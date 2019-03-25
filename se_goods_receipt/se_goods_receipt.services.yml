@@ -1,0 +1,6 @@
+services:
+  se_goods_receipt.items_presave:
+    class: Drupal\se_goods_receipt\EventSubscriber\ItemsPresave
+    tags:
+    - { name: event_subscriber }
+
