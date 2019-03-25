@@ -41,11 +41,17 @@ class ItemInsert implements EventSubscriberInterface {
           'field_it_code' => ['value' => $entity->field_it_code->value],
           'field_it_serial' => ['value' => ''],
           'field_it_sell_price' => ['value' => $entity->field_it_sell_price->value],
-          'field_it_cost_price' => ['value' => $entity->field_it_cost_price->value],
-          'field_it_product_type_ref' => ['target_id' => $entity->field_it_product_type_ref->target_id],
-          'field_it_manufacturer_ref' => ['target_id' => $entity->field_it_manufacturer_ref->target_id],
-          'field_it_category_ref' => ['target_id' => $entity->field_it_category_ref->target_id],
+          'field_it_cost_price' => ['value' => $entity->field_it_cost_price->value]
         ]);
+        if (isset($entoty->field_it_product_type_ref)) {
+          $stock_item->field_it_product_type_ref->target_id = $entity->field_it_product_type_ref->target_id;
+        }
+        if (isset($entity->field_it_manufacturer_ref)) {
+          $stock_item->field_it_manufacturer_ref->target_id = $entity->field_it_manufacturer_ref->target_id;
+        }
+        if (isset($entity->field_it_category_ref)) {
+          $stock_item->field_it_category_ref->target_id = $entity->field_it_category_ref->target_id;
+        }
         $stock_item->save();
       }
     }
