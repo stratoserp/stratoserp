@@ -1,4 +1,4 @@
 services:
   se_customer.service:
-    class: Drupal\se_customer\Service\SeCustomerService
+    class: Drupal\se_customer\Service\CustomerService
     arguments: ['@config.factory', '@entity_type.manager']

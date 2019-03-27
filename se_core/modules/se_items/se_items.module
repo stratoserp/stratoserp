@@ -32,7 +32,7 @@ function se_items_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 }
 
 /**
- * Alter for paragraphs 'classic'.
+ * Update prices on autocomplete close for paragraph type 'classic'.
  *
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
  */
@@ -47,7 +47,7 @@ function se_items_field_widget_entity_reference_paragraphs_form_alter(&$element,
 }
 
 /**
- * Alter for paragraphs 'experimental'.
+ * Update prices on autocomplete close for paragraph type 'experimental'.
  *
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
  */

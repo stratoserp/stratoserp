@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
-class SeCustomerService {
+class CustomerService {
 
   /**
    * The config factory.
@@ -39,14 +39,17 @@ class SeCustomerService {
    *
    * @param \Drupal\node\Entity\Node $node
    *
-   * @return array|bool|int
+   * @return bool|\Drupal\node\Entity\Node
    */
   public function lookupCustomer(Node $node) {
-    foreach ($node->referencedEntities() as $entity) {
-      if ($entity->bundle() == 'se_customer') {
-        return $entity;
-      }
+    if ($node->bundle() === 'se_customer') {
+      return $node;
     }
+
+    if ($customers = $node->field_bu_ref->referencedEntities()) {
+      return reset($customers);
+    }
+
     return FALSE;
   }
 }

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
+    - field.field.comment.se_timekeeping.field_bu_ref
     - field.field.comment.se_timekeeping.field_tk_amount
     - field.field.comment.se_timekeeping.field_tk_billable
     - field.field.comment.se_timekeeping.field_tk_billed
@@ -97,3 +98,4 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_bu_ref: true

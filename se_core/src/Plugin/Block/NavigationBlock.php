@@ -108,10 +108,10 @@ class NavigationBlock extends BlockBase {
 
   private function billLinks(): array {
     $items = [];
-//
-//    $items[] = Link::createFromRoute('Add payment', 'node.add',
-//      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
-//      $this->button_class);
+
+    $items[] = Link::createFromRoute('Add payment', 'node.add',
+      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
+      $this->button_class);
 
     return $items;
   }
@@ -150,6 +150,9 @@ class NavigationBlock extends BlockBase {
     return $items;
   }
 
+  /**
+   * @return array
+   */
   private function customerLinks(): array {
     $items = [];
 
@@ -180,7 +183,11 @@ class NavigationBlock extends BlockBase {
       $route_parameters + [
         'node_type' => 'se_ticket'
       ], $this->button_class);
-
+    $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
+      $route_parameters + [
+        'node_type' => 'se_invoice',
+        'source' => $this->node->id(),
+      ], $this->button_class);
     return $items;
   }
 
@@ -282,16 +289,26 @@ class NavigationBlock extends BlockBase {
     return $items;
   }
 
+  /**
+   * @param bool $include_contact
+   * @param array $extra
+   *
+   * @return array
+   */
   private function setRouteParameters($include_contact = TRUE, $extra = []): array {
+    $contacts = [];
     $route_parameters = [
       'destination' => $this->destination,
     ];
+
+    // If its a customer or supplier, load the main contact from the node.
     if (in_array($this->node->bundle(), ['se_customer', 'se_supplier'], TRUE)) {
       $route_parameters['field_bu_ref'] = $this->node->id();
       $contacts = \Drupal::service('se_contact.service')
         ->loadMainContactByCustomer($this->node);
     }
     else {
+      // Otherwise, load the main contact from the associated business.
       $entities = $this->node->{'field_bu_ref'}->referencedEntities();
       if ($business = reset($entities)) {
         $route_parameters['field_bu_ref'] = $business->id();
@@ -300,10 +317,9 @@ class NavigationBlock extends BlockBase {
       }
     }
 
-    if ($include_contact && $contacts) {
-      if ($contact = Node::load(reset($contacts))) {
-        $route_parameters['field_co_ref'] = $contact->id();
-      }
+    // Add in the first contact to the route parameters.
+    if ($include_contact && !empty($contacts) && $contact = Node::load(reset($contacts))) {
+      $route_parameters['field_co_ref'] = $contact->id();
     }
 
     $route_parameters = array_merge($route_parameters, $extra);

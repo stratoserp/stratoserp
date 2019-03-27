@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.se_timekeeping
+    - field.storage.comment.field_bu_ref
+    - node.type.se_customer
+id: comment.se_timekeeping.field_bu_ref
+field_name: field_bu_ref
+entity_type: comment
+bundle: se_timekeeping
+label: Business
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      se_customer: se_customer
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

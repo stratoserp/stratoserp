@@ -19,9 +19,7 @@ use Drupal\field\Entity\FieldStorageConfig;
 function se_timekeeping_install() {
   $entity_type_manager = \Drupal::entityTypeManager();
 
-  foreach (['se_customer', 'se_ticket'] as $bundle) {
-    se_timekeeping_install_attach($entity_type_manager, $bundle);
-  }
+  se_timekeeping_install_attach($entity_type_manager, 'se_ticket');
 
   $group = field_group_load_field_group('group_cu_tabs', 'node', 'se_customer', 'view', 'default');
   create_field_group($group);
@@ -85,9 +83,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
 function se_timekeeping_uninstall() {
   $entity_type_manager = \Drupal::entityTypeManager();
 
-  foreach (['se_customer', 'se_ticket'] as $bundle) {
-    se_timekeeping_uninstall_detach($entity_type_manager, $bundle);
-  }
+  se_timekeeping_uninstall_detach($entity_type_manager, 'se_ticket');
 
   $config_storage = \Drupal::service('config.storage');
   $config_path = drupal_get_path('module', 'se_timekeeping') . '/config/install';

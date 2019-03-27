@@ -113,13 +113,14 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
           'target_type' => 'se_invoice'
         ]);
         $paragraph->set('field_pa_amount', $invoice->field_in_total->value);
-        $node->field_pa_items->appendItem($paragraph);
+        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($paragraph);
 
         $total += $invoice->field_in_total->value;
       }
     }
 
-    $node->field_pa_total->value = $total;
+    $node->field_pa_status_ref->target_id = $open->id();
+    $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->value = $total;
 
     return $this->entityFormBuilder()->getForm($node);
   }

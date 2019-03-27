@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
+    - field.field.comment.se_timekeeping.field_bu_ref
     - field.field.comment.se_timekeeping.field_tk_amount
     - field.field.comment.se_timekeeping.field_tk_billable
     - field.field.comment.se_timekeeping.field_tk_billed
@@ -25,28 +26,42 @@ targetEntityType: comment
 bundle: se_timekeeping
 mode: default
 content:
+  author:
+    weight: 2
+    region: second
+    settings: {  }
+    third_party_settings: {  }
+  field_bu_ref:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: second
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_tk_amount:
-    weight: 1
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: duration_widget
     region: second
   field_tk_billable:
-    weight: 4
+    weight: 7
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: second
   field_tk_billed:
-    weight: 5
+    weight: 8
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: second
   field_tk_comment:
-    weight: 0
+    weight: 1
     settings:
       rows: 6
       placeholder: ''
@@ -54,13 +69,13 @@ content:
     type: text_textarea
     region: first
   field_tk_date:
-    weight: 3
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: second
   field_tk_item:
-    weight: 2
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 25
@@ -69,12 +84,18 @@ content:
     type: entity_reference_autocomplete
     region: second
   field_tk_review:
-    weight: 6
+    weight: 9
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: second
-hidden:
-  author: true
-  subject: true
+  subject:
+    type: string_textfield
+    weight: 0
+    region: top
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

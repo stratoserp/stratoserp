@@ -47,29 +47,35 @@ class XeroContactService {
     $this->xeroQueryFactory = $xero_query_factory;
   }
 
+  /**
+   * @param \Drupal\node\Entity\Node $node
+   *
+   * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
+   */
   public function lookupContact(Node $node) {
     // Check if its an existing contact and update fields vs new.
-    if (isset($node->se_xero_uuid->value)) {
-      if ($contact = $this->lookupByContactID($node->se_xero_uuid->value)) {
-        return $contact;
-      }
+    if (isset($node->se_xero_uuid->value) && $contact = $this->lookupByContactID($node->se_xero_uuid->value)) {
+      return $contact;
     }
 
-    if (isset($node->field_cu_id->value)) {
-      if ($contact = $this->lookupByContactNumber($node->field_cu_id->value)) {
-        return $contact;
-      }
+    if (isset($node->field_cu_id->value) && $contact = $this->lookupByContactNumber($node->field_cu_id->value)) {
+      return $contact;
     }
 
-    if (isset($node->field_cu_email->value)) {
-      if ($contact = $this->lookupByContactEmailAddress($node->field_cu_email->value)) {
-        return $contact;
-      }
+    if (isset($node->field_cu_email->value) && $contact = $this->lookupByContactEmailAddress($node->field_cu_email->value)) {
+      return $contact;
     }
 
     return FALSE;
   }
 
+  /**
+   * @param int $contact_number
+   *
+   * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+   */
   public function lookupByContactNumber(int $contact_number) {
     if ($contact_number === NULL) {
       return FALSE;
@@ -86,6 +92,13 @@ class XeroContactService {
     return $result;
   }
 
+  /**
+   * @param string $contact_id
+   *
+   * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+   */
   public function lookupByContactID(string $contact_id) {
     if ($contact_id === NULL) {
       return FALSE;
@@ -103,6 +116,13 @@ class XeroContactService {
   }
 
 
+  /**
+   * @param string $email
+   *
+   * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+   */
   public function lookupByContactEmailAddress(string $email) {
     if (empty($email)) {
       return FALSE;
@@ -141,7 +161,7 @@ class XeroContactService {
     $contacts->appendItem($values);
 
     // TODO Make nicer
-    $name = str_replace('  ', ' ', str_replace('-', '', $node->title->value));
+    $name = str_replace(['-', '  '], ['', ' '], $node->title->value);
     $names = explode(' ', $name);
     if ($main_contact = \Drupal::service('se_contact.service')->loadMainContactByCustomer($node)) {
       if (isset($main_contact->field_cu_phone->value)) {
@@ -161,7 +181,6 @@ class XeroContactService {
   /**
    * Create a Customer/Contact in Xero
    *
-   * @param \Drupal\Core\Config\ImmutableConfig $settings
    * @param Node $node
    *   Node to process.
    *

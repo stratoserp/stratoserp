@@ -21,3 +21,19 @@ se_invoice.add:
         with_config_overrides: TRUE
       source:
         type: 'entity:node'
+
+se_invoice.timekeeping:
+  path: '/invoice/timekeeping/{source}'
+  defaults:
+    _controller: '\Drupal\se_invoice\Controller\NodeController::timekeeping'
+    _title_callback: '\Drupal\node\Controller\NodeController::addPageTitle'
+    node_type: se_invoice
+  requirements:
+    _node_add_access: 'node:se_invoice'
+  options:
+    _node_operation_route: TRUE
+    parameters:
+      node_type:
+        with_config_overrides: TRUE
+      source:
+        type: 'entity:node'
