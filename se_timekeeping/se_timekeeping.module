@@ -8,6 +8,7 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
 
     // If the business ref is not set, try and Retrieve the entity
     // the comment is being attached to.
+    /** @var \Drupal\node\Entity\Node $node */
     if (empty($form['field_bu_ref']['widget'][0]['target_id']['#default_value'])
     && $node = $form_state->getFormObject()->getEntity()->getCommentedEntity()) {
       $form['field_bu_ref']['widget'][0]['target_id']['#default_value'] =
@@ -15,13 +16,13 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
     }
 
     // If the subject is not set, set one.
-    if (empty($form['subject']['widget'][0]['value']['#default_value']) && $node) {
+    if (isset($node) && empty($form['subject']['widget'][0]['value']['#default_value'])) {
       // Set the default subject to the title of the node.
       $date = new DrupalDateTime();
       $form['subject']['widget'][0]['value']['#default_value'] =
         t('@title - @user - @now', [
-          '@title' => $node->getTitle(),
-          '@user' => \Drupal::currentUser()->getAccountName(),
+          '@title' => mb_strimwidth($node->getTitle(), 0, 20) . '...',
+          '@user' => mb_strimwidth(\Drupal::currentUser()->getAccountName(), 0, 20) . '...',
           '@now' => \Drupal::service('date.formatter')->format($date->getTimestamp(), 'short', '', NULL),
         ]);
     }
