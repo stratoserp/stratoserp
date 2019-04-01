@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.se_customer.field_cu_address
+    - field.field.node.se_customer.field_cu_balance
     - field.field.node.se_customer.field_cu_email
     - field.field.node.se_customer.field_cu_email_format
     - field.field.node.se_customer.field_cu_fax
@@ -51,8 +52,6 @@ third_party_settings:
         id: ''
         classes: ''
         direction: vertical
-        effect: none
-        open: false
         required_fields: false
       label: 'Customer tabs'
       region: content
@@ -100,6 +99,7 @@ third_party_settings:
         - field_cu_email_format
         - field_cu_homepage
         - field_cu_status
+        - field_cu_balance
       parent_name: group_cu_tabs
       weight: 5
       format_type: tab
@@ -204,6 +204,17 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_cu_balance:
+    weight: 17
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
   field_cu_email:
     type: email_mailto
     weight: 12
@@ -378,7 +389,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_information_eva_entity_view_1:
-    weight: 10
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -413,7 +424,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_quote_eva_entity_view_1:
-    weight: 17
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }

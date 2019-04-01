@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.se_customer.field_cu_address
+    - field.field.node.se_customer.field_cu_balance
     - field.field.node.se_customer.field_cu_email
     - field.field.node.se_customer.field_cu_email_format
     - field.field.node.se_customer.field_cu_fax
@@ -21,7 +22,6 @@ dependencies:
     - field.field.node.se_customer.field_cu_suburb
     - node.type.se_customer
   module:
-    - comment
     - field_layout
     - layout_discovery
     - link
@@ -44,6 +44,13 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
+  field_cu_balance:
+    weight: 26
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: first
   field_cu_email:
     type: email_default
     weight: 10

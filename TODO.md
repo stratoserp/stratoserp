@@ -7,7 +7,7 @@
 - End of day processing.
 - Faceted search.
 - Add more types to frontpage search.
-- Fix up permissions.
+- Audit & Fix up permissions.
 - Convert to use phpmoney class?
 
 # Alpha - Barely workable, things will change
@@ -17,12 +17,8 @@
 
 # Beta - Database/fields stable
 
-## Customer
-- Add invoice button/link to aggregate outstanding time entries and create an invoice.
-
-## Document
+## Information
 - Provide default templates:
-  - Documentation page.
   - Password record.
   - Troubleshooting tips.
   - Contract.
@@ -31,14 +27,9 @@
   - Printers.
 
 ## Invoices
-- Auto populate from Timekeeping.
 - Emailing invoices.
 - Templating invoices.
 - Printing invoices.
-
-## Payments
-- Auto populate outstanding invoices when creating a payment.
-- Select outstanding invoices when creating a payment.
 
 # MVP - Minimum viable product
 
@@ -105,8 +96,9 @@
   - Direct link to subscription console(s)
 - SMS ability
 
-## Documents
+## Information
 - Encypted password document/field type
+  https://www.drupal.org/project/encrypt_content_client ?
 
 ## Invoice features
 - Expiring discount for payment within X days.

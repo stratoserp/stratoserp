@@ -16,6 +16,7 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
     }
 
     // If the subject is not set, set one.
+    // TODO this truncate is icky.
     if (isset($node) && empty($form['subject']['widget'][0]['value']['#default_value'])) {
       // Set the default subject to the title of the node.
       $date = new DrupalDateTime();
