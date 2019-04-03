@@ -53,6 +53,9 @@
 ## Item - Stock
 - Stocktake list
 
+## Point of sale
+- POS front end.
+
 ## Subscription
 - Auto create subscription on invoice submission.
 - Auto combine subscriptions for the same day to create a single invoice.
@@ -65,6 +68,7 @@
 
 ## Ticket
 - Incoming email to ticket?
+- Check in on job ability - technician front end.
 
 ## Timekeeping
 - Timekeeping type is not using the correct source, needs to be a list of Service.
@@ -108,6 +112,7 @@
 - Lookup product on shopping site to get price range.
 - Provide bookmarklet, chrome addon or similar for easy entry of product.
 - Auto lookup product from barcode on amazon or similar?
+- Item type with built in 10th item free - eg ink cartridges.
 
 ## Pabx
 - Add PABX module with asterisk sub-module for auto importing phone records.

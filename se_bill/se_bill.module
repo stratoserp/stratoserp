@@ -1,7 +1,5 @@
 <?php
 
-use Drupal\Core\Form\FormStateInterface;
-
-function se_bill_form_node_se_bill_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_bu_ref', 'field_bu_ref');
+function se_bill_form_node_se_bill_form_alter(&$form) {
+  Drupal::service('se_core.set_field')->setReferenceField($form, 'field_bu_ref', 'field_bu_ref');
 }

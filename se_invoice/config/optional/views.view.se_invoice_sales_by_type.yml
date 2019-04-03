@@ -17,8 +17,6 @@ dependencies:
     - serialization
     - taxonomy
     - telephone
-_core:
-  default_config_hash: dcblW0wbO-JYnYpCrXd0bejfQio9udqcl_lD9Ph6o-o
 id: se_invoice_sales_by_type
 label: 'Sales by type'
 module: views

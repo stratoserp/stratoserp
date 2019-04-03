@@ -40,10 +40,7 @@ content:
     region: second
   field_it_line_item:
     weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
     type: dynamic_entity_reference_bundle
     region: first

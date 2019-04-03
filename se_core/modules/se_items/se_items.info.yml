@@ -4,14 +4,15 @@ type: module
 core: 8.x
 package: Stratos ERP
 dependencies:
+  - dynamic_entity_reference
   - field
-  - text
+  - hook_event_dispatcher
+  - image
+  - paragraphs
   - se_item
   - se_service
   - se_stock
   - se_subscription
-  - paragraphs
   - se_ticket
   - se_timekeeping
-  - dynamic_entity_reference
-  - hook_event_dispatcher
+  - text

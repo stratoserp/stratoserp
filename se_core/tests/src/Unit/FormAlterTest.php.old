@@ -1,0 +1,86 @@
+<?php
+
+namespace Drupal\Tests\se_core\Unit;
+
+use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\se_core\Service\FormAlter;
+use Drupal\Tests\UnitTestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+
+/**
+ * FormAlter service tests.
+ *
+ * @coversDefault Drupal\se_core\Service\FormAlter
+ * @group shop8
+ */
+class FormAlterTest extends UnitTestCase {
+  public $testForm;
+
+  protected $controller;
+  protected $container;
+  protected $setField;
+  protected $formAlterService;
+  protected $entityTypeManager;
+  protected $currentUser;
+
+  protected function setUp() {
+    parent::setUp();
+
+    $container = new ContainerBuilder();
+    $container->set('cache_tags.invalidator', $this->cacheTagsInvalidator);
+    \Drupal::setContainer($container);
+
+    $this->controller = $this->container->get('entity_type.manager')->getStorage('term');
+
+    //$setField = $this->container->get('se_core.set_field');
+
+    $this->requestStack = new RequestStack();
+
+    $this->entityManager = new EntityManager();
+    $this->entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
+
+    $this->currentUser = $this->createMock('Drupal\Core\Session\AccountProxyInterface');
+    $this->currentUser
+      ->method('id')
+      ->willReturn(1);
+
+    $this->formAlterService = new FormAlter($this->requestStack, $this->entityTypeManager, $this->currentUser);
+    $container->set('se_core.set_field', $this->formAlterService);
+
+    $this->testForm = [
+      'testfield' => [
+        'widget' => [
+          0 => [
+            'target_id' => [
+              '#default_value' => NULL
+            ],
+          ],
+        ],
+      ],
+    ];
+  }
+
+  public function testSetReferenceField() {
+    $request = new Request();
+    $request->setMethod('GET');
+    $request->query->set('field_bu_ref', 1);
+
+  }
+
+  public function testSetTaxonomyField() {
+    $valueForm = $this->testForm;
+
+    // Create taxonomy term & save
+    $term = new Term(['test'], 'tags');
+    $term->save();
+
+    // Set a value to test that it wont overwrite an existing value.
+    $valueForm['testfield']['wdiget'][0]['target_id']['#default_value']['#default_value'] = 1;
+    $this->assertSame($valueForm, \Drupal::service('se_core.set_field')->setTaxonomyField($this->testForm, 'testfield', $term->id()));
+
+    // Remove the value and test that it does what we expect.
+    unset($valueForm['testfield']['wdiget'][0]['target_id']['#default_value']['#default_value']);
+    $this->assertSame($valueForm, \Drupal::service('se_core.set_field')->setTaxonomyField($this->testForm, 'testfield', $term->id()));
+  }
+}

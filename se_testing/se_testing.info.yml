@@ -1,0 +1,5 @@
+name: Testing
+description: 'Provides a base for testing Stratos ERP.'
+type: module
+core: 8.x
+package: Stratos ERP
