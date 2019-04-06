@@ -7,9 +7,9 @@ use Drupal\Node\Entity\Node;
 /**
  * Provides functions for creating content during functional tests.
  */
-trait CustomerCreationTrait {
+trait ContactCreationTrait {
 
-  public function testCustomerForm() {
+  public function testContactForm() {
     // Setup values to submit with the form.
     $title = $this->randomString(30);
     $phone = $this->randomString(10);

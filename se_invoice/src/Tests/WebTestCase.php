@@ -2,7 +2,6 @@
 
 namespace Drupal\se_invoice\Tests;
 
-use Drupal\simpletest\WebTestBase;
 
 /**
  * Tests site configuration.
@@ -11,7 +10,7 @@ use Drupal\simpletest\WebTestBase;
  * @group se_invoice
  * @group stratoserp
  */
-class WebTestCase extends WebTestBase {
+class WebTestCase extends WebExistingSiteBase {
 
   /**
    * Modules to enable.

@@ -1,15 +1,10 @@
 <?php
 
-namespace Drupal\Tests\se_testing\Functional;
+namespace Drupal\Tests\se_testing\Traits;
 
-use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\se_testing\Traits\CustomerCreationTrait;
 use Drupal\user\Entity\User;
 
-abstract class NodeTestBase extends BrowserTestBase {
-
-  use CustomerCreationTrait;
-
+trait UserCreationTrait {
   protected $loggedInUser;
   protected $customerAccount;
   protected $staffAccount;
@@ -18,8 +13,6 @@ abstract class NodeTestBase extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
-    parent::setUp();
-
     $this->customerAccount = $this->createTestUser();
     $this->staffAccount = $this->createTestUser(['staff']);
   }
@@ -48,11 +41,19 @@ abstract class NodeTestBase extends BrowserTestBase {
   }
 
   protected function myLogin(User $account) {
-    if (!$this->loggedInUser) {
+    if (!$this->getLoggedInUser()) {
       $this->drupalLogin($account);
       return TRUE;
     }
     return FALSE;
+  }
+
+  protected function getLoggedInUser() {
+    return $this->loggedInUser;
+  }
+
+  protected function setLoggedInUser($state = TRUE) {
+    $this->loggedInUser = $state;
   }
 
 }
