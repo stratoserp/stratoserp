@@ -16,7 +16,7 @@ class InformationSubscriptionCreateTest extends ExistingSiteBase {
   protected $staff;
 
   private $pages = [
-    '/information/add/subscription',
+    '/information/add/se_subscription',
   ];
 
   public function testInformationSubscriptionPermissions() {

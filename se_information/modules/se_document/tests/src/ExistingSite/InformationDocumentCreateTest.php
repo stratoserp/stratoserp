@@ -16,7 +16,7 @@ class InformationDocumentCreateTest extends ExistingSiteBase {
   protected $staff;
 
   private $pages = [
-    '/information/add/document',
+    '/information/add/se_document',
   ];
 
   public function testInformationDocumentPermissions() {

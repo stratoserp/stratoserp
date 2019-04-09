@@ -2,15 +2,13 @@
 
 namespace Drupal\Tests\se_contact\ExistingSite;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
-
 /**
  * @coversDefault Drupal\se_contact
  * @group se_contact
  * @group stratoserp
  *
  */
-class ContactPermissionsTest extends ExistingSiteBase {
+class ContactPermissionsTest extends ContactTestBase {
 
   protected $customer;
   protected $staff;
