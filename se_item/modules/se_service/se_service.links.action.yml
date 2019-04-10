@@ -1,8 +1,8 @@
 
-se_item.add_stock_form:
+se_item.add_service_form:
   route_name: 'entity.se_item.add_form'
   route_parameters:
-    se_item_type: 'se_stock'
-  title: 'Add stock'
+    se_item_type: 'se_service'
+  title: 'Add service'
   appears_on:
     - 'view.se_item_list.page_1'

@@ -1,8 +1,8 @@
 
-se_information.add_document_form:
-  route_name: 'entity.se_information.add_form'
+se_item.add_stock_form:
+  route_name: 'entity.se_item.add_form'
   route_parameters:
-    se_information_type: 'se_document'
-  title: 'Add document'
+    se_item_type: 'se_stock'
+  title: 'Add stock'
   appears_on:
-    - 'view.se_information_list.page_1'
+    - 'view.se_item_list.page_1'

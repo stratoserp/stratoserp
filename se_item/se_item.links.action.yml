@@ -1,11 +1,13 @@
+
 entity.se_item.add_form:
-  route_name: entity.se_item.add_page
+  route_name: 'entity.se_item.add_page'
   title: 'Add Item'
   appears_on:
-    - entity.se_item.collection
+    - 'entity.se_item.collection'
+
 entity.se_item_type.add_form:
-  route_name: entity.se_item_type.add_form
+  route_name: 'entity.se_item_type.add_form'
   title: 'Add Item type'
   appears_on:
-    - entity.se_item_type.collection
+    - 'entity.se_item_type.collection'
 
