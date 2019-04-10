@@ -1,0 +1,8 @@
+
+se_item.add_recurring_form:
+  route_name: 'entity.se_item.add_form'
+  route_parameters:
+    se_item_type: 'se_recurring'
+  title: 'Add recurring'
+  appears_on:
+    - 'view.se_item_list.page_1'

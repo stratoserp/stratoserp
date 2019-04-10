@@ -1,0 +1,8 @@
+
+se_information.add_document_form:
+  route_name: 'entity.se_information.add_form'
+  route_parameters:
+    se_information_type: 'se_document'
+  title: 'Add document'
+  appears_on:
+    - 'view.se_information_list.page_1'
