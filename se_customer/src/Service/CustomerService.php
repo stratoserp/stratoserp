@@ -52,4 +52,37 @@ class CustomerService {
 
     return FALSE;
   }
+
+  /**
+   * Retrieve the current balance for a customer.
+   *
+   * @param \Drupal\node\Entity\Node $node
+   *
+   * @return float
+   */
+  public function getBalance(Node $node) {
+    return (float) $node->field_cu_balance->value;
+  }
+
+  /**
+   * @param \Drupal\node\Entity\Node $node
+   * @param $value
+   *
+   * @return float
+   */
+  public function setBalance(Node $node, $value) {
+    $node->field_cu_balance->value = $value;
+    return $this->getBalance($node);
+  }
+
+  /**
+   * @param \Drupal\node\Entity\Node $node
+   * @param $value
+   *
+   * @return float
+   */
+  public function adjustBalance(Node $node, $value) {
+    $node->field_cu_balance->value += $value;
+    return $this->getBalance($node);
+  }
 }

@@ -43,6 +43,9 @@
 ## Goods receive
 - Auto create bill on entry.
 
+## Information
+- EVA View not clickable
+
 ## Invoices
 - Add recurring invoice functionality.
 - Auto statements.
@@ -51,6 +54,7 @@
 - Method of identifying which register/pos was used?
 
 ## Item - Stock
+- Creation buttons
 - Stocktake list
 
 ## Point of sale
@@ -78,6 +82,15 @@
 
 ## Webform
 - More example webform's
+
+
+# Polish
+- Information pages publishing status, authored by can be hidden
+- Why does document have a status field?
+- Revision log messages in an accordion
+- Make 'About text formats' nicer
+- Hide 'Show row weights' unless an admin
+- Hide customer balance field unless admin
 
 # NXT - Next wanted things
 

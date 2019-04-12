@@ -10,6 +10,7 @@ dependencies:
   module:
     - comment
     - eva
+    - node
     - user
 id: se_timekeeping_eva
 label: Timekeeping
@@ -127,7 +128,17 @@ display:
           separator: ''
           hide_empty: false
           default_field_elements: true
-      relationships: {  }
+      relationships:
+        node:
+          id: node
+          table: comment_field_data
+          field: node
+          relationship: none
+          group_type: group
+          admin_label: Ticket
+          required: true
+          entity_type: comment
+          plugin_id: standard
       fields:
         subject:
           id: subject
@@ -425,11 +436,11 @@ display:
             format: basic_html
           plugin_id: text
       arguments:
-        entity_id:
-          id: entity_id
-          table: comment_field_data
-          field: entity_id
-          relationship: none
+        field_bu_ref_target_id:
+          id: field_bu_ref_target_id
+          table: node__field_bu_ref
+          field: field_bu_ref_target_id
+          relationship: node
           group_type: group
           admin_label: ''
           default_action: default
@@ -458,8 +469,6 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-          entity_type: comment
-          entity_field: entity_id
           plugin_id: numeric
       display_extenders: {  }
       use_ajax: true
@@ -489,6 +498,8 @@ display:
         - se_supplier
       defaults:
         title: true
+      argument_mode: id
+      default_argument: null
     cache_metadata:
       max-age: -1
       contexts:

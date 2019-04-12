@@ -3,6 +3,7 @@
 namespace Drupal\Tests\se_customer\ExistingSite;
 
 use Drupal\KernelTests\AssertLegacyTrait;
+use Drupal\node\Entity\Node;
 use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\Tests\UiHelperTrait;
 use PHPUnit\Framework\TestCase;
@@ -89,6 +90,37 @@ abstract class CustomerTestBase extends TestCase
     $this->customer->url           = $this->faker->url;
     $this->customer->companyEmail  = $this->faker->companyEmail;
     error_reporting($original);
+  }
+
+  protected function setupStaffUser() {
+    // Setup user & login
+    $staff = $this->createUser([], NULL, FALSE);
+    $staff->addRole('staff');
+    $staff->save();
+
+    return $staff;
+  }
+
+  protected function addCustomer() {
+
+    /** @var Node $node */
+    $node = $this->createNode([
+      'type' => 'se_customer',
+      'title' => $this->customer->name,
+      'field_cu_phone' => $this->customer->phoneNumber,
+      'field_bu_ref' => ['target_id' => 1],
+    ]);
+    $this->assertNotEqual($node, FALSE);
+    $this->drupalGet('node/' . $node->id());
+    $this->assertSession()->statusCodeEquals(200);
+
+    $this->assertNotContains('Please fill in this field', $this->getTextContent());
+
+    // Check that what we entered is shown.
+    $this->assertContains($this->customer->name, $this->getTextContent());
+    $this->assertContains($this->customer->phoneNumber, $this->getTextContent());
+
+    return $node;
   }
 
 }
