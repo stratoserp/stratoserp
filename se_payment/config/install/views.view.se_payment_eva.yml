@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_pa_id
     - field.storage.node.field_pa_items
     - field.storage.node.field_pa_total
     - node.type.se_payment
@@ -9,6 +10,7 @@ dependencies:
     - eva
     - node
     - reference_table_formatter
+    - serial
     - user
 id: se_payment_eva
 label: Payments
@@ -83,14 +85,30 @@ display:
           summary: ''
           description: ''
           columns:
+            nid: nid
             created: created
+            field_pa_id: field_pa_id
             title: title
-            field_pa_items: field_pa_items
             field_pa_total: field_pa_total
+            field_pa_items: field_pa_items
           info:
+            nid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             created:
               sortable: true
               default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_pa_id:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -102,11 +120,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_pa_items:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             field_pa_total:
               sortable: true
               default_sort_order: asc
@@ -114,7 +127,12 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: '-1'
+            field_pa_items:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: created
           empty_table: false
       row:
         type: fields
@@ -197,7 +215,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Created
+          label: Date
           exclude: false
           alter:
             alter_text: false
@@ -256,6 +274,68 @@ display:
           field_api_classes: false
           entity_type: node
           entity_field: created
+          plugin_id: field
+        field_pa_id:
+          id: field_pa_id
+          table: node__field_pa_id
+          field: field_pa_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Payment id'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: 'node/{{ nid }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: serial_default_formatter
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
           plugin_id: field
         title:
           id: title
@@ -321,6 +401,72 @@ display:
           field_api_classes: false
           entity_type: node
           entity_field: title
+          plugin_id: field
+        field_pa_total:
+          id: field_pa_total
+          table: node__field_pa_total
+          field: field_pa_total
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Total
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: 'node/{{ nid }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_decimal
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+            decimal_separator: .
+            scale: 2
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
           plugin_id: field
         field_pa_items:
           id: field_pa_items
@@ -440,72 +586,6 @@ display:
             hide_header: '0'
             empty_cell_value: ''
           group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_pa_total:
-          id: field_pa_total
-          table: node__field_pa_total
-          field: field_pa_total
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Total
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: true
-            path: 'node/{{ nid }}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_decimal
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-            decimal_separator: .
-            scale: 2
-          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -647,6 +727,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_pa_id'
         - 'config:field.storage.node.field_pa_items'
         - 'config:field.storage.node.field_pa_total'
   entity_view_1:
@@ -672,5 +753,6 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_pa_id'
         - 'config:field.storage.node.field_pa_items'
         - 'config:field.storage.node.field_pa_total'
