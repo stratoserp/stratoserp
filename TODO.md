@@ -55,7 +55,7 @@
 
 ## Item - Stock
 - Creation buttons
-- Stocktake list
+- Stock take list
 
 ## Point of sale
 - POS front end.
@@ -123,7 +123,7 @@
 ## Item
 - Lookup product on supplier to check stock levels on viewing.
 - Lookup product on shopping site to get price range.
-- Provide bookmarklet, chrome addon or similar for easy entry of product.
+- Provide bookmark-let, chrome add-on or similar for easy entry of product.
 - Auto lookup product from barcode on amazon or similar?
 - Item type with built in 10th item free - eg ink cartridges.
 

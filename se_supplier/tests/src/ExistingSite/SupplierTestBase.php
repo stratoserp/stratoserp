@@ -1,10 +1,9 @@
 <?php
 
-namespace Drupal\Tests\se_contact\ExistingSite;
+namespace Drupal\Tests\se_supplier\ExistingSite;
 
 use Drupal\KernelTests\AssertLegacyTrait;
-use Drupal\se_testing\Traits\ContactCreateTrait;
-use Drupal\se_testing\Traits\CustomerCreateTrait;
+use Drupal\se_testing\Traits\SupplierCreateTrait;
 use Drupal\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\Tests\UiHelperTrait;
@@ -15,7 +14,7 @@ use weitzman\DrupalTestTraits\Entity\TaxonomyCreationTrait;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 use weitzman\DrupalTestTraits\GoutteTrait;
 
-class ContactTestBase extends TestCase {
+class SupplierTestBase extends TestCase {
   use DrupalTrait;
   use GoutteTrait;
   use NodeCreationTrait;
@@ -31,8 +30,7 @@ class ContactTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Now our own Traits.
-  use ContactCreateTrait;
-  use CustomerCreateTrait;
+  use SupplierCreateTrait;
   use UserCreateTrait;
 
   /**
@@ -42,18 +40,18 @@ class ContactTestBase extends TestCase {
    */
   protected $databasePrefix;
 
-  protected $contact;
-  protected $customer;
+  protected $supplier;
   protected $fakerFactory;
   protected $faker;
+
 
   protected function setUp() {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
-    $this->contactFakerSetup();
-    $this->customerFakerSetup();
+    $this->supplierFakerSetup();
   }
+
 
   /**
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -68,7 +66,8 @@ class ContactTestBase extends TestCase {
    * Override \Drupal\Tests\UiHelperTrait::prepareRequest since it generates
    * an error, and does nothing useful for DTT. @see https://www.drupal.org/node/2246725.
    */
-  protected function prepareRequest() {
+  protected function prepareRequest()
+  {
   }
 
 }

@@ -206,7 +206,7 @@ content:
     third_party_settings: {  }
   field_cu_balance:
     weight: 17
-    label: above
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .

@@ -34,16 +34,16 @@ third_party_settings:
   field_group:
     group_su_tabs:
       children:
+        - links
         - group_su_tab_details
         - group_su_tab_location
         - group_su_tab_contacts
         - group_su_tab_tickets
-        - group_su_tab_documents
         - group_su_tabs_purchase_orders
         - group_su_tab_goods_receipts
         - group_su_tab_bills
         - group_su_tab_payments
-        - group_su_tab_timekeeping
+        - group_su_tab_information
       parent_name: ''
       weight: 1
       format_type: tabs
@@ -57,7 +57,7 @@ third_party_settings:
       children:
         - se_ticket_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 26
+      weight: 4
       format_type: tab
       format_settings:
         id: ''
@@ -70,7 +70,7 @@ third_party_settings:
       children:
         - se_contact_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 25
+      weight: 3
       format_type: tab
       format_settings:
         id: ''
@@ -83,7 +83,7 @@ third_party_settings:
       children:
         - se_information_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 27
+      weight: 9
       format_type: tab
       format_settings:
         id: ''
@@ -94,6 +94,7 @@ third_party_settings:
       region: content
     group_su_tab_details:
       children:
+        - field_su_id
         - field_su_address
         - field_su_suburb
         - field_su_state
@@ -102,10 +103,15 @@ third_party_settings:
         - field_su_postal_suburb
         - field_su_postal_state
         - field_su_postal_postcode
+        - field_su_phone
+        - field_su_mobile
         - field_su_email
+        - field_su_fax
         - field_su_email_format
+        - field_su_homepage
+        - field_su_status
       parent_name: group_su_tabs
-      weight: 23
+      weight: 1
       format_type: tab
       format_settings:
         id: ''
@@ -118,7 +124,7 @@ third_party_settings:
       children:
         - se_goods_receipt_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 29
+      weight: 6
       format_type: tab
       format_settings:
         id: ''
@@ -131,7 +137,7 @@ third_party_settings:
       children:
         - se_purchase_order_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 28
+      weight: 5
       format_type: tab
       format_settings:
         id: ''
@@ -144,7 +150,7 @@ third_party_settings:
       children:
         - se_payment_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 32
+      weight: 8
       format_type: tab
       format_settings:
         id: ''
@@ -157,7 +163,7 @@ third_party_settings:
       children:
         - field_su_location
       parent_name: group_su_tabs
-      weight: 24
+      weight: 2
       format_type: tab
       format_settings:
         id: ''
@@ -170,7 +176,7 @@ third_party_settings:
       children:
         - se_bill_eva_entity_view_1
       parent_name: group_su_tabs
-      weight: 31
+      weight: 7
       format_type: tab
       format_settings:
         id: ''
@@ -178,19 +184,6 @@ third_party_settings:
         formatter: closed
         description: ''
       label: Bills
-      region: content
-    group_su_tab_timekeeping:
-      children:
-        - se_timekeeping_eva_entity_view_1
-      parent_name: group_su_tabs
-      weight: 33
-      format_type: tab
-      format_settings:
-        id: ''
-        classes: ''
-        formatter: closed
-        description: ''
-      label: Timekeeping
       region: content
   field_layout:
     id: layout_onecol
@@ -202,7 +195,7 @@ mode: default
 content:
   field_su_address:
     type: string
-    weight: 1
+    weight: 3
     region: content
     label: inline
     settings:
@@ -210,21 +203,29 @@ content:
     third_party_settings: {  }
   field_su_email:
     type: basic_string
-    weight: 11
+    weight: 13
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
   field_su_email_format:
     type: list_default
-    weight: 12
+    weight: 15
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
+  field_su_fax:
+    type: telephone_link
+    weight: 14
+    region: content
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
   field_su_homepage:
     type: link
-    weight: 5
+    weight: 16
     region: content
     label: inline
     settings:
@@ -244,12 +245,38 @@ content:
   field_su_location:
     weight: 29
     label: inline
-    settings: {  }
+    settings:
+      title: ''
+      set_marker: '1'
+      common_map: ''
+      info_text: ''
+      use_overridden_map_settings: 0
+      google_map_settings:
+        type: ROADMAP
+        zoom: '10'
+        minZoom: 0
+        maxZoom: 18
+        rotateControl: 0
+        mapTypeControl: 1
+        streetViewControl: 1
+        zoomControl: 1
+        fullscreenControl: 0
+        scrollwheel: 1
+        disableDoubleClickZoom: 0
+        draggable: 1
+        height: 400px
+        width: 100%
+        info_auto_display: 1
+        marker_icon_path: ''
+        disableAutoPan: 1
+        style: ''
+        preferScrollingToZooming: 0
+        gestureHandling: auto
     third_party_settings: {  }
-    type: geolocation_latlng
+    type: geolocation_map
     region: content
   field_su_mobile:
-    weight: 4
+    weight: 12
     label: inline
     settings:
       title: ''
@@ -258,7 +285,7 @@ content:
     region: content
   field_su_phone:
     type: telephone_link
-    weight: 3
+    weight: 11
     region: content
     label: inline
     settings:
@@ -266,7 +293,7 @@ content:
     third_party_settings: {  }
   field_su_postal_address:
     type: string
-    weight: 5
+    weight: 7
     region: content
     label: inline
     settings:
@@ -274,7 +301,7 @@ content:
     third_party_settings: {  }
   field_su_postal_postcode:
     type: string
-    weight: 8
+    weight: 10
     region: content
     label: inline
     settings:
@@ -282,7 +309,7 @@ content:
     third_party_settings: {  }
   field_su_postal_state:
     type: string
-    weight: 7
+    weight: 9
     region: content
     label: inline
     settings:
@@ -290,7 +317,7 @@ content:
     third_party_settings: {  }
   field_su_postal_suburb:
     type: string
-    weight: 6
+    weight: 8
     region: content
     label: inline
     settings:
@@ -298,7 +325,7 @@ content:
     third_party_settings: {  }
   field_su_postcode:
     type: string
-    weight: 4
+    weight: 6
     region: content
     label: inline
     settings:
@@ -306,7 +333,7 @@ content:
     third_party_settings: {  }
   field_su_state:
     type: string
-    weight: 3
+    weight: 5
     region: content
     label: inline
     settings:
@@ -314,14 +341,14 @@ content:
     third_party_settings: {  }
   field_su_status:
     type: list_default
-    weight: 6
+    weight: 17
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
   field_su_suburb:
     type: string
-    weight: 2
+    weight: 4
     region: content
     label: inline
     settings:
@@ -388,13 +415,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_timekeeping_eva_entity_view_1:
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_su_fax: true
