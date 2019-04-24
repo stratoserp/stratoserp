@@ -1,8 +1,6 @@
 <?php
 
-namespace Drupal\Tests\se_invoice\Functional;
-
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+namespace Drupal\Tests\se_invoice\ExistingSite;
 
 /**
  * @coversDefault Drupal\se_customer
@@ -10,7 +8,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group stratoserp
  *
  */
-class InvoiceCreateTest extends ExistingSiteBase {
+class InvoicePermissionsTest extends InvoiceTestBase {
 
   protected $customer;
   protected $staff;

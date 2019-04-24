@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\Tests\se_supplier\ExistingSite;
+namespace Drupal\Tests\se_stock\ExistingSite;
 
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\Tests\RandomGeneratorTrait;
-use Drupal\Tests\se_testing\Traits\SupplierTestTrait;
+use Drupal\Tests\se_testing\Traits\StockItemTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\UiHelperTrait;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ use weitzman\DrupalTestTraits\Entity\TaxonomyCreationTrait;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 use weitzman\DrupalTestTraits\GoutteTrait;
 
-class SupplierTestBase extends TestCase {
+class StockItemTestBase extends TestCase {
   use DrupalTrait;
   use GoutteTrait;
   use NodeCreationTrait;
@@ -30,7 +30,7 @@ class SupplierTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Now our own Traits.
-  use SupplierTestTrait;
+  use StockItemTestTrait;
   use UserCreateTrait;
 
   /**
@@ -40,16 +40,15 @@ class SupplierTestBase extends TestCase {
    */
   protected $databasePrefix;
 
-  protected $supplier;
+  protected $stockItem;
   protected $fakerFactory;
   protected $faker;
-
 
   protected function setUp() {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
-    $this->supplierFakerSetup();
+    $this->stockItemFakerSetup();
   }
 
 

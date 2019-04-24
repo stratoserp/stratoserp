@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_testing\Traits;
+namespace Drupal\Tests\se_testing\Traits;
 
 trait UserCreateTrait {
 

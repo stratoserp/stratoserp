@@ -2,50 +2,26 @@
 
 namespace Drupal\Tests\se_ticket\ExistingSite;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
-
 /**
- * @coversDefault Drupal\se_goods_receipt
- * @group se_contact
+ * @coversDefault Drupal\se_customer
+ * @group se_customer
  * @group stratoserp
  *
  */
-class TicketCreateTest extends ExistingSiteBase {
+class TicketCreateTest extends TicketTestBase {
 
-  protected $customer;
   protected $staff;
 
-  private $pages = [
-    '/node/add/se_goods_receipt',
-  ];
+  public function testTicketAdd() {
 
-  public function testTicketPermissions() {
-    $this->customer = $this->createUser([], NULL, FALSE);
-    $this->customer->addRole('customer');
-    $this->customer->save();
+    $staff = $this->setupStaffUser();
+    $this->drupalLogin($staff);
 
-    $this->staff = $this->createUser([], NULL, FALSE);
-    $this->staff->addRole('staff');
-    $this->staff->save();
+    $customer = $this->addCustomer();
+    $ticket = $this->addTicket();
 
-    foreach ($this->pages as $page) {
-      $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(403);
-    }
+    $this->drupalLogout();
 
-    foreach ($this->pages as $page) {
-      $this->drupalLogin($this->customer);
-      $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(403);
-      $this->drupalLogout();
-    }
-
-    foreach ($this->pages as $page) {
-      $this->drupalLogin($this->staff);
-      $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(200);
-      $this->drupalLogout();
-    }
   }
 
 }

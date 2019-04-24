@@ -3,9 +3,9 @@
 namespace Drupal\Tests\se_customer\ExistingSite;
 
 use Drupal\KernelTests\AssertLegacyTrait;
-use Drupal\se_testing\Traits\CustomerCreateTrait;
-use Drupal\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\RandomGeneratorTrait;
+use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
+use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\UiHelperTrait;
 use PHPUnit\Framework\TestCase;
 use weitzman\DrupalTestTraits\DrupalTrait;
@@ -30,7 +30,7 @@ class CustomerTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Now our own Traits.
-  use CustomerCreateTrait;
+  use CustomerTestTrait;
   use UserCreateTrait;
 
   /**

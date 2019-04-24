@@ -3,10 +3,10 @@
 namespace Drupal\Tests\se_contact\ExistingSite;
 
 use Drupal\KernelTests\AssertLegacyTrait;
-use Drupal\se_testing\Traits\ContactCreateTrait;
-use Drupal\se_testing\Traits\CustomerCreateTrait;
-use Drupal\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\RandomGeneratorTrait;
+use Drupal\Tests\se_testing\Traits\ContactTestTrait;
+use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
+use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\UiHelperTrait;
 use PHPUnit\Framework\TestCase;
 use weitzman\DrupalTestTraits\DrupalTrait;
@@ -31,8 +31,8 @@ class ContactTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Now our own Traits.
-  use ContactCreateTrait;
-  use CustomerCreateTrait;
+  use ContactTestTrait;
+  use CustomerTestTrait;
   use UserCreateTrait;
 
   /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_testing\Traits;
+namespace Drupal\Tests\se_testing\Traits;
 
 use Drupal\node\Entity\Node;
 use Faker\Factory;
@@ -8,7 +8,7 @@ use Faker\Factory;
 /**
  * Provides functions for creating content during functional tests.
  */
-trait ContactCreateTrait {
+trait ContactTestTrait {
 
   public function contactFakerSetup() {
     $this->faker = Factory::create();

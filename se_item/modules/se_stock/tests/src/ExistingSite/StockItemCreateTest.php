@@ -2,50 +2,23 @@
 
 namespace Drupal\Tests\se_stock\ExistingSite;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
-
 /**
  * @coversDefault Drupal\se_stock
- * @group se_stock
+ * @group se_item
  * @group stratoserp
  *
  */
-class StockItemCreateTest extends ExistingSiteBase {
+class StockItemCreateTest extends StockItemTestBase {
 
-  protected $customer;
   protected $staff;
 
-  private $pages = [
-    '/node/add/se_invoice',
-  ];
+  public function testStockItemCreate() {
 
-  public function testStockItemPermissions() {
-    $this->customer = $this->createUser([], NULL, FALSE);
-    $this->customer->addRole('customer');
-    $this->customer->save();
+    $staff = $this->setupStaffUser();
+    $this->drupalLogin($staff);
 
-    $this->staff = $this->createUser([], NULL, FALSE);
-    $this->staff->addRole('staff');
-    $this->staff->save();
+    //$item = $this->addStockItem();
 
-    foreach ($this->pages as $page) {
-      $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(403);
-    }
-
-    foreach ($this->pages as $page) {
-      $this->drupalLogin($this->customer);
-      $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(403);
-      $this->drupalLogout();
-    }
-
-    foreach ($this->pages as $page) {
-      $this->drupalLogin($this->staff);
-      $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(200);
-      $this->drupalLogout();
-    }
+    $this->drupalLogout();
   }
-
 }
