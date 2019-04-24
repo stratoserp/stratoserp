@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.se_if_comments.default
     - field.field.se_information.se_document.field_bu_ref
     - field.field.se_information.se_document.field_if_body
     - field.field.se_information.se_document.field_if_comments

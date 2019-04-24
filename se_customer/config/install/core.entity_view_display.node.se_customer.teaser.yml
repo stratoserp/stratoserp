@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.se_customer.field_cu_address
+    - field.field.node.se_customer.field_cu_balance
     - field.field.node.se_customer.field_cu_email
     - field.field.node.se_customer.field_cu_email_format
     - field.field.node.se_customer.field_cu_fax
@@ -71,6 +72,7 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   field_cu_address: true
+  field_cu_balance: true
   field_cu_email: true
   field_cu_email_format: true
   field_cu_fax: true

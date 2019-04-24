@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_status_ref
     - field.field.node.se_invoice.field_in_total
+    - field.field.node.se_invoice.field_se_comments
     - node.type.se_invoice
   module:
     - field_layout
@@ -40,6 +41,9 @@ content:
     weight: 100
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_bu_ref: true
   field_co_ref: true
   field_in_customer_order: true
@@ -49,3 +53,4 @@ hidden:
   field_in_sent: true
   field_in_status_ref: true
   field_in_total: true
+  field_se_comments: true

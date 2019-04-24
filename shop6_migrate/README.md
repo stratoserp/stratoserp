@@ -16,3 +16,9 @@ $databases['drupal_6']['default'] = [
   'prefix'    => '',
 ];
 ```
+
+Then the config was mostly created with:
+
+drush migrate-upgrade --legacy-db-url='mysql://shop6:shop6@db/shop6' --configure-only --legacy-root=https://whatever.com
+
+But then plugins etc added.

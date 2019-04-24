@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.se_payment.field_pa_id
     - field.field.node.se_payment.field_pa_items
     - field.field.node.se_payment.field_pa_total
+    - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
   module:
     - field_layout
@@ -35,7 +36,11 @@ content:
     weight: 100
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_bu_ref: true
   field_pa_id: true
   field_pa_items: true
   field_pa_total: true
+  field_se_comments: true

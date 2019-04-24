@@ -12,8 +12,8 @@
 
 # Alpha - Barely workable, things will change
 
-## Customer
-- Store current balance for more flexible payment acceptance.
+## BUG/Problem
+- Error on adding bill atm.
 
 # Beta - Database/fields stable
 
@@ -35,7 +35,6 @@
 
 ## Bill
 - Add sync to Xero.
-- BUG - Error on adding bill atm.
 
 ## Calendar
 - Make nice calendar view.
@@ -48,7 +47,7 @@
 
 ## Invoices
 - Add recurring invoice functionality.
-- Auto statements.
+- Auto emailed statements.
 
 ## Payments
 - Method of identifying which register/pos was used?

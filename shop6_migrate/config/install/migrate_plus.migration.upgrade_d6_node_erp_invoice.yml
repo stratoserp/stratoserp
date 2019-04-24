@@ -56,4 +56,3 @@ migration_dependencies:
     - upgrade_d6_node_erp_customer
     - upgrade_d6_term_sale_category
     - upgrade_d6_term_status
-

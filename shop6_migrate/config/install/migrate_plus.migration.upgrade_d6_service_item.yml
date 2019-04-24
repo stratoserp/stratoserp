@@ -32,5 +32,5 @@ process:
   field_it_description/value: full_desc
 destination:
   plugin: 'entity:se_item'
-  default_bundle: 'se_service'
+  default_bundle: se_service
 migration_dependencies: {  }

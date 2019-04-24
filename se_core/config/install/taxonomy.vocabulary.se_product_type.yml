@@ -4,5 +4,4 @@ dependencies: {  }
 name: 'Product type'
 vid: se_product_type
 description: 'Product type taxonomy'
-hierarchy: 0
 weight: 0

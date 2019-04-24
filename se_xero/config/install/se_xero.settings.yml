@@ -1,5 +1,5 @@
 system:
-  currency: 'AUD'
+  currency: AUD
   enabled: false
 invoice:
   sync_timestamp: 0

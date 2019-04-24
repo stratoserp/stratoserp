@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.se_purchase_order.field_po_quote_ref
     - field.field.node.se_purchase_order.field_po_status_ref
     - field.field.node.se_purchase_order.field_po_total
+    - field.field.node.se_purchase_order.field_se_comments
     - node.type.se_purchase_order
   module:
     - field_layout
@@ -38,6 +39,9 @@ content:
     weight: 100
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_bu_ref: true
   field_co_ref: true
   field_po_id: true
@@ -45,3 +49,4 @@ hidden:
   field_po_quote_ref: true
   field_po_status_ref: true
   field_po_total: true
+  field_se_comments: true

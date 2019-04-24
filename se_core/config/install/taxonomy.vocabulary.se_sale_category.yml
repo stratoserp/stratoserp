@@ -4,5 +4,4 @@ dependencies: {  }
 name: 'Sale category'
 vid: se_sale_category
 description: 'Sale category'
-hierarchy: 0
 weight: 0
