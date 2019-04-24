@@ -751,7 +751,7 @@ display:
         description: ''
         expanded: false
         parent: 'views_view:views.se_supplier_list.page_1'
-        weight: 0
+        weight: -45
         context: '0'
         menu_name: stratos-erp
     cache_metadata:

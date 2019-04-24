@@ -2,6 +2,6 @@ se_bill.add_se_bill:
   title: 'Add bill'
   menu_name: stratos-erp
   route_name: node.add
-  parent: 'views_view:views.se_bill_list.page_1'
+  parent: 'views_view:views.se_supplier_list.page_1'
   route_parameters:
     node_type: 'se_bill'
