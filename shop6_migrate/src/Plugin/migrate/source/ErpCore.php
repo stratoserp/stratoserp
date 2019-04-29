@@ -24,7 +24,7 @@ class ErpCore extends MigrateNode {
   // Setting this to TRUE will mess with --update. Only use TRUE
   // here if you've broken an import halfway through and are
   // testing.
-  public const IMPORT_CONTINUE = TRUE;
+  public const IMPORT_CONTINUE = FALSE;
 
   // Provide a quick way to switch between ASC/DESC when importing.
   public const IMPORT_MODE = 'ASC';
