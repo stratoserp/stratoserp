@@ -92,6 +92,7 @@ class FormAlter {
    * @return \Drupal\taxonomy\Entity\Term|null
    */
   public function setTaxonomyField(array &$form, string $field, int $term_id): Term {
+    /** @var Term $term */
     if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id)) {
       return NULL;
     }

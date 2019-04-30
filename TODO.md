@@ -12,9 +12,6 @@
 
 # Alpha - Barely workable, things will change
 
-## BUG/Problem
-- Error on adding bill atm.
-
 # Beta - Database/fields stable
 
 ## Information
@@ -41,9 +38,6 @@
 
 ## Goods receive
 - Auto create bill on entry.
-
-## Information
-- EVA View not clickable
 
 ## Invoices
 - Add recurring invoice functionality.
@@ -74,9 +68,7 @@
 - Check in on job ability - technician front end.
 
 ## Timekeeping
-- Timekeeping type is not using the correct source, needs to be a list of Service.
 - Base fields same as line item
-- Change timekeeping list to show something instead of blank title.
 - Calculate and store dollar value on save to be simpler when adding as line item?
 
 ## Webform

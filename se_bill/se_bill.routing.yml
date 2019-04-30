@@ -1,0 +1,32 @@
+se_bill.add:
+  path: '/bill/add'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeController::add'
+    _title: 'Add qote'
+    node_type: 'se_bill'
+  requirements:
+    _permission: 'access content'
+
+se_bill.edit:
+  path: '/bill/{node}/edit'
+  defaults:
+    _entity_form: 'node.edit'
+  requirements:
+    node: \d+
+    _permission: 'access content'
+
+se_bill.view:
+  path: '/bill/{node}'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeViewController::view'
+  requirements:
+    node: \d+
+    _permission: 'access content'
+
+se_bill.configure:
+  path: 'se/bill/settings'
+  defaults:
+    _form: '\Drupal\se_bill\Form\SettingsForm'
+    _title: 'bill settings'
+  requirements:
+    _permission: 'administer site configuration'
