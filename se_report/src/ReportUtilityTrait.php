@@ -134,8 +134,13 @@ trait ReportUtilityTrait {
       'langcode' => 'en',
       'uid' => \Drupal::currentUser()->id(),
       'status' => 1,
-      'title' => 'Report created from batch',
+      'title' => $this->createReportTitle(),
     ]);
+    if (!empty($this->configuration['business_ref'])) {
+      if ($business_node = Node::load($this->configuration['business_ref'])) {
+        $this->report_node->field_bu_ref->target_id = $business_node->id();
+      }
+    }
     $this->report_node->save();
 
     $this->setBatchData('report_node', $this->report_node->id());
@@ -212,5 +217,43 @@ trait ReportUtilityTrait {
     }
   }
 
+  private function createCSV($data) {
+    // Generate CSV data from array
+    $fh = fopen('php://temp', 'rw');
+    // Don't create a file, attempt to use memory instead
+
+    fputcsv($fh, ['Item', 'Value']);
+    foreach ($data as $key => $value) {
+      fputcsv($fh, [$key, $value]);
+    }
+
+    rewind($fh);
+    $csv = stream_get_contents($fh);
+    fclose($fh);
+
+    return $csv;
+  }
+
+  private function createReportTitle() {
+    $title_parts[] = $this->configuration['input_parameters']['action_label'];
+    if (empty($this->configuration['business_ref'])) {
+      if (!empty($this->configuration['input_parameters']['exposed_input']['business'])) {
+        $title_parts[] = $this->configuration['input_parameters']['exposed_input']['business'];
+      }
+    }
+    else {
+      /** @var Node $business_node */
+      if ($business_node = Node::load($this->configuration['business_ref'])) {
+        $title_parts[] = $business_node->title->value;
+      }
+    }
+    if (!empty($this->configuration['input_parameters']['exposed_input']['created']['min'])) {
+      $title_parts[] = $this->configuration['input_parameters']['exposed_input']['created']['min'];
+    }
+    if (!empty($this->configuration['input_parameters']['exposed_input']['created']['max'])) {
+      $title_parts[] = $this->configuration['input_parameters']['exposed_input']['created']['max'];
+    }
+    return implode(' - ', $title_parts);
+  }
 
 }

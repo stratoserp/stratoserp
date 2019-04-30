@@ -3,8 +3,10 @@ status: true
 dependencies:
   config:
     - field.field.node.se_report.body
+    - field.field.node.se_report.field_bu_ref
     - field.field.node.se_report.field_re_json_data
     - field.field.node.se_report.field_re_parameters
+    - field.field.node.se_report.field_re_raw_data
     - node.type.se_report
   module:
     - field_layout
@@ -36,6 +38,15 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_bu_ref:
+    weight: 126
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_re_json_data:
     weight: 125
     settings:

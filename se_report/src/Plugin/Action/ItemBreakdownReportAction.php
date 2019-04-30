@@ -4,7 +4,6 @@ namespace Drupal\se_report\Plugin\Action;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Url;
 use Drupal\se_report\ReportUtilityTrait;
 use Drupal\views_bulk_operations\Action\ViewsBulkOperationsActionBase;
 use Drupal\views_bulk_operations\Action\ViewsBulkOperationsPreconfigurationInterface;
@@ -71,6 +70,7 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
     if ($progress >= $total) {
       $this->report_node->field_re_parameters->value = json_encode($this->getBatchDataByKey('input_parameters'));
       $this->report_node->field_re_json_data->value = json_encode($report_array);
+      $this->report_node->field_re_raw_data->value = $this->createCSV($report_array);
       $this->report_node->save();
 
       // Set new redirect url (hmm doesn't work).
@@ -102,6 +102,15 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
       '#value' => $input_parameters,
     ];
 
+    // TODO Convert this to a form alter of the views exposed form.
+    $form['business_ref'] = [
+      '#title' => 'Business reference',
+      '#type' => 'entity_autocomplete',
+      '#target_type' => 'node',
+      '#selection_settings' => ['target_bundles' => ['node' => 'se_customer']],
+      '#description' => 'Associate/relate the report with a business.'
+    ];
+
     return $form;
   }
 
@@ -110,6 +119,7 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['input_parameters'] = $form_state->getValue('input_parameters');
+    $this->configuration['business_ref'] = $form_state->getValue('business_ref');
   }
 
 
