@@ -13,6 +13,7 @@ dependencies:
     - node
     - serial
     - user
+    - views_bulk_operations
 id: se_invoice_list
 label: 'Invoice list'
 module: views
@@ -140,6 +141,82 @@ display:
       row:
         type: fields
       fields:
+        views_bulk_operations_bulk_form:
+          id: views_bulk_operations_bulk_form
+          table: views
+          field: views_bulk_operations_bulk_form
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Views bulk operations'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          batch: true
+          batch_size: 10
+          form_step: true
+          buttons: true
+          clear_on_exposed: false
+          action_title: Action
+          selected_actions:
+            comment_delete_action: 0
+            entity_print_download_action: 0
+            node_unpublish_by_keyword_action: 0
+            node_save_action: 0
+            node_unpromote_action: 0
+            node_publish_action: 0
+            node_make_sticky_action: 0
+            node_make_unsticky_action: 0
+            node_assign_owner_action: 0
+            node_unpublish_action: 0
+            node_promote_action: 0
+            item_breakdown_report_action: item_breakdown_report_action
+            views_bulk_operations_delete_entity: 0
+            'entity:unpublish_action:node': 0
+            'entity:save_action:node': 0
+            'entity:delete_action:node': 0
+            'entity:publish_action:node': 0
+          preconfiguration:
+            item_breakdown_report_action:
+              label_override: ''
+          plugin_id: views_bulk_operations_bulk_form
         nid:
           id: nid
           table: node_field_data
@@ -668,6 +745,57 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: string
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: between
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: created_op
+            label: 'Created between'
+            description: ''
+            use_operator: false
+            operator: created_op
+            identifier: created
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: created
+          plugin_id: date
       sorts: {  }
       title: 'Invoice list'
       header: {  }
@@ -691,7 +819,7 @@ display:
           1: AND
       use_ajax: true
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -721,7 +849,7 @@ display:
         context: '0'
         menu_name: stratos-erp
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'

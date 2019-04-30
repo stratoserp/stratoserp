@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_re_parameters
+    - node.type.se_report
+id: node.se_report.field_re_parameters
+field_name: field_re_parameters
+entity_type: node
+bundle: se_report
+label: Parameters
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

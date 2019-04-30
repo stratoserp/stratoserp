@@ -1,0 +1,8 @@
+name: Report
+description: 'Provides reporting content and functionality.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - se_invoice
+  - se_ticket

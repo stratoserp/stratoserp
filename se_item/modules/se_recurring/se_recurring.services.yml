@@ -1,0 +1,7 @@
+services:
+  se_recurring.invoice_saved:
+    class: Drupal\se_recurring\EventSubscriber\InvoiceInsert
+    tags:
+      - { name: event_subscriber }
+  se_recurring.auto_creator:
+    class: \Drupal\se_recurring\Service\AutoCreator

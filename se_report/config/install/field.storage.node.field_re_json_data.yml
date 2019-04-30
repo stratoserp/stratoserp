@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - json_field
+    - node
+id: node.field_re_json_data
+field_name: field_re_json_data
+entity_type: node
+type: json
+settings:
+  size: 4294967296
+module: json_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

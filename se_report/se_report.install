@@ -1,0 +1,26 @@
+<?php
+
+//use Drupal\Core\Config\FileStorage;
+//
+///**
+// * There is no 'nice' way to recognise new actions, so add them in with
+// * an update hook. This could be done with pnx drush cmi as well.
+// */
+//function se_report_update_8001() {
+//  $config_path = drupal_get_path('module', 'se_report') . '/config/install';
+//  $source = new FileStorage($config_path);
+//  $config_storage = \Drupal::service('config.storage');
+//
+//  $configs = [
+//    'system.action.se_report_item_breakdown_report_action',
+//  ];
+//
+//  foreach ($configs as $config) {
+//    // Delete config if it already exists.
+//    if ($config_storage->exists($config)) {
+//      $config_storage->delete($config);
+//    }
+//    $temp = $source->read($config);
+//    $config_storage->write($config, $temp);
+//  }
+//}

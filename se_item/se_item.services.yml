@@ -3,3 +3,9 @@ services:
     class: Drupal\se_item\Routing\ItemRouteSubscriber
     tags:
       - { name: event_subscriber }
+
+  se_item.service:
+    class: Drupal\se_item\Service\SeItem
+    arguments: ['@entity_type.manager']
+
+
