@@ -10,8 +10,6 @@
 - Audit & Fix up permissions.
 - Convert to use phpmoney class?
 
-# Alpha - Barely workable, things will change
-
 # Beta - Database/fields stable
 
 ## Information
@@ -29,15 +27,15 @@
 - Printing invoices.
 
 # MVP - Minimum viable product
-
 ## Bill
 - Add sync to Xero.
 
 ## Calendar
 - Make nice calendar view.
 
-## Goods receive
+## Goods receipts
 - Auto create bill on entry.
+- Relate to purchase orders.
 
 ## Invoices
 - Add recurring invoice functionality.

@@ -42,6 +42,17 @@ class ErpGoodsReceipt extends ErpCore {
       return FALSE;
     }
 
+    $purchase_order_nid = $row->getSourceProperty('purchase_order_nid');
+    if (!isset($purchase_order_nid)) {
+      $purchase_order_nid = $row->getSourceProperty('refs');
+    }
+
+    if (isset($purchase_order_nid)) {
+      if ($new_purchase_order_nid = $this->findNewId($purchase_order_nid, 'nid', 'upgrade_d6_node_erp_purchase_order')) {
+        $row->setSourceProperty('purchase_order_ref', $new_purchase_order_nid);
+      }
+    }
+
     $this->setItems($row, 'erp_goods_receive_data');
     $this->setSupplierRef($row);
 
