@@ -15,6 +15,7 @@ dependencies:
   - se_core
   - se_invoice
   - se_items
+  - se_purchase_order
   - serial
   - text
   - user
