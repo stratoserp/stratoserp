@@ -120,7 +120,8 @@ class InformationRevisionRevertForm extends ConfirmFormBase {
     $this->revision->save();
 
     $this->logger('content')->notice('Information: reverted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
-    drupal_set_message(t('Information %title has been reverted to the revision from %revision-date.', ['%title' => $this->revision->label(), '%revision-date' => $this->dateFormatter->format($original_revision_timestamp)]));
+    $messenger = \Drupal::messenger();
+    $messenger->addMessage(t('Information %title has been reverted to the revision from %revision-date.', ['%title' => $this->revision->label(), '%revision-date' => $this->dateFormatter->format($original_revision_timestamp)]));
     $form_state->setRedirect(
       'entity.se_information.version_history',
       ['se_information' => $this->revision->id()]

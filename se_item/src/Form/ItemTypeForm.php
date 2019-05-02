@@ -47,15 +47,18 @@ class ItemTypeForm extends EntityForm {
     $se_item_type = $this->entity;
     $status = $se_item_type->save();
 
+    $messenger = \Drupal::messenger();
+
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Item type.', [
+
+        $messenger->addMessage($this->t('Created the %label Item type.', [
           '%label' => $se_item_type->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Item type.', [
+        $messenger->addMessage($this->t('Saved the %label Item type.', [
           '%label' => $se_item_type->label(),
         ]));
     }

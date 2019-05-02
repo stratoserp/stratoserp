@@ -5,6 +5,7 @@ namespace Drupal\se_item\Controller;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_item\Entity\ItemInterface;
 
@@ -87,11 +88,11 @@ class ItemController extends ControllerBase implements ContainerInjectionInterfa
 
         // Use revision link to link to revisions that are not active.
         $date = \Drupal::service('date.formatter')->format($revision->getRevisionCreationTime(), 'short');
-        if ($vid != $se_item->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_item.revision', ['se_item' => $se_item->id(), 'se_item_revision' => $vid]));
+        if ($vid !== $se_item->getRevisionId()) {
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_item.revision', ['se_item' => $se_item->id(), 'se_item_revision' => $vid]));
         }
         else {
-          $link = $se_item->link($date);
+          $link = $se_item->toLink($date);
         }
 
         $row = [];

@@ -52,16 +52,17 @@ class ItemForm extends ContentEntityForm {
     }
 
     $status = parent::save($form, $form_state);
+    $messenger = \Drupal::messenger();
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Item.', [
+        $messenger->addMessage($this->t('Created the %label Item.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Item.', [
+        $messenger->addMessage($this->t('Saved the %label Item.', [
           '%label' => $entity->label(),
         ]));
     }

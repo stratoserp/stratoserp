@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_invoice\EventSubscriber;
+namespace Drupal\se_customer\EventSubscriber;
 
 use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;

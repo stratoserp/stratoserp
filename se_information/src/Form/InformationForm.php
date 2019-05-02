@@ -53,15 +53,17 @@ class InformationForm extends ContentEntityForm {
 
     $status = parent::save($form, $form_state);
 
+    $messenger = \Drupal::messenger();
+
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Information.', [
+        $messenger->addMessage($this->t('Created the %label Information.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Information.', [
+        $messenger->addMessage($this->t('Saved the %label Information.', [
           '%label' => $entity->label(),
         ]));
     }

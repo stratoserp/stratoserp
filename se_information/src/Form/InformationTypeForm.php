@@ -47,15 +47,17 @@ class InformationTypeForm extends EntityForm {
     $se_information_type = $this->entity;
     $status = $se_information_type->save();
 
+    $messenger = \Drupal::messenger();
+
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Information type.', [
+        $messenger->addMessage($this->t('Created the %label Information type.', [
           '%label' => $se_information_type->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Information type.', [
+        $messenger->addMessage($this->t('Saved the %label Information type.', [
           '%label' => $se_information_type->label(),
         ]));
     }

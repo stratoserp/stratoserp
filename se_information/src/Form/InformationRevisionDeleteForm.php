@@ -107,7 +107,8 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
     $this->InformationStorage->deleteRevision($this->revision->getRevisionId());
 
     $this->logger('content')->notice('Information: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
-    drupal_set_message(t('Revision from %revision-date of Information %title has been deleted.', ['%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));
+    $messenger = \Drupal::messenger();
+    $messenger->addMessage(t('Revision from %revision-date of Information %title has been deleted.', ['%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));
     $form_state->setRedirect(
       'entity.se_information.canonical',
        ['se_information' => $this->revision->id()]

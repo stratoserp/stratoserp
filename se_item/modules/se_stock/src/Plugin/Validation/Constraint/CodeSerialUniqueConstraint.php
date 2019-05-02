@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_stocks\Plugin\Validation\Constraint;
+namespace Drupal\se_stock\Plugin\Validation\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 
