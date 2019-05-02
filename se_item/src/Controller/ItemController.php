@@ -25,8 +25,8 @@ class ItemController extends ControllerBase implements ContainerInjectionInterfa
    *   An array suitable for drupal_render().
    */
   public function revisionShow($se_item_revision) {
-    $se_item = $this->entityManager()->getStorage('se_item')->loadRevision($se_item_revision);
-    $view_builder = $this->entityManager()->getViewBuilder('se_item');
+    $se_item = $this->entityTypeManager()->getStorage('se_item')->loadRevision($se_item_revision);
+    $view_builder = $this->entityTypeManager()->getViewBuilder('se_item');
 
     return $view_builder->view($se_item);
   }
@@ -41,8 +41,8 @@ class ItemController extends ControllerBase implements ContainerInjectionInterfa
    *   The page title.
    */
   public function revisionPageTitle($se_item_revision) {
-    $se_item = $this->entityManager()->getStorage('se_item')->loadRevision($se_item_revision);
-    return $this->t('Revision of %title from %date', ['%title' => $se_item->label(), '%date' => format_date($se_item->getRevisionCreationTime())]);
+    $se_item = $this->entityTypeManager()->getStorage('se_item')->loadRevision($se_item_revision);
+    return $this->t('Revision of %title from %date', ['%title' => $se_item->label(), '%date' => \Drupal::service('date.formatter')->format($se_item->getRevisionCreationTime())]);
   }
 
   /**
@@ -60,7 +60,7 @@ class ItemController extends ControllerBase implements ContainerInjectionInterfa
     $langname = $se_item->language()->getName();
     $languages = $se_item->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $se_item_storage = $this->entityManager()->getStorage('se_item');
+    $se_item_storage = $this->entityTypeManager()->getStorage('se_item');
 
     $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', ['@langname' => $langname, '%title' => $se_item->label()]) : $this->t('Revisions for %title', ['%title' => $se_item->label()]);
     $header = [$this->t('Revision'), $this->t('Operations')];

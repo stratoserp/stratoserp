@@ -25,8 +25,8 @@ class InformationController extends ControllerBase implements ContainerInjection
    *   An array suitable for drupal_render().
    */
   public function revisionShow($se_information_revision) {
-    $se_information = $this->entityManager()->getStorage('se_information')->loadRevision($se_information_revision);
-    $view_builder = $this->entityManager()->getViewBuilder('se_information');
+    $se_information = $this->entityTypeManager()->getStorage('se_information')->loadRevision($se_information_revision);
+    $view_builder = $this->entityTypeManager()->getViewBuilder('se_information');
 
     return $view_builder->view($se_information);
   }
@@ -41,8 +41,8 @@ class InformationController extends ControllerBase implements ContainerInjection
    *   The page title.
    */
   public function revisionPageTitle($se_information_revision) {
-    $se_information = $this->entityManager()->getStorage('se_information')->loadRevision($se_information_revision);
-    return $this->t('Revision of %title from %date', ['%title' => $se_information->label(), '%date' => format_date($se_information->getRevisionCreationTime())]);
+    $se_information = $this->entityTypeManager()->getStorage('se_information')->loadRevision($se_information_revision);
+    return $this->t('Revision of %title from %date', ['%title' => $se_information->label(), '%date' => \Drupal::service('date.formatter')->format($se_information->getRevisionCreationTime())]);
   }
 
   /**
@@ -60,7 +60,7 @@ class InformationController extends ControllerBase implements ContainerInjection
     $langname = $se_information->language()->getName();
     $languages = $se_information->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $se_information_storage = $this->entityManager()->getStorage('se_information');
+    $se_information_storage = $this->entityTypeManager()->getStorage('se_information');
 
     $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', ['@langname' => $langname, '%title' => $se_information->label()]) : $this->t('Revisions for %title', ['%title' => $se_information->label()]);
     $header = [$this->t('Revision'), $this->t('Operations')];
@@ -91,7 +91,7 @@ class InformationController extends ControllerBase implements ContainerInjection
           $link = $this->l($date, new Url('entity.se_information.revision', ['se_information' => $se_information->id(), 'se_information_revision' => $vid]));
         }
         else {
-          $link = $se_information->link($date);
+          $link = $se_information->toLink($date);
         }
 
         $row = [];

@@ -5,6 +5,7 @@ namespace Drupal\se_core\Controller;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Tags;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Database;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ class AutocompleteController extends ControllerBase {
       // TODO - Range limit
       $query = \Drupal::entityQuery('node')
         ->condition('status', 1)
-        ->condition('title', '%'.db_like($search_string).'%', 'LIKE')
+        ->condition('title', '%' . Database::getConnection()->escapeLike($search_string) . '%', 'LIKE')
         ->condition('type', 'se_customer');
 
       $node_ids = $query->execute();

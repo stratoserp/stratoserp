@@ -4,6 +4,7 @@ namespace Drupal\se_core\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\Messenger;
 
 class SearchForm extends FormBase {
 
@@ -50,14 +51,14 @@ class SearchForm extends FormBase {
     $values = $form_state->getValues();
 
     if (empty($values['search'])) {
-      drupal_set_message(t('No search string found'));
+      $this->messenger->addMessage(t('No search string found'));
       return;
     }
 
     if (preg_match("/.+\s\(([^)]+)\)/", $values['search'], $matches)) {
       $match = $matches[1];
       if (empty($match)) {
-        drupal_set_message(t('No matches found'));
+        $this->messenger->addMessage(t('No matches found'));
         return;
       }
 
