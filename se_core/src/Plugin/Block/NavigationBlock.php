@@ -94,9 +94,17 @@ class NavigationBlock extends BlockBase {
     return $build;
   }
 
+  /**
+   * Set cache tags on a per node basis.
+   *
+   * @return array|string[]
+   */
   public function getCacheTags() {
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
-      return Cache::mergeTags(parent::getCacheTags(), array('node:' . $node->id()));
+      if (is_object($node)) {
+        $node = $node->id();
+      }
+      return Cache::mergeTags(parent::getCacheTags(), array('node:' . $node));
     }
 
     return parent::getCacheTags();

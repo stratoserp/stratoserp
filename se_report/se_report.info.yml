@@ -6,3 +6,4 @@ package: Stratos ERP
 dependencies:
   - se_invoice
   - se_ticket
+  - chartjs_api

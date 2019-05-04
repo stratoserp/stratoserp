@@ -10,6 +10,11 @@
 - Audit & Fix up permissions.
 - Convert to use phpmoney class?
 
+# Bugs
+- Migration issues
+  - Tickets have no type
+  - Customers have no balance
+
 # Beta - Database/fields stable
 
 ## Information
