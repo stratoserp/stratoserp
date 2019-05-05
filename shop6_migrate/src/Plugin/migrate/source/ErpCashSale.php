@@ -43,7 +43,10 @@ class ErpCashSale extends ErpCore {
     }
 
     $this->setItems($row, 'erp_cash_sale_data');
-    $this->setBusinessRef($row);
+    if (!$this->setBusinessRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
 
     // All cash sales have to be considered closed.
     self::setTaxonomyTermByName($row, 'Closed', 'se_status', 'status_ref');

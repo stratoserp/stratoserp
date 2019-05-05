@@ -10,7 +10,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class InvoiceSave implements EventSubscriberInterface {
+class PaymentSave implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -18,50 +18,50 @@ class InvoiceSave implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceSave',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceReduce'
+      HookEventDispatcherInterface::ENTITY_INSERT => 'paymentSave',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentReduce'
     ];
   }
 
-  public function invoiceSave(EntityInsertEvent $event) {
+  public function paymentSave(EntityInsertEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_invoice') {
+      || $entity->bundle() !== 'se_payment') {
       return;
     }
     $this->updateCustomerBalance($entity);
   }
 
-  public function invoiceUpdate(EntityUpdateEvent $event) {
+  public function paymentUpdate(EntityUpdateEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_invoice') {
+      || $entity->bundle() !== 'se_payment') {
       return;
     }
     $this->updateCustomerBalance($entity);
   }
 
-  public function invoiceReduce(EntityPresaveEvent $event) {
+  public function paymentReduce(EntityPresaveEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_invoice'
+      || $entity->bundle() !== 'se_payment'
       || $entity->isNew()) {
       return;
     }
 
     // Is this the right way?
-    $this->updateCustomerBalance($entity, TRUE);
+    $this->updateCustomerBalance($entity, FALSE);
   }
 
-  // On invoice
-  private function updateCustomerBalance(EntityInterface $entity, $reduce = FALSE) {
+  // On payment
+  private function updateCustomerBalance(EntityInterface $entity, $reduce = TRUE) {
     if (!$customer = \Drupal::service('se_customer.service')->lookupCustomer($entity)) {
-      \Drupal::logger('se_customer_invoice_save')->error('No customer set for %node', ['%node' => $entity->id()]);
+      \Drupal::logger('se_customer_payment_save')->error('No customer set for %node', ['%node' => $entity->id()]);
       return;
     }
 
-    $amount = $entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_total'}->value;
+    $amount = $entity->{'field_' . ErpCore::PAYMENTS_BUNDLE_MAP[$entity->bundle()] . '_total'}->value;
     if ($reduce) {
       $amount *= -1;
     }

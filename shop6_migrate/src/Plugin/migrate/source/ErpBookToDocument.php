@@ -68,7 +68,10 @@ class ErpBookToDocument extends ErpCore {
         ]));
     }
 
-    $this->setBusinessRef($row);
+    if (!$this->setBusinessRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
 
     return TRUE;
   }

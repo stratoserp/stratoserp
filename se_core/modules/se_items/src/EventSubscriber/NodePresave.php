@@ -26,7 +26,11 @@ class NodePresave implements EventSubscriberInterface {
    *
    */
   public function nodePreSave(EntityPresaveEvent $event) {
-    $entity = $event->getEntity();
+    if (($entity = $event->getEntity())
+      && ($entity->getEntityTypeId() !== 'node'
+        || $entity->bundle() !== 'se_invoice')) {
+      return;
+    }
     $total = 0;
 
     if (!array_key_exists($entity->bundle(), ErpCore::ITEMS_BUNDLE_MAP)) {

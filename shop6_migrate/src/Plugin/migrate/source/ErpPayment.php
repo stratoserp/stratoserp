@@ -45,7 +45,10 @@ class ErpPayment extends ErpCore {
     }
 
     $this->setPayments($row, 'erp_payment_data');
-    $this->setBusinessRef($row);
+    if (!$this->setBusinessRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
 
     return TRUE;
   }

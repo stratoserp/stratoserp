@@ -72,6 +72,7 @@ class CustomerService {
    */
   public function setBalance(Node $node, $value) {
     $node->field_cu_balance->value = $value;
+    $node->save();
     return $this->getBalance($node);
   }
 
@@ -83,6 +84,7 @@ class CustomerService {
    */
   public function adjustBalance(Node $node, $value) {
     $node->field_cu_balance->value += $value;
+    $node->save();
     return $this->getBalance($node);
   }
 }

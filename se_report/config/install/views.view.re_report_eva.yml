@@ -375,7 +375,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'No bills'
+            value: 'No reports'
             format: basic_html
           plugin_id: text
       relationships: {  }

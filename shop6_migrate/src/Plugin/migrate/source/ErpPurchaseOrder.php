@@ -43,8 +43,14 @@ class ErpPurchaseOrder extends ErpCore {
     }
 
     $this->setItems($row, 'erp_purchase_order_data');
-    $this->setBusinessRef($row);
-    $this->setSupplierRef($row);
+    if (!$this->setBusinessRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
+    if (!$this->setSupplierRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
 
     switch ($row->getSourceProperty('purchase_order_status')) {
       case '0':

@@ -12,6 +12,10 @@ final class ErpCore {
     'se_purchase_order' => 'po',
   ];
 
+  public const PAYMENTS_BUNDLE_MAP = [
+    'se_payment' => 'pa',
+  ];
+
   public const NODE_TYPES = [
     'se_bill', 'se_contact', 'se_customer', 'se_goods_receipt',
     'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',

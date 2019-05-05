@@ -56,7 +56,7 @@ class ErpJobComment extends MigrateComment {
     }
 
     $this->logError($row,
-      t('ErpOtherComment: @nid - @cid - @type - @subject has no associated job, ignored', [
+      t('ErpJobComment: @nid - @cid - @type - @subject has no associated job, ignored', [
         '@nid' => $row->getSourceProperty('nid'),
         '@cid' => $row->getSourceProperty('cid'),
         '@subject' => $row->getSourceProperty('subject'),

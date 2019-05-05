@@ -81,7 +81,11 @@ class ErpJobToTicket extends ErpCore {
         ]), MigrationInterface::MESSAGE_NOTICE);
     }
 
-    $this->setBusinessRef($row);
+    if (!$this->setBusinessRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
+
     $this->setOwnerRef($row);
     $this->setStatusRef($row);
     $this->setTaxonomyTermByRef($row, 'field_job_type_value', 3, 'se_ticket_type', 'job_type_ref');

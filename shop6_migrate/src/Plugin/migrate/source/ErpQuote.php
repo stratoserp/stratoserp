@@ -43,7 +43,10 @@ class ErpQuote extends ErpCore {
     }
 
     $this->setItems($row, 'erp_quote_data');
-    $this->setBusinessRef($row);
+    if (!$this->setBusinessRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
 
     switch ($row->getSourceProperty('quote_status')) {
       case '0':

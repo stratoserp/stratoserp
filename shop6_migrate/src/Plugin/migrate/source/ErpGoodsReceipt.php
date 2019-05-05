@@ -54,7 +54,10 @@ class ErpGoodsReceipt extends ErpCore {
     }
 
     $this->setItems($row, 'erp_goods_receive_data');
-    $this->setSupplierRef($row);
+    if (!$this->setSupplierRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
 
     return TRUE;
   }

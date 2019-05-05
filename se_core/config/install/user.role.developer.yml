@@ -42,7 +42,6 @@ permissions:
   - 'administer content types'
   - 'administer display modes'
   - 'administer filters'
-  - 'administer formtips'
   - 'administer image styles'
   - 'administer linkit profiles'
   - 'administer menu'

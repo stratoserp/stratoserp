@@ -43,7 +43,10 @@ class ErpInvoice extends ErpCore {
     }
 
     $this->setItems($row, 'erp_invoice_data');
-    $this->setBusinessRef($row);
+    if (!$this->setBusinessRef($row)) {
+      $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
+      return FALSE;
+    }
 
     switch ($row->getSourceProperty('invoice_status')) {
       case '0':
