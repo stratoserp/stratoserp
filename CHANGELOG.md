@@ -6,10 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## [0.0.2] - 2019-05-06
 ### Added
 - Action based reporting system
 - Bill settings form
 - Missing purchase order reference field in goods receipt
+- Chart api added with basic block
+- Printable and pdf api modules for print support
+
+### Changed
+- Customer balance transactions now working
+- Entity hooks are now specific about which nodes they perform on
+
+### Removed
+- formtips module and config
 
 ## [0.0.1] - 2019-04-25
 ### Added
