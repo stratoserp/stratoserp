@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## Unreleased - dashboards-we-got-em
+### Added
+- Block and extra field for
+  - customer showing number of tickets per month
+  - user showing number of tickets per month
+  - customer showing graph of invoice amounts per month
 
 ## [0.0.2] - 2019-05-06
 ### Added

@@ -256,4 +256,72 @@ trait ReportUtilityTrait {
     return implode(' - ', $title_parts);
   }
 
+  /**
+   * Helper function to return the currently loaded entity from the URL (controller).
+   * Returns NULL if the currently loaded page is no entity.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   */
+  public function get_current_controller_entity() {
+    $currentRouteParameters = \Drupal::routeMatch()->getParameters();
+    foreach ($currentRouteParameters as $param) {
+      if ($param instanceof EntityInterface) {
+        return $param;
+      }
+    }
+    return NULL;
+  }
+
+  /**
+   * Return a list of months for the year with
+   * start and end timestamps.
+   *
+   * TODO - Make more flexible
+   * TODO - Timezones, sigh.
+   */
+  public function reportingMonths($year = '') {
+    $months = [];
+
+    if (empty($year)) {
+      $year = date('Y');
+    }
+
+    for ($i = 1; $i <= 12; $i++) {
+      $months[date("F", mktime(0, 0, 0, $i))] = [
+        'start' => mktime(0, 0, 0, $i, 1, $year),
+        'end' => mktime(0, 0, 0, $i + 1, 0, $year),
+      ];
+    }
+
+    return $months;
+  }
+
+  /**
+   * Generate a background color, intentionally darkish.
+   *
+   * @return array
+   * @throws \Exception
+   */
+  public function generateColors($start = 50) {
+    $bg[] = random_int($start, 150);
+    $bg[] = random_int($start, 150);
+    $bg[] = random_int($start, 150);
+
+    foreach ($bg as $color) {
+      $fg[] = $color + 100;
+    }
+
+    $fg_color = '#' .
+      sprintf("%02X", $fg[0]) .
+      sprintf("%02X", $fg[1]) .
+      sprintf("%02X", $fg[2]);
+
+    $bg_color = '#' .
+      sprintf("%02X", $bg[0]) .
+      sprintf("%02X", $bg[1]) .
+      sprintf("%02X", $bg[2]);
+
+    return [$fg_color, $bg_color];
+  }
+
 }
