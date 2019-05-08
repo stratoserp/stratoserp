@@ -5,6 +5,6 @@ se_payment.settings:
     vocabulary:
       type: string
       label: 'Taxonomy vocab for default payment types.'
-    main_contact_term:
+    default_payment_term:
       type: string
       label: 'Taxonomy term for the default payment type.'

@@ -5,7 +5,6 @@ namespace Drupal\se_invoice\Controller;
 use Drupal\comment\Entity\Comment;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\Entity\Node;
@@ -13,12 +12,13 @@ use Drupal\node\NodeTypeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for Node routes.
  */
-class NodeController extends ControllerBase implements ContainerInjectionInterface {
+class NodeController extends ControllerBase {
 
   /**
    * The date formatter service.
@@ -73,7 +73,7 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
   }
 
   /**
-   * Provides the node submission form.
+   * Provides the node submission form for creation from a quote.
    *
    * @param \Drupal\node\NodeTypeInterface $node_type
    *   The node type entity for the node.
@@ -104,7 +104,7 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
   }
 
   /**
-   * Provides the node submission form.
+   * Provides the node submission form for creation from timekeeping entries.
    *
    * @param \Drupal\node\NodeTypeInterface $node_type
    *   The node type entity for the node.
@@ -121,9 +121,8 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
       'type' => $node_type->id(),
     ]);
 
-    // TODO - Change to be a setting and then use that.
-    $term = taxonomy_term_load_multiple_by_name('Open', 'se_status');
-    $open = reset($term);
+    $default_status = \Drupal::config('se_invoice.settings')->get('invoice_status_term');
+    $open = Term::load($default_status);
 
     $query = \Drupal::request()->query;
     if (!$customer_id = $query->get('field_bu_ref')) {
@@ -141,7 +140,7 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
     $entity_ids = $query->execute();
 
     foreach ($entity_ids as $entity_id) {
-      if ($comment = Comment::load($entity_id)) {
+      if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
         $paragraph = Paragraph::create(['type' => 'se_items']);
         $paragraph->set('field_it_line_item', [
           'target_id' => $comment->id(),
@@ -159,7 +158,9 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
       }
     }
 
-    $node->field_pa_status_ref->target_id = $open->id();
+    if ($open) {
+      $node->field_pa_status_ref->target_id = $open->id();
+    }
 
     return $this->entityFormBuilder()->getForm($node);
   }

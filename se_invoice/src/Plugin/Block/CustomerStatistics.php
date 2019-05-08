@@ -4,6 +4,7 @@ namespace Drupal\se_invoice\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
@@ -40,8 +41,11 @@ class CustomerStatistics extends BlockBase {
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
-        $invoices = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($entity_ids);
+        $invoices = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->loadMultiple($entity_ids);
         $total = 0;
+        /** @var Node $invoice */
         foreach ($invoices as $invoice) {
           $total += $invoice->field_in_total->value;
         }

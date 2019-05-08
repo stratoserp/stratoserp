@@ -11,6 +11,7 @@ use Drupal\node\Entity\Node;
 use Drupal\node\NodeTypeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_core\ErpCore;
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -88,9 +89,16 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
       'type' => $node_type->id(),
     ]);
 
-    // TODO - Change to be a setting and then use that.
-    $term = taxonomy_term_load_multiple_by_name('Open', 'se_status');
-    $open = reset($term);
+    if ((!$invoice_status = \Drupal::config('se_invoice.settings')->get('invoice_status_term'))
+      || !$open = Term::load($invoice_status)) {
+      \Drupal::messenger()->addWarning('No invoice status term issue, unable to retrieve list of open invoices automatically.');
+      return $this->entityFormBuilder()->getForm($node);
+    }
+
+    $payment_term = NULL;
+    if ($payment_type = \Drupal::config('se_payment.settings')->get('default_payment_term')) {
+      $payment_term = Term::load($payment_type);
+    }
 
     $query = \Drupal::request()->query;
     if (!$customer_id = $query->get('field_bu_ref')) {
@@ -106,21 +114,23 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
 
     // Build a list of outstanding invoices and make paragraphs out of them.
     foreach ($entity_ids as $id) {
-      if ($invoice = Node::load($id)) {
+      if ($invoice = $this->entityTypeManager()->getStorage('node')->load($id)) {
         $paragraph = Paragraph::create(['type' => 'se_payments']);
         $paragraph->set('field_pa_invoice', [
           'target_id' => $id,
           'target_type' => 'se_invoice'
         ]);
         $paragraph->set('field_pa_amount', $invoice->field_in_total->value);
+        if ($payment_term) {
+          $paragraph->set('field_pa_type_ref', $payment_term);
+        }
         $node->{'field_pa_items'}->appendItem($paragraph);
 
         $total += $invoice->field_in_total->value;
       }
     }
 
-    $node->field_pa_status_ref->target_id = $open->id();
-    $node->{'field_pa_items'}->value = $total;
+    $node->field_pa_total->value = $total;
 
     return $this->entityFormBuilder()->getForm($node);
   }

@@ -1,0 +1,4 @@
+se_report.overview:
+  title: Reporting
+  route_name: se_report.overview
+  parent: se_core.home
