@@ -28,7 +28,7 @@ class MonthlyStatistics extends BlockBase {
       $month_data = [];
       $fg_colors = [];
       $bg_colors = [];
-      [$fg_color, $bg_color] = $this->generateColors(50 + ($i * 20));
+      [$fg_color, $bg_color] = $this->generateColors();
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = $connection->select('node_field_data', 'nfd');
@@ -65,6 +65,9 @@ class MonthlyStatistics extends BlockBase {
       '#graph_type' => 'line',
       '#options' => [
         'fill' => FALSE,
+        'tooltips' => [
+          'mode' => 'point'
+        ],
       ],
       '#id' => 'monthly_statistics',
       '#type' => 'chartjs_api',

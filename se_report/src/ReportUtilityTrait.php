@@ -302,10 +302,12 @@ trait ReportUtilityTrait {
    * @return array
    * @throws \Exception
    */
-  public function generateColors($start = 50) {
-    $bg[] = random_int($start, 150);
-    $bg[] = random_int($start, 150);
-    $bg[] = random_int($start, 150);
+  public function generateColors() {
+    static $start = 50;
+
+    $bg[] = random_int($start, $start + 50);
+    $bg[] = random_int($start, $start + 50);
+    $bg[] = random_int($start, $start + 50);
 
     foreach ($bg as $color) {
       $fg[] = $color + 100;
@@ -320,6 +322,8 @@ trait ReportUtilityTrait {
       sprintf("%02X", $bg[0]) .
       sprintf("%02X", $bg[1]) .
       sprintf("%02X", $bg[2]);
+
+    $start += 20;
 
     return [$fg_color, $bg_color];
   }
