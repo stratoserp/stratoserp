@@ -58,7 +58,7 @@ process:
     -
       plugin: default_value
       default_value: 0
-  field_ti_type: job_type_ref
+  field_ti_type_ref: job_type_ref
   field_bu_ref/target_id: business_ref
   field_ti_id: job_id
   field_ti_owner_ref: owner_ref

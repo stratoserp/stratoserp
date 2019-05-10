@@ -397,7 +397,7 @@ class ErpCore extends MigrateNode {
    * @throws \Exception
    *   setSourceProperty() might in setTaxonomyTermByName()
    */
-  public function setTaxonomyTermByRef(Row $row,
+  public static function setTaxonomyTermByRef(Row $row,
                                        string $source_field,
                                        int $source_vocabulary,
                                        string $destination_vocabulary,
@@ -405,9 +405,16 @@ class ErpCore extends MigrateNode {
     $term_id = $row->getSourceProperty($source_field);
 
     if (isset($term_id)) {
-      $term_name = $this->getTermNameById($term_id, $source_vocabulary);
+      $term_name = self::getTermNameById($term_id, $source_vocabulary);
 
       if (!empty($term_name)) {
+        if ($source_vocabulary === 3) {
+          if ($term_name === 'appt') {
+            $term_name = 'Appointment';
+          }
+          $term_name = ucfirst($term_name);
+        }
+
         self::setTaxonomyTermByName($row, $term_name, $destination_vocabulary, $destination_field);
       }
     }
@@ -482,7 +489,7 @@ class ErpCore extends MigrateNode {
    * @return null|string
    *   Return the taxonomy term.
    */
-  public function getTermNameById(int $term_id,
+  public static function getTermNameById(int $term_id,
                                   int $old_vid) {
     static $static_term_id_name_cache = [];
 

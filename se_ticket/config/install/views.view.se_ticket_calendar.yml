@@ -2,21 +2,24 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_bu_ref
-    - field.storage.node.field_in_id
-    - field.storage.node.field_in_total
-    - node.type.se_invoice
+    - field.storage.node.body
+    - field.storage.node.field_ti_open_date
+    - field.storage.node.field_ti_owner_ref
+    - field.storage.node.field_ti_scheduled
+    - field.storage.node.field_ti_type_ref
+    - node.type.se_ticket
     - system.menu.stratos-erp
-    - taxonomy.vocabulary.se_status
-    - user.role.developer
+    - taxonomy.vocabulary.se_ticket_type
     - user.role.staff
   module:
+    - datetime_range
+    - fullcalendar_view
     - node
-    - serial
     - taxonomy
+    - text
     - user
-id: se_invoice_list
-label: 'Invoice list'
+id: se_ticket_calendar
+label: Calendar
 module: views
 description: ''
 tag: ''
@@ -34,7 +37,6 @@ display:
         type: role
         options:
           role:
-            developer: developer
             staff: staff
       cache:
         type: tag
@@ -51,292 +53,72 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: true
+          reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: full
+        type: some
         options:
-          items_per_page: 20
+          items_per_page: 250
           offset: 0
-          id: 0
-          total_pages: null
-          tags:
-            previous: ‹
-            next: ›
-            first: ‹‹
-            last: ››
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          quantity: 6
       style:
-        type: table
+        type: fullcalendar_view_display
         options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            nid: nid
-            created: created
-            field_in_id: field_in_id
-            title: title
-            field_bu_ref: field_bu_ref
-            field_in_total: field_in_total
-          info:
-            nid:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            created:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_in_id:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            title:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_bu_ref:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_in_total:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: created
-          empty_table: false
+          default_date_source: now
+          defaultDate: ''
+          start: field_ti_scheduled
+          end: field_ti_scheduled
+          title: title
+          des:
+            body: body
+          use_entity_fields: 1
+          right_buttons:
+            agendaWeek: agendaWeek
+            agendaDay: agendaDay
+            listYear: listYear
+          nav_links: 1
+          alloweventOverlap: 1
+          updateConfirm: 1
+          defaultLanguage: en
+          languageSelector: 0
+          createEventLink: 1
+          tax_field: field_ti_type_ref
+          vocabularies: se_ticket_type
+          color_bundle:
+            se_bill: '#3a87ad'
+            se_contact: '#3a87ad'
+            se_customer: '#3a87ad'
+            se_goods_receipt: '#3a87ad'
+            se_invoice: '#3a87ad'
+            se_payment: '#3a87ad'
+            se_purchase_order: '#3a87ad'
+            se_quote: '#3a87ad'
+            se_report: '#3a87ad'
+            se_supplier: '#3a87ad'
+            se_ticket: '#3a87ad'
+          bundle_type: se_ticket
+          classes: ''
+          color_taxonomies:
+            37: '#ff0000'
+            496: '#613aad'
+            38: '#3aad55'
+            502: '#000000'
+            39: '#3aad69'
+            500: '#3a4f00'
+            40: '#3a87ad'
+            498: '#3a87ad'
+            41: '#3a87ad'
+            42: '#3a87ad'
+            43: '#3a87ad'
+            44: '#3a87ad'
+            501: '#3a87ad'
+            45: '#cc7500'
       row:
         type: fields
       fields:
-        nid:
-          id: nid
-          table: node_field_data
-          field: nid
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ID
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Date
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: true
-            path: 'node/{{ nid }}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: custom
-            custom_date_format: Y-m-d
-            timezone: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: node
-          entity_field: created
-          plugin_id: field
-        field_in_id:
-          id: field_in_id
-          table: node__field_in_id
-          field: field_in_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Invoice
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: true
-            path: 'node/{{ nid }}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: serial_default_formatter
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
         title:
           id: title
           table: node_field_data
@@ -345,7 +127,7 @@ display:
           group_type: group
           admin_label: ''
           label: Title
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -377,7 +159,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -402,15 +184,15 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_bu_ref:
-          id: field_bu_ref
-          table: node__field_bu_ref
-          field: field_bu_ref
+        field_ti_type_ref:
+          id: field_ti_type_ref
+          table: node__field_ti_type_ref
+          field: field_ti_type_ref
           relationship: none
           group_type: group
           admin_label: ''
-          label: Business
-          exclude: false
+          label: Type
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -465,20 +247,132 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_in_total:
-          id: field_in_total
-          table: node__field_in_total
-          field: field_in_total
+        field_ti_owner_ref:
+          id: field_ti_owner_ref
+          table: node__field_ti_owner_ref
+          field: field_ti_owner_ref
           relationship: none
           group_type: group
           admin_label: ''
-          label: Total
+          label: Owner
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Title
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ title }} {{ field_ti_type_ref }} - {{ field_ti_owner_ref }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
+          plugin_id: custom
+        field_ti_open_date:
+          id: field_ti_open_date
+          table: node__field_ti_open_date
+          field: field_ti_open_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Open date'
           exclude: false
           alter:
             alter_text: false
             text: ''
-            make_link: true
-            path: 'node/{{ nid }}'
+            make_link: false
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
@@ -514,12 +408,138 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_decimal
+          type: timestamp
           settings:
-            thousand_separator: ''
-            prefix_suffix: true
-            decimal_separator: .
-            scale: 2
+            date_format: medium
+            custom_date_format: ''
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_ti_scheduled:
+          id: field_ti_scheduled
+          table: node__field_ti_scheduled
+          field: field_ti_scheduled
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Scheduled
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: daterange_default
+          settings:
+            timezone_override: ''
+            format_type: medium
+            separator: '-'
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        body:
+          id: body
+          table: node__body
+          field: body
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Body
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -547,184 +567,15 @@ display:
           id: type
           table: node_field_data
           field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
           value:
-            se_invoice: se_invoice
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            se_ticket: se_ticket
           entity_type: node
           entity_field: type
           plugin_id: bundle
-        field_in_id_value:
-          id: field_in_id_value
-          table: node__field_in_id
-          field: field_in_id_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_in_id_value_op
-            label: 'Invoice id'
-            description: ''
-            use_operator: false
-            operator: field_in_id_value_op
-            identifier: invoice_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: numeric
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: field_bu_ref
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: title_op
-            label: Business
-            description: ''
-            use_operator: false
-            operator: title_op
-            identifier: business
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: node
-          entity_field: title
-          plugin_id: string
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: between
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: created_op
-            label: 'Created between'
-            description: ''
-            use_operator: false
-            operator: created_op
-            identifier: created
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-              developer: '0'
-            placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-        field_in_status_ref_target_id:
-          id: field_in_status_ref_target_id
-          table: node__field_in_status_ref
-          field: field_in_status_ref_target_id
+        field_ti_type_ref_target_id:
+          id: field_ti_type_ref_target_id
+          table: node__field_ti_type_ref
+          field: field_ti_type_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -733,12 +584,12 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_in_status_ref_target_id_op
-            label: Status
+            operator_id: field_ti_type_ref_target_id_op
+            label: 'Ticket type'
             description: ''
             use_operator: false
-            operator: field_in_status_ref_target_id_op
-            identifier: status
+            operator: field_ti_type_ref_target_id_op
+            identifier: ti_type
             required: false
             remember: false
             multiple: false
@@ -766,46 +617,48 @@ display:
           reduce_duplicates: false
           type: select
           limit: true
-          vid: se_status
+          vid: se_ticket_type
           hierarchy: false
           error_message: true
           plugin_id: taxonomy_index_tid
-      sorts: {  }
-      title: 'Invoice list'
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          order: DESC
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          exposed: false
+          expose:
+            label: ''
+          granularity: second
+      title: Calendar
       header: {  }
       footer: {  }
       empty: {  }
-      relationships:
-        field_bu_ref:
-          id: field_bu_ref
-          table: node__field_bu_ref
-          field: field_bu_ref
-          relationship: none
-          group_type: group
-          admin_label: 'field_bu_ref: Content'
-          required: false
-          plugin_id: standard
+      relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_bu_ref'
-        - 'config:field.storage.node.field_in_id'
-        - 'config:field.storage.node.field_in_total'
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_ti_open_date'
+        - 'config:field.storage.node.field_ti_owner_ref'
+        - 'config:field.storage.node.field_ti_scheduled'
+        - 'config:field.storage.node.field_ti_type_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -813,14 +666,14 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/customers/invoices
+      path: se/calendar
       menu:
         type: normal
-        title: Invoices
+        title: Calendar
         description: ''
         expanded: false
-        parent: 'views_view:views.se_customer_list.page_1'
-        weight: -49
+        parent: 'views_view:views.se_ticket_list.page_1'
+        weight: 0
         context: '0'
         menu_name: stratos-erp
     cache_metadata:
@@ -829,11 +682,12 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_bu_ref'
-        - 'config:field.storage.node.field_in_id'
-        - 'config:field.storage.node.field_in_total'
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_ti_open_date'
+        - 'config:field.storage.node.field_ti_owner_ref'
+        - 'config:field.storage.node.field_ti_scheduled'
+        - 'config:field.storage.node.field_ti_type_ref'

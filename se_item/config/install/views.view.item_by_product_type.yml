@@ -7,7 +7,6 @@ dependencies:
     - field.storage.se_item.field_it_sell_price
     - field.storage.se_item.field_it_serial
   module:
-    - calendar
     - se_item
     - user
 id: item_by_product_type

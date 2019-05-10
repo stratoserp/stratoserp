@@ -78,7 +78,7 @@ class ErpJobToTicket extends ErpCore {
       $this->logError($row,
         t('ErpTicket: @nid - Attached files to node', [
           '@nid' => $row->getSourceProperty('nid'),
-        ]), MigrationInterface::MESSAGE_NOTICE);
+        ]));
     }
 
     if (!$this->setBusinessRef($row)) {

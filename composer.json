@@ -20,7 +20,6 @@
     }
   ],
   "require": {
-      "drupal/calendar": "1.*@dev",
       "drupal/core": "^8.6",
       "drupal/duration_field": "2.*@dev",
       "drupal/entity_reference_revisions": "1.*@dev",

@@ -29,7 +29,6 @@ permissions:
   - 'administer block_content fields'
   - 'administer block_content form display'
   - 'administer blocks'
-  - 'administer calendar settings'
   - 'administer comment display'
   - 'administer comment fields'
   - 'administer comment form display'
