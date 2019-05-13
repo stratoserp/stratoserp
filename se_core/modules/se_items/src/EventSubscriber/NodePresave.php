@@ -26,9 +26,10 @@ class NodePresave implements EventSubscriberInterface {
    *
    */
   public function nodePreSave(EntityPresaveEvent $event) {
-    if (($entity = $event->getEntity())
-      && ($entity->getEntityTypeId() !== 'node'
-        || $entity->bundle() !== 'se_invoice')) {
+    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
+      return;
+    }
+    if (!in_array($entity->bundle(), ['se_invoice', 'se_quote', 'se_purchase_order', 'se_goods_receipt'])) {
       return;
     }
     $total = 0;

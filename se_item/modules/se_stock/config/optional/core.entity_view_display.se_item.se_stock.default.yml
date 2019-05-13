@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_item.se_stock.field_it_goods_receipt_ref
     - field.field.se_item.se_stock.field_it_images
     - field.field.se_item.se_stock.field_it_invoice_ref
+    - field.field.se_item.se_stock.field_it_item_ref
     - field.field.se_item.se_stock.field_it_lost
     - field.field.se_item.se_stock.field_it_manufacturer_ref
     - field.field.se_item.se_stock.field_it_product_type_ref
@@ -43,7 +44,7 @@ content:
     third_party_settings: {  }
   field_it_cost_price:
     type: number_decimal
-    weight: 12
+    weight: 13
     region: second
     label: inline
     settings:
@@ -53,14 +54,14 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
   field_it_description:
-    weight: 14
+    weight: 15
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: bottom
   field_it_goods_receipt_ref:
-    weight: 11
+    weight: 12
     label: inline
     settings:
       link: true
@@ -69,7 +70,7 @@ content:
     region: second
   field_it_images:
     type: image
-    weight: 15
+    weight: 16
     region: bottom
     label: above
     settings:
@@ -78,12 +79,20 @@ content:
     third_party_settings: {  }
   field_it_invoice_ref:
     type: entity_reference_label
-    weight: 13
+    weight: 14
     region: second
     label: inline
     settings:
       link: true
     third_party_settings: {  }
+  field_it_item_ref:
+    weight: 10
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
   field_it_lost:
     type: boolean
     weight: 6
@@ -112,7 +121,7 @@ content:
     third_party_settings: {  }
   field_it_purchase_order_ref:
     type: entity_reference_label
-    weight: 10
+    weight: 11
     region: second
     label: inline
     settings:
@@ -172,6 +181,11 @@ content:
     region: top
     settings:
       link_to_entity: false
+    third_party_settings: {  }
+  se_stock_item_by_code_eva_entity_view_1:
+    weight: 17
+    region: bottom
+    settings: {  }
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true

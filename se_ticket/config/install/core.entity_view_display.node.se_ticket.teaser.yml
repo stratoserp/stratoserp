@@ -41,6 +41,7 @@ content:
     weight: 100
     region: content
 hidden:
+  extra_field_ticket_statistics: true
   field_attachments: true
   field_bu_ref: true
   field_co_ref: true

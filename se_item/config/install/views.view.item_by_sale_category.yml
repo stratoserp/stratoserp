@@ -7,7 +7,6 @@ dependencies:
     - field.storage.se_item.field_it_sell_price
     - field.storage.se_item.field_it_serial
   module:
-    - calendar
     - se_item
     - user
 id: item_by_sale_category
@@ -812,35 +811,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.permissions
-      tags:
-        - 'config:field.storage.se_item.field_it_code'
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_sell_price'
-        - 'config:field.storage.se_item.field_it_serial'
-  feed_1:
-    display_plugin: feed
-    id: feed_1
-    display_title: Feed
-    position: 2
-    display_options:
-      display_extenders: {  }
-      row:
-        type: calendar_row
-      pager:
-        type: some
-      style:
-        type: rss
-      path: item/by-sale-category.xml
-      displays:
-        default: default
-        page_1: page_1
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url
         - user.permissions
       tags:
         - 'config:field.storage.se_item.field_it_code'

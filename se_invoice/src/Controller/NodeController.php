@@ -98,6 +98,8 @@ class NodeController extends ControllerBase {
       }
     }
 
+    $node->field_bu_ref->target_id = $source->field_bu_ref->target_id;
+    $node->field_co_ref->target_id = $source->field_co_ref->target_id;
     $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);

@@ -17,7 +17,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *   }
  * )
  */
-class CustomerStatistics extends ExtraFieldDisplayFormattedBase {
+class MonthlyStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 

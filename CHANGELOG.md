@@ -5,12 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased - dashboards-we-got-em
+## [0.0.3] - dashboards-we-got-em
 ### Added
 - Block and extra field for
   - customer showing number of tickets per month
   - user showing number of tickets per month
   - customer showing graph of invoice amounts per month
+- Update item with goods receipt, purchase order on goods receipt save
+- Blocks and fields for reports
+- New views
+- Added reference to item for parent item
+- Added view of 'child' items to item
+
+### Fixed
+- Goods receipt didn't work with a single item
+- Pass customer and contact through to goods receipt, goods receipt
+- Some file naming
+
+### Removed
+- Calendar module
 
 ## [0.0.2] - 2019-05-06
 ### Added

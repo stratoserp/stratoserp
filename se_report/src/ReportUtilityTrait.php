@@ -297,33 +297,27 @@ trait ReportUtilityTrait {
   }
 
   /**
-   * Generate a background color, intentionally darkish.
+   * Generate a color, darker each time the function is called.
    *
    * @return array
    * @throws \Exception
    */
-  public function generateColors() {
-    static $start = 50;
+  public function generateColorsDarkening($red = NULL, $green = NULL, $blue = NULL) {
+    static $start = 255;
 
-    $bg[] = random_int($start, $start + 50);
-    $bg[] = random_int($start, $start + 50);
-    $bg[] = random_int($start, $start + 50);
+    $adjustment = random_int(20, 30);
+    $bg[] = empty($red) ? $start - $adjustment : $red; // Red
+    $bg[] = empty($green) ? $start - $adjustment : $green; // Green
+    $bg[] = empty($blue) ? $start - $adjustment : $blue; // Blue
 
     foreach ($bg as $color) {
-      $fg[] = $color + 100;
+      $fg[] = max(10, $color - 20);
     }
 
-    $fg_color = '#' .
-      sprintf("%02X", $fg[0]) .
-      sprintf("%02X", $fg[1]) .
-      sprintf("%02X", $fg[2]);
+    $fg_color = sprintf('#%02X%02X%02X', $fg[0], $fg[1], $fg[2]);
+    $bg_color = sprintf('#%02X%02X%02X', $bg[0], $bg[1], $bg[2]);
 
-    $bg_color = '#' .
-      sprintf("%02X", $bg[0]) .
-      sprintf("%02X", $bg[1]) .
-      sprintf("%02X", $bg[2]);
-
-    $start += 20;
+    $start -= $adjustment;
 
     return [$fg_color, $bg_color];
   }

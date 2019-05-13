@@ -93,14 +93,16 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
       if ($source_paragraph = Paragraph::load($new_value['target_id'])) {
         // TODO - Ensure we're using the non-serialised item here?
         $item_count = $source_paragraph->field_it_quantity->value;
-        if ($item_count > 1) {
-          for ($i = 0; $i < $item_count; $i++) {
-            $source_paragraph->field_it_quantity->value = 1;
-            $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($source_paragraph->createDuplicate());
-          }
+        for ($i = 0; $i < $item_count; $i++) {
+          $source_paragraph->field_it_quantity->value = 1;
+          $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($source_paragraph->createDuplicate());
         }
       }
     }
+
+    $node->field_bu_ref->target_id = $source->field_bu_ref->target_id;
+    $node->field_co_ref->target_id = $source->field_co_ref->target_id;
+    $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_purchase_order_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);
   }

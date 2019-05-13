@@ -41,6 +41,7 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_ticket_statistics: true
   field_bu_ref: true
   field_co_ref: true
   field_qu_id: true

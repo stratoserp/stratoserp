@@ -7,7 +7,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ItemsPresave implements EventSubscriberInterface {
+class ItemsPreSave implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -25,6 +25,7 @@ class ItemsPresave implements EventSubscriberInterface {
    *
    * @param EntityPresaveEvent $event
    *
+   * TODO - Config option to generate serial numbers if blank?
    */
   public function itemsPreSave(EntityPresaveEvent $event) {
     $entity = $event->getEntity();
@@ -34,6 +35,7 @@ class ItemsPresave implements EventSubscriberInterface {
         if ($item->field_it_serial->value !== $entity->field_it_serial->value) {
           $new_item = $item->createDuplicate();
           $new_item->field_it_serial->value = $entity->field_it_serial->value;
+          $new_item->field_it_item_ref->target_id = $item->id();
           $new_item->save();
           $entity->field_it_line_item->target_id = $new_item->id();
         }

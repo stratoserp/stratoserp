@@ -31,7 +31,7 @@ class CustomerStatistics extends BlockBase {
       $month_data = [];
       $fg_colors = [];
       $bg_colors = [];
-      [$fg_color, $bg_color] = $this->generateColors();
+      [$fg_color, $bg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
@@ -50,9 +50,13 @@ class CustomerStatistics extends BlockBase {
         'data' => $month_data,
         'backgroundColor' => $fg_colors,
         'borderColor' => $fg_colors,
-        'pointBackgroundColor' => $fg_colors,
-        'hoverBackgroundColor' => $bg_colors,
+        'hoverBackgroundColor' => $fg_colors,
         'fill' => FALSE,
+        'hover' => [
+          'mode' => 'dataset'
+        ],
+        'pointRadius' => 5,
+        'pointHoverRadius' => 10,
       ];
     }
 
@@ -63,9 +67,11 @@ class CustomerStatistics extends BlockBase {
       ],
       '#graph_type' => 'line',
       '#options' => [
-        'fill' => FALSE,
         'tooltips' => [
           'mode' => 'point'
+        ],
+        'hover' => [
+          'mode' => 'dataset'
         ],
       ],
       '#id' => 'ticket_statistics_customer',

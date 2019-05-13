@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_item.se_stock.field_it_goods_receipt_ref
     - field.field.se_item.se_stock.field_it_images
     - field.field.se_item.se_stock.field_it_invoice_ref
+    - field.field.se_item.se_stock.field_it_item_ref
     - field.field.se_item.se_stock.field_it_lost
     - field.field.se_item.se_stock.field_it_manufacturer_ref
     - field.field.se_item.se_stock.field_it_product_type_ref
@@ -83,6 +84,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_it_item_ref:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
   field_it_lost:
     type: boolean_checkbox
     weight: 5

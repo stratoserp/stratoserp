@@ -436,9 +436,9 @@ class ErpCore extends MigrateNode {
    *   setSourceProperty() might.
    */
   public static function setTaxonomyTermByName(Row $row,
-                                        string $name,
-                                        string $vocabulary,
-                                        string $destination) {
+                                               string $name,
+                                               string $vocabulary,
+                                               string $destination) {
 
     $id = self::findCreateTerm($name, $vocabulary);
     $static_term_id_cache[$vocabulary][$name] = $id;
