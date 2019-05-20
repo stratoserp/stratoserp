@@ -84,12 +84,14 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function add(NodeTypeInterface $node_type, Node $source) {
+    /** @var Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);
 
     foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $value) {
       $new_value = $value->getValue();
+      /** @var Paragraph $source_paragraph */
       if ($source_paragraph = Paragraph::load($new_value['target_id'])) {
         // TODO - Ensure we're using the non-serialised item here?
         $item_count = $source_paragraph->field_it_quantity->value;

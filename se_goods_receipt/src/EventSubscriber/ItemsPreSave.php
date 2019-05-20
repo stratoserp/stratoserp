@@ -6,6 +6,7 @@ use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\node\Entity\Node;
 
 class ItemsPreSave implements EventSubscriberInterface {
 
@@ -28,8 +29,10 @@ class ItemsPreSave implements EventSubscriberInterface {
    * TODO - Config option to generate serial numbers if blank?
    */
   public function itemsPreSave(EntityPresaveEvent $event) {
+    /** @var Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'paragraph' && $entity->bundle() === 'se_items') {
+      /** @var Item $item */
       if (!empty($entity->field_it_serial->value) &&
         $item = Item::load($entity->field_it_line_item->target_id)) {
         if ($item->field_it_serial->value !== $entity->field_it_serial->value) {

@@ -27,7 +27,6 @@ class ItemsPostSave implements EventSubscriberInterface {
    *
    * @param EntityInsertEvent $event
    *
-   * TODO - Update goods receipt, purchase order etc refs.
    */
   public function itemsPostSave(EntityInsertEvent $event) {
     /** @var Node $entity */
@@ -38,10 +37,15 @@ class ItemsPostSave implements EventSubscriberInterface {
         /** @var Paragraph $paragraph */
         $paragraph = Paragraph::load($new_value['target_id']);
         /** @var Item $item */
-        $item = Item::load($paragraph->field_it_line_item->target_id);
-        $item->field_it_goods_receipt_ref->target_id = $entity->id();
-        $item->field_it_purchase_order_ref->target_id = $entity->field_gr_purchase_order_ref->target_id;
-        $item->save();
+        if ($item = Item::load($paragraph->field_it_line_item->target_id)) {
+          if ($item->bundle() !== 'se_stock') {
+            // \Drupal::logger('se_goods_receipt')->warning('Not receiving stock for entity %entity, %item - %item_type', ['%entity' => $entity->id(), '%item' => $item->id(), '%item_type' => $item->bundle()]);
+            continue;
+          }
+          $item->set('field_it_goods_receipt_ref', $entity->id());
+          $item->set('field_it_purchase_order_ref', $entity->field_gr_purchase_order_ref->target_id);
+          $item->save();
+        }
       }
     }
   }

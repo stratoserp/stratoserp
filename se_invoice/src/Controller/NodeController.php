@@ -86,6 +86,7 @@ class NodeController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function add(NodeTypeInterface $node_type, Node $source) {
+    /** @var Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);
@@ -111,14 +112,13 @@ class NodeController extends ControllerBase {
    * @param \Drupal\node\NodeTypeInterface $node_type
    *   The node type entity for the node.
    *
-   * @param \Drupal\node\Entity\Node $source
-   *
    * @return array
    *   A node submission form.
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function timekeeping(NodeTypeInterface $node_type, Node $source) {
+    /** @var Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);
@@ -126,12 +126,9 @@ class NodeController extends ControllerBase {
     $default_status = \Drupal::config('se_invoice.settings')->get('invoice_status_term');
     $open = Term::load($default_status);
 
-    $query = \Drupal::request()->query;
-    if (!$customer_id = $query->get('field_bu_ref')) {
+    $if (!customer_id = $source->field_bu_ref->target_id) {
       return $this->entityFormBuilder()->getForm($node);
     }
-
-    $total = 0;
 
     // Retrieve a list of unbilled timekeeping entries for this customer.
     $query = \Drupal::entityQuery('comment');
@@ -142,7 +139,9 @@ class NodeController extends ControllerBase {
     $entity_ids = $query->execute();
 
     foreach ($entity_ids as $entity_id) {
+      /** @var Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
+        /** @var Paragraph $paragraph */
         $paragraph = Paragraph::create(['type' => 'se_items']);
         $paragraph->set('field_it_line_item', [
           'target_id' => $comment->id(),
@@ -153,6 +152,7 @@ class NodeController extends ControllerBase {
           'value' => $comment->field_tk_comment->value,
           'format' => $comment->field_tk_comment->format,
         ]);
+        /** @var Item $item */
         if ($item = Item::load($comment->field_tk_item->target_id)) {
           $paragraph->set('field_it_price', $item->field_it_sell_price->value);
         }
