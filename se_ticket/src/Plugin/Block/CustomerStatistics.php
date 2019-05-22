@@ -21,7 +21,10 @@ class CustomerStatistics extends BlockBase {
     $datasets = [];
 
     /** @var EntityInterface $node */
-    $node = $this->get_current_controller_entity();
+    if (!$node = $this->get_current_controller_entity()) {
+      return [];
+    }
+
     if ($node->bundle() !== 'se_customer') {
       return [];
     }

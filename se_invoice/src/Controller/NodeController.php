@@ -126,7 +126,7 @@ class NodeController extends ControllerBase {
     $default_status = \Drupal::config('se_invoice.settings')->get('invoice_status_term');
     $open = Term::load($default_status);
 
-    $if (!customer_id = $source->field_bu_ref->target_id) {
+    if (!$customer_id = $source->field_bu_ref->target_id) {
       return $this->entityFormBuilder()->getForm($node);
     }
 

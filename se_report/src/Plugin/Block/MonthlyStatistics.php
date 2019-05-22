@@ -3,7 +3,6 @@
 namespace Drupal\se_report\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\node\Entity\Node;
 use Drupal\se_accounting\AccountingUtilityTrait;
 use Drupal\se_report\ReportUtilityTrait;
 

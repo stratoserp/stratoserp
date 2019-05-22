@@ -21,7 +21,10 @@ class UserStatistics extends BlockBase {
     $datasets = [];
 
     /** @var EntityInterface $node */
-    $entity = $this->get_current_controller_entity();
+    if (!$entity = $this->get_current_controller_entity()) {
+      return [];
+    }
+
     if ($entity->getEntityTypeId() !== 'user') {
       return [];
     }
