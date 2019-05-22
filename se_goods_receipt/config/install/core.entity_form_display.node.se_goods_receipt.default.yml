@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.se_goods_receipt.field_se_comments
     - node.type.se_goods_receipt
   module:
+    - chosen_field
     - comment
     - field_layout
     - layout_discovery
@@ -39,21 +40,15 @@ content:
     region: bottom
   field_bu_ref:
     weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_co_ref:
     weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_gr_id:
     weight: 3
@@ -81,21 +76,15 @@ content:
     region: bottom
   field_gr_purchase_order_ref:
     weight: 26
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_gr_status_ref:
-    type: entity_reference_autocomplete
+    type: chosen_select
     weight: 4
     region: second
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_gr_total:
     type: number

@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.se_supplier.field_su_suburb
     - node.type.se_supplier
   module:
+    - chosen_field
     - field_layout
     - layout_discovery
     - link
@@ -52,7 +53,7 @@ content:
       size: 25
     third_party_settings: {  }
   field_su_email_format:
-    type: options_select
+    type: chosen_select
     weight: 11
     region: second
     settings: {  }
@@ -141,7 +142,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_su_status:
-    type: options_select
+    type: chosen_select
     weight: 12
     region: second
     settings: {  }

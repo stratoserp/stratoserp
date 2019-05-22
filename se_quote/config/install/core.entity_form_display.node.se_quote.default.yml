@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.se_quote.field_se_comments
     - node.type.se_quote
   module:
+    - chosen_field
     - comment
     - field_layout
     - layout_discovery
@@ -38,21 +39,15 @@ content:
     region: bottom
   field_bu_ref:
     weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_co_ref:
     weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_qu_id:
     weight: 3
@@ -80,12 +75,9 @@ content:
     region: bottom
   field_qu_status_ref:
     weight: 4
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: second
   field_qu_total:
     type: number

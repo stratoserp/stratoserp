@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.se_invoice.field_se_comments
     - node.type.se_invoice
   module:
+    - chosen_field
     - comment
     - field_layout
     - layout_discovery
@@ -41,21 +42,15 @@ content:
     region: bottom
   field_bu_ref:
     weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_co_ref:
     weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_in_customer_order:
     weight: 5
@@ -91,12 +86,9 @@ content:
     region: bottom
   field_in_quote_ref:
     weight: 6
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: second
   field_in_sent:
     weight: 7
@@ -107,12 +99,9 @@ content:
     region: second
   field_in_status_ref:
     weight: 4
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: second
   field_in_total:
     weight: 9

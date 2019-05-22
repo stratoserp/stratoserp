@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
   module:
+    - chosen_field
     - comment
     - field_layout
     - layout_discovery
@@ -36,12 +37,9 @@ content:
     region: bottom
   field_bu_ref:
     weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_pa_id:
     weight: 2
