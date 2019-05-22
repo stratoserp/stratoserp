@@ -28,7 +28,7 @@ class SearchForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $build['search'] = [
-      '#title' => t('Enter customer name or id of invoice, ticket, quote for matches'),
+      '#title' => t('Enter customer name, id of invoice or quote or simply search.'),
       '#type' => 'textfield',
       '#autocomplete_route_name' => 'se_core.search',
       '#autocomplete_route_parameters' => ['field_name' => 'search', 'count' => 20],
@@ -55,6 +55,7 @@ class SearchForm extends FormBase {
       return;
     }
 
+    // If the user has chosen something from the popup, load it.
     if (preg_match("/.+\s\(([^)]+)\)/", $values['search'], $matches)) {
       $match = $matches[1];
       if (empty($match)) {
@@ -65,6 +66,10 @@ class SearchForm extends FormBase {
       $form_state->setRedirect('entity.node.canonical', ['node' => $match]);
       return;
     }
+
+    // Otherwise, perform a full text search, something like
+    // https://www.drupal.org/docs/8/modules/search-api/developer-documentation/executing-a-search-in-code
+
   }
 
 }
