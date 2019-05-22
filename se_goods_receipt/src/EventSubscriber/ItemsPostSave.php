@@ -39,7 +39,6 @@ class ItemsPostSave implements EventSubscriberInterface {
         /** @var Item $item */
         if ($item = Item::load($paragraph->field_it_line_item->target_id)) {
           if ($item->bundle() !== 'se_stock') {
-            // \Drupal::logger('se_goods_receipt')->warning('Not receiving stock for entity %entity, %item - %item_type', ['%entity' => $entity->id(), '%item' => $item->id(), '%item_type' => $item->bundle()]);
             continue;
           }
           $item->set('field_it_goods_receipt_ref', $entity->id());
