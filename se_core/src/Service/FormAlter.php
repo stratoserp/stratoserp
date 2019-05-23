@@ -69,16 +69,32 @@ class FormAlter {
    * @return null
    */
   public function setReferenceField(array &$form, string $field, string $var) {
-    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-      return NULL;
+    if ($form[$field]['widget']['#chosen'] === 1) {
+      if (!empty($form[$field]['widget']['#default_value'])) {
+        return NULL;
+      }
+    }
+    else {
+      if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+        return NULL;
+      }
     }
 
     if (!$value = $this->currentRequest->get($var)) {
       return NULL;
     }
 
-    if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')->load($value)) {
-      $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
+    if ($form[$field]['widget']['#chosen'] === 1) {
+      if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
+          ->load($value)) {
+        $form[$field]['widget']['#default_value'] = $node->id();
+      }
+    }
+    else {
+      if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
+          ->load($value)) {
+        $form[$field]['widget'][0]['target_id']['#default_value'] = $node->id();
+      }
     }
   }
 

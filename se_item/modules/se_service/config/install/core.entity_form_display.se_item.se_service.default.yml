@@ -11,6 +11,7 @@ dependencies:
     - field.field.se_item.se_service.field_it_sell_price
     - se_item.se_item_type.se_service
   module:
+    - chosen_field
     - field_layout
     - layout_discovery
     - text
@@ -48,30 +49,21 @@ content:
     region: content
   field_it_manufacturer_ref:
     weight: 29
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   field_it_product_type_ref:
     weight: 30
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   field_it_sale_category_ref:
     weight: 28
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   field_it_sell_price:
     weight: 26
@@ -89,12 +81,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   user_id:
-    type: entity_reference_autocomplete
+    type: chosen_select
     weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     region: content
     third_party_settings: {  }
 hidden: {  }

@@ -25,19 +25,19 @@ bundle: se_contact
 mode: default
 content:
   field_bu_ref:
-    weight: 5
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
-    region: second
+    region: first
   field_co_email:
-    weight: 3
+    weight: 6
     settings:
       size: 25
       placeholder: ''
     third_party_settings: {  }
     type: email_default
-    region: first
+    region: second
   field_co_id:
     weight: 4
     settings: {  }
@@ -45,25 +45,25 @@ content:
     type: serial_default_widget
     region: second
   field_co_mobile:
-    weight: 2
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-    region: first
+    region: second
   field_co_phone:
-    weight: 1
+    weight: 3
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: first
   field_co_type_ref:
-    weight: 6
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
-    region: second
+    region: first
   title:
     type: string_textfield
     weight: 0

@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.se_bill.field_co_ref
     - node.type.se_bill
   module:
+    - chosen_field
     - field_layout
     - layout_discovery
     - paragraphs
@@ -60,12 +61,9 @@ content:
     region: bottom
   field_bi_status_ref:
     weight: 4
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: second
   field_bi_total:
     weight: 6
@@ -76,21 +74,15 @@ content:
     region: bottom
   field_bu_ref:
     weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_co_ref:
     weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   title:
     type: string_textfield

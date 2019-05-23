@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_information.se_subscription.field_it_item_ref
     - se_information.se_information_type.se_subscription
   module:
+    - chosen_field
     - field_layout
     - layout_discovery
 third_party_settings:
@@ -21,12 +22,9 @@ mode: default
 content:
   field_bu_ref:
     weight: 26
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   field_if_active:
     weight: 28
@@ -44,12 +42,9 @@ content:
     region: content
   field_it_item_ref:
     weight: 27
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   name:
     type: string_textfield
@@ -60,12 +55,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   user_id:
-    type: entity_reference_autocomplete
+    type: chosen_select
     weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     region: content
     third_party_settings: {  }
 hidden: {  }

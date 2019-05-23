@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.se_ticket.field_attachments
     - field.field.node.se_ticket.field_bu_ref
     - field.field.node.se_ticket.field_co_ref
+    - field.field.node.se_ticket.field_se_timekeeping
     - field.field.node.se_ticket.field_ti_id
     - field.field.node.se_ticket.field_ti_open_date
     - field.field.node.se_ticket.field_ti_owner_ref
@@ -15,7 +16,7 @@ dependencies:
     - field.field.node.se_ticket.field_ti_type_ref
     - node.type.se_ticket
   module:
-    - comment
+    - chosen_field
     - datetime_range
     - field_layout
     - layout_discovery
@@ -32,7 +33,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 12
+    weight: 10
     settings:
       rows: 9
       summary_rows: 3
@@ -40,81 +41,63 @@ content:
     third_party_settings: {  }
     region: bottom
   field_bu_ref:
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    weight: 2
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_co_ref:
-    weight: 4
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    weight: 3
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   field_ti_id:
-    weight: 7
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
     region: second
   field_ti_open_date:
-    weight: 8
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: datetime_timestamp
     region: second
   field_ti_owner_ref:
-    weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
+    weight: 1
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: top
+    type: chosen_select
+    region: first
   field_ti_priority_ref:
-    weight: 10
-    settings:
-      match_operator: CONTAINS
-      size: 15
-      placeholder: ''
+    weight: 8
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: second
   field_ti_scheduled:
-    weight: 11
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: daterange_default
     region: second
   field_ti_status_ref:
-    weight: 9
-    settings:
-      match_operator: CONTAINS
-      size: 15
-      placeholder: ''
+    weight: 7
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: second
   field_ti_type_ref:
-    weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 15
-      placeholder: ''
+    weight: 4
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: first
   title:
     type: string_textfield
     weight: 0
-    region: top
+    region: first
     settings:
       size: 60
       placeholder: ''
@@ -122,6 +105,7 @@ content:
 hidden:
   created: true
   field_attachments: true
+  field_se_timekeeping: true
   path: true
   promote: true
   status: true

@@ -7,6 +7,7 @@ dependencies:
     - field.field.se_information.se_document.field_if_comments
     - se_information.se_information_type.se_document
   module:
+    - chosen_field
     - comment
     - field_layout
     - layout_discovery
@@ -22,12 +23,9 @@ mode: default
 content:
   field_bu_ref:
     weight: 26
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   field_if_body:
     weight: 27
@@ -52,12 +50,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   user_id:
-    type: entity_reference_autocomplete
+    type: chosen_select
     weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     region: content
     third_party_settings: {  }
 hidden: {  }

@@ -12,6 +12,7 @@ dependencies:
     - field.field.se_item.se_recurring.field_it_sell_price
     - se_item.se_item_type.se_recurring
   module:
+    - chosen_field
     - duration_field
     - field_layout
     - layout_discovery
@@ -50,21 +51,15 @@ content:
     region: content
   field_it_manufacturer_ref:
     weight: 30
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   field_it_product_type_ref:
     weight: 31
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   field_it_recurring_period:
     weight: 28
@@ -74,12 +69,9 @@ content:
     region: content
   field_it_sale_category_ref:
     weight: 29
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: content
   field_it_sell_price:
     weight: 27
@@ -97,12 +89,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   user_id:
-    type: entity_reference_autocomplete
+    type: chosen_select
     weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     region: content
     third_party_settings: {  }
 hidden: {  }

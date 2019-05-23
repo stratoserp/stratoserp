@@ -8,6 +8,7 @@ dependencies:
     - field.field.paragraph.se_payments.field_pa_type_ref
     - paragraphs.paragraphs_type.se_payments
   module:
+    - chosen_field
     - datetime
     - field_layout
     - layout_discovery
@@ -44,12 +45,9 @@ content:
     region: first
   field_pa_type_ref:
     weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: chosen_select
     region: second
 hidden:
   created: true
