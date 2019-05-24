@@ -19,9 +19,16 @@ settings:
   handler_settings:
     include_anonymous: true
     filter:
-      type: _none
+      type: role
+      role:
+        staff: staff
+        administrator: '0'
+        customer: '0'
+        supplier: '0'
+        developer: '0'
     target_bundles: null
     sort:
-      field: _none
+      field: name
+      direction: ASC
     auto_create: false
 field_type: entity_reference
