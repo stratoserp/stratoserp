@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.se_ticket.field_attachments
     - field.field.node.se_ticket.field_bu_ref
     - field.field.node.se_ticket.field_co_ref
-    - field.field.node.se_ticket.field_se_timekeeping
     - field.field.node.se_ticket.field_ti_id
     - field.field.node.se_ticket.field_ti_open_date
     - field.field.node.se_ticket.field_ti_owner_ref
@@ -42,15 +41,21 @@ content:
     region: bottom
   field_bu_ref:
     weight: 2
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   field_co_ref:
     weight: 3
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   field_ti_id:
     weight: 5
@@ -105,7 +110,6 @@ content:
 hidden:
   created: true
   field_attachments: true
-  field_se_timekeeping: true
   path: true
   promote: true
   status: true

@@ -40,15 +40,21 @@ content:
     region: bottom
   field_bu_ref:
     weight: 1
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   field_co_ref:
     weight: 2
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   field_gr_id:
     weight: 3
@@ -76,9 +82,12 @@ content:
     region: bottom
   field_gr_purchase_order_ref:
     weight: 26
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   field_gr_status_ref:
     type: chosen_select

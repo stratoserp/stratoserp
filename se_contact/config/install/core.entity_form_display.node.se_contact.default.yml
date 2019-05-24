@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.se_contact.field_co_type_ref
     - node.type.se_contact
   module:
-    - chosen_field
     - field_layout
     - layout_discovery
     - serial
@@ -26,9 +25,12 @@ mode: default
 content:
   field_bu_ref:
     weight: 1
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   field_co_email:
     weight: 6
@@ -60,9 +62,12 @@ content:
     region: first
   field_co_type_ref:
     weight: 2
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   title:
     type: string_textfield

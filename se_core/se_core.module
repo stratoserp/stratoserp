@@ -38,7 +38,7 @@ function se_core_help($route_name, RouteMatchInterface $route_match) {
  */
 function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Make a list of forms from the core types.
-  $se_forms = array_map(function ($value) {
+  $se_forms = array_map(static function ($value) {
     return 'node_' . $value . '_form';
   }, ErpCore::NODE_TYPES);
 

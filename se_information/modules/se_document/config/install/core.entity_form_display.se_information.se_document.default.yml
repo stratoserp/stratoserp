@@ -23,9 +23,12 @@ mode: default
 content:
   field_bu_ref:
     weight: 26
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: content
   field_if_body:
     weight: 27

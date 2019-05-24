@@ -42,15 +42,21 @@ content:
     region: bottom
   field_bu_ref:
     weight: 1
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   field_co_ref:
     weight: 2
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: first
   field_in_customer_order:
     weight: 5
@@ -86,9 +92,12 @@ content:
     region: bottom
   field_in_quote_ref:
     weight: 6
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: chosen_select
+    type: entity_reference_autocomplete
     region: second
   field_in_sent:
     weight: 7
