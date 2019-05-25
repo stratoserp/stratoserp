@@ -54,6 +54,8 @@ function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       se_core_populate_title_field($form);
     }
   }
+  // If using the ExtraField Form plugins, then some fields need to be removed.
+  // unset($form['meta'], $form['advanced'], $form['status'], $form['actions']);
 }
 
 /**
