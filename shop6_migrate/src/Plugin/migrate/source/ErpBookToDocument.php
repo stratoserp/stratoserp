@@ -47,7 +47,7 @@ class ErpBookToDocument extends ErpCore {
 
     // Fix up weird newlines from older Drupal versions.
     $body = $this->repairBody($body);
-    $row->setSourceProperty('body', $body);
+    $row->setSourceProperty('body', trim($body));
 
     // Find and add uploaded files.
     // @TODO check this is getting the correct vid.

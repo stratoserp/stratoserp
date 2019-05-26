@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_in_status_ref
-    - node.type.se_invoice
+    - field.storage.node.field_status_ref
+    - node.type.se_goods_receipt
     - taxonomy.vocabulary.se_status
-id: node.se_invoice.field_in_status_ref
-field_name: field_in_status_ref
+id: node.se_goods_receipt.field_status_ref
+field_name: field_status_ref
 entity_type: node
-bundle: se_invoice
+bundle: se_goods_receipt
 label: Status
 description: ''
 required: false

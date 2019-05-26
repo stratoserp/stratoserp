@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_bu_ref
     - field.storage.node.field_gr_id
-    - field.storage.node.field_gr_status_ref
+    - field.storage.node.field_status_ref
     - field.storage.node.field_gr_total
     - node.type.se_goods_receipt
     - system.menu.stratos-erp
@@ -96,7 +96,7 @@ display:
             title: title
             field_bu_ref: field_bu_ref
             field_gr_total: field_gr_total
-            field_gr_status_ref: field_gr_status_ref
+            field_status_ref: field_status_ref
           info:
             nid:
               sortable: false
@@ -131,7 +131,7 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-low
-            field_gr_status_ref:
+            field_status_ref:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -465,10 +465,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_gr_status_ref:
-          id: field_gr_status_ref
-          table: node__field_gr_status_ref
-          field: field_gr_status_ref
+        field_status_ref:
+          id: field_status_ref
+          table: node__field_status_ref
+          field: field_status_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -637,10 +637,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: string
-        field_gr_status_ref_target_id:
-          id: field_gr_status_ref_target_id
-          table: node__field_gr_status_ref
-          field: field_gr_status_ref_target_id
+        field_status_ref_target_id:
+          id: field_status_ref_target_id
+          table: node__field_status_ref
+          field: field_status_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -649,11 +649,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_gr_status_ref_target_id_op
+            operator_id: field_status_ref_target_id_op
             label: Status
             description: ''
             use_operator: false
-            operator: field_gr_status_ref_target_id_op
+            operator: field_status_ref_target_id_op
             identifier: goods_receive_status
             required: false
             remember: false
@@ -735,7 +735,7 @@ display:
       tags:
         - 'config:field.storage.node.field_bu_ref'
         - 'config:field.storage.node.field_gr_id'
-        - 'config:field.storage.node.field_gr_status_ref'
+        - 'config:field.storage.node.field_status_ref'
         - 'config:field.storage.node.field_gr_total'
   page_1:
     display_plugin: page
@@ -767,5 +767,5 @@ display:
       tags:
         - 'config:field.storage.node.field_bu_ref'
         - 'config:field.storage.node.field_gr_id'
-        - 'config:field.storage.node.field_gr_status_ref'
+        - 'config:field.storage.node.field_status_ref'
         - 'config:field.storage.node.field_gr_total'

@@ -9,7 +9,7 @@ dependencies:
     - field.field.node.se_goods_receipt.field_gr_id
     - field.field.node.se_goods_receipt.field_gr_items
     - field.field.node.se_goods_receipt.field_gr_purchase_order_ref
-    - field.field.node.se_goods_receipt.field_gr_status_ref
+    - field.field.node.se_goods_receipt.field_status_ref
     - field.field.node.se_goods_receipt.field_gr_total
     - field.field.node.se_goods_receipt.field_se_comments
     - node.type.se_goods_receipt
@@ -79,7 +79,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_gr_status_ref:
+  field_status_ref:
     type: entity_reference_label
     weight: 4
     region: second

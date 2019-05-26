@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.se_invoice.field_in_items
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
-    - field.field.node.se_invoice.field_in_status_ref
+    - field.field.node.se_invoice.field_status_ref
     - field.field.node.se_invoice.field_in_total
     - field.field.node.se_invoice.field_se_comments
     - node.type.se_invoice
@@ -51,6 +51,6 @@ hidden:
   field_in_items: true
   field_in_quote_ref: true
   field_in_sent: true
-  field_in_status_ref: true
+  field_status_ref: true
   field_in_total: true
   field_se_comments: true

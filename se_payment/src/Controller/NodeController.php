@@ -109,7 +109,7 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
     $query = \Drupal::entityQuery('node');
     $query->condition('type', 'se_invoice');
     $query->condition('field_bu_ref', $customer_id);
-    $query->condition('field_in_status_ref', $open->id());
+    $query->condition('field_status_ref', $open->id());
     $entity_ids = $query->execute();
 
     // Build a list of outstanding invoices and make paragraphs out of them.

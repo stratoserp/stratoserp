@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.se_quote.field_co_ref
     - field.field.node.se_quote.field_qu_id
     - field.field.node.se_quote.field_qu_items
-    - field.field.node.se_quote.field_qu_status_ref
+    - field.field.node.se_quote.field_status_ref
     - field.field.node.se_quote.field_qu_total
     - field.field.node.se_quote.field_se_comments
     - node.type.se_quote
@@ -79,7 +79,7 @@ content:
         collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
     region: bottom
-  field_qu_status_ref:
+  field_status_ref:
     weight: 4
     settings: {  }
     third_party_settings: {  }

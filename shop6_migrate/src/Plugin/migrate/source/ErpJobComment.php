@@ -43,7 +43,7 @@ class ErpJobComment extends MigrateComment {
     }
 
     $comment = $this->repairBody($row->getSourceProperty('comment'));
-    $row->setSourceProperty('comment', $comment);
+    $row->setSourceProperty('comment', trim($comment));
     $type = $row->getSourceProperty('type');
 
     // Only import job comments.
@@ -101,6 +101,9 @@ class ErpJobComment extends MigrateComment {
         $row->setSourceProperty('tk_billed', $timekeeping->field_serp_tk_billed_value);
         $row->setSourceProperty('tk_review', $timekeeping->field_serp_tk_needs_review_value);
       }
+    }
+    else {
+      $row->setSourceProperty('tk_date', strftime("%FT%T", (int) $row->getSourceProperty('timestamp')));
     }
 
     $nid = $row->getSourceProperty('nid');

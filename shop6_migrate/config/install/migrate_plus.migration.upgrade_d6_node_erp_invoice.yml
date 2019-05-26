@@ -41,7 +41,7 @@ process:
   field_in_items: paragraph_items
   field_in_customer_order: po
   field_in_sent: printed
-  field_in_status_ref: status_ref
+  field_status_ref: status_ref
   field_in_quote_ref/target_id: quote_ref
   field_in_total: total
 destination:

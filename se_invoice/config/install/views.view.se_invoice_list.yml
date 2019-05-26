@@ -721,10 +721,10 @@ display:
           entity_type: node
           entity_field: created
           plugin_id: date
-        field_in_status_ref_target_id:
-          id: field_in_status_ref_target_id
-          table: node__field_in_status_ref
-          field: field_in_status_ref_target_id
+        field_status_ref_target_id:
+          id: field_status_ref_target_id
+          table: node__field_status_ref
+          field: field_status_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -733,11 +733,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_in_status_ref_target_id_op
+            operator_id: field_status_ref_target_id_op
             label: Status
             description: ''
             use_operator: false
-            operator: field_in_status_ref_target_id_op
+            operator: field_status_ref_target_id_op
             identifier: status
             required: false
             remember: false

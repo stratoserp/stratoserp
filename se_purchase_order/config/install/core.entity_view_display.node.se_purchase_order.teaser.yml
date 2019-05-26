@@ -9,7 +9,7 @@ dependencies:
     - field.field.node.se_purchase_order.field_po_id
     - field.field.node.se_purchase_order.field_po_items
     - field.field.node.se_purchase_order.field_po_quote_ref
-    - field.field.node.se_purchase_order.field_po_status_ref
+    - field.field.node.se_purchase_order.field_status_ref
     - field.field.node.se_purchase_order.field_po_total
     - field.field.node.se_purchase_order.field_se_comments
     - node.type.se_purchase_order
@@ -47,6 +47,6 @@ hidden:
   field_po_id: true
   field_po_items: true
   field_po_quote_ref: true
-  field_po_status_ref: true
+  field_status_ref: true
   field_po_total: true
   field_se_comments: true

@@ -41,7 +41,7 @@ class ErpOtherComment extends MigrateComment {
     }
 
     $comment = $this->repairBody($row->getSourceProperty('comment'));
-    $row->setSourceProperty('comment', $comment);
+    $row->setSourceProperty('comment', trim($comment));
     $type = $row->getSourceProperty('type');
 
     // Import and except job comments.

@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_gr_status_ref
-    - node.type.se_goods_receipt
+    - field.storage.node.field_status_ref
+    - node.type.se_bill
     - taxonomy.vocabulary.se_status
-id: node.se_goods_receipt.field_gr_status_ref
-field_name: field_gr_status_ref
+id: node.se_bill.field_status_ref
+field_name: field_status_ref
 entity_type: node
-bundle: se_goods_receipt
+bundle: se_bill
 label: Status
 description: ''
 required: false
@@ -21,7 +21,8 @@ settings:
     target_bundles:
       se_status: se_status
     sort:
-      field: _none
+      field: name
+      direction: asc
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

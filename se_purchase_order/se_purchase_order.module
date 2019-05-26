@@ -9,6 +9,6 @@ function se_purchase_order_form_node_se_purchase_order_form_alter(&$form, FormSt
   $config = \Drupal::configFactory()->get('se_purchase_order.settings');
   if ($purchase_order_status = $config->get('main_purchase_order_term')) {
     \Drupal::service('se_core.set_field')
-      ->setTaxonomyField($form, 'field_po_status_ref', $purchase_order_status);
+      ->setTaxonomyField($form, 'field_status_ref', $purchase_order_status);
   }
 }

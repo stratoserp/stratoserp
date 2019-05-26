@@ -9,6 +9,6 @@ function se_quote_form_node_se_quote_form_alter(&$form, FormStateInterface $form
   $config = \Drupal::configFactory()->get('se_quote.settings');
   if ($quote_status = $config->get('quote_status_term')) {
     \Drupal::service('se_core.set_field')
-      ->setTaxonomyField($form, 'field_qu_status_ref', $quote_status);
+      ->setTaxonomyField($form, 'field_status_ref', $quote_status);
   }
 }

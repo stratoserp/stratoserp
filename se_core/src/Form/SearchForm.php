@@ -55,8 +55,8 @@ class SearchForm extends FormBase {
       return;
     }
 
-    // If the user has chosen something from the popup, load it.
-    if (preg_match("/.+\s\(([^)]+)\)/", $values['search'], $matches)) {
+    // If the user has chosen a node from the popup, load it.
+    if (preg_match("/.+\s\(([^!#)]+)\)/", $values['search'], $matches)) {
       $match = $matches[1];
       if (empty($match)) {
         $this->messenger->addMessage(t('No matches found'));
@@ -66,6 +66,32 @@ class SearchForm extends FormBase {
       $form_state->setRedirect('entity.node.canonical', ['node' => $match]);
       return;
     }
+
+    // Maybe the user chose an item.
+    if (preg_match("/.+\s\(!([^)]+)\)/", $values['search'], $matches)) {
+      $match = $matches[1];
+      if (empty($match)) {
+        $this->messenger->addMessage(t('No matches found'));
+        return;
+      }
+
+      $form_state->setRedirect('entity.se_item.canonical', ['se_item' => $match]);
+      return;
+    }
+
+    // Maybe the user chose information.
+    if (preg_match("/.+\s\(#([^)]+)\)/", $values['search'], $matches)) {
+      $match = $matches[1];
+      if (empty($match)) {
+        $this->messenger->addMessage(t('No matches found'));
+        return;
+      }
+
+      $form_state->setRedirect('entity.se_information.canonical', ['se_information' => $match]);
+      return;
+    }
+
+
 
     // Otherwise, perform a full text search, something like
     // https://www.drupal.org/docs/8/modules/search-api/developer-documentation/executing-a-search-in-code

@@ -9,7 +9,7 @@ dependencies:
     - field.field.node.se_purchase_order.field_po_id
     - field.field.node.se_purchase_order.field_po_items
     - field.field.node.se_purchase_order.field_po_quote_ref
-    - field.field.node.se_purchase_order.field_po_status_ref
+    - field.field.node.se_purchase_order.field_status_ref
     - field.field.node.se_purchase_order.field_po_total
     - field.field.node.se_purchase_order.field_se_comments
     - node.type.se_purchase_order
@@ -79,7 +79,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_po_status_ref:
+  field_status_ref:
     weight: 5
     label: above
     settings:

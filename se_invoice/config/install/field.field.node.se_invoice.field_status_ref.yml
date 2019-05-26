@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_qu_status_ref
-    - node.type.se_quote
+    - field.storage.node.field_status_ref
+    - node.type.se_invoice
     - taxonomy.vocabulary.se_status
-id: node.se_quote.field_qu_status_ref
-field_name: field_qu_status_ref
+id: node.se_invoice.field_status_ref
+field_name: field_status_ref
 entity_type: node
-bundle: se_quote
+bundle: se_invoice
 label: Status
 description: ''
 required: false
@@ -21,8 +21,7 @@ settings:
     target_bundles:
       se_status: se_status
     sort:
-      field: name
-      direction: asc
+      field: _none
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

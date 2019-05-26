@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_po_status_ref
-    - node.type.se_purchase_order
+    - field.storage.node.field_status_ref
+    - node.type.se_quote
     - taxonomy.vocabulary.se_status
-id: node.se_purchase_order.field_po_status_ref
-field_name: field_po_status_ref
+id: node.se_quote.field_status_ref
+field_name: field_status_ref
 entity_type: node
-bundle: se_purchase_order
+bundle: se_quote
 label: Status
 description: ''
 required: false

@@ -10,7 +10,7 @@ dependencies:
     - field.field.node.se_invoice.field_in_items
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
-    - field.field.node.se_invoice.field_in_status_ref
+    - field.field.node.se_invoice.field_status_ref
     - field.field.node.se_invoice.field_in_total
     - field.field.node.se_invoice.field_se_comments
     - node.type.se_invoice
@@ -106,7 +106,7 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: second
-  field_in_status_ref:
+  field_status_ref:
     weight: 4
     settings: {  }
     third_party_settings: {  }

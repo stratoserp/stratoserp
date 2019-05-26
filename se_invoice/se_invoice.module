@@ -9,7 +9,7 @@ function se_invoice_form_node_se_invoice_form_alter(&$form, FormStateInterface $
   $config = \Drupal::configFactory()->get('se_invoice.settings');
   if ($status_term = $config->get('invoice_status_term')) {
     \Drupal::service('se_core.set_field')
-      ->setTaxonomyField($form, 'field_in_status_ref', $status_term);
+      ->setTaxonomyField($form, 'field_status_ref', $status_term);
   }
 
 }

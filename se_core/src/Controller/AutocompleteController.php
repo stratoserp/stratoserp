@@ -7,6 +7,8 @@ use Drupal\Component\Utility\Tags;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\node\Entity\Node;
+use Drupal\se_information\Entity\Information;
+use Drupal\se_item\Entity\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,18 +31,20 @@ class AutocompleteController extends ControllerBase {
       $search_string = Tags::explode($input);
       $search_string = mb_strtolower(array_pop($search_string));
 
-      $customers = $this->findItems('se_customer', 'Customer', 'title', $search_string);
-      $invoices = $this->findItems('se_invoice', 'Invoice', 'field_in_id', $search_string);
-      $quotes = $this->findItems('se_quote', 'Quote', 'field_qu_id', $search_string);
+      $customers = $this->findNodes('se_customer', 'Customer', 'title', $search_string);
+      $invoices = $this->findNodes('se_invoice', 'Invoice', 'field_in_id', $search_string);
+      $quotes = $this->findNodes('se_quote', 'Quote', 'field_qu_id', $search_string);
+      $items = $this->findItems('se_item', 'Item', 'name', $search_string);
+      $information = $this->findInformation('se_document', 'Document', 'name', $search_string);
 
-      $matches = array_merge($customers, $invoices, $quotes);
+      $matches = array_merge($customers, $invoices, $quotes, $items, $information);
 
     }
 
     return new JsonResponse($matches);
   }
 
-  private function findItems($type, $description, $field, $text): array {
+  private function findNodes($type, $description, $field, $text): array {
     $matches = [];
 
     $query = \Drupal::entityQuery('node')
@@ -73,6 +77,67 @@ class AutocompleteController extends ControllerBase {
         ]);
       }
       $matches[] = ['value' => $key, 'label' => $output_description];
+    }
+
+    return $matches;
+  }
+
+  private function findItems($type, $description, $field, $text): array {
+    $matches = [];
+
+    $query = \Drupal::entityQuery('se_item')
+      //->condition('status', 1)
+      ->condition($field, '%' . Database::getConnection()
+          ->escapeLike($text) . '%', 'LIKE')
+      //->condition('type', $type)
+      ->range(0, 10);
+
+    $item_ids = $query->execute();
+    $result = Item::loadMultiple($item_ids);
+
+    /** @var \Drupal\node\Entity\Node $item */
+    foreach ($result as $entity_id => $item) {
+      $key = $item->getName() . " (!$entity_id)";
+      $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
+      // Names containing commas or quotes must be wrapped in quotes.
+      $key = Tags::encode($key);
+      $output_description = implode(' - ', [
+        $description,
+        $item->getName(),
+      ]);
+      $id = $item->id();
+      $matches[] = ['value' => $key, 'label' => $output_description , "(!$id)"];
+    }
+
+    return $matches;
+  }
+
+  private function findInformation($type, $description, $field, $text): array {
+    $matches = [];
+
+    $query = \Drupal::entityQuery('se_information')
+      //->condition('status', 1)
+      ->condition($field, '%' . Database::getConnection()
+          ->escapeLike($text) . '%', 'LIKE')
+      //->condition('type', $type)
+      ->range(0, 10);
+
+    $item_ids = $query->execute();
+    $result = Information::loadMultiple($item_ids);
+
+    /** @var \Drupal\node\Entity\Node $information */
+    foreach ($result as $entity_id => $information) {
+      $key = $information->getName() . " (#$entity_id)";
+      $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
+      // Names containing commas or quotes must be wrapped in quotes.
+      $key = Tags::encode($key);
+      $output_description = implode(' - ', [
+        $description,
+        $information->field_bu_ref->entity->title->value,
+        $information->getName(),
+      ]);
+      $id = $information->id();
+      $matches[] = ['value' => $key, 'label' => $output_description , "(#$id)"];
     }
 
     return $matches;

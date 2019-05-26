@@ -161,7 +161,7 @@ class NodeController extends ControllerBase {
     }
 
     if ($open) {
-      $node->field_pa_status_ref->target_id = $open->id();
+      $node->field_status_ref->target_id = $open->id();
     }
 
     return $this->entityFormBuilder()->getForm($node);
