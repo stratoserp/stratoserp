@@ -69,10 +69,6 @@ class NavigationBlock extends BlockBase {
 //          $items = $this->itemLinks();
 //          break;
 //
-//        case 'se_payment':
-//          $items = $this->paymentLinks();
-//          break;
-
         case 'se_purchase_order':
           $items = $this->purchaseOrderLinks();
           break;
@@ -123,10 +119,11 @@ class NavigationBlock extends BlockBase {
   private function billLinks(): array {
     $items = [];
 
-    $items[] = Link::createFromRoute('Add payment', 'node.add',
-      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
-      $this->button_class);
-
+    // This is quite different to a customer payment
+//    $items[] = Link::createFromRoute('Add payment', 'node.add',
+//      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
+//      $this->button_class);
+//
     return $items;
   }
 
@@ -259,10 +256,13 @@ class NavigationBlock extends BlockBase {
   private function invoiceLinks(): array {
     $items = [];
 
-    $items[] = Link::createFromRoute('Add payment', 'node.add',
-      $this->setRouteParameters(TRUE, [
-        'node_type' => 'se_payment'
-      ]), $this->button_class);
+    $route_parameters = $this->setRouteParameters();
+
+    $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
+      $route_parameters + [
+        'node_type' => 'se_payment',
+        'source' => $this->node->id()
+      ], $this->button_class);
 
     return $items;
   }
@@ -273,17 +273,6 @@ class NavigationBlock extends BlockBase {
 //
 //    $items[] = Link::createFromRoute('Add stock', 'entity.se_stock_item.add_form',
 //      $route_parameters, $this->button_class);
-//
-//    return $items;
-//  }
-
-//  private function paymentLinks(): array {
-//    $items = [];
-//    $route_parameters = $this->setRouteParameters();
-//
-//    $items[] = Link::createFromRoute('Add payment', 'node.add', $route_parameters + [
-//      'node_type' => 'se_payment',
-//    ], $this->button_class);
 //
 //    return $items;
 //  }
