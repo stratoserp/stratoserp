@@ -116,8 +116,15 @@ class FormAlter {
       return NULL;
     }
 
-    if (empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-      $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
+    if ($form[$field]['widget']['#chosen']) {
+      if (empty($form[$field]['widget']['#default_value'])) {
+        $form[$field]['widget']['#default_value'] = $term->id();
+      }
+    }
+    else {
+      if (empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+        $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
+      }
     }
 
     return $term;
