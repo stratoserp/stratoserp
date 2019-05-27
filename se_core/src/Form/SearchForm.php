@@ -56,7 +56,7 @@ class SearchForm extends FormBase {
     }
 
     // If the user has chosen a node from the popup, load it.
-    if (preg_match("/.+\s\(([^!#)]+)\)/", $values['search'], $matches)) {
+    if (preg_match("/.+\s\(([^!#)\w]+)\)/", $values['search'], $matches)) {
       $match = $matches[1];
       if (empty($match)) {
         $this->messenger->addMessage(t('No matches found'));

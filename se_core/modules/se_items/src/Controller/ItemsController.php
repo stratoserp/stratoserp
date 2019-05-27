@@ -58,7 +58,7 @@ class ItemsController extends ControllerBase {
     $response->addCommand(new InvokeCommand(
       "form input[data-drupal-selector='edit-field-{$type}-total-0-value']",
       'val',
-      [trim(sprintf('%9.2f', $total))]
+      [trim(sprintf('%9.2f', $total))] // @todo currency service
     ));
 
     return $response;
