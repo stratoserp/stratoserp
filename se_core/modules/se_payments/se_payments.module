@@ -6,13 +6,15 @@
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
  */
 function se_payments_field_widget_paragraphs_form_alter(&$element, &$form_state, $context) {
-//  if ($element['#paragraph_type'] === 'se_payment') {
+  if ($element['#paragraph_type'] !== 'se_payment') {
+    return NULL;
+  }
+
 //    $element['subform']['field_it_line_item']['widget'][0]['target_id']['#ajax'] = [
 //      'callback' => 'Drupal\se_items\Controller\ItemsController::updatePrice',
 //      'event' => 'autocompleteclose change',
 //      'progress' => FALSE,
 //    ];
-//  }
 
   // Move the remove/duplicate buttons into the top, remove the collapse button.
   $element['top']['actions']['actions']['duplicate_button'] = $element['top']['actions']['dropdown_actions']['duplicate_button'];

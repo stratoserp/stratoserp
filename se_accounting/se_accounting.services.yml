@@ -1,0 +1,4 @@
+services:
+  se_accounting.currency_format:
+    class: Drupal\se_accounting\Service\CurrencyFormat
+

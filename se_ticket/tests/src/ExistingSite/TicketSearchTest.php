@@ -25,7 +25,7 @@ class TicketSearchTest extends TicketTestBase {
 
     $page->fillField('description', 'scam');
 
-    $submit_button = $page->findButton('Search');
+    $submit_button = $page->findButton('Apply');
     $submit_button->press();
     $web_assert->statusCodeEquals(200);
 

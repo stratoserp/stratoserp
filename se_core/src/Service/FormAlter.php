@@ -4,7 +4,6 @@ namespace Drupal\se_core\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -78,20 +77,15 @@ class FormAlter {
       if (!empty($form[$field]['widget']['#default_value'])) {
         return NULL;
       }
-    }
-    else {
-      if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-        return NULL;
-      }
-    }
-
-    if ($chosen) {
       if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
           ->load($value)) {
         $form[$field]['widget']['#default_value'] = $node->id();
       }
     }
     else {
+      if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+        return NULL;
+      }
       if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
           ->load($value)) {
         $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
@@ -116,7 +110,8 @@ class FormAlter {
       return NULL;
     }
 
-    if ($form[$field]['widget']['#chosen']) {
+    $chosen = isset($form[$field]['widget']['#chosen']) && $form[$field]['widget']['#chosen'] === 1;
+    if ($chosen) {
       if (empty($form[$field]['widget']['#default_value'])) {
         $form[$field]['widget']['#default_value'] = $term->id();
       }

@@ -14,24 +14,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Plugin implementation of the 'selection' entity_reference.
  *
  * @EntityReferenceSelection(
- *   id = "se_item",
- *   label = @Translation("Item: Filter items by code and serial"),
- *   group = "se_item",
+ *   id = "se_timekeeping",
+ *   label = @Translation("Timekeeping: Filter timekeeping entries by customer"),
+ *   group = "se_timekeeping",
  *   weight = 1
  * )
  */
-class EntityItemSelection extends DefaultSelection {
+class EntityTimekeepingSelection extends DefaultSelection {
 
-  protected $virtual_only = FALSE;
   protected $target_type;
   protected $target_bundles;
   protected $configuration;
-
-  public const FILTER_VIRTUAL = '@';
-
-  protected $filterCharacters = [
-    'virtual' => EntityItemSelection::FILTER_VIRTUAL,
-  ];
 
   /**
    * {@inheritdoc}
@@ -61,19 +54,18 @@ class EntityItemSelection extends DefaultSelection {
     $this->configuration = $this->getConfiguration();
     $this->target_type = $this->configuration['target_type'];
     $this->target_bundles = $this->configuration['target_bundles'];
+    $parameters = \Drupal::request()->query->all();
+    $this->business = $parameters['field_bu_ref'];
 
     $filters = [];
-
-    if ($match !== NULL) {
-      $filters = $this->extractFilters($match);
-      $match = $this->removeFiltersFromMatch($filters, $this->filterCharacters, $match);
-    }
 
     $query = $this->buildEntityQuery($match, $match_operator, $filters);
     if ($limit > 0) {
       $query->range(0, $limit);
     }
 
+    $query_string = $query->__toString();
+    \Drupal::logger('se_timekeeping')->info($query_string);
     $result = $query->execute();
 
     if (empty($result)) {
@@ -123,11 +115,6 @@ class EntityItemSelection extends DefaultSelection {
     /** @var \Drupal\Core\Entity\Query\Sql\Query  $query */
     $query = parent::buildEntityQuery(NULL, $match_operator);
 
-    // Include virtual items, or not.
-    if ($this->virtual_only) {
-      $query->notExists('field_it_serial');
-    }
-
     $entity_type = $this->entityManager->getDefinition($this->target_type);
 
     if (isset($match) && $label_key = $entity_type->getKey('label')) {
@@ -135,85 +122,9 @@ class EntityItemSelection extends DefaultSelection {
       foreach ($matches as $partial) {
         $query->condition($label_key, $partial, $match_operator);
       }
-
-      // Apply the filters supplied by the user.
-      $query = $this->applyFilters($query, $filters, $label_key);
     }
 
-    return $query;
-  }
-
-  /**
-   * Extracts filters from the query.
-   *
-   * @param string|null $match
-   *   (Optional) Text to match the label against. Defaults to NULL.
-   *
-   * @return array
-   *   An array of filters to apply to the search.
-   */
-  protected function extractFilters($match = NULL) {
-    $filters = [];
-    $matches = explode(' ', $match);
-
-    foreach ($matches as $partial) {
-      $first_char = substr($partial, 0, 1);
-      switch ($first_char) {
-        case EntityItemSelection::FILTER_VIRTUAL:
-          $filters['virtual'][0] = substr($partial, 1);
-          $this->virtual_only = TRUE;
-          break;
-      }
-    }
-
-    return $filters;
-  }
-
-  /**
-   * Remove filters from the query.
-   *
-   * @param array $filters
-   *   The filters found in the query, that sould be removed.
-   * @param array $filter_characters
-   *   The filter character mapping.
-   * @param string|null $match
-   *   The query that we want to find matches for.
-   *
-   * @return string|null
-   *   The cleaned query string, all filters removed.
-   */
-  protected function removeFiltersFromMatch(array $filters, array $filter_characters, $match = NULL) {
-    if ($match != NULL) {
-      foreach ($filters as $filter_type => $type_filters) {
-        foreach ($type_filters as $type_filter) {
-          $replace = $filter_characters[$filter_type] . $type_filter;
-          $match = str_replace($replace, '', $match);
-        }
-      }
-      return trim($match);
-    }
-    return $match;
-  }
-
-  /**
-   * Apply the filters the user entered to the selection query.
-   *
-   * @param \Drupal\Core\Entity\Query\QueryInterface $query
-   *   The query object to add the filters to.
-   * @param array $filters
-   *   The array of filters to apply.
-   * @param string $label_key
-   *   The field we apply the filters on.
-   *
-   * @return \Drupal\Core\Entity\Query\QueryInterface
-   *   The altered query object, filters applied.
-   */
-  protected function applyFilters(QueryInterface $query, array $filters, $label_key) {
-    if (isset($filters['virtual'])) {
-      foreach ($filters['virtual'] as $filter) {
-        $query->condition($label_key, $filter, 'CONTAINS');
-      }
-    }
+    $query->condition('field_bu_ref', $this->business);
 
     return $query;
   }

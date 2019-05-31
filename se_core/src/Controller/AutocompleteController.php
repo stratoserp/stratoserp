@@ -18,8 +18,6 @@ class AutocompleteController extends ControllerBase {
    * Handler for autocomplete request.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
-   * @param $field_name
-   * @param $count
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
@@ -45,6 +43,17 @@ class AutocompleteController extends ControllerBase {
     return new JsonResponse($matches);
   }
 
+  /**
+   * Find nodes of $type containing $text in $field, prefix
+   * returned data with $description
+   *
+   * @param $type
+   * @param $description
+   * @param $field
+   * @param $text
+   *
+   * @return array
+   */
   private function findNodes($type, $description, $field, $text): array {
     $matches = [];
 
@@ -83,6 +92,17 @@ class AutocompleteController extends ControllerBase {
     return $matches;
   }
 
+  /**
+   * Find items of $type containing $text in $field, prefix
+   * returned data with $description
+   *
+   * @param $type
+   * @param $description
+   * @param $field
+   * @param $text
+   *
+   * @return array
+   */
   private function findItems($type, $description, $field, $text): array {
     $matches = [];
 
@@ -102,7 +122,7 @@ class AutocompleteController extends ControllerBase {
         $description,
         $item->getName(),
         $item->field_it_serial->value ?: NULL,
-        trim(sprintf("%9.2f", $item->field_it_sell_price->value)) // @todo currency service
+        \Drupal::service('se_accounting.currency_format')->formatDollars($item->field_it_sell_price->value)
       ];
       $fields = array_filter($fields);
       $key = implode(' - ', $fields);
@@ -117,6 +137,17 @@ class AutocompleteController extends ControllerBase {
     return $matches;
   }
 
+  /**
+   * Find information of $type containing $text in $field, prefix
+   * returned data with $description
+   *
+   * @param $type
+   * @param $description
+   * @param $field
+   * @param $text
+   *
+   * @return array
+   */
   private function findInformation($type, $description, $field, $text): array {
     $matches = [];
 

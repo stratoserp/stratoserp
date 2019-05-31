@@ -1,0 +1,7 @@
+drupal.autocomplete:
+  version: 1.0
+  js:
+    js/se_items_autocomplete.js: {}
+  dependencies:
+  - core/jquery
+  - core/drupalSettings
