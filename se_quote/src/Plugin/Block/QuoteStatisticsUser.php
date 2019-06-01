@@ -50,7 +50,7 @@ class QuoteStatisticsUser extends BlockBase {
         $month = 0;
         /** @var Node $quote */
         foreach ($quotes as $quote) {
-          $month += $quote->field_in_total->value;
+          $month += $quote->field_qu_total->value;
         }
         $month_data[] = $month;
         $fg_colors[] = $fg_color;
