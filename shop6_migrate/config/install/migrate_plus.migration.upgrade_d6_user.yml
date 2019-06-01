@@ -46,5 +46,5 @@ destination:
   plugin: 'entity:user'
   md5_passwords: true
 migration_dependencies:
-  optional:
+  required:
     - upgrade_d6_user_role

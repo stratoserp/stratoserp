@@ -2,10 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.se_timekeeping.default
     - field.field.node.se_ticket.body
     - field.field.node.se_ticket.field_attachments
     - field.field.node.se_ticket.field_bu_ref
     - field.field.node.se_ticket.field_co_ref
+    - field.field.node.se_ticket.field_se_timekeeping
     - field.field.node.se_ticket.field_ti_id
     - field.field.node.se_ticket.field_ti_open_date
     - field.field.node.se_ticket.field_ti_owner_ref
@@ -34,12 +36,12 @@ content:
   body:
     label: hidden
     type: text_default
-    weight: 10
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     region: bottom
   field_bu_ref:
-    weight: 2
+    weight: 1
     label: inline
     settings:
       link: true
@@ -47,22 +49,31 @@ content:
     type: entity_reference_label
     region: first
   field_co_ref:
-    weight: 3
+    weight: 2
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: first
+  field_se_timekeeping:
+    type: comment_default
+    region: bottom
+    label: hidden
+    weight: 10
+    settings:
+      view_mode: default
+      pager_id: 1
+    third_party_settings: {  }
   field_ti_id:
-    weight: 5
+    weight: 4
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
   field_ti_open_date:
-    weight: 6
+    weight: 5
     label: inline
     settings:
       date_format: medium
@@ -72,15 +83,15 @@ content:
     type: timestamp
     region: second
   field_ti_owner_ref:
-    weight: 1
+    weight: 0
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: top
+    region: first
   field_ti_priority_ref:
-    weight: 8
+    weight: 7
     label: inline
     settings:
       link: true
@@ -88,7 +99,7 @@ content:
     type: entity_reference_label
     region: second
   field_ti_scheduled:
-    weight: 9
+    weight: 8
     label: inline
     settings:
       separator: '-'
@@ -107,14 +118,14 @@ content:
     region: first
   field_ti_status_ref:
     type: entity_reference_label
-    weight: 7
+    weight: 6
     region: second
     label: inline
     settings:
       link: true
     third_party_settings: {  }
   field_ti_type_ref:
-    weight: 4
+    weight: 3
     label: inline
     settings:
       link: true
@@ -125,6 +136,8 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_invoice_statistics: true
   extra_field_ticket_statistics: true
+  extra_field_user_invoice_statistics: true
   field_attachments: true
   links: true
