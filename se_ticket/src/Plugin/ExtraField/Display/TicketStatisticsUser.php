@@ -10,14 +10,14 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "ticket_statistics",
- *   label = @Translation("Ticket statistics"),
+ *   id = "ticket_statistics_user",
+ *   label = @Translation("Ticket statistics per user"),
  *   bundles = {
- *     "node.*",
+ *     "user.*",
  *   }
  * )
  */
-class CustomerStatistics extends ExtraFieldDisplayFormattedBase {
+class TicketStatisticsUser extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -31,7 +31,7 @@ class CustomerStatistics extends ExtraFieldDisplayFormattedBase {
 
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('ticket_statistics_customer', [])
+      ->createInstance('ticket_statistics_user', [])
       ->build()) {
       return [];
     }

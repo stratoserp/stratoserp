@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_invoice\Plugin\Block;
+namespace Drupal\se_quote\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityInterface;
@@ -8,13 +8,13 @@ use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "Invoice statistics customer" block.
+ * Provides a "User quote statistics" block.
  * @Block(
- *   id = "invoice_statistics_customer",
- *   admin_label = @Translation("Invoice statistics per customer"),
+ *   id = "quote_statistics_user",
+ *   admin_label = @Translation("Quote statistics per user"),
  * )
  */
-class MonthlyStatistics extends BlockBase {
+class QuoteStatisticsUser extends BlockBase {
 
   use ReportUtilityTrait;
 
@@ -22,11 +22,11 @@ class MonthlyStatistics extends BlockBase {
     $datasets = [];
 
     /** @var EntityInterface $node */
-    if (!$node = $this->get_current_controller_entity()) {
+    if (!$entity = $this->get_current_controller_entity()) {
       return [];
     }
 
-    if ($node->bundle() !== 'se_customer') {
+    if ($entity->getEntityTypeId() !== 'user') {
       return [];
     }
 
@@ -34,27 +34,26 @@ class MonthlyStatistics extends BlockBase {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
-      $bg_colors = [];
-      [$fg_color, $bg_color] = $this->generateColorsDarkening(100, NULL, 50);
+      [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
-        $query->condition('type', 'se_invoice');
-        $query->condition('field_bu_ref', $node->id());
+        $query->condition('type', 'se_quote');
+        $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
-        $invoices = \Drupal::entityTypeManager()
+        $quotes = \Drupal::entityTypeManager()
           ->getStorage('node')
           ->loadMultiple($entity_ids);
-        $total = 0;
-        /** @var Node $invoice */
-        foreach ($invoices as $invoice) {
-          $total += $invoice->field_in_total->value;
+
+        $month = 0;
+        /** @var Node $quote */
+        foreach ($quotes as $quote) {
+          $month += $quote->field_in_total->value;
         }
-        $month_data[] = $total;
+        $month_data[] = $month;
         $fg_colors[] = $fg_color;
-        $bg_colors[] = $bg_color;
       }
 
       $datasets[] = [
@@ -72,7 +71,7 @@ class MonthlyStatistics extends BlockBase {
       ];
     }
 
-    $build['invoice_statistics_customer'] = [
+    $build['user_quote_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -86,7 +85,7 @@ class MonthlyStatistics extends BlockBase {
           'mode' => 'dataset'
         ],
       ],
-      '#id' => 'invoice_statistics_customer',
+      '#id' => 'user_quote_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

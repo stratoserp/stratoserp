@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_invoice\Plugin\ExtraField\Display;
+namespace Drupal\se_quote\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -10,14 +10,14 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "user_invoice_statistics",
- *   label = @Translation("User invoice statistics"),
+ *   id = "quote_statistics_user",
+ *   label = @Translation("Quote statistics per user"),
  *   bundles = {
- *     "node.*",
+ *     "user.*",
  *   }
  * )
  */
-class UserInvoiceStatistics extends ExtraFieldDisplayFormattedBase {
+class QuoteStatisticsUser extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -31,7 +31,7 @@ class UserInvoiceStatistics extends ExtraFieldDisplayFormattedBase {
 
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('user_invoice_statistics_customer', [])
+      ->createInstance('quote_statistics_user', [])
       ->build()) {
       return [];
     }

@@ -7,13 +7,13 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "Ticket statistics customer" block.
+ * Provides a "Ticket statistics user" block.
  * @Block(
- *   id = "ticket_statistics_customer",
- *   admin_label = @Translation("Ticket statistics per customer"),
+ *   id = "ticket_statistics_user",
+ *   admin_label = @Translation("Ticket statistics per user"),
  * )
  */
-class CustomerStatistics extends BlockBase {
+class TicketStatisticsUser extends BlockBase {
 
   use ReportUtilityTrait;
 
@@ -21,11 +21,11 @@ class CustomerStatistics extends BlockBase {
     $datasets = [];
 
     /** @var EntityInterface $node */
-    if (!$node = $this->get_current_controller_entity()) {
+    if (!$entity = $this->get_current_controller_entity()) {
       return [];
     }
 
-    if ($node->bundle() !== 'se_customer') {
+    if ($entity->getEntityTypeId() !== 'user') {
       return [];
     }
 
@@ -33,19 +33,17 @@ class CustomerStatistics extends BlockBase {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
-      $bg_colors = [];
-      [$fg_color, $bg_color] = $this->generateColorsDarkening(100, NULL, 50);
+      [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'se_ticket');
-        $query->condition('field_bu_ref', $node->id());
+        $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
         $month_data[] = count($entity_ids);
         $fg_colors[] = $fg_color;
-        $bg_colors[] = $bg_color;
       }
 
       $datasets[] = [
@@ -63,7 +61,7 @@ class CustomerStatistics extends BlockBase {
       ];
     }
 
-    $build['ticket_statistics_customer'] = [
+    $build['ticket_statistics_user'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -77,7 +75,7 @@ class CustomerStatistics extends BlockBase {
           'mode' => 'dataset'
         ],
       ],
-      '#id' => 'ticket_statistics_customer',
+      '#id' => 'ticket_statistics_user',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

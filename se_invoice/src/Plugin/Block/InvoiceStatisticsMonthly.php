@@ -8,13 +8,13 @@ use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "User invoice statistics customer" block.
+ * Provides a "Invoice statistics monthly" block.
  * @Block(
- *   id = "user_invoice_statistics_customer",
- *   admin_label = @Translation("User invoice statistics per customer"),
+ *   id = "invoice_statistics_monthly",
+ *   admin_label = @Translation("Invoice statistics monthly per customer"),
  * )
  */
-class UserInvoiceStatistics extends BlockBase {
+class InvoiceStatisticsMonthly extends BlockBase {
 
   use ReportUtilityTrait;
 
@@ -30,9 +30,11 @@ class UserInvoiceStatistics extends BlockBase {
       return [];
     }
 
-    $total = [];
     for ($i = 5; $i >= 0 ; $i--) {
       $year = date('Y') - $i;
+      $month_data = [];
+      $fg_colors = [];
+      [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
@@ -44,44 +46,36 @@ class UserInvoiceStatistics extends BlockBase {
         $invoices = \Drupal::entityTypeManager()
           ->getStorage('node')
           ->loadMultiple($entity_ids);
+        $total = 0;
         /** @var Node $invoice */
         foreach ($invoices as $invoice) {
-          if (isset($total[$invoice->getOwner()->name->value][$month])) {
-            $total[$invoice->getOwner()->name->value][$month] += $invoice->field_in_total->value;
-          }
-          else {
-            $total[$invoice->getOwner()->name->value][$month] = $invoice->field_in_total->value;
-          }
+          $total += $invoice->field_in_total->value;
         }
+        $month_data[] = $total;
+        $fg_colors[] = $fg_color;
       }
+
+      $datasets[] = [
+        'label' => $year,
+        'data' => $month_data,
+        'backgroundColor' => $fg_colors,
+        'borderColor' => $fg_colors,
+        'hoverBackgroundColor' => $fg_colors,
+        'fill' => FALSE,
+        'hover' => [
+          'mode' => 'dataset'
+        ],
+        'pointRadius' => 5,
+        'pointHoverRadius' => 10,
+      ];
     }
 
-    foreach ($total as $user => $data) {
-      $fg_colors = [];
-      [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
-      $fg_colors[] = $fg_color;
-      foreach ($data as $month => $value) {
-        $datasets[] = [
-          'label' => $user,
-          'stack' => $month,
-          'data' => [$value],
-          'backgroundColor' => $fg_colors,
-          'borderColor' => $fg_colors,
-          'hoverBackgroundColor' => $fg_colors,
-          'fill' => FALSE,
-          'hover' => [
-            'mode' => 'dataset'
-          ],
-        ];
-      }
-    }
-
-    $build['user_invoice_statistics_customer'] = [
+    $build['invoice_statistics_customer'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
       ],
-      '#graph_type' => 'bar',
+      '#graph_type' => 'line',
       '#options' => [
         'tooltips' => [
           'mode' => 'point'
@@ -89,16 +83,8 @@ class UserInvoiceStatistics extends BlockBase {
         'hover' => [
           'mode' => 'dataset'
         ],
-        'scales' => [
-          'yAxes' => [
-            'stacked' => TRUE,
-          ],
-          'xAxes' => [
-            'stacked' => TRUE,
-          ],
-        ]
       ],
-      '#id' => 'user_invoice_statistics_customer',
+      '#id' => 'invoice_statistics_customer',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,
