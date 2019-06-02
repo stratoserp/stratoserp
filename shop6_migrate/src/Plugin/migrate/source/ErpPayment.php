@@ -117,7 +117,10 @@ class ErpPayment extends ErpCore {
       $term_id = self::findCreateTerm($payment_types[$line->payment_type], 'se_payment_type');
 
       $paragraph->set('field_pa_type_ref', ['target_id' => $term_id]);
-      $paragraph->set('field_pa_amount', ['value' => $line->payment_amount]);
+
+      // Convert from float to cents
+      $payment_amount = $line->payment_amount * 100;
+      $paragraph->set('field_pa_amount', ['value' => $payment_amount]);
       $paragraph->save();
 
       $payments[] = [
@@ -125,7 +128,7 @@ class ErpPayment extends ErpCore {
         'target_revision_id' => $paragraph->getRevisionId(),
       ];
 
-      $total += $line->payment_amount;
+      $total += $payment_amount;
     }
 
     $row->setSourceProperty('paragraph_items', $payments);

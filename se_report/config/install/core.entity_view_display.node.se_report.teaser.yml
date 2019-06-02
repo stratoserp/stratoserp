@@ -4,6 +4,10 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.se_report.body
+    - field.field.node.se_report.field_bu_ref
+    - field.field.node.se_report.field_re_json_data
+    - field.field.node.se_report.field_re_parameters
+    - field.field.node.se_report.field_re_raw_data
     - node.type.se_report
   module:
     - field_layout
@@ -36,3 +40,9 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true
+  field_bu_ref: true
+  field_re_json_data: true
+  field_re_parameters: true
+  field_re_raw_data: true

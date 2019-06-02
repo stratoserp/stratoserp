@@ -11,9 +11,9 @@ dependencies:
     - field.field.node.se_invoice.field_in_items
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
-    - field.field.node.se_invoice.field_status_ref
     - field.field.node.se_invoice.field_in_total
     - field.field.node.se_invoice.field_se_comments
+    - field.field.node.se_invoice.field_status_ref
     - node.type.se_invoice
   module:
     - field_layout
@@ -44,6 +44,8 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true
   field_bu_ref: true
   field_co_ref: true
   field_in_customer_order: true
@@ -51,6 +53,6 @@ hidden:
   field_in_items: true
   field_in_quote_ref: true
   field_in_sent: true
-  field_status_ref: true
   field_in_total: true
   field_se_comments: true
+  field_status_ref: true

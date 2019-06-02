@@ -13,9 +13,9 @@ dependencies:
     - field.field.comment.se_timekeeping.field_tk_review
   module:
     - datetime
-    - duration_field
     - field_layout
     - layout_discovery
+    - se_timekeeping
     - text
 third_party_settings:
   field_layout:
@@ -27,14 +27,12 @@ bundle: se_timekeeping
 mode: default
 content:
   field_tk_amount:
-    weight: 1
+    weight: 8
     label: above
-    settings:
-      text_length: full
-      separator: space
+    settings: {  }
     third_party_settings: {  }
-    type: duration_human_display
-    region: second
+    type: TimeFormater
+    region: first
   field_tk_billable:
     type: boolean
     weight: 4

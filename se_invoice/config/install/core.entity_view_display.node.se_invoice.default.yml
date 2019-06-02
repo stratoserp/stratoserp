@@ -11,9 +11,9 @@ dependencies:
     - field.field.node.se_invoice.field_in_items
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
-    - field.field.node.se_invoice.field_status_ref
     - field.field.node.se_invoice.field_in_total
     - field.field.node.se_invoice.field_se_comments
+    - field.field.node.se_invoice.field_status_ref
     - node.type.se_invoice
   module:
     - comment
@@ -99,14 +99,6 @@ content:
     third_party_settings: {  }
     type: boolean
     region: second
-  field_status_ref:
-    weight: 4
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: second
   field_in_total:
     weight: 9
     label: inline
@@ -127,6 +119,14 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: bottom
+  field_status_ref:
+    weight: 4
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
   links:
     weight: 0
     region: top
@@ -136,3 +136,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true

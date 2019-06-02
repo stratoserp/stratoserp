@@ -6,8 +6,10 @@ dependencies:
 id: se_item.field_it_cost_price
 field_name: field_it_cost_price
 entity_type: se_item
-type: float
-settings: {  }
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

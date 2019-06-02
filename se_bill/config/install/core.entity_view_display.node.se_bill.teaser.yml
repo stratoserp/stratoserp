@@ -6,10 +6,10 @@ dependencies:
     - field.field.node.se_bill.body
     - field.field.node.se_bill.field_bi_id
     - field.field.node.se_bill.field_bi_items
-    - field.field.node.se_bill.field_status_ref
     - field.field.node.se_bill.field_bi_total
     - field.field.node.se_bill.field_bu_ref
     - field.field.node.se_bill.field_co_ref
+    - field.field.node.se_bill.field_status_ref
     - node.type.se_bill
   module:
     - field_layout
@@ -40,9 +40,11 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true
   field_bi_id: true
   field_bi_items: true
-  field_status_ref: true
   field_bi_total: true
   field_bu_ref: true
   field_co_ref: true
+  field_status_ref: true

@@ -5,10 +5,10 @@ dependencies:
     - field.field.node.se_bill.body
     - field.field.node.se_bill.field_bi_id
     - field.field.node.se_bill.field_bi_items
-    - field.field.node.se_bill.field_status_ref
     - field.field.node.se_bill.field_bi_total
     - field.field.node.se_bill.field_bu_ref
     - field.field.node.se_bill.field_co_ref
+    - field.field.node.se_bill.field_status_ref
     - node.type.se_bill
   module:
     - field_layout
@@ -51,14 +51,6 @@ content:
       hide_header: '0'
     third_party_settings: {  }
     region: bottom
-  field_status_ref:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: second
   field_bi_total:
     weight: 6
     label: above
@@ -86,6 +78,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
+  field_status_ref:
+    weight: 4
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
   links:
     weight: 0
     region: top
@@ -95,3 +95,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true

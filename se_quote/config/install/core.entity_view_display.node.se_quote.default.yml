@@ -8,9 +8,9 @@ dependencies:
     - field.field.node.se_quote.field_co_ref
     - field.field.node.se_quote.field_qu_id
     - field.field.node.se_quote.field_qu_items
-    - field.field.node.se_quote.field_status_ref
     - field.field.node.se_quote.field_qu_total
     - field.field.node.se_quote.field_se_comments
+    - field.field.node.se_quote.field_status_ref
     - node.type.se_quote
   module:
     - comment
@@ -70,14 +70,6 @@ content:
       hide_header: '0'
     third_party_settings: {  }
     region: bottom
-  field_status_ref:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: second
   field_qu_total:
     type: number_decimal
     weight: 6
@@ -98,6 +90,14 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: bottom
+  field_status_ref:
+    weight: 4
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
   links:
     weight: 0
     region: top
@@ -108,3 +108,4 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   extra_field_ticket_statistics: true
+  extra_field_ticket_statistics_customer: true

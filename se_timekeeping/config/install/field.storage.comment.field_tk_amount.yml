@@ -3,13 +3,14 @@ status: true
 dependencies:
   module:
     - comment
-    - duration_field
 id: comment.field_tk_amount
 field_name: field_tk_amount
 entity_type: comment
-type: duration
-settings: {  }
-module: duration_field
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
 locked: false
 cardinality: 1
 translatable: true

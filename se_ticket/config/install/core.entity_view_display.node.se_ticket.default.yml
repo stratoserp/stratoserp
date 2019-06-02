@@ -2,12 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.se_timekeeping.default
     - field.field.node.se_ticket.body
     - field.field.node.se_ticket.field_attachments
     - field.field.node.se_ticket.field_bu_ref
     - field.field.node.se_ticket.field_co_ref
-    - field.field.node.se_ticket.field_se_timekeeping
     - field.field.node.se_ticket.field_ti_id
     - field.field.node.se_ticket.field_ti_open_date
     - field.field.node.se_ticket.field_ti_owner_ref
@@ -56,15 +54,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_se_timekeeping:
-    type: comment_default
-    region: bottom
-    label: hidden
-    weight: 10
-    settings:
-      view_mode: default
-      pager_id: 1
-    third_party_settings: {  }
   field_ti_id:
     weight: 4
     label: inline
@@ -138,6 +127,7 @@ hidden:
   entity_print_view_word_docx: true
   extra_field_invoice_statistics: true
   extra_field_ticket_statistics: true
+  extra_field_ticket_statistics_customer: true
   extra_field_user_invoice_statistics: true
   field_attachments: true
   links: true

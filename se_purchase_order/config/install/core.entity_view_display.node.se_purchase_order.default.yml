@@ -9,9 +9,9 @@ dependencies:
     - field.field.node.se_purchase_order.field_po_id
     - field.field.node.se_purchase_order.field_po_items
     - field.field.node.se_purchase_order.field_po_quote_ref
-    - field.field.node.se_purchase_order.field_status_ref
     - field.field.node.se_purchase_order.field_po_total
     - field.field.node.se_purchase_order.field_se_comments
+    - field.field.node.se_purchase_order.field_status_ref
     - node.type.se_purchase_order
   module:
     - comment
@@ -79,14 +79,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_status_ref:
-    weight: 5
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: second
   field_po_total:
     weight: 8
     label: above
@@ -107,6 +99,14 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: bottom
+  field_status_ref:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
   links:
     weight: 0
     region: top
@@ -116,3 +116,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true

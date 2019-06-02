@@ -6,8 +6,10 @@ dependencies:
 id: node.field_cu_balance
 field_name: field_cu_balance
 entity_type: node
-type: float
-settings: {  }
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

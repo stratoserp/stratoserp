@@ -26,8 +26,7 @@ class MonthlyStatistics extends BlockBase {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
-      $bg_colors = [];
-      [$fg_color, $bg_color] = $this->generateColorsDarkening(100, NULL, 50);
+      [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = $connection->select('node_field_data', 'nfd');
@@ -40,9 +39,8 @@ class MonthlyStatistics extends BlockBase {
         $query->groupBy('nfd.type');
         $result = $query->execute()->fetchAssoc();
 
-        $month_data[] = $this->currencyBare($result['total']);
+        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatDollars($result['total']);
         $fg_colors[] = $fg_color;
-        $bg_colors[] = $bg_color;
       }
 
       $datasets[] = [

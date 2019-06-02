@@ -154,7 +154,9 @@ class ErpCore extends MigrateNode {
         'target_type' => $type,
       ]);
       $paragraph->set('field_it_quantity', ['value' => $line->qty]);
-      $paragraph->set('field_it_price', ['value' => $line->price]);
+      // Convert from float to cents
+      $price = $line->price * 100;
+      $paragraph->set('field_it_price', ['value' => $price]);
       $paragraph->set('field_it_description', [
         'value' => $line->extra,
         'format' => 'basic_html',
@@ -166,7 +168,7 @@ class ErpCore extends MigrateNode {
         'target_revision_id' => $paragraph->getRevisionId(),
       ];
 
-      $total += ($line->qty * $line->price);
+      $total += ($line->qty * $price);
     }
 
     // Set the paragraph items
@@ -517,6 +519,31 @@ class ErpCore extends MigrateNode {
     }
 
     return $static_term_id_name_cache[$old_vid][$term_id];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    if (parent::prepareRow($row) === FALSE) {
+      return FALSE;
+    }
+
+    // Convert old floating dollars to cents.
+    if ($total = $row->getSourceProperty('total')) {
+      $row->setSourceProperty('total', $total * 100);
+    }
+    if ($buy_price = $row->getSourceProperty('buy_price')) {
+      $row->setSourceProperty('buy_price', $buy_price * 100);
+    }
+    if ($sell_price = $row->getSourceProperty('sell_price')) {
+      $row->setSourceProperty('sell_price', $sell_price * 100);
+    }
+    if ($rrp_price = $row->getSourceProperty('rrp_price')) {
+      $row->setSourceProperty('rrp_price', $rrp_price * 100);
+    }
+
+    return TRUE;
   }
 
 }

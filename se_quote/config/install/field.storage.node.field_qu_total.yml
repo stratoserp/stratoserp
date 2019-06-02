@@ -6,8 +6,10 @@ dependencies:
 id: node.field_qu_total
 field_name: field_qu_total
 entity_type: node
-type: float
-settings: {  }
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

@@ -93,6 +93,14 @@ class ErpStockItem extends SqlBase {
     $row->setSourceProperty('title', substr($row->getSourceProperty('title'), 0, 128));
     $this->setItemTaxonomyTerms($row);
 
+    // Convert from float to cents
+    if ($receipt_price = $row->getSourceProperty('receipt_price')) {
+      $row->setSourceProperty('receipt_price', $receipt_price * 100);
+    }
+    if ($sell_price = $row->getSourceProperty('sell_price')) {
+      $row->setSourceProperty('sell_price', $sell_price * 100);
+    }
+
     return TRUE;
   }
 

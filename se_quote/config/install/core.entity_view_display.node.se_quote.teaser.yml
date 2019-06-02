@@ -8,9 +8,9 @@ dependencies:
     - field.field.node.se_quote.field_co_ref
     - field.field.node.se_quote.field_qu_id
     - field.field.node.se_quote.field_qu_items
-    - field.field.node.se_quote.field_status_ref
     - field.field.node.se_quote.field_qu_total
     - field.field.node.se_quote.field_se_comments
+    - field.field.node.se_quote.field_status_ref
     - node.type.se_quote
   module:
     - field_layout
@@ -42,10 +42,11 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   extra_field_ticket_statistics: true
+  extra_field_ticket_statistics_customer: true
   field_bu_ref: true
   field_co_ref: true
   field_qu_id: true
   field_qu_items: true
-  field_status_ref: true
   field_qu_total: true
   field_se_comments: true
+  field_status_ref: true

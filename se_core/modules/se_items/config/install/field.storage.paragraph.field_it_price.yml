@@ -6,8 +6,10 @@ dependencies:
 id: paragraph.field_it_price
 field_name: field_it_price
 entity_type: paragraph
-type: float
-settings: {  }
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

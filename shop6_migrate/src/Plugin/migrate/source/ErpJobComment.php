@@ -93,7 +93,12 @@ class ErpJobComment extends MigrateComment {
         $row->setSourceProperty('tk_date',
           strftime("%FT%T", (int) $timekeeping->field_serp_tk_date_value)
         );
-        $row->setSourceProperty('tk_amount', $timekeeping->field_serp_tk_taken_value);
+        //$hours = (int)$timekeeping->field_serp_tk_taken_value;
+        //$minutes = $timekeeping->field_serp_tk_taken_value - (int)$timekeeping->field_serp_tk_taken_value;
+        //$row->setSourceProperty('tk_amount', "P{$hours}H{$minutes}M");
+        // Convert time to minutes.
+        $minutes = ($timekeeping->field_serp_tk_taken_value * 60);
+        $row->setSourceProperty('tk_amount', $minutes);
         if (!empty($timekeeping->field_serp_tk_type_nid) && $tk_id = $this->findNewId($timekeeping->field_serp_tk_type_nid, 'nid', 'upgrade_d6_service_item')) {
           $row->setSourceProperty('tk_item', $tk_id);
         }
