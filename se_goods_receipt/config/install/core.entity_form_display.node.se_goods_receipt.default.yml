@@ -8,9 +8,9 @@ dependencies:
     - field.field.node.se_goods_receipt.field_gr_id
     - field.field.node.se_goods_receipt.field_gr_items
     - field.field.node.se_goods_receipt.field_gr_purchase_order_ref
-    - field.field.node.se_goods_receipt.field_status_ref
     - field.field.node.se_goods_receipt.field_gr_total
     - field.field.node.se_goods_receipt.field_se_comments
+    - field.field.node.se_goods_receipt.field_status_ref
     - node.type.se_goods_receipt
   module:
     - chosen_field
@@ -18,6 +18,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - paragraphs
+    - se_accounting
     - serial
     - text
 third_party_settings:
@@ -89,18 +90,11 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  field_status_ref:
-    type: chosen_select
-    weight: 4
-    region: second
-    settings: {  }
-    third_party_settings: {  }
   field_gr_total:
-    type: number
+    type: AUDWidget
     weight: 6
     region: bottom
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_se_comments:
     weight: 8
@@ -108,6 +102,12 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: bottom
+  field_status_ref:
+    type: chosen_select
+    weight: 4
+    region: second
+    settings: {  }
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -118,6 +118,9 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true
   path: true
   promote: true
   status: true

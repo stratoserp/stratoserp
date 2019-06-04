@@ -26,6 +26,7 @@ dependencies:
     - field_layout
     - image
     - layout_discovery
+    - se_accounting
     - text
 third_party_settings:
   field_layout:
@@ -45,11 +46,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_it_cost_price:
-    type: number
+    type: AUDWidget
     weight: 14
     region: second
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_it_description:
     weight: 15
@@ -135,18 +135,16 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_it_sale_price:
-    type: number
+    type: AUDWidget
     weight: 8
     region: first
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_it_sell_price:
-    type: number
+    type: AUDWidget
     weight: 4
     region: top
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_it_serial:
     type: string_textfield

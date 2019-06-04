@@ -11,6 +11,7 @@ dependencies:
     - chosen_field
     - field_layout
     - layout_discovery
+    - se_accounting
 third_party_settings:
   field_layout:
     id: layout_onecol
@@ -38,10 +39,9 @@ content:
     region: content
   field_if_price:
     weight: 29
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: number
+    type: AUDWidget
     region: content
   field_it_item_ref:
     weight: 27

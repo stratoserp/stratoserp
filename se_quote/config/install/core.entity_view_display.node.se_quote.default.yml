@@ -17,6 +17,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - reference_table_formatter
+    - se_accounting
     - serial
     - text
     - user
@@ -71,15 +72,11 @@ content:
     third_party_settings: {  }
     region: bottom
   field_qu_total:
-    type: number_decimal
+    type: AUDFormater
     weight: 6
     region: bottom
     label: inline
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
+    settings: {  }
     third_party_settings: {  }
   field_se_comments:
     weight: 8
@@ -107,5 +104,6 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_invoice_statistics_monthly: true
   extra_field_ticket_statistics: true
   extra_field_ticket_statistics_customer: true

@@ -26,6 +26,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - link
+    - se_accounting
     - serial
     - telephone
 third_party_settings:
@@ -47,10 +48,9 @@ content:
     third_party_settings: {  }
   field_cu_balance:
     weight: 26
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: number
+    type: AUDWidget
     region: first
   field_cu_email:
     type: email_default
@@ -173,6 +173,9 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true
   field_cu_location: true
   path: true
   promote: true

@@ -8,7 +8,9 @@ id: node.field_qu_id
 field_name: field_qu_id
 entity_type: node
 type: serial
-settings: {  }
+settings:
+  start_value: 1
+  init_existing_entities: 0
 module: serial
 locked: false
 cardinality: 1

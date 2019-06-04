@@ -4,5 +4,4 @@ dependencies: {  }
 name: 'Ticket status'
 vid: se_ticket_status
 description: 'Ticket status taxonomy'
-hierarchy: 0
 weight: 0

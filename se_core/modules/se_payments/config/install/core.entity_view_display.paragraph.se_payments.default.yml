@@ -11,6 +11,7 @@ dependencies:
     - datetime
     - field_layout
     - layout_discovery
+    - se_accounting
 third_party_settings:
   field_layout:
     id: layout_onecol
@@ -23,13 +24,9 @@ content:
   field_pa_amount:
     weight: 3
     label: hidden
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
+    settings: {  }
     third_party_settings: {  }
-    type: number_decimal
+    type: AUDFormater
     region: content
   field_pa_date:
     weight: 4

@@ -12,6 +12,7 @@ dependencies:
     - datetime
     - field_layout
     - layout_discovery
+    - se_accounting
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -23,10 +24,9 @@ mode: default
 content:
   field_pa_amount:
     weight: 2
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: number
+    type: AUDWidget
     region: second
   field_pa_date:
     weight: 1

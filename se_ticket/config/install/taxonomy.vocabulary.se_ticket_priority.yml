@@ -4,5 +4,4 @@ dependencies: {  }
 name: 'Ticket priority'
 vid: se_ticket_priority
 description: 'Ticket priority taxonomy'
-hierarchy: 0
 weight: 0

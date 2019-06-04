@@ -14,6 +14,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - paragraphs
+    - se_accounting
     - serial
     - text
 third_party_settings:
@@ -69,10 +70,9 @@ content:
     region: bottom
   field_pa_total:
     weight: 5
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: number
+    type: AUDWidget
     region: bottom
   field_se_comments:
     weight: 7
@@ -90,6 +90,9 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true
   path: true
   promote: true
   status: true

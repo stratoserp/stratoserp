@@ -165,6 +165,9 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true
   field_su_location: true
   path: true
   promote: true

@@ -18,6 +18,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - reference_table_formatter
+    - se_accounting
     - serial
     - text
     - user
@@ -82,13 +83,9 @@ content:
   field_po_total:
     weight: 8
     label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
+    settings: {  }
     third_party_settings: {  }
-    type: number_decimal
+    type: AUDFormater
     region: bottom
   field_se_comments:
     weight: 9

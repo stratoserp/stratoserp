@@ -14,6 +14,7 @@ dependencies:
     - chosen_field
     - field_layout
     - layout_discovery
+    - se_accounting
     - text
 third_party_settings:
   field_layout:
@@ -34,10 +35,9 @@ content:
     region: content
   field_it_cost_price:
     weight: 31
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: number
+    type: AUDWidget
     region: content
   field_it_description:
     weight: 32
@@ -67,10 +67,9 @@ content:
     region: content
   field_it_sell_price:
     weight: 26
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: number
+    type: AUDWidget
     region: content
   name:
     type: string_textfield

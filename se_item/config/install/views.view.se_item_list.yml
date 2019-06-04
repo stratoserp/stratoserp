@@ -2,14 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_code
-    - field.storage.se_item.field_it_cost_price
-    - field.storage.se_item.field_it_sell_price
-    - field.storage.se_item.field_it_serial
     - system.menu.stratos-erp
     - user.role.staff
   module:
-    - se_accounting
     - se_item
     - user
 id: se_item_list
@@ -859,11 +854,7 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags:
-        - 'config:field.storage.se_item.field_it_code'
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_sell_price'
-        - 'config:field.storage.se_item.field_it_serial'
+      tags: {  }
   page_1:
     display_plugin: page
     id: page_1
@@ -889,8 +880,4 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags:
-        - 'config:field.storage.se_item.field_it_code'
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_sell_price'
-        - 'config:field.storage.se_item.field_it_serial'
+      tags: {  }

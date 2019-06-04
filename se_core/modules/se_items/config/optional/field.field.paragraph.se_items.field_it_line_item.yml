@@ -5,9 +5,9 @@ dependencies:
     - comment.type.se_timekeeping
     - field.storage.paragraph.field_it_line_item
     - paragraphs.paragraphs_type.se_items
+    - se_item.se_item_type.se_recurring
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
-    - se_item.se_item_type.se_recurring
   module:
     - dynamic_entity_reference
 id: paragraph.se_items.field_it_line_item
@@ -41,4 +41,136 @@ settings:
         field: _none
       auto_create: false
       auto_create_bundle: se_stock
+  block:
+    handler: 'default:block'
+    handler_settings: {  }
+  block_content_type:
+    handler: 'default:block_content_type'
+    handler_settings: {  }
+  block_content:
+    handler: 'default:block_content'
+    handler_settings: {  }
+  comment_type:
+    handler: 'default:comment_type'
+    handler_settings: {  }
+  contact_form:
+    handler: 'default:contact_form'
+    handler_settings: {  }
+  contact_message:
+    handler: 'default:contact_message'
+    handler_settings: {  }
+  editor:
+    handler: 'default:editor'
+    handler_settings: {  }
+  facets_facet:
+    handler: 'default:facets_facet'
+    handler_settings: {  }
+  facets_facet_source:
+    handler: 'default:facets_facet_source'
+    handler_settings: {  }
+  field_config:
+    handler: 'default:field_config'
+    handler_settings: {  }
+  field_storage_config:
+    handler: 'default:field_storage_config'
+    handler_settings: {  }
+  file:
+    handler: 'default:file'
+    handler_settings: {  }
+  filter_format:
+    handler: 'default:filter_format'
+    handler_settings: {  }
+  image_style:
+    handler: 'default:image_style'
+    handler_settings: {  }
+  linkit_profile:
+    handler: 'default:linkit_profile'
+    handler_settings: {  }
+  migration_group:
+    handler: 'default:migration_group'
+    handler_settings: {  }
+  migration:
+    handler: 'default:migration'
+    handler_settings: {  }
+  node_type:
+    handler: 'default:node_type'
+    handler_settings: {  }
+  node:
+    handler: 'default:node'
+    handler_settings: {  }
+  rest_resource_config:
+    handler: 'default:rest_resource_config'
+    handler_settings: {  }
+  se_information_type:
+    handler: 'default:se_information_type'
+    handler_settings: {  }
+  se_information:
+    handler: 'default:se_information'
+    handler_settings: {  }
+  se_item_type:
+    handler: 'default:se_item_type'
+    handler_settings: {  }
+  search_page:
+    handler: 'default:search_page'
+    handler_settings: {  }
+  menu:
+    handler: 'default:menu'
+    handler_settings: {  }
+  action:
+    handler: 'default:action'
+    handler_settings: {  }
+  taxonomy_term:
+    handler: 'default:taxonomy_term'
+    handler_settings: {  }
+  taxonomy_vocabulary:
+    handler: 'default:taxonomy_vocabulary'
+    handler_settings: {  }
+  tour:
+    handler: 'default:tour'
+    handler_settings: {  }
+  user:
+    handler: 'default:user'
+    handler_settings: {  }
+  user_role:
+    handler: 'default:user_role'
+    handler_settings: {  }
+  webform_options:
+    handler: 'default:webform_options'
+    handler_settings: {  }
+  webform:
+    handler: 'default:webform'
+    handler_settings: {  }
+  webform_submission:
+    handler: 'default:webform_submission'
+    handler_settings: {  }
+  menu_link_content:
+    handler: 'default:menu_link_content'
+    handler_settings: {  }
+  view:
+    handler: 'default:view'
+    handler_settings: {  }
+  paragraphs_type:
+    handler: 'default:paragraphs_type'
+    handler_settings: {  }
+  paragraph:
+    handler: 'default:paragraph'
+    handler_settings: {  }
+  base_field_override:
+    handler: 'default:base_field_override'
+    handler_settings: {  }
+  entity_form_display:
+    handler: 'default:entity_form_display'
+    handler_settings: {  }
+  entity_form_mode:
+    handler: 'default:entity_form_mode'
+    handler_settings: {  }
+  entity_view_mode:
+    handler: 'default:entity_view_mode'
+    handler_settings: {  }
+  entity_view_display:
+    handler: 'default:entity_view_display'
+    handler_settings: {  }
+  date_format:
+    handler: 'default:date_format'
+    handler_settings: {  }
 field_type: dynamic_entity_reference

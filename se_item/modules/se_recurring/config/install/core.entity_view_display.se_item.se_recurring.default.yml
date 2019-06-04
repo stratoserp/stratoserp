@@ -15,6 +15,7 @@ dependencies:
     - duration_field
     - field_layout
     - layout_discovery
+    - se_accounting
     - text
 third_party_settings:
   field_layout:
@@ -36,13 +37,9 @@ content:
   field_it_cost_price:
     weight: 4
     label: inline
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
+    settings: {  }
     third_party_settings: {  }
-    type: number_decimal
+    type: AUDFormater
     region: second
   field_it_description:
     weight: 8
@@ -87,13 +84,9 @@ content:
   field_it_sell_price:
     weight: 2
     label: inline
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
+    settings: {  }
     third_party_settings: {  }
-    type: number_decimal
+    type: AUDFormater
     region: first
   name:
     label: inline

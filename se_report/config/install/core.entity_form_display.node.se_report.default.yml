@@ -115,4 +115,7 @@ content:
       placeholder: ''
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true

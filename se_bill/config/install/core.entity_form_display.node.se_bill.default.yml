@@ -5,16 +5,17 @@ dependencies:
     - field.field.node.se_bill.body
     - field.field.node.se_bill.field_bi_id
     - field.field.node.se_bill.field_bi_items
-    - field.field.node.se_bill.field_status_ref
     - field.field.node.se_bill.field_bi_total
     - field.field.node.se_bill.field_bu_ref
     - field.field.node.se_bill.field_co_ref
+    - field.field.node.se_bill.field_status_ref
     - node.type.se_bill
   module:
     - chosen_field
     - field_layout
     - layout_discovery
     - paragraphs
+    - se_accounting
     - serial
     - text
 third_party_settings:
@@ -59,18 +60,11 @@ content:
         collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
     region: bottom
-  field_status_ref:
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    type: chosen_select
-    region: second
   field_bi_total:
     weight: 6
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: number
+    type: AUDWidget
     region: bottom
   field_bu_ref:
     weight: 1
@@ -90,6 +84,12 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
+  field_status_ref:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: chosen_select
+    region: second
   title:
     type: string_textfield
     weight: 0
@@ -100,6 +100,9 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true
   path: true
   promote: true
   status: true
