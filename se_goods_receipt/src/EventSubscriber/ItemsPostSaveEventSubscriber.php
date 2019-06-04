@@ -10,7 +10,7 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
-class ItemsPostSave implements EventSubscriberInterface {
+class ItemsPostSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

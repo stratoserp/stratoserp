@@ -26,7 +26,7 @@ class TimeWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $value = isset($items[$delta]->value) ? $items[$delta]->value : '';
     $element += [
-      '#type' => 'time',
+      '#type' => 'textfield',
       '#default_value' => $value,
       '#size' => 7,
       '#maxlength' => 7,

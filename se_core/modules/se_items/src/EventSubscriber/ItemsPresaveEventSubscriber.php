@@ -8,7 +8,7 @@ use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ItemsPresave implements EventSubscriberInterface {
+class ItemsPresaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

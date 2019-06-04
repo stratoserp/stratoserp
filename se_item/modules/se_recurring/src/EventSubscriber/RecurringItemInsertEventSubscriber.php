@@ -6,7 +6,7 @@ use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class InvoiceInsert implements EventSubscriberInterface {
+class RecurringItemInsertEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

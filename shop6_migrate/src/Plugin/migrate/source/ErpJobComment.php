@@ -7,6 +7,7 @@ use Drupal\Core\Database\Database;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
+use Drupal\node\Entity\Node;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 
 /**
@@ -18,6 +19,7 @@ use Drupal\shop6_migrate\Shop6MigrateUtilities;
  * )
  */
 class ErpJobComment extends MigrateComment {
+
   use Shop6MigrateUtilities;
 
   /**
@@ -93,10 +95,6 @@ class ErpJobComment extends MigrateComment {
         $row->setSourceProperty('tk_date',
           strftime("%FT%T", (int) $timekeeping->field_serp_tk_date_value)
         );
-        //$hours = (int)$timekeeping->field_serp_tk_taken_value;
-        //$minutes = $timekeeping->field_serp_tk_taken_value - (int)$timekeeping->field_serp_tk_taken_value;
-        //$row->setSourceProperty('tk_amount', "P{$hours}H{$minutes}M");
-        // Convert time to minutes.
         $minutes = ($timekeeping->field_serp_tk_taken_value * 60);
         $row->setSourceProperty('tk_amount', $minutes);
         if (!empty($timekeeping->field_serp_tk_type_nid) && $tk_id = $this->findNewId($timekeeping->field_serp_tk_type_nid, 'nid', 'upgrade_d6_service_item')) {
@@ -111,11 +109,15 @@ class ErpJobComment extends MigrateComment {
       $row->setSourceProperty('tk_date', strftime("%FT%T", (int) $row->getSourceProperty('timestamp')));
     }
 
+    // Find the original job, if there is one.
     $nid = $row->getSourceProperty('nid');
     if (!empty($nid)) {
       $new_id = $this->findNewId($nid, 'nid', 'upgrade_d6_node_erp_job');
       if ($new_id) {
         $row->setSourceProperty('nid', $new_id);
+        if ($job = Node::load($new_id)) {
+          $row->setSourceProperty('business_ref', $job->field_bu_ref->target_id);
+        }
         return TRUE;
       }
     }

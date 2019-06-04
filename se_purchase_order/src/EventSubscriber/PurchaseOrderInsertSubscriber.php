@@ -6,7 +6,7 @@ use Drupal\hook_event_dispatcher\Event\Entity\EntityCreateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PurchaseOrderInsert implements EventSubscriberInterface {
+class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

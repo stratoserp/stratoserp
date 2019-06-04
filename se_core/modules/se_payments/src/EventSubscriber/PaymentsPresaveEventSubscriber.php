@@ -7,7 +7,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PaymentsPresave implements EventSubscriberInterface {
+class PaymentsPresaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -19,6 +19,8 @@ class PaymentsPresave implements EventSubscriberInterface {
   }
 
   /**
+   * When saving a payment, calculate the total of the items for saving.
+   *
    * @param EntityPresaveEvent $event
    *
    */

@@ -7,7 +7,7 @@ use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CustomerInsert implements EventSubscriberInterface {
+class CustomerInsertEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

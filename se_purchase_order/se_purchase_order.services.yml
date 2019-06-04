@@ -1,5 +1,5 @@
 services:
   se_purchase_order.se_purchase_order_insert:
-    class: Drupal\se_purchase_order\EventSubscriber\PurchaseOrderInsert
+    class: Drupal\se_purchase_order\EventSubscriber\PurchaseOrderInsertSubscriber
     tags:
       - { name: event_subscriber }

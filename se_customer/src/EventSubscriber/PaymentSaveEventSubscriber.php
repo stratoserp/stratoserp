@@ -10,7 +10,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PaymentSave implements EventSubscriberInterface {
+class PaymentSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

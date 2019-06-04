@@ -7,7 +7,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ItemInsert implements EventSubscriberInterface {
+class StockItemInsertEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

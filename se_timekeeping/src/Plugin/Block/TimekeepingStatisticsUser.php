@@ -52,7 +52,7 @@ class TimekeepingStatisticsUser extends BlockBase {
         foreach ($comments as $comment) {
           $total += $comment->field_tk_amount->value;
         }
-        $month_data[] = $total;
+        $month_data[] = \Drupal::service('se_timekeeping.time_format')->formatHours($total);
         $fg_colors[] = $fg_color;
       }
 
@@ -71,7 +71,7 @@ class TimekeepingStatisticsUser extends BlockBase {
       ];
     }
 
-    $build['ticket_statistics_user'] = [
+    $build['timekeeping_statistics_user'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -85,7 +85,7 @@ class TimekeepingStatisticsUser extends BlockBase {
           'mode' => 'dataset'
         ],
       ],
-      '#id' => 'ticket_statistics_user',
+      '#id' => 'timekeeping_statistics_user',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

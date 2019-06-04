@@ -10,7 +10,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class InvoiceSave implements EventSubscriberInterface {
+class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -18,13 +18,18 @@ class InvoiceSave implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceSave',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceReduce'
     ];
   }
 
-  public function invoiceSave(EntityInsertEvent $event) {
+  /**
+   * Add the total of this invoice to the amount the customer owes.
+   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   */
+  public function invoiceInsert(EntityInsertEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'
       || $entity->bundle() !== 'se_invoice') {
@@ -33,6 +38,11 @@ class InvoiceSave implements EventSubscriberInterface {
     $this->updateCustomerBalance($entity);
   }
 
+  /**
+   * Add the total of this invoice to the amount the customer owes.
+   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   */
   public function invoiceUpdate(EntityUpdateEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'
@@ -42,6 +52,12 @@ class InvoiceSave implements EventSubscriberInterface {
     $this->updateCustomerBalance($entity);
   }
 
+  /**
+   * In case the amount changes on the saving of this entity, we need
+   * to reduce the current balance by the old balance first.
+   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   */
   public function invoiceReduce(EntityPresaveEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'

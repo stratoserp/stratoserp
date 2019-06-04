@@ -8,7 +8,7 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
-class ItemsPreSave implements EventSubscriberInterface {
+class ItemsPreSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

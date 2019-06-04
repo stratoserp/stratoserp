@@ -33,6 +33,7 @@ process:
   changed: timestamp
   status: status
   thread: thread
+  field_bu_ref/target_id: business_ref
   field_tk_comment/value: comment
   field_tk_comment/format:
     plugin: default_value

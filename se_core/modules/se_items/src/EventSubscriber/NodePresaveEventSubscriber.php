@@ -7,7 +7,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class NodePresave implements EventSubscriberInterface {
+class NodePresaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

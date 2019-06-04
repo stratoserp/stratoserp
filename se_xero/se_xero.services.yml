@@ -3,17 +3,21 @@ services:
     class: Drupal\Core\Logger\LoggerChannel
     factory: logger.factory:get
     arguments: ['se_xero']
+
   se_xero.customer_saved:
-    class: Drupal\se_xero\EventSubscriber\CustomerInsert
+    class: Drupal\se_xero\EventSubscriber\CustomerInsertEventSubscriber
     tags:
       - { name: event_subscriber }
+
   se_xero.invoice_saved:
-    class: Drupal\se_xero\EventSubscriber\InvoiceInsert
+    class: Drupal\se_xero\EventSubscriber\InvoiceInsertEventSubscriber
     tags:
       - { name: event_subscriber }
+
   se_xero.contact_service:
-    class: \Drupal\se_xero\Service\XeroContactService
+    class: Drupal\se_xero\Service\XeroContactService
     arguments: ['@logger.channel.se_xero', '@typed_data_manager', '@xero.query.factory']
+
   se_xero.invoice_service:
-    class: \Drupal\se_xero\Service\XeroInvoiceService
+    class: Drupal\se_xero\Service\XeroInvoiceService
     arguments: ['@logger.channel.se_xero', '@typed_data_manager', '@xero.query.factory']

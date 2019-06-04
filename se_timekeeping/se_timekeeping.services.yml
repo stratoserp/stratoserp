@@ -1,0 +1,8 @@
+services:
+  se_timekeeping.time_format:
+    class: Drupal\se_timekeeping\Service\TimeFormat
+
+  se_timekeeping.items_postsave:
+    class: Drupal\se_timekeeping\EventSubscriber\TimekeepingPostSaveEventSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -4,11 +4,11 @@ services:
     arguments: ['@config.factory', '@entity_type.manager']
 
   se_customer.invoice_save:
-    class: Drupal\se_customer\EventSubscriber\InvoiceSave
+    class: Drupal\se_customer\EventSubscriber\InvoiceSaveEventSubscriber
     tags:
       - { name: event_subscriber }
 
   se_customer.payment_save:
-    class: Drupal\se_customer\EventSubscriber\PaymentSave
+    class: Drupal\se_customer\EventSubscriber\PaymentSaveEventSubscriber
     tags:
       - { name: event_subscriber }
