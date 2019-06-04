@@ -64,7 +64,7 @@ content:
     weight: 6
     settings: {  }
     third_party_settings: {  }
-    type: AUDWidget
+    type: se_accounting_widget
     region: bottom
   field_bu_ref:
     weight: 1

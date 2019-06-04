@@ -44,7 +44,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: AUDFormater
+    type: se_accounting_formatter
     region: content
   field_it_item_ref:
     weight: 2

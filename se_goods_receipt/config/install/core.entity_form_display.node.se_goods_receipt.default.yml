@@ -91,7 +91,7 @@ content:
     type: entity_reference_autocomplete
     region: first
   field_gr_total:
-    type: AUDWidget
+    type: se_accounting_widget
     weight: 6
     region: bottom
     settings: {  }

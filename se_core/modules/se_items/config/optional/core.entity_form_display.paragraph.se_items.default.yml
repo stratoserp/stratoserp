@@ -14,6 +14,7 @@ dependencies:
     - dynamic_entity_reference
     - field_layout
     - layout_discovery
+    - se_accounting
     - text
 third_party_settings:
   field_layout:
@@ -40,16 +41,18 @@ content:
     region: second
   field_it_line_item:
     weight: 1
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: '40'
+      placeholder: ''
     third_party_settings: {  }
     type: dynamic_entity_reference_bundle
     region: first
   field_it_price:
     weight: 4
-    settings:
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: number
+    type: se_accounting_widget
     region: first
   field_it_quantity:
     weight: 0

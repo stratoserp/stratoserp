@@ -9,21 +9,21 @@ use Drupal\Core\Field\FieldItemListInterface;
  * Plugin implementation of the 'Random_default' formatter.
  *
  * @FieldFormatter(
- *   id = "AUDFormater",
- *   label = @Translation("AUD Formatter"),
+ *   id = "se_accounting_formatter",
+ *   label = @Translation("Stratos ERP Formatter"),
  *   field_types = {
  *     "integer"
  *   }
  * )
  */
-class AUDFormatter extends FormatterBase {
+class SeAccountingFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
    */
   public function settingsSummary() {
     $summary = [];
-    $summary[] = $this->t('Displays currency fields using AUD format dollars and cents.');
+    $summary[] = $this->t('Displays currency fields using format selected in settings.');
     return $summary;
   }
 

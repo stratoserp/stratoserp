@@ -44,7 +44,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
   field_it_cost_price:
-    type: AUDFormater
+    type: se_accounting_formatter
     weight: 13
     region: second
     label: inline
@@ -142,14 +142,14 @@ content:
       timezone_override: ''
     third_party_settings: {  }
   field_it_sale_price:
-    type: AUDFormater
+    type: se_accounting_formatter
     weight: 8
     region: first
     label: inline
     settings: {  }
     third_party_settings: {  }
   field_it_sell_price:
-    type: AUDFormater
+    type: se_accounting_formatter
     weight: 7
     region: first
     label: inline

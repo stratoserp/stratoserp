@@ -55,7 +55,7 @@ content:
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    type: AUDFormater
+    type: se_accounting_formatter
     region: first
   field_it_quantity:
     weight: 0

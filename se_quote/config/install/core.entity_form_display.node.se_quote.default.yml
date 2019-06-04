@@ -81,7 +81,7 @@ content:
     third_party_settings: {  }
     region: bottom
   field_qu_total:
-    type: AUDWidget
+    type: se_accounting_widget
     weight: 6
     region: bottom
     settings: {  }

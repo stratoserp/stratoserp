@@ -41,7 +41,7 @@ content:
     weight: 29
     settings: {  }
     third_party_settings: {  }
-    type: AUDWidget
+    type: se_accounting_widget
     region: content
   field_it_item_ref:
     weight: 27

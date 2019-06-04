@@ -46,7 +46,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_it_cost_price:
-    type: AUDWidget
+    type: se_accounting_widget
     weight: 14
     region: second
     settings: {  }
@@ -135,13 +135,13 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_it_sale_price:
-    type: AUDWidget
+    type: se_accounting_widget
     weight: 8
     region: first
     settings: {  }
     third_party_settings: {  }
   field_it_sell_price:
-    type: AUDWidget
+    type: se_accounting_widget
     weight: 4
     region: top
     settings: {  }

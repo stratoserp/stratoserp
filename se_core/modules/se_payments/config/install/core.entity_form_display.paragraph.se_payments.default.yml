@@ -26,7 +26,7 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
-    type: AUDWidget
+    type: se_accounting_widget
     region: second
   field_pa_date:
     weight: 1

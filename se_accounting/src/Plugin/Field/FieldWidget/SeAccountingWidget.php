@@ -10,15 +10,15 @@ use Drupal\Core\Form\FormStateInterface;
  * Plugin implementation of a widget to display cents in Human readable dollars and cents.
  *
  * @FieldWidget(
- *   id = "AUDWidget",
+ *   id = "se_accounting_widget",
  *   module = "se_accounting",
- *   label = @Translation("AUD Field Widget"),
+ *   label = @Translation("Stratos ERP Widget"),
  *   field_types = {
  *     "integer"
  *   }
  * )
  */
-class AUDWidget extends WidgetBase {
+class SeAccountingWidget extends WidgetBase {
 
   /**
    * {@inheritdoc}

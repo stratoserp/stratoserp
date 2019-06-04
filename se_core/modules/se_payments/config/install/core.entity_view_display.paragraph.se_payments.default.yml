@@ -26,7 +26,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: AUDFormater
+    type: se_accounting_formatter
     region: content
   field_pa_date:
     weight: 4

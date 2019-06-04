@@ -81,7 +81,7 @@ content:
     type: entity_reference_label
     region: first
   field_gr_total:
-    type: AUDFormater
+    type: se_accounting_formatter
     weight: 6
     region: bottom
     label: above

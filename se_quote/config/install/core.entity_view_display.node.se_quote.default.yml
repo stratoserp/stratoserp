@@ -72,7 +72,7 @@ content:
     third_party_settings: {  }
     region: bottom
   field_qu_total:
-    type: AUDFormater
+    type: se_accounting_formatter
     weight: 6
     region: bottom
     label: inline

@@ -94,7 +94,7 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
-    type: AUDWidget
+    type: se_accounting_widget
     region: bottom
   field_se_comments:
     weight: 9

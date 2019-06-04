@@ -50,7 +50,7 @@ content:
     weight: 26
     settings: {  }
     third_party_settings: {  }
-    type: AUDWidget
+    type: se_accounting_widget
     region: first
   field_cu_email:
     type: email_default

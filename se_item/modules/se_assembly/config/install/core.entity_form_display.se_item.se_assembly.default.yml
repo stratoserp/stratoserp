@@ -57,7 +57,7 @@ content:
     weight: 32
     settings: {  }
     third_party_settings: {  }
-    type: AUDWidget
+    type: se_accounting_widget
     region: content
   field_it_description:
     weight: 33
@@ -89,7 +89,7 @@ content:
     weight: 27
     settings: {  }
     third_party_settings: {  }
-    type: AUDWidget
+    type: se_accounting_widget
     region: content
   name:
     type: string_textfield

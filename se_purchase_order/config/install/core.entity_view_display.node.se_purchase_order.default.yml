@@ -85,7 +85,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: AUDFormater
+    type: se_accounting_formatter
     region: bottom
   field_se_comments:
     weight: 9

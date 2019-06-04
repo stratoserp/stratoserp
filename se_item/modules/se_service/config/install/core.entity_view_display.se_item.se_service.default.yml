@@ -37,7 +37,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: AUDFormater
+    type: se_accounting_formatter
     region: second
   field_it_description:
     weight: 7
@@ -75,7 +75,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: AUDFormater
+    type: se_accounting_formatter
     region: first
   name:
     label: above
