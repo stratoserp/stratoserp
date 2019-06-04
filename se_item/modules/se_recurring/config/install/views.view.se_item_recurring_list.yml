@@ -9,6 +9,7 @@ dependencies:
     - system.menu.stratos-erp
     - user.role.staff
   module:
+    - se_accounting
     - se_item
     - user
 id: se_item_recurring_list
@@ -300,12 +301,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_decimal
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-            decimal_separator: .
-            scale: 2
+          type: AUDFormater
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -366,12 +363,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_decimal
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-            decimal_separator: .
-            scale: 2
+          type: AUDFormater
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true

@@ -102,8 +102,8 @@ function se_basic_setup_example_service_items() {
       'name' => 'Technical service',
       'body' => 'Technical service by one of our qualified technicians.',
       'field_it_code'  => [['value' => 'TECHSERVICE']],
-      'field_it_sell_price' => [['value' => 160.00]],
-      'field_it_cost_price' => [['value' => 55.00]],
+      'field_it_sell_price' => [['value' => 16000]],
+      'field_it_cost_price' => [['value' => 5500]],
     ]);
   $item->save();
 
@@ -111,8 +111,8 @@ function se_basic_setup_example_service_items() {
       'name' => 'Workshop service',
       'body' => 'Workshop service by one of our qualified technicians.',
       'field_it_code'  => [['value' => 'WORKSHOP']],
-      'field_it_sell_price' => [['value' => 120.00]],
-      'field_it_cost_price' => [['value' => 55.00]],
+      'field_it_sell_price' => [['value' => 12000]],
+      'field_it_cost_price' => [['value' => 5500]],
     ]);
   $item->save();
 }
@@ -125,9 +125,9 @@ function se_basic_setup_example_recurring_items() {
       'name' => 'Domain name registration',
       'body' => 'Domain name registration - yearly.',
       'field_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
-      'field_it_sell_price' => [['value' => 60.00]],
+      'field_it_sell_price' => [['value' => 6000]],
       'field_it_recurring_period' => [['duration' => 'P1Y']],
-      'field_it_cost_price' => [['value' => 20.00]],
+      'field_it_cost_price' => [['value' => 2000]],
     ]);
   $item->save();
 
@@ -135,9 +135,9 @@ function se_basic_setup_example_recurring_items() {
       'name' => 'Domain name - biennually',
       'body' => 'Domain name - biennually.',
       'field_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
-      'field_it_sell_price' => [['value' => 120.00]],
+      'field_it_sell_price' => [['value' => 12000]],
       'field_it_recurring_period' => [['duration' => 'P2Y']],
-      'field_it_cost_price' => [['value' => 40.00]],
+      'field_it_cost_price' => [['value' => 4000]],
     ]);
   $item->save();
 
@@ -147,9 +147,9 @@ function se_basic_setup_example_recurring_items() {
       'name' => 'Domain hosting',
       'body' => 'Domain hosting - yearly.',
       'field_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
-      'field_it_sell_price' => [['value' => 240.00]],
+      'field_it_sell_price' => [['value' => 24000]],
       'field_it_recurring_period' => [['duration' => 'P1Y']],
-      'field_it_cost_price' => [['value' => 120.00]],
+      'field_it_cost_price' => [['value' => 12000]],
     ]);
   $item->save();
 }
@@ -161,8 +161,8 @@ function se_basic_setup_example_stock_items() {
       'name' => 'Microsoft KB600',
       'body' => 'Microsoft KB600',
       'field_it_code'  => [['value' => 'MS-KB-600']],
-      'field_it_sell_price' => [['value' => 45.00]],
-      'field_it_cost_price' => [['value' => 25.00]],
+      'field_it_sell_price' => [['value' => 4500]],
+      'field_it_cost_price' => [['value' => 2500]],
     ]);
   $item->save();
 
@@ -170,8 +170,8 @@ function se_basic_setup_example_stock_items() {
       'name' => 'Microsoft KB800',
       'body' => 'Microsoft KB800',
       'field_it_code'  => [['value' => 'MS-KB-800']],
-      'field_it_sell_price' => [['value' => 55.00]],
-      'field_it_cost_price' => [['value' => 30.00]],
+      'field_it_sell_price' => [['value' => 5500]],
+      'field_it_cost_price' => [['value' => 3000]],
     ]);
   $item->save();
 
@@ -181,8 +181,8 @@ function se_basic_setup_example_stock_items() {
       'name' => 'Lenovo 11e',
       'body' => 'Lenovo 11e',
       'field_it_code'  => [['value' => 'LN-11E']],
-      'field_it_sell_price' => [['value' => 899]],
-      'field_it_cost_price' => [['value' => 679]],
+      'field_it_sell_price' => [['value' => 89900]],
+      'field_it_cost_price' => [['value' => 67900]],
     ]);
   $item->save();
 
@@ -190,8 +190,8 @@ function se_basic_setup_example_stock_items() {
       'name' => 'Lenovo x280',
       'body' => 'Lenovo x280',
       'field_it_code'  => [['value' => 'LN-X280']],
-      'field_it_sell_price' => [['value' => 1299]],
-      'field_it_cost_price' => [['value' => 1001]],
+      'field_it_sell_price' => [['value' => 129900]],
+      'field_it_cost_price' => [['value' => 100100]],
     ]);
   $item->save();
 
@@ -201,8 +201,8 @@ function se_basic_setup_example_stock_items() {
       'name' => 'Canon PIXMA - Cyan',
       'body' => 'Canon PIXMA - Cyan',
       'field_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
-      'field_it_sell_price' => [['value' => 14.99]],
-      'field_it_cost_price' => [['value' => 10.00]],
+      'field_it_sell_price' => [['value' => 149900]],
+      'field_it_cost_price' => [['value' => 100000]],
     ]);
   $item->save();
 
@@ -210,8 +210,8 @@ function se_basic_setup_example_stock_items() {
       'name' => 'Canon PIXMA - Yellow',
       'body' => 'Canon PIXMA - Yellow',
       'field_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
-      'field_it_sell_price' => [['value' => 14.99]],
-      'field_it_cost_price' => [['value' => 10.00]],
+      'field_it_sell_price' => [['value' => 149900]],
+      'field_it_cost_price' => [['value' => 100000]],
     ]);
   $item->save();
 
@@ -219,8 +219,8 @@ function se_basic_setup_example_stock_items() {
       'name' => 'Canon PIXMA - Magenta',
       'body' => 'Canon PIXMA - Magenta',
       'field_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
-      'field_it_sell_price' => [['value' => 14.99]],
-      'field_it_cost_price' => [['value' => 10.00]],
+      'field_it_sell_price' => [['value' => 149900]],
+      'field_it_cost_price' => [['value' => 100000]],
     ]);
   $item->save();
 
