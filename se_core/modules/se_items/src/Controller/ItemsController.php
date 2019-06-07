@@ -32,7 +32,7 @@ class ItemsController extends ControllerBase {
       return $response;
     }
 
-    $item_price = $item->get('field_it_sell_price')->value;
+    $item_price = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->get('field_it_sell_price')->value);
 
     // Create a new ajax response to set the price.
     $response->addCommand(new InvokeCommand(

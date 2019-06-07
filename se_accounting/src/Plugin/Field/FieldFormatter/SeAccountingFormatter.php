@@ -36,7 +36,7 @@ class SeAccountingFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       // Render each element as markup.
       $element[$delta] = [
-        '#markup' => \Drupal::service('se_accounting.currency_format')->formatDollars($item->value),
+        '#markup' => \Drupal::service('se_accounting.currency_format')->formatDisplay($item->value),
       ];
     }
 

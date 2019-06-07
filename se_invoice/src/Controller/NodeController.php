@@ -161,7 +161,7 @@ class NodeController extends ControllerBase {
         ]);
         /** @var Item $item */
         if ($item = Item::load($comment->field_tk_item->target_id)) {
-          $paragraph->set('field_it_price', \Drupal::service('se_accounting.currency_format')->formatDollars($item->field_it_sell_price->value));
+          $paragraph->set('field_it_price', \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value));
         }
         $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($paragraph);
       }

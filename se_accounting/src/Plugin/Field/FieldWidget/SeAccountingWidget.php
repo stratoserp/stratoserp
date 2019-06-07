@@ -45,7 +45,9 @@ class SeAccountingWidget extends WidgetBase {
 
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     foreach ($values as &$value) {
-      $value *= 100;
+      if (isset($value['value'])) {
+        $value['value'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$value['value']);
+      }
     }
 
     return $values;

@@ -122,7 +122,7 @@ class AutocompleteController extends ControllerBase {
         $description,
         $item->getName(),
         $item->field_it_serial->value ?: NULL,
-        \Drupal::service('se_accounting.currency_format')->formatDollars($item->field_it_sell_price->value)
+        \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value)
       ];
       $fields = array_filter($fields);
       $key = implode(' - ', $fields);
