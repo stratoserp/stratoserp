@@ -6,7 +6,7 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 
 /**
- * Plugin implementation of the 'Random_default' formatter.
+ * Plugin implementation of stratoserp accounting formatter.
  *
  * @FieldFormatter(
  *   id = "se_accounting_formatter",
