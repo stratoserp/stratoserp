@@ -39,11 +39,11 @@ class NodePresaveEventSubscriber implements EventSubscriberInterface {
     }
 
     /** @var \Drupal\node\Entity\Node $entity */
-    $items = $entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'}->referencedEntities();
+//    $items = $entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'}->referencedEntities();
 
-    foreach ($items as $index => $ref_entity) {
-      $total += $ref_entity->field_it_quantity->value * $ref_entity->field_it_price->value;
-    }
+//    foreach ($items as $index => $ref_entity) {
+//      $total += $ref_entity->field_it_quantity->value * $ref_entity->field_it_price->value;
+//    }
 
     /** @var \Drupal\node\Entity\Node $entity */
     $entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_total'}->value = $total;

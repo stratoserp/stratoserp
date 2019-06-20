@@ -16,6 +16,7 @@ dependencies:
   - se_core
   - se_customer
   - se_items
+  - se_line_item
   - se_quote
   - se_supplier
   - serial

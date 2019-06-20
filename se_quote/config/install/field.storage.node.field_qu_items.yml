@@ -2,16 +2,20 @@ langcode: en
 status: true
 dependencies:
   module:
-    - entity_reference_revisions
+    - comment
     - node
-    - paragraphs
+    - se_item
+    - se_line_item
 id: node.field_qu_items
 field_name: field_qu_items
 entity_type: node
-type: entity_reference_revisions
+type: se_line_item
 settings:
-  target_type: paragraph
-module: entity_reference_revisions
+  exclude_entity_types: 0
+  entity_type_ids:
+    comment: comment
+    se_item: se_item
+module: se_line_item
 locked: false
 cardinality: -1
 translatable: true

@@ -17,8 +17,8 @@ dependencies:
     - comment
     - field_layout
     - layout_discovery
-    - paragraphs
     - se_accounting
+    - se_line_item
     - serial
     - text
 third_party_settings:
@@ -64,22 +64,13 @@ content:
     type: serial_default_widget
     region: second
   field_po_items:
-    type: paragraphs
     weight: 6
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: se_items
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      features:
-        duplicate: duplicate
-        collapse_edit_all: collapse_edit_all
+      match_operator: CONTAINS
+      size: '40'
+      placeholder: ''
     third_party_settings: {  }
+    type: se_line_item_widget
     region: bottom
   field_po_quote_ref:
     weight: 5

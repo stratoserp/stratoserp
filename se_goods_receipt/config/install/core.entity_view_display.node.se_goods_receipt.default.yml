@@ -17,8 +17,8 @@ dependencies:
     - comment
     - field_layout
     - layout_discovery
-    - reference_table_formatter
     - se_accounting
+    - se_line_item
     - serial
     - text
     - user
@@ -62,16 +62,13 @@ content:
     type: serial_default_formatter
     region: second
   field_gr_items:
-    type: entity_reference_table
-    weight: 5
-    label: hidden
+    weight: 10
+    label: above
     settings:
-      view_mode: default
-      show_entity_label: false
-      empty_cell_value: ''
-      hide_header: '0'
+      link: true
     third_party_settings: {  }
-    region: bottom
+    type: se_line_item_formatter
+    region: first
   field_gr_purchase_order_ref:
     weight: 9
     label: above
