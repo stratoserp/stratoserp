@@ -5,17 +5,17 @@ dependencies:
     - comment
     - node
     - se_item
-    - se_line_item
+    - se_item_line
 id: node.field_po_items
 field_name: field_po_items
 entity_type: node
-type: se_line_item
+type: se_item_line
 settings:
   exclude_entity_types: 0
   entity_type_ids:
     comment: comment
     se_item: se_item
-module: se_line_item
+module: se_item_line
 locked: false
 cardinality: -1
 translatable: true

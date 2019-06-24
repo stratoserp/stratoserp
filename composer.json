@@ -27,7 +27,6 @@
       "drupal/field_group": "3.x-dev",
       "drupal/flat_comments": "dev-master",
       "drupal/geolocation": "1.*@dev",
-      "drupal/paragraphs": "1.x-dev",
       "drupal/reference_table_formatter": "1.*@dev",
       "drupal/serial": "1.*@dev",
       "drupal/views_data_export": "1.*@dev",

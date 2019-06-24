@@ -9,14 +9,13 @@ dependencies:
   - flat_comments
   - menu_ui
   - node
-  - paragraphs
   - path
   - reference_table_formatter
   - se_contact
   - se_core
   - se_customer
-  - se_items
-  - se_line_item
+  - se_item
+  - se_item_line
   - se_supplier
   - serial
   - text

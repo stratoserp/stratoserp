@@ -154,7 +154,7 @@ trait ReportUtilityTrait {
    *
    * @return array
    */
-  private function convertParagraphsToArray(EntityInterface $entity) {
+  private function convertItemLineToArray(EntityInterface $entity) {
     $data = [];
 
     foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $value) {

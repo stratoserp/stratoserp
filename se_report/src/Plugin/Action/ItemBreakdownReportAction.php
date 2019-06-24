@@ -49,7 +49,7 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
     $this->createLoadReportNode();
     $report_array = $this->getBatchDataByKey('report_array') ?: [];
 
-    $data = $this->convertParagraphsToArray($entity);
+    $data = $this->convertItemLineToArray($entity);
 
     foreach ($data as $code => $amount) {
       if (isset($report_array[$code])) {

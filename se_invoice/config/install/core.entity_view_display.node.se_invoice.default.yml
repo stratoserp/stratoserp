@@ -20,7 +20,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - se_accounting
-    - se_line_item
+    - se_item_line
     - serial
     - text
     - user
@@ -77,7 +77,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    type: se_line_item_formatter
+    type: se_item_line_formatter
     region: first
   field_in_quote_ref:
     weight: 6

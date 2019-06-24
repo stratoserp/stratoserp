@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.field.node.se_bill.body
     - field.field.node.se_bill.field_bi_id
-    - field.field.node.se_bill.field_bi_items
     - field.field.node.se_bill.field_bi_total
     - field.field.node.se_bill.field_bu_ref
     - field.field.node.se_bill.field_co_ref
@@ -41,17 +40,6 @@ content:
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
-  field_bi_items:
-    type: entity_reference_table
-    weight: 5
-    label: hidden
-    settings:
-      view_mode: default
-      show_entity_label: false
-      empty_cell_value: ''
-      hide_header: '0'
-    third_party_settings: {  }
-    region: bottom
   field_bi_total:
     weight: 6
     label: above

@@ -18,7 +18,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - se_accounting
-    - se_line_item
+    - se_item_line
     - serial
     - text
 third_party_settings:
@@ -70,7 +70,7 @@ content:
       size: '40'
       placeholder: ''
     third_party_settings: {  }
-    type: se_line_item_widget
+    type: se_item_line_widget
     region: bottom
   field_po_quote_ref:
     weight: 5

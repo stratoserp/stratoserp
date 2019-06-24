@@ -9,7 +9,7 @@ dependencies:
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
   module:
-    - se_line_item
+    - se_item_line
 id: node.se_invoice.field_in_items
 field_name: field_in_items
 entity_type: node
@@ -149,12 +149,6 @@ settings:
   view:
     handler: 'default:view'
     handler_settings: {  }
-  paragraphs_type:
-    handler: 'default:paragraphs_type'
-    handler_settings: {  }
-  paragraph:
-    handler: 'default:paragraph'
-    handler_settings: {  }
   base_field_override:
     handler: 'default:base_field_override'
     handler_settings: {  }
@@ -173,4 +167,4 @@ settings:
   date_format:
     handler: 'default:date_format'
     handler_settings: {  }
-field_type: se_line_item
+field_type: se_item_line

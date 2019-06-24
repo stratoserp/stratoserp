@@ -5,7 +5,6 @@ dependencies:
     - field.field.node.se_payment.body
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
-    - field.field.node.se_payment.field_pa_items
     - field.field.node.se_payment.field_pa_total
     - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
@@ -13,7 +12,6 @@ dependencies:
     - comment
     - field_layout
     - layout_discovery
-    - paragraphs
     - se_accounting
     - serial
     - text
@@ -50,24 +48,6 @@ content:
     third_party_settings: {  }
     type: serial_default_widget
     region: second
-  field_pa_items:
-    type: paragraphs
-    weight: 4
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      features:
-        duplicate: duplicate
-        collapse_edit_all: collapse_edit_all
-    third_party_settings: {  }
-    region: bottom
   field_pa_total:
     weight: 5
     settings: {  }

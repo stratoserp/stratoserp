@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Update prices on autocomplete close for paragraph type 'experimental'.
+ *
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ *
+ * TODO - swap into field
+ */
+function se_payment_line_field_widget_paragraphs_form_alter(&$element, &$form_state, $context) {
+  if ($element['#paragraph_type'] !== 'se_payment') {
+    return NULL;
+  }
+
+//    $element['subform']['field_it_line_item']['widget'][0]['target_id']['#ajax'] = [
+//      'callback' => 'Drupal\se_items\Controller\ItemsController::updatePrice',
+//      'event' => 'autocompleteclose change',
+//      'progress' => FALSE,
+//    ];
+
+  // Move the remove/duplicate buttons into the top, remove the collapse button.
+  $element['top']['actions']['actions']['duplicate_button'] = $element['top']['actions']['dropdown_actions']['duplicate_button'];
+  $element['top']['actions']['actions']['remove_button'] = $element['top']['actions']['dropdown_actions']['remove_button'];
+  unset($element['top']['actions']['actions']['collapse_button'], $element['top']['actions']['dropdown_actions']);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function se_payment_line_theme() {
+  return [
+    'se_payment_line_formatter' => [
+      'variables' => [
+        'item' => '',
+        'quantity' => '',
+        'price' => '',
+        'serial' => '',
+        'note' => '',
+        'format' => '',
+      ],
+    ],
+    'se_payment_lines_formatter' => [
+      'variables' => [
+        'lines' => '',
+      ]
+    ]
+  ];
+}

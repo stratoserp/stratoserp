@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.se_payment.body
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
-    - field.field.node.se_payment.field_pa_items
     - field.field.node.se_payment.field_pa_total
     - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
@@ -50,17 +49,6 @@ content:
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
-  field_pa_items:
-    type: entity_reference_table
-    weight: 3
-    label: above
-    settings:
-      view_mode: default
-      show_entity_label: false
-      empty_cell_value: ''
-      hide_header: '0'
-    third_party_settings: {  }
-    region: bottom
   field_pa_total:
     weight: 4
     label: above

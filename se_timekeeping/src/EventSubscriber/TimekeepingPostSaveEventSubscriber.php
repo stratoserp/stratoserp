@@ -83,6 +83,10 @@ class TimekeepingPostSaveEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function timekeepingMarkItemsBilled($entity, $billed = TRUE) {
+    return;
+    if (!isset($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'})) {
+      return;
+    }
     foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $value) {
       $new_value = $value->getValue();
       /** @var Paragraph $paragraph */

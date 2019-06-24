@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * @file
+ * Custom functions for item manipulation.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\se_item_line\Entity\Item;
+
+define('SE_ITEM_NODE_TYPES', [
+  'se_bill', 'se_goods_receipt', 'se_invoice', 'se_purchase_order', 'se_quote',
+]);
+
+/**
+ * Wherever the se_item_lines are used, replace the drupal autocomplete
+ * with our own that does price field updates.
+ *
+ * Implements hook_form_alter().
+ */
+function se_item_line_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Make a list of forms from the core types.
+  $se_item_forms = array_map(function ($value) {
+    return 'node_' . $value . '_form';
+  }, SE_ITEM_NODE_TYPES);
+
+  if (in_array($form_id, $se_item_forms, TRUE)) {
+    $form['#attached']['library'][] = 'core/drupal.ajax';
+  }
+}
+
+/**
+ * Update prices on autocomplete close for paragraph type 'classic'.
+ *
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function se_item_line_field_widget_entity_reference_paragraphs_form_alter(&$element, &$form_state, $context) {
+  if ($element['#paragraph_type'] === 'se_item_line') {
+    $element['subform']['field_it_line_item']['widget'][0]['target_id']['#ajax'] = [
+      'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
+      'event' => 'autocompleteclose change',
+      'progress' => FALSE,
+    ];
+  }
+}
+
+/**
+ * Update prices on autocomplete close for paragraph type 'experimental'.
+ *
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function se_item_line_field_widget_paragraphs_form_alter(&$element, &$form_state, $context) {
+  if ($element['#paragraph_type'] === 'se_item_line') {
+    $element['subform']['field_it_line_item']['widget'][0]['target_id']['#ajax'] = [
+      'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
+      'event' => 'autocompleteclose change',
+      'progress' => FALSE,
+    ];
+  }
+
+  // Move the remove/duplicate buttons into the top, remove the collapse button.
+  $element['top']['actions']['actions']['duplicate_button'] = $element['top']['actions']['dropdown_actions']['duplicate_button'];
+  $element['top']['actions']['actions']['remove_button'] = $element['top']['actions']['dropdown_actions']['remove_button'];
+  unset($element['top']['actions']['actions']['collapse_button'], $element['top']['actions']['dropdown_actions']);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function se_item_line_theme() {
+  return [
+    'se_item_line_formatter' => [
+      'variables' => [
+        'item' => '',
+        'quantity' => '',
+        'price' => '',
+        'serial' => '',
+        'note' => '',
+        'format' => '',
+      ],
+    ],
+    'se_item_lines_formatter' => [
+      'variables' => [
+        'lines' => '',
+      ]
+    ],
+    'se_item_line_widget' => [
+      'variables' => [
+        'target_type' => '',
+        'target_id' => '',
+        'quantity' => '',
+        'price' => '',
+        'serial' => '',
+        'note' => '',
+      ]
+    ]
+
+  ];
+}
+
+///**
+// * Implements hook_entity_extra_field_info().
+// */
+//function se_item_line_entity_extra_field_info() {
+//  $extra = [];
+//
+//  $extra['paragraph']['se_item_line']['display']['field_it_virtual_serial_number'] = [
+//    'label' => t('Serial number'),
+//    'description' => t('The serial number for the stock item.'),
+//    'weight' => 0,
+//  ];
+//
+//  return $extra;
+//}
+//
+///**
+// * Implements hook_entity_view_alter().
+// */
+//function se_item_line_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+//  if ($entity->getType() !== 'se_item_line') {
+//    return;
+//  }
+//
+//  $component = $display->getComponent('field_it_virtual_serial_number');
+//  $build['_field_layout']['first']['serial_number'] = [
+//    '#type' => 'text',
+//    '#title' => 'Serial number',
+//    '#markup' => $entity->field_it_line_item->referencedEntities()[0]->field_it_serial->value,
+//    '#weight' => $component['weight'],
+//  ];
+//}

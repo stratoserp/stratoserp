@@ -138,7 +138,7 @@ class ErpCore extends MigrateNode {
       }
 
       // If still no item, warn and move on with life.
-      if (empty($item)) {
+      if (empty($item) || empty($type)) {
         $this->logError($row,
           t('setItems: @nid - can\'t identify item', [
             '@nid' => $nid,
@@ -146,33 +146,21 @@ class ErpCore extends MigrateNode {
         continue;
       }
 
-      // Got an item, create, populate and save a new paragraph entry.
-      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-      $paragraph = Paragraph::create(['type' => 'se_items']);
-      $paragraph->set('field_it_line_item', [
+      $price = $line->price * 100;
+      $items[] = [
         'target_id' => $item,
         'target_type' => $type,
-      ]);
-      $paragraph->set('field_it_quantity', ['value' => $line->qty]);
-      // Convert from float to cents
-      $price = $line->price * 100;
-      $paragraph->set('field_it_price', ['value' => $price]);
-      $paragraph->set('field_it_description', [
-        'value' => $line->extra,
+        'quantity' => $line->qty,
+        'price' => $price,
+        'note' => $line->extra,
         'format' => 'basic_html',
-      ]);
-      $paragraph->set('field_it_completed_date', ['value' => $line->completed_date]);
-      $paragraph->save();
-      $items[] = [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
       ];
 
       $total += ($line->qty * $price);
     }
 
-    // Set the paragraph items
-    $row->setSourceProperty('paragraph_items', $items);
+    // Set the item lines
+    $row->setSourceProperty('se_item_line', $items);
     $row->setSourceProperty('total', $total);
   }
 

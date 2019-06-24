@@ -20,7 +20,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - se_accounting
-    - se_line_item
+    - se_item_line
     - serial
     - text
 third_party_settings:
@@ -74,7 +74,7 @@ content:
     type: serial_default_widget
     region: second
   field_in_items:
-    type: se_line_item_widget
+    type: se_item_line_widget
     weight: 8
     region: bottom
     settings:

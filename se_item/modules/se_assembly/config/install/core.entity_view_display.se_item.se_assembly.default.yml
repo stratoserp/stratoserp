@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_assembly.field_as_items
     - field.field.se_item.se_assembly.field_it_code
     - field.field.se_item.se_assembly.field_it_cost_price
     - field.field.se_item.se_assembly.field_it_description
@@ -25,15 +24,6 @@ targetEntityType: se_item
 bundle: se_assembly
 mode: default
 content:
-  field_as_items:
-    type: entity_reference_revisions_entity_view
-    weight: 8
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: bottom
   field_it_code:
     weight: 1
     label: inline

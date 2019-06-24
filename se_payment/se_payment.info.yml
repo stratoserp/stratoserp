@@ -14,7 +14,7 @@ dependencies:
   - reference_table_formatter
   - se_contact
   - se_supplier
-  - se_payments
+  - se_payment_line
   - serial
   - text
   - user

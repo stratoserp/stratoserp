@@ -18,7 +18,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - se_accounting
-    - se_line_item
+    - se_item_line
     - serial
     - text
     - user
@@ -67,7 +67,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    type: se_line_item_formatter
+    type: se_item_line_formatter
     region: first
   field_gr_purchase_order_ref:
     weight: 9

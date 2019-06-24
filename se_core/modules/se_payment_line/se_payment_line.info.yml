@@ -1,0 +1,10 @@
+name: Payments
+description: 'Provides a payment line item.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - field
+  - text
+  - se_invoice
+  - hook_event_dispatcher

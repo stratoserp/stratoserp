@@ -1,9 +1,0 @@
-name: Line item field
-type: module
-description: 'Provide a field for line items.'
-core: 8.x
-package: Stratos ERP
-version: VERSION
-dependencies:
-  - drupal:dynamic_entity_reference
-  - drupal:field
