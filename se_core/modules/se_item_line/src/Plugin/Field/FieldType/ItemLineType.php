@@ -7,6 +7,8 @@ use Drupal\Core\Field\Annotation\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldType\DynamicEntityReferenceItem;
+use Drupal\filter\FilterProcessResult;
+use Drupal\filter\Render\FilteredMarkup;
 
 /**
  * Plugin implementation of the 'se_item_line' field type.
@@ -80,6 +82,7 @@ class ItemLineType extends DynamicEntityReferenceItem {
 
     $properties['price'] = DataDefinition::create('integer')
       ->setLabel(t('Price'))
+      ->setConstraints([])
       ->setRequired(TRUE);
 
     $properties['serial'] = DataDefinition::create('string')
@@ -88,7 +91,7 @@ class ItemLineType extends DynamicEntityReferenceItem {
 
     $properties['completed_date'] = DataDefinition::create('string')
       ->setLabel(t('Completed date'))
-      ->addConstraint('Date')
+      ->addConstraint('DateTimeFormat')
       ->setRequired(FALSE);
 
     $properties['note'] = DataDefinition::create('string')
@@ -107,6 +110,29 @@ class ItemLineType extends DynamicEntityReferenceItem {
       ->setInternal(FALSE);
 
     return $properties;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setValue($values, $notify = TRUE) {
+    $this->onChange('note', $notify);
+    parent::setValue($values, $notify);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function onChange($property_name, $notify = TRUE) {
+    // Unset processed properties that are affected by the change.
+    foreach ($this->definition->getPropertyDefinitions() as $property => $definition) {
+      if ($definition->getClass() === '\Drupal\text\TextProcessed') {
+        if ($property_name === 'format' || ($definition->getSetting('text source') === $property_name)) {
+          $this->writePropertyValue($property, NULL);
+        }
+      }
+    }
+    parent::onChange($property_name, $notify);
   }
 
 }

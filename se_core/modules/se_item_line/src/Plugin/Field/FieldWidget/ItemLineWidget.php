@@ -53,10 +53,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     // Add a new price field.
     $build['price'] = [
       '#type' => 'textfield',
-      '#default_value' => $items[$delta]->price,
+      '#default_value' => $items[$delta]->price ?: 0,
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 10,
+      '#required' => TRUE,
       '#attributes' => [
         'placeholder' => t('Price')
       ]
@@ -78,8 +79,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#type' => 'datetime',
       '#date_time_element' => 'none',
       '#default_value' => $items[$delta]->completed_date,
-      '#size' => 10,
-      '#maxlength' => 20,
       '#weight' => 10,
       '#description' => t('Completed date')
     ];
@@ -96,6 +95,23 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     //$build['#theme'] = 'se-item-line-widget';
 
     return $build;
+  }
+
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    $new_values = parent::massageFormValues($values, $form, $form_state);
+
+    if ($form['#form_id'] !== 'node_se_invoice_edit_form') {
+      return $new_values;
+    }
+
+    foreach ($new_values as $index => $line) {
+      // TODO - Get this working in the ItemLineType setValue()
+      // instead of here.
+      $new_values[$index]['note'] = $line['note']['value'];
+      $new_values[$index]['format'] = $line['note']['format'];
+    }
+
+    return $new_values;
   }
 
 }
