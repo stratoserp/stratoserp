@@ -5,7 +5,6 @@ namespace Drupal\shop6_migrate\Plugin\migrate\source;
 use Drupal\Core\Database\Database;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Row;
-use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Migration of purchase order nodes from drupal6 erp system.
@@ -54,7 +53,7 @@ class ErpPayment extends ErpCore {
   }
 
   /**
-   * Retrieve the list of items for a content type and store them as paragraphs.
+   * Retrieve the list of payments and store them as payment lines.
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
@@ -94,6 +93,7 @@ class ErpPayment extends ErpCore {
     $payments = [];
     $total = 0;
     foreach ($lines as $line) {
+      /** @var \Drupal\node\Entity\Node $invoice */
       if (!$invoice = $this->findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice')) {
         $this->logError($row,
           t('setPayments: @nid - invoice doesn\'t exist', [
@@ -101,11 +101,6 @@ class ErpPayment extends ErpCore {
           ]));
         continue;
       }
-
-      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-      $paragraph = Paragraph::create(['type' => 'se_payments']);
-      $paragraph->set('field_pa_invoice', ['target_id' => $invoice]);
-      $paragraph->set('field_pa_date', ['value' => $line->payment_date]);
 
       if (empty($line->payment_type)) {
         $line->payment_type = 1;
@@ -116,22 +111,20 @@ class ErpPayment extends ErpCore {
       }
       $term_id = self::findCreateTerm($payment_types[$line->payment_type], 'se_payment_type');
 
-      $paragraph->set('field_pa_type_ref', ['target_id' => $term_id]);
-
       // Convert from float to cents
-      $payment_amount = $line->payment_amount * 100;
-      $paragraph->set('field_pa_amount', ['value' => $payment_amount]);
-      $paragraph->save();
+      $payment_amount = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line->payment_amount);
 
       $payments[] = [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
+        'amount' => $payment_amount,
+        'date' => $line->payment_date,
+        'invoice' => $invoice->id(),
+        'payment_type' => $term_id,
       ];
 
       $total += $payment_amount;
     }
 
-    $row->setSourceProperty('paragraph_items', $payments);
+    $row->setSourceProperty('se_payment_lines', $payments);
     $row->setSourceProperty('total', $total);
   }
 

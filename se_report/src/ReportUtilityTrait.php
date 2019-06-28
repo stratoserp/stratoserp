@@ -5,9 +5,9 @@ namespace Drupal\se_report;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\TempStore\PrivateTempStore;
 use Drupal\node\Entity\Node;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_core\ErpCore;
 use Drupal\Core\Routing\RedirectDestinationTrait;
+use Drupal\se_item\Entity\Item;
 
 trait ReportUtilityTrait {
 
@@ -147,7 +147,7 @@ trait ReportUtilityTrait {
   }
 
   /**
-   * Take an entity with a set of paragraphs and convert that to an array
+   * Take an entity and convert that to an array
    * of values for statistical reporting.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -157,35 +157,37 @@ trait ReportUtilityTrait {
   private function convertItemLineToArray(EntityInterface $entity) {
     $data = [];
 
-    foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $value) {
-      /** @var Paragraph $source_paragraph */
-      if (!$source_paragraph = $value->entity) {
-        return [];
-      }
-
-      if (isset($source_paragraph->field_it_line_item->entity)) {
-        $type = $source_paragraph->field_it_line_item->entity->bundle();
+    foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $item_line) {
+      if (isset($item_line->target_id)) {
+        $type = $item_line->target_type;
 
         switch ($type) {
           // Comment type
           case 'se_timekeeping':
-            $item = $source_paragraph->field_it_line_item->entity->field_tk_item->entity->field_it_code->value;
-            $amount = $source_paragraph->field_it_price->value * $source_paragraph->field_it_quantity->value;
-            $this->setStatisticsArray($data, $item, $amount);
+            if (!$item = Item::load($item_line->target_id)) {
+              continue 2;
+            }
+            $item->field_it_code->value;
+            $amount = $item_line->price->value * $item_line->quantity->value;
+            $this->setStatisticsArray($data, $item_line, $amount);
             break;
           // The item types should be basically the same.
           case 'se_service':
           case 'se_stock':
           case 'se_recurring':
-            $item = $source_paragraph->field_it_line_item->entity->field_it_code->value;
-            $amount = $source_paragraph->field_it_price->value * $source_paragraph->field_it_quantity->value;
-            $this->setStatisticsArray($data, $item, $amount);
+            if (!$item = Item::load($item_line->target_id)) {
+              continue 2;
+            }
+            $item->field_it_code->value;
+            $amount = $item_line->price->value * $item_line->quantity->value;
+            $this->setStatisticsArray($data, $item_line, $amount);
             break;
           case 'se_assembly':
+            // TODO Recursion required? See Recursion.
             break;
           default:
             \Drupal::logger('item_breakdown_report_action')
-              ->error('Unhandled paragraph type %type.', ['%type' => $type]);
+              ->error('Unhandled item type %type.', ['%type' => $type]);
             continue 2;
             break;
         }

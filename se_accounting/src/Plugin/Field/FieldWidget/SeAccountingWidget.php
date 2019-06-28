@@ -37,9 +37,6 @@ class SeAccountingWidget extends WidgetBase {
     return ['value' => $element];
   }
 
-  /**
-   * Validate the color text field.
-   */
   public static function validate($element, FormStateInterface $form_state) {
   }
 

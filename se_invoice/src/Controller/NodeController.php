@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeTypeInterface;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
 use Drupal\taxonomy\Entity\Term;
@@ -92,11 +91,8 @@ class NodeController extends ControllerBase {
     ]);
 
     // TODO - Make this a service?
-    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $value) {
-      $new_value = $value->getValue();
-      if ($source_paragraph = Paragraph::load($new_value['target_id'])) {
-        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($source_paragraph->createDuplicate());
-      }
+    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $item) {
+      $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($item);
     }
 
     $node->field_bu_ref->target_id = $source->field_bu_ref->target_id;
@@ -148,22 +144,18 @@ class NodeController extends ControllerBase {
     foreach ($entity_ids as $entity_id) {
       /** @var Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
-        /** @var Paragraph $paragraph */
-        $paragraph = Paragraph::create(['type' => 'se_items']);
-        $paragraph->set('field_it_line_item', [
-          'target_id' => $comment->id(),
-          'target_type' => 'comment',
-        ]);
-        $paragraph->set('field_it_quantity', \Drupal::service('se_timekeeping.time_format')->formatHours($comment->field_tk_amount->value));
-        $paragraph->set('field_it_description', [
-          'value' => $comment->field_tk_comment->value,
-          'format' => $comment->field_tk_comment->format,
-        ]);
-        /** @var Item $item */
         if ($item = Item::load($comment->field_tk_item->target_id)) {
-          $paragraph->set('field_it_price', \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value));
+          $price = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value);
         }
-        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($paragraph);
+        $line = [
+          'target_type' => $item->bundle(),
+          'target_id' => $item->id(),
+          'quantity' => \Drupal::service('se_timekeeping.time_format')->formatHours($comment->field_tk_amount->value),
+          'notes' => $comment->field_tk_comment->value,
+          'format' => $comment->field_tk_comment->format,
+          'price' => $price,
+        ];
+        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($line);
       }
     }
 

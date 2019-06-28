@@ -38,7 +38,7 @@ process:
   revision_timestamp: timestamp
   field_qu_id: quote_id
   field_bu_ref/target_id: business_ref
-  field_qu_items: se_item_line
+  field_qu_items: se_item_lines
   field_status_ref: status_ref
   field_qu_total: total
 destination:

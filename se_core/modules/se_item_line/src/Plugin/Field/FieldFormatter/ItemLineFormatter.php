@@ -8,6 +8,8 @@ use Drupal\Core\Field\Annotation\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldFormatter\DynamicEntityReferenceLabelFormatter;
+use Drupal\filter\FilterProcessResult;
+use Drupal\filter\Render\FilteredMarkup;
 
 /**
  * Plugin implementation of the 'dynamic entity reference label' formatter.
@@ -64,14 +66,26 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
         unset($items[$delta]->_attributes);
       }
 
+      // Transform the notes from the stored value into something
+      // safe to display.
+      $build = [
+        '#type' => 'processed_text',
+        '#text' => $items[$delta]->note,
+        '#format' => $items[$delta]->format,
+        '#filter_types_to_skip' => [],
+        '#langcode' => $items[$delta]->getLangcode(),
+      ];
+      // Capture the cacheability metadata associated with the processed text.
+      $processed_text = \Drupal::service('renderer')->renderPlain($build);
+      $processed = FilterProcessResult::createFromRenderArray($build)->setProcessedText((string) $processed_text);
+
       $list[] = [
         '#theme' => 'se_item_line_formatter',
         '#item' => $element,
         '#quantity' => $items[$delta]->quantity,
         '#price' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price),
         '#serial' => $items[$delta]->serial,
-        '#note' => $items[$delta]->note,
-        '#format' => $items[$delta]->format,
+        '#note' => FilteredMarkup::create($processed->getProcessedText()),
       ];
     }
 

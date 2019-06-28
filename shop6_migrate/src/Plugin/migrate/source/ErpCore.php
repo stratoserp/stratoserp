@@ -7,7 +7,6 @@ use Drupal\node\Plugin\migrate\source\d6\Node as MigrateNode;
 use Drupal\migrate\Row;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_item\Entity\Item;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 use Drupal\user\Entity\User;
@@ -30,7 +29,7 @@ class ErpCore extends MigrateNode {
   public const IMPORT_MODE = 'ASC';
 
   /**
-   * Retrieve the list of items for a content type and store them as paragraphs.
+   * Retrieve item lines and store them.
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
@@ -146,7 +145,7 @@ class ErpCore extends MigrateNode {
         continue;
       }
 
-      $price = $line->price * 100;
+      $price = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line->price);
       $items[] = [
         'target_id' => $item,
         'target_type' => $type,
@@ -160,7 +159,7 @@ class ErpCore extends MigrateNode {
     }
 
     // Set the item lines
-    $row->setSourceProperty('se_item_line', $items);
+    $row->setSourceProperty('se_item_lines', $items);
     $row->setSourceProperty('total', $total);
   }
 
@@ -189,7 +188,7 @@ class ErpCore extends MigrateNode {
 
     $this->logError($row,
       t('setBusinessRef: @nid - @title could not match supplier', [
-        '@nid'   => $row->getSourceProperty('nid'),
+        '@nid' => $row->getSourceProperty('nid'),
         '@title' => $row->getSourceProperty('title'),
       ]));
 

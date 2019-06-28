@@ -4,20 +4,16 @@ namespace Drupal\se_payment\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\node\Entity\Node;
 use Drupal\node\NodeTypeInterface;
-use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\se_core\ErpCore;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for Node routes.
  */
-class NodeController extends ControllerBase implements ContainerInjectionInterface {
+class NodeController extends ControllerBase {
 
   /**
    * The date formatter service.
@@ -112,19 +108,16 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
     $query->condition('field_status_ref', $open->id());
     $entity_ids = $query->execute();
 
-    // Build a list of outstanding invoices and make paragraphs out of them.
+    // Build a list of outstanding invoices and make payment lines out of them.
     foreach ($entity_ids as $id) {
       if ($invoice = $this->entityTypeManager()->getStorage('node')->load($id)) {
-        $paragraph = Paragraph::create(['type' => 'se_payments']);
-        $paragraph->set('field_pa_invoice', [
-          'target_id' => $id,
-          'target_type' => 'se_invoice'
-        ]);
-        $paragraph->set('field_pa_amount', $invoice->field_in_total->value);
-        if ($payment_term) {
-          $paragraph->set('field_pa_type_ref', $payment_term);
-        }
-        $node->{'field_pa_items'}->appendItem($paragraph);
+        $invoice = [
+          'target_id' => $invoice->id(),
+          'target_type' => $invoice->bundle(),
+          'amount'  => $invoice->field_in_total,
+          'payment_type' => $payment_term,
+        ];
+        $node->{'field_pa_items'}->appendItem($invoice);
 
         $total += $invoice->field_in_total->value;
       }

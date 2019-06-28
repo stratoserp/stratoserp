@@ -31,14 +31,14 @@ class ItemsPresaveEventSubscriber implements EventSubscriberInterface {
   public function itemsPreSave(EntityPresaveEvent $event) {
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() === 'paragraph' && $entity->bundle() === 'se_item_line') {
-      foreach ($entity->field_it_line_item as $index => $entity_item) {
-        if (empty($entity->field_it_serial->value) &&
-          $item = Item::load($entity_item->target_id)) {
-          if (!empty($item->field_it_serial->value)) {
-            $entity->field_it_serial->value = $item->field_it_serial->value;
-          }
-        }
+    if (!in_array($entity->bundle(), ErpCore::ITEMS_BUNDLE_MAP)) {
+      return;
+    }
+
+    foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $item) {
+      if (empty($item->serial) && $item = Item::load($item->target_id)) {
+        $entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'}[$index]->serial =
+          $item->field_it_serial->value;
       }
     }
   }

@@ -26,6 +26,7 @@ class NodePresaveEventSubscriber implements EventSubscriberInterface {
    *
    */
   public function nodePreSave(EntityPresaveEvent $event) {
+    /** @var \Drupal\node\Entity\Node $entity */
     if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
       return;
     }
@@ -38,15 +39,12 @@ class NodePresaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    /** @var \Drupal\node\Entity\Node $entity */
-    $items = $entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'}->referencedEntities();
-
-    foreach ($items as $index => $ref_entity) {
-      $total += $ref_entity->field_it_quantity->value * $ref_entity->field_it_price->value;
+    foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $item) {
+      $total += $item->quantity * $item->price;
     }
 
-    /** @var \Drupal\node\Entity\Node $entity */
-    $entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_total'}->value = $total;
+    $entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_total'}->value =
+      \Drupal::service('se_accounting.currency_format')->formatStorage((float)$total);
   }
 
 }

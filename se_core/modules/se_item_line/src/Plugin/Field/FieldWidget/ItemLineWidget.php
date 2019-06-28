@@ -49,11 +49,14 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     // Changes to the target_id field.
     $build['target_id']['#attributes']['placeholder'] = t('Item');
     $build['target_id']['#weight'] = 6;
+    $build['target_id']['callback'] = 'Drupal\se_item_line\Controller\ItemsController::updatePrice';
+    $build['target_id']['event'] = 'autocompleteclose change';
+    $build['target_id']['progress'] = FALSE;
 
     // Add a new price field.
     $build['price'] = [
       '#type' => 'textfield',
-      '#default_value' => $items[$delta]->price ?: 0,
+      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price ?: 0),
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 10,
@@ -86,7 +89,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     // Add a textarea for notes.
     $build['note'] = [
       '#type' => 'text_format',
-      '#default_value' => isset($items[$delta]->note) ? $items[$delta]->note : '',
+      '#default_value' => $items[$delta]->note ?? '',
       '#rows' => 2,
       '#cols' => 30,
       '#weight' => 15

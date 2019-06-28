@@ -4,7 +4,6 @@ namespace Drupal\se_goods_receipt\EventSubscriber;
 
 use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -32,12 +31,9 @@ class ItemsPostSaveEventSubscriber implements EventSubscriberInterface {
     /** @var Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_goods_receipt') {
-      foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $value) {
-        $new_value = $value->getValue();
-        /** @var Paragraph $paragraph */
-        $paragraph = Paragraph::load($new_value['target_id']);
+      foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $item) {
         /** @var Item $item */
-        if ($item = Item::load($paragraph->field_it_line_item->target_id)) {
+        if ($item = Item::load($item->target_id)) {
           if ($item->bundle() !== 'se_stock') {
             continue;
           }
