@@ -95,10 +95,10 @@ class ErpStockItem extends SqlBase {
 
     // Convert from float to cents
     if ($receipt_price = $row->getSourceProperty('receipt_price')) {
-      $row->setSourceProperty('receipt_price', $receipt_price * 100);
+      $row->setSourceProperty('receipt_price', $receipt_price);
     }
     if ($sell_price = $row->getSourceProperty('sell_price')) {
-      $row->setSourceProperty('sell_price', $sell_price * 100);
+      $row->setSourceProperty('sell_price', $sell_price);
     }
 
     return TRUE;

@@ -111,21 +111,15 @@ class ErpPayment extends ErpCore {
       }
       $term_id = self::findCreateTerm($payment_types[$line->payment_type], 'se_payment_type');
 
-      // Convert from float to cents
-      $payment_amount = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line->payment_amount);
-
       $payments[] = [
-        'amount' => $payment_amount,
+        'amount' => $line->payment_amount,
         'date' => $line->payment_date,
-        'invoice' => $invoice->id(),
+        'invoice' => $invoice,
         'payment_type' => $term_id,
       ];
-
-      $total += $payment_amount;
     }
 
     $row->setSourceProperty('se_payment_lines', $payments);
-    $row->setSourceProperty('total', $total);
   }
 
 }

@@ -66,18 +66,20 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       ]
     ];
 
-    // Add a new price field.
+    // Display the serial field, but don't allow input
     $build['serial'] = [
       '#type' => 'textfield',
       '#default_value' => $items[$delta]->serial,
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 12,
+      '#disabled' => TRUE,
       '#attributes' => [
         'placeholder' => t('Serial')
       ]
     ];
 
+    // When the service/item was completed/delivered/done
     $build['completed_date'] = [
       '#type' => 'datetime',
       '#date_time_element' => 'none',

@@ -16,7 +16,7 @@ use Drupal\Core\Field\FieldItemListInterface;
  *   }
  * )
  */
-class SeAccountingFormatter extends FormatterBase {
+class AccountingFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}

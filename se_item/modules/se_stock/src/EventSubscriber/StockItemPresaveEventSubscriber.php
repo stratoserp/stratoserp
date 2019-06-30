@@ -3,18 +3,19 @@
 namespace Drupal\se_stock\EventSubscriber;
 
 use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class StockItemInsertEventSubscriber implements EventSubscriberInterface {
+class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'itemInsert',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemPresave',
     ];
   }
 
@@ -22,17 +23,25 @@ class StockItemInsertEventSubscriber implements EventSubscriberInterface {
    * When a stock item is saved, if it has a serial number and no existing
    * stock item exists with no serial number, create one with no serial.
    *
-   * @param EntityInsertEvent $event
+   * @param EntityPresaveEvent $event
    */
-  public function itemInsert(EntityInsertEvent $event) {
-    $entity = $event->getEntity();
-    if (!empty($entity->field_it_serial->value) && $entity->bundle() === 'se_stock') {
+  public function itemPresave(EntityPresaveEvent $event) {
+    /** @var \Drupal\node\Entity\Node $entity */
+    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'se_item')) {
+      return;
+    }
+    if ($entity->bundle() !== 'se_stock') {
+      return;
+    }
+
+    if (!empty($entity->field_it_serial->value)) {
       $query = \Drupal::entityQuery('se_item')
         ->condition('type', 'se_stock')
         ->notExists('field_it_serial')
         ->condition('field_it_code', $entity->field_it_code->value);
       $items = $query->execute();
 
+      /** @var Item $stock_item */
       if (empty($items)) {
         $stock_item = Item::create([
           'type' => 'se_stock',
@@ -43,7 +52,7 @@ class StockItemInsertEventSubscriber implements EventSubscriberInterface {
           'field_it_sell_price' => ['value' => $entity->field_it_sell_price->value],
           'field_it_cost_price' => ['value' => $entity->field_it_cost_price->value]
         ]);
-        if (isset($entoty->field_it_product_type_ref)) {
+        if (isset($entity->field_it_product_type_ref)) {
           $stock_item->field_it_product_type_ref->target_id = $entity->field_it_product_type_ref->target_id;
         }
         if (isset($entity->field_it_manufacturer_ref)) {
@@ -54,7 +63,16 @@ class StockItemInsertEventSubscriber implements EventSubscriberInterface {
         }
         $stock_item->save();
       }
+      else {
+        $stock_item = Item::load(reset($items));
+      }
+
     }
+
+    if (!empty($stock_item)) {
+      $entity->field_it_item_ref->target_id = $stock_item->id();
+    }
+
   }
 
 }

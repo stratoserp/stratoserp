@@ -5,8 +5,8 @@ namespace Drupal\se_payment_line\Plugin\Field\FieldType;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Field\Annotation\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\TypedData\DataDefinition;
-use Drupal\dynamic_entity_reference\Plugin\Field\FieldType\DynamicEntityReferenceItem;
 
 /**
  * Plugin implementation of the 'se_item_line' field type.
@@ -14,25 +14,20 @@ use Drupal\dynamic_entity_reference\Plugin\Field\FieldType\DynamicEntityReferenc
  * @FieldType(
  *   id = "se_payment_line",
  *   label = @Translation("Payment line"),
- *   description = @Translation("A payment line recorded from a customer.."),
- *   category = @Translation("Numeric"),
+ *   description = @Translation("A payment line recorded from a customer."),
+ *   category = @Translation("StratosERP"),
  *   list_class = "\Drupal\se_payment_line\Plugin\Field\FieldType\PaymentLineFieldItemList",
- *   default_widget = "se_payment_list_widget",
- *   default_formatter = "se_payment_list_formatter",
+ *   default_widget = "se_payment_line_widget",
+ *   default_formatter = "se_payment_line_formatter",
  * )
  */
-class PaymentLineType extends DynamicEntityReferenceItem {
+class PaymentLineType extends EntityReferenceItem {
 
   /**
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     $schema = parent::schema($field_definition);
-
-    $schema['columns']['quantity'] = [
-      'type' => 'float',
-      'not null' => FALSE,
-    ];
 
     $schema['columns']['amount'] = [
       'description' => 'Payment amount.',
@@ -67,10 +62,6 @@ class PaymentLineType extends DynamicEntityReferenceItem {
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = parent::propertyDefinitions($field_definition);
 
-    $properties['quantity'] = DataDefinition::create('float')
-      ->setLabel(t('Quantity'))
-      ->setRequired(TRUE);
-
     $properties['amount'] = DataDefinition::create('integer')
       ->setLabel(t('Amount'))
       ->setRequired(TRUE);
@@ -89,6 +80,13 @@ class PaymentLineType extends DynamicEntityReferenceItem {
       ->setRequired(FALSE);
 
     return $properties;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getPreconfiguredOptions() {
+    return [];
   }
 
 }

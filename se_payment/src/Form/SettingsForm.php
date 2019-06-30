@@ -84,9 +84,7 @@ class SettingsForm extends ConfigFormBase {
       $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
       $terms = $term_storage->loadByProperties(['vid' => $vocabulary]);
 
-      /**
-       * @var \Drupal\taxonomy\Entity\Term $term
-       */
+      /** @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($terms as $tid => $term) {
         $term_options[$tid] = $term->getName();
       }

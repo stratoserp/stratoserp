@@ -7,8 +7,6 @@ use Drupal\Core\Field\Annotation\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldType\DynamicEntityReferenceItem;
-use Drupal\filter\FilterProcessResult;
-use Drupal\filter\Render\FilteredMarkup;
 
 /**
  * Plugin implementation of the 'se_item_line' field type.
@@ -17,6 +15,7 @@ use Drupal\filter\Render\FilteredMarkup;
  *   id = "se_item_line",
  *   label = @Translation("Item line"),
  *   description = @Translation("An item line extension to the dynamic entity reference."),
+ *   category = @Translation("StratosERP"),
  *   list_class = "\Drupal\se_item_line\Plugin\Field\FieldType\ItemLineFieldItemList",
  *   default_widget = "se_item_line_widget",
  *   default_formatter = "se_item_line_formatter",
@@ -133,6 +132,13 @@ class ItemLineType extends DynamicEntityReferenceItem {
       }
     }
     parent::onChange($property_name, $notify);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getPreconfiguredOptions() {
+    return [];
   }
 
 }

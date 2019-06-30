@@ -5,11 +5,11 @@ namespace Drupal\se_payment_line\Plugin\Field\FieldWidget;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Field\Annotation\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityReferenceWidget;
 
 /**
- * Plugin implementation of the 'se_item_line_widget' widget.
+ * Plugin implementation of the 'se_payment_line_widget' widget.
  *
  * @FieldWidget(
  *   id = "se_payment_line_widget",
@@ -19,7 +19,7 @@ use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityRefere
  *   }
  * )
  */
-class PaymentLineWidget extends DynamicEntityReferenceWidget {
+class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
 
   /**
    * {@inheritdoc}
@@ -32,15 +32,6 @@ class PaymentLineWidget extends DynamicEntityReferenceWidget {
 //    $target_type = $items->get($delta)->target_type ?: reset($available);
 //    $entity = $items->get($delta)->entity;
 
-    // Put a new quantity field first.
-    $build['quantity'] = [
-      '#type' => 'textfield',
-      '#default_value' => $items[$delta]->quantity ?: 1,
-      '#size' => 8,
-      '#maxlength' => 8,
-      '#weight' => 4,
-    ];
-
     // Changes to the target type field.
     $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
     unset($build['target_type']['#title']);
@@ -48,33 +39,49 @@ class PaymentLineWidget extends DynamicEntityReferenceWidget {
 
     // Adjust the weight of the target id field.
     $build['target_id']['#weight'] = 6;
+    $build['target_id']['#attributes']['placeholder'] = t('Select invoice');
 
     // Add a new price field.
-    $build['price'] = [
+    $build['amount'] = [
       '#type' => 'textfield',
-      '#default_value' => $items[$delta]->price,
+      '#default_value' => $items[$delta]->amount,
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 10,
+      '#required' => TRUE,
+      '#attributes' => [
+        'placeholder' => t('Amount')
+      ]
     ];
 
-    // Add a new price field.
-    $build['serial'] = [
-      '#type' => 'textfield',
-      '#default_value' => $items[$delta]->serial,
-      '#size' => 10,
-      '#maxlength' => 20,
-      '#weight' => 12,
+    // When the service/item was completed/delivered/done
+    $build['date'] = [
+      '#type' => 'datetime',
+      '#date_time_element' => 'none',
+      '#default_value' => $items[$delta]->date,
+      '#weight' => 10,
+      '#description' => t('Payment date')
     ];
 
-    // Add a textarea for notes.
-    $build['note'] = [
-      '#type' => 'text_format',
-      '#default_value' => isset($items[$delta]->note) ? $items[$delta]->note : '',
-      '#rows' => 2,
-      '#cols' => 30,
-      '#weight' => 15
-    ];
+    $config = \Drupal::service('config.factory')->get('se_payment.settings');
+    $vocabulary = $config->get('vocabulary');
+    if (isset($vocabulary)) {
+      $term_options = [];
+      $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+      $terms = $term_storage->loadByProperties(['vid' => $vocabulary]);
+
+      /** @var \Drupal\taxonomy\Entity\Term $term */
+      foreach ($terms as $tid => $term) {
+        $term_options[$tid] = $term->getName();
+      }
+
+      $build['payment_type'] = [
+        '#type' => 'select',
+        '#options' => $term_options,
+        '#default_value' => $items[$delta]->payment_type,
+        '#weight' => 12,
+      ];
+    }
 
     return $build;
   }

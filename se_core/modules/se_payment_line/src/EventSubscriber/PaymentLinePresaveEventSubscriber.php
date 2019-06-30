@@ -14,7 +14,7 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentsPreSave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentLineNodePresave',
     ];
   }
 
@@ -24,27 +24,35 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
    * @param EntityPresaveEvent $event
    *
    */
-  public function paymentsPreSave(EntityPresaveEvent $event) {
-    if (($entity = $event->getEntity())
-      && ($entity->getEntityTypeId() !== 'node'
-        || $entity->bundle() !== 'se_payment')) {
+  public function paymentLineNodePresave(EntityPresaveEvent $event) {
+    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
       return;
     }
-    $total = 0;
 
+    // Check that its a node type which has items.
     if (!array_key_exists($entity->bundle(), ErpCore::PAYMENTS_BUNDLE_MAP)) {
       return;
     }
 
-    /** @var \Drupal\node\Entity\Node $entity */
-    $items = $entity->{'field_' . ErpCore::PAYMENTS_BUNDLE_MAP[$entity->bundle()] . '_items'}->referencedEntities();
+    $total = 0;
+    $bundle_field_type = 'field_' . ErpCore::PAYMENTS_BUNDLE_MAP[$entity->bundle()];
 
-    foreach ($items as $ref_entity) {
-      $total += $ref_entity->field_pa_amount->value;
+    // Loop through the payment lines, adjusting price
+    // for storage and calculating total
+    $payment_lines = [];
+    foreach ($entity->{$bundle_field_type . '_items'} as $index => $payment_line) {
+      $amount = \Drupal::service('se_accounting.currency_format')->formatStorage($payment_line->amount);
+
+      $payment_line->amount = $amount;
+
+      // Finally update the line and add it to the list
+      $payment_lines[] = $payment_line;
+      $total += $amount;
     }
 
     /** @var \Drupal\node\Entity\Node $entity */
-    $entity->{'field_' . ErpCore::PAYMENTS_BUNDLE_MAP[$entity->bundle()] . '_total'}->value = $total;
+    $entity->{$bundle_field_type . '_lines'} = $payment_lines;
+    $entity->{$bundle_field_type . '_total'}->value = $total;
   }
 
 }

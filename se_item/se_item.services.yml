@@ -8,4 +8,7 @@ services:
     class: Drupal\se_item\Service\SeItem
     arguments: ['@entity_type.manager']
 
-
+  se_item.item_presave:
+    class: Drupal\se_item\EventSubscriber\ItemPresaveEventSubscriber
+    tags:
+      - { name: event_subscriber }

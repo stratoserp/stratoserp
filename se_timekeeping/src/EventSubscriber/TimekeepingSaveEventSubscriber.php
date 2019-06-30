@@ -11,7 +11,7 @@ use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
-class TimekeepingPostSaveEventSubscriber implements EventSubscriberInterface {
+class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -82,11 +82,9 @@ class TimekeepingPostSaveEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function timekeepingMarkItemsBilled($entity, $billed = TRUE) {
-    if (!isset($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'})) {
-      return;
-    }
+    $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
 
-    foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $item_line) {
+    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
       if ($item_line->target_type !== 'se_timekeeping') {
         continue;
       }

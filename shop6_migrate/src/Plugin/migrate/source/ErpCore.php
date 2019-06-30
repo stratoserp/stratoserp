@@ -145,7 +145,8 @@ class ErpCore extends MigrateNode {
         continue;
       }
 
-      $price = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line->price);
+      //$price = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line->price);
+      $price = $line->price;
       $items[] = [
         'target_id' => $item,
         'target_type' => $type,
@@ -518,16 +519,16 @@ class ErpCore extends MigrateNode {
 
     // Convert old floating dollars to cents.
     if ($total = $row->getSourceProperty('total')) {
-      $row->setSourceProperty('total', $total * 100);
+      $row->setSourceProperty('total', $total);
     }
     if ($buy_price = $row->getSourceProperty('buy_price')) {
-      $row->setSourceProperty('buy_price', $buy_price * 100);
+      $row->setSourceProperty('buy_price', $buy_price);
     }
     if ($sell_price = $row->getSourceProperty('sell_price')) {
-      $row->setSourceProperty('sell_price', $sell_price * 100);
+      $row->setSourceProperty('sell_price', $sell_price);
     }
     if ($rrp_price = $row->getSourceProperty('rrp_price')) {
-      $row->setSourceProperty('rrp_price', $rrp_price * 100);
+      $row->setSourceProperty('rrp_price', $rrp_price);
     }
 
     return TRUE;

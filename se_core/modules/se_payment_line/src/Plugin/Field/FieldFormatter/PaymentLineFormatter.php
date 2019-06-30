@@ -3,11 +3,10 @@
 namespace Drupal\se_payment_line\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Annotation\Translation;
-use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\Field\Annotation\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceLabelFormatter;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\dynamic_entity_reference\Plugin\Field\FieldFormatter\DynamicEntityReferenceLabelFormatter;
 
 /**
  * Plugin implementation of the 'dynamic entity reference label' formatter.
@@ -21,7 +20,7 @@ use Drupal\dynamic_entity_reference\Plugin\Field\FieldFormatter\DynamicEntityRef
  *   }
  * )
  */
-class PaymentLineFormatter extends DynamicEntityReferenceLabelFormatter {
+class PaymentLineFormatter extends EntityReferenceLabelFormatter {
 
   public static function defaultSettings() {
     return [];

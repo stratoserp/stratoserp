@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pa_lines
+    - node.type.se_invoice
+    - node.type.se_payment
+  module:
+    - se_payment_line
+id: node.se_payment.field_pa_lines
+field_name: field_pa_lines
+entity_type: node
+bundle: se_payment
+label: Payments
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      se_invoice: se_invoice
+    sort:
+      field: _none
+    auto_create: 0
+    auto_create_bundle: ''
+field_type: se_payment_line

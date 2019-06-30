@@ -18,7 +18,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class SeAccountingWidget extends WidgetBase {
+class AccountingWidget extends WidgetBase {
 
   /**
    * {@inheritdoc}
@@ -27,7 +27,7 @@ class SeAccountingWidget extends WidgetBase {
     $value = isset($items[$delta]->value) ? $items[$delta]->value : '';
     $element += [
       '#type' => 'textfield',
-      '#default_value' => $value,
+      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($value ?? 0),
       '#size' => 7,
       '#maxlength' => 7,
       '#element_validate' => [

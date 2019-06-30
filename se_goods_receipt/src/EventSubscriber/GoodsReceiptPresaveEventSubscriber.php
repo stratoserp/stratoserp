@@ -9,14 +9,14 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
-class ItemsPreSaveEventSubscriber implements EventSubscriberInterface {
+class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemsPreSave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemsPresave',
     ];
   }
 
@@ -29,11 +29,13 @@ class ItemsPreSaveEventSubscriber implements EventSubscriberInterface {
    *
    * TODO - Config option to generate serial numbers if blank?
    */
-  public function itemsPreSave(EntityPresaveEvent $event) {
+  public function itemsPresave(EntityPresaveEvent $event) {
     /** @var Node $entity */
-    $entity = $event->getEntity();
+    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
+      return;
+    }
 
-    if ($entity->bundle() !== 'se_item') {
+    if ($entity->bundle() !== 'se_goods_receipt') {
       return;
     }
 
