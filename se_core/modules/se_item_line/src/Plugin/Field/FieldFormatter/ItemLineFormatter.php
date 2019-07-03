@@ -48,6 +48,14 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
     $host_type = $host_entity->bundle();
 
     $list = [];
+    $list[] = [
+      '#theme' => 'se_item_header_formatter',
+      '#item' => t('Item'),
+      '#quantity' => t('Qty'),
+      '#price' => t('Price'),
+      '#serial' => t('Serial'),
+      '#note' => t('Notes'),
+    ];
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
       /** @var \Drupal\se_item\Entity\Item|\Drupal\comment\Entity\Comment $entity */
       $uri = $entity->toUrl();

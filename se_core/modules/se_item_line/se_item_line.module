@@ -46,6 +46,15 @@ function se_item_line_theme() {
         'format' => '',
       ],
     ],
+    'se_item_header_formatter' => [
+      'variables' => [
+        'item' => '',
+        'quantity' => '',
+        'price' => '',
+        'serial' => '',
+        'note' => '',
+      ],
+    ],
     'se_item_lines_formatter' => [
       'variables' => [
         'lines' => '',

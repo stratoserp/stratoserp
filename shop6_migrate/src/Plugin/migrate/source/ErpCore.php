@@ -66,7 +66,7 @@ class ErpCore extends MigrateNode {
     $total = 0;
     foreach ($lines as $line) {
       unset($item, $type);
-      $line->serial = $this->cleanupSerial($line->serial);
+      $line->serial = $this->cleanupSerial($line->serial ?? '');
 
       // If no item nid, log an error and move on.
       if (empty($line->item_nid) || $line->item_nid === 0) {
@@ -145,14 +145,15 @@ class ErpCore extends MigrateNode {
         continue;
       }
 
-      //$price = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line->price);
       $price = $line->price;
       $items[] = [
         'target_id' => $item,
         'target_type' => $type,
         'quantity' => $line->qty,
-        'price' => $price,
+        'price' => \Drupal::service('se_accounting.currency_format')->formatStorage($price ?? 0),
+        'completed_date' => $line->completed_date ?? 0,
         'note' => $line->extra,
+        'serial' => $line->serial,
         'format' => 'basic_html',
       ];
 

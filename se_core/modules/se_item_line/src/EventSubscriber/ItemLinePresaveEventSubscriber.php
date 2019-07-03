@@ -44,17 +44,13 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
     // for storage and calculating total
     $item_lines = [];
     foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
-      $price = \Drupal::service('se_accounting.currency_format')->formatStorage($item_line->price);
-
-      $item_line->price = $price;
-
       if (empty($item_line->serial) && $item = Item::load($item_line->target_id)) {
-        $item_line->serial = $item->id();
+        $item_line->serial = $item->field_it_serial->value;
       }
 
       // Finally update the line and add it to the list
       $item_lines[] = $item_line;
-      $total += $item_line->quantity * $price;
+      $total += $item_line->quantity * $item_line->price;
     }
 
     $entity->{$bundle_field_type . '_lines'} = $item_lines;

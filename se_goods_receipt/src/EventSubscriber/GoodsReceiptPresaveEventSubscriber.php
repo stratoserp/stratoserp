@@ -39,14 +39,19 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if (!empty($entity->field_it_serial->value) &&
-      $item = Item::load($entity->field_it_line_item->target_id)) {
-      if ($item->field_it_serial->value !== $entity->field_it_serial->value) {
-        $new_item = $item->createDuplicate();
-        $new_item->field_it_serial->value = $entity->field_it_serial->value;
-        $new_item->field_it_item_ref->target_id = $item->id();
-        $new_item->save();
-        $entity->field_it_line_item->target_id = $new_item->id();
+    $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
+    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
+      if (!empty($item_line->serial)) {
+        if ($item = Item::load($item_line->target_id)) {
+          if ($item->field_it_serial->value !== $item_line->serial) {
+            $new_item = $item->createDuplicate();
+            $new_item->field_it_serial->value = $item_line->serial;
+            $new_item->field_it_item_ref->target_id = $item->id();
+            $new_item->save();
+
+            $entity->{$bundle_field_type . '_items'}[$index]->target_id = $new_item->id();
+          }
+        }
       }
     }
   }

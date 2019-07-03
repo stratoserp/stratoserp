@@ -141,23 +141,26 @@ class NodeController extends ControllerBase {
     $query->condition('field_tk_amount', 0, '>');
     $entity_ids = $query->execute();
 
+    $lines = [];
     foreach ($entity_ids as $entity_id) {
       /** @var Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
         if ($item = Item::load($comment->field_tk_item->target_id)) {
-          $price = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value);
+          $price = $item->field_it_sell_price->value;
         }
         $line = [
-          'target_type' => $item->bundle(),
+          'target_type' => 'se_item',
           'target_id' => $item->id(),
           'quantity' => \Drupal::service('se_timekeeping.time_format')->formatHours($comment->field_tk_amount->value),
           'notes' => $comment->field_tk_comment->value,
           'format' => $comment->field_tk_comment->format,
           'price' => $price,
         ];
-        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($line);
+        $lines[] = $line;
       }
     }
+
+    $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'} = $lines;
 
     if ($open) {
       $node->field_status_ref->target_id = $open->id();

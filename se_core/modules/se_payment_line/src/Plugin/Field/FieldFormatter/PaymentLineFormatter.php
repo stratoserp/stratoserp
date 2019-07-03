@@ -67,10 +67,7 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
         '#theme' => 'se_payment_line_formatter',
         '#item' => $element,
         '#quantity' => $items[$delta]->quantity,
-        '#price' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price),
-        '#serial' => $items[$delta]->serial,
-        '#note' => $items[$delta]->note,
-        '#format' => $items[$delta]->format,
+        '#amount' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->amount ?? 0),
       ];
     }
 

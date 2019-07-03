@@ -55,6 +55,13 @@ class ErpServiceItem extends ErpCore {
     $row->setSourceProperty('title', substr($row->getSourceProperty('title'), 0, 128));
     $this->setItemTaxonomyTerms($row);
 
+    $row->setSourceProperty('sell_price',
+      \Drupal::service('se_accounting.currency_format')
+        ->formatStorage($row->getSourceProperty('sell_price') ?? 0));
+    $row->setSourceProperty('buy_price',
+      \Drupal::service('se_accounting.currency_format')
+        ->formatStorage($row->getSourceProperty('buy_price') ?? 0));
+
     return TRUE;
   }
 

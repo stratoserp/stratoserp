@@ -41,13 +41,9 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
     // for storage and calculating total
     $payment_lines = [];
     foreach ($entity->{$bundle_field_type . '_items'} as $index => $payment_line) {
-      $amount = \Drupal::service('se_accounting.currency_format')->formatStorage($payment_line->amount);
-
-      $payment_line->amount = $amount;
-
       // Finally update the line and add it to the list
       $payment_lines[] = $payment_line;
-      $total += $amount;
+      $total += $payment_line['amount'];
     }
 
     /** @var \Drupal\node\Entity\Node $entity */

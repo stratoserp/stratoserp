@@ -59,7 +59,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price ?: 0),
       '#size' => 10,
       '#maxlength' => 20,
-      '#weight' => 10,
+      '#weight' => 15,
       '#required' => TRUE,
       '#attributes' => [
         'placeholder' => t('Price')
@@ -94,7 +94,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#default_value' => $items[$delta]->note ?? '',
       '#rows' => 2,
       '#cols' => 30,
-      '#weight' => 15
+      '#weight' => 20
     ];
 
     //$build['#theme'] = 'se-item-line-widget';

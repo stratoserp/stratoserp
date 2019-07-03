@@ -114,29 +114,6 @@ class ItemLineType extends DynamicEntityReferenceItem {
   /**
    * {@inheritdoc}
    */
-  public function setValue($values, $notify = TRUE) {
-    $this->onChange('note', $notify);
-    parent::setValue($values, $notify);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function onChange($property_name, $notify = TRUE) {
-    // Unset processed properties that are affected by the change.
-    foreach ($this->definition->getPropertyDefinitions() as $property => $definition) {
-      if ($definition->getClass() === '\Drupal\text\TextProcessed') {
-        if ($property_name === 'format' || ($definition->getSetting('text source') === $property_name)) {
-          $this->writePropertyValue($property, NULL);
-        }
-      }
-    }
-    parent::onChange($property_name, $notify);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function getPreconfiguredOptions() {
     return [];
   }

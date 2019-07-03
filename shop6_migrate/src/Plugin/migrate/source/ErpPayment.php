@@ -5,6 +5,7 @@ namespace Drupal\shop6_migrate\Plugin\migrate\source;
 use Drupal\Core\Database\Database;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Row;
+use Drupal\node\Entity\Node;
 
 /**
  * Migration of purchase order nodes from drupal6 erp system.
@@ -94,9 +95,17 @@ class ErpPayment extends ErpCore {
     $total = 0;
     foreach ($lines as $line) {
       /** @var \Drupal\node\Entity\Node $invoice */
-      if (!$invoice = $this->findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice')) {
+      if (!$invoice_id = $this->findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice')) {
         $this->logError($row,
           t('setPayments: @nid - invoice doesn\'t exist', [
+            '@nid' => $line->invoice_nid,
+          ]));
+        continue;
+      }
+
+      if (!$invoice = Node::load($invoice_id)) {
+        $this->logError($row,
+          t('setPayments: @nid - invoice wasn\'t able to be loaded', [
             '@nid' => $line->invoice_nid,
           ]));
         continue;
@@ -114,7 +123,8 @@ class ErpPayment extends ErpCore {
       $payments[] = [
         'amount' => $line->payment_amount,
         'date' => $line->payment_date,
-        'invoice' => $invoice,
+        'target_id' => $invoice->id(),
+        'target_type' => 'node',
         'payment_type' => $term_id,
       ];
     }

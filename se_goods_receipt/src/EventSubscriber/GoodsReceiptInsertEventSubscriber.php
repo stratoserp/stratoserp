@@ -38,9 +38,9 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
     }
 
     $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
-    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item) {
+    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
       /** @var Item $item */
-      if ($item = Item::load($item->target_id)) {
+      if ($item = Item::load($item_line->target_id)) {
         if ($item->bundle() !== 'se_stock') {
           continue;
         }
