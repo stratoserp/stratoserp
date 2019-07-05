@@ -1,6 +1,8 @@
 <?php
 
-namespace Drupal\Tests\se_supplier\ExistingSite;
+namespace Drupal\Tests\se_supplier\Functional;
+
+use Drupal\Tests\se_testing\Functional\SupplierTestBase;
 
 /**
  * @coversDefault Drupal\se_supplier

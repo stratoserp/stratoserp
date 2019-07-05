@@ -1,25 +1,26 @@
 <?php
 
-namespace Drupal\Tests\se_customer\ExistingSite;
+namespace Drupal\Tests\se_supplier\Functional;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * @coversDefault Drupal\se_customer
- * @group se_customer
+ * @coversDefault Drupal\se_supplier
+ * @group se_supplier
  * @group stratoserp
  *
  */
-class CustomerPermissionsTest extends ExistingSiteBase {
+class SupplierPermissionsTest extends ExistingSiteBase {
 
   protected $customer;
   protected $staff;
 
   private $pages = [
-    '/node/add/se_customer',
+    '/node/add/se_supplier',
+    '/se/suppliers'
   ];
 
-  public function testCustomerPermissions() {
+  public function testSupplierPermissions() {
     $this->customer = $this->createUser([], NULL, FALSE);
     $this->customer->addRole('customer');
     $this->customer->save();

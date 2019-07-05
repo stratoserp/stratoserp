@@ -1,23 +1,25 @@
 <?php
 
-namespace Drupal\Tests\se_ticket\ExistingSite;
+namespace Drupal\Tests\se_customer\Functional;
+
+use Drupal\Tests\se_testing\Functional\CustomerTestBase;
 
 /**
  * @coversDefault Drupal\se_customer
- * @group se_ticket
+ * @group se_customer
  * @group stratoserp
  *
  */
-class TicketCreateTest extends TicketTestBase {
+class CustomerCreateTest extends CustomerTestBase {
+
   protected $staff;
 
-  public function testTicketAdd() {
+  public function testCustomerAdd() {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
     $customer = $this->addCustomer();
-    $ticket = $this->addTicket();
 
     $this->drupalLogout();
 

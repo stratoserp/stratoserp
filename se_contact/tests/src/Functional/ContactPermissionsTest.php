@@ -1,25 +1,26 @@
 <?php
 
-namespace Drupal\Tests\se_stock\ExistingSite;
+namespace Drupal\Tests\se_contact\Functional;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Drupal\Tests\se_testing\Functional\ContactTestBase;
 
 /**
- * @coversDefault Drupal\se_stock
- * @group se_stock
+ * @coversDefault Drupal\se_contact
+ * @group se_contact
  * @group stratoserp
  *
  */
-class StockItemPermissionsTest extends ExistingSiteBase {
+class ContactPermissionsTest extends ContactTestBase {
 
   protected $customer;
   protected $staff;
 
   private $pages = [
-    '/node/add/se_invoice',
+    '/node/add/se_contact',
+    '/se/contacts'
   ];
 
-  public function testStockItemPermissions() {
+  public function testContactPermissions() {
     $this->customer = $this->createUser([], NULL, FALSE);
     $this->customer->addRole('customer');
     $this->customer->save();
@@ -47,5 +48,6 @@ class StockItemPermissionsTest extends ExistingSiteBase {
       $this->drupalLogout();
     }
   }
+
 
 }

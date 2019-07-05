@@ -1,6 +1,9 @@
 <?php
 
-namespace Drupal\Tests\se_customer\ExistingSite;
+namespace Drupal\Tests\se_customer\Functional;
+
+
+use Drupal\Tests\se_testing\Functional\CustomerTestBase;
 
 /**
  * @coversDefault Drupal\se_customer

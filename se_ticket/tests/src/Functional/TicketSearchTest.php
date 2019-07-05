@@ -2,6 +2,9 @@
 
 namespace Drupal\Tests\se_ticket\ExistingSite;
 
+
+use Drupal\Tests\se_testing\Functional\TicketTestBase;
+
 /**
  * @coversDefault Drupal\se_customer
  * @group se_ticket

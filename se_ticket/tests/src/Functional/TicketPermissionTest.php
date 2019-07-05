@@ -1,23 +1,25 @@
 <?php
 
-namespace Drupal\Tests\se_invoice\ExistingSite;
+namespace Drupal\Tests\se_ticket\Functional;
+
+use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * @coversDefault Drupal\se_customer
- * @group se_invoice
+ * @coversDefault Drupal\se_goods_receipt
+ * @group se_contact
  * @group stratoserp
  *
  */
-class InvoicePermissionsTest extends InvoiceTestBase {
+class TicketPermissionTest extends ExistingSiteBase {
 
   protected $customer;
   protected $staff;
 
   private $pages = [
-    '/node/add/se_invoice',
+    '/node/add/se_goods_receipt',
   ];
 
-  public function testInvoicePermissions() {
+  public function testTicketPermissions() {
     $this->customer = $this->createUser([], NULL, FALSE);
     $this->customer->addRole('customer');
     $this->customer->save();
@@ -45,6 +47,5 @@ class InvoicePermissionsTest extends InvoiceTestBase {
       $this->drupalLogout();
     }
   }
-
 
 }

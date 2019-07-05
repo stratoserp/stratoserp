@@ -1,27 +1,29 @@
 <?php
 
-namespace Drupal\Tests\se_ticket\ExistingSite;
+namespace Drupal\Tests\se_testing\Functional;
 
+use PHPUnit\Framework\TestCase;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\Tests\RandomGeneratorTrait;
+use Drupal\Tests\se_testing\Traits\ContactTestTrait;
 use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
-use Drupal\Tests\se_testing\Traits\TicketTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\UiHelperTrait;
-use PHPUnit\Framework\TestCase;
 use weitzman\DrupalTestTraits\DrupalTrait;
 use weitzman\DrupalTestTraits\Entity\NodeCreationTrait;
 use weitzman\DrupalTestTraits\Entity\TaxonomyCreationTrait;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 use weitzman\DrupalTestTraits\GoutteTrait;
+use Drupal\Tests\PhpunitCompatibilityTrait;
 
-class TicketTestBase extends TestCase {
+class ContactTestBase extends TestCase {
   use DrupalTrait;
   use GoutteTrait;
   use NodeCreationTrait;
   use UserCreationTrait;
   use TaxonomyCreationTrait;
   use UiHelperTrait;
+  use PhpunitCompatibilityTrait;
 
   // The entity creation traits need this.
   use RandomGeneratorTrait;
@@ -31,9 +33,9 @@ class TicketTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Now our own Traits.
+  use ContactTestTrait;
   use CustomerTestTrait;
   use UserCreateTrait;
-  use TicketTestTrait;
 
   /**
    * The database prefix of this test run.
@@ -42,20 +44,16 @@ class TicketTestBase extends TestCase {
    */
   protected $databasePrefix;
 
+  protected $contact;
+  protected $customer;
   protected $fakerFactory;
   protected $faker;
-
-  protected $ticket;
-  protected $customer;
 
   protected function setUp() {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
-    $this->customerFakerSetup();
-    $this->ticketFakerSetup();
   }
-
 
   /**
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -70,8 +68,11 @@ class TicketTestBase extends TestCase {
    * Override \Drupal\Tests\UiHelperTrait::prepareRequest since it generates
    * an error, and does nothing useful for DTT. @see https://www.drupal.org/node/2246725.
    */
-  protected function prepareRequest()
-  {
+  protected function prepareRequest() {
+  }
+
+  protected function config($name) {
+    return $this->container->get('config.factory')->getEditable($name);
   }
 
 }

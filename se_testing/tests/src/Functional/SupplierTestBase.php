@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\Tests\se_customer\ExistingSite;
+namespace Drupal\Tests\se_testing\Functional;
 
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\Tests\RandomGeneratorTrait;
-use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
+use Drupal\Tests\se_testing\Traits\SupplierTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\UiHelperTrait;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ use weitzman\DrupalTestTraits\Entity\TaxonomyCreationTrait;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 use weitzman\DrupalTestTraits\GoutteTrait;
 
-class CustomerTestBase extends TestCase {
+class SupplierTestBase extends TestCase {
   use DrupalTrait;
   use GoutteTrait;
   use NodeCreationTrait;
@@ -30,7 +30,7 @@ class CustomerTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Now our own Traits.
-  use CustomerTestTrait;
+  use SupplierTestTrait;
   use UserCreateTrait;
 
   /**
@@ -40,7 +40,7 @@ class CustomerTestBase extends TestCase {
    */
   protected $databasePrefix;
 
-  protected $customer;
+  protected $supplier;
   protected $fakerFactory;
   protected $faker;
 
@@ -49,7 +49,7 @@ class CustomerTestBase extends TestCase {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
-    $this->customerFakerSetup();
+    $this->supplierFakerSetup();
   }
 
 

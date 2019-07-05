@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\se_goods_receipt\ExistingSite;
+namespace Drupal\Tests\se_testing\Functional;
 
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\Tests\RandomGeneratorTrait;

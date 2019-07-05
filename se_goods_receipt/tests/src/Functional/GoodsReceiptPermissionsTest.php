@@ -1,26 +1,25 @@
 <?php
 
-namespace Drupal\Tests\se_supplier\ExistingSite;
+namespace Drupal\Tests\se_goods_receipt\Functional;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Drupal\Tests\se_testing\Functional\GoodsReceiptTestBase;
 
 /**
- * @coversDefault Drupal\se_customer
- * @group se_customer
+ * @coversDefault Drupal\se_goods_receipt
+ * @group se_contact
  * @group stratoserp
  *
  */
-class SupplierPermissionsTest extends ExistingSiteBase {
+class GoodsReceiptPermissionsTest extends GoodsReceiptTestBase {
 
   protected $customer;
   protected $staff;
 
   private $pages = [
-    '/node/add/se_supplier',
-    '/se/suppliers'
+    '/node/add/se_goods_receipt',
   ];
 
-  public function testSupplierPermissions() {
+  public function testGoodsReceiptPermissions() {
     $this->customer = $this->createUser([], NULL, FALSE);
     $this->customer->addRole('customer');
     $this->customer->save();

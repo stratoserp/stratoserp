@@ -1,11 +1,10 @@
 <?php
 
-namespace Drupal\Tests\se_contact\ExistingSite;
+namespace Drupal\Tests\se_testing\Functional;
 
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\Tests\RandomGeneratorTrait;
-use Drupal\Tests\se_testing\Traits\ContactTestTrait;
-use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
+use Drupal\Tests\se_testing\Traits\StockItemTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\UiHelperTrait;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +14,7 @@ use weitzman\DrupalTestTraits\Entity\TaxonomyCreationTrait;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 use weitzman\DrupalTestTraits\GoutteTrait;
 
-class ContactTestBase extends TestCase {
+class StockItemTestBase extends TestCase {
   use DrupalTrait;
   use GoutteTrait;
   use NodeCreationTrait;
@@ -31,8 +30,7 @@ class ContactTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Now our own Traits.
-  use ContactTestTrait;
-  use CustomerTestTrait;
+  use StockItemTestTrait;
   use UserCreateTrait;
 
   /**
@@ -42,8 +40,7 @@ class ContactTestBase extends TestCase {
    */
   protected $databasePrefix;
 
-  protected $contact;
-  protected $customer;
+  protected $stockItem;
   protected $fakerFactory;
   protected $faker;
 
@@ -51,9 +48,9 @@ class ContactTestBase extends TestCase {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
-    $this->contactFakerSetup();
-    $this->customerFakerSetup();
+    $this->stockItemFakerSetup();
   }
+
 
   /**
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -68,7 +65,8 @@ class ContactTestBase extends TestCase {
    * Override \Drupal\Tests\UiHelperTrait::prepareRequest since it generates
    * an error, and does nothing useful for DTT. @see https://www.drupal.org/node/2246725.
    */
-  protected function prepareRequest() {
+  protected function prepareRequest()
+  {
   }
 
 }

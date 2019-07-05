@@ -1,6 +1,8 @@
 <?php
 
-namespace Drupal\Tests\se_stock\ExistingSite;
+namespace Drupal\Tests\se_stock\Functional;
+
+use Drupal\Tests\se_testing\ExistingSite\StockItemTestBase;
 
 /**
  * @coversDefault Drupal\se_stock

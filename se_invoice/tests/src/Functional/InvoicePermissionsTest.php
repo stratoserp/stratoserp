@@ -1,24 +1,25 @@
 <?php
 
-namespace Drupal\Tests\se_contact\ExistingSite;
+namespace Drupal\Tests\se_invoice\Functional;
+
+use Drupal\Tests\se_testing\Functional\InvoiceTestBase;
 
 /**
- * @coversDefault Drupal\se_contact
- * @group se_contact
+ * @coversDefault Drupal\se_customer
+ * @group se_invoice
  * @group stratoserp
  *
  */
-class ContactPermissionsTest extends ContactTestBase {
+class InvoicePermissionsTest extends InvoiceTestBase {
 
   protected $customer;
   protected $staff;
 
   private $pages = [
-    '/node/add/se_contact',
-    '/se/contacts'
+    '/node/add/se_invoice',
   ];
 
-  public function testContactPermissions() {
+  public function testInvoicePermissions() {
     $this->customer = $this->createUser([], NULL, FALSE);
     $this->customer->addRole('customer');
     $this->customer->save();
