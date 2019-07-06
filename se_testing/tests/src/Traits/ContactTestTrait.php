@@ -38,7 +38,7 @@ trait ContactTestTrait {
       'field_bu_ref' => ['target_id' => $customer_node->id()],
     ]);
     $this->assertNotEqual($node, FALSE);
-    $this->drupalGet('node/' . $node->id());
+    $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $this->assertNotContains('Please fill in this field', $this->getTextContent());
@@ -49,6 +49,16 @@ trait ContactTestTrait {
     $this->assertContains($this->customer->name, $this->getTextContent());
 
     return $node;
+  }
+
+  /**
+   * Deleting a contact.
+   *
+   * @param \Drupal\node\Entity\Node $contact
+   *
+   */
+  public function deleteContact(Node $contact, bool $allowed) {
+    parent::deleteNode($contact, $allowed);
   }
 
 }

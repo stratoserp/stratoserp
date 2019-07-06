@@ -6,7 +6,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * @coversDefault Drupal\se_goods_receipt
- * @group se_contact
+ * @group se_ticket
  * @group stratoserp
  *
  */

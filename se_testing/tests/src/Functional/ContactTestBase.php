@@ -2,77 +2,23 @@
 
 namespace Drupal\Tests\se_testing\Functional;
 
-use PHPUnit\Framework\TestCase;
-use Drupal\KernelTests\AssertLegacyTrait;
-use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\Tests\se_testing\Traits\ContactTestTrait;
 use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
-use Drupal\Tests\UiHelperTrait;
-use weitzman\DrupalTestTraits\DrupalTrait;
-use weitzman\DrupalTestTraits\Entity\NodeCreationTrait;
-use weitzman\DrupalTestTraits\Entity\TaxonomyCreationTrait;
-use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
-use weitzman\DrupalTestTraits\GoutteTrait;
-use Drupal\Tests\PhpunitCompatibilityTrait;
 
-class ContactTestBase extends TestCase {
-  use DrupalTrait;
-  use GoutteTrait;
-  use NodeCreationTrait;
-  use UserCreationTrait;
-  use TaxonomyCreationTrait;
-  use UiHelperTrait;
-  use PhpunitCompatibilityTrait;
-
-  // The entity creation traits need this.
-  use RandomGeneratorTrait;
-
-  // Core is still using this in role creation, so it must be included here when
-  // using the UserCreationTrait.
-  use AssertLegacyTrait;
+class ContactTestBase extends FunctionalTestBase {
 
   // Now our own Traits.
   use ContactTestTrait;
   use CustomerTestTrait;
   use UserCreateTrait;
 
-  /**
-   * The database prefix of this test run.
-   *
-   * @var string
-   */
-  protected $databasePrefix;
-
   protected $contact;
   protected $customer;
-  protected $fakerFactory;
-  protected $faker;
 
   protected function setUp() {
     parent::setUp();
-    $this->setupMinkSession();
-    $this->setupDrupal();
-  }
-
-  /**
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  public function tearDown() {
-    parent::tearDown();
-    $this->tearDownDrupal();
-    $this->tearDownMinkSession();
-  }
-
-  /**
-   * Override \Drupal\Tests\UiHelperTrait::prepareRequest since it generates
-   * an error, and does nothing useful for DTT. @see https://www.drupal.org/node/2246725.
-   */
-  protected function prepareRequest() {
-  }
-
-  protected function config($name) {
-    return $this->container->get('config.factory')->getEditable($name);
+    $this->contactFakerSetup();
   }
 
 }

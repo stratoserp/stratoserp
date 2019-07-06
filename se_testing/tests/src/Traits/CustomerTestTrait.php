@@ -35,7 +35,7 @@ trait CustomerTestTrait {
       'field_cu_email' => $this->customer->companyEmail,
     ]);
     $this->assertNotEqual($node, FALSE);
-    $this->drupalGet('node/' . $node->id());
+    $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $this->assertNotContains('Please fill in this field', $this->getTextContent());
@@ -46,6 +46,17 @@ trait CustomerTestTrait {
 
     return $node;
   }
+
+  /**
+   * Deleting a contact.
+   *
+   * @param \Drupal\node\Entity\Node $customer
+   *
+   */
+  public function deleteCustomer(Node $customer, bool $allowed) {
+    parent::deleteNode($customer, $allowed);
+  }
+
 
 
 }

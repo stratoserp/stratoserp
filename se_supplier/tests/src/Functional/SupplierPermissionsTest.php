@@ -17,7 +17,7 @@ class SupplierPermissionsTest extends ExistingSiteBase {
 
   private $pages = [
     '/node/add/se_supplier',
-    '/se/suppliers'
+    '/se/supplier-list'
   ];
 
   public function testSupplierPermissions() {

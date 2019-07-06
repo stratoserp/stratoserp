@@ -6,7 +6,7 @@ use Drupal\Tests\se_testing\Functional\GoodsReceiptTestBase;
 
 /**
  * @coversDefault Drupal\se_goods_receipt
- * @group se_contact
+ * @group se_goods_receipt
  * @group stratoserp
  *
  */
@@ -17,6 +17,7 @@ class GoodsReceiptPermissionsTest extends GoodsReceiptTestBase {
 
   private $pages = [
     '/node/add/se_goods_receipt',
+    '/se/goods-receipt-list'
   ];
 
   public function testGoodsReceiptPermissions() {

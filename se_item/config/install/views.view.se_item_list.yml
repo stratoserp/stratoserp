@@ -862,7 +862,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/item
+      path: se/item-list
       menu:
         type: normal
         title: Items
