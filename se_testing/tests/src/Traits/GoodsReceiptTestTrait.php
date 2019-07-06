@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait GoodsReceiptTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function goodsReceiptFakerSetup() {
     $this->faker = Factory::create();
 
@@ -26,6 +29,12 @@ trait GoodsReceiptTestTrait {
     error_reporting($original);
   }
 
+  /**
+   * Adding a goods receipt.
+   *
+   * @return \Drupal\node\Entity\Node
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
   public function addGoodsReceipt() {
     /** @var Node $node */
     $node = $this->createNode([
@@ -47,5 +56,17 @@ trait GoodsReceiptTestTrait {
     return $node;
   }
 
+  /**
+   * Deleting a goods receipt.
+   *
+   * @param \Drupal\node\Entity\Node $goods_receipt
+   * @param bool $allowed
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function deleteGoodsReceipt(Node $goods_receipt, bool $allowed) {
+    $this->deleteNode($goods_receipt, $allowed);
+  }
 
 }

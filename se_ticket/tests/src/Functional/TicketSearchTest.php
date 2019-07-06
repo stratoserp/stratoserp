@@ -21,7 +21,7 @@ class TicketSearchTest extends TicketTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $this->drupalGet('se/tickets');
+    $this->drupalGet('se/ticket-list');
     $web_assert->statusCodeEquals(200);
 
     $page = $this->getCurrentPage();

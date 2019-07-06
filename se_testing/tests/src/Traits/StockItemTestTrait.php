@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait StockItemTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function stockItemFakerSetup() {
     $this->faker = Factory::create();
 

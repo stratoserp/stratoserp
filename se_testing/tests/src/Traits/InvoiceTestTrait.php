@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait InvoiceTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function invoiceFakerSetup() {
     $this->faker = Factory::create();
 

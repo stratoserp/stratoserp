@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait SupplierTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function supplierFakerSetup() {
     $this->faker = Factory::create();
 

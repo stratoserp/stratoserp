@@ -13,8 +13,7 @@ class GoodsReceiptTestBase extends FunctionalTestBase {
   use UserCreateTrait;
   use GoodsReceiptTestTrait;
 
-  protected $customer;
-
+  protected $goodsReceipt;
 
   protected function setUp() {
     parent::setUp();

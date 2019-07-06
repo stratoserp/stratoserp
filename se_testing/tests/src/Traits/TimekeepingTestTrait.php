@@ -10,7 +10,10 @@ use Faker\Factory;
  */
 trait TimekeepingTestTrait {
 
-  public function timkeepingFakerSetup() {
+  /**
+   * Setup basic faker fields for this test trait.
+   */
+  public function timekeepingFakerSetup() {
     $this->faker = Factory::create();
 
     $original = error_reporting(0);

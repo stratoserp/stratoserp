@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait ContactTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function contactFakerSetup() {
     $this->faker = Factory::create();
 
@@ -55,10 +58,13 @@ trait ContactTestTrait {
    * Deleting a contact.
    *
    * @param \Drupal\node\Entity\Node $contact
+   * @param bool $allowed
    *
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function deleteContact(Node $contact, bool $allowed) {
-    parent::deleteNode($contact, $allowed);
+    $this->deleteNode($contact, $allowed);
   }
 
 }

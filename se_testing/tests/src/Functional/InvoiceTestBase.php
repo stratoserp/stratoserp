@@ -16,7 +16,6 @@ class InvoiceTestBase extends FunctionalTestBase {
   protected $customer;
   protected $invoice;
 
-
   protected function setUp() {
     parent::setUp();
     $this->invoiceFakerSetup();

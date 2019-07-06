@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait TicketTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function ticketFakerSetup() {
     $this->faker = Factory::create();
 
