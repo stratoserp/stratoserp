@@ -49,9 +49,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     // Changes to the target_id field.
     $build['target_id']['#attributes']['placeholder'] = t('Item');
     $build['target_id']['#weight'] = 6;
-    $build['target_id']['callback'] = 'Drupal\se_item_line\Controller\ItemsController::updatePrice';
-    $build['target_id']['event'] = 'autocompleteclose change';
-    $build['target_id']['progress'] = FALSE;
+    $build['target_id']['#ajax'] = [
+      'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
+      'event' => 'autocompleteclose change',
+      'progress' => FALSE,
+    ];
 
     // Add a new price field.
     $build['price'] = [
@@ -105,7 +107,8 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $new_values = parent::massageFormValues($values, $form, $form_state);
 
-    if ($form['#form_id'] !== 'node_se_invoice_edit_form') {
+    if ($form['#form_id'] !== 'node_se_invoice_edit_form'
+    && $form['#form_id'] !== 'node_se_invoice_form') {
       return $new_values;
     }
 
