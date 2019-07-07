@@ -3,6 +3,7 @@
 namespace Drupal\se_item_line\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Annotation\Translation;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\Field\Annotation\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -56,13 +57,38 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       '#serial' => t('Serial'),
       '#note' => t('Notes'),
     ];
+
+    $cache_tags = [];
+
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
       /** @var \Drupal\se_item\Entity\Item|\Drupal\comment\Entity\Comment $entity */
       $uri = $entity->toUrl();
 
+      unset($item);
+      switch ($entity->bundle()) {
+        case 'se_timekeeping':
+          $item = $entity->field_tk_item->entity->field_it_code->value;
+          if ($commented_entity = $entity->getCommentedEntity()) {
+            $cache_tags = Cache::mergeTags($cache_tags, $commented_entity->getCacheTags());
+          }
+          $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
+          break;
+        case 'se_service':
+        case 'se_stock':
+        case 'se_recurring':
+          $item = $entity->field_it_code->value;
+          $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
+          break;
+        default:
+          \Drupal::logger('ItemLineFormatter')
+            ->error('Unhandled item type %type.', ['%type' => $entity->bundle()]);
+          continue 2;
+          break;
+      }
+
       $element = [
         '#type' => 'link',
-        '#title' => $entity->field_it_code->value,
+        '#title' => $item,
         '#url' => $uri,
         '#options' => $uri->getOptions(),
       ];
@@ -97,13 +123,13 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       ];
     }
 
-    // Now wrap the lines into a bundle.
+    // Now wrap the lines into a bundle with cache tags.
     return [
       '#theme' => 'se_item_lines_formatter',
       '#lines' => $list,
       '#cache' => [
-        '#tags' => $host_entity->getCacheTags()
-      ]
+        'tags' => $cache_tags,
+      ],
     ];
   }
 
