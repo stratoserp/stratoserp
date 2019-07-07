@@ -16,13 +16,11 @@ class TicketSearchTest extends TicketTestBase {
 
   public function testTicketSearch() {
 
-    $web_assert = $this->assertSession();
-
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
     $this->drupalGet('se/ticket-list');
-    $web_assert->statusCodeEquals(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     $page = $this->getCurrentPage();
 
@@ -30,7 +28,7 @@ class TicketSearchTest extends TicketTestBase {
 
     $submit_button = $page->findButton('Apply');
     $submit_button->press();
-    $web_assert->statusCodeEquals(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     $this->drupalLogout();
 

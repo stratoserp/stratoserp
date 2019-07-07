@@ -31,6 +31,7 @@ trait ContactTestTrait {
   }
 
   public function addContact() {
+    /** @var Node $customer_node */
     $customer_node = $this->addCustomer();
 
     /** @var Node $node */
@@ -42,6 +43,7 @@ trait ContactTestTrait {
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());
+
     $this->assertSession()->statusCodeEquals(200);
 
     $this->assertNotContains('Please fill in this field', $this->getTextContent());
@@ -60,8 +62,6 @@ trait ContactTestTrait {
    * @param \Drupal\node\Entity\Node $contact
    * @param bool $allowed
    *
-   * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function deleteContact(Node $contact, bool $allowed) {
     $this->deleteNode($contact, $allowed);

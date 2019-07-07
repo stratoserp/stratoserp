@@ -62,8 +62,6 @@ trait GoodsReceiptTestTrait {
    * @param \Drupal\node\Entity\Node $goods_receipt
    * @param bool $allowed
    *
-   * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function deleteGoodsReceipt(Node $goods_receipt, bool $allowed) {
     $this->deleteNode($goods_receipt, $allowed);

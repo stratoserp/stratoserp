@@ -24,6 +24,9 @@ class CurrencyTest extends UnitTestCase {
    * Tests CurrencyStorage.
    *
    * @dataProvider currencyStorageProvider
+   *
+   * @param $input
+   * @param $expected
    */
   public function testCurrencyStorage($input, $expected) {
     $this->assertEquals($expected, $this->currencyFormatService->formatStorage($input));
@@ -33,6 +36,9 @@ class CurrencyTest extends UnitTestCase {
    * Tests CurrencyDisplay.
    *
    * @dataProvider currencyDisplayProvider
+   *
+   * @param $input
+   * @param $expected
    */
   public function testCurrencyDisplay($input, $expected) {
     $this->assertEquals($expected, $this->currencyFormatService->formatDisplay($input));

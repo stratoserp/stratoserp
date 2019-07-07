@@ -91,4 +91,46 @@ class FunctionalTestBase extends TestCase {
     $this->assertSession()->statusCodeEquals(200);
   }
 
+  /**
+   * Test standard permissions.
+   *
+   * @param array $pages
+   *   Array of pages to test permissions against.
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function basicPermissionCheck(array $pages) {
+
+    $customer = $this->createUser();
+    $customer->addRole('customer');
+    $customer->save();
+
+    $staff = $this->createUser();
+    $staff->addRole('staff');
+    $staff->save();
+
+    foreach ($pages as $page) {
+      $this->drupalGet($page);
+      $this->assertSession()->statusCodeEquals(403);
+    }
+
+    foreach ($pages as $page) {
+      $this->drupalLogin($customer);
+      $this->drupalGet($page);
+      $this->assertSession()->statusCodeEquals(403);
+      $this->drupalLogout();
+    }
+
+    foreach ($pages as $page) {
+      $this->drupalLogin($staff);
+      $this->drupalGet($page);
+      $this->assertSession()->statusCodeEquals(200);
+      $this->drupalLogout();
+    }
+
+    $customer->delete();
+    $staff->delete();
+  }
+
 }

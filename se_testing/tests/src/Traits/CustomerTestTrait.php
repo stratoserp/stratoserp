@@ -56,8 +56,6 @@ trait CustomerTestTrait {
    * @param \Drupal\node\Entity\Node $customer
    * @param bool $allowed
    *
-   * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function deleteCustomer(Node $customer, bool $allowed) {
     $this->deleteNode($customer, $allowed);

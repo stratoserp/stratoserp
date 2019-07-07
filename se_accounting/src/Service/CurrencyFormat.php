@@ -2,10 +2,15 @@
 
 namespace Drupal\se_accounting\Service;
 
+/**
+ * Class CurrencyFormat
+ *
+ * @package Drupal\se_accounting\Service
+ */
 class CurrencyFormat {
 
   /**
-   * Convert an int from storage to a human readable currency amount.
+   * Convert an cents string from storage to a human readable float style currency amount.
    *
    * @param string $value
    *
@@ -24,11 +29,11 @@ class CurrencyFormat {
   }
 
   /**
-   * Convert a float human readable currency amount to an int for storage.
+   * Convert a float style human readable currency amount to an cents and string for storage.
    *
-   * @param float $value
+   * @param string $value
    *
-   * @return int
+   * @return string
    */
   public function formatStorage(string $value) {
 

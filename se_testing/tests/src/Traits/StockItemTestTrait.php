@@ -32,7 +32,7 @@ trait StockItemTestTrait {
       'title' => $this->stockItem->name,
     ]);
     $this->assertNotEqual($item, FALSE);
-    $this->drupalGet('item/' . $item->id());
+    $this->drupalGet($item->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $this->assertNotContains('Please fill in this field', $this->getTextContent());
