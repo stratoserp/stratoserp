@@ -4,19 +4,17 @@ namespace Drupal\se_goods_receipt\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeTypeInterface;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for Node routes.
  */
-class NodeController extends ControllerBase implements ContainerInjectionInterface {
+class NodeController extends ControllerBase {
 
   /**
    * The date formatter service.
@@ -89,16 +87,11 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
       'type' => $node_type->id(),
     ]);
 
-    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $value) {
-      $new_value = $value->getValue();
-      /** @var Paragraph $source_paragraph */
-      if ($source_paragraph = Paragraph::load($new_value['target_id'])) {
-        // TODO - Ensure we're using the non-serialised item here?
-        $item_count = $source_paragraph->field_it_quantity->value;
-        for ($i = 0; $i < $item_count; $i++) {
-          $source_paragraph->field_it_quantity->value = 1;
-          $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($source_paragraph->createDuplicate());
-        }
+    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $item_line) {
+      // TODO - Ensure we're using the non-serialised item here?
+      $item_count = $item_line->quantity;
+      for ($i = 0; $i < $item_count; $i++) {
+        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($item_line);
       }
     }
 

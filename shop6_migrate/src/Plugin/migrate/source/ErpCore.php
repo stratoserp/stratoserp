@@ -7,7 +7,6 @@ use Drupal\node\Plugin\migrate\source\d6\Node as MigrateNode;
 use Drupal\migrate\Row;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_item\Entity\Item;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 use Drupal\user\Entity\User;
@@ -30,7 +29,7 @@ class ErpCore extends MigrateNode {
   public const IMPORT_MODE = 'ASC';
 
   /**
-   * Retrieve the list of items for a content type and store them as paragraphs.
+   * Retrieve item lines and store them.
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
@@ -67,7 +66,7 @@ class ErpCore extends MigrateNode {
     $total = 0;
     foreach ($lines as $line) {
       unset($item, $type);
-      $line->serial = $this->cleanupSerial($line->serial);
+      $line->serial = $this->cleanupSerial($line->serial ?? '');
 
       // If no item nid, log an error and move on.
       if (empty($line->item_nid) || $line->item_nid === 0) {
@@ -138,7 +137,7 @@ class ErpCore extends MigrateNode {
       }
 
       // If still no item, warn and move on with life.
-      if (empty($item)) {
+      if (empty($item) || empty($type)) {
         $this->logError($row,
           t('setItems: @nid - can\'t identify item', [
             '@nid' => $nid,
@@ -146,33 +145,23 @@ class ErpCore extends MigrateNode {
         continue;
       }
 
-      // Got an item, create, populate and save a new paragraph entry.
-      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-      $paragraph = Paragraph::create(['type' => 'se_items']);
-      $paragraph->set('field_it_line_item', [
+      $price = $line->price;
+      $items[] = [
         'target_id' => $item,
         'target_type' => $type,
-      ]);
-      $paragraph->set('field_it_quantity', ['value' => $line->qty]);
-      // Convert from float to cents
-      $price = $line->price * 100;
-      $paragraph->set('field_it_price', ['value' => $price]);
-      $paragraph->set('field_it_description', [
-        'value' => $line->extra,
+        'quantity' => $line->qty,
+        'price' => \Drupal::service('se_accounting.currency_format')->formatStorage($price ?? 0),
+        'completed_date' => $line->completed_date ?? 0,
+        'note' => $line->extra,
+        'serial' => $line->serial,
         'format' => 'basic_html',
-      ]);
-      $paragraph->set('field_it_completed_date', ['value' => $line->completed_date]);
-      $paragraph->save();
-      $items[] = [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
       ];
 
       $total += ($line->qty * $price);
     }
 
-    // Set the paragraph items
-    $row->setSourceProperty('paragraph_items', $items);
+    // Set the item lines
+    $row->setSourceProperty('se_item_lines', $items);
     $row->setSourceProperty('total', $total);
   }
 
@@ -201,7 +190,7 @@ class ErpCore extends MigrateNode {
 
     $this->logError($row,
       t('setBusinessRef: @nid - @title could not match supplier', [
-        '@nid'   => $row->getSourceProperty('nid'),
+        '@nid' => $row->getSourceProperty('nid'),
         '@title' => $row->getSourceProperty('title'),
       ]));
 
@@ -531,16 +520,16 @@ class ErpCore extends MigrateNode {
 
     // Convert old floating dollars to cents.
     if ($total = $row->getSourceProperty('total')) {
-      $row->setSourceProperty('total', $total * 100);
+      $row->setSourceProperty('total', $total);
     }
     if ($buy_price = $row->getSourceProperty('buy_price')) {
-      $row->setSourceProperty('buy_price', $buy_price * 100);
+      $row->setSourceProperty('buy_price', $buy_price);
     }
     if ($sell_price = $row->getSourceProperty('sell_price')) {
-      $row->setSourceProperty('sell_price', $sell_price * 100);
+      $row->setSourceProperty('sell_price', $sell_price);
     }
     if ($rrp_price = $row->getSourceProperty('rrp_price')) {
-      $row->setSourceProperty('rrp_price', $rrp_price * 100);
+      $row->setSourceProperty('rrp_price', $rrp_price);
     }
 
     return TRUE;

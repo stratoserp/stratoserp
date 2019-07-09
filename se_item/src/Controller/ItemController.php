@@ -14,7 +14,7 @@ use Drupal\se_item\Entity\ItemInterface;
  *
  *  Returns responses for Item routes.
  */
-class ItemController extends ControllerBase implements ContainerInjectionInterface {
+class ItemController extends ControllerBase {
 
   /**
    * Displays a Item  revision.

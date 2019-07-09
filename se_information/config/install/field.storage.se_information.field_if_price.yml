@@ -6,7 +6,7 @@ dependencies:
 id: se_information.field_if_price
 field_name: field_if_price
 entity_type: se_information
-type: integer
+type: se_currency
 settings:
   unsigned: false
   size: normal

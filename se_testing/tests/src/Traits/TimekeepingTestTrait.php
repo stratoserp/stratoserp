@@ -10,7 +10,10 @@ use Faker\Factory;
  */
 trait TimekeepingTestTrait {
 
-  public function timkeepingFakerSetup() {
+  /**
+   * Setup basic faker fields for this test trait.
+   */
+  public function timekeepingFakerSetup() {
     $this->faker = Factory::create();
 
     $original = error_reporting(0);
@@ -35,7 +38,7 @@ trait TimekeepingTestTrait {
       'field_tk_email' => $this->timekeeping->companyEmail,
     ]);
     $this->assertNotEqual($node, FALSE);
-    $this->drupalGet('node/' . $node->id());
+    $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $this->assertNotContains('Please fill in this field', $this->getTextContent());

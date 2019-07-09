@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait CustomerTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function customerFakerSetup() {
     $this->faker = Factory::create();
 
@@ -35,7 +38,7 @@ trait CustomerTestTrait {
       'field_cu_email' => $this->customer->companyEmail,
     ]);
     $this->assertNotEqual($node, FALSE);
-    $this->drupalGet('node/' . $node->id());
+    $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $this->assertNotContains('Please fill in this field', $this->getTextContent());
@@ -47,5 +50,15 @@ trait CustomerTestTrait {
     return $node;
   }
 
+  /**
+   * Deleting a contact.
+   *
+   * @param \Drupal\node\Entity\Node $customer
+   * @param bool $allowed
+   *
+   */
+  public function deleteCustomer(Node $customer, bool $allowed) {
+    $this->deleteNode($customer, $allowed);
+  }
 
 }

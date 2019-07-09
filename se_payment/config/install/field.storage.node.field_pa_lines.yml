@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - se_payment_line
+id: node.field_pa_lines
+field_name: field_pa_lines
+entity_type: node
+type: se_payment_line
+settings:
+  target_type: node
+module: se_payment_line
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

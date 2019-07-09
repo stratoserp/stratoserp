@@ -19,8 +19,8 @@ dependencies:
     - comment
     - field_layout
     - layout_discovery
-    - reference_table_formatter
     - se_accounting
+    - se_item_line
     - serial
     - text
     - user
@@ -72,16 +72,13 @@ content:
     type: serial_default_formatter
     region: second
   field_in_items:
-    type: entity_reference_table
-    weight: 8
-    label: hidden
+    weight: 12
+    label: above
     settings:
-      view_mode: default
-      show_entity_label: false
-      empty_cell_value: ''
-      hide_header: '0'
+      link: true
     third_party_settings: {  }
-    region: bottom
+    type: se_item_line_formatter
+    region: first
   field_in_quote_ref:
     weight: 6
     label: inline
@@ -105,7 +102,7 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: se_accounting_formatter
+    type: se_currency_formatter
     region: bottom
   field_se_comments:
     weight: 11

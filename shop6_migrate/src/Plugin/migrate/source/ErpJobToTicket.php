@@ -4,7 +4,6 @@ namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Row;
-use Drupal\migrate\Plugin\MigrationInterface;
 
 /**
  * Migration of job nodes from drupal6 erp system to tickets.
@@ -71,14 +70,15 @@ class ErpJobToTicket extends ErpCore {
       ->fields('u', ['fid', 'description', 'list'])
       ->condition('u.nid', $row->getSourceProperty('nid'))
       ->condition('u.vid', $row->getSourceProperty('vid'));
-    $files = $query->execute()->fetchAll();
-
-    if (count($files)) {
-      $row->setSourceProperty('attachments', $files);
-      $this->logError($row,
-        t('ErpTicket: @nid - Attached files to node', [
-          '@nid' => $row->getSourceProperty('nid'),
-        ]));
+    if ($results = $query->execute()) {
+      $files = $results->fetchAll();
+      if (count($files)) {
+        $row->setSourceProperty('attachments', $files);
+        $this->logError($row,
+          t('ErpTicket: @nid - Attached files to node', [
+            '@nid' => $row->getSourceProperty('nid'),
+          ]));
+      }
     }
 
     if (!$this->setBusinessRef($row)) {
@@ -88,8 +88,8 @@ class ErpJobToTicket extends ErpCore {
 
     $this->setOwnerRef($row);
     $this->setStatusRef($row);
-    $this->setTaxonomyTermByRef($row, 'field_job_type_value', 3, 'se_ticket_type', 'job_type_ref');
-    $this->setTaxonomyTermByRef($row, 'field_jo_priority_value', 7, 'se_ticket_priority', 'job_priority_ref');
+    self::setTaxonomyTermByRef($row, 'field_job_type_value', 3, 'se_ticket_type', 'job_type_ref');
+    self::setTaxonomyTermByRef($row, 'field_jo_priority_value', 7, 'se_ticket_priority', 'job_priority_ref');
 
     return TRUE;
   }
@@ -127,7 +127,7 @@ class ErpJobToTicket extends ErpCore {
         break;
 
     }
-    $this->setTaxonomyTermByName($row, $term_name, 'se_ticket_status', 'job_status_ref');
+    self::setTaxonomyTermByName($row, $term_name, 'se_ticket_status', 'job_status_ref');
   }
 
 }

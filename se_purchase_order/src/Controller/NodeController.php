@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeTypeInterface;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -89,11 +88,8 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
     ]);
 
     // TODO - Make this a service?
-    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $value) {
-      $new_value = $value->getValue();
-      if ($source_paragraph = Paragraph::load($new_value['target_id'])) {
-        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($source_paragraph->createDuplicate());
-      }
+    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $item) {
+      $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($item);
     }
 
     $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();

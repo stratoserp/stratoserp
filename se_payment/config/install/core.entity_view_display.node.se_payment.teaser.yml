@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.se_payment.body
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
-    - field.field.node.se_payment.field_pa_items
     - field.field.node.se_payment.field_pa_total
     - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
@@ -43,6 +42,5 @@ hidden:
   extra_field_ticket_statistics_customer: true
   field_bu_ref: true
   field_pa_id: true
-  field_pa_items: true
   field_pa_total: true
   field_se_comments: true

@@ -85,6 +85,13 @@ class ErpItem extends ErpCore {
     $row->setSourceProperty('title', substr($row->getSourceProperty('title'), 0, 128));
     $this->setItemTaxonomyTerms($row);
 
+    $row->setSourceProperty('sell_price',
+      \Drupal::service('se_accounting.currency_format')
+        ->formatStorage($row->getSourceProperty('sell_price') ?? 0));
+    $row->setSourceProperty('receipt_price',
+      \Drupal::service('se_accounting.currency_format')
+        ->formatStorage($row->getSourceProperty('receipt_price') ?? 0));
+
     return TRUE;
   }
 

@@ -83,7 +83,7 @@ class ErpStockItem extends SqlBase {
     }
 
     // If there is no serial, and we already have one with no serial, its imported already.
-    $serial = $this->cleanupSerial($row->getSourceProperty('serial'));
+    $serial = $this->cleanupSerial($row->getSourceProperty('serial') ?? '');
     if (empty($serial) && $this->findItemByCode($row)) {
       $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IMPORTED);
       return FALSE;
@@ -93,13 +93,12 @@ class ErpStockItem extends SqlBase {
     $row->setSourceProperty('title', substr($row->getSourceProperty('title'), 0, 128));
     $this->setItemTaxonomyTerms($row);
 
-    // Convert from float to cents
-    if ($receipt_price = $row->getSourceProperty('receipt_price')) {
-      $row->setSourceProperty('receipt_price', $receipt_price * 100);
-    }
-    if ($sell_price = $row->getSourceProperty('sell_price')) {
-      $row->setSourceProperty('sell_price', $sell_price * 100);
-    }
+    $row->setSourceProperty('sell_price',
+      \Drupal::service('se_accounting.currency_format')
+        ->formatStorage($row->getSourceProperty('sell_price') ?? 0));
+    $row->setSourceProperty('receipt_price',
+      \Drupal::service('se_accounting.currency_format')
+        ->formatStorage($row->getSourceProperty('receipt_price') ?? 0));
 
     return TRUE;
   }

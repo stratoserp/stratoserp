@@ -26,8 +26,4 @@ final class ErpCore {
     'se_information', 'se_item',
   ];
 
-  public const PARAGRAPH_TYPES = [
-    'se_items', 'se_payments',
-  ];
-
 }

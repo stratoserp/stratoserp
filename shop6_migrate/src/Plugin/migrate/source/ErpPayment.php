@@ -5,7 +5,7 @@ namespace Drupal\shop6_migrate\Plugin\migrate\source;
 use Drupal\Core\Database\Database;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
 use Drupal\migrate\Row;
-use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\node\Entity\Node;
 
 /**
  * Migration of purchase order nodes from drupal6 erp system.
@@ -54,7 +54,7 @@ class ErpPayment extends ErpCore {
   }
 
   /**
-   * Retrieve the list of items for a content type and store them as paragraphs.
+   * Retrieve the list of payments and store them as payment lines.
    *
    * @param \Drupal\migrate\Row $row
    *   The migrate row reference to work with.
@@ -94,7 +94,8 @@ class ErpPayment extends ErpCore {
     $payments = [];
     $total = 0;
     foreach ($lines as $line) {
-      if (!$invoice = $this->findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice')) {
+      /** @var \Drupal\node\Entity\Node $invoice */
+      if (!$invoice_id = $this->findNewId($line->invoice_nid, 'nid', 'upgrade_d6_node_erp_invoice')) {
         $this->logError($row,
           t('setPayments: @nid - invoice doesn\'t exist', [
             '@nid' => $line->invoice_nid,
@@ -102,10 +103,13 @@ class ErpPayment extends ErpCore {
         continue;
       }
 
-      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-      $paragraph = Paragraph::create(['type' => 'se_payments']);
-      $paragraph->set('field_pa_invoice', ['target_id' => $invoice]);
-      $paragraph->set('field_pa_date', ['value' => $line->payment_date]);
+      if (!$invoice = Node::load($invoice_id)) {
+        $this->logError($row,
+          t('setPayments: @nid - invoice wasn\'t able to be loaded', [
+            '@nid' => $line->invoice_nid,
+          ]));
+        continue;
+      }
 
       if (empty($line->payment_type)) {
         $line->payment_type = 1;
@@ -116,23 +120,16 @@ class ErpPayment extends ErpCore {
       }
       $term_id = self::findCreateTerm($payment_types[$line->payment_type], 'se_payment_type');
 
-      $paragraph->set('field_pa_type_ref', ['target_id' => $term_id]);
-
-      // Convert from float to cents
-      $payment_amount = $line->payment_amount * 100;
-      $paragraph->set('field_pa_amount', ['value' => $payment_amount]);
-      $paragraph->save();
-
       $payments[] = [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
+        'amount' => $line->payment_amount,
+        'date' => $line->payment_date,
+        'target_id' => $invoice->id(),
+        'target_type' => 'node',
+        'payment_type' => $term_id,
       ];
-
-      $total += $payment_amount;
     }
 
-    $row->setSourceProperty('paragraph_items', $payments);
-    $row->setSourceProperty('total', $total);
+    $row->setSourceProperty('se_payment_lines', $payments);
   }
 
 }

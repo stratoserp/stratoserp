@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_assembly.field_as_items
     - field.field.se_item.se_assembly.field_it_code
     - field.field.se_item.se_assembly.field_it_cost_price
     - field.field.se_item.se_assembly.field_it_description
@@ -15,7 +14,6 @@ dependencies:
     - chosen_field
     - field_layout
     - layout_discovery
-    - paragraphs
     - se_accounting
     - text
 third_party_settings:
@@ -27,24 +25,6 @@ targetEntityType: se_item
 bundle: se_assembly
 mode: default
 content:
-  field_as_items:
-    type: paragraphs
-    weight: 26
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      features:
-        duplicate: duplicate
-        collapse_edit_all: collapse_edit_all
-    third_party_settings: {  }
-    region: content
   field_it_code:
     weight: 28
     settings:
@@ -57,7 +37,7 @@ content:
     weight: 32
     settings: {  }
     third_party_settings: {  }
-    type: se_accounting_widget
+    type: se_currency_widget
     region: content
   field_it_description:
     weight: 33
@@ -89,7 +69,7 @@ content:
     weight: 27
     settings: {  }
     third_party_settings: {  }
-    type: se_accounting_widget
+    type: se_currency_widget
     region: content
   name:
     type: string_textfield

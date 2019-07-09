@@ -513,7 +513,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: se_accounting_formatter
+          type: se_currency_formatter
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -687,7 +687,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/customers/quotes
+      path: se/customers/quote-list
       menu:
         type: normal
         title: Quotes

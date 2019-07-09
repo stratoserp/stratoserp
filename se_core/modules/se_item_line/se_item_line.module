@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * @file
+ * Custom functions for item manipulation.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\se_item_line\Entity\Item;
+
+define('SE_ITEM_NODE_TYPES', [
+  'se_bill', 'se_goods_receipt', 'se_invoice', 'se_purchase_order', 'se_quote',
+]);
+
+/**
+ * Wherever the se_item_lines are used, replace the drupal autocomplete
+ * with our own that does price field updates.
+ *
+ * TODO - put this in the widget.
+ *
+ * Implements hook_form_alter().
+ */
+function se_item_line_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Make a list of forms from the core types.
+  $se_item_forms = array_map(function ($value) {
+    return 'node_' . $value . '_form';
+  }, SE_ITEM_NODE_TYPES);
+
+  if (in_array($form_id, $se_item_forms, TRUE)) {
+    $form['#attached']['library'][] = 'core/drupal.ajax';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function se_item_line_theme() {
+  return [
+    'se_item_line_formatter' => [
+      'variables' => [
+        'item' => '',
+        'quantity' => '',
+        'price' => '',
+        'serial' => '',
+        'note' => '',
+        'format' => '',
+      ],
+    ],
+    'se_item_header_formatter' => [
+      'variables' => [
+        'item' => '',
+        'quantity' => '',
+        'price' => '',
+        'serial' => '',
+        'note' => '',
+      ],
+    ],
+    'se_item_lines_formatter' => [
+      'variables' => [
+        'lines' => '',
+      ]
+    ],
+    'se_item_line_widget' => [
+      'variables' => [
+        'target_type' => '',
+        'target_id' => '',
+        'quantity' => '',
+        'price' => '',
+        'serial' => '',
+        'note' => '',
+      ]
+    ]
+
+  ];
+}

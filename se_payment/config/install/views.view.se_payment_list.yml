@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_pa_id
-    - field.storage.node.field_pa_items
     - field.storage.node.field_pa_total
     - node.type.se_payment
     - system.menu.stratos-erp
@@ -93,7 +92,6 @@ display:
             field_pa_id: field_pa_id
             title_1: title_1
             title: title
-            field_pa_items: field_pa_items
             field_pa_total: field_pa_total
           info:
             field_pa_id:
@@ -117,11 +115,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_pa_items:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-low
             field_pa_total:
               sortable: false
               default_sort_order: asc
@@ -508,137 +501,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: se_accounting_formatter
+          type: se_currency_formatter
           settings: {  }
           group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_pa_items:
-          id: field_pa_items
-          table: node__field_pa_items
-          field: field_pa_items
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Payments
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_table
-          settings:
-            relationship: none
-            fieldsets:
-              - more
-              - admin_label
-            custom_label: 1
-            label: Payments
-            element_label_colon: 1
-            exclude: 0
-            element_type_enable: 0
-            element_type: ''
-            element_class_enable: 0
-            element_class: ''
-            element_label_type_enable: 0
-            element_label_type: ''
-            element_label_class_enable: 0
-            element_label_class: ''
-            element_wrapper_type_enable: 0
-            element_wrapper_type: ''
-            element_wrapper_class_enable: 0
-            element_wrapper_class: ''
-            element_default_classes: 1
-            alter:
-              alter_text: 0
-              text: ''
-              make_link: 0
-              path: ''
-              absolute: 0
-              replace_spaces: 0
-              external: 0
-              path_case: none
-              link_class: ''
-              alt: ''
-              rel: ''
-              prefix: ''
-              suffix: ''
-              target: ''
-              trim: 0
-              max_length: '0'
-              word_boundary: 1
-              ellipsis: 1
-              more_link: 0
-              more_link_text: ''
-              more_link_path: ''
-              html: 0
-              strip_tags: 0
-              preserve_tags: ''
-              trim_whitespace: 0
-              nl2br: 0
-            empty: ''
-            empty_zero: 0
-            hide_empty: 0
-            hide_alter_empty: 1
-            group_rows: 1
-            multi_type: separator
-            separator: ', '
-            delta_limit: '0'
-            delta_offset: '0'
-            delta_reversed: 0
-            delta_first_last: 0
-            click_sort_column: target_id
-            type: entity_reference_table
-            field_api_classes: 0
-            view_mode: default
-            show_entity_label: false
-            hide_header: '0'
-            empty_cell_value: ''
-          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -861,7 +726,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_pa_id'
-        - 'config:field.storage.node.field_pa_items'
         - 'config:field.storage.node.field_pa_total'
   page_1:
     display_plugin: page
@@ -870,7 +734,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/payments
+      path: se/payment-list
       menu:
         type: normal
         title: Payments
@@ -891,5 +755,4 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_pa_id'
-        - 'config:field.storage.node.field_pa_items'
         - 'config:field.storage.node.field_pa_total'

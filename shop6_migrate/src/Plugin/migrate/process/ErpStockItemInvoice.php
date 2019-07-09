@@ -24,7 +24,7 @@ class ErpStockItemInvoice extends ProcessPluginBase {
    * @return int|boolean
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    $serial = $this->cleanupSerial($row->getSourceProperty('serial'));
+    $serial = $this->cleanupSerial($row->getSourceProperty('serial') ?? '');
 
     if (isset($value, $serial)) {
       return $this->findInvoiceBySerial($value, $serial);

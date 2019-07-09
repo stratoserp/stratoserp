@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait InvoiceTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function invoiceFakerSetup() {
     $this->faker = Factory::create();
 
@@ -35,7 +38,7 @@ trait InvoiceTestTrait {
       'field_ti_email' => $this->invoice->companyEmail,
     ]);
     $this->assertNotEqual($node, FALSE);
-    $this->drupalGet('node/' . $node->id());
+    $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $this->assertNotContains('Please fill in this field', $this->getTextContent());

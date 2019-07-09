@@ -38,7 +38,7 @@ process:
   revision_timestamp: timestamp
   field_gr_id: goods_receive_id
   field_bu_ref/target_id: supplier_ref
-  field_gr_items: paragraph_items
+  field_gr_items: se_item_lines
   field_status_ref: status_ref
   field_gr_purchase_order_ref/target_id: purchase_order_ref
   field_gr_total: total

@@ -276,10 +276,12 @@ trait Shop6MigrateUtilities {
    * @param string $serial
    *   Serial number from item to cleanup.
    *
-   * @return string|string[]|null
+   * @return string
    */
-  public function cleanupSerial($serial) {
-    $serial = trim($serial);
+  public function cleanupSerial(string $serial) {
+    $serial = (string)str_replace("\xc2\xa0", '', $serial);
+    $serial = (string)str_replace("\xe2\x80\x93", '', $serial);
+    $serial = (string)str_replace("\xe2\x80\x93", '', $serial);
     $serial = preg_replace('/^na$/i', '', $serial);
     $serial = preg_replace('/^n\/a$/i', '', $serial);
     $serial = preg_replace('/^n\/p$/i', '', $serial);
@@ -287,6 +289,7 @@ trait Shop6MigrateUtilities {
     $serial = preg_replace('/^--$/', '', $serial);
     $serial = preg_replace('/^-$/', '', $serial);
     $serial = preg_replace('/N;/', '', $serial);
+    $serial = trim($serial);
 
     return $serial;
   }

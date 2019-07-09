@@ -16,8 +16,8 @@ dependencies:
     - comment
     - field_layout
     - layout_discovery
-    - reference_table_formatter
     - se_accounting
+    - se_item_line
     - serial
     - text
     - user
@@ -61,18 +61,15 @@ content:
     type: serial_default_formatter
     region: second
   field_qu_items:
-    type: entity_reference_table
-    weight: 5
-    label: inline
+    weight: 9
+    label: above
     settings:
-      view_mode: default
-      show_entity_label: false
-      empty_cell_value: ''
-      hide_header: '0'
+      link: true
     third_party_settings: {  }
-    region: bottom
+    type: se_item_line_formatter
+    region: first
   field_qu_total:
-    type: se_accounting_formatter
+    type: se_currency_formatter
     weight: 6
     region: bottom
     label: inline

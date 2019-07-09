@@ -37,7 +37,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: se_accounting_formatter
+    type: se_currency_formatter
     region: second
   field_it_description:
     weight: 7
@@ -75,7 +75,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: se_accounting_formatter
+    type: se_currency_formatter
     region: first
   name:
     label: above

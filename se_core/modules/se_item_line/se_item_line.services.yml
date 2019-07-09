@@ -1,0 +1,5 @@
+services:
+  se_item_line.node_presave:
+    class: Drupal\se_item_line\EventSubscriber\ItemLinePresaveEventSubscriber
+    tags:
+      - { name: event_subscriber }

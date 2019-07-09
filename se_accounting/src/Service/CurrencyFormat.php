@@ -2,16 +2,51 @@
 
 namespace Drupal\se_accounting\Service;
 
+/**
+ * Class CurrencyFormat
+ *
+ * @package Drupal\se_accounting\Service
+ */
 class CurrencyFormat {
 
+  /**
+   * Convert an cents string from storage to a human readable float style currency amount.
+   *
+   * @param string $value
+   *
+   * @return string
+   */
   public function formatDisplay(string $value) {
-    // Format the stored value for display.
-    return sprintf("%-1.2f", $value / 100);
+
+    // Don't try and divide by zero
+    if (!empty($value)) {
+
+      // Format with thousands and decimals.
+      return (string)number_format($value / 100, 2);
+    }
+
+    return 0;
   }
 
-  public function formatStorage(float $value) {
-    // Format the displayed value for storage.
-    return (int)$value * 100;
+  /**
+   * Convert a float style human readable currency amount to an cents and string for storage.
+   *
+   * @param string $value
+   *
+   * @return string
+   */
+  public function formatStorage(string $value) {
+
+    // Remove thousands separator.
+    $value = str_replace(',', '', $value);
+
+    // Multiply by 100 to change to cents, dont bother with zero
+    // Don't try and divide by zero
+    if (!empty($value)) {
+      return (string) ($value * 100);
+    }
+
+    return 0;
   }
 
 }

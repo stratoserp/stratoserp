@@ -22,6 +22,10 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
    *
    */
   public function purchaseOrderInsert(EntityCreateEvent $event) {
+    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
+      return;
+    }
+
     // TODO
   }
 

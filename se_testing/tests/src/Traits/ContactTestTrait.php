@@ -10,6 +10,9 @@ use Faker\Factory;
  */
 trait ContactTestTrait {
 
+  /**
+   * Setup basic faker fields for this test trait.
+   */
   public function contactFakerSetup() {
     $this->faker = Factory::create();
 
@@ -28,6 +31,7 @@ trait ContactTestTrait {
   }
 
   public function addContact() {
+    /** @var Node $customer_node */
     $customer_node = $this->addCustomer();
 
     /** @var Node $node */
@@ -38,7 +42,8 @@ trait ContactTestTrait {
       'field_bu_ref' => ['target_id' => $customer_node->id()],
     ]);
     $this->assertNotEqual($node, FALSE);
-    $this->drupalGet('node/' . $node->id());
+    $this->drupalGet($node->toUrl());
+
     $this->assertSession()->statusCodeEquals(200);
 
     $this->assertNotContains('Please fill in this field', $this->getTextContent());
@@ -49,6 +54,17 @@ trait ContactTestTrait {
     $this->assertContains($this->customer->name, $this->getTextContent());
 
     return $node;
+  }
+
+  /**
+   * Deleting a contact.
+   *
+   * @param \Drupal\node\Entity\Node $contact
+   * @param bool $allowed
+   *
+   */
+  public function deleteContact(Node $contact, bool $allowed) {
+    $this->deleteNode($contact, $allowed);
   }
 
 }
