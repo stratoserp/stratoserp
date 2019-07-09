@@ -6,7 +6,7 @@ dependencies:
 id: node.field_bi_total
 field_name: field_bi_total
 entity_type: node
-type: integer
+type: se_currency
 settings:
   unsigned: false
   size: normal

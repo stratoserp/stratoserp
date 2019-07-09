@@ -102,7 +102,7 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: se_accounting_formatter
+    type: se_currency_formatter
     region: bottom
   field_se_comments:
     weight: 11

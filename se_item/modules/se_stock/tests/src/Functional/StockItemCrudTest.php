@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\se_stock\Functional;
 
-use Drupal\Tests\se_testing\ExistingSite\StockItemTestBase;
+use Drupal\Tests\se_testing\Functional\StockItemTestBase;
 
 /**
  * @coversDefault Drupal\se_stock
@@ -10,17 +10,18 @@ use Drupal\Tests\se_testing\ExistingSite\StockItemTestBase;
  * @group stratoserp
  *
  */
-class StockItemCreateTest extends StockItemTestBase {
+class StockItemCrudTest extends StockItemTestBase {
 
   protected $staff;
 
-  public function testStockItemCreate() {
+  public function testStockItemAdd() {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    //$item = $this->addStockItem();
+    $item = $this->addStockItem();
 
     $this->drupalLogout();
   }
+
 }

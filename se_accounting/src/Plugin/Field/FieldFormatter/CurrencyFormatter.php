@@ -9,14 +9,14 @@ use Drupal\Core\Field\FieldItemListInterface;
  * Plugin implementation of stratoserp accounting formatter.
  *
  * @FieldFormatter(
- *   id = "se_accounting_formatter",
- *   label = @Translation("Stratos ERP Formatter"),
+ *   id = "se_currency_formatter",
+ *   label = @Translation("Currency Formatter"),
  *   field_types = {
- *     "integer"
+ *     "se_currency"
  *   }
  * )
  */
-class AccountingFormatter extends FormatterBase {
+class CurrencyFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}

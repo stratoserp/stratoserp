@@ -79,9 +79,8 @@ class ItemLineType extends DynamicEntityReferenceItem {
       ->setLabel(t('Quantity'))
       ->setRequired(TRUE);
 
-    $properties['price'] = DataDefinition::create('integer')
+    $properties['price'] = DataDefinition::create('string')
       ->setLabel(t('Price'))
-      ->setConstraints([])
       ->setRequired(TRUE);
 
     $properties['serial'] = DataDefinition::create('string')
@@ -90,7 +89,6 @@ class ItemLineType extends DynamicEntityReferenceItem {
 
     $properties['completed_date'] = DataDefinition::create('string')
       ->setLabel(t('Completed date'))
-      ->addConstraint('DateTimeFormat')
       ->setRequired(FALSE);
 
     $properties['note'] = DataDefinition::create('string')

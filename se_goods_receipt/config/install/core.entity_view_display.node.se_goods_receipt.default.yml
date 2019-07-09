@@ -78,7 +78,7 @@ content:
     type: entity_reference_label
     region: first
   field_gr_total:
-    type: se_accounting_formatter
+    type: se_currency_formatter
     weight: 6
     region: bottom
     label: above

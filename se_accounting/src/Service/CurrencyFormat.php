@@ -40,8 +40,13 @@ class CurrencyFormat {
     // Remove thousands separator.
     $value = str_replace(',', '', $value);
 
-    // Multiply by 100 to change to cents.
-    return (string)($value * 100);
+    // Multiply by 100 to change to cents, dont bother with zero
+    // Don't try and divide by zero
+    if (!empty($value)) {
+      return (string) ($value * 100);
+    }
+
+    return 0;
   }
 
 }

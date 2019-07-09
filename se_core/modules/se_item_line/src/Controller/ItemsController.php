@@ -28,37 +28,38 @@ class ItemsController extends ControllerBase {
     [$field, $type, $index] = array_slice($matches, 1);
 
     // Load the chosen item
-    if (!$item = Item::load($values[$field][$index]['subform']['field_it_line_item'][0]['target_id'])) {
+    if (!$item = Item::load($values[$field][$index]['target_id'])) {
       return $response;
     }
 
-    $item_price = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->get('field_it_sell_price')->value);
+    $item_price = $item->get('field_it_sell_price')->value;
 
     // Create a new ajax response to set the price.
     $response->addCommand(new InvokeCommand(
-      "form input[data-drupal-selector='edit-field-{$type}-items-{$index}-subform-field-it-price-0-value']",
+      "form input[data-drupal-selector='edit-field-{$type}-items-{$index}-price']",
       'val',
-      [$item_price]
+      [\Drupal::service('se_accounting.currency_format')->formatDisplay($item_price)]
     ));
 
     // TODO - Copy the items description to that field?
 
     // Update the total
     $total = 0;
-    foreach ($values[$field] as $index => $subform) {
-      if (isset($subform['subform'])) {
-        if ($subform['subform']['field_it_price'][0]['value']) {
-          $total += $subform['subform']['field_it_quantity'][0]['value'] * $subform['subform']['field_it_price'][0]['value'];
+    foreach ($values[$field] as $index => $value) {
+      if (is_int($index)) {
+        if (!empty($value['price'])) {
+          $total += $value['quantity'] * $value['price'];
         }
         else {
-          $total += $subform['subform']['field_it_quantity'][0]['value'] * $item_price;
+          $total += $value['quantity'] * $item_price;
         }
       }
     }
+
     $response->addCommand(new InvokeCommand(
       "form input[data-drupal-selector='edit-field-{$type}-total-0-value']",
       'val',
-      [trim(sprintf('%9.2f', $total))] // @todo currency service
+      [\Drupal::service('se_accounting.currency_format')->formatDisplay($total)]
     ));
 
     return $response;

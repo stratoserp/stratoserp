@@ -69,7 +69,7 @@ content:
     type: se_item_line_formatter
     region: first
   field_qu_total:
-    type: se_accounting_formatter
+    type: se_currency_formatter
     weight: 6
     region: bottom
     label: inline

@@ -85,7 +85,7 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
-    type: se_accounting_widget
+    type: se_currency_widget
     region: bottom
   field_se_comments:
     weight: 9

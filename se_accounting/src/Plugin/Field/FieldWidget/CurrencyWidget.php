@@ -10,15 +10,15 @@ use Drupal\Core\Form\FormStateInterface;
  * Plugin implementation of a widget to display cents in Human readable dollars and cents.
  *
  * @FieldWidget(
- *   id = "se_accounting_widget",
+ *   id = "se_currency_widget",
  *   module = "se_accounting",
- *   label = @Translation("Stratos ERP Widget"),
+ *   label = @Translation("Currency widget"),
  *   field_types = {
- *     "integer"
+ *     "se_currency"
  *   }
  * )
  */
-class AccountingWidget extends WidgetBase {
+class CurrencyWidget extends WidgetBase {
 
   /**
    * {@inheritdoc}
@@ -30,9 +30,9 @@ class AccountingWidget extends WidgetBase {
       '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($value ?? 0),
       '#size' => 7,
       '#maxlength' => 7,
-      '#element_validate' => [
-        [static::class, 'validate'],
-      ],
+//      '#element_validate' => [
+//        [static::class, 'validate'],
+//      ],
     ];
     return ['value' => $element];
   }
@@ -41,6 +41,8 @@ class AccountingWidget extends WidgetBase {
   }
 
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    $values = parent::massageFormValues($values, $form, $form_state);
+
     foreach ($values as &$value) {
       if (isset($value['value'])) {
         $value['value'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$value['value']);

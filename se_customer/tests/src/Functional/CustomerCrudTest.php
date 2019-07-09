@@ -22,7 +22,6 @@ class CustomerCrudTest extends CustomerTestBase {
     $customer = $this->addCustomer();
 
     $this->drupalLogout();
-
   }
 
   public function testCustomerDelete() {

@@ -249,7 +249,7 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: se_accounting_formatter
+    type: se_currency_formatter
     region: content
   field_cu_email:
     type: email_mailto

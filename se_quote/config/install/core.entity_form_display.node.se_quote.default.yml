@@ -72,7 +72,7 @@ content:
     type: se_item_line_widget
     region: bottom
   field_qu_total:
-    type: se_accounting_widget
+    type: se_currency_widget
     weight: 6
     region: bottom
     settings: {  }

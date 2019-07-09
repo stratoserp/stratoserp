@@ -82,7 +82,7 @@ content:
     type: entity_reference_autocomplete
     region: first
   field_gr_total:
-    type: se_accounting_widget
+    type: se_currency_widget
     weight: 7
     region: bottom
     settings: {  }

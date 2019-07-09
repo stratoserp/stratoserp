@@ -117,6 +117,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       // instead of here.
       $new_values[$index]['note'] = $line['note']['value'];
       $new_values[$index]['format'] = $line['note']['format'];
+      $new_values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line['price']);
     }
 
     return $new_values;
