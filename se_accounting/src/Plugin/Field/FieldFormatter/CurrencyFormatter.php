@@ -10,7 +10,7 @@ use Drupal\Core\Field\FieldItemListInterface;
  *
  * @FieldFormatter(
  *   id = "se_currency_formatter",
- *   label = @Translation("Currency Formatter"),
+ *   label = @Translation("Currency formatter"),
  *   field_types = {
  *     "se_currency"
  *   }

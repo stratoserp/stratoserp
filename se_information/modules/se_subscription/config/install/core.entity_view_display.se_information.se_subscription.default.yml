@@ -11,7 +11,6 @@ dependencies:
     - field_layout
     - layout_discovery
     - se_accounting
-    - user
 third_party_settings:
   field_layout:
     id: layout_onecol
@@ -23,7 +22,7 @@ mode: default
 content:
   field_bu_ref:
     weight: 1
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -31,7 +30,7 @@ content:
     region: content
   field_if_active:
     weight: 3
-    label: above
+    label: inline
     settings:
       format: default
       format_custom_false: ''
@@ -41,35 +40,29 @@ content:
     region: content
   field_if_price:
     weight: 4
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
     region: content
   field_it_item_ref:
     weight: 2
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
   name:
-    label: above
+    label: inline
     type: string
-    weight: -4
+    weight: 0
     region: content
     settings:
       link_to_entity: false
-    third_party_settings: {  }
-  user_id:
-    label: hidden
-    type: author
-    weight: 0
-    region: content
-    settings: {  }
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  user_id: true

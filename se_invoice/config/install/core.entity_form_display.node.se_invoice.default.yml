@@ -119,7 +119,7 @@ content:
   title:
     type: string_textfield
     weight: 0
-    region: first
+    region: top
     settings:
       size: 60
       placeholder: ''

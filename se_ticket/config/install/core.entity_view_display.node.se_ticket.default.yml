@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.se_ticket.field_bu_ref
     - field.field.node.se_ticket.field_co_ref
     - field.field.node.se_ticket.field_ti_id
+    - field.field.node.se_ticket.field_ti_items
     - field.field.node.se_ticket.field_ti_open_date
     - field.field.node.se_ticket.field_ti_owner_ref
     - field.field.node.se_ticket.field_ti_priority_ref
@@ -19,6 +20,7 @@ dependencies:
     - datetime_range
     - field_layout
     - layout_discovery
+    - se_item_line
     - serial
     - text
     - user
@@ -61,6 +63,13 @@ content:
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
+  field_ti_items:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: se_item_line_formatter
+    region: bottom
   field_ti_open_date:
     weight: 5
     label: inline

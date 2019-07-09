@@ -102,7 +102,7 @@ content:
     third_party_settings: {  }
   field_it_manufacturer_ref:
     type: entity_reference_label
-    weight: 1
+    weight: 2
     region: top
     label: inline
     settings:
@@ -110,7 +110,7 @@ content:
     third_party_settings: {  }
   field_it_product_type_ref:
     type: entity_reference_label
-    weight: 2
+    weight: 1
     region: top
     label: inline
     settings:

@@ -2,9 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.se_item.se_assembly.field_as_items
     - field.field.se_item.se_assembly.field_it_code
     - field.field.se_item.se_assembly.field_it_cost_price
     - field.field.se_item.se_assembly.field_it_description
+    - field.field.se_item.se_assembly.field_it_images
     - field.field.se_item.se_assembly.field_it_manufacturer_ref
     - field.field.se_item.se_assembly.field_it_product_type_ref
     - field.field.se_item.se_assembly.field_it_sale_category_ref
@@ -12,7 +14,10 @@ dependencies:
     - se_item.se_item_type.se_assembly
   module:
     - field_layout
+    - image
     - layout_discovery
+    - se_accounting
+    - se_item_line
     - text
 third_party_settings:
   field_layout:
@@ -23,8 +28,15 @@ targetEntityType: se_item
 bundle: se_assembly
 mode: default
 content:
+  field_as_items:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: se_item_line_formatter
+    region: first
   field_it_code:
-    weight: 1
+    weight: 4
     label: inline
     settings:
       link_to_entity: false
@@ -32,57 +44,58 @@ content:
     type: string
     region: first
   field_it_cost_price:
-    weight: 3
+    weight: 7
     label: inline
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
+    settings: {  }
     third_party_settings: {  }
-    type: number_decimal
+    type: se_currency_formatter
     region: second
   field_it_description:
-    weight: 7
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: bottom
+  field_it_images:
+    weight: 9
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: bottom
   field_it_manufacturer_ref:
-    weight: 6
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: second
-  field_it_product_type_ref:
-    weight: 5
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: second
-  field_it_sale_category_ref:
-    weight: 4
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: second
-  field_it_sell_price:
     weight: 2
     label: inline
     settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
+      link: true
     third_party_settings: {  }
-    type: number_decimal
+    type: entity_reference_label
+    region: top
+  field_it_product_type_ref:
+    weight: 1
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: top
+  field_it_sale_category_ref:
+    weight: 3
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: top
+  field_it_sell_price:
+    weight: 5
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: se_currency_formatter
     region: first
   name:
     label: inline
