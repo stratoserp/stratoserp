@@ -3,14 +3,13 @@ status: true
 dependencies:
   module:
     - node
+    - se_accounting
 id: node.field_bi_total
 field_name: field_bi_total
 entity_type: node
 type: se_currency
-settings:
-  unsigned: false
-  size: normal
-module: core
+settings: {  }
+module: se_accounting
 locked: false
 cardinality: 1
 translatable: true

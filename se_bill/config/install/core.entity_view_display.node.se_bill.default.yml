@@ -12,7 +12,6 @@ dependencies:
   module:
     - field_layout
     - layout_discovery
-    - reference_table_formatter
     - se_accounting
     - serial
     - text

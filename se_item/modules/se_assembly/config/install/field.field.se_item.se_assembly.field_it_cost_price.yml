@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.se_item.field_it_cost_price
     - se_item.se_item_type.se_assembly
+  module:
+    - se_accounting
 id: se_item.se_assembly.field_it_cost_price
 field_name: field_it_cost_price
 entity_type: se_item

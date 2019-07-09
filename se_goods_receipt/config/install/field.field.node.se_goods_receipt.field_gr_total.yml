@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.node.field_gr_total
     - node.type.se_goods_receipt
+  module:
+    - se_accounting
 id: node.se_goods_receipt.field_gr_total
 field_name: field_gr_total
 entity_type: node

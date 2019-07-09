@@ -39,14 +39,6 @@ content:
     third_party_settings: {  }
     region: bottom
   field_bu_ref:
-    weight: 1
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: first
-  field_co_ref:
     weight: 2
     label: inline
     settings:
@@ -54,21 +46,28 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_po_id:
+  field_co_ref:
     weight: 3
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  field_po_id:
+    weight: 1
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: serial_default_formatter
     region: top
   field_po_items:
-    weight: 10
+    weight: 6
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
-    region: first
+    region: bottom
   field_po_quote_ref:
     weight: 4
     label: inline

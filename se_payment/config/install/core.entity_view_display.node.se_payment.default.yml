@@ -51,12 +51,12 @@ content:
     type: serial_default_formatter
     region: second
   field_pa_lines:
-    weight: 7
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_payment_line_formatter
-    region: first
+    region: bottom
   field_pa_total:
     weight: 4
     label: above

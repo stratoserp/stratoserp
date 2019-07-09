@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.se_goods_receipt.field_bu_ref
     - field.field.node.se_goods_receipt.field_co_ref
     - field.field.node.se_goods_receipt.field_gr_id
+    - field.field.node.se_goods_receipt.field_gr_items
     - field.field.node.se_goods_receipt.field_gr_purchase_order_ref
     - field.field.node.se_goods_receipt.field_gr_total
     - field.field.node.se_goods_receipt.field_se_comments
@@ -46,6 +47,7 @@ hidden:
   field_bu_ref: true
   field_co_ref: true
   field_gr_id: true
+  field_gr_items: true
   field_gr_purchase_order_ref: true
   field_gr_total: true
   field_se_comments: true

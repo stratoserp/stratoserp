@@ -8,6 +8,7 @@ dependencies:
     - se_item.se_item_type.se_assembly
     - system.menu.stratos-erp
   module:
+    - se_accounting
     - se_item
 id: se_item_assembly_list
 label: 'Assembly list'

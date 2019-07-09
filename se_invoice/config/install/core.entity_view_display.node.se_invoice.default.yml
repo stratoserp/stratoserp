@@ -72,13 +72,12 @@ content:
     type: serial_default_formatter
     region: second
   field_in_items:
-    weight: 12
+    weight: 8
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
-    region: first
+    region: bottom
   field_in_quote_ref:
     weight: 6
     label: inline

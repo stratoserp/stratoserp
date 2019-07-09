@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.se_invoice.field_co_ref
     - field.field.node.se_invoice.field_in_customer_order
     - field.field.node.se_invoice.field_in_id
+    - field.field.node.se_invoice.field_in_items
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
@@ -49,6 +50,7 @@ hidden:
   field_co_ref: true
   field_in_customer_order: true
   field_in_id: true
+  field_in_items: true
   field_in_quote_ref: true
   field_in_sent: true
   field_in_total: true

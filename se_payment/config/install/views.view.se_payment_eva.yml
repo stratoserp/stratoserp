@@ -8,7 +8,7 @@ dependencies:
   module:
     - eva
     - node
-    - reference_table_formatter
+    - se_accounting
     - serial
     - user
 id: se_payment_eva

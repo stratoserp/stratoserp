@@ -61,13 +61,12 @@ content:
     type: serial_default_formatter
     region: second
   field_qu_items:
-    weight: 9
+    weight: 5
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
-    region: first
+    region: bottom
   field_qu_total:
     type: se_currency_formatter
     weight: 6
@@ -86,7 +85,7 @@ content:
     region: bottom
   field_status_ref:
     weight: 4
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }

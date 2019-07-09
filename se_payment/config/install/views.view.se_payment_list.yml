@@ -10,7 +10,6 @@ dependencies:
     - user.role.staff
   module:
     - node
-    - reference_table_formatter
     - se_accounting
     - serial
     - user

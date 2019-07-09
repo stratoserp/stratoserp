@@ -2,15 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - se_accounting
     - se_information
 id: se_information.field_if_price
 field_name: field_if_price
 entity_type: se_information
 type: se_currency
-settings:
-  unsigned: false
-  size: normal
-module: core
+settings: {  }
+module: se_accounting
 locked: false
 cardinality: 1
 translatable: true
