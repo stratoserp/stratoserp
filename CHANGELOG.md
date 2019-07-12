@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0] - 2019-07-14
+### Added
+- Ability to attach items to jobs for later invoicing.
+- Buttons for creation of stock
+- More tests
+
+### Changed
+- Major change, converted paragraph based entity reference fields to custom fields.
+  This touched most of the codebase.
+- Currency handling is a custom field as well, allowing for future extension to
+  support other currencies.
+- Made views permissions consistent with staff, developer and administrator having
+  access for now.
+- Updated docker commands to run test version.
+
+### Removed
+- Paragraphs and related modules
+
 ## [0.0.4] - 2019-06-07
 ### Added
 - Basic instructions to launch via docker for testing

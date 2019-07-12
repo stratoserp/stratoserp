@@ -6,7 +6,7 @@
 - Ensure consistent display on all content types.
 - End of day processing.
 - Faceted search.
-- Add more types to frontpage search.
+- Add more types to front page search.
 - Audit & Fix up permissions.
 - Convert to use phpmoney class?
 
@@ -50,7 +50,6 @@
 - Method of identifying which register/pos was used?
 
 ## Item - Stock
-- Creation buttons
 - Stock take list
 
 ## Point of sale
