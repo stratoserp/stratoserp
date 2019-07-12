@@ -10,6 +10,8 @@ dependencies:
     - node.type.se_ticket
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_ticket_type
+    - user.role.administrator
+    - user.role.developer
     - user.role.staff
   module:
     - datetime_range
@@ -37,7 +39,9 @@ display:
         type: role
         options:
           role:
+            administrator: administrator
             staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }

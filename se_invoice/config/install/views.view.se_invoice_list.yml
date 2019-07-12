@@ -37,6 +37,7 @@ display:
           role:
             developer: developer
             staff: staff
+            administrator: administrator
       cache:
         type: tag
         options: {  }
