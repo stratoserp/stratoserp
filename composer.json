@@ -14,24 +14,17 @@
   },
   "license": "GPL-2.0+",
   "repositories": [
-    {
-        "type": "vcs",
-        "url": "git@github.com:singularo/flat_comments.git"
-    }
+    { "type": "vcs", "url": "https://github.com/singularo/flat_comments.git" }
   ],
   "require": {
-      "drupal/core": "^8.6",
+      "drupal/core": "^8.7",
       "drupal/duration_field": "2.*@dev",
-      "drupal/entity_reference_revisions": "1.*@dev",
       "drupal/eva": "^2.0",
-      "drupal/field_group": "3.x-dev",
+      "drupal/field_group": "dev-3.x",
       "drupal/flat_comments": "dev-master",
       "drupal/geolocation": "1.*@dev",
-      "drupal/reference_table_formatter": "1.*@dev",
-      "drupal/serial": "1.*@dev",
-      "drupal/views_data_export": "1.*@dev",
-      "drupal/views_templates": "1.*@dev",
-      "drupal/xero": "1.*@dev"
+      "drupal/serial": "dev-1.x",
+      "drupal/xero": "dev-1.x"
   },
   "minimum-stability": "dev"
 }

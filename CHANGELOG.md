@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - Paragraphs and related modules
+- Drupal console
 
 ## [0.0.4] - 2019-06-07
 ### Added
