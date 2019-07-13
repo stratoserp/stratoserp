@@ -4,6 +4,7 @@ namespace Drupal\se_item_line\Plugin\Field\FieldType;
 
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Field\Annotation\FieldType;
+use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldType\DynamicEntityReferenceItem;
@@ -87,9 +88,16 @@ class ItemLineType extends DynamicEntityReferenceItem {
       ->setLabel(t('Serial'))
       ->setRequired(FALSE);
 
-    $properties['completed_date'] = DataDefinition::create('string')
+    $properties['completed_date'] = DataDefinition::create('datetime_iso8601')
       ->setLabel(t('Completed date'))
       ->setRequired(FALSE);
+
+    $properties['date'] = DataDefinition::create('any')
+      ->setLabel(t('Computed date'))
+      ->setDescription(t('The computed DateTime object.'))
+      ->setComputed(TRUE)
+      ->setClass('\Drupal\datetime\DateTimeComputed')
+      ->setSetting('date source', 'completed_date');
 
     $properties['note'] = DataDefinition::create('string')
       ->setLabel(t('Note'))

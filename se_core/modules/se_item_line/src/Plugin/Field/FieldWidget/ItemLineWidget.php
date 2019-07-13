@@ -3,9 +3,11 @@
 namespace Drupal\se_item_line\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Annotation\Translation;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\Annotation\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityReferenceWidget;
 
 /**
@@ -26,11 +28,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $build = parent::formElement($items, $delta, $element, $form, $form_state);
-
-//    $settings = $this->getFieldSettings();
-//    $available = DynamicEntityReferenceItem::getTargetTypes($settings);
-//    $target_type = $items->get($delta)->target_type ?: reset($available);
-//    $entity = $items->get($delta)->entity;
 
     // Put a new quantity field first.
     $build['quantity'] = [
@@ -82,11 +79,13 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     ];
 
     // When the service/item was completed/delivered/done
+    $date = new DrupalDateTime($items[$delta]->completed_date);
     $build['completed_date'] = [
       '#type' => 'datetime',
       '#date_time_element' => 'none',
-      '#default_value' => $items[$delta]->completed_date,
+      '#default_value' => $date,
       '#weight' => 10,
+      '#date_timezone' => drupal_get_user_timezone(),
       '#description' => t('Completed date')
     ];
 
@@ -115,8 +114,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     foreach ($new_values as $index => $line) {
       // TODO - Get this working in the ItemLineType setValue()
       // instead of here.
+      $date = $line['completed_date'];
+      $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
       $new_values[$index]['note'] = $line['note']['value'];
       $new_values[$index]['format'] = $line['note']['format'];
+      $new_values[$index]['completed_date'] = $storage_date;
       $new_values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line['price']);
     }
 

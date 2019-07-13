@@ -4,10 +4,12 @@ namespace Drupal\se_item_line\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\Field\Annotation\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldFormatter\DynamicEntityReferenceLabelFormatter;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Render\FilteredMarkup;
@@ -55,6 +57,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       '#quantity' => t('Qty'),
       '#price' => t('Price'),
       '#serial' => t('Serial'),
+      '#completed_date' => t('Date'),
       '#note' => t('Notes'),
     ];
 
@@ -113,12 +116,14 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       $processed_text = \Drupal::service('renderer')->renderPlain($build);
       $processed = FilterProcessResult::createFromRenderArray($build)->setProcessedText((string) $processed_text);
 
+      $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
       $list[] = [
         '#theme' => 'se_item_line_formatter',
         '#item' => $element,
         '#quantity' => $items[$delta]->quantity,
         '#price' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price),
         '#serial' => $items[$delta]->serial,
+        '#completed_date' => gmdate('Y-m-d', $date->getTimestamp()),
         '#note' => FilteredMarkup::create($processed->getProcessedText()),
       ];
     }
