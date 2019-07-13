@@ -11,7 +11,6 @@ dependencies:
   - menu_ui
   - node
   - path
-  - reference_table_formatter
   - se_contact
   - se_supplier
   - se_payment_line

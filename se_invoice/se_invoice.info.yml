@@ -10,7 +10,6 @@ dependencies:
   - menu_ui
   - node
   - path
-  - reference_table_formatter
   - se_contact
   - se_core
   - se_customer

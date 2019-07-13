@@ -48,8 +48,6 @@ third_party_settings:
         - group_cu_tab_purchase_orders
         - group_cu_tab_quotes
         - group_cu_tab_reports
-        - group_cu_tab_timekeeping
-        - group_cu_tab_timekeeping
       parent_name: ''
       weight: 0
       format_type: tabs
