@@ -85,7 +85,7 @@ function se_core_hide_publish_buttons(array &$form) {
 function se_core_populate_title_field(array &$form) {
   //$form['title']['#hidden'] = TRUE;
   $form['title']['widget'][0]['value']['#default_value'] = t('@user - @date', [
-    '@user' => get_current_user(),
+    '@user' => \Drupal::currentUser()->getAccountName(),
     '@date' => date('j-m-Y'),
   ])->render();
 }
