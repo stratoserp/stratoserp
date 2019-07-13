@@ -3,7 +3,6 @@
 namespace Drupal\se_report\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\se_accounting\AccountingUtilityTrait;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
@@ -16,7 +15,6 @@ use Drupal\se_report\ReportUtilityTrait;
 class MonthlyStatistics extends BlockBase {
 
   use ReportUtilityTrait;
-  use AccountingUtilityTrait;
 
   public function build() {
     $datasets = [];
