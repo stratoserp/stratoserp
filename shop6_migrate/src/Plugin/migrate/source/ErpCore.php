@@ -3,6 +3,7 @@
 namespace Drupal\shop6_migrate\Plugin\migrate\source;
 
 use Drupal\comment\Entity\Comment;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\node\Plugin\migrate\source\d6\Node as MigrateNode;
 use Drupal\migrate\Row;
 use Drupal\Core\Database\Database;
@@ -146,12 +147,15 @@ class ErpCore extends MigrateNode {
       }
 
       $price = $line->price;
+      $storage_date = \Drupal::service('date.formatter')
+        ->format($line->completed_date ?? $line->created, 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+
       $items[] = [
         'target_id' => $item,
         'target_type' => $type,
         'quantity' => $line->qty,
         'price' => \Drupal::service('se_accounting.currency_format')->formatStorage($price ?? 0),
-        'completed_date' => $line->completed_date ?? 0,
+        'completed_date' => $storage_date,
         'note' => $line->extra,
         'serial' => $line->serial,
         'format' => 'basic_html',
