@@ -36,32 +36,6 @@ function se_item_line_form_alter(&$form, FormStateInterface $form_state, $form_i
  */
 function se_item_line_theme() {
   return [
-    'se_item_line_formatter' => [
-      'variables' => [
-        'item' => '',
-        'quantity' => '',
-        'price' => '',
-        'serial' => '',
-        'completed_date' => '',
-        'note' => '',
-        'format' => '',
-      ],
-    ],
-    'se_item_header_formatter' => [
-      'variables' => [
-        'item' => '',
-        'quantity' => '',
-        'price' => '',
-        'serial' => '',
-        'completed_date' => '',
-        'note' => '',
-      ],
-    ],
-    'se_item_lines_formatter' => [
-      'variables' => [
-        'lines' => '',
-      ]
-    ],
     'se_item_line_widget' => [
       'variables' => [
         'target_type' => '',
@@ -69,6 +43,7 @@ function se_item_line_theme() {
         'quantity' => '',
         'price' => '',
         'serial' => '',
+        'completed_date' => '',
         'note' => '',
       ]
     ]

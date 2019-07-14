@@ -50,15 +50,16 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
     $host_entity = $items->getEntity();
     $host_type = $host_entity->bundle();
 
-    $list = [];
-    $list[] = [
-      '#theme' => 'se_item_header_formatter',
-      '#item' => t('Item'),
-      '#quantity' => t('Qty'),
-      '#price' => t('Price'),
-      '#serial' => t('Serial'),
-      '#completed_date' => t('Date'),
-      '#note' => t('Notes'),
+    $row = [];
+    $rows = [];
+
+    $headers = [
+      t('Qty'),
+      t('Item'),
+      t('Price'),
+      t('Serial'),
+      t('Date'),
+      t('Notes'),
     ];
 
     $cache_tags = [];
@@ -117,21 +118,24 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       $processed = FilterProcessResult::createFromRenderArray($build)->setProcessedText((string) $processed_text);
 
       $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
-      $list[] = [
-        '#theme' => 'se_item_line_formatter',
-        '#item' => $element,
-        '#quantity' => $items[$delta]->quantity,
-        '#price' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price),
-        '#serial' => $items[$delta]->serial,
-        '#completed_date' => gmdate('Y-m-d', $date->getTimestamp()),
-        '#note' => FilteredMarkup::create($processed->getProcessedText()),
+      $display_date = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
+
+      $row = [
+        $items[$delta]->quantity,
+        render($element),
+        \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price),
+        $items[$delta]->serial,
+        $display_date,
+        render(FilteredMarkup::create($processed->getProcessedText())),
       ];
+      $rows[] = $row;
     }
 
     // Now wrap the lines into a bundle with cache tags.
     return [
-      '#theme' => 'se_item_lines_formatter',
-      '#lines' => $list,
+      '#theme' => 'table',
+      '#rows' => $rows,
+      '#header' => $headers,
       '#cache' => [
         'tags' => $cache_tags,
       ],

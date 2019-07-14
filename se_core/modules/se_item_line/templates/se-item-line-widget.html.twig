@@ -1,10 +1,26 @@
 {#
 /**
  * @file
- * Theme file for line items formatter.
+ * Theme file for item line formatter.
  */
 #}
-<table>
-    {{ header }}
-    {{ lines }}
-</table>
+<tr>
+    <td class="quantity">
+        {{ quantity }}
+    </td>
+    <td class="item">
+        {{ item }}
+    </td>
+    <td class="serial">
+        {{ serial }}
+    </td>
+    <td class="price">
+        {{ price }}
+    </td>
+    <td class="completed-date">
+        {{ completed_date }}
+    </td>
+    <td class="note">
+        {{ note }}
+    </td>
+</tr>
