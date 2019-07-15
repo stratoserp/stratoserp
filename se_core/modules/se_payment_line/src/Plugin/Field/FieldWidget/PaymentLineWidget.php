@@ -3,6 +3,7 @@
 namespace Drupal\se_payment_line\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Annotation\Translation;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\Annotation\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
@@ -33,18 +34,18 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
 //    $entity = $items->get($delta)->entity;
 
     // Changes to the target type field.
-    $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
-    unset($build['target_type']['#title']);
-    $build['target_type']['#weight'] = 2;
+//    $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
+//    unset($build['target_type']['#title']);
+//    $build['target_type']['#weight'] = 2;
 
     // Adjust the weight of the target id field.
-    $build['target_id']['#weight'] = 6;
-    $build['target_id']['#attributes']['placeholder'] = t('Select invoice');
+//    $build['target_id']['#weight'] = 6;
+//    $build['target_id']['#attributes']['placeholder'] = t('Select invoice');
 
     // Add a new price field.
     $build['amount'] = [
       '#type' => 'textfield',
-      '#default_value' => $items[$delta]->amount,
+      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->amount ?: 0),
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 10,
@@ -55,18 +56,21 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
     ];
 
     // When the service/item was completed/delivered/done
+    $date = new DrupalDateTime($items[$delta]->completed_date);
     $build['date'] = [
       '#type' => 'datetime',
       '#date_time_element' => 'none',
-      '#default_value' => $items[$delta]->date,
+      '#default_value' => $date,
       '#weight' => 10,
+      '#date_timezone' => drupal_get_user_timezone(),
       '#description' => t('Payment date')
     ];
 
+    // Provide list of payment options
     $config = \Drupal::service('config.factory')->get('se_payment.settings');
     $vocabulary = $config->get('vocabulary');
+    $term_options = [];
     if (isset($vocabulary)) {
-      $term_options = [];
       $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
       $terms = $term_storage->loadByProperties(['vid' => $vocabulary]);
 
@@ -74,14 +78,14 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
       foreach ($terms as $tid => $term) {
         $term_options[$tid] = $term->getName();
       }
-
-      $build['payment_type'] = [
-        '#type' => 'select',
-        '#options' => $term_options,
-        '#default_value' => $items[$delta]->payment_type,
-        '#weight' => 12,
-      ];
     }
+
+    $build['payment_type'] = [
+      '#type' => 'select',
+      '#options' => $term_options,
+      '#default_value' => $items[$delta]->payment_type ?? '',
+      '#weight' => 12,
+    ];
 
     return $build;
   }
