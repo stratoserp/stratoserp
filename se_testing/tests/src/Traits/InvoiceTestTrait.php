@@ -29,14 +29,27 @@ trait InvoiceTestTrait {
     error_reporting($original);
   }
 
-  public function addInvoice() {
+  public function addInvoice($customer, array $items = []) {
+
+    $lines = [];
+    foreach ($items as $item) {
+      $line = [
+        'target_type' => 'se_item',
+        'target_id' => $item['item']->id(),
+        'quantity' => $item['quantity'],
+      ];
+      $lines[] = $line;
+    }
+
     /** @var Node $node */
     $node = $this->createNode([
       'type' => 'se_invoice',
       'title' => $this->invoice->name,
       'field_ti_phone' => $this->invoice->phoneNumber,
       'field_ti_email' => $this->invoice->companyEmail,
+      'field_in_items' => $lines,
     ]);
+
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);

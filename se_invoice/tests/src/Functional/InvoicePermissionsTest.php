@@ -5,7 +5,7 @@ namespace Drupal\Tests\se_invoice\Functional;
 use Drupal\Tests\se_testing\Functional\InvoiceTestBase;
 
 /**
- * @coversDefault Drupal\se_customer
+ * @coversDefault Drupal\se_invoice
  * @group se_invoice
  * @group stratoserp
  *
