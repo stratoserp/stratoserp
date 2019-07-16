@@ -117,7 +117,7 @@ class NodeController extends ControllerBase {
           'target_id' => $invoice->id(),
           'target_type' => 'node',
           'amount'  => $invoice->field_in_total->value,
-          'payment_type' => $payment_term,
+          'payment_type' => $payment_term->id(),
         ];
         $lines[] = $line;
       }

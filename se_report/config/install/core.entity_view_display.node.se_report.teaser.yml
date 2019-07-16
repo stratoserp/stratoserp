@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_report.body
+    - field.field.node.se_report.field_se_body
     - field.field.node.se_report.field_bu_ref
     - field.field.node.se_report.field_re_json_data
     - field.field.node.se_report.field_re_parameters
@@ -23,7 +23,7 @@ targetEntityType: node
 bundle: se_report
 mode: teaser
 content:
-  body:
+  field_se_body:
     label: hidden
     type: text_summary_or_trimmed
     weight: 101

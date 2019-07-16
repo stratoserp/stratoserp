@@ -2,12 +2,12 @@
 
 namespace Drupal\se_payment_line\Plugin\Field\FieldType;
 
-use Drupal\dynamic_entity_reference\Plugin\Field\FieldType\DynamicEntityReferenceFieldItemList;
+use Drupal\Core\Field\EntityReferenceFieldItemList;
 
 /**
  * Represents a configurable entity se_item_line field.
  */
-class PaymentLineFieldItemList extends DynamicEntityReferenceFieldItemList {
+class PaymentLineFieldItemList extends EntityReferenceFieldItemList {
 
   /**
    * {@inheritdoc}

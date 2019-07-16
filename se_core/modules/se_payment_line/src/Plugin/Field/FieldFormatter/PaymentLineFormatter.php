@@ -3,10 +3,12 @@
 namespace Drupal\se_payment_line\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Annotation\Translation;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\Annotation\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceLabelFormatter;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 
 /**
  * Plugin implementation of the 'dynamic entity reference label' formatter.
@@ -44,14 +46,23 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
     $host_entity = $items->getEntity();
     $host_type = $host_entity->bundle();
 
-    $list = [];
+    $row = [];
+    $rows = [];
+
+    $headers = [
+      t('Invoice'),
+      t('Amount'),
+      t('Payment date'),
+    ];
+
+    $cache_tags = [];
+
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
-      /** @var \Drupal\se_item\Entity\Item|\Drupal\comment\Entity\Comment $entity */
       $uri = $entity->toUrl();
 
       $element = [
         '#type' => 'link',
-        '#title' => $entity->field_it_code->value,
+        '#title' => $entity->title,
         '#url' => $uri,
         '#options' => $uri->getOptions(),
       ];
@@ -63,20 +74,23 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
         unset($items[$delta]->_attributes);
       }
 
-      $list[] = [
-        '#theme' => 'se_payment_line_formatter',
-        '#item' => $element,
-        '#quantity' => $items[$delta]->quantity,
-        '#amount' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->amount ?? 0),
+      $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
+      $display_date = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
+
+      $row = [
+        render($element),
+        \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->amount ?? 0),
+        $display_date,
       ];
     }
 
     // Now wrap the lines into a bundle.
     return [
-      '#theme' => 'se_payment_lines_formatter',
-      '#lines' => $list,
+      '#theme' => 'table',
+      '#rows' => $rows,
+      '#header' => $headers,
       '#cache' => [
-        '#tags' => $host_entity->getCacheTags()
+        '#tags' => $cache_tags,
       ]
     ];
   }

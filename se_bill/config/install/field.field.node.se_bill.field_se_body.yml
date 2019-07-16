@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
+    - field.storage.node.field_se_body
     - node.type.se_bill
   module:
     - text
 id: node.se_bill.body
-field_name: body
+field_name: field_se_body
 entity_type: node
 bundle: se_bill
 label: Body
@@ -18,4 +18,4 @@ default_value: {  }
 default_value_callback: ''
 settings:
   display_summary: false
-field_type: text_with_summary
+field_type: text_long

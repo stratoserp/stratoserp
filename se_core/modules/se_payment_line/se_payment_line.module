@@ -1,24 +1,2 @@
 <?php
 
-/**
- * Implements hook_theme().
- */
-function se_payment_line_theme() {
-  return [
-    'se_payment_line_formatter' => [
-      'variables' => [
-        'item' => '',
-        'quantity' => '',
-        'price' => '',
-        'serial' => '',
-        'note' => '',
-        'format' => '',
-      ],
-    ],
-    'se_payment_lines_formatter' => [
-      'variables' => [
-        'lines' => '',
-      ]
-    ]
-  ];
-}

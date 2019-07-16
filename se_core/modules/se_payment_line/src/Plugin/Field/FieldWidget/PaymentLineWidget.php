@@ -8,6 +8,7 @@ use Drupal\Core\Field\Annotation\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 
 /**
  * Plugin implementation of the 'se_payment_line_widget' widget.
@@ -39,8 +40,8 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
 //    $build['target_type']['#weight'] = 2;
 
     // Adjust the weight of the target id field.
-//    $build['target_id']['#weight'] = 6;
-//    $build['target_id']['#attributes']['placeholder'] = t('Select invoice');
+    $build['target_id']['#weight'] = 6;
+    $build['target_id']['#attributes']['placeholder'] = t('Select invoice');
 
     // Add a new price field.
     $build['amount'] = [
@@ -57,11 +58,11 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
 
     // When the service/item was completed/delivered/done
     $date = new DrupalDateTime($items[$delta]->completed_date);
-    $build['date'] = [
+    $build['payment_date'] = [
       '#type' => 'datetime',
       '#date_time_element' => 'none',
       '#default_value' => $date,
-      '#weight' => 10,
+      '#weight' => 20,
       '#date_timezone' => drupal_get_user_timezone(),
       '#description' => t('Payment date')
     ];
@@ -84,10 +85,31 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
       '#type' => 'select',
       '#options' => $term_options,
       '#default_value' => $items[$delta]->payment_type ?? '',
-      '#weight' => 12,
+      '#weight' => 30,
     ];
 
     return $build;
+  }
+
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    $new_values = parent::massageFormValues($values, $form, $form_state);
+
+    if ($form['#form_id'] !== 'node_se_payment_edit_form'
+      && $form['#form_id'] !== 'node_se_payment_form') {
+      return $new_values;
+    }
+
+    foreach ($new_values as $index => $line) {
+      $date = $line['payment_date'];
+      $storage_date = '';
+      if (!empty($date)) {
+        $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+      }
+      $new_values[$index]['payment_date'] = $storage_date;
+      $new_values[$index]['amount'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line['amount']);
+    }
+
+    return $new_values;
   }
 
 }

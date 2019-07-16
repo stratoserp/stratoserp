@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_goods_receipt.body
+    - field.field.node.se_goods_receipt.field_se_body
     - field.field.node.se_goods_receipt.field_bu_ref
     - field.field.node.se_goods_receipt.field_co_ref
     - field.field.node.se_goods_receipt.field_gr_id
@@ -30,11 +30,11 @@ targetEntityType: node
 bundle: se_goods_receipt
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
+  field_se_body:
+    type: text_textarea
     weight: 8
     settings:
-      rows: 9
+      rows: 5
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }

@@ -3,7 +3,7 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_payment.body
+    - field.field.node.se_payment.field_se_body
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
     - field.field.node.se_payment.field_pa_lines
@@ -24,7 +24,7 @@ targetEntityType: node
 bundle: se_payment
 mode: teaser
 content:
-  body:
+  field_se_body:
     label: hidden
     type: text_summary_or_trimmed
     weight: 101

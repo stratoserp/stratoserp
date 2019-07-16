@@ -3,7 +3,7 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_goods_receipt.body
+    - field.field.node.se_goods_receipt.field_se_body
     - field.field.node.se_goods_receipt.field_bu_ref
     - field.field.node.se_goods_receipt.field_co_ref
     - field.field.node.se_goods_receipt.field_gr_id
@@ -27,7 +27,7 @@ targetEntityType: node
 bundle: se_goods_receipt
 mode: teaser
 content:
-  body:
+  field_se_body:
     label: hidden
     type: text_summary_or_trimmed
     weight: 101

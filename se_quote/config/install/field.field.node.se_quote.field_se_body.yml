@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
-    - node.type.se_payment
+    - field.storage.node.field_se_body
+    - node.type.se_quote
   module:
     - text
-id: node.se_payment.body
-field_name: body
+id: node.se_quote.body
+field_name: field_se_body
 entity_type: node
-bundle: se_payment
+bundle: se_quote
 label: Body
 description: ''
 required: false
@@ -17,5 +17,5 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  display_summary: true
-field_type: text_with_summary
+  display_summary: false
+field_type: text_long

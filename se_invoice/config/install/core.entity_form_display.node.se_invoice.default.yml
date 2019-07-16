@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_invoice.body
+    - field.field.node.se_invoice.field_se_body
     - field.field.node.se_invoice.field_bu_ref
     - field.field.node.se_invoice.field_co_ref
     - field.field.node.se_invoice.field_in_customer_order
@@ -32,11 +32,11 @@ targetEntityType: node
 bundle: se_invoice
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
+  field_se_body:
+    type: text_textarea
     weight: 10
     settings:
-      rows: 9
+      rows: 5
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }

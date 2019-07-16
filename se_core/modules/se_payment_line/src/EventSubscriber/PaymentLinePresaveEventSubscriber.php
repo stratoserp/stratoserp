@@ -25,6 +25,7 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
    *
    */
   public function paymentLineNodePresave(EntityPresaveEvent $event) {
+    /** @var \Drupal\node\Entity\Node $entity */
     if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
       return;
     }
@@ -37,17 +38,11 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
     $total = 0;
     $bundle_field_type = 'field_' . ErpCore::PAYMENTS_BUNDLE_MAP[$entity->bundle()];
 
-    // Loop through the payment lines, adjusting price
-    // for storage and calculating total
-    $payment_lines = [];
-    foreach ($entity->{$bundle_field_type . '_items'} as $index => $payment_line) {
-      // Finally update the line and add it to the list
-      $payment_lines[] = $payment_line;
-      $total += $payment_line['amount'];
+    // Loop through the payment lines to calculate total
+    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $payment_line) {
+      $total += $payment_line->amount;
     }
 
-    /** @var \Drupal\node\Entity\Node $entity */
-    $entity->{$bundle_field_type . '_lines'} = $payment_lines;
     $entity->{$bundle_field_type . '_total'}->value = $total;
   }
 

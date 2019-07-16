@@ -145,6 +145,7 @@ class NodeController extends ControllerBase {
     foreach ($entity_ids as $entity_id) {
       /** @var Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
+        /** @var Item $item */
         if ($item = Item::load($comment->field_tk_item->target_id)) {
           $price = $item->field_it_sell_price->value;
         }

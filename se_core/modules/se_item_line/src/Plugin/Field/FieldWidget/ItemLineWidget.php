@@ -115,7 +115,10 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       // TODO - Get this working in the ItemLineType setValue()
       // instead of here.
       $date = $line['completed_date'];
-      $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+      $storage_date = '';
+      if (!empty($date)) {
+        $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+      }
       $new_values[$index]['note'] = $line['note']['value'];
       $new_values[$index]['format'] = $line['note']['format'];
       $new_values[$index]['completed_date'] = $storage_date;

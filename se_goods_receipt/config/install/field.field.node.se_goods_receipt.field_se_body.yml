@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
-    - node.type.se_ticket
+    - field.storage.node.field_se_body
+    - node.type.se_goods_receipt
   module:
     - text
-id: node.se_ticket.body
-field_name: body
+id: node.se_goods_receipt.body
+field_name: field_se_body
 entity_type: node
-bundle: se_ticket
+bundle: se_goods_receipt
 label: Body
 description: ''
 required: false
@@ -18,4 +18,4 @@ default_value: {  }
 default_value_callback: ''
 settings:
   display_summary: false
-field_type: text_with_summary
+field_type: text_long

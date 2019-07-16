@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_bill.body
+    - field.field.node.se_bill.field_se_body
     - field.field.node.se_bill.field_bi_id
     - field.field.node.se_bill.field_bi_total
     - field.field.node.se_bill.field_bu_ref
@@ -25,7 +25,7 @@ targetEntityType: node
 bundle: se_bill
 mode: default
 content:
-  body:
+  field_se_body:
     label: hidden
     type: text_default
     weight: 7
