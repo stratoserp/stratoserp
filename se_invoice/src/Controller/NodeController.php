@@ -91,8 +91,8 @@ class NodeController extends ControllerBase {
     ]);
 
     // TODO - Make this a service?
-    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $item) {
-      $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($item);
+    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item) {
+      $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item);
     }
 
     $node->field_bu_ref->target_id = $source->field_bu_ref->target_id;
@@ -160,7 +160,7 @@ class NodeController extends ControllerBase {
       }
     }
 
-    $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'} = $lines;
+    $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_lines'} = $lines;
 
     if ($open) {
       $node->field_status_ref->target_id = $open->id();

@@ -84,7 +84,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
   private function timekeepingMarkItemsBilled($entity, $billed = TRUE) {
     $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
 
-    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
+    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if ($item_line->target_type !== 'se_timekeeping') {
         continue;
       }

@@ -43,7 +43,7 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
     // Loop through the item lines, adjusting price
     // for storage and calculating total
     $item_lines = [];
-    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
+    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if (empty($item_line->serial) && $item = Item::load($item_line->target_id)) {
         $item_line->serial = $item->field_it_serial->value;
       }

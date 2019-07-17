@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.se_goods_receipt.field_bu_ref
     - field.field.node.se_goods_receipt.field_co_ref
     - field.field.node.se_goods_receipt.field_gr_id
-    - field.field.node.se_goods_receipt.field_gr_items
+    - field.field.node.se_goods_receipt.field_gr_lines
     - field.field.node.se_goods_receipt.field_gr_purchase_order_ref
     - field.field.node.se_goods_receipt.field_gr_total
     - field.field.node.se_goods_receipt.field_se_comments
@@ -63,7 +63,7 @@ content:
     third_party_settings: {  }
     type: serial_default_widget
     region: second
-  field_gr_items:
+  field_gr_lines:
     weight: 6
     settings:
       match_operator: CONTAINS

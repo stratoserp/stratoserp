@@ -7,12 +7,12 @@ function se_goods_receipt_form_node_se_goods_receipt_form_alter(&$form, FormStat
   \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_po_ref', 'field_po_ref');
 
   // Perform some goods receipt specific tweaks.
-  foreach ($form['field_gr_items']['widget'] as $index => $value) {
+  foreach ($form['field_gr_lines']['widget'] as $index => $value) {
     // TODO I'm sure there is a better way to filter these out.
     if (is_numeric($index)) {
       // Remove all other options, we can only goods receipt stock.
-      $form['field_gr_items']['target_type']['#options'] = ['se_item:se_stock'];
-      $form['field_gr_items']['target_type']['#type'] = 'value';
+      $form['field_gr_lines']['target_type']['#options'] = ['se_item:se_stock'];
+      $form['field_gr_lines']['target_type']['#type'] = 'value';
     }
   }
 }

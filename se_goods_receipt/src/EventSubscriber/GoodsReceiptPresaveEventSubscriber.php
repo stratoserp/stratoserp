@@ -40,7 +40,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
     }
 
     $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
-    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
+    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if (!empty($item_line->serial)) {
         if ($item = Item::load($item_line->target_id)) {
           if ($item->field_it_serial->value !== $item_line->serial) {
@@ -49,7 +49,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
             $new_item->field_it_item_ref->target_id = $item->id();
             $new_item->save();
 
-            $entity->{$bundle_field_type . '_items'}[$index]->target_id = $new_item->id();
+            $entity->{$bundle_field_type . '_lines'}[$index]->target_id = $new_item->id();
           }
         }
       }

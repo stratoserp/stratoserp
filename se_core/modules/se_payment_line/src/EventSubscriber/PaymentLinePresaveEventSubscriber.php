@@ -40,7 +40,7 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
     // Loop through the payment lines, adjusting price
     // for storage and calculating total
     $payment_lines = [];
-    foreach ($entity->{$bundle_field_type . '_items'} as $index => $payment_line) {
+    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $payment_line) {
       // Finally update the line and add it to the list
       $payment_lines[] = $payment_line;
       $total += $payment_line['amount'];

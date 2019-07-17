@@ -157,7 +157,7 @@ trait ReportUtilityTrait {
   private function convertItemLineToArray(EntityInterface $entity) {
     $data = [];
 
-    foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_items'} as $index => $item_line) {
+    foreach ($entity->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()] . '_lines'} as $index => $item_line) {
       if (isset($item_line->target_id)) {
         $type = $item_line->target_type;
 
