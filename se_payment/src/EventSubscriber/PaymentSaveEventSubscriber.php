@@ -34,8 +34,8 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   public function paymentInsertMarkPaid(EntityInsertEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
-      $this->paymentMarkLineStatus($entity);
+    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
+      $this->paymentMarkInvoiceStatus($entity);
     }
   }
 
@@ -47,8 +47,8 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   public function paymentUpdateMarkPaid(EntityUpdateEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
-      $this->paymentMarkLineStatus($entity);
+    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
+      $this->paymentMarkInvoiceStatus($entity);
     }
   }
 
@@ -63,8 +63,8 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   public function paymentMarkUnPaid(EntityPresaveEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
-      $this->paymentMarkLineStatus($entity, FALSE);
+    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
+      $this->paymentMarkInvoiceStatus($entity, FALSE);
     }
   }
 
@@ -77,7 +77,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function paymentMarkLineStatus($entity, $paid = TRUE) {
+  private function paymentMarkInvoiceStatus($entity, $paid = TRUE) {
     if ($paid) {
       $term = Term::load('closed');
     }

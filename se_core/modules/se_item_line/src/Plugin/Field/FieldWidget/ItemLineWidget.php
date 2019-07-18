@@ -15,7 +15,7 @@ use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityRefere
  *
  * @FieldWidget(
  *   id = "se_item_line_widget",
- *   label = @Translation("Line item widget"),
+ *   label = @Translation("Item line widget"),
  *   field_types = {
  *     "se_item_line"
  *   }
@@ -39,6 +39,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#size' => 8,
       '#maxlength' => 8,
       '#weight' => 4,
+      '#ajax' => [
+        'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
+        'event' => 'change',
+        'progress' => FALSE,
+      ],
     ];
 
     // Changes to the target type field.
@@ -94,7 +99,12 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#required' => TRUE,
       '#attributes' => [
         'placeholder' => t('Price')
-      ]
+      ],
+      '#ajax' => [
+        'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
+        'event' => 'change',
+        'progress' => FALSE,
+      ],
     ];
 
     // Add a textarea for notes.
@@ -149,7 +159,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       $new_values[$index]['note'] = $line['note']['value'];
       $new_values[$index]['format'] = $line['note']['format'];
       $new_values[$index]['completed_date'] = $storage_date;
-      $new_values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line['price']);
+      $new_values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
     }
 
     return $new_values;

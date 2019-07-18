@@ -19,8 +19,8 @@ use Drupal\filter\Render\FilteredMarkup;
  *
  * @FieldFormatter(
  *   id = "se_item_line_formatter",
- *   label = @Translation("Line item formatter"),
- *   description = @Translation("Line item formatter"),
+ *   label = @Translation("Item line formatter"),
+ *   description = @Translation("Item line formatter"),
  *   field_types = {
  *     "se_item_line"
  *   }
@@ -113,12 +113,13 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
         '#filter_types_to_skip' => [],
         '#langcode' => $items[$delta]->getLangcode(),
       ];
-      // Capture the cacheability metadata associated with the processed text.
-      $processed_text = \Drupal::service('renderer')->renderPlain($build);
-      $processed = FilterProcessResult::createFromRenderArray($build)->setProcessedText((string) $processed_text);
 
       $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
       $display_date = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
+
+      $processed_text = \Drupal::service('renderer')->renderPlain($build);
+      $processed = FilterProcessResult::createFromRenderArray($build)->setProcessedText((string) $processed_text);
+      $processed_output = FilteredMarkup::create($processed->getProcessedText());
 
       $row = [
         $items[$delta]->quantity,
@@ -126,7 +127,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
         \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price),
         $items[$delta]->serial,
         $display_date,
-        render(FilteredMarkup::create($processed->getProcessedText())),
+        render($processed_output),
       ];
       $rows[] = $row;
     }

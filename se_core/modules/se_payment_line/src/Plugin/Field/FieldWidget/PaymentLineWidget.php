@@ -96,7 +96,7 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
         $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
       }
       $new_values[$index]['payment_date'] = $storage_date;
-      $new_values[$index]['amount'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line['amount']);
+      $new_values[$index]['amount'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['amount']);
     }
 
     return $new_values;

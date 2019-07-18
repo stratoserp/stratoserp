@@ -41,17 +41,17 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
     $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
 
     // Loop through the item lines to calculate total
-    $item_lines = [];
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
-      if (empty($item_line->serial) && $item = Item::load($item_line->target_id)) {
-        $item_line->serial = $item->field_it_serial->value;
+      if (empty($item_line->serial)) {
+        /** @var Item $item */
+        if (($item = Item::load($item_line->target_id)) && $item->bundle() === 'se_stock') {
+          $entity->{$bundle_field_type . '_lines'}[$index]->serial = $item->field_it_serial->value;
+        }
       }
 
-      $item_lines[] = $item_line;
       $total += $item_line->quantity * $item_line->price;
     }
 
-    $entity->{$bundle_field_type . '_lines'} = $item_lines;
     $entity->{$bundle_field_type . '_total'}->value = $total;
   }
 
