@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.se_invoice.field_co_ref
     - field.field.node.se_invoice.field_in_customer_order
     - field.field.node.se_invoice.field_in_id
-    - field.field.node.se_invoice.field_in_items
+    - field.field.node.se_invoice.field_in_lines
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
@@ -71,7 +71,7 @@ content:
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
-  field_in_items:
+  field_in_lines:
     weight: 8
     label: above
     settings: {  }

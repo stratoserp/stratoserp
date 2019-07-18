@@ -29,16 +29,6 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $build = parent::formElement($items, $delta, $element, $form, $form_state);
 
-//    $settings = $this->getFieldSettings();
-//    $available = DynamicEntityReferenceItem::getTargetTypes($settings);
-//    $target_type = $items->get($delta)->target_type ?: reset($available);
-//    $entity = $items->get($delta)->entity;
-
-    // Changes to the target type field.
-//    $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
-//    unset($build['target_type']['#title']);
-//    $build['target_type']['#weight'] = 2;
-
     // Adjust the weight of the target id field.
     $build['target_id']['#weight'] = 6;
     $build['target_id']['#attributes']['placeholder'] = t('Select invoice');

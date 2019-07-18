@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.se_purchase_order.field_bu_ref
     - field.field.node.se_purchase_order.field_co_ref
     - field.field.node.se_purchase_order.field_po_id
-    - field.field.node.se_purchase_order.field_po_items
+    - field.field.node.se_purchase_order.field_po_lines
     - field.field.node.se_purchase_order.field_po_quote_ref
     - field.field.node.se_purchase_order.field_po_total
     - field.field.node.se_purchase_order.field_se_comments
@@ -63,7 +63,7 @@ content:
     third_party_settings: {  }
     type: serial_default_widget
     region: second
-  field_po_items:
+  field_po_lines:
     weight: 6
     settings:
       match_operator: CONTAINS
