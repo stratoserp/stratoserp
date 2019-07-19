@@ -10,7 +10,17 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
+/**
+ * Class AccountingSaveEventSubscriber
+ *
+ * When an invoice or payment node is saved, adjust the customer
+ * balance by the amount of the node.
+ * For invoice status updates -
+ * @see \Drupal\se_payment\EventSubscriber\PaymentSaveEventSubscriber
+ *
+ * @package Drupal\se_customer\EventSubscriber
+ */
+class AccountingSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -18,9 +28,9 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceReduce'
+      HookEventDispatcherInterface::ENTITY_INSERT => 'accountingInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'accountingUpdate',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'accountingReduce'
     ];
   }
 
@@ -29,10 +39,10 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
-  public function invoiceInsert(EntityInsertEvent $event) {
+  public function accountingInsert(EntityInsertEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_invoice') {
+      || !in_array($entity->bundle(), ['se_invoice', 'se_payment'])) {
       return;
     }
     $this->updateCustomerBalance($entity);
@@ -43,10 +53,10 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    */
-  public function invoiceUpdate(EntityUpdateEvent $event) {
+  public function accountingUpdate(EntityUpdateEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_invoice') {
+      || !in_array($entity->bundle(), ['se_invoice', 'se_payment'])) {
       return;
     }
     $this->updateCustomerBalance($entity);
@@ -58,11 +68,11 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    */
-  public function invoiceReduce(EntityPresaveEvent $event) {
+  public function accountingReduce(EntityPresaveEvent $event) {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_invoice'
-      || $entity->isNew()) {
+      || $entity->isNew()
+      || !in_array($entity->bundle(), ['se_invoice', 'se_payment'])) {
       return;
     }
 

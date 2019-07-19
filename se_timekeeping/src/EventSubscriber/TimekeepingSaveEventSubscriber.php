@@ -11,6 +11,13 @@ use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
+/**
+ * Class TimekeepingSaveEventSubscriber
+ *
+ * Mark timekeeping entries status if they are included on an invoice.
+ *
+ * @package Drupal\se_timekeeping\EventSubscriber
+ */
 class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
@@ -74,7 +81,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Loop through the invoice entries and mark the originals as
-   * billed/unbilled as dictated by the parameter.
+   * billed/un-billed as dictated by the parameter.
    *
    * @param Node $entity
    * @param bool $billed

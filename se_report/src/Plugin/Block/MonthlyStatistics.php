@@ -37,7 +37,7 @@ class MonthlyStatistics extends BlockBase {
         $query->groupBy('nfd.type');
         $result = $query->execute()->fetchAssoc();
 
-        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($result['total'] ?? 0);
+        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($result['total'] ?? 0);
         $fg_colors[] = $fg_color;
       }
 

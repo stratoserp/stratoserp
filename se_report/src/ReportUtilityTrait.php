@@ -136,10 +136,9 @@ trait ReportUtilityTrait {
       'status' => 1,
       'title' => $this->createReportTitle(),
     ]);
-    if (!empty($this->configuration['business_ref'])) {
-      if ($business_node = Node::load($this->configuration['business_ref'])) {
-        $this->report_node->field_bu_ref->target_id = $business_node->id();
-      }
+    if (!empty($this->configuration['business_ref'])
+      && $business_node = Node::load($this->configuration['business_ref'])) {
+      $this->report_node->field_bu_ref->target_id = $business_node->id();
     }
     $this->report_node->save();
 
@@ -164,6 +163,7 @@ trait ReportUtilityTrait {
         switch ($type) {
           // Comment type
           case 'se_timekeeping':
+            /** @var Item $item */
             if (!$item = Item::load($item_line->target_id)) {
               continue 2;
             }
@@ -175,6 +175,7 @@ trait ReportUtilityTrait {
           case 'se_service':
           case 'se_stock':
           case 'se_recurring':
+            /** @var Item $item */
             if (!$item = Item::load($item_line->target_id)) {
               continue 2;
             }
@@ -219,9 +220,14 @@ trait ReportUtilityTrait {
     }
   }
 
+  /**
+   * @param $data
+   *
+   * @return bool|string
+   */
   private function createCSV($data) {
     // Generate CSV data from array
-    $fh = fopen('php://temp', 'rw');
+    $fh = fopen('php://temp', 'rwb');
     // Don't create a file, attempt to use memory instead
 
     fputcsv($fh, ['Item', 'Value']);
@@ -236,6 +242,9 @@ trait ReportUtilityTrait {
     return $csv;
   }
 
+  /**
+   * @return string
+   */
   private function createReportTitle() {
     $title_parts[] = $this->configuration['input_parameters']['action_label'];
     if (empty($this->configuration['business_ref'])) {
@@ -243,12 +252,11 @@ trait ReportUtilityTrait {
         $title_parts[] = $this->configuration['input_parameters']['exposed_input']['business'];
       }
     }
-    else {
-      /** @var Node $business_node */
-      if ($business_node = Node::load($this->configuration['business_ref'])) {
-        $title_parts[] = $business_node->title->value;
-      }
+    /** @var Node $business_node */
+    else if ($business_node = Node::load($this->configuration['business_ref'])) {
+      $title_parts[] = $business_node->title->value;
     }
+
     if (!empty($this->configuration['input_parameters']['exposed_input']['created']['min'])) {
       $title_parts[] = $this->configuration['input_parameters']['exposed_input']['created']['min'];
     }
@@ -280,6 +288,10 @@ trait ReportUtilityTrait {
    *
    * TODO - Make more flexible
    * TODO - Timezones, sigh.
+   *
+   * @param string $year
+   *
+   * @return array
    */
   public function reportingMonths($year = '') {
     $months = [];
@@ -289,7 +301,7 @@ trait ReportUtilityTrait {
     }
 
     for ($i = 1; $i <= 12; $i++) {
-      $months[date("F", mktime(0, 0, 0, $i))] = [
+      $months[date('F', mktime(0, 0, 0, $i))] = [
         'start' => mktime(0, 0, 0, $i, 1, $year),
         'end' => mktime(0, 0, 0, $i + 1, 0, $year),
       ];
@@ -301,16 +313,21 @@ trait ReportUtilityTrait {
   /**
    * Generate a color, darker each time the function is called.
    *
+   * @param string $red
+   * @param string $green
+   * @param string $blue
+   *
    * @return array
    * @throws \Exception
    */
   public function generateColorsDarkening($red = NULL, $green = NULL, $blue = NULL) {
     static $start = 255;
+    $fg = $bg = [];
 
     $adjustment = random_int(20, 30);
-    $bg[] = empty($red) ? $start - $adjustment : $red; // Red
-    $bg[] = empty($green) ? $start - $adjustment : $green; // Green
-    $bg[] = empty($blue) ? $start - $adjustment : $blue; // Blue
+    $bg[] = empty($red) ? $start - $adjustment : $red;
+    $bg[] = empty($green) ? $start - $adjustment : $green;
+    $bg[] = empty($blue) ? $start - $adjustment : $blue;
 
     foreach ($bg as $color) {
       $fg[] = max(10, $color - 20);

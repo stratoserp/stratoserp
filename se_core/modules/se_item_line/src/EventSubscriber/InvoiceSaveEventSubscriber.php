@@ -13,7 +13,14 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
-class NodeSaveEventSubscriber implements EventSubscriberInterface {
+/**
+ * Class InvoiceSaveEventSubscriber
+ *
+ * Update item status if they have been invoiced out
+ *
+ * @package Drupal\se_item_line\EventSubscriber
+ */
+class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -21,9 +28,9 @@ class NodeSaveEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'insertMarkSold',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'updateMarkSold',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'markAvailable'
+      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsertMarkSold',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdateMarkSold',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceMarkAvailable'
     ];
   }
 
@@ -32,7 +39,7 @@ class NodeSaveEventSubscriber implements EventSubscriberInterface {
    * @param EntityInsertEvent $event
    *
    */
-  public function insertMarkSold(EntityInsertEvent $event) {
+  public function invoiceInsertMarkSold(EntityInsertEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
@@ -44,7 +51,7 @@ class NodeSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param EntityUpdateEvent $event
    */
-  public function updateMarkSold(EntityUpdateEvent $event) {
+  public function invoiceUpdateMarkSold(EntityUpdateEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
@@ -57,7 +64,7 @@ class NodeSaveEventSubscriber implements EventSubscriberInterface {
    * @param EntityPresaveEvent $event
    *
    */
-  public function markAvailable(EntityPresaveEvent $event) {
+  public function invoiceMarkAvailable(EntityPresaveEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
@@ -70,7 +77,7 @@ class NodeSaveEventSubscriber implements EventSubscriberInterface {
    * paid/unpaid as dictated by the parameter.
    *
    * @param Node $entity
-   * @param bool $paid
+   * @param bool $sold
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */

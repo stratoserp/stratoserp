@@ -7,6 +7,13 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class PaymentLinePresaveEventSubscriber
+ *
+ * When a node with item lines is saved, recalculate the total of the node.
+ *
+ * @package Drupal\se_payment_line\EventSubscriber
+ */
 class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
 
   /**

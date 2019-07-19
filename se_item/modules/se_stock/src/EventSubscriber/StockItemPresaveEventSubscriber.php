@@ -2,12 +2,18 @@
 
 namespace Drupal\se_stock\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class StockItemPresaveEventSubscriber
+ *
+ * Create 'parent' items for stock items if they don't already exist.
+ *
+ * @package Drupal\se_stock\EventSubscriber
+ */
 class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
 
   /**
@@ -15,7 +21,7 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemPresave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'stockItemPresave',
     ];
   }
 
@@ -25,7 +31,7 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param EntityPresaveEvent $event
    */
-  public function itemPresave(EntityPresaveEvent $event) {
+  public function stockItemPresave(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'se_item')) {
       return;

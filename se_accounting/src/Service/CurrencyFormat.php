@@ -49,4 +49,23 @@ class CurrencyFormat {
     return 0;
   }
 
+  /**
+   * Convert an cents string from storage to a raw format for graphing.
+   *
+   * @param string $value
+   *
+   * @return string
+   */
+  public function formatRaw(string $value) {
+
+    // Don't try and divide by zero
+    if (!empty($value)) {
+
+      // Format with thousands and decimals.
+      return sprintf('%0.2f', $value / 100);
+    }
+
+    return 0;
+  }
+
 }

@@ -8,6 +8,13 @@ use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class ItemLinePresaveEventSubscriber
+ *
+ * When a node with item lines is saved, recalculate the total of the node.
+ *
+ * @package Drupal\se_item_line\EventSubscriber
+ */
 class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
 
   /**

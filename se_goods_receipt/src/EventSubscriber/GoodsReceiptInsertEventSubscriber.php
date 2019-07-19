@@ -9,6 +9,13 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
+/**
+ * Class GoodsReceiptInsertEventSubscriber
+ *
+ * Update the items with the goods receipt number after it has been saved.
+ * 
+ * @package Drupal\se_goods_receipt\EventSubscriber
+ */
 class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
 
   /**

@@ -11,6 +11,15 @@ use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
+/**
+ * Class PaymentSaveEventSubscriber
+ *
+ * For each invoice in the payment, mark it as paid.
+ * For Customer balance updates -
+ * @see \Drupal\se_customer\EventSubscriber\AccountingSaveEventSubscriber
+ *
+ * @package Drupal\se_payment\EventSubscriber
+ */
 class PaymentSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
@@ -19,9 +28,9 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsertMarkPaid',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdateMarkPaid',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentMarkUnPaid'
+      HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsertMarkInvoicesPaid',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdateMarkInvoicesPaid',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentMarkInvoicesOutstanding'
     ];
   }
 
@@ -31,7 +40,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * @param EntityInsertEvent $event
    *
    */
-  public function paymentInsertMarkPaid(EntityInsertEvent $event) {
+  public function paymentInsertMarkInvoicesPaid(EntityInsertEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
@@ -44,7 +53,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param EntityUpdateEvent $event
    */
-  public function paymentUpdateMarkPaid(EntityUpdateEvent $event) {
+  public function paymentUpdateMarkInvoicesPaid(EntityUpdateEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
@@ -60,7 +69,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * @param EntityPresaveEvent $event
    *
    */
-  public function paymentMarkUnPaid(EntityPresaveEvent $event) {
+  public function paymentMarkInvoicesOutstanding(EntityPresaveEvent $event) {
     /** @var Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
