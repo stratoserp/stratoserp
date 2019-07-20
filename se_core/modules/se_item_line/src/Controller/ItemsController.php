@@ -19,39 +19,50 @@ class ItemsController extends ControllerBase {
     $trigger = $request->request->get('_triggering_element_name');
 
     // Which we can then use with a regular expression;
-    preg_match("/(field_(..)_items)\[(\d)\].*/", $trigger, $matches);
-    if (count($matches) < 4) {
+    preg_match("/(field_(..)_lines)\[(\d)\]\[(.*?)\].*/", $trigger, $matches);
+    if (count($matches) < 5) {
       return $response;
     }
 
     // To extract the fields we need.
-    [$field, $type, $index] = array_slice($matches, 1);
+    [$field, $type, $index, $trigger] = array_slice($matches, 1);
 
     // Load the chosen item
+    /** @var Item $item */
     if (!$item = Item::load($values[$field][$index]['target_id'])) {
       return $response;
     }
 
-    $item_price = $item->get('field_it_sell_price')->value;
+    // If the price field was the change, dont update the price.
+    if ($trigger !== 'price') {
+      $item_price = $item->field_it_sell_price->value;
 
-    // Create a new ajax response to set the price.
-    $response->addCommand(new InvokeCommand(
-      "form input[data-drupal-selector='edit-field-{$type}-items-{$index}-price']",
-      'val',
-      [\Drupal::service('se_accounting.currency_format')->formatDisplay($item_price)]
-    ));
+      // Create a new ajax response to set the price.
+      $response->addCommand(new InvokeCommand(
+        "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-price']",
+        'val',
+        [\Drupal::service('se_accounting.currency_format')->formatDisplay($item_price)]
+      ));
 
-    // TODO - Copy the items description to that field?
+      if (!empty($item->field_it_serial->value)) {
+        $response->addCommand(new InvokeCommand(
+          "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-serial']",
+          'val',
+          [$item->field_it_serial->value]
+        ));
+      }
+    }
 
     // Update the total
     $total = 0;
     foreach ($values[$field] as $index => $value) {
-      if (is_int($index)) {
-        if (!empty($value['price'])) {
-          $total += $value['quantity'] * $value['price'];
+      if (is_int($index) && !empty($value['target_id'])) {
+        $price = \Drupal::service('se_accounting.currency_format')->formatStorage($value['price']);
+        if (!empty($price)) {
+          $total += $value['quantity'] * $price;
         }
         else {
-          $total += $value['quantity'] * $item_price;
+          $total += $value['quantity'] * ($item_price ?? 0);
         }
       }
     }

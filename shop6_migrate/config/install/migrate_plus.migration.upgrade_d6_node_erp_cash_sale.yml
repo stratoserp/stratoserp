@@ -38,7 +38,7 @@ process:
   revision_timestamp: timestamp
   field_in_id: cash_sale_id
   field_bu_ref/target_id: business_ref
-  field_in_items: se_item_lines
+  field_in_lines: se_item_lines
   field_in_total: total
 destination:
   plugin: 'entity:node'

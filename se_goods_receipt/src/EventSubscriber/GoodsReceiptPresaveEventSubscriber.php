@@ -9,6 +9,14 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
+/**
+ * Class GoodsReceiptPresaveEventSubscriber
+ *
+ * Handle goods being received and create new stock items for the ones
+ * that have serial numbers.
+ *
+ * @package Drupal\se_goods_receipt\EventSubscriber
+ */
 class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
 
   /**
@@ -16,7 +24,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemsPresave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineNodePresave',
     ];
   }
 
@@ -29,7 +37,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
    *
    * TODO - Config option to generate serial numbers if blank?
    */
-  public function itemsPresave(EntityPresaveEvent $event) {
+  public function itemLineNodePresave(EntityPresaveEvent $event) {
     /** @var Node $entity */
     if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
       return;
@@ -40,8 +48,9 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
     }
 
     $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
-    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
+    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if (!empty($item_line->serial)) {
+        /** @var Item $item */
         if ($item = Item::load($item_line->target_id)) {
           if ($item->field_it_serial->value !== $item_line->serial) {
             $new_item = $item->createDuplicate();
@@ -49,7 +58,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
             $new_item->field_it_item_ref->target_id = $item->id();
             $new_item->save();
 
-            $entity->{$bundle_field_type . '_items'}[$index]->target_id = $new_item->id();
+            $entity->{$bundle_field_type . '_lines'}[$index]->target_id = $new_item->id();
           }
         }
       }

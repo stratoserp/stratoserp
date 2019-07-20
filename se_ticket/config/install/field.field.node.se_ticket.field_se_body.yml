@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_se_body
+    - node.type.se_ticket
+  module:
+    - text
+id: node.se_ticket.field_se_body
+field_name: field_se_body
+entity_type: node
+bundle: se_ticket
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

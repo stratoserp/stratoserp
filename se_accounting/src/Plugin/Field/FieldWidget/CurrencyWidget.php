@@ -28,8 +28,8 @@ class CurrencyWidget extends WidgetBase {
     $element += [
       '#type' => 'textfield',
       '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($value ?? 0),
-      '#size' => 7,
-      '#maxlength' => 7,
+      '#size' => 12,
+      '#maxlength' => 12,
 //      '#element_validate' => [
 //        [static::class, 'validate'],
 //      ],
@@ -45,7 +45,7 @@ class CurrencyWidget extends WidgetBase {
 
     foreach ($values as &$value) {
       if (isset($value['value'])) {
-        $value['value'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$value['value']);
+        $value['value'] = \Drupal::service('se_accounting.currency_format')->formatStorage($value['value']);
       }
     }
 

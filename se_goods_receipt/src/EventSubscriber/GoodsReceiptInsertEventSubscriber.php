@@ -9,6 +9,13 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
+/**
+ * Class GoodsReceiptInsertEventSubscriber
+ *
+ * Update the items with the goods receipt number after it has been saved.
+ * 
+ * @package Drupal\se_goods_receipt\EventSubscriber
+ */
 class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
 
   /**
@@ -38,7 +45,7 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
     }
 
     $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
-    foreach ($entity->{$bundle_field_type . '_items'} as $index => $item_line) {
+    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       /** @var Item $item */
       if ($item = Item::load($item_line->target_id)) {
         if ($item->bundle() !== 'se_stock') {

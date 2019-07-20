@@ -3,15 +3,15 @@ status: true
 dependencies:
   config:
     - core.entity_view_display.comment.comment.default
-    - field.field.node.se_invoice.body
     - field.field.node.se_invoice.field_bu_ref
     - field.field.node.se_invoice.field_co_ref
     - field.field.node.se_invoice.field_in_customer_order
     - field.field.node.se_invoice.field_in_id
-    - field.field.node.se_invoice.field_in_items
+    - field.field.node.se_invoice.field_in_lines
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
+    - field.field.node.se_invoice.field_se_body
     - field.field.node.se_invoice.field_se_comments
     - field.field.node.se_invoice.field_status_ref
     - node.type.se_invoice
@@ -33,13 +33,6 @@ targetEntityType: node
 bundle: se_invoice
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 10
-    settings: {  }
-    third_party_settings: {  }
-    region: bottom
   field_bu_ref:
     weight: 1
     label: inline
@@ -71,7 +64,7 @@ content:
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
-  field_in_items:
+  field_in_lines:
     weight: 8
     label: above
     settings: {  }
@@ -103,6 +96,13 @@ content:
     third_party_settings: {  }
     type: se_currency_formatter
     region: bottom
+  field_se_body:
+    label: hidden
+    type: text_default
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: bottom
   field_se_comments:
     weight: 11
     label: above
@@ -129,5 +129,6 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_invoice_statistics_monthly: true
-  extra_field_ticket_statistics_customer: true
+  extra_field_customer_invoice_statistics: true
+  extra_field_customer_quote_statistics: true
+  extra_field_customer_ticket_statistics: true

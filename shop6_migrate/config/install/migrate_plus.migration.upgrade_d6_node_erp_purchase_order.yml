@@ -38,7 +38,7 @@ process:
   revision_timestamp: timestamp
   field_po_id: purchase_order_id
   field_bu_ref/target_id: business_ref
-  field_po_items: se_item_lines
+  field_po_lines: se_item_lines
   field_status_ref: status_ref
   field_po_total: total
   field_po_quote_ref/target_id: quote_ref

@@ -9,6 +9,7 @@ dependencies:
     - node.type.se_goods_receipt
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_status
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:

@@ -3,12 +3,12 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_quote.body
     - field.field.node.se_quote.field_bu_ref
     - field.field.node.se_quote.field_co_ref
     - field.field.node.se_quote.field_qu_id
-    - field.field.node.se_quote.field_qu_items
+    - field.field.node.se_quote.field_qu_lines
     - field.field.node.se_quote.field_qu_total
+    - field.field.node.se_quote.field_se_body
     - field.field.node.se_quote.field_se_comments
     - field.field.node.se_quote.field_status_ref
     - node.type.se_quote
@@ -26,7 +26,7 @@ targetEntityType: node
 bundle: se_quote
 mode: teaser
 content:
-  body:
+  field_se_body:
     label: hidden
     type: text_summary_or_trimmed
     weight: 101
@@ -41,13 +41,14 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_invoice_statistics_monthly: true
+  extra_field_customer_invoice_statistics: true
+  extra_field_customer_quote_statistics: true
   extra_field_ticket_statistics: true
-  extra_field_ticket_statistics_customer: true
+  extra_field_customer_ticket_statistics: true
   field_bu_ref: true
   field_co_ref: true
   field_qu_id: true
-  field_qu_items: true
+  field_qu_lines: true
   field_qu_total: true
   field_se_comments: true
   field_status_ref: true

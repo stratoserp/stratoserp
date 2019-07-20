@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_in_id
     - field.storage.node.field_in_total
     - node.type.se_invoice
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:

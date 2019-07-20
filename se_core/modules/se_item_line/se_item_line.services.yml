@@ -1,5 +1,10 @@
 services:
-  se_item_line.node_presave:
+  se_item_line.item_line_presave:
     class: Drupal\se_item_line\EventSubscriber\ItemLinePresaveEventSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  se_item_line.node_save:
+    class: Drupal\se_item_line\EventSubscriber\InvoiceSaveEventSubscriber
     tags:
       - { name: event_subscriber }

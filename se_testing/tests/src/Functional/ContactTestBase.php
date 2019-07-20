@@ -18,6 +18,7 @@ class ContactTestBase extends FunctionalTestBase {
 
   protected function setUp() {
     parent::setUp();
+    $this->customerFakerSetup();
     $this->contactFakerSetup();
   }
 

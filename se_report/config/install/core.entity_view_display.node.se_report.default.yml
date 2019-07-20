@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_report.body
     - field.field.node.se_report.field_bu_ref
     - field.field.node.se_report.field_re_json_data
     - field.field.node.se_report.field_re_parameters
     - field.field.node.se_report.field_re_raw_data
+    - field.field.node.se_report.field_se_body
     - node.type.se_report
   module:
     - field_layout
@@ -23,13 +23,6 @@ targetEntityType: node
 bundle: se_report
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   field_bu_ref:
     weight: 1
     label: inline
@@ -59,6 +52,13 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
+  field_se_body:
+    label: hidden
+    type: text_default
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   links:
     weight: 0
     region: content
@@ -68,5 +68,7 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_invoice_statistics_monthly: true
-  extra_field_ticket_statistics_customer: true
+  extra_field_customer_purchase_order_statistics: true
+  extra_field_customer_invoice_statistics: true
+  extra_field_customer_quote_statistics: true
+  extra_field_customer_ticket_statistics: true

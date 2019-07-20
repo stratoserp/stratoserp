@@ -26,14 +26,24 @@ trait TicketTestTrait {
     $this->ticket->postcode      = $this->faker->postcode;
     $this->ticket->url           = $this->faker->url;
     $this->ticket->companyEmail  = $this->faker->companyEmail;
+    $this->ticket->body          = $this->faker->paragraphs(random_int(3, 15));
     error_reporting($original);
   }
 
-  public function addTicket() {
+  /**
+   * Add a ticket and set the customer to the value passed in.
+   *
+   * @param null $customer
+   *
+   * @return \Drupal\node\Entity\Node
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function addTicket($customer = NULL) {
     /** @var Node $node */
     $node = $this->createNode([
       'type' => 'se_ticket',
       'title' => $this->ticket->name,
+      'field_bu_ref' => $customer,
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());
@@ -47,5 +57,8 @@ trait TicketTestTrait {
     return $node;
   }
 
+  public function deleteTicket(Node $ticket, bool $allowed) {
+    $this->deleteNode($ticket, $allowed);
+  }
 
 }

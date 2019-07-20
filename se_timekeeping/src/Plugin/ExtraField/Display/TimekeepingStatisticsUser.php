@@ -7,11 +7,11 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 
 /**
- * Example Extra field with formatted output.
+ * Extra field to display User timekeeping statistics.
  *
  * @ExtraFieldDisplay(
- *   id = "timekeeping_statistics_user",
- *   label = @Translation("Timekeeping statistics per user"),
+ *   id = "user_timekeeping_statistics",
+ *   label = @Translation("User timekeeping statistics"),
  *   bundles = {
  *     "user.*",
  *   }
@@ -31,7 +31,7 @@ class TimekeepingStatisticsUser extends ExtraFieldDisplayFormattedBase {
 
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('timekeeping_statistics_user', [])
+      ->createInstance('user_timekeeping_statistics', [])
       ->build()) {
       return [];
     }

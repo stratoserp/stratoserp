@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_qu_id
     - field.storage.node.field_qu_total
     - node.type.se_quote
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:

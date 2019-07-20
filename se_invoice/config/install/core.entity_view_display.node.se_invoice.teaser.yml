@@ -3,15 +3,15 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_invoice.body
     - field.field.node.se_invoice.field_bu_ref
     - field.field.node.se_invoice.field_co_ref
     - field.field.node.se_invoice.field_in_customer_order
     - field.field.node.se_invoice.field_in_id
-    - field.field.node.se_invoice.field_in_items
+    - field.field.node.se_invoice.field_in_lines
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
+    - field.field.node.se_invoice.field_se_body
     - field.field.node.se_invoice.field_se_comments
     - field.field.node.se_invoice.field_status_ref
     - node.type.se_invoice
@@ -29,7 +29,7 @@ targetEntityType: node
 bundle: se_invoice
 mode: teaser
 content:
-  body:
+  field_se_body:
     label: hidden
     type: text_summary_or_trimmed
     weight: 101
@@ -44,13 +44,14 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_invoice_statistics_monthly: true
-  extra_field_ticket_statistics_customer: true
+  extra_field_customer_invoice_statistics: true
+  extra_field_customer_quote_statistics: true
+  extra_field_customer_ticket_statistics: true
   field_bu_ref: true
   field_co_ref: true
   field_in_customer_order: true
   field_in_id: true
-  field_in_items: true
+  field_in_lines: true
   field_in_quote_ref: true
   field_in_sent: true
   field_in_total: true

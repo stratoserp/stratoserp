@@ -109,21 +109,21 @@ class NodeController extends ControllerBase {
     $entity_ids = $query->execute();
 
     // Build a list of outstanding invoices and make payment lines out of them.
+    $lines = [];
     foreach ($entity_ids as $id) {
+      /** @var \Drupal\node\Entity\Node $invoice */
       if ($invoice = $this->entityTypeManager()->getStorage('node')->load($id)) {
-        $invoice = [
+        $line = [
           'target_id' => $invoice->id(),
-          'target_type' => $invoice->bundle(),
-          'amount'  => $invoice->field_in_total,
-          'payment_type' => $payment_term,
+          'target_type' => 'node',
+          'amount'  => $invoice->field_in_total->value,
+          'payment_type' => $payment_term->id(),
         ];
-        $node->{'field_pa_items'}->appendItem($invoice);
-
-        $total += $invoice->field_in_total->value;
+        $lines[] = $line;
       }
     }
 
-    $node->field_pa_total->value = $total;
+    $node->{'field_pa_lines'} = $lines;
 
     return $this->entityFormBuilder()->getForm($node);
   }

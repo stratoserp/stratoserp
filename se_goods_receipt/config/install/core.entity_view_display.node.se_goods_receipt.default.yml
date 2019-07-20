@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - core.entity_view_display.comment.comment.default
-    - field.field.node.se_goods_receipt.body
     - field.field.node.se_goods_receipt.field_bu_ref
     - field.field.node.se_goods_receipt.field_co_ref
     - field.field.node.se_goods_receipt.field_gr_id
-    - field.field.node.se_goods_receipt.field_gr_items
+    - field.field.node.se_goods_receipt.field_gr_lines
     - field.field.node.se_goods_receipt.field_gr_purchase_order_ref
     - field.field.node.se_goods_receipt.field_gr_total
+    - field.field.node.se_goods_receipt.field_se_body
     - field.field.node.se_goods_receipt.field_se_comments
     - field.field.node.se_goods_receipt.field_status_ref
     - node.type.se_goods_receipt
@@ -31,13 +31,6 @@ targetEntityType: node
 bundle: se_goods_receipt
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 8
-    settings: {  }
-    third_party_settings: {  }
-    region: bottom
   field_bu_ref:
     weight: 1
     label: inline
@@ -61,7 +54,7 @@ content:
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
-  field_gr_items:
+  field_gr_lines:
     weight: 6
     label: above
     settings: {  }
@@ -83,6 +76,13 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
+  field_se_body:
+    label: hidden
+    type: text_default
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    region: bottom
   field_se_comments:
     weight: 9
     label: above
@@ -109,5 +109,7 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_invoice_statistics_monthly: true
-  extra_field_ticket_statistics_customer: true
+  extra_field_customer_purchase_order_statistics: true
+  extra_field_customer_invoice_statistics: true
+  extra_field_customer_quote_statistics: true
+  extra_field_customer_ticket_statistics: true

@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_bi_id
     - node.type.se_bill
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:

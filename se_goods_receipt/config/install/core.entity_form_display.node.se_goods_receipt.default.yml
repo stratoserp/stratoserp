@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_goods_receipt.body
     - field.field.node.se_goods_receipt.field_bu_ref
     - field.field.node.se_goods_receipt.field_co_ref
     - field.field.node.se_goods_receipt.field_gr_id
-    - field.field.node.se_goods_receipt.field_gr_items
+    - field.field.node.se_goods_receipt.field_gr_lines
     - field.field.node.se_goods_receipt.field_gr_purchase_order_ref
     - field.field.node.se_goods_receipt.field_gr_total
+    - field.field.node.se_goods_receipt.field_se_body
     - field.field.node.se_goods_receipt.field_se_comments
     - field.field.node.se_goods_receipt.field_status_ref
     - node.type.se_goods_receipt
@@ -30,15 +30,6 @@ targetEntityType: node
 bundle: se_goods_receipt
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 8
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: bottom
   field_bu_ref:
     weight: 1
     settings:
@@ -63,7 +54,7 @@ content:
     third_party_settings: {  }
     type: serial_default_widget
     region: second
-  field_gr_items:
+  field_gr_lines:
     weight: 6
     settings:
       match_operator: CONTAINS
@@ -87,6 +78,15 @@ content:
     region: bottom
     settings: {  }
     third_party_settings: {  }
+  field_se_body:
+    type: text_textarea
+    weight: 8
+    settings:
+      rows: 5
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    region: bottom
   field_se_comments:
     weight: 9
     settings: {  }

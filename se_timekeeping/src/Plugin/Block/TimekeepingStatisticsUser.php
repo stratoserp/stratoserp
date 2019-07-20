@@ -10,7 +10,7 @@ use Drupal\se_report\ReportUtilityTrait;
 /**
  * Provides a "Timekeeping statistics user" block.
  * @Block(
- *   id = "timekeeping_statistics_user",
+ *   id = "user_timekeeping_statistics",
  *   admin_label = @Translation("Timekeeping statistics per user"),
  * )
  */
@@ -71,7 +71,7 @@ class TimekeepingStatisticsUser extends BlockBase {
       ];
     }
 
-    $build['timekeeping_statistics_user'] = [
+    $build['user_timekeeping_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -85,7 +85,7 @@ class TimekeepingStatisticsUser extends BlockBase {
           'mode' => 'dataset'
         ],
       ],
-      '#id' => 'timekeeping_statistics_user',
+      '#id' => 'user_timekeeping_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

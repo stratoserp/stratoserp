@@ -3,12 +3,7 @@ services:
     class: Drupal\se_customer\Service\CustomerService
     arguments: ['@config.factory', '@entity_type.manager']
 
-  se_customer.invoice_save:
-    class: Drupal\se_customer\EventSubscriber\InvoiceSaveEventSubscriber
-    tags:
-      - { name: event_subscriber }
-
-  se_customer.payment_save:
-    class: Drupal\se_customer\EventSubscriber\PaymentSaveEventSubscriber
+  se_customer.accounting_save:
+    class: Drupal\se_customer\EventSubscriber\AccountingSaveEventSubscriber
     tags:
       - { name: event_subscriber }

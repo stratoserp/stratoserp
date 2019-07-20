@@ -87,11 +87,11 @@ class NodeController extends ControllerBase {
       'type' => $node_type->id(),
     ]);
 
-    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_items'} as $index => $item_line) {
+    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item_line) {
       // TODO - Ensure we're using the non-serialised item here?
       $item_count = $item_line->quantity;
       for ($i = 0; $i < $item_count; $i++) {
-        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_items'}->appendItem($item_line);
+        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item_line);
       }
     }
 

@@ -17,6 +17,7 @@ class MonthlyStatistics extends BlockBase {
   use ReportUtilityTrait;
 
   public function build() {
+    $content = FALSE;
     $datasets = [];
     $connection = \Drupal::database();
 
@@ -36,8 +37,11 @@ class MonthlyStatistics extends BlockBase {
         $query->condition('nfd.created', $timestamps['end'], '<');
         $query->groupBy('nfd.type');
         $result = $query->execute()->fetchAssoc();
+        if ($result && count($result)) {
+          $content = TRUE;
+        }
 
-        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($result['total'] ?? 0);
+        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($result['total'] ?? 0);
         $fg_colors[] = $fg_color;
       }
 
@@ -54,6 +58,10 @@ class MonthlyStatistics extends BlockBase {
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
       ];
+    }
+
+    if (!$content) {
+      return [];
     }
 
     $build['monthly_statistics'] = [

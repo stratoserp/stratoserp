@@ -15,7 +15,7 @@ use Drupal\dynamic_entity_reference\Plugin\Field\FieldType\DynamicEntityReferenc
  * @FieldType(
  *   id = "se_item_line",
  *   label = @Translation("Item line"),
- *   description = @Translation("An item line extension to the dynamic entity reference."),
+ *   description = @Translation("An item line extension to the dynamic entity reference field."),
  *   category = @Translation("StratosERP"),
  *   list_class = "\Drupal\se_item_line\Plugin\Field\FieldType\ItemLineFieldItemList",
  *   default_widget = "se_item_line_widget",

@@ -16,9 +16,6 @@ class ContactCrudTest extends ContactTestBase {
 
   public function testContactAdd() {
 
-    $this->contactFakerSetup();
-    $this->customerFakerSetup();
-
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
@@ -37,6 +34,7 @@ class ContactCrudTest extends ContactTestBase {
 
     // Create a contact for testing.
     $this->drupalLogin($staff);
+    $test_customer = $this->addCustomer();
     $contact = $this->addContact();
     $this->drupalLogout();
 

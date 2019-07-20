@@ -45,6 +45,18 @@ class CurrencyTest extends UnitTestCase {
   }
 
   /**
+   * Tests CurrencyRaw.
+   *
+   * @dataProvider currencyRawProvider
+   *
+   * @param $input
+   * @param $expected
+   */
+  public function testCurrencyRaw($input, $expected) {
+    $this->assertEquals($expected, $this->currencyFormatService->formatRaw($input));
+  }
+
+  /**
    * Data provider for testCurrencyStorage
    */
   public function currencyStorageProvider() {
@@ -63,6 +75,17 @@ class CurrencyTest extends UnitTestCase {
       [100, '1.00'],
       [100000,'1,000.00'],
       [123456, '1,234.56']
+    ];
+  }
+
+  /**
+   * Data provider for testCurrencyDisplay
+   */
+  public function currencyRawProvider() {
+    return [
+      [100, '1.00'],
+      [100000,'1000.00'],
+      [123456, '1234.56']
     ];
   }
 

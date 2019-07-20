@@ -19,31 +19,29 @@ class CustomerCrudTest extends CustomerTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $customer = $this->addCustomer();
+    $this->addCustomer();
 
     $this->drupalLogout();
   }
 
   public function testCustomerDelete() {
 
-    $this->customerFakerSetup();
-
     $staff = $this->setupStaffUser();
     $customer = $this->setupCustomerUser();
 
     // Create a contact for testing.
     $this->drupalLogin($staff);
-    $contact = $this->addCustomer();
+    $test_customer = $this->addCustomer();
     $this->drupalLogout();
 
     // Ensure customer can't delete customers.
     $this->drupalLogin($customer);
-    $this->deleteCustomer($contact, FALSE);
+    $this->deleteCustomer($test_customer, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can delete customers.
     $this->drupalLogin($staff);
-    $this->deleteCustomer($contact, TRUE);
+    $this->deleteCustomer($test_customer, TRUE);
     $this->drupalLogout();
 
   }

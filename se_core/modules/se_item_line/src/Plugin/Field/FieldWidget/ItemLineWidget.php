@@ -15,7 +15,7 @@ use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityRefere
  *
  * @FieldWidget(
  *   id = "se_item_line_widget",
- *   label = @Translation("Line item widget"),
+ *   label = @Translation("Item line widget"),
  *   field_types = {
  *     "se_item_line"
  *   }
@@ -29,6 +29,9 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $build = parent::formElement($items, $delta, $element, $form, $form_state);
 
+    $host_entity = $items->getEntity();
+    $host_type = $host_entity->bundle();
+
     // Put a new quantity field first.
     $build['quantity'] = [
       '#type' => 'textfield',
@@ -36,6 +39,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#size' => 8,
       '#maxlength' => 8,
       '#weight' => 4,
+      '#ajax' => [
+        'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
+        'event' => 'change',
+        'progress' => FALSE,
+      ],
     ];
 
     // Changes to the target type field.
@@ -52,41 +60,51 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       'progress' => FALSE,
     ];
 
+    // Display the serial field.
+    $build['serial'] = [
+      '#type' => 'textfield',
+      '#default_value' => $items[$delta]->serial,
+      '#size' => 10,
+      '#maxlength' => 20,
+      '#weight' => 20,
+      '#attributes' => [
+        'placeholder' => t('Serial')
+      ]
+    ];
+    if ($host_type !== 'se_goods_receipt') {
+      // Disable serial field unless its a good receipt.
+      $build['serial']['#disabled'] = TRUE;
+    }
+
+    if ($host_type === 'se_invoice') {
+      // When the service/item was completed/delivered/done
+      $date = new DrupalDateTime($items[$delta]->completed_date);
+      $build['completed_date'] = [
+        '#type' => 'datetime',
+        '#date_time_element' => 'none',
+        '#default_value' => $date,
+        '#weight' => 30,
+        '#date_timezone' => drupal_get_user_timezone(),
+        '#description' => t('Completed date'),
+      ];
+    }
+
     // Add a new price field.
     $build['price'] = [
       '#type' => 'textfield',
       '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price ?: 0),
       '#size' => 10,
       '#maxlength' => 20,
-      '#weight' => 15,
+      '#weight' => 40,
       '#required' => TRUE,
       '#attributes' => [
         'placeholder' => t('Price')
-      ]
-    ];
-
-    // Display the serial field, but don't allow input
-    $build['serial'] = [
-      '#type' => 'textfield',
-      '#default_value' => $items[$delta]->serial,
-      '#size' => 10,
-      '#maxlength' => 20,
-      '#weight' => 12,
-      '#disabled' => TRUE,
-      '#attributes' => [
-        'placeholder' => t('Serial')
-      ]
-    ];
-
-    // When the service/item was completed/delivered/done
-    $date = new DrupalDateTime($items[$delta]->completed_date);
-    $build['completed_date'] = [
-      '#type' => 'datetime',
-      '#date_time_element' => 'none',
-      '#default_value' => $date,
-      '#weight' => 10,
-      '#date_timezone' => drupal_get_user_timezone(),
-      '#description' => t('Completed date')
+      ],
+      '#ajax' => [
+        'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
+        'event' => 'change',
+        'progress' => FALSE,
+      ],
     ];
 
     // Add a textarea for notes.
@@ -95,10 +113,29 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#default_value' => $items[$delta]->note ?? '',
       '#rows' => 2,
       '#cols' => 30,
-      '#weight' => 20
+      '#weight' => 60,
     ];
 
-    // $build['#theme'] = 'se_item_line_widget';
+    // TODO This is a bit icky, how to do better.
+    $build['left_prefix'] = [
+      '#weight' => 1,
+      '#suffix' => '<div class="se-item-line-left">',
+    ];
+
+    $build['left_suffix'] = [
+      '#weight' => 49,
+      '#suffix' => '</div>',
+    ];
+
+    $build['right_prefix'] = [
+      '#weight' => 50,
+      '#suffix' => '<div class="se-item-line-right">',
+    ];
+
+    $build['right_suffix'] = [
+      '#weight' => 99,
+      '#suffix' => '</div>',
+    ];
 
     return $build;
   }
@@ -115,11 +152,14 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       // TODO - Get this working in the ItemLineType setValue()
       // instead of here.
       $date = $line['completed_date'];
-      $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+      $storage_date = '';
+      if (!empty($date)) {
+        $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+      }
       $new_values[$index]['note'] = $line['note']['value'];
       $new_values[$index]['format'] = $line['note']['format'];
       $new_values[$index]['completed_date'] = $storage_date;
-      $new_values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage((float)$line['price']);
+      $new_values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
     }
 
     return $new_values;
