@@ -6,7 +6,7 @@ dependencies:
     - node.type.se_goods_receipt
   module:
     - text
-id: node.se_goods_receipt.body
+id: node.se_goods_receipt.field_se_body
 field_name: field_se_body
 entity_type: node
 bundle: se_goods_receipt
@@ -16,6 +16,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  display_summary: false
+settings: {  }
 field_type: text_long

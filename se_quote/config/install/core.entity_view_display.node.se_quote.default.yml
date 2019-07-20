@@ -3,12 +3,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_display.comment.comment.default
-    - field.field.node.se_quote.field_se_body
     - field.field.node.se_quote.field_bu_ref
     - field.field.node.se_quote.field_co_ref
     - field.field.node.se_quote.field_qu_id
     - field.field.node.se_quote.field_qu_lines
     - field.field.node.se_quote.field_qu_total
+    - field.field.node.se_quote.field_se_body
     - field.field.node.se_quote.field_se_comments
     - field.field.node.se_quote.field_status_ref
     - node.type.se_quote
@@ -30,13 +30,6 @@ targetEntityType: node
 bundle: se_quote
 mode: default
 content:
-  field_se_body:
-    label: hidden
-    type: text_default
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    region: bottom
   field_bu_ref:
     weight: 1
     label: inline
@@ -74,6 +67,13 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
+  field_se_body:
+    label: hidden
+    type: text_default
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    region: bottom
   field_se_comments:
     weight: 8
     label: above
@@ -101,5 +101,6 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   extra_field_invoice_statistics_monthly: true
+  extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics: true
   extra_field_ticket_statistics_customer: true

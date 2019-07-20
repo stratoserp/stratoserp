@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_invoice.field_se_body
     - field.field.node.se_invoice.field_bu_ref
     - field.field.node.se_invoice.field_co_ref
     - field.field.node.se_invoice.field_in_customer_order
@@ -11,6 +10,7 @@ dependencies:
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
+    - field.field.node.se_invoice.field_se_body
     - field.field.node.se_invoice.field_se_comments
     - field.field.node.se_invoice.field_status_ref
     - node.type.se_invoice
@@ -32,15 +32,6 @@ targetEntityType: node
 bundle: se_invoice
 mode: default
 content:
-  field_se_body:
-    type: text_textarea
-    weight: 10
-    settings:
-      rows: 5
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: bottom
   field_bu_ref:
     weight: 1
     settings:
@@ -103,6 +94,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: se_currency_widget
+    region: bottom
+  field_se_body:
+    type: text_textarea
+    weight: 10
+    settings:
+      rows: 5
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
     region: bottom
   field_se_comments:
     weight: 11

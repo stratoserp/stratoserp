@@ -61,6 +61,7 @@ third_party_settings:
     group_cu_tab_tickets:
       children:
         - se_ticket_eva_entity_view_1
+        - extra_field_ticket_statistics_customer
       parent_name: group_cu_tabs
       weight: 9
       format_type: tab
@@ -129,6 +130,7 @@ third_party_settings:
     group_cu_tab_invoices:
       children:
         - se_invoice_eva_entity_view_1
+        - extra_field_invoice_statistics_monthly
       parent_name: group_cu_tabs
       weight: 10
       format_type: tab
@@ -142,6 +144,7 @@ third_party_settings:
     group_cu_tab_purchase_orders:
       children:
         - se_purchase_order_eva_entity_view_1
+        - extra_field_customer_purchase_order_statistics
       parent_name: group_cu_tabs
       weight: 13
       format_type: tab
@@ -155,6 +158,7 @@ third_party_settings:
     group_cu_tab_quotes:
       children:
         - se_quote_eva_entity_view_1
+        - extra_field_quote_statistics_monthly
       parent_name: group_cu_tabs
       weight: 14
       format_type: tab
@@ -225,13 +229,33 @@ targetEntityType: node
 bundle: se_customer
 mode: default
 content:
+  extra_field_customer_purchase_order_statistics:
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   extra_field_invoice_statistics:
     weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
+  extra_field_invoice_statistics_monthly:
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  extra_field_quote_statistics_monthly:
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   extra_field_ticket_statistics:
     weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  extra_field_ticket_statistics_customer:
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -492,5 +516,3 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_invoice_statistics_monthly: true
-  extra_field_ticket_statistics_customer: true

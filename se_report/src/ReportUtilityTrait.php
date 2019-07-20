@@ -329,6 +329,7 @@ trait ReportUtilityTrait {
     $bg[] = empty($green) ? $start - $adjustment : $green;
     $bg[] = empty($blue) ? $start - $adjustment : $blue;
 
+    // Make fg just a derivative of the bg for now.
     foreach ($bg as $color) {
       $fg[] = max(10, $color - 20);
     }

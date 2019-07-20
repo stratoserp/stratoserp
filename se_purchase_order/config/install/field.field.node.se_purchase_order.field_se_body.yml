@@ -6,7 +6,7 @@ dependencies:
     - node.type.se_purchase_order
   module:
     - text
-id: node.se_purchase_order.body
+id: node.se_purchase_order.field_se_body
 field_name: field_se_body
 entity_type: node
 bundle: se_purchase_order
@@ -16,6 +16,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  display_summary: false
+settings: {  }
 field_type: text_long

@@ -1,25 +1,35 @@
 <?php
 
-namespace Drupal\se_report\Plugin\Block;
+namespace Drupal\se_quote\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "Monthly statistics" block.
+ * Provides a "Quote statistics monthly" block.
  * @Block(
- *   id = "monthly_statistics",
- *   admin_label = @Translation("Monthly statistics"),
+ *   id = "quote_statistics_monthly",
+ *   admin_label = @Translation("Quote statistics monthly per customer"),
  * )
  */
-class MonthlyStatistics extends BlockBase {
+class QuoteStatisticsMonthly extends BlockBase {
 
   use ReportUtilityTrait;
 
   public function build() {
     $content = FALSE;
     $datasets = [];
-    $connection = \Drupal::database();
+
+    /** @var EntityInterface $node */
+    if (!$node = $this->get_current_controller_entity()) {
+      return [];
+    }
+
+    if ($node->bundle() !== 'se_customer') {
+      return [];
+    }
 
     for ($i = 5; $i >= 0 ; $i--) {
       $year = date('Y') - $i;
@@ -28,20 +38,21 @@ class MonthlyStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
-        $query = $connection->select('node_field_data', 'nfd');
-        $query->fields('nfd', ['type']);
-        $query->leftjoin('node__field_in_total', 'nft', 'nfd.nid = nft.entity_id AND nfd.vid = nft.revision_id');
-        $query->addExpression('SUM(field_in_total_value)', 'total');
-        $query->condition('nfd.type', 'se_invoice');
-        $query->condition('nfd.created', $timestamps['start'], '>=');
-        $query->condition('nfd.created', $timestamps['end'], '<');
-        $query->groupBy('nfd.type');
-        $result = $query->execute()->fetchAssoc();
-        if ($result && count($result)) {
-          $content = TRUE;
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'se_quote');
+        $query->condition('field_bu_ref', $node->id());
+        $query->condition('created', $timestamps['start'], '>=');
+        $query->condition('created', $timestamps['end'], '<');
+        $entity_ids = $query->execute();
+        $quotes = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->loadMultiple($entity_ids);
+        $total = 0;
+        /** @var Node $quote */
+        foreach ($quotes as $quote) {
+          $total += $quote->field_in_total->value;
         }
-
-        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($result['total'] ?? 0);
+        $month_data[] = $total;
         $fg_colors[] = $fg_color;
       }
 
@@ -64,7 +75,7 @@ class MonthlyStatistics extends BlockBase {
       return [];
     }
 
-    $build['monthly_statistics'] = [
+    $build['quote_statistics_customer'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -78,11 +89,11 @@ class MonthlyStatistics extends BlockBase {
           'mode' => 'dataset'
         ],
       ],
-      '#id' => 'monthly_statistics',
+      '#id' => 'quote_statistics_customer',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,
-      ],
+      ]
     ];
 
     return $build;

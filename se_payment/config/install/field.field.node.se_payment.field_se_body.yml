@@ -6,7 +6,7 @@ dependencies:
     - node.type.se_payment
   module:
     - text
-id: node.se_payment.body
+id: node.se_payment.field_se_body
 field_name: field_se_body
 entity_type: node
 bundle: se_payment
@@ -16,6 +16,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  display_summary: true
+settings: {  }
 field_type: text_long

@@ -7,7 +7,7 @@ dependencies:
 id: node.field_se_body
 field_name: field_se_body
 entity_type: node
-type: text
+type: text_long
 settings: {  }
 module: text
 locked: false

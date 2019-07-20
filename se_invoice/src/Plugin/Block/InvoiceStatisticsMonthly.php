@@ -19,6 +19,7 @@ class InvoiceStatisticsMonthly extends BlockBase {
   use ReportUtilityTrait;
 
   public function build() {
+    $content = FALSE;
     $datasets = [];
 
     /** @var EntityInterface $node */
@@ -68,6 +69,10 @@ class InvoiceStatisticsMonthly extends BlockBase {
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
       ];
+    }
+
+    if (!$content) {
+      return [];
     }
 
     $build['invoice_statistics_customer'] = [

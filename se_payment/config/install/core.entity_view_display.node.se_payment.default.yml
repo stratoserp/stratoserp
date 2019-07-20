@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_display.comment.comment.default
-    - field.field.node.se_payment.field_se_body
     - field.field.node.se_payment.field_bu_ref
     - field.field.node.se_payment.field_pa_id
     - field.field.node.se_payment.field_pa_lines
     - field.field.node.se_payment.field_pa_total
+    - field.field.node.se_payment.field_se_body
     - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
   module:
@@ -28,13 +28,6 @@ targetEntityType: node
 bundle: se_payment
 mode: default
 content:
-  field_se_body:
-    label: hidden
-    type: text_default
-    weight: 5
-    settings: {  }
-    third_party_settings: {  }
-    region: bottom
   field_bu_ref:
     weight: 1
     label: inline
@@ -64,6 +57,13 @@ content:
     third_party_settings: {  }
     type: se_currency_formatter
     region: bottom
+  field_se_body:
+    label: hidden
+    type: text_default
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    region: bottom
   field_se_comments:
     weight: 6
     label: above
@@ -82,5 +82,7 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_customer_purchase_order_statistics: true
   extra_field_invoice_statistics_monthly: true
+  extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics_customer: true

@@ -3,12 +3,12 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_quote.field_se_body
     - field.field.node.se_quote.field_bu_ref
     - field.field.node.se_quote.field_co_ref
     - field.field.node.se_quote.field_qu_id
     - field.field.node.se_quote.field_qu_lines
     - field.field.node.se_quote.field_qu_total
+    - field.field.node.se_quote.field_se_body
     - field.field.node.se_quote.field_se_comments
     - field.field.node.se_quote.field_status_ref
     - node.type.se_quote
@@ -42,6 +42,7 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   extra_field_invoice_statistics_monthly: true
+  extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics: true
   extra_field_ticket_statistics_customer: true
   field_bu_ref: true

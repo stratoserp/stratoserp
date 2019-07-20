@@ -22,7 +22,7 @@ class QuoteStatisticsUser extends ExtraFieldDisplayFormattedBase {
   use StringTranslationTrait;
 
   public function getLabel() {
-    return $this->t('User invoice statistics');
+    return $this->t('User quote statistics');
   }
 
   public function getLabelDisplay() {

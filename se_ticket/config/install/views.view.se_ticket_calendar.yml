@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
     - field.storage.node.field_ti_open_date
     - field.storage.node.field_ti_owner_ref
     - field.storage.node.field_ti_scheduled
@@ -18,7 +17,6 @@ dependencies:
     - fullcalendar_view
     - node
     - taxonomy
-    - text
     - user
 id: se_ticket_calendar
 label: Calendar

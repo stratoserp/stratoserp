@@ -7,6 +7,7 @@ dependencies:
     - field.storage.node.field_co_type_ref
     - node.type.se_contact
     - system.menu.stratos-erp
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:

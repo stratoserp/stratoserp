@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_po_id
     - field.storage.node.field_po_total
     - node.type.se_purchase_order
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:

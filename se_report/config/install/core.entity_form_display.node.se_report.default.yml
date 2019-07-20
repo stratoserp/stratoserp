@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_report.field_se_body
     - field.field.node.se_report.field_bu_ref
     - field.field.node.se_report.field_re_json_data
     - field.field.node.se_report.field_re_parameters
     - field.field.node.se_report.field_re_raw_data
+    - field.field.node.se_report.field_se_body
     - node.type.se_report
   module:
     - field_layout
@@ -23,15 +23,6 @@ targetEntityType: node
 bundle: se_report
 mode: default
 content:
-  field_se_body:
-    type: text_textarea
-    weight: 121
-    settings:
-      rows: 5
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 10
@@ -70,6 +61,15 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
+  field_se_body:
+    type: text_textarea
+    weight: 121
+    settings:
+      rows: 5
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
     region: content
   path:
     type: path

@@ -62,7 +62,7 @@ class FunctionalTestBase extends TestCase {
   }
 
   /**
-   * Deleting a contact.
+   * Deleting a node.
    *
    * @param \Drupal\node\Entity\Node $node
    * @param bool $allowed

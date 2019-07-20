@@ -13,7 +13,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *   id = "invoice_statistics_monthly",
  *   label = @Translation("Invoice statistics"),
  *   bundles = {
- *     "node.*",
+ *     "node.se_customer",
  *   }
  * )
  */

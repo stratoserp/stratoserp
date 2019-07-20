@@ -3,7 +3,6 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_invoice.field_se_body
     - field.field.node.se_invoice.field_bu_ref
     - field.field.node.se_invoice.field_co_ref
     - field.field.node.se_invoice.field_in_customer_order
@@ -12,6 +11,7 @@ dependencies:
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
+    - field.field.node.se_invoice.field_se_body
     - field.field.node.se_invoice.field_se_comments
     - field.field.node.se_invoice.field_status_ref
     - node.type.se_invoice
@@ -45,6 +45,7 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   extra_field_invoice_statistics_monthly: true
+  extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics_customer: true
   field_bu_ref: true
   field_co_ref: true

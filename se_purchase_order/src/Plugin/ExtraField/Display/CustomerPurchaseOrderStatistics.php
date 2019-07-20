@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_ticket\Plugin\ExtraField\Display;
+namespace Drupal\se_purchase_order\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -10,19 +10,19 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "ticket_statistics_customer",
- *   label = @Translation("Ticket statistics per customer"),
+ *   id = "customer_purchase_order_statistics",
+ *   label = @Translation("Customer purchase order statistics"),
  *   bundles = {
  *     "node.se_customer",
  *   }
  * )
  */
-class TicketStatisticsCustomer extends ExtraFieldDisplayFormattedBase {
+class CustomerPurchaseOrderStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
   public function getLabel() {
-    return $this->t('Ticket statistics');
+    return $this->t('Purchase order statistics');
   }
 
   public function getLabelDisplay() {
@@ -31,7 +31,7 @@ class TicketStatisticsCustomer extends ExtraFieldDisplayFormattedBase {
 
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('ticket_statistics_customer', [])
+      ->createInstance('customer_purchase_order_statistics', [])
       ->build()) {
       return [];
     }
