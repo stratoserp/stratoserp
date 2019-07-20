@@ -10,11 +10,11 @@ use Drupal\se_report\ReportUtilityTrait;
 /**
  * Provides a "Invoice statistics user" block.
  * @Block(
- *   id = "invoice_statistics_user",
+ *   id = "user_invoice_statistics",
  *   admin_label = @Translation("User invoice statistics"),
  * )
  */
-class InvoiceStatisticsUser extends BlockBase {
+class UserInvoiceStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 

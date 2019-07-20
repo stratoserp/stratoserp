@@ -20,7 +20,7 @@ class UniqueItemValidator extends ConstraintValidator {
       if ($result) {
         $nid = array_pop($result);
         // TODO - There is probably a better way to do this.
-        if ($nid != \Drupal::routeMatch()->getParameter('node')->nid->value) {
+        if ($nid !== \Drupal::routeMatch()->getParameter('node')->nid->value) {
           $this->context->addViolation($constraint->notUnique, ['%value' => $item->value]);
         }
       }

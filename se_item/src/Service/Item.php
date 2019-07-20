@@ -5,7 +5,7 @@ namespace Drupal\se_item\Service;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
-class SeItem {
+class Item {
   use StringTranslationTrait;
 
   /**
@@ -15,7 +15,7 @@ class SeItem {
    */
   protected $entityTypeManager;
 
-  function __construct(EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
   }
 

@@ -127,7 +127,7 @@ hidden:
   entity_print_view_word_docx: true
   extra_field_invoice_statistics: true
   extra_field_ticket_statistics: true
-  extra_field_ticket_statistics_customer: true
+  extra_field_customer_ticket_statistics: true
   extra_field_user_invoice_statistics: true
   field_attachments: true
   links: true

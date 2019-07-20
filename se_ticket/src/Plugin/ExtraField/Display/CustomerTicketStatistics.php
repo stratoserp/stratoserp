@@ -1,28 +1,28 @@
 <?php
 
-namespace Drupal\se_quote\Plugin\ExtraField\Display;
+namespace Drupal\se_ticket\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 
 /**
- * Example Extra field with formatted output.
+ * Extra field to display Customer ticket statistics.
  *
  * @ExtraFieldDisplay(
- *   id = "quote_statistics_user",
- *   label = @Translation("Quote statistics per user"),
+ *   id = "customer_ticket_statistics",
+ *   label = @Translation("Customer ticket statistics"),
  *   bundles = {
- *     "user.*",
+ *     "node.se_customer",
  *   }
  * )
  */
-class QuoteStatisticsUser extends ExtraFieldDisplayFormattedBase {
+class CustomerTicketStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
   public function getLabel() {
-    return $this->t('User quote statistics');
+    return $this->t('Customer ticket statistics');
   }
 
   public function getLabelDisplay() {
@@ -31,7 +31,7 @@ class QuoteStatisticsUser extends ExtraFieldDisplayFormattedBase {
 
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('quote_statistics_user', [])
+      ->createInstance('customer_ticket_statistics', [])
       ->build()) {
       return [];
     }

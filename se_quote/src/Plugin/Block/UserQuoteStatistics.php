@@ -10,11 +10,11 @@ use Drupal\se_report\ReportUtilityTrait;
 /**
  * Provides a "User quote statistics" block.
  * @Block(
- *   id = "quote_statistics_user",
- *   admin_label = @Translation("Quote statistics per user"),
+ *   id = "user_quote_statistics",
+ *   admin_label = @Translation("User quote statistics"),
  * )
  */
-class QuoteStatisticsUser extends BlockBase {
+class UserQuoteStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 

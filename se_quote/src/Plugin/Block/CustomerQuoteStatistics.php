@@ -1,23 +1,25 @@
 <?php
 
-namespace Drupal\se_ticket\Plugin\Block;
+namespace Drupal\se_quote\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "Ticket statistics customer" block.
+ * Provides a "Customer quote statistics" block.
  * @Block(
- *   id = "ticket_statistics_customer",
- *   admin_label = @Translation("Ticket statistics per customer"),
+ *   id = "customer_quote_statistics",
+ *   admin_label = @Translation("Customer quote statistics"),
  * )
  */
-class TicketStatisticsCustomer extends BlockBase {
+class CustomerQuoteStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
   public function build() {
+    $content = FALSE;
     $datasets = [];
 
     /** @var EntityInterface $node */
@@ -37,12 +39,20 @@ class TicketStatisticsCustomer extends BlockBase {
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
-        $query->condition('type', 'se_ticket');
+        $query->condition('type', 'se_quote');
         $query->condition('field_bu_ref', $node->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
-        $month_data[] = count($entity_ids);
+        $quotes = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->loadMultiple($entity_ids);
+        $total = 0;
+        /** @var Node $quote */
+        foreach ($quotes as $quote) {
+          $total += $quote->field_in_total->value;
+        }
+        $month_data[] = $total;
         $fg_colors[] = $fg_color;
       }
 
@@ -61,7 +71,11 @@ class TicketStatisticsCustomer extends BlockBase {
       ];
     }
 
-    $build['ticket_statistics_customer'] = [
+    if (!$content) {
+      return [];
+    }
+
+    $build['quote_statistics_customer'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -75,7 +89,7 @@ class TicketStatisticsCustomer extends BlockBase {
           'mode' => 'dataset'
         ],
       ],
-      '#id' => 'ticket_statistics_customer',
+      '#id' => 'quote_statistics_customer',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

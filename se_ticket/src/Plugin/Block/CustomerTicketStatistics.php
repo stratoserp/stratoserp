@@ -7,13 +7,13 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "Ticket statistics user" block.
+ * Provides a "Customer ticket statistics" block.
  * @Block(
- *   id = "ticket_statistics_user",
- *   admin_label = @Translation("Ticket statistics per user"),
+ *   id = "customer_ticket_statistics",
+ *   admin_label = @Translation("Customer ticket statistics"),
  * )
  */
-class TicketStatisticsUser extends BlockBase {
+class CustomerTicketStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
@@ -21,11 +21,11 @@ class TicketStatisticsUser extends BlockBase {
     $datasets = [];
 
     /** @var EntityInterface $node */
-    if (!$entity = $this->get_current_controller_entity()) {
+    if (!$node = $this->get_current_controller_entity()) {
       return [];
     }
 
-    if ($entity->getEntityTypeId() !== 'user') {
+    if ($node->bundle() !== 'se_customer') {
       return [];
     }
 
@@ -38,7 +38,7 @@ class TicketStatisticsUser extends BlockBase {
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'se_ticket');
-        $query->condition('uid', $entity->id());
+        $query->condition('field_bu_ref', $node->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
@@ -61,7 +61,7 @@ class TicketStatisticsUser extends BlockBase {
       ];
     }
 
-    $build['ticket_statistics_user'] = [
+    $build['customer_ticket_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -75,7 +75,7 @@ class TicketStatisticsUser extends BlockBase {
           'mode' => 'dataset'
         ],
       ],
-      '#id' => 'ticket_statistics_user',
+      '#id' => 'customer_ticket_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

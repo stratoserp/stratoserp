@@ -7,17 +7,17 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 
 /**
- * Example Extra field with formatted output.
+ * Extra field to display Customer quote statistics.
  *
  * @ExtraFieldDisplay(
- *   id = "quote_statistics_monthly",
+ *   id = "customer_quote_statistics",
  *   label = @Translation("Quote statistics"),
  *   bundles = {
  *     "node.se_customer",
  *   }
  * )
  */
-class QuoteStatisticsMonthly extends ExtraFieldDisplayFormattedBase {
+class CustomerQuoteStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -31,7 +31,7 @@ class QuoteStatisticsMonthly extends ExtraFieldDisplayFormattedBase {
 
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('quote_statistics_monthly', [])
+      ->createInstance('customer_quote_statistics', [])
       ->build()) {
       return [];
     }

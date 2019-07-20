@@ -7,7 +7,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 
 /**
- * Example Extra field with formatted output.
+ * Extra field to display User purchase order statistics.
  *
  * @ExtraFieldDisplay(
  *   id = "user_purchase_order_statistics",

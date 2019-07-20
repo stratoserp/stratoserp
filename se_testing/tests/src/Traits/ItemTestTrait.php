@@ -8,28 +8,28 @@ use Faker\Factory;
 /**
  * Provides functions for creating content during functional tests.
  */
-trait StockItemTestTrait {
+trait ItemTestTrait {
 
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function stockItemFakerSetup() {
+  public function itemFakerSetup() {
     $this->faker = Factory::create();
 
     $original = error_reporting(0);
-    $this->stockItem->name       = $this->faker->realText(20);
-    $this->stockItem->code       = $this->faker->word();
-    $this->stockItem->serial     = $this->faker->randomNumber(5);
-    $this->stockItem->cost_price = $this->faker->numberBetween(5, 10);
-    $this->stockItem->sell_price = $this->cost_price * 1.2;
+    $this->item->name       = $this->faker->realText(20);
+    $this->item->code       = $this->faker->word();
+    $this->item->serial     = $this->faker->randomNumber(5);
+    $this->item->cost_price = $this->faker->numberBetween(5, 10);
+    $this->item->sell_price = $this->item->cost_price * 1.2;
     error_reporting($original);
   }
 
-  public function addStockItem() {
+  public function addItem($type) {
     /** @var \Drupal\se_item\Entity\Item $item */
-    $item = $this->createNode([
-      'type' => 'se_stock',
-      'title' => $this->stockItem->name,
+    $item = $this->createItem([
+      'type' => $type,
+      'title' => $this->item->name,
     ]);
     $this->assertNotEqual($item, FALSE);
     $this->drupalGet($item->toUrl());

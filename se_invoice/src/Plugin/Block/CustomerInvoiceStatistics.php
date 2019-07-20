@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_quote\Plugin\Block;
+namespace Drupal\se_invoice\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityInterface;
@@ -8,13 +8,13 @@ use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "Quote statistics monthly" block.
+ * Provides a "Customer invoice statistics" block.
  * @Block(
- *   id = "quote_statistics_monthly",
- *   admin_label = @Translation("Quote statistics monthly per customer"),
+ *   id = "customer_invoice_statistics",
+ *   admin_label = @Translation("Customer invoice statistics"),
  * )
  */
-class QuoteStatisticsMonthly extends BlockBase {
+class CustomerInvoiceStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
@@ -39,18 +39,18 @@ class QuoteStatisticsMonthly extends BlockBase {
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
-        $query->condition('type', 'se_quote');
+        $query->condition('type', 'se_invoice');
         $query->condition('field_bu_ref', $node->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
-        $quotes = \Drupal::entityTypeManager()
+        $invoices = \Drupal::entityTypeManager()
           ->getStorage('node')
           ->loadMultiple($entity_ids);
         $total = 0;
-        /** @var Node $quote */
-        foreach ($quotes as $quote) {
-          $total += $quote->field_in_total->value;
+        /** @var Node $invoice */
+        foreach ($invoices as $invoice) {
+          $total += $invoice->field_in_total->value;
         }
         $month_data[] = $total;
         $fg_colors[] = $fg_color;
@@ -75,7 +75,7 @@ class QuoteStatisticsMonthly extends BlockBase {
       return [];
     }
 
-    $build['quote_statistics_customer'] = [
+    $build['invoice_statistics_customer'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -89,7 +89,7 @@ class QuoteStatisticsMonthly extends BlockBase {
           'mode' => 'dataset'
         ],
       ],
-      '#id' => 'quote_statistics_customer',
+      '#id' => 'invoice_statistics_customer',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

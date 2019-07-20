@@ -7,17 +7,17 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 
 /**
- * Example Extra field with formatted output.
+ * Extra field to display User invoice statistics.
  *
  * @ExtraFieldDisplay(
- *   id = "invoice_statistics_user",
- *   label = @Translation("Invoice statistics per user"),
+ *   id = "user_invoice_statistics",
+ *   label = @Translation("User invoice statistics"),
  *   bundles = {
  *     "user.*",
  *   }
  * )
  */
-class InvoiceStatisticsUser extends ExtraFieldDisplayFormattedBase {
+class UserInvoiceStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -31,7 +31,7 @@ class InvoiceStatisticsUser extends ExtraFieldDisplayFormattedBase {
 
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('invoice_statistics_user', [])
+      ->createInstance('user_invoice_statistics', [])
       ->build()) {
       return [];
     }

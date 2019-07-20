@@ -7,22 +7,22 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 
 /**
- * Example Extra field with formatted output.
+ * Extra field to display User ticket statistics.
  *
  * @ExtraFieldDisplay(
- *   id = "ticket_statistics_customer",
- *   label = @Translation("Ticket statistics per customer"),
+ *   id = "user_ticket_statistics",
+ *   label = @Translation("User ticket statistics"),
  *   bundles = {
- *     "node.se_customer",
+ *     "user.*",
  *   }
  * )
  */
-class TicketStatisticsCustomer extends ExtraFieldDisplayFormattedBase {
+class UserTicketStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
   public function getLabel() {
-    return $this->t('Ticket statistics');
+    return $this->t('User ticket statistics');
   }
 
   public function getLabelDisplay() {
@@ -31,7 +31,7 @@ class TicketStatisticsCustomer extends ExtraFieldDisplayFormattedBase {
 
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('ticket_statistics_customer', [])
+      ->createInstance('user_ticket_statistics', [])
       ->build()) {
       return [];
     }
