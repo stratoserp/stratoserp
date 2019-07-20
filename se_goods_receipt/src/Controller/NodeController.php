@@ -87,17 +87,17 @@ class NodeController extends ControllerBase {
       'type' => $node_type->id(),
     ]);
 
-    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item_line) {
+    foreach ($source->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item_line) {
       // TODO - Ensure we're using the non-serialised item here?
       $item_count = $item_line->quantity;
       for ($i = 0; $i < $item_count; $i++) {
-        $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item_line);
+        $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item_line);
       }
     }
 
     $node->field_bu_ref->target_id = $source->field_bu_ref->target_id;
     $node->field_co_ref->target_id = $source->field_co_ref->target_id;
-    $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_purchase_order_ref'}->target_id = $source->id();
+    $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_purchase_order_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);
   }

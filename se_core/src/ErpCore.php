@@ -4,7 +4,7 @@ namespace Drupal\se_core;
 
 final class ErpCore {
 
-  public const ITEMS_BUNDLE_MAP = [
+  public const ITEM_LINE_NODE_BUNDLE_MAP = [
     'se_bill'           => 'bi',
     'se_goods_receipt'  => 'gr',
     'se_invoice'        => 'in',
@@ -12,18 +12,26 @@ final class ErpCore {
     'se_purchase_order' => 'po',
   ];
 
-  public const PAYMENTS_BUNDLE_MAP = [
+  public const PAYMENT_LINE_NODE_BUNDLE_MAP = [
     'se_payment' => 'pa',
   ];
 
-  public const NODE_TYPES = [
+  public const STRATOS_NODE_TYPES = [
     'se_bill', 'se_contact', 'se_customer', 'se_goods_receipt',
     'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',
     'se_supplier', 'se_ticket', 'se_timekeeping',
   ];
 
-  public const ENTITY_TYPES = [
+  public const STRATOS_ENTITY_TYPES = [
     'se_information', 'se_item',
+  ];
+
+  public const STRATOS_ITEM_BUNDLES = [
+    'se_assembly', 'se_recurring', 'se_service', 'se_stock',
+  ];
+
+  public const STRATOS_INFORMATION_BUNDLES = [
+    'se_document', 'se_subscription',
   ];
 
 }

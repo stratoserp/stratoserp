@@ -87,7 +87,7 @@ class AccountingSaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     $amount = $entity->{$bundle_field_type . '_total'}->value;
     if ($reduce) {
       $amount *= -1;

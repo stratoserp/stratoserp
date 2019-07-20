@@ -5,6 +5,7 @@
  * Contains se_item.module.
  */
 
+use Drupal\se_core\ErpCore;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 
@@ -62,7 +63,7 @@ function se_item_theme_suggestions_se_item(array $variables) {
  * Implements hook_entity_bundle_field_info_alter().
  */
 function se_item_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
-  if ($bundle === 'se_item') {
+  if (in_array($bundle, ErpCore::STRATOS_ITEM_BUNDLES, TRUE)) {
     if (isset($fields['field_it_code'])) {
       $fields['field_it_code']->addConstraint('UniqueItem', []);
     }

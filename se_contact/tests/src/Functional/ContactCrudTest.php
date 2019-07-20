@@ -19,7 +19,8 @@ class ContactCrudTest extends ContactTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $this->addContact();
+    $test_customer = $this->addCustomer();
+    $this->addContact($test_customer);
 
     $this->drupalLogout();
   }
@@ -35,7 +36,7 @@ class ContactCrudTest extends ContactTestBase {
     // Create a contact for testing.
     $this->drupalLogin($staff);
     $test_customer = $this->addCustomer();
-    $contact = $this->addContact();
+    $contact = $this->addContact($test_customer);
     $this->drupalLogout();
 
     // Ensure customer can't delete contacts.

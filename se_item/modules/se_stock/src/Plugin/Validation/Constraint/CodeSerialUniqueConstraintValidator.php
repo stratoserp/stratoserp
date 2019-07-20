@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Validates the ArticleLimit constraint.
+ * Validates the Serial number constraint.
  */
 class CodeSerialUniqueConstraintValidator extends ConstraintValidator {
 

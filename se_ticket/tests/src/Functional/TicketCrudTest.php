@@ -21,7 +21,6 @@ class TicketCrudTest extends TicketTestBase {
 
     $customer = $this->addCustomer();
     $ticket = $this->addTicket($customer);
-    $this->deleteTicket($ticket);
 
     $this->drupalLogout();
 

@@ -29,7 +29,7 @@ trait InvoiceTestTrait {
     error_reporting($original);
   }
 
-  public function addInvoice($customer, array $items = []) {
+  public function addInvoice(Node $test_customer, array $items = []) {
 
     $lines = [];
     foreach ($items as $item) {
@@ -45,20 +45,22 @@ trait InvoiceTestTrait {
     $node = $this->createNode([
       'type' => 'se_invoice',
       'title' => $this->invoice->name,
-      'field_ti_phone' => $this->invoice->phoneNumber,
-      'field_ti_email' => $this->invoice->companyEmail,
-      'field_in_items' => $lines,
+      'field_bu_ref' => ['target_id' => $test_customer->id()],
+      'field_in_phone' => $this->invoice->phoneNumber,
+      'field_in_email' => $this->invoice->companyEmail,
+      'field_in_lines' => $lines,
     ]);
 
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
-    $this->assertNotContains('Please fill in this field', $this->getTextContent());
+    $content = $this->getTextContent();
+
+    $this->assertNotContains('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->invoice->name, $this->getTextContent());
-    $this->assertContains($this->invoice->phoneNumber, $this->getTextContent());
+    $this->assertContains($this->invoice->name, $content);
 
     return $node;
   }

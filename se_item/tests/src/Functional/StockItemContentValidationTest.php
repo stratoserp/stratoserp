@@ -2,36 +2,49 @@
 
 namespace Drupal\Tests\se_item\Functional;
 
-use Drupal\Tests\se_testing\Functional\ItemTestBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
+/**
+ * @coversDefault Drupal\se_item
+ * @group se_item
+ * @group stratoserp
+ *
+ */
 class StockItemContentValidationTest extends ItemTestBase  {
+
+  protected $item;
 
   /**
    * Tests the block content validation constraints.
    */
   public function testValidation() {
-    // Add a block.
-    $description = $this->randomMachineName();
-    $block = $this->createBlockContent($description, 'basic');
-    // Validate the block.
-    $violations = $block->validate();
-    // Make sure we have no violations.
-    $this->assertEqual(count($violations), 0);
-    // Save the block.
-    $block->save();
 
-    // Add another block with the same description.
-    $block = $this->createBlockContent($description, 'basic');
-    // Validate this block.
-    $violations = $block->validate();
-    // Make sure we have 1 violation.
+    $this->itemFakerSetup();
+
+    $item = $this->stratosCreateItemContent(['field_it_code' => $this->item->code]);
+    $violations = $item->validate();
     $this->assertEqual(count($violations), 1);
-    // Make sure the violation is on the info property
-    $this->assertEqual($violations[0]->getPropertyPath(), 'info');
-    // Make sure the message is correct.
-    $this->assertEqual($violations[0]->getMessage(), format_string('A custom block with block description %value already exists.', [
-      '%value' => $block->label(),
-    ]));
+    $this->assertEqual($violations[0]->getPropertyPath(), 'name');
+    $this->assertEqual($violations[0]->getMessage(), new TranslatableMarkup('This value should not be null.',
+      ['%value' => 'null'],
+      ['langcode' => NULL]
+    ));
+    unset($item);
+
+    $item = $this->stratosCreateItemContent(['name' => $this->item->name, 'field_it_code' => $this->item->code]);
+    $violations = $item->validate();
+    $this->assertEqual(count($violations), 0);
+    $item->save();
+
+
+    $new_item = $this->stratosCreateItemContent(['name' => $this->item->name, 'field_it_code' => $this->item->code]);
+    $violations = $new_item->validate();
+    $this->assertEqual(count($violations), 1);
+    $this->assertEqual($violations[0]->getPropertyPath(), 'field_it_code');
+    $this->assertEqual($violations[0]->getMessage(), new TranslatableMarkup('Item with code %value already exists.',
+      ['%id' => $item->id(), '%value' => $this->item->code],
+      ['langcode' => NULL]
+    ));
   }
 
 }

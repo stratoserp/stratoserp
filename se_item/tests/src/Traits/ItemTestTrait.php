@@ -1,20 +1,15 @@
 <?php
 
-namespace Drupal\Tests\se_testing\Traits;
+namespace Drupal\Tests\se_item\Traits;
 
 use Faker\Factory;
-use Drupal\Tests\se_item\Traits\ItemCreationTrait as StratosItemCreationTrait;
 
 /**
  * Provides functions for creating content during functional tests.
  */
 trait ItemTestTrait {
 
-  use StratosItemCreationTrait {
-    createItem as stratosCreateItem;
-  }
-
-  use UserCreateTrait;
+  use ItemCreationTrait;
 
   /**
    * Setup basic faker fields for this test trait.
@@ -35,16 +30,19 @@ trait ItemTestTrait {
     /** @var \Drupal\se_item\Entity\Item $item */
     $item = $this->createItem([
       'type' => $type,
-      'title' => $this->item->name,
+      'name' => $this->item->name,
+      'field_it_code' => $this->item->code,
     ]);
     $this->assertNotEqual($item, FALSE);
     $this->drupalGet($item->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
-    $this->assertNotContains('Please fill in this field', $this->getTextContent());
+    $content = $this->getTextContent();
+
+    $this->assertNotContains('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->stockItem->name, $this->getTextContent());
+    $this->assertContains($this->item->name, $content);
 
     return $item;
   }

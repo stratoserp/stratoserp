@@ -38,12 +38,12 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
     }
 
     // Check that its a node type which has items.
-    if (!array_key_exists($entity->bundle(), ErpCore::PAYMENTS_BUNDLE_MAP)) {
+    if (!array_key_exists($entity->bundle(), ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP)) {
       return;
     }
 
     $total = 0;
-    $bundle_field_type = 'field_' . ErpCore::PAYMENTS_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'field_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     // Loop through the payment lines to calculate total
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $payment_line) {

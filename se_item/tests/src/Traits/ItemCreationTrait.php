@@ -20,6 +20,14 @@ trait ItemCreationTrait {
   }
 
   public function createItem(array $settings = []) {
+    $item = $this->createItemContent($settings);
+
+    $item->save();
+
+    return $item;
+  }
+
+  public function createItemContent(array $settings = []) {
     $settings += [
       'type' => 'se_stock'
     ];
@@ -39,10 +47,7 @@ trait ItemCreationTrait {
       }
     }
 
-    $item = Item::create($settings);
-    $item->save();
-
-    return $item;
+    return Item::create($settings);
   }
 
 }

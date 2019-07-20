@@ -20,9 +20,8 @@ class Item {
   }
 
   public function findByCode($code) {
-     $result = \Drupal::entityQuery('node')
+     $result = \Drupal::entityQuery('se_item')
         ->condition('status', 1)
-        ->condition('type', 'se_item')
         ->condition('field_it_code', $code)
         ->execute();
 

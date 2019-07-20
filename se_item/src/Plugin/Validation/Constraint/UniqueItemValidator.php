@@ -2,6 +2,7 @@
 
 namespace Drupal\se_item\Plugin\Validation\Constraint;
 
+use Drupal\se_item\Entity\Item;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -14,15 +15,18 @@ class UniqueItemValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($items, Constraint $constraint) {
+    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\StringItem $item */
     foreach ($items as $item) {
       $result = \Drupal::service('se_item.service')->findByCode($item->value);
 
       if ($result) {
-        $nid = array_pop($result);
-        // TODO - There is probably a better way to do this.
-        if ($nid !== \Drupal::routeMatch()->getParameter('node')->nid->value) {
-          $this->context->addViolation($constraint->notUnique, ['%value' => $item->value]);
+        /** @var Item $item */
+        $host_item = $item->getEntity();
+        if ($host_item->id()) {
+          return NULL;
         }
+        $id = array_pop($result);
+        $this->context->addViolation($constraint->notUnique, ['%id' => $id, '%value' => $item->value]);
       }
     }
   }

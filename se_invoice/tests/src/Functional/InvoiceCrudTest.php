@@ -2,8 +2,9 @@
 
 namespace Drupal\Tests\se_invoice\Functional;
 
+use Drupal\Tests\se_item\Traits\ItemTestTrait;
 use Drupal\Tests\se_testing\Functional\InvoiceTestBase;
-use Drupal\Tests\se_testing\Traits\StockItemTestTrait;
+use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 
 /**
  * @coversDefault Drupal\se_invoice
@@ -13,7 +14,8 @@ use Drupal\Tests\se_testing\Traits\StockItemTestTrait;
  */
 class InvoiceCrudTest extends InvoiceTestBase {
 
-  use StockItemTestTrait;
+  use ItemTestTrait;
+  use UserCreateTrait;
 
   protected $invoice;
   protected $staff;
@@ -22,20 +24,22 @@ class InvoiceCrudTest extends InvoiceTestBase {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
+    $this->customerFakerSetup();
+    $test_customer = $this->addCustomer();
 
     // Add some stock items.
     $count = random_int(5, 10);
     $items = [];
     for ($i = 0; $i < $count; $i++) {
-      $this->stockItemFakerSetup();
+      $this->itemFakerSetup();
       $items[$i] = [
-        'item' => $this->addStockItem(),
+        'item' => $this->addItem('se_stock'),
         'quantity' => random_int(5, 10),
       ];
     }
 
     $this->invoiceFakerSetup();
-    $invoice = $this->addInvoice($customer, $items);
+    $invoice = $this->addInvoice($test_customer, $items);
 
     $this->drupalLogout();
   }

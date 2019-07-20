@@ -94,7 +94,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
       $term = Term::load('open');
     }
 
-    $bundle_field_type = 'field_' . ErpCore::PAYMENTS_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'field_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if ($invoice = Node::load($item_line->target_id)) {

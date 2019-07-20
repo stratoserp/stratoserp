@@ -30,16 +30,14 @@ trait ContactTestTrait {
     error_reporting($original);
   }
 
-  public function addContact() {
-    /** @var Node $customer_node */
-    $customer_node = $this->addCustomer();
+  public function addContact(Node $test_customer) {
 
     /** @var Node $node */
     $node = $this->createNode([
       'type' => 'se_contact',
       'title' => $this->contact->name,
       'field_co_phone' => $this->contact->phoneNumber,
-      'field_bu_ref' => ['target_id' => $customer_node->id()],
+      'field_bu_ref' => ['target_id' => $test_customer->id()],
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());

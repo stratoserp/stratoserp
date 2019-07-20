@@ -88,11 +88,11 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
     ]);
 
     // TODO - Make this a service?
-    foreach ($source->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item) {
-      $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item);
+    foreach ($source->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item) {
+      $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item);
     }
 
-    $node->{'field_' . ErpCore::ITEMS_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
+    $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);
   }

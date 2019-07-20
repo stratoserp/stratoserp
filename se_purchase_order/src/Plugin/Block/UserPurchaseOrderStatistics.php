@@ -24,7 +24,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
     $datasets = [];
     // TODO Move this to a service and pass in this.
     $type = 'se_purchase_order';
-    $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$type];
+    $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
 
     /** @var EntityInterface $node */
     if (!$entity = $this->get_current_controller_entity()) {

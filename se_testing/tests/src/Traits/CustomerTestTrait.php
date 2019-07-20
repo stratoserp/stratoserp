@@ -41,11 +41,13 @@ trait CustomerTestTrait {
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
-    $this->assertNotContains('Please fill in this field', $this->getTextContent());
+    $content = $this->getTextContent();
+
+    $this->assertNotContains('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->customer->name, $this->getTextContent());
-    $this->assertContains($this->customer->phoneNumber, $this->getTextContent());
+    $this->assertContains($this->customer->name, $content);
+    $this->assertContains($this->customer->phoneNumber, $content);
 
     return $node;
   }

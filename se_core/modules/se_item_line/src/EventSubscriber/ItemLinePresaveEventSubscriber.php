@@ -40,12 +40,12 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
     }
 
     // Check that its a node type which has items.
-    if (!array_key_exists($entity->bundle(), ErpCore::ITEMS_BUNDLE_MAP)) {
+    if (!array_key_exists($entity->bundle(), ErpCore::ITEM_LINE_NODE_BUNDLE_MAP)) {
       return;
     }
 
     $total = 0;
-    $bundle_field_type = 'field_' . ErpCore::ITEMS_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     // Loop through the item lines to calculate total
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
