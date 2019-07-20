@@ -41,11 +41,13 @@ trait TimekeepingTestTrait {
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
-    $this->assertNotContains('Please fill in this field', $this->getTextContent());
+    $content = $this->getTextContent();
+
+    $this->assertNotContains('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->timekeeping->name, $this->getTextContent());
-    $this->assertContains($this->timekeeping->phoneNumber, $this->getTextContent());
+    $this->assertContains($this->timekeeping->name, $content);
+    $this->assertContains($this->timekeeping->phoneNumber, $content);
 
     return $node;
   }

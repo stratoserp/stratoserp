@@ -36,12 +36,12 @@ class CustomerCrudTest extends CustomerTestBase {
 
     // Ensure customer can't delete customers.
     $this->drupalLogin($customer);
-    $this->deleteCustomer($test_customer, FALSE);
+    $this->deleteNode($test_customer, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can delete customers.
     $this->drupalLogin($staff);
-    $this->deleteCustomer($test_customer, TRUE);
+    $this->deleteNode($test_customer, TRUE);
     $this->drupalLogout();
 
   }

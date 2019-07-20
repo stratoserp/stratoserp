@@ -44,25 +44,15 @@ trait ContactTestTrait {
 
     $this->assertSession()->statusCodeEquals(200);
 
-    $this->assertNotContains('Please fill in this field', $this->getTextContent());
+    $content = $this->getTextContent();
+    $this->assertNotContains('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->contact->name, $this->getTextContent());
-    $this->assertContains($this->contact->phoneNumber, $this->getTextContent());
-    $this->assertContains($this->customer->name, $this->getTextContent());
+    $this->assertContains($this->contact->name, $content);
+    $this->assertContains($this->contact->phoneNumber, $content);
+    $this->assertContains($this->customer->name, $content);
 
     return $node;
-  }
-
-  /**
-   * Deleting a contact.
-   *
-   * @param \Drupal\node\Entity\Node $contact
-   * @param bool $allowed
-   *
-   */
-  public function deleteContact(Node $contact, bool $allowed) {
-    $this->deleteNode($contact, $allowed);
   }
 
 }

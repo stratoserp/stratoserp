@@ -52,15 +52,4 @@ trait CustomerTestTrait {
     return $node;
   }
 
-  /**
-   * Deleting a contact.
-   *
-   * @param \Drupal\node\Entity\Node $customer
-   * @param bool $allowed
-   *
-   */
-  public function deleteCustomer(Node $customer, bool $allowed) {
-    $this->deleteNode($customer, $allowed);
-  }
-
 }

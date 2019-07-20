@@ -41,11 +41,13 @@ trait SupplierTestTrait {
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
-    $this->assertNotContains('Please fill in this field', $this->getTextContent());
+    $content = $this->getTextContent();
+
+    $this->assertNotContains('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->supplier->name, $this->getTextContent());
-    $this->assertContains($this->supplier->phoneNumber, $this->getTextContent());
+    $this->assertContains($this->supplier->name, $content);
+    $this->assertContains($this->supplier->phoneNumber, $content);
 
     return $node;
   }

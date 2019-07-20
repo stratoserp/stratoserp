@@ -47,24 +47,15 @@ trait GoodsReceiptTestTrait {
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
-    $this->assertNotContains('Please fill in this field', $this->getTextContent());
+    $content = $this->getTextContent();
+
+    $this->assertNotContains('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->goodsReceipt->name, $this->getTextContent());
-    $this->assertContains($this->goodsReceipt->phoneNumber, $this->getTextContent());
+    $this->assertContains($this->goodsReceipt->name, $content);
+    $this->assertContains($this->goodsReceipt->phoneNumber, $content);
 
     return $node;
-  }
-
-  /**
-   * Deleting a goods receipt.
-   *
-   * @param \Drupal\node\Entity\Node $goods_receipt
-   * @param bool $allowed
-   *
-   */
-  public function deleteGoodsReceipt(Node $goods_receipt, bool $allowed) {
-    $this->deleteNode($goods_receipt, $allowed);
   }
 
 }

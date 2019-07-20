@@ -39,12 +39,12 @@ class TicketCrudTest extends TicketTestBase {
 
     // Ensure customer can't delete tickets.
     $this->drupalLogin($customer);
-    $this->deleteTicket($ticket, FALSE);
+    $this->deleteNode($ticket, FALSE);
     $this->drupalLogout();
 
-    // Ensure staff can delete tickets.
+    // Ensure staff can't delete tickets either!
     $this->drupalLogin($staff);
-    $this->deleteTicket($ticket, TRUE);
+    $this->deleteNode($ticket, FALSE);
     $this->drupalLogout();
 
   }

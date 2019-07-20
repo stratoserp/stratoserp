@@ -41,12 +41,12 @@ class ContactCrudTest extends ContactTestBase {
 
     // Ensure customer can't delete contacts.
     $this->drupalLogin($customer);
-    $this->deleteContact($contact, FALSE);
+    $this->deleteNode($contact, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can delete contacts.
     $this->drupalLogin($staff);
-    $this->deleteContact($contact, TRUE);
+    $this->deleteNode($contact, TRUE);
     $this->drupalLogout();
 
   }
