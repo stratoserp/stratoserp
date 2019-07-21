@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\se_stock\Functional;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Drupal\Tests\se_item\Functional\ItemTestBase;
 
 /**
  * @coversDefault Drupal\se_stock
@@ -10,18 +10,19 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group stratoserp
  *
  */
-class StockItemPermissionsTest extends ExistingSiteBase {
+class StockItemPermissionsTest extends ItemTestBase {
 
   protected $customer;
   protected $staff;
 
   private $pages = [
-    '/node/add/se_invoice',
+    '/item/add/se_stock',
+    '/se/item-list',
   ];
 
   public function testStockItemPermissions() {
 
-    $this->permissionCheck($this->pages);
+    $this->basicPermissionCheck($this->pages);
   }
 
 }

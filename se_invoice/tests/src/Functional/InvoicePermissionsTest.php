@@ -17,6 +17,7 @@ class InvoicePermissionsTest extends InvoiceTestBase {
 
   private $pages = [
     '/node/add/se_invoice',
+    '/se/customers/invoice-list',
   ];
 
   public function testInvoicePermissions() {

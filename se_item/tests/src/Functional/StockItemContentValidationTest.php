@@ -36,7 +36,6 @@ class StockItemContentValidationTest extends ItemTestBase  {
     $this->assertEqual(count($violations), 0);
     $item->save();
 
-
     $new_item = $this->stratosCreateItemContent(['name' => $this->item->name, 'field_it_code' => $this->item->code]);
     $violations = $new_item->validate();
     $this->assertEqual(count($violations), 1);

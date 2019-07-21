@@ -9,7 +9,7 @@ use Faker\Factory;
  */
 trait ItemTestTrait {
 
-  use ItemCreationTrait {
+  use ItemCreationTestTrait {
     createItem as stratosCreateItem;
     createItemContent as stratosCreateItemContent;
   }

@@ -17,14 +17,11 @@ class ContactPermissionsTest extends ContactTestBase {
 
   private $pages = [
     '/node/add/se_contact',
-    '/se/contact-list'
+    '/se/contact-list',
   ];
 
   public function testContactPermissions() {
-
     $this->basicPermissionCheck($this->pages);
-
   }
-
 
 }

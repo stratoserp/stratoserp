@@ -5,7 +5,7 @@ namespace Drupal\Tests\se_item\Traits;
 use Drupal\se_item\Entity\Item;
 use Drupal\user\Entity\User;
 
-trait ItemCreationTrait {
+trait ItemCreationTestTrait {
 
   public function getItemByTitle($name, $reset = FALSE) {
     if ($reset)  {

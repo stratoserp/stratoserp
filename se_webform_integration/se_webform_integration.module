@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file
+ * StratosERP Webform integration module.
+ *
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseDialogCommand;
@@ -47,11 +53,9 @@ function se_webform_integration_module_implements_alter(&$implementations, $hook
  *
  * Code from: https://www.drupal.org/project/webform/issues/3002966
  *
- * @param array $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- * @param $form_id
+ * Implements hook_webform_submission_form_alter().
  */
-function se_webform_integration_webform_submission_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
+function se_webform_integration_webform_submission_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
   // Determine if current request is Ajax
   // @see \Drupal\Core\Ajax\AjaxHelperTrait
   $is_ajax = FALSE;
@@ -75,7 +79,9 @@ function se_webform_integration_webform_submission_form_alter(array &$form, Form
  * Code from: https://www.drupal.org/project/webform/issues/3002966
  *
  * @param array $form
+ *   Nested array of form elements that comprise the webform.
  * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
  *
  * @return \Drupal\Core\Ajax\AjaxResponse
  */

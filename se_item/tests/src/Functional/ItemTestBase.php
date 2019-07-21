@@ -7,8 +7,6 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 class ItemTestBase extends FunctionalTestBase {
 
-
-
   use ItemTestTrait;
 
   protected $item;
