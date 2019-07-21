@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\se_stock\Functional;
 
-use Drupal\Tests\se_testing\Functional\StockItemTestBase;
+use Drupal\Tests\se_item\Functional\ItemTestBase;
 
 /**
  * @coversDefault Drupal\se_stock
- * @group se_item
+ * @group se_stock
  * @group stratoserp
  *
  */
-class StockItemCrudTest extends StockItemTestBase {
+class StockItemCrudTest extends ItemTestBase {
 
   protected $staff;
 

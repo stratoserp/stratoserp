@@ -5,7 +5,7 @@ namespace Drupal\Tests\se_ticket\Functional;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * @coversDefault Drupal\se_goods_receipt
+ * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
  *

@@ -6,7 +6,7 @@ namespace Drupal\Tests\se_ticket\Functional;
 use Drupal\Tests\se_testing\Functional\TicketTestBase;
 
 /**
- * @coversDefault Drupal\se_customer
+ * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
  *

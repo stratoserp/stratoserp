@@ -5,8 +5,8 @@ namespace Drupal\Tests\se_document\Functional;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * @coversDefault Drupal\se_goods_receipt
- * @group se_contact
+ * @coversDefault Drupal\se_document
+ * @group se_document
  * @group stratoserp
  *
  */

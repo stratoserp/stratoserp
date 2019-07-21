@@ -5,8 +5,8 @@ namespace Drupal\Tests\se_item\Functional;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
- * @coversDefault Drupal\se_item
- * @group se_item
+ * @coversDefault Drupal\se_stock
+ * @group se_stock
  * @group stratoserp
  *
  */
