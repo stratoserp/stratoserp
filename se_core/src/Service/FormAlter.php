@@ -7,6 +7,9 @@ use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ *
+ */
 class FormAlter {
 
   /**
@@ -56,7 +59,6 @@ class FormAlter {
     $this->currentUser = $currentUser;
   }
 
-
   /**
    * Alter reference field on node form.
    *
@@ -78,7 +80,7 @@ class FormAlter {
         return NULL;
       }
       if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
-          ->load($value)) {
+        ->load($value)) {
         $form[$field]['widget']['#default_value'] = $node->id();
       }
     }
@@ -87,7 +89,7 @@ class FormAlter {
         return NULL;
       }
       if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
-          ->load($value)) {
+        ->load($value)) {
         $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
       }
     }
@@ -96,7 +98,7 @@ class FormAlter {
   }
 
   /**
-   * Alter taxonomy field on node form
+   * Alter taxonomy field on node form.
    *
    * @param array $form
    * @param string $field
@@ -105,7 +107,7 @@ class FormAlter {
    * @return \Drupal\taxonomy\Entity\Term|null
    */
   public function setTaxonomyField(array &$form, string $field, int $term_id): Term {
-    /** @var Term $term */
+    /** @var \Drupal\taxonomy\Entity\Term $term */
     if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id)) {
       return NULL;
     }

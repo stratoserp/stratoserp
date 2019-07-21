@@ -6,4 +6,3 @@ se_report.overview:
     _title: 'Report overview page'
   requirements:
     _permission: 'access content'
-

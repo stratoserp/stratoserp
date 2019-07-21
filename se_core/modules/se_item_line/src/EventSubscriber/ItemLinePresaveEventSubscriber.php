@@ -9,7 +9,7 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class ItemLinePresaveEventSubscriber
+ * Class ItemLinePresaveEventSubscriber.
  *
  * When a node with item lines is saved, recalculate the total of the node.
  *
@@ -30,8 +30,7 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
    * When one of the node types that has items in it is saved,
    * adjust the prices for storage and calculate the total for the node.
    *
-   * @param EntityPresaveEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    */
   public function itemLineNodePresave(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -47,10 +46,10 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
     $total = 0;
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
-    // Loop through the item lines to calculate total
+    // Loop through the item lines to calculate total.
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if (empty($item_line->serial)) {
-        /** @var Item $item */
+        /** @var \Drupal\se_item\Entity\Item $item */
         if (($item = Item::load($item_line->target_id)) && $item->bundle() === 'se_stock') {
           $entity->{$bundle_field_type . '_lines'}[$index]->serial = $item->field_it_serial->value;
         }

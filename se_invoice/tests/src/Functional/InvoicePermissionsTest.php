@@ -8,7 +8,6 @@ use Drupal\Tests\se_testing\Functional\InvoiceTestBase;
  * @coversDefault Drupal\se_invoice
  * @group se_invoice
  * @group stratoserp
- *
  */
 class InvoicePermissionsTest extends InvoiceTestBase {
 
@@ -20,10 +19,12 @@ class InvoicePermissionsTest extends InvoiceTestBase {
     '/se/customers/invoice-list',
   ];
 
+  /**
+   *
+   */
   public function testInvoicePermissions() {
 
     $this->basicPermissionCheck($this->pages);
   }
-
 
 }

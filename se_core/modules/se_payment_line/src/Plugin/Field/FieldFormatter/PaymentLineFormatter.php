@@ -2,9 +2,7 @@
 
 namespace Drupal\se_payment_line\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Field\Annotation\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceLabelFormatter;
 use Drupal\Core\Form\FormStateInterface;
@@ -24,14 +22,23 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
  */
 class PaymentLineFormatter extends EntityReferenceLabelFormatter {
 
+  /**
+   *
+   */
   public static function defaultSettings() {
     return [];
   }
 
+  /**
+   *
+   */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     return [];
   }
 
+  /**
+   *
+   */
   public function settingsSummary() {
     return [];
   }
@@ -39,7 +46,7 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
   /**
    * {@inheritdoc}
    *
-   * Re-implementation of viewElements from EntityReferenceLabelFormatter
+   * Re-implementation of viewElements from EntityReferenceLabelFormatter.
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
 
@@ -91,7 +98,7 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
       '#header' => $headers,
       '#cache' => [
         '#tags' => $cache_tags,
-      ]
+      ],
     ];
   }
 

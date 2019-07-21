@@ -6,7 +6,6 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\Core\Database\Database;
 use Drupal\migrate\Row;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
-use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 
 /**

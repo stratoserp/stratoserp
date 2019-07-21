@@ -20,7 +20,7 @@ trait ItemTestTrait {
   public function itemFakerSetup() {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
+    $original               = error_reporting(0);
     $this->item->name       = $this->faker->realText(20);
     $this->item->code       = $this->faker->word();
     $this->item->serial     = $this->faker->randomNumber(5);
@@ -29,6 +29,9 @@ trait ItemTestTrait {
     error_reporting($original);
   }
 
+  /**
+   *
+   */
   public function addItem($type) {
     /** @var \Drupal\se_item\Entity\Item $item */
     $item = $this->createItem([
@@ -49,6 +52,5 @@ trait ItemTestTrait {
 
     return $item;
   }
-
 
 }

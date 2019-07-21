@@ -7,4 +7,3 @@ services:
   se_item.service:
     class: Drupal\se_item\Service\Item
     arguments: ['@entity_type.manager']
-

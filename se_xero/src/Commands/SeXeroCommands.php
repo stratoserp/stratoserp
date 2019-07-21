@@ -27,7 +27,7 @@ class SeXeroCommands extends DrushCommands {
       ->condition('type', 'se_customer')
       ->condition('changed', $timestamp, '>')
       ->sort('created')
-      ->range(0,20)
+      ->range(0, 20)
       ->execute();
 
     // Loop through list of nodes, loading and syncing.
@@ -37,12 +37,13 @@ class SeXeroCommands extends DrushCommands {
       /** @var \Drupal\node\Entity\Node $node */
       $node = $node_storage->load($id);
       $service->sync($node);
-      //$settings->set('customer.sync_timestamp', $node->changed);
+      // $settings->set('customer.sync_timestamp', $node->changed);
     }
   }
 
   /**
    * Sync up invoices changed since the last sync with xero.
+   *
    * @command se:sync-invoices
    * @aliases sync-invoices
    */
@@ -58,7 +59,7 @@ class SeXeroCommands extends DrushCommands {
       ->condition('type', 'se_invoice')
       ->condition('changed', $timestamp, '>')
       ->sort('created')
-      ->range(0,20)
+      ->range(0, 20)
       ->execute();
 
     // Loop through list of nodes, loading and syncing.
@@ -70,7 +71,7 @@ class SeXeroCommands extends DrushCommands {
       if (!$service->sync($node)) {
         // Log error message.
       }
-      //$settings->set('customer.sync_timestamp', $node->changed);
+      // $settings->set('customer.sync_timestamp', $node->changed);
     }
   }
 

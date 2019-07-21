@@ -21,14 +21,23 @@ class UserQuoteStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
+  /**
+   *
+   */
   public function getLabel() {
     return $this->t('User quote statistics');
   }
 
+  /**
+   *
+   */
   public function getLabelDisplay() {
     return 'above';
   }
 
+  /**
+   *
+   */
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
       ->createInstance('user_quote_statistics', [])
@@ -37,7 +46,7 @@ class UserQuoteStatistics extends ExtraFieldDisplayFormattedBase {
     }
 
     return [
-      ['#markup' => render($block)]
+      ['#markup' => render($block)],
     ];
   }
 

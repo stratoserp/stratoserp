@@ -2,7 +2,6 @@
 
 namespace Drupal\se_core\Plugin\ExtraField\Form;
 
-
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\extra_field\Plugin\ExtraFieldFormBase;
 
@@ -19,11 +18,14 @@ use Drupal\extra_field\Plugin\ExtraFieldFormBase;
  */
 class MetaField extends ExtraFieldFormBase {
 
+  /**
+   *
+   */
   public function formView(array $form, FormStateInterface $form_state) {
     $meta_form = [];
 
     $fields = [
-      'meta', 'author', 'status'
+      'meta', 'author', 'status',
     ];
 
     $meta_form['meta_group'] = [
@@ -40,7 +42,8 @@ class MetaField extends ExtraFieldFormBase {
     }
 
     return [
-      '#markup' => render($meta_form)
+      '#markup' => render($meta_form),
     ];
   }
+
 }

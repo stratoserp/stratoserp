@@ -8,12 +8,14 @@ use Drupal\Tests\se_testing\Functional\CustomerTestBase;
  * @coversDefault Drupal\se_customer
  * @group se_customer
  * @group stratoserp
- *
  */
 class CustomerCrudTest extends CustomerTestBase {
 
   protected $staff;
 
+  /**
+   *
+   */
   public function testCustomerAdd() {
 
     $staff = $this->setupStaffUser();
@@ -24,6 +26,9 @@ class CustomerCrudTest extends CustomerTestBase {
     $this->drupalLogout();
   }
 
+  /**
+   *
+   */
   public function testCustomerDelete() {
 
     $staff = $this->setupStaffUser();

@@ -2,7 +2,6 @@
 
 namespace Drupal\se_core\Plugin\ExtraField\Form;
 
-
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\extra_field\Plugin\ExtraFieldFormBase;
 
@@ -19,13 +18,16 @@ use Drupal\extra_field\Plugin\ExtraFieldFormBase;
  */
 class RevisionField extends ExtraFieldFormBase {
 
+  /**
+   *
+   */
   public function formView(array $form, FormStateInterface $form_state) {
     $revision_form = [];
 
     $fields = [
       'revision',
       'revision_information',
-      'revision_log'
+      'revision_log',
     ];
 
     foreach ($fields as $field) {
@@ -35,4 +37,5 @@ class RevisionField extends ExtraFieldFormBase {
 
     return $revision_form;
   }
+
 }

@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\se_item_line\Entity\Item;
 
 define('SE_ITEM_NODE_TYPES', [
   'se_bill', 'se_goods_receipt', 'se_invoice', 'se_purchase_order', 'se_quote',
@@ -45,8 +44,8 @@ function se_item_line_theme() {
         'serial' => '',
         'completed_date' => '',
         'note' => '',
-      ]
-    ]
+      ],
+    ],
 
   ];
 }

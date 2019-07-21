@@ -8,7 +8,6 @@ use Drupal\Tests\se_testing\Functional\TicketTestBase;
  * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
- *
  */
 class TicketPermissionTest extends TicketTestBase {
 
@@ -20,6 +19,9 @@ class TicketPermissionTest extends TicketTestBase {
     '/se/ticket-list',
   ];
 
+  /**
+   * Test the ticket permissions.
+   */
   public function testTicketPermissions() {
     $this->basicPermissionCheck($this->pages);
   }

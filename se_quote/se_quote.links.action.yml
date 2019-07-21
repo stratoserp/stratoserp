@@ -6,4 +6,3 @@ se_quote.add_se_quote:
   title: 'Add quote'
   appears_on:
     - 'view.se_quote_list.page_1'
-

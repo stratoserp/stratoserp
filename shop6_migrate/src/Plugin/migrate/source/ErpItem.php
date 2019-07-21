@@ -39,13 +39,13 @@ class ErpItem extends ErpCore {
       'tnid',
       'translate',
     ])
-    ->fields('nr', [
-      'title',
-      'body',
-      'teaser',
-      'log',
-      'format',
-    ]);
+      ->fields('nr', [
+        'title',
+        'body',
+        'teaser',
+        'log',
+        'format',
+      ]);
     $query->addField('n', 'uid', 'node_uid');
     $query->condition('n.type', $this->configuration['node_type']);
     $query->leftJoin('erp_item', 'ei', 'n.nid = ei.nid');
@@ -94,6 +94,5 @@ class ErpItem extends ErpCore {
 
     return TRUE;
   }
-
 
 }

@@ -7,19 +7,22 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
+/**
+ *
+ */
 class ContactService {
 
   /**
    * The config factory.
    *
-   * @var $configFactory
+   * @var configFactory
    */
   protected $configFactory;
 
   /**
    * The entity type manager.
    *
-   * @var $entityTypeManager
+   * @var entityTypeManager
    */
   protected $entityTypeManager;
 
@@ -49,7 +52,7 @@ class ContactService {
       return [];
     }
 
-    /** @var Term $term */
+    /** @var \Drupal\taxonomy\Entity\Term $term */
     $term = Term::load($term_id);
 
     $contacts = \Drupal::entityQuery('node')
@@ -60,4 +63,5 @@ class ContactService {
 
     return $contacts;
   }
+
 }

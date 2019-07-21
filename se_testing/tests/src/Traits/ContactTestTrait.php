@@ -16,7 +16,7 @@ trait ContactTestTrait {
   public function contactFakerSetup() {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
+    $original                     = error_reporting(0);
     $this->contact->name          = $this->faker->text;
     $this->contact->phoneNumber   = $this->faker->phoneNumber;
     $this->contact->mobileNumber  = $this->faker->phoneNumber;
@@ -30,9 +30,12 @@ trait ContactTestTrait {
     error_reporting($original);
   }
 
+  /**
+   *
+   */
   public function addContact(Node $test_customer) {
 
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_contact',
       'title' => $this->contact->name,

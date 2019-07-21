@@ -6,4 +6,3 @@ se_supplier.add_se_supplier:
   title: 'Add supplier'
   appears_on:
     - 'view.se_supplier_list.page_1'
-

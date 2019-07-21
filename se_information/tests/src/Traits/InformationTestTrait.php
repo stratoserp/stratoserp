@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\se_information\Traits;
 
-use Drupal\Tests\se_information\Traits\InformationCreationTrait;
 use Faker\Factory;
 
 /**
@@ -21,11 +20,14 @@ trait InformationTestTrait {
   public function informationFakerSetup() {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
-    $this->information->name       = $this->faker->realText(20);
+    $original                = error_reporting(0);
+    $this->information->name = $this->faker->realText(20);
     error_reporting($original);
   }
 
+  /**
+   *
+   */
   public function addInformation($type) {
     /** @var \Drupal\se_information\Entity\Information $information */
     $information = $this->createInformation([
@@ -46,6 +48,5 @@ trait InformationTestTrait {
 
     return $information;
   }
-
 
 }

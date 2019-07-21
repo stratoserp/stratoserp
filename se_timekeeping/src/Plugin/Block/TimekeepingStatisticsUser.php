@@ -3,12 +3,11 @@
 namespace Drupal\se_timekeeping\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
  * Provides a "Timekeeping statistics user" block.
+ *
  * @Block(
  *   id = "user_timekeeping_statistics",
  *   admin_label = @Translation("Timekeeping statistics per user"),
@@ -18,10 +17,13 @@ class TimekeepingStatisticsUser extends BlockBase {
 
   use ReportUtilityTrait;
 
+  /**
+   *
+   */
   public function build() {
     $datasets = [];
 
-    /** @var EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $node */
     if (!$entity = $this->get_current_controller_entity()) {
       return [];
     }
@@ -30,7 +32,7 @@ class TimekeepingStatisticsUser extends BlockBase {
       return [];
     }
 
-    for ($i = 5; $i >= 0 ; $i--) {
+    for ($i = 5; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
@@ -48,7 +50,7 @@ class TimekeepingStatisticsUser extends BlockBase {
           ->getStorage('comment')
           ->loadMultiple($entity_ids);
         $total = 0;
-        /** @var Node $comment */
+        /** @var \Drupal\node\Entity\Node $comment */
         foreach ($comments as $comment) {
           $total += $comment->field_tk_amount->value;
         }
@@ -64,7 +66,7 @@ class TimekeepingStatisticsUser extends BlockBase {
         'hoverBackgroundColor' => $fg_colors,
         'fill' => FALSE,
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
@@ -79,19 +81,20 @@ class TimekeepingStatisticsUser extends BlockBase {
       '#graph_type' => 'line',
       '#options' => [
         'tooltips' => [
-          'mode' => 'point'
+          'mode' => 'point',
         ],
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
       ],
       '#id' => 'user_timekeeping_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,
-      ]
+      ],
     ];
 
     return $build;
   }
+
 }

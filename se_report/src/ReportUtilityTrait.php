@@ -3,30 +3,34 @@
 namespace Drupal\se_report;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\TempStore\PrivateTempStore;
 use Drupal\node\Entity\Node;
 use Drupal\se_core\ErpCore;
 use Drupal\Core\Routing\RedirectDestinationTrait;
 use Drupal\se_item\Entity\Item;
 
+/**
+ *
+ */
 trait ReportUtilityTrait {
 
   use RedirectDestinationTrait;
 
   /**
-   * @var int $batch_id;
+   * @var int
    */
   protected $batch_id;
 
   /**
-   * Here just for ide checks
-   * @var PrivateTempStore $store
+   * Here just for ide checks.
+   *
+   * @var \Drupal\Core\TempStore\PrivateTempStore
    */
   protected $store;
 
   /**
-   * Here just for ide checks
-   * @var Node $report_node
+   * Here just for ide checks.
+   *
+   * @var \Drupal\node\Entity\Node
    */
   protected $report_node;
 
@@ -56,7 +60,6 @@ trait ReportUtilityTrait {
   /**
    * Create/load the temp store based on the batch id which is used
    * to keep data between parts of the batch run.
-   *
    */
   private function createLoadBatchInfo() {
     $temp_store = \Drupal::service('tempstore.private');
@@ -86,7 +89,7 @@ trait ReportUtilityTrait {
     $batch_data[$key] = $value;
     $this->store->set($this->getBatchName(), $batch_data);
 
-    // Testing
+    // Testing.
     $configuration = $this->getConfiguration();
     $configuration[$this->getBatchName()] = $batch_data;
     $this->setConfiguration($configuration);
@@ -120,7 +123,6 @@ trait ReportUtilityTrait {
   /**
    * Create/load the report node which will hold the results
    * of the batch run.
-   *
    */
   private function createLoadReportNode() {
     if (($nid = $this->getBatchDataByKey('report_node')) && $node = Node::load($nid)) {
@@ -161,9 +163,9 @@ trait ReportUtilityTrait {
         $type = $item_line->target_type;
 
         switch ($type) {
-          // Comment type
+          // Comment type.
           case 'se_timekeeping':
-            /** @var Item $item */
+            /** @var \Drupal\se_item\Entity\Item $item */
             if (!$item = Item::load($item_line->target_id)) {
               continue 2;
             }
@@ -171,11 +173,12 @@ trait ReportUtilityTrait {
             $amount = $item_line->price->value * $item_line->quantity->value;
             $this->setStatisticsArray($data, $item_line, $amount);
             break;
+
           // The item types should be basically the same.
           case 'se_service':
           case 'se_stock':
           case 'se_recurring':
-            /** @var Item $item */
+            /** @var \Drupal\se_item\Entity\Item $item */
             if (!$item = Item::load($item_line->target_id)) {
               continue 2;
             }
@@ -183,14 +186,16 @@ trait ReportUtilityTrait {
             $amount = $item_line->price->value * $item_line->quantity->value;
             $this->setStatisticsArray($data, $item_line, $amount);
             break;
+
           case 'se_assembly':
             // TODO Recursion required? See Recursion.
             break;
+
           default:
             \Drupal::logger('item_breakdown_report_action')
               ->error('Unhandled item type %type.', ['%type' => $type]);
             continue 2;
-            break;
+          break;
         }
       }
 
@@ -226,10 +231,9 @@ trait ReportUtilityTrait {
    * @return bool|string
    */
   private function createCSV($data) {
-    // Generate CSV data from array
+    // Generate CSV data from array.
     $fh = fopen('php://temp', 'rwb');
-    // Don't create a file, attempt to use memory instead
-
+    // Don't create a file, attempt to use memory instead.
     fputcsv($fh, ['Item', 'Value']);
     foreach ($data as $key => $value) {
       fputcsv($fh, [$key, $value]);
@@ -252,8 +256,8 @@ trait ReportUtilityTrait {
         $title_parts[] = $this->configuration['input_parameters']['exposed_input']['business'];
       }
     }
-    /** @var Node $business_node */
-    else if ($business_node = Node::load($this->configuration['business_ref'])) {
+    /** @var \Drupal\node\Entity\Node $business_node */
+    elseif ($business_node = Node::load($this->configuration['business_ref'])) {
       $title_parts[] = $business_node->title->value;
     }
 
@@ -318,6 +322,7 @@ trait ReportUtilityTrait {
    * @param string $blue
    *
    * @return array
+   *
    * @throws \Exception
    */
   public function generateColorsDarkening($red = NULL, $green = NULL, $blue = NULL) {

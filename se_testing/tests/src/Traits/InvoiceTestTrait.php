@@ -16,7 +16,7 @@ trait InvoiceTestTrait {
   public function invoiceFakerSetup() {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
+    $original                     = error_reporting(0);
     $this->invoice->name          = $this->faker->text;
     $this->invoice->phoneNumber   = $this->faker->phoneNumber;
     $this->invoice->mobileNumber  = $this->faker->phoneNumber;
@@ -29,6 +29,9 @@ trait InvoiceTestTrait {
     error_reporting($original);
   }
 
+  /**
+   *
+   */
   public function addInvoice(Node $test_customer, array $items = []) {
 
     $lines = [];
@@ -41,7 +44,7 @@ trait InvoiceTestTrait {
       $lines[] = $line;
     }
 
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_invoice',
       'title' => $this->invoice->name,
@@ -64,6 +67,5 @@ trait InvoiceTestTrait {
 
     return $node;
   }
-
 
 }

@@ -10,7 +10,6 @@ use Drupal\Tests\se_testing\Traits\UserCreateTrait;
  * @coversDefault Drupal\se_invoice
  * @group se_invoice
  * @group stratoserp
- *
  */
 class InvoiceCrudTest extends InvoiceTestBase {
 
@@ -20,6 +19,9 @@ class InvoiceCrudTest extends InvoiceTestBase {
   protected $invoice;
   protected $staff;
 
+  /**
+   *
+   */
   public function testInvoiceAdd() {
 
     $staff = $this->setupStaffUser();

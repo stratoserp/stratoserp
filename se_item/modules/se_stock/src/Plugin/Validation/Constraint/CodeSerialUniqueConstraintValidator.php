@@ -29,4 +29,5 @@ class CodeSerialUniqueConstraintValidator extends ConstraintValidator {
       }
     }
   }
+
 }

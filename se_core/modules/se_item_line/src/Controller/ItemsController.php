@@ -9,16 +9,22 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ *
+ */
 class ItemsController extends ControllerBase {
 
+  /**
+   *
+   */
   public static function updatePrice(array &$form, FormStateInterface $form_state, Request $request): AjaxResponse {
     $values = $form_state->getValues();
     $response = new AjaxResponse();
 
-    // Use the triggering element to determine the line index;
+    // Use the triggering element to determine the line index;.
     $trigger = $request->request->get('_triggering_element_name');
 
-    // Which we can then use with a regular expression;
+    // Which we can then use with a regular expression;.
     preg_match("/(field_(..)_lines)\[(\d)\]\[(.*?)\].*/", $trigger, $matches);
     if (count($matches) < 5) {
       return $response;
@@ -27,8 +33,8 @@ class ItemsController extends ControllerBase {
     // To extract the fields we need.
     [$field, $type, $index, $trigger] = array_slice($matches, 1);
 
-    // Load the chosen item
-    /** @var Item $item */
+    // Load the chosen item.
+    /** @var \Drupal\se_item\Entity\Item $item */
     if (!$item = Item::load($values[$field][$index]['target_id'])) {
       return $response;
     }
@@ -53,7 +59,7 @@ class ItemsController extends ControllerBase {
       }
     }
 
-    // Update the total
+    // Update the total.
     $total = 0;
     foreach ($values[$field] as $index => $value) {
       if (is_int($index) && !empty($value['target_id'])) {

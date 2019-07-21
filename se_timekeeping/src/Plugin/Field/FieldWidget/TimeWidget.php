@@ -38,17 +38,9 @@ class TimeWidget extends WidgetBase {
   }
 
   /**
-   * Validate the color text field.
+   * Validate the  text field.
    */
   public static function validate($element, FormStateInterface $form_state) {
   }
-
-//  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-//    foreach ($values as &$value) {
-//
-//    }
-//
-//    return $values;
-//  }
 
 }

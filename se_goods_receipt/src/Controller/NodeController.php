@@ -78,11 +78,12 @@ class NodeController extends ControllerBase {
    *
    * @return array
    *   A node submission form.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function add(NodeTypeInterface $node_type, Node $source) {
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);

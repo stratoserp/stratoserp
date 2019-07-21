@@ -2,7 +2,6 @@
 
 namespace Drupal\se_invoice\Controller;
 
-use Drupal\comment\Entity\Comment;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
@@ -81,11 +80,12 @@ class NodeController extends ControllerBase {
    *
    * @return array
    *   A node submission form.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function add(NodeTypeInterface $node_type, Node $source) {
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);
@@ -113,11 +113,12 @@ class NodeController extends ControllerBase {
    *
    * @return array
    *   A node submission form.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function timekeeping(NodeTypeInterface $node_type, Node $source) {
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);
@@ -143,16 +144,16 @@ class NodeController extends ControllerBase {
 
     $lines = [];
     foreach ($entity_ids as $entity_id) {
-      /** @var Comment $comment */
+      /** @var \Drupal\comment\Entity\Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
-        /** @var Item $item */
+        /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = Item::load($comment->field_tk_item->target_id)) {
           $price = $item->field_it_sell_price->value;
         }
         $line = [
           'target_type' => 'se_item',
           'target_id' => $item->id(),
-          'quantity' => \Drupal::service('se_timekeeping.time_format')->formatHours($comment->field_tk_amount->value),
+          'quantity' => $comment->field_tk_amount->value,
           'notes' => $comment->field_tk_comment->value,
           'format' => $comment->field_tk_comment->format,
           'price' => $price,
@@ -169,7 +170,5 @@ class NodeController extends ControllerBase {
 
     return $this->entityFormBuilder()->getForm($node);
   }
-
-
 
 }

@@ -8,7 +8,6 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @coversDefault Drupal\se_subscription
  * @group se_subscription
  * @group stratoserp
- *
  */
 class InformationSubscriptionCreateTest extends ExistingSiteBase {
 
@@ -19,6 +18,9 @@ class InformationSubscriptionCreateTest extends ExistingSiteBase {
     '/information/add/se_subscription',
   ];
 
+  /**
+   *
+   */
   public function testInformationSubscriptionPermissions() {
     $this->customer = $this->createUser([], NULL, FALSE);
     $this->customer->addRole('customer');

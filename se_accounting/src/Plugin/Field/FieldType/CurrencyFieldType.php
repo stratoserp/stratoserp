@@ -31,6 +31,9 @@ class CurrencyFieldType extends NumericItemBase {
     return $properties;
   }
 
+  /**
+   *
+   */
   public function getConstraints() {
     return [];
   }

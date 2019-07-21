@@ -8,9 +8,8 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * @coversDefault Drupal\se_stock
  * @group se_stock
  * @group stratoserp
- *
  */
-class StockItemContentValidationTest extends ItemTestBase  {
+class StockItemContentValidationTest extends ItemTestBase {
 
   protected $item;
 

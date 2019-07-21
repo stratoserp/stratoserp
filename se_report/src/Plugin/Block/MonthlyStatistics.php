@@ -7,6 +7,7 @@ use Drupal\se_report\ReportUtilityTrait;
 
 /**
  * Provides a "Monthly statistics" block.
+ *
  * @Block(
  *   id = "monthly_statistics",
  *   admin_label = @Translation("Monthly statistics"),
@@ -16,12 +17,15 @@ class MonthlyStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
+  /**
+   *
+   */
   public function build() {
     $content = FALSE;
     $datasets = [];
     $connection = \Drupal::database();
 
-    for ($i = 5; $i >= 0 ; $i--) {
+    for ($i = 5; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
@@ -53,7 +57,7 @@ class MonthlyStatistics extends BlockBase {
         'hoverBackgroundColor' => $fg_colors,
         'fill' => FALSE,
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
@@ -72,10 +76,10 @@ class MonthlyStatistics extends BlockBase {
       '#graph_type' => 'line',
       '#options' => [
         'tooltips' => [
-          'mode' => 'point'
+          'mode' => 'point',
         ],
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
       ],
       '#id' => 'monthly_statistics',
@@ -87,4 +91,5 @@ class MonthlyStatistics extends BlockBase {
 
     return $build;
   }
+
 }

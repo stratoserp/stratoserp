@@ -80,14 +80,14 @@ class ErpCore extends MigrateNode {
 
       // If no serial number, its likely to be a service.
       if (empty($line->serial)) {
-        // Check static var
+        // Check static var.
         if (!isset($services[$line->item_nid])) {
           if ($service_node = $this->findNewId($line->item_nid, 'nid', 'upgrade_d6_service_item')) {
             if ($service_item = Item::load($service_node)) {
               $item = $service_item->id();
               $type = 'se_item';
 
-              // Set static var
+              // Set static var.
               $services[$line->item_nid] = $service_item->id();
             }
           }
@@ -101,7 +101,7 @@ class ErpCore extends MigrateNode {
 
       // We only do these for invoices.
       if ($node_type === 'erp_invoice') {
-        // Timekeeping entry
+        // Timekeeping entry.
         if (empty($item) && preg_match('/TK - ([\d]+)/', $line->serial, $matches)) {
           if (($timekeeping = $this->findTimekeepingById($matches[1])) && isset($timekeeping->field_serp_tk_comment_id_value)) {
             if (($tk_entity_id = $this->findNewId($timekeeping->field_serp_tk_comment_id_value, 'cid', 'upgrade_d6_job_comment')) &&
@@ -164,7 +164,7 @@ class ErpCore extends MigrateNode {
       $total += ($line->qty * $price);
     }
 
-    // Set the item lines
+    // Set the item lines.
     $row->setSourceProperty('se_item_lines', $items);
     $row->setSourceProperty('total', $total);
   }
@@ -179,6 +179,7 @@ class ErpCore extends MigrateNode {
    *
    * @return bool
    *   Whether a business was found or not.
+   *
    * @throws \Exception
    *   setSourceProperty() might
    */
@@ -211,6 +212,7 @@ class ErpCore extends MigrateNode {
    *
    * @return bool
    *   Whether a business was found or not.
+   *
    * @throws \Exception
    *   setSourceProperty() might
    */

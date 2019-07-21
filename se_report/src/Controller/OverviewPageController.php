@@ -5,13 +5,22 @@ namespace Drupal\se_report\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\se_report\ReportUtilityTrait;
 
+/**
+ *
+ */
 class OverviewPageController extends ControllerBase {
   use ReportUtilityTrait;
 
+  /**
+   *
+   */
   protected function getModuleName() {
     return 'report_overview_page';
   }
 
+  /**
+   *
+   */
   public function dashboard() {
     $monthly_statistics = $this->monthlyStatistics();
 
@@ -20,6 +29,9 @@ class OverviewPageController extends ControllerBase {
     ];
   }
 
+  /**
+   *
+   */
   private function monthlyStatistics() {
     if (!$block = \Drupal::service('plugin.manager.block')
       ->createInstance('monthly_statistics', [])

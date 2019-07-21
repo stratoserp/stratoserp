@@ -8,7 +8,6 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @coversDefault Drupal\se_supplier
  * @group se_supplier
  * @group stratoserp
- *
  */
 class SupplierPermissionsTest extends FunctionalTestBase {
 
@@ -17,9 +16,12 @@ class SupplierPermissionsTest extends FunctionalTestBase {
 
   private $pages = [
     '/node/add/se_supplier',
-    '/se/supplier-list'
+    '/se/supplier-list',
   ];
 
+  /**
+   *
+   */
   public function testSupplierPermissions() {
 
     $this->basicPermissionCheck($this->pages);

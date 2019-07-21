@@ -21,7 +21,7 @@ class ErpStockItemRetrieval extends ProcessPluginBase {
    * @param \Drupal\migrate\Row $row
    * @param $destination_property
    *
-   * @return int|boolean
+   * @return int|bool
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $stock_id = $this->findNewId($value, 'stock_id', 'upgrade_d6_stock_item');

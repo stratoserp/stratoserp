@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\se_testing\Traits;
 
-use Drupal\node\Entity\Node;
 use Faker\Factory;
 
 /**
@@ -16,7 +15,7 @@ trait TicketTestTrait {
   public function ticketFakerSetup() {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
+    $original                    = error_reporting(0);
     $this->ticket->name          = $this->faker->text;
     $this->ticket->phoneNumber   = $this->faker->phoneNumber;
     $this->ticket->mobileNumber  = $this->faker->phoneNumber;
@@ -36,10 +35,11 @@ trait TicketTestTrait {
    * @param null $customer
    *
    * @return \Drupal\node\Entity\Node
+   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addTicket($customer = NULL) {
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_ticket',
       'title' => $this->ticket->name,

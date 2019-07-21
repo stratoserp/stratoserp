@@ -3,7 +3,7 @@
 namespace Drupal\se_accounting\Service;
 
 /**
- * Class CurrencyFormat
+ * Class CurrencyFormat.
  *
  * @package Drupal\se_accounting\Service
  */
@@ -18,11 +18,11 @@ class CurrencyFormat {
    */
   public function formatDisplay(string $value) {
 
-    // Don't try and divide by zero
+    // Don't try and divide by zero.
     if (!empty($value)) {
 
       // Format with thousands and decimals.
-      return (string)number_format($value / 100, 2);
+      return (string) number_format($value / 100, 2);
     }
 
     return 0;
@@ -41,7 +41,7 @@ class CurrencyFormat {
     $value = str_replace(',', '', $value);
 
     // Multiply by 100 to change to cents, dont bother with zero
-    // Don't try and divide by zero
+    // Don't try and divide by zero.
     if (!empty($value)) {
       return (string) ($value * 100);
     }
@@ -58,7 +58,7 @@ class CurrencyFormat {
    */
   public function formatRaw(string $value) {
 
-    // Don't try and divide by zero
+    // Don't try and divide by zero.
     if (!empty($value)) {
 
       // Format with thousands and decimals.

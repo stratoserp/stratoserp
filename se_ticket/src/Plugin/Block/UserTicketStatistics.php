@@ -3,11 +3,11 @@
 namespace Drupal\se_ticket\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
  * Provides a "User ticket statistics" block.
+ *
  * @Block(
  *   id = "user_ticket_statistics",
  *   admin_label = @Translation("User ticket statistics"),
@@ -17,10 +17,13 @@ class UserTicketStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
+  /**
+   *
+   */
   public function build() {
     $datasets = [];
 
-    /** @var EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $node */
     if (!$entity = $this->get_current_controller_entity()) {
       return [];
     }
@@ -29,7 +32,7 @@ class UserTicketStatistics extends BlockBase {
       return [];
     }
 
-    for ($i = 5; $i >= 0 ; $i--) {
+    for ($i = 5; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
@@ -54,7 +57,7 @@ class UserTicketStatistics extends BlockBase {
         'hoverBackgroundColor' => $fg_colors,
         'fill' => FALSE,
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
@@ -69,19 +72,20 @@ class UserTicketStatistics extends BlockBase {
       '#graph_type' => 'line',
       '#options' => [
         'tooltips' => [
-          'mode' => 'point'
+          'mode' => 'point',
         ],
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
       ],
       '#id' => 'user_ticket_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,
-      ]
+      ],
     ];
 
     return $build;
   }
+
 }

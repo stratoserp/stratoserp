@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\se_testing\Traits;
 
+use Drupal\Tests\comment\Functional\CommentTypeTest;
 use Drupal\node\Entity\Node;
 use Faker\Factory;
 
@@ -16,7 +17,7 @@ trait TimekeepingTestTrait {
   public function timekeepingFakerSetup() {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
+    $original                         = error_reporting(0);
     $this->timekeeping->name          = $this->faker->text;
     $this->timekeeping->phoneNumber   = $this->faker->phoneNumber;
     $this->timekeeping->mobileNumber  = $this->faker->phoneNumber;
@@ -29,9 +30,17 @@ trait TimekeepingTestTrait {
     error_reporting($original);
   }
 
-  public function addTimekeeping() {
-    /** @var Node $node */
-    $node = $this->createNode([
+  /**
+   * Add timekeeping to a ticket.
+   *
+   * @param \Drupal\node\Entity\Node $ticket
+   *
+   * @return \Drupal\node\Entity\Node
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function addTimekeeping(Node $ticket) {
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = $this->createComment([
       'type' => 'se_timekeeping',
       'title' => $this->timekeeping->name,
       'field_tk_phone' => $this->timekeeping->phoneNumber,
@@ -51,6 +60,5 @@ trait TimekeepingTestTrait {
 
     return $node;
   }
-
 
 }

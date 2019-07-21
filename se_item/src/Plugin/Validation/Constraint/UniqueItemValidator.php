@@ -2,7 +2,6 @@
 
 namespace Drupal\se_item\Plugin\Validation\Constraint;
 
-use Drupal\se_item\Entity\Item;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -20,7 +19,7 @@ class UniqueItemValidator extends ConstraintValidator {
       $result = \Drupal::service('se_item.service')->findByCode($item->value);
 
       if ($result) {
-        /** @var Item $item */
+        /** @var \Drupal\se_item\Entity\Item $item */
         $host_item = $item->getEntity();
         if ($host_item->id()) {
           return NULL;

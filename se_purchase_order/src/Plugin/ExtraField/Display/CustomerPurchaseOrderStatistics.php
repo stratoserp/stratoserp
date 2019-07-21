@@ -21,14 +21,23 @@ class CustomerPurchaseOrderStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
+  /**
+   *
+   */
   public function getLabel() {
     return $this->t('Purchase order statistics');
   }
 
+  /**
+   *
+   */
   public function getLabelDisplay() {
     return 'above';
   }
 
+  /**
+   *
+   */
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
       ->createInstance('customer_purchase_order_statistics', [])
@@ -37,7 +46,7 @@ class CustomerPurchaseOrderStatistics extends ExtraFieldDisplayFormattedBase {
     }
 
     return [
-      ['#markup' => render($block)]
+      ['#markup' => render($block)],
     ];
   }
 

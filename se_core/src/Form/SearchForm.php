@@ -4,8 +4,10 @@ namespace Drupal\se_core\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\Messenger;
 
+/**
+ *
+ */
 class SearchForm extends FormBase {
 
   /**
@@ -91,11 +93,8 @@ class SearchForm extends FormBase {
       return;
     }
 
-
-
     // Otherwise, perform a full text search, something like
     // https://www.drupal.org/docs/8/modules/search-api/developer-documentation/executing-a-search-in-code
-
   }
 
 }

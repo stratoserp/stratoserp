@@ -5,6 +5,9 @@ namespace Drupal\Tests\se_testing\Functional;
 use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 
+/**
+ *
+ */
 class CustomerTestBase extends FunctionalTestBase {
 
   // Now our own Traits.
@@ -13,6 +16,9 @@ class CustomerTestBase extends FunctionalTestBase {
 
   protected $customer;
 
+  /**
+   *
+   */
   protected function setUp() {
     parent::setUp();
     $this->customerFakerSetup();

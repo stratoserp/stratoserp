@@ -8,12 +8,14 @@ use Drupal\Tests\se_testing\Functional\ContactTestBase;
  * @coversDefault Drupal\se_contact
  * @group se_contact
  * @group stratoserp
- *
  */
 class ContactCrudTest extends ContactTestBase {
 
   protected $staff;
 
+  /**
+   *
+   */
   public function testContactAdd() {
 
     $staff = $this->setupStaffUser();
@@ -25,6 +27,9 @@ class ContactCrudTest extends ContactTestBase {
     $this->drupalLogout();
   }
 
+  /**
+   *
+   */
   public function testContactDelete() {
 
     $this->contactFakerSetup();
@@ -52,4 +57,3 @@ class ContactCrudTest extends ContactTestBase {
   }
 
 }
-

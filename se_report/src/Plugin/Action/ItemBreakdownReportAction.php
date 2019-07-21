@@ -9,7 +9,7 @@ use Drupal\views_bulk_operations\Action\ViewsBulkOperationsActionBase;
 use Drupal\views_bulk_operations\Action\ViewsBulkOperationsPreconfigurationInterface;
 
 /**
- * Class ItemBreakdownAction
+ * Class ItemBreakdownAction.
  *
  * @Action(
  *   id = "item_breakdown_report_action",
@@ -19,7 +19,6 @@ use Drupal\views_bulk_operations\Action\ViewsBulkOperationsPreconfigurationInter
  * )
  *
  * TODO: Dependency injection.
- *
  */
 class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements ViewsBulkOperationsPreconfigurationInterface {
 
@@ -60,13 +59,13 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
       }
     }
 
-    // Store the batch data between action iterations
+    // Store the batch data between action iterations.
     $this->setBatchData('report_array', $report_array);
     $progress = $this->getBatchDataByKey('progress') + 1;
     $this->setBatchData('progress', $progress);
     $total = $this->getBatchDataByKey('total');
 
-    // Check if we're finished, and if so, update report node, set redirect
+    // Check if we're finished, and if so, update report node, set redirect.
     if ($progress >= $total) {
       $this->report_node->field_re_parameters->value = json_encode($this->getBatchDataByKey('input_parameters'));
       $this->report_node->field_re_json_data->value = json_encode($report_array);
@@ -74,7 +73,7 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
       $this->report_node->save();
 
       // Set new redirect url (hmm doesn't work).
-      //$this->context['results']['redirect_url'] = Url::fromUri('internal:/node/' . $this->report_node->id());
+      // $this->context['results']['redirect_url'] = Url::fromUri('internal:/node/' . $this->report_node->id());
     }
   }
 
@@ -89,7 +88,7 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    // Retrieve the views parameters so we can auto update this
+    // Retrieve the views parameters so we can auto update this.
     $form_storage = $form_state->getStorage();
 
     $input_parameters = $form_storage['views_bulk_operations'];
@@ -108,7 +107,7 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
       '#type' => 'entity_autocomplete',
       '#target_type' => 'node',
       '#selection_settings' => ['target_bundles' => ['node' => 'se_customer']],
-      '#description' => 'Associate/relate the report with a business.'
+      '#description' => 'Associate/relate the report with a business.',
     ];
 
     return $form;
@@ -121,7 +120,6 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
     $this->configuration['input_parameters'] = $form_state->getValue('input_parameters');
     $this->configuration['business_ref'] = $form_state->getValue('business_ref');
   }
-
 
   /**
    * {@inheritdoc}

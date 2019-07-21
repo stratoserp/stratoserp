@@ -30,16 +30,22 @@ class CurrencyWidget extends WidgetBase {
       '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($value ?? 0),
       '#size' => 12,
       '#maxlength' => 12,
-//      '#element_validate' => [
-//        [static::class, 'validate'],
-//      ],
+    // '#element_validate' => [
+    //        [static::class, 'validate'],
+    //      ],
     ];
     return ['value' => $element];
   }
 
+  /**
+   *
+   */
   public static function validate($element, FormStateInterface $form_state) {
   }
 
+  /**
+   *
+   */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $values = parent::massageFormValues($values, $form, $form_state);
 

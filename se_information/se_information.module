@@ -43,8 +43,8 @@ function se_information_theme() {
 }
 
 /**
-* Implements hook_theme_suggestions_HOOK().
-*/
+ * Implements hook_theme_suggestions_HOOK().
+ */
 function se_information_theme_suggestions_se_information(array $variables) {
   $suggestions = [];
   $entity = $variables['elements']['#se_information'];
@@ -58,6 +58,9 @@ function se_information_theme_suggestions_se_information(array $variables) {
   return $suggestions;
 }
 
+/**
+ *
+ */
 function se_information_form_se_information_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_bu_ref', 'field_bu_ref');
 }

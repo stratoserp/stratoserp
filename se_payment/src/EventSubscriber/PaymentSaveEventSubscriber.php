@@ -12,10 +12,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
 /**
- * Class PaymentSaveEventSubscriber
+ * Class PaymentSaveEventSubscriber.
  *
  * For each invoice in the payment, mark it as paid.
  * For Customer balance updates -
+ *
  * @see \Drupal\se_customer\EventSubscriber\AccountingSaveEventSubscriber
  *
  * @package Drupal\se_payment\EventSubscriber
@@ -30,18 +31,17 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsertMarkInvoicesPaid',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdateMarkInvoicesPaid',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentMarkInvoicesOutstanding'
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentMarkInvoicesOutstanding',
     ];
   }
 
   /**
    * When a payment is saved, mark all invoices listed as paid.
    *
-   * @param EntityInsertEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
   public function paymentInsertMarkInvoicesPaid(EntityInsertEvent $event) {
-    /** @var Node $entity */
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
       $this->paymentMarkInvoiceStatus($entity);
@@ -51,10 +51,10 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * Whn a payment is updated, make all invoices as paid.
    *
-   * @param EntityUpdateEvent $event
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    */
   public function paymentUpdateMarkInvoicesPaid(EntityUpdateEvent $event) {
-    /** @var Node $entity */
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
       $this->paymentMarkInvoiceStatus($entity);
@@ -66,11 +66,10 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * in its pre-saved state as unpaid in case they have been removed from the
    * payment.
    *
-   * @param EntityPresaveEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    */
   public function paymentMarkInvoicesOutstanding(EntityPresaveEvent $event) {
-    /** @var Node $entity */
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_payment') {
       $this->paymentMarkInvoiceStatus($entity, FALSE);
@@ -81,7 +80,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * Loop through the payment entries and mark the invoices as
    * paid/unpaid as dictated by the parameter.
    *
-   * @param Node $entity
+   * @param \Drupal\node\Entity\Node $entity
    * @param bool $paid
    *
    * @throws \Drupal\Core\Entity\EntityStorageException

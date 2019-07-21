@@ -2,8 +2,6 @@
 
 namespace Drupal\se_payment_line\Plugin\Field\FieldType;
 
-use Drupal\Core\Annotation\Translation;
-use Drupal\Core\Field\Annotation\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\TypedData\DataDefinition;

@@ -3,12 +3,11 @@
 namespace Drupal\se_invoice\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
  * Provides a "Customer invoice statistics" block.
+ *
  * @Block(
  *   id = "customer_invoice_statistics",
  *   admin_label = @Translation("Customer invoice statistics"),
@@ -18,11 +17,14 @@ class CustomerInvoiceStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
+  /**
+   *
+   */
   public function build() {
     $content = FALSE;
     $datasets = [];
 
-    /** @var EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $node */
     if (!$node = $this->get_current_controller_entity()) {
       return [];
     }
@@ -31,7 +33,7 @@ class CustomerInvoiceStatistics extends BlockBase {
       return [];
     }
 
-    for ($i = 5; $i >= 0 ; $i--) {
+    for ($i = 5; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
@@ -48,7 +50,7 @@ class CustomerInvoiceStatistics extends BlockBase {
           ->getStorage('node')
           ->loadMultiple($entity_ids);
         $total = 0;
-        /** @var Node $invoice */
+        /** @var \Drupal\node\Entity\Node $invoice */
         foreach ($invoices as $invoice) {
           $total += $invoice->field_in_total->value;
         }
@@ -64,7 +66,7 @@ class CustomerInvoiceStatistics extends BlockBase {
         'hoverBackgroundColor' => $fg_colors,
         'fill' => FALSE,
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
@@ -83,19 +85,20 @@ class CustomerInvoiceStatistics extends BlockBase {
       '#graph_type' => 'line',
       '#options' => [
         'tooltips' => [
-          'mode' => 'point'
+          'mode' => 'point',
         ],
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
       ],
       '#id' => 'invoice_statistics_customer',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,
-      ]
+      ],
     ];
 
     return $build;
   }
+
 }

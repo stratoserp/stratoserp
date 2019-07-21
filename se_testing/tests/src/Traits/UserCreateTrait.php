@@ -4,6 +4,9 @@ namespace Drupal\Tests\se_testing\Traits;
 
 use Drupal\Tests\user\Traits\UserCreationTrait;
 
+/**
+ *
+ */
 trait UserCreateTrait {
 
   use UserCreationTrait;
@@ -14,7 +17,7 @@ trait UserCreateTrait {
    * @return mixed
    */
   public function setupCustomerUser() {
-    // Setup user & login
+    // Setup user & login.
     $staff = $this->createUser();
     $staff->addRole('customer');
     $staff->save();
@@ -28,13 +31,12 @@ trait UserCreateTrait {
    * @return mixed
    */
   public function setupStaffUser() {
-    // Setup user & login
+    // Setup user & login.
     $staff = $this->createUser();
     $staff->addRole('staff');
     $staff->save();
 
     return $staff;
   }
-
 
 }

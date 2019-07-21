@@ -8,7 +8,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class InvoiceInsertEventSubscriber
+ * Class InvoiceInsertEventSubscriber.
  *
  * When an invoice is saved, sync it through to xero.
  *
@@ -28,8 +28,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * @param EntityInsertEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
   public function invoiceInsert(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $node */
@@ -40,6 +39,9 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
     }
   }
 
+  /**
+   * Sync an invoice up to xero.
+   */
   public function invoiceUpdate(EntityUpdateEvent $event) {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $event->getEntity();
@@ -48,4 +50,5 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
     }
 
   }
+
 }

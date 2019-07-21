@@ -21,7 +21,7 @@ class ErpStockItemInvoice extends ProcessPluginBase {
    * @param \Drupal\migrate\Row $row
    * @param $destination_property
    *
-   * @return int|boolean
+   * @return int|bool
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $serial = $this->cleanupSerial($row->getSourceProperty('serial') ?? '');

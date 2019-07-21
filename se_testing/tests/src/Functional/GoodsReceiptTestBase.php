@@ -6,6 +6,9 @@ use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
 use Drupal\Tests\se_testing\Traits\GoodsReceiptTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 
+/**
+ *
+ */
 class GoodsReceiptTestBase extends FunctionalTestBase {
 
   // Now our own Traits.
@@ -15,6 +18,9 @@ class GoodsReceiptTestBase extends FunctionalTestBase {
 
   protected $goodsReceipt;
 
+  /**
+   *
+   */
   protected function setUp() {
     parent::setUp();
     $this->goodsReceiptFakerSetup();

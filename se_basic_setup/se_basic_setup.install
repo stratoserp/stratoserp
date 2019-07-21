@@ -1,7 +1,10 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\se_item\Entity\Item;
-use Drupal\Core\Config\FileStorage;
 
 /**
  * Implements hook_install().
@@ -14,6 +17,9 @@ function se_basic_setup_install() {
   se_basic_setup_config_defaults();
 }
 
+/**
+ *
+ */
 function se_basic_setup_taxonomy_terms() {
   se_core_create_terms('se_sale_category', [
     'Consumables',
@@ -95,144 +101,156 @@ function se_basic_setup_taxonomy_terms() {
   ]);
 }
 
+/**
+ *
+ */
 function se_basic_setup_example_service_items() {
   $defaults = se_basic_setup_item_defaults('Service', 'Domain name', 'Internal', 'se_service');
 
   $item = Item::create($defaults + [
-      'name' => 'Technical service',
-      'body' => 'Technical service by one of our qualified technicians.',
-      'field_it_code'  => [['value' => 'TECHSERVICE']],
-      'field_it_sell_price' => [['value' => 16000]],
-      'field_it_cost_price' => [['value' => 5500]],
-    ]);
+    'name' => 'Technical service',
+    'body' => 'Technical service by one of our qualified technicians.',
+    'field_it_code'  => [['value' => 'TECHSERVICE']],
+    'field_it_sell_price' => [['value' => 16000]],
+    'field_it_cost_price' => [['value' => 5500]],
+  ]);
   $item->save();
 
   $item = Item::create($defaults + [
-      'name' => 'Workshop service',
-      'body' => 'Workshop service by one of our qualified technicians.',
-      'field_it_code'  => [['value' => 'WORKSHOP']],
-      'field_it_sell_price' => [['value' => 12000]],
-      'field_it_cost_price' => [['value' => 5500]],
-    ]);
+    'name' => 'Workshop service',
+    'body' => 'Workshop service by one of our qualified technicians.',
+    'field_it_code'  => [['value' => 'WORKSHOP']],
+    'field_it_sell_price' => [['value' => 12000]],
+    'field_it_cost_price' => [['value' => 5500]],
+  ]);
   $item->save();
 }
 
+/**
+ *
+ */
 function se_basic_setup_example_recurring_items() {
   $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
 
   // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
   $item = Item::create($defaults + [
-      'name' => 'Domain name registration',
-      'body' => 'Domain name registration - yearly.',
-      'field_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
-      'field_it_sell_price' => [['value' => 6000]],
-      'field_it_recurring_period' => [['duration' => 'P1Y']],
-      'field_it_cost_price' => [['value' => 2000]],
-    ]);
+    'name' => 'Domain name registration',
+    'body' => 'Domain name registration - yearly.',
+    'field_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
+    'field_it_sell_price' => [['value' => 6000]],
+    'field_it_recurring_period' => [['duration' => 'P1Y']],
+    'field_it_cost_price' => [['value' => 2000]],
+  ]);
   $item->save();
 
   $item = Item::create($defaults + [
-      'name' => 'Domain name - biennually',
-      'body' => 'Domain name - biennually.',
-      'field_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
-      'field_it_sell_price' => [['value' => 12000]],
-      'field_it_recurring_period' => [['duration' => 'P2Y']],
-      'field_it_cost_price' => [['value' => 4000]],
-    ]);
+    'name' => 'Domain name - biennually',
+    'body' => 'Domain name - biennually.',
+    'field_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
+    'field_it_sell_price' => [['value' => 12000]],
+    'field_it_recurring_period' => [['duration' => 'P2Y']],
+    'field_it_cost_price' => [['value' => 4000]],
+  ]);
   $item->save();
 
   $defaults = se_basic_setup_item_defaults('Hosting service', 'Domain name', 'Internal', 'se_recurring');
 
   $item = Item::create($defaults + [
-      'name' => 'Domain hosting',
-      'body' => 'Domain hosting - yearly.',
-      'field_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
-      'field_it_sell_price' => [['value' => 24000]],
-      'field_it_recurring_period' => [['duration' => 'P1Y']],
-      'field_it_cost_price' => [['value' => 12000]],
-    ]);
+    'name' => 'Domain hosting',
+    'body' => 'Domain hosting - yearly.',
+    'field_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
+    'field_it_sell_price' => [['value' => 24000]],
+    'field_it_recurring_period' => [['duration' => 'P1Y']],
+    'field_it_cost_price' => [['value' => 12000]],
+  ]);
   $item->save();
 }
 
+/**
+ *
+ */
 function se_basic_setup_example_stock_items() {
   $defaults = se_basic_setup_item_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
 
   $item = Item::create($defaults + [
-      'name' => 'Microsoft KB600',
-      'body' => 'Microsoft KB600',
-      'field_it_code'  => [['value' => 'MS-KB-600']],
-      'field_it_serial' => [['value' => '111111']],
-      'field_it_sell_price' => [['value' => 4500]],
-      'field_it_cost_price' => [['value' => 2500]],
-    ]);
+    'name' => 'Microsoft KB600',
+    'body' => 'Microsoft KB600',
+    'field_it_code'  => [['value' => 'MS-KB-600']],
+    'field_it_serial' => [['value' => '111111']],
+    'field_it_sell_price' => [['value' => 4500]],
+    'field_it_cost_price' => [['value' => 2500]],
+  ]);
   $item->save();
 
   $item = Item::create($defaults + [
-      'name' => 'Microsoft KB800',
-      'body' => 'Microsoft KB800',
-      'field_it_code'  => [['value' => 'MS-KB-800']],
-      'field_it_serial' => [['value' => '222222']],
-      'field_it_sell_price' => [['value' => 5500]],
-      'field_it_cost_price' => [['value' => 3000]],
-    ]);
+    'name' => 'Microsoft KB800',
+    'body' => 'Microsoft KB800',
+    'field_it_code'  => [['value' => 'MS-KB-800']],
+    'field_it_serial' => [['value' => '222222']],
+    'field_it_sell_price' => [['value' => 5500]],
+    'field_it_cost_price' => [['value' => 3000]],
+  ]);
   $item->save();
 
   $defaults = se_basic_setup_item_defaults('Hardware', 'Notebook', 'Lenovo', 'se_stock');
 
   $item = Item::create($defaults + [
-      'name' => 'Lenovo 11e',
-      'body' => 'Lenovo 11e',
-      'field_it_code'  => [['value' => 'LN-11E']],
-      'field_it_serial' => [['value' => '333333']],
-      'field_it_sell_price' => [['value' => 89900]],
-      'field_it_cost_price' => [['value' => 67900]],
-    ]);
+    'name' => 'Lenovo 11e',
+    'body' => 'Lenovo 11e',
+    'field_it_code'  => [['value' => 'LN-11E']],
+    'field_it_serial' => [['value' => '333333']],
+    'field_it_sell_price' => [['value' => 89900]],
+    'field_it_cost_price' => [['value' => 67900]],
+  ]);
   $item->save();
 
   $item = Item::create($defaults + [
-      'name' => 'Lenovo x280',
-      'body' => 'Lenovo x280',
-      'field_it_code'  => [['value' => 'LN-X280']],
-      'field_it_serial' => [['value' => '444444']],
-      'field_it_sell_price' => [['value' => 129900]],
-      'field_it_cost_price' => [['value' => 100100]],
-    ]);
+    'name' => 'Lenovo x280',
+    'body' => 'Lenovo x280',
+    'field_it_code'  => [['value' => 'LN-X280']],
+    'field_it_serial' => [['value' => '444444']],
+    'field_it_sell_price' => [['value' => 129900]],
+    'field_it_cost_price' => [['value' => 100100]],
+  ]);
   $item->save();
 
   $defaults = se_basic_setup_item_defaults('Consumables', 'Ink cartridge', 'Canon', 'se_stock');
 
   $item = Item::create($defaults + [
-      'name' => 'Canon PIXMA - Cyan',
-      'body' => 'Canon PIXMA - Cyan',
-      'field_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
-      'field_it_serial' => [['value' => '555555']],
-      'field_it_sell_price' => [['value' => 149900]],
-      'field_it_cost_price' => [['value' => 100000]],
-    ]);
+    'name' => 'Canon PIXMA - Cyan',
+    'body' => 'Canon PIXMA - Cyan',
+    'field_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
+    'field_it_serial' => [['value' => '555555']],
+    'field_it_sell_price' => [['value' => 149900]],
+    'field_it_cost_price' => [['value' => 100000]],
+  ]);
   $item->save();
 
   $item = Item::create($defaults + [
-      'name' => 'Canon PIXMA - Yellow',
-      'body' => 'Canon PIXMA - Yellow',
-      'field_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
-      'field_it_serial' => [['value' => '666666']],
-      'field_it_sell_price' => [['value' => 149900]],
-      'field_it_cost_price' => [['value' => 100000]],
-    ]);
+    'name' => 'Canon PIXMA - Yellow',
+    'body' => 'Canon PIXMA - Yellow',
+    'field_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
+    'field_it_serial' => [['value' => '666666']],
+    'field_it_sell_price' => [['value' => 149900]],
+    'field_it_cost_price' => [['value' => 100000]],
+  ]);
   $item->save();
 
   $item = Item::create($defaults + [
-      'name' => 'Canon PIXMA - Magenta',
-      'body' => 'Canon PIXMA - Magenta',
-      'field_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
-      'field_it_serial' => [['value' => '777777']],
-      'field_it_sell_price' => [['value' => 149900]],
-      'field_it_cost_price' => [['value' => 100000]],
-    ]);
+    'name' => 'Canon PIXMA - Magenta',
+    'body' => 'Canon PIXMA - Magenta',
+    'field_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
+    'field_it_serial' => [['value' => '777777']],
+    'field_it_sell_price' => [['value' => 149900]],
+    'field_it_cost_price' => [['value' => 100000]],
+  ]);
   $item->save();
 
 }
 
+/**
+ *
+ */
 function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $type) {
   $term = taxonomy_term_load_multiple_by_name($category, 'se_sale_category');
   $sale_category = reset($term);
@@ -256,10 +274,13 @@ function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $
   return $defaults;
 }
 
+/**
+ *
+ */
 function se_basic_setup_config_defaults() {
   $config_storage = \Drupal::service('config.storage');
 
-  // Set the contact type
+  // Set the contact type.
   $contact = $config_storage->read('se_contact.settings');
   $contact['vocabulary'] = 'se_contact_type';
   if ($terms = taxonomy_term_load_multiple_by_name('Main contact', 'se_contact_type')) {
@@ -312,7 +333,7 @@ function se_basic_setup_config_defaults() {
   }
   $config_storage->write('se_payment.settings', $payment);
 
-  // Set the defaults for tickets
+  // Set the defaults for tickets.
   $ticket = $config_storage->read('se_ticket.settings');
   $ticket['status_vocabulary'] = 'se_ticket_status';
   if ($terms = taxonomy_term_load_multiple_by_name('Open', 'se_ticket_status')) {

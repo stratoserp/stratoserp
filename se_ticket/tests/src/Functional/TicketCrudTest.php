@@ -2,18 +2,19 @@
 
 namespace Drupal\Tests\se_ticket\Functional;
 
-
 use Drupal\Tests\se_testing\Functional\TicketTestBase;
 
 /**
  * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
- *
  */
 class TicketCrudTest extends TicketTestBase {
   protected $staff;
 
+  /**
+   * Ensure that a ticket can be successfully added.
+   */
   public function testTicketAdd() {
 
     $staff = $this->setupStaffUser();
@@ -26,6 +27,9 @@ class TicketCrudTest extends TicketTestBase {
 
   }
 
+  /**
+   * Ensure that ticket access levels are correct.
+   */
   public function testTicketDelete() {
 
     $staff = $this->setupStaffUser();

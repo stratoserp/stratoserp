@@ -21,14 +21,23 @@ class UserTicketStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
+  /**
+   *
+   */
   public function getLabel() {
     return $this->t('User ticket statistics');
   }
 
+  /**
+   *
+   */
   public function getLabelDisplay() {
     return 'above';
   }
 
+  /**
+   *
+   */
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
       ->createInstance('user_ticket_statistics', [])
@@ -37,7 +46,7 @@ class UserTicketStatistics extends ExtraFieldDisplayFormattedBase {
     }
 
     return [
-      ['#markup' => render($block)]
+      ['#markup' => render($block)],
     ];
   }
 

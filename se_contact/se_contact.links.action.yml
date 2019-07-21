@@ -7,4 +7,3 @@ se_contact.add_se_contact:
   appears_on:
     - 'view.se_contact_list.page_1'
     - 'view.se_contact_eva.entity_view_1'
-

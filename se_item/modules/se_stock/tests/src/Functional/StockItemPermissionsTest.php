@@ -8,7 +8,6 @@ use Drupal\Tests\se_item\Functional\ItemTestBase;
  * @coversDefault Drupal\se_stock
  * @group se_stock
  * @group stratoserp
- *
  */
 class StockItemPermissionsTest extends ItemTestBase {
 
@@ -20,6 +19,9 @@ class StockItemPermissionsTest extends ItemTestBase {
     '/se/item-list',
   ];
 
+  /**
+   *
+   */
   public function testStockItemPermissions() {
 
     $this->basicPermissionCheck($this->pages);

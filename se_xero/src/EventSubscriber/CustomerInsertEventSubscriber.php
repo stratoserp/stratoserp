@@ -8,7 +8,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class CustomerInsertEventSubscriber
+ * Class CustomerInsertEventSubscriber.
  *
  * When a customer is added or updated, sync through to xero.
  *
@@ -30,8 +30,7 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * When a customer is inserted, create the same customer in Xero.
    *
-   * @param EntityInsertEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
   public function customerInsert(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $node */
@@ -41,6 +40,9 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
     }
   }
 
+  /**
+   *
+   */
   public function customerUpdate(EntityUpdateEvent $event) {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $event->getEntity();
@@ -48,4 +50,5 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
       \Drupal::service('se_xero.contact_service')->sync($node);
     }
   }
+
 }

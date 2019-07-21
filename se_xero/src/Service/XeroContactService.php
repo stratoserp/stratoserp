@@ -11,35 +11,38 @@ use Drupal\xero\XeroQueryFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
+/**
+ *
+ */
 class XeroContactService {
 
   /**
    * A logger instance.
    *
-   * @var LoggerInterface
+   * @var \Psr\Log\LoggerInterface
    */
   protected $logger;
 
   /**
    * A Xero query.
    *
-   * @var XeroQueryFactory;
+   * @var \Drupal\xero\XeroQueryFactory
    */
   protected $xeroQueryFactory;
 
   /**
    * The typed data manager.
    *
-   * @var TypedDataManagerInterface
+   * @var \Drupal\Core\TypedData\TypedDataManagerInterface
    */
   protected $typedDataManager;
 
   /**
    * SeXeroContactService constructor.
    *
-   * @param LoggerInterface $logger
-   * @param TypedDataManagerInterface $typed_data_manager
-   * @param XeroQueryFactory $xero_query_factory
+   * @param \Psr\Log\LoggerInterface $logger
+   * @param \Drupal\Core\TypedData\TypedDataManagerInterface $typed_data_manager
+   * @param \Drupal\xero\XeroQueryFactory $xero_query_factory
    */
   public function __construct(LoggerInterface $logger, TypedDataManagerInterface $typed_data_manager, XeroQueryFactory $xero_query_factory) {
     $this->logger = $logger;
@@ -115,7 +118,6 @@ class XeroContactService {
     return $result;
   }
 
-
   /**
    * @param string $email
    *
@@ -160,7 +162,7 @@ class XeroContactService {
 
     $contacts->appendItem($values);
 
-    // TODO Make nicer
+    // TODO Make nicer.
     $name = str_replace(['-', '  '], ['', ' '], $node->title->value);
     $names = explode(' ', $name);
     if ($main_contact = \Drupal::service('se_contact.service')->loadMainContactByCustomer($node)) {
@@ -179,12 +181,13 @@ class XeroContactService {
   }
 
   /**
-   * Create a Customer/Contact in Xero
+   * Create a Customer/Contact in Xero.
    *
-   * @param Node $node
+   * @param \Drupal\node\Entity\Node $node
    *   Node to process.
    *
    * @return bool
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
@@ -195,7 +198,7 @@ class XeroContactService {
       return FALSE;
     }
 
-    // Setup the data structure
+    // Setup the data structure.
     $list_definition = $this->typedDataManager->createListDataDefinition('xero_contact');
     /** @var \Drupal\xero\Plugin\DataType\XeroItemList $contacts */
     $contacts = $this->typedDataManager->create($list_definition, []);

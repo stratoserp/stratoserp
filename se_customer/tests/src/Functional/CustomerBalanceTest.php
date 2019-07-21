@@ -2,17 +2,18 @@
 
 namespace Drupal\Tests\se_customer\Functional;
 
-
 use Drupal\Tests\se_testing\Functional\CustomerTestBase;
 
 /**
  * @coversDefault Drupal\se_customer
  * @group se_customer
  * @group stratoserp
- *
  */
 class CustomerBalanceTest extends CustomerTestBase {
 
+  /**
+   *
+   */
   public function testCustomerBalance() {
 
     $staff = $this->setupStaffUser();

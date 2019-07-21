@@ -7,7 +7,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class RecurringItemInsertEventSubscriber
+ * Class RecurringItemInsertEventSubscriber.
  *
  * If a recurring item is invoiced, automatically create the associated
  * subscription for the customer.
@@ -28,16 +28,15 @@ class RecurringItemInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * When an item is saved, create an associated stock item.
    *
-   * @param EntityInsertEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
   public function itemInsert(EntityInsertEvent $event) {
     // TODO
-//    $node = $event->getNode();
-//    if ($node->bundle() == 'se_invoice' && !$node->subscription_created) {
-//      \Drupal::service('se_subscription.auto_creator')->create($node);
-//      $event->setNode($node);
-//    }
+    //    $node = $event->getNode();
+    //    if ($node->bundle() == 'se_invoice' && !$node->subscription_created) {
+    //      \Drupal::service('se_subscription.auto_creator')->create($node);
+    //      $event->setNode($node);
+    //    }
   }
 
 }

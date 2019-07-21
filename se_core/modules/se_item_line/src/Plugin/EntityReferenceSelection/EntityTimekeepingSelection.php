@@ -2,10 +2,8 @@
 
 namespace Drupal\se_item_line\Plugin\EntityReferenceSelection;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
-use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -86,7 +84,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
       // $output[] = substr($item->label(), 0, 80);
       $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value);
 
-      // Format - Code #Serial# Desc - Price
+      // Format - Code #Serial# Desc - Price.
       $options[$bundle][$entity_id] = implode(' ', $output);
     }
 

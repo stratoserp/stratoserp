@@ -5,10 +5,16 @@ namespace Drupal\Tests\se_item\Traits;
 use Drupal\se_item\Entity\Item;
 use Drupal\user\Entity\User;
 
+/**
+ *
+ */
 trait ItemCreationTestTrait {
 
+  /**
+   *
+   */
   public function getItemByTitle($name, $reset = FALSE) {
-    if ($reset)  {
+    if ($reset) {
       \Drupal::entityTypeManager()->getStorage('se_item')->resetCache();
     }
     $name = (string) $name;
@@ -19,6 +25,9 @@ trait ItemCreationTestTrait {
     return reset($items);
   }
 
+  /**
+   *
+   */
   public function createItem(array $settings = []) {
     $item = $this->createItemContent($settings);
 
@@ -27,9 +36,12 @@ trait ItemCreationTestTrait {
     return $item;
   }
 
+  /**
+   *
+   */
   public function createItemContent(array $settings = []) {
     $settings += [
-      'type' => 'se_stock'
+      'type' => 'se_stock',
     ];
 
     if (!array_key_exists('uid', $settings)) {

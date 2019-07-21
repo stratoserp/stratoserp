@@ -44,8 +44,8 @@ function se_item_theme() {
 }
 
 /**
-* Implements hook_theme_suggestions_HOOK().
-*/
+ * Implements hook_theme_suggestions_HOOK().
+ */
 function se_item_theme_suggestions_se_item(array $variables) {
   $suggestions = [];
   $entity = $variables['elements']['#se_item'];
@@ -69,4 +69,3 @@ function se_item_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $e
     }
   }
 }
-

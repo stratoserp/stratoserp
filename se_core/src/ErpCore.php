@@ -2,6 +2,9 @@
 
 namespace Drupal\se_core;
 
+/**
+ *
+ */
 final class ErpCore {
 
   public const ITEM_LINE_NODE_BUNDLE_MAP = [

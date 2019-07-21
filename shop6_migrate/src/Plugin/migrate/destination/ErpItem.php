@@ -5,7 +5,6 @@ namespace Drupal\shop6_migrate\Plugin\migrate\destination;
 use Drupal\migrate\Plugin\migrate\destination\EntityContentBase;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
-use Drupal\se_stock_item\Entity\StockItem;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,7 +19,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ErpItem extends EntityContentBase {
   use Shop6MigrateUtilities;
 
-  /** @var string $entityType */
+  /**
+   * @var string*/
   public static $entityType = 'node';
 
   /**
@@ -30,15 +30,23 @@ class ErpItem extends EntityContentBase {
     return parent::create($container, $configuration, 'entity:' . static::$entityType, $plugin_definition, $migration);
   }
 
-
+  /**
+   *
+   */
   public function getIds() {
     return parent::getIds();
   }
 
+  /**
+   *
+   */
   public function fields(MigrationInterface $migration = NULL) {
     return parent::fields();
   }
 
+  /**
+   *
+   */
   public function import(Row $row, array $old_destination_id_values = []) {
     return parent::import($row, $old_destination_id_values);
   }

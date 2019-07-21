@@ -7,13 +7,12 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\node\Entity\Node;
 
 /**
- * Class GoodsReceiptInsertEventSubscriber
+ * Class GoodsReceiptInsertEventSubscriber.
  *
  * Update the items with the goods receipt number after it has been saved.
- * 
+ *
  * @package Drupal\se_goods_receipt\EventSubscriber
  */
 class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
@@ -31,11 +30,10 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
    * For goods receipts, we can update the items with the goods receipt number
    * After the goods receipt has been saved.
    *
-   * @param EntityInsertEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
   public function itemsInsert(EntityInsertEvent $event) {
-    /** @var Node $entity */
+    /** @var \Drupal\node\Entity\Node $entity */
     if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
       return;
     }
@@ -46,7 +44,7 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
 
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
-      /** @var Item $item */
+      /** @var \Drupal\se_item\Entity\Item $item */
       if ($item = Item::load($item_line->target_id)) {
         if ($item->bundle() !== 'se_stock') {
           continue;

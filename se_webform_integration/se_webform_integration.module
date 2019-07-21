@@ -3,7 +3,6 @@
 /**
  * @file
  * StratosERP Webform integration module.
- *
  */
 
 use Drupal\Core\Form\FormStateInterface;
@@ -33,7 +32,7 @@ function se_webform_integration_field_widget_form_alter(&$element, FormStateInte
 /**
  * Implements hook_module_implements_alter().
  *
- * Make sure that our form alter is called AFTER the same hook provided in xxx
+ * Make sure that our form alter is called AFTER the same hook provided in xxx.
  */
 function se_webform_integration_module_implements_alter(&$implementations, $hook) {
   if ($hook === 'field_widget_form_alter') {
@@ -56,7 +55,7 @@ function se_webform_integration_module_implements_alter(&$implementations, $hook
  * Implements hook_webform_submission_form_alter().
  */
 function se_webform_integration_webform_submission_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
-  // Determine if current request is Ajax
+  // Determine if current request is Ajax.
   // @see \Drupal\Core\Ajax\AjaxHelperTrait
   $is_ajax = FALSE;
   $wrapper_format = \Drupal::request()->get(MainContentViewSubscriber::WRAPPER_FORMAT);
@@ -97,7 +96,7 @@ function _se_webform_integration_webform_submission_form_submit_ajax(array &$for
   $form_object = $form_state->getFormObject();
 
   /** @var \Drupal\Core\Ajax\AjaxResponse $response */
-  $response = $form_object->submitAjaxForm($form, $form_state) ;
+  $response = $form_object->submitAjaxForm($form, $form_state);
 
   return $response;
 }

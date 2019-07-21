@@ -9,13 +9,17 @@ use Drupal\Tests\UnitTestCase;
  * @coversDefault Drupal\se_accounting
  * @group se_accounting
  * @group stratoserp
- *
  */
 class CurrencyTest extends UnitTestCase {
 
-  /** @var CurrencyFormat::class */
+  /**
+   * @var \Drupal\se_accounting\Service\CurrencyFormatclass
+   */
   protected $currencyFormatService;
 
+  /**
+   *
+   */
   protected function setup() {
     $this->currencyFormatService = new CurrencyFormat();
   }
@@ -57,7 +61,7 @@ class CurrencyTest extends UnitTestCase {
   }
 
   /**
-   * Data provider for testCurrencyStorage
+   * Data provider for testCurrencyStorage.
    */
   public function currencyStorageProvider() {
     return [
@@ -68,24 +72,24 @@ class CurrencyTest extends UnitTestCase {
   }
 
   /**
-   * Data provider for testCurrencyDisplay
+   * Data provider for testCurrencyDisplay.
    */
   public function currencyDisplayProvider() {
     return [
       [100, '1.00'],
-      [100000,'1,000.00'],
-      [123456, '1,234.56']
+      [100000, '1,000.00'],
+      [123456, '1,234.56'],
     ];
   }
 
   /**
-   * Data provider for testCurrencyDisplay
+   * Data provider for testCurrencyDisplay.
    */
   public function currencyRawProvider() {
     return [
       [100, '1.00'],
-      [100000,'1000.00'],
-      [123456, '1234.56']
+      [100000, '1000.00'],
+      [123456, '1234.56'],
     ];
   }
 

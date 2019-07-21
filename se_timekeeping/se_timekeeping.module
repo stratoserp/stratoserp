@@ -1,8 +1,17 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 
+/**
+ * Implements hook_form_alter().
+ *
+ * Perform alterations so that the form is nicer.
+ */
 function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id === 'comment_se_timekeeping_form') {
 

@@ -11,11 +11,12 @@ use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class AccountingSaveEventSubscriber
+ * Class AccountingSaveEventSubscriber.
  *
  * When an invoice or payment node is saved, adjust the customer
  * balance by the amount of the node.
  * For invoice status updates -
+ *
  * @see \Drupal\se_payment\EventSubscriber\PaymentSaveEventSubscriber
  *
  * @package Drupal\se_customer\EventSubscriber
@@ -30,7 +31,7 @@ class AccountingSaveEventSubscriber implements EventSubscriberInterface {
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'accountingInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'accountingUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'accountingReduce'
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'accountingReduce',
     ];
   }
 
@@ -80,7 +81,9 @@ class AccountingSaveEventSubscriber implements EventSubscriberInterface {
     $this->updateCustomerBalance($entity, TRUE);
   }
 
-  // On invoice
+  /**
+   * On invoice.
+   */
   private function updateCustomerBalance(EntityInterface $entity, $reduce = FALSE) {
     if (!$customer = \Drupal::service('se_customer.service')->lookupCustomer($entity)) {
       \Drupal::logger('se_customer_invoice_save')->error('No customer set for %node', ['%node' => $entity->id()]);

@@ -12,6 +12,9 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ *
+ */
 class AutocompleteController extends ControllerBase {
 
   /**
@@ -45,7 +48,7 @@ class AutocompleteController extends ControllerBase {
 
   /**
    * Find nodes of $type containing $text in $field, prefix
-   * returned data with $description
+   * returned data with $description.
    *
    * @param $type
    * @param $description
@@ -60,7 +63,7 @@ class AutocompleteController extends ControllerBase {
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
       ->condition($field, '%' . Database::getConnection()
-          ->escapeLike($text) . '%', 'LIKE')
+        ->escapeLike($text) . '%', 'LIKE')
       ->condition('type', $type)
       ->range(0, 10);
 
@@ -94,7 +97,7 @@ class AutocompleteController extends ControllerBase {
 
   /**
    * Find items of $type containing $text in $field, prefix
-   * returned data with $description
+   * returned data with $description.
    *
    * @param $type
    * @param $description
@@ -107,10 +110,10 @@ class AutocompleteController extends ControllerBase {
     $matches = [];
 
     $query = \Drupal::entityQuery('se_item')
-      //->condition('status', 1)
+      // ->condition('status', 1)
       ->condition($field, '%' . Database::getConnection()
-          ->escapeLike($text) . '%', 'LIKE')
-      //->condition('type', $type)
+        ->escapeLike($text) . '%', 'LIKE')
+      // ->condition('type', $type)
       ->range(0, 10);
 
     $item_ids = $query->execute();
@@ -122,7 +125,7 @@ class AutocompleteController extends ControllerBase {
         $description,
         $item->getName(),
         $item->field_it_serial->value ?: NULL,
-        \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value)
+        \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value),
       ];
       $fields = array_filter($fields);
       $key = implode(' - ', $fields);
@@ -139,7 +142,7 @@ class AutocompleteController extends ControllerBase {
 
   /**
    * Find information of $type containing $text in $field, prefix
-   * returned data with $description
+   * returned data with $description.
    *
    * @param $type
    * @param $description
@@ -152,10 +155,10 @@ class AutocompleteController extends ControllerBase {
     $matches = [];
 
     $query = \Drupal::entityQuery('se_information')
-      //->condition('status', 1)
+      // ->condition('status', 1)
       ->condition($field, '%' . Database::getConnection()
-          ->escapeLike($text) . '%', 'LIKE')
-      //->condition('type', $type)
+        ->escapeLike($text) . '%', 'LIKE')
+      // ->condition('type', $type)
       ->range(0, 10);
 
     $item_ids = $query->execute();

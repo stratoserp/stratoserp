@@ -8,12 +8,14 @@ use Drupal\Tests\se_testing\Functional\SupplierTestBase;
  * @coversDefault Drupal\se_supplier
  * @group se_supplier
  * @group stratoserp
- *
  */
 class SupplierCreateTest extends SupplierTestBase {
 
   protected $staff;
 
+  /**
+   *
+   */
   public function testSupplierCreate() {
 
     $staff = $this->setupStaffUser();

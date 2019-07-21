@@ -5,10 +5,16 @@ namespace Drupal\Tests\se_information\Traits;
 use Drupal\se_information\Entity\Information;
 use Drupal\user\Entity\User;
 
+/**
+ *
+ */
 trait InformationCreationTrait {
 
+  /**
+   *
+   */
   public function getInformationByTitle($name, $reset = FALSE) {
-    if ($reset)  {
+    if ($reset) {
       \Drupal::entityTypeManager()->getStorage('se_information')->resetCache();
     }
     $name = (string) $name;
@@ -19,6 +25,9 @@ trait InformationCreationTrait {
     return reset($information);
   }
 
+  /**
+   *
+   */
   public function createInformation(array $settings = []) {
     $information = $this->createInformationContent($settings);
 
@@ -27,9 +36,12 @@ trait InformationCreationTrait {
     return $information;
   }
 
+  /**
+   *
+   */
   public function createInformationContent(array $settings = []) {
     $settings += [
-      'type' => 'se_stock'
+      'type' => 'se_stock',
     ];
 
     if (!array_key_exists('uid', $settings)) {

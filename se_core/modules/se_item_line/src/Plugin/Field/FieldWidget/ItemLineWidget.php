@@ -2,9 +2,7 @@
 
 namespace Drupal\se_item_line\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Field\Annotation\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
@@ -68,8 +66,8 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#maxlength' => 20,
       '#weight' => 20,
       '#attributes' => [
-        'placeholder' => t('Serial')
-      ]
+        'placeholder' => t('Serial'),
+      ],
     ];
     if ($host_type !== 'se_goods_receipt') {
       // Disable serial field unless its a good receipt.
@@ -77,7 +75,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     }
 
     if ($host_type === 'se_invoice') {
-      // When the service/item was completed/delivered/done
+      // When the service/item was completed/delivered/done.
       $date = new DrupalDateTime($items[$delta]->completed_date);
       $build['completed_date'] = [
         '#type' => 'datetime',
@@ -98,7 +96,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#weight' => 40,
       '#required' => TRUE,
       '#attributes' => [
-        'placeholder' => t('Price')
+        'placeholder' => t('Price'),
       ],
       '#ajax' => [
         'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
@@ -140,6 +138,9 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     return $build;
   }
 
+  /**
+   *
+   */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $new_values = parent::massageFormValues($values, $form, $form_state);
 

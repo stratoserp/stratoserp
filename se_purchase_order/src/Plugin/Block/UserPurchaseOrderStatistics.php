@@ -3,13 +3,12 @@
 namespace Drupal\se_purchase_order\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
 use Drupal\se_core\ErpCore;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
  * Provides a "User purchase order statistics" block.
+ *
  * @Block(
  *   id = "user_purchase_order_statistics",
  *   admin_label = @Translation("User purchase order statistics"),
@@ -19,6 +18,9 @@ class UserPurchaseOrderStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
+  /**
+   *
+   */
   public function build() {
     $content = FALSE;
     $datasets = [];
@@ -26,7 +28,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
     $type = 'se_purchase_order';
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
 
-    /** @var EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $node */
     if (!$entity = $this->get_current_controller_entity()) {
       return [];
     }
@@ -36,7 +38,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
       return [];
     }
 
-    for ($i = 5; $i >= 0 ; $i--) {
+    for ($i = 5; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
@@ -57,7 +59,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
         }
 
         $month = 0;
-        /** @var Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         foreach ($nodes as $node) {
           $month += $node->{$bundle_field_type . '_total'}->value;
         }
@@ -73,7 +75,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
         'hoverBackgroundColor' => $fg_colors,
         'fill' => FALSE,
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
@@ -84,7 +86,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
       return [];
     }
 
-    $build['user_' . $type .'_statistics'] = [
+    $build['user_' . $type . '_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -92,19 +94,20 @@ class UserPurchaseOrderStatistics extends BlockBase {
       '#graph_type' => 'line',
       '#options' => [
         'tooltips' => [
-          'mode' => 'point'
+          'mode' => 'point',
         ],
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
       ],
       '#id' => 'user_' . $type . '_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,
-      ]
+      ],
     ];
 
     return $build;
   }
+
 }

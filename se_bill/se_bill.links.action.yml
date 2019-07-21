@@ -6,4 +6,3 @@ se_bill.add_bill:
   title: 'Add bill'
   appears_on:
     - 'view.se_bill_list.page_1'
-

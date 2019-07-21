@@ -9,19 +9,22 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\xero\XeroQuery;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ *
+ */
 class SettingsForm extends ConfigFormBase {
 
   /**
    * The entity type manager.
    *
-   * @var EntityTypeManager $entityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entityTypeManager;
 
   /**
    * The Xero query.
    *
-   * @var XeroQuery $xeroQuery
+   * @var \Drupal\xero\XeroQuery
    */
   protected $xeroQuery;
 

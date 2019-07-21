@@ -8,7 +8,6 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @coversDefault Drupal\se_document
  * @group se_document
  * @group stratoserp
- *
  */
 class InformationDocumentCreateTest extends ExistingSiteBase {
 
@@ -19,6 +18,9 @@ class InformationDocumentCreateTest extends ExistingSiteBase {
     '/information/add/se_document',
   ];
 
+  /**
+   *
+   */
   public function testInformationDocumentPermissions() {
     $this->customer = $this->createUser([], NULL, FALSE);
     $this->customer->addRole('customer');

@@ -6,6 +6,9 @@ use Drupal\hook_event_dispatcher\Event\Entity\EntityCreateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ *
+ */
 class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
 
   /**
@@ -18,15 +21,14 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * @param EntityCreateEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityCreateEvent $event
    */
   public function purchaseOrderInsert(EntityCreateEvent $event) {
     if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
       return;
     }
 
-    // TODO
+    // TODO.
   }
 
 }

@@ -2,7 +2,6 @@
 
 namespace Drupal\se_core\Plugin\ExtraField\Form;
 
-
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\extra_field\Plugin\ExtraFieldFormBase;
 
@@ -19,7 +18,11 @@ use Drupal\extra_field\Plugin\ExtraFieldFormBase;
  */
 class ActionsField extends ExtraFieldFormBase {
 
+  /**
+   *
+   */
   public function formView(array $form, FormStateInterface $form_state) {
     return $form['actions'];
   }
+
 }

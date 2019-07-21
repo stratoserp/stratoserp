@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\se_testing\Traits;
 
-use Drupal\node\Entity\Node;
 use Faker\Factory;
 
 /**
@@ -16,7 +15,7 @@ trait SupplierTestTrait {
   public function supplierFakerSetup() {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
+    $original                      = error_reporting(0);
     $this->supplier->name          = $this->faker->text;
     $this->supplier->phoneNumber   = $this->faker->phoneNumber;
     $this->supplier->mobileNumber  = $this->faker->phoneNumber;
@@ -29,8 +28,11 @@ trait SupplierTestTrait {
     error_reporting($original);
   }
 
+  /**
+   *
+   */
   public function addSupplier() {
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_supplier',
       'title' => $this->supplier->name,
@@ -51,6 +53,5 @@ trait SupplierTestTrait {
 
     return $node;
   }
-
 
 }

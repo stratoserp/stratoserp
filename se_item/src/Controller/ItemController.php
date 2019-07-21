@@ -4,7 +4,6 @@ namespace Drupal\se_item\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_item\Entity\ItemInterface;

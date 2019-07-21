@@ -6,4 +6,3 @@ se_invoice.add_se_invoice:
   title: 'Add invoice'
   appears_on:
     - 'view.se_invoice_list.page_1'
-

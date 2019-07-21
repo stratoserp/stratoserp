@@ -7,8 +7,6 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\se_core\ErpCore;
 
@@ -16,9 +14,9 @@ use Drupal\se_core\ErpCore;
  * Implements hook_help().
  *
  * @param $route_name
- * @param RouteMatchInterface $route_match
+ * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
  *
- * @return TranslatableMarkup
+ * @return \Drupal\Core\StringTranslation\TranslatableMarkup
  */
 function se_core_help($route_name, RouteMatchInterface $route_match) {
   if ($route_name === 'se_core_main') {
@@ -33,7 +31,7 @@ function se_core_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_form_alter().
  *
  * @param $form
- * @param FormStateInterface $form_state
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
  * @param $form_id
  */
 function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -48,14 +46,14 @@ function se_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
     // Hide the title fields for some node types.
     if (!in_array($form_id, [
-      'node_se_customer_form', 'node_se_contact_form', 'node_se_supplier_form', 'node_se_ticket_form'
+      'node_se_customer_form', 'node_se_contact_form', 'node_se_supplier_form', 'node_se_ticket_form',
     ])) {
       // Pre-fill the title field with sensible values.
       se_core_populate_title_field($form);
     }
   }
   // If using the ExtraField Form plugins, then some fields need to be removed.
-  // unset($form['meta'], $form['advanced'], $form['status'], $form['actions']);
+  // unset($form['meta'], $form['advanced'], $form['status'], $form['actions']);.
 }
 
 /**
@@ -83,7 +81,7 @@ function se_core_hide_publish_buttons(array &$form) {
  *   Form array to be manipulated.
  */
 function se_core_populate_title_field(array &$form) {
-  //$form['title']['#hidden'] = TRUE;
+  // $form['title']['#hidden'] = TRUE;
   $form['title']['widget'][0]['value']['#default_value'] = t('@user - @date', [
     '@user' => \Drupal::currentUser()->getAccountName(),
     '@date' => date('j-m-Y'),
@@ -94,7 +92,7 @@ function se_core_populate_title_field(array &$form) {
  * Implements hook_form_FORM_ID_alter().
  *
  * @param $form
- * @param FormStateInterface $form_state
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
  * @param $form_id
  */
 function se_core_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -106,13 +104,15 @@ function se_core_form_user_login_form_alter(&$form, FormStateInterface $form_sta
  * Custom submit handler for login form.
  *
  * @param $form
- * @param FormStateInterface $form_state
- *
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
 function _se_core_user_login_form_submit($form, FormStateInterface $form_state) {
   $form_state->setRedirect('<front>');
 }
 
+/**
+ *
+ */
 function se_core_theme() {
   return [
     'se_core_admin_page' => [
@@ -127,6 +127,7 @@ function se_core_theme() {
 
 /**
  * Helper function for modules to install their own terms.
+ *
  * @param $taxonomy
  * @param $terms
  */
@@ -145,7 +146,7 @@ function se_core_create_terms($taxonomy, $terms) {
 
 /**
  * Modify field types for which remove button will be added.
- * See multiple_fields_remove_button.api.php
+ * See multiple_fields_remove_button.api.php.
  *
  * @param array $fieldTypes
  *   A list with field types.

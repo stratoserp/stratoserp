@@ -7,7 +7,6 @@ use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\shop6_migrate\Plugin\migrate\source\ErpCore;
 
-
 /**
  * Trait Shop6MigrateUtilities.
  *
@@ -109,6 +108,7 @@ trait Shop6MigrateUtilities {
    *
    * @return bool|\Drupal\Core\Entity\EntityInterface
    *   Return an item if found.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -144,6 +144,7 @@ trait Shop6MigrateUtilities {
    *
    * @return bool|\Drupal\Core\Entity\EntityInterface
    *   Return an item if found.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -271,7 +272,7 @@ trait Shop6MigrateUtilities {
   }
 
   /**
-   * Remove junk from serial
+   * Remove junk from serial.
    *
    * @param string $serial
    *   Serial number from item to cleanup.
@@ -279,9 +280,9 @@ trait Shop6MigrateUtilities {
    * @return string
    */
   public function cleanupSerial(string $serial) {
-    $serial = (string)str_replace("\xc2\xa0", '', $serial);
-    $serial = (string)str_replace("\xe2\x80\x93", '', $serial);
-    $serial = (string)str_replace("\xe2\x80\x93", '', $serial);
+    $serial = (string) str_replace("\xc2\xa0", '', $serial);
+    $serial = (string) str_replace("\xe2\x80\x93", '', $serial);
+    $serial = (string) str_replace("\xe2\x80\x93", '', $serial);
     $serial = preg_replace('/^na$/i', '', $serial);
     $serial = preg_replace('/^n\/a$/i', '', $serial);
     $serial = preg_replace('/^n\/p$/i', '', $serial);
@@ -317,7 +318,6 @@ trait Shop6MigrateUtilities {
       );
     }
   }
-
 
   /**
    * Set all the taxonomy terms for an item.

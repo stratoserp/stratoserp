@@ -3,13 +3,12 @@
 namespace Drupal\se_purchase_order\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
 use Drupal\se_core\ErpCore;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
  * Provides a "Customer purchase order statistics" block.
+ *
  * @Block(
  *   id = "customer_purchase_order_statistics",
  *   admin_label = @Translation("Customer purchase order statistics"),
@@ -19,6 +18,9 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
+  /**
+   *
+   */
   public function build() {
     $content = FALSE;
     $datasets = [];
@@ -26,7 +28,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
     $type = 'se_purchase_order';
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
 
-    /** @var EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $node */
     if (!$node = $this->get_current_controller_entity()) {
       return [];
     }
@@ -36,7 +38,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
       return [];
     }
 
-    for ($i = 5; $i >= 0 ; $i--) {
+    for ($i = 5; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
@@ -57,7 +59,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
         }
 
         $total = 0;
-        /** @var Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         foreach ($nodes as $node) {
           $total += $node->field_{$bundle_field_type . '_total'}->value;
         }
@@ -73,7 +75,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
         'hoverBackgroundColor' => $fg_colors,
         'fill' => FALSE,
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
@@ -92,19 +94,20 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
       '#graph_type' => 'line',
       '#options' => [
         'tooltips' => [
-          'mode' => 'point'
+          'mode' => 'point',
         ],
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
       ],
       '#id' => 'customer_' . $type . '_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,
-      ]
+      ],
     ];
 
     return $build;
   }
+
 }

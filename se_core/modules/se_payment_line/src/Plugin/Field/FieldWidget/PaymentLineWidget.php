@@ -2,9 +2,7 @@
 
 namespace Drupal\se_payment_line\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Field\Annotation\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
@@ -42,11 +40,11 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
       '#weight' => 10,
       '#required' => TRUE,
       '#attributes' => [
-        'placeholder' => t('Amount')
-      ]
+        'placeholder' => t('Amount'),
+      ],
     ];
 
-    // When the service/item was completed/delivered/done
+    // When the service/item was completed/delivered/done.
     $date = new DrupalDateTime($items[$delta]->completed_date);
     $build['payment_date'] = [
       '#type' => 'datetime',
@@ -54,10 +52,10 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
       '#default_value' => $date,
       '#weight' => 20,
       '#date_timezone' => drupal_get_user_timezone(),
-      '#description' => t('Payment date')
+      '#description' => t('Payment date'),
     ];
 
-    // Provide list of payment options
+    // Provide list of payment options.
     $config = \Drupal::service('config.factory')->get('se_payment.settings');
     $vocabulary = $config->get('vocabulary');
     $term_options = [];
@@ -81,6 +79,9 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
     return $build;
   }
 
+  /**
+   *
+   */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $new_values = parent::massageFormValues($values, $form, $form_state);
 

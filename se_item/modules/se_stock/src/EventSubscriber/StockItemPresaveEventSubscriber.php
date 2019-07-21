@@ -8,7 +8,7 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class StockItemPresaveEventSubscriber
+ * Class StockItemPresaveEventSubscriber.
  *
  * Create 'parent' items for stock items if they don't already exist.
  *
@@ -29,7 +29,7 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
    * When a stock item is saved, if it has a serial number and no existing
    * stock item exists with no serial number, create one with no serial.
    *
-   * @param EntityPresaveEvent $event
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    */
   public function stockItemPresave(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -47,7 +47,7 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
         ->condition('field_it_code', $entity->field_it_code->value);
       $items = $query->execute();
 
-      /** @var Item $stock_item */
+      /** @var \Drupal\se_item\Entity\Item $stock_item */
       if (empty($items)) {
         $stock_item = Item::create([
           'type' => 'se_stock',
@@ -56,7 +56,7 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
           'field_it_code' => ['value' => $entity->field_it_code->value],
           'field_it_serial' => ['value' => ''],
           'field_it_sell_price' => ['value' => $entity->field_it_sell_price->value],
-          'field_it_cost_price' => ['value' => $entity->field_it_cost_price->value]
+          'field_it_cost_price' => ['value' => $entity->field_it_cost_price->value],
         ]);
         if (isset($entity->field_it_product_type_ref)) {
           $stock_item->field_it_product_type_ref->target_id = $entity->field_it_product_type_ref->target_id;

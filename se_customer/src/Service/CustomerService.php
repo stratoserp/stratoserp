@@ -5,21 +5,23 @@ namespace Drupal\se_customer\Service;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
+/**
+ *
+ */
 class CustomerService {
 
   /**
    * The config factory.
    *
-   * @var $configFactory
+   * @var configFactory
    */
   protected $configFactory;
 
   /**
    * The entity type manager.
    *
-   * @var $entityTypeManager
+   * @var entityTypeManager
    */
   protected $entityTypeManager;
 
@@ -87,4 +89,5 @@ class CustomerService {
     $node->save();
     return $this->getBalance($node);
   }
+
 }

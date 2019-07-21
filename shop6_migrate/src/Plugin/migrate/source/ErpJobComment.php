@@ -5,7 +5,6 @@ namespace Drupal\shop6_migrate\Plugin\migrate\source;
 use Drupal\comment\Plugin\migrate\source\d6\Comment as MigrateComment;
 use Drupal\Core\Database\Database;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
-use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\node\Entity\Node;
 use Drupal\shop6_migrate\Shop6MigrateUtilities;
@@ -62,7 +61,7 @@ class ErpJobComment extends MigrateComment {
         '@nid' => $row->getSourceProperty('nid'),
         '@cid' => $row->getSourceProperty('cid'),
         '@subject' => $row->getSourceProperty('subject'),
-        '@type' => $row->getSourceProperty('type')
+        '@type' => $row->getSourceProperty('type'),
       ]));
     $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
     return FALSE;

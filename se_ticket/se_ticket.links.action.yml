@@ -6,4 +6,3 @@ se_ticket.add_se_ticket:
   title: 'Add ticket'
   appears_on:
     - 'view.se_ticket_list.page_1'
-

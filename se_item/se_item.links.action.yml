@@ -10,4 +10,3 @@ entity.se_item_type.add_form:
   title: 'Add Item type'
   appears_on:
     - 'entity.se_item_type.collection'
-

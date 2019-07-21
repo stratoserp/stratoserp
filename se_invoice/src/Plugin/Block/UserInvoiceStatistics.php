@@ -3,12 +3,11 @@
 namespace Drupal\se_invoice\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
  * Provides a "Invoice statistics user" block.
+ *
  * @Block(
  *   id = "user_invoice_statistics",
  *   admin_label = @Translation("User invoice statistics"),
@@ -18,11 +17,14 @@ class UserInvoiceStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
+  /**
+   *
+   */
   public function build() {
     $content = FALSE;
     $datasets = [];
 
-    /** @var EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $node */
     if (!$entity = $this->get_current_controller_entity()) {
       return [];
     }
@@ -32,7 +34,7 @@ class UserInvoiceStatistics extends BlockBase {
     }
 
     $total = [];
-    for ($i = 5; $i >= 0 ; $i--) {
+    for ($i = 5; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
@@ -53,7 +55,7 @@ class UserInvoiceStatistics extends BlockBase {
         }
 
         $month = 0;
-        /** @var Node $invoice */
+        /** @var \Drupal\node\Entity\Node $invoice */
         foreach ($invoices as $invoice) {
           $month += $invoice->field_in_total->value;
         }
@@ -69,7 +71,7 @@ class UserInvoiceStatistics extends BlockBase {
         'hoverBackgroundColor' => $fg_colors,
         'fill' => FALSE,
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
@@ -88,19 +90,20 @@ class UserInvoiceStatistics extends BlockBase {
       '#graph_type' => 'line',
       '#options' => [
         'tooltips' => [
-          'mode' => 'point'
+          'mode' => 'point',
         ],
         'hover' => [
-          'mode' => 'dataset'
+          'mode' => 'dataset',
         ],
       ],
       '#id' => 'user_invoice_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,
-      ]
+      ],
     ];
 
     return $build;
   }
+
 }

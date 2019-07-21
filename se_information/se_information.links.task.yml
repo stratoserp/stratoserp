@@ -20,4 +20,3 @@ entity.se_information.delete_form:
   base_route:  entity.se_information.canonical
   title: Delete
   weight: 10
-

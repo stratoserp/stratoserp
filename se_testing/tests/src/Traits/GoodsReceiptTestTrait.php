@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\se_testing\Traits;
 
-use Drupal\node\Entity\Node;
 use Faker\Factory;
 
 /**
@@ -16,7 +15,7 @@ trait GoodsReceiptTestTrait {
   public function goodsReceiptFakerSetup() {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
+    $original                          = error_reporting(0);
     $this->goodsReceipt->name          = $this->faker->text;
     $this->goodsReceipt->phoneNumber   = $this->faker->phoneNumber;
     $this->goodsReceipt->mobileNumber  = $this->faker->phoneNumber;
@@ -33,10 +32,11 @@ trait GoodsReceiptTestTrait {
    * Adding a goods receipt.
    *
    * @return \Drupal\node\Entity\Node
+   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addGoodsReceipt() {
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_goodsReceipt',
       'title' => $this->goodsReceipt->name,

@@ -59,7 +59,7 @@ class ErpOtherComment extends MigrateComment {
         '@nid' => $row->getSourceProperty('nid'),
         '@cid' => $row->getSourceProperty('cid'),
         '@subject' => $row->getSourceProperty('subject'),
-        '@type' => $row->getSourceProperty('type')
+        '@type' => $row->getSourceProperty('type'),
       ]));
     $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
     return FALSE;
@@ -80,24 +80,30 @@ class ErpOtherComment extends MigrateComment {
         case 'erp_customer':
           $migration = 'upgrade_d6_node_erp_customer';
           break;
+
         case 'erp_goods_receive':
           $migration = 'upgrade_d6_node_erp_goods_receipt';
           break;
+
         case 'erp_invoice':
           $migration = 'upgrade_d6_node_erp_invoice';
           break;
+
         case 'erp_payment':
           $migration = 'upgrade_d6_node_erp_payment';
           break;
+
         case 'erp_purchase_order':
           $migration = 'upgrade_d6_node_erp_purchase_order';
           break;
+
         case 'erp_quote':
           $migration = 'upgrade_d6_node_erp_quote';
           break;
+
         default:
           return FALSE;
-          break;
+        break;
       }
 
       if ($new_id = $this->findNewId($nid, 'nid', $migration)) {
@@ -109,9 +115,10 @@ class ErpOtherComment extends MigrateComment {
         case 'book':
           $migration = 'upgrade_d6_node_book';
           break;
-//        case 'erp_item':
-//          $migration = 'upgrade_d6_node_erp_item';
-//          break;
+
+        // Case 'erp_item':
+        //          $migration = 'upgrade_d6_node_erp_item';
+        //          break;.
       }
 
       if ($new_id = $this->findNewId($nid, 'nid', $migration)) {
@@ -123,4 +130,5 @@ class ErpOtherComment extends MigrateComment {
 
     return FALSE;
   }
+
 }

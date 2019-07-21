@@ -2,11 +2,8 @@
 
 namespace Drupal\se_item_line\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
-use Drupal\Core\Field\Annotation\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
@@ -28,14 +25,23 @@ use Drupal\filter\Render\FilteredMarkup;
  */
 class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
 
+  /**
+   *
+   */
   public static function defaultSettings() {
     return [];
   }
 
+  /**
+   *
+   */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     return [];
   }
 
+  /**
+   *
+   */
   public function settingsSummary() {
     return [];
   }
@@ -43,7 +49,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
   /**
    * {@inheritdoc}
    *
-   * Re-implementation of viewElements from EntityReferenceLabelFormatter
+   * Re-implementation of viewElements from EntityReferenceLabelFormatter.
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
 
@@ -77,17 +83,19 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
           }
           $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
           break;
+
         case 'se_service':
         case 'se_stock':
         case 'se_recurring':
           $item = $entity->field_it_code->value;
           $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
           break;
+
         default:
           \Drupal::logger('ItemLineFormatter')
             ->error('Unhandled item type %type.', ['%type' => $entity->bundle()]);
           continue 2;
-          break;
+        break;
       }
 
       $element = [

@@ -12,7 +12,7 @@ use Drupal\node\NodeInterface;
 /**
  * Provides a 'NavigationBlock' block.
  *
- * TODO Dependency Injection
+ * TODO Dependency Injection.
  *
  * @Block(
  *  id = "navigation_block",
@@ -21,7 +21,8 @@ use Drupal\node\NodeInterface;
  */
 class NavigationBlock extends BlockBase {
 
-  /** @var NodeInterface */
+  /**
+   * @var \Drupal\node\Entity\NodeInterface*/
   protected $node;
 
   protected $destination;
@@ -44,7 +45,7 @@ class NavigationBlock extends BlockBase {
     if (empty($items) && $this->node instanceof NodeInterface) {
       $this->destination = Url::fromUri('internal:/node/' . $this->node->id())->toString();
 
-      switch($this->node->getType()) {
+      switch ($this->node->getType()) {
         case 'se_bill':
           $items = $this->billLinks();
           break;
@@ -57,18 +58,17 @@ class NavigationBlock extends BlockBase {
           $items = $this->customerLinks();
           break;
 
-//        case 'se_goods_receipt':
-//          $items = $this->goodsReceiptLinks();
-//          break;
-
+        // Case 'se_goods_receipt':
+        //          $items = $this->goodsReceiptLinks();
+        //          break;
         case 'se_invoice':
           $items = $this->invoiceLinks();
           break;
 
-//        case 'se_item':
-//          $items = $this->itemLinks();
-//          break;
-//
+        // Case 'se_item':
+        //          $items = $this->itemLinks();
+        //          break;
+        //
         case 'se_purchase_order':
           $items = $this->purchaseOrderLinks();
           break;
@@ -106,24 +106,30 @@ class NavigationBlock extends BlockBase {
       if (is_object($node)) {
         $node = $node->id();
       }
-      return Cache::mergeTags(parent::getCacheTags(), array('node:' . $node));
+      return Cache::mergeTags(parent::getCacheTags(), ['node:' . $node]);
     }
 
     return parent::getCacheTags();
   }
 
+  /**
+   *
+   */
   public function getCacheContexts() {
-    return Cache::mergeContexts(parent::getCacheContexts(), array('route'));
+    return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
   }
 
+  /**
+   *
+   */
   private function billLinks(): array {
     $items = [];
 
     // This is quite different to a customer payment
-//    $items[] = Link::createFromRoute('Add payment', 'node.add',
-//      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
-//      $this->button_class);
-//
+    //    $items[] = Link::createFromRoute('Add payment', 'node.add',
+    //      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
+    //      $this->button_class);
+    // .
     return $items;
   }
 
@@ -135,37 +141,40 @@ class NavigationBlock extends BlockBase {
 
     $items[] = Link::createFromRoute('Add customer', 'node.add',
       $this->setRouteParameters(FALSE, [
-        'node_type' => 'se_customer'
+        'node_type' => 'se_customer',
       ]), $this->button_class);
 
     $items[] = Link::createFromRoute('Add supplier', 'node.add',
       $this->setRouteParameters(FALSE, [
-        'node_type' => 'se_supplier'
+        'node_type' => 'se_supplier',
       ]), $this->button_class);
 
     $items[] = Link::createFromRoute('Add assembly', 'entity.se_item.add_form',
       $this->setRouteParameters(FALSE, [
-        'se_item_type' => 'se_assembly'
+        'se_item_type' => 'se_assembly',
       ]), $this->button_class);
 
     $items[] = Link::createFromRoute('Add stock', 'entity.se_item.add_form',
       $this->setRouteParameters(FALSE, [
-        'se_item_type' => 'se_stock'
+        'se_item_type' => 'se_stock',
       ]), $this->button_class);
 
     $items[] = Link::createFromRoute('Add recurring', 'entity.se_item.add_form',
       $this->setRouteParameters(FALSE, [
-        'se_item_type' => 'se_recurring'
+        'se_item_type' => 'se_recurring',
       ]), $this->button_class);
 
     $items[] = Link::createFromRoute('Add service', 'entity.se_item.add_form',
       $this->setRouteParameters(FALSE, [
-        'se_item_type' => 'se_service'
+        'se_item_type' => 'se_service',
       ]), $this->button_class);
 
     return $items;
   }
 
+  /**
+   *
+   */
   private function contactLinks(): array {
     $items = [];
 
@@ -173,28 +182,28 @@ class NavigationBlock extends BlockBase {
 
     $items[] = Link::createFromRoute('Add customer', 'node.add',
       $this->setRouteParameters(FALSE, [
-        'node_type' => 'se_customer'
+        'node_type' => 'se_customer',
       ]), $this->button_class);
     $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $route_parameters + [
-        'se_information_type' => 'se_document'
+        'se_information_type' => 'se_document',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add invoice', 'node.add',
       $route_parameters + [
-        'node_type' => 'se_invoice'
+        'node_type' => 'se_invoice',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
       $route_parameters + [
         'node_type' => 'se_payment',
-        'source' => $this->node->id()
+        'source' => $this->node->id(),
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add quote', 'node.add',
       $route_parameters + [
-        'node_type' => 'se_quote'
+        'node_type' => 'se_quote',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add ticket', 'node.add',
       $route_parameters + [
-        'node_type' => 'se_ticket'
+        'node_type' => 'se_ticket',
       ], $this->button_class);
 
     return $items;
@@ -210,28 +219,28 @@ class NavigationBlock extends BlockBase {
 
     $items[] = Link::createFromRoute('Add contact', 'node.add',
       $this->setRouteParameters(FALSE, [
-        'node_type' => 'se_contact'
+        'node_type' => 'se_contact',
       ]), $this->button_class);
     $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $route_parameters + [
-        'se_information_type' => 'se_document'
+        'se_information_type' => 'se_document',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add invoice', 'node.add',
       $route_parameters + [
-        'node_type' => 'se_invoice'
+        'node_type' => 'se_invoice',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
       $route_parameters + [
         'node_type' => 'se_payment',
-        'source' => $this->node->id()
+        'source' => $this->node->id(),
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add quote', 'node.add',
       $route_parameters + [
-        'node_type' => 'se_quote'
+        'node_type' => 'se_quote',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add ticket', 'node.add',
       $route_parameters + [
-        'node_type' => 'se_ticket'
+        'node_type' => 'se_ticket',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
       $route_parameters + [
@@ -241,18 +250,20 @@ class NavigationBlock extends BlockBase {
     return $items;
   }
 
-//  private function goodsReceiptLinks() {
-//    $items = [];
-//
-//    $items[] = Link::createFromRoute('Pay bill', 'node.add', [
-//      'node_type' => 'se_payment',
-//      'field_bu_ref' => $this->node->id(),
-//      'destination'  => $this->destination,
-//    ], $this->button_class);
-//
-//    return $items;
-//  }
+  // Private function goodsReceiptLinks() {
+  //    $items = [];
+  //
+  //    $items[] = Link::createFromRoute('Pay bill', 'node.add', [
+  //      'node_type' => 'se_payment',
+  //      'field_bu_ref' => $this->node->id(),
+  //      'destination'  => $this->destination,
+  //    ], $this->button_class);
+  //
+  //    return $items;.
 
+  /**
+   * }.
+   */
   private function invoiceLinks(): array {
     $items = [];
 
@@ -261,22 +272,24 @@ class NavigationBlock extends BlockBase {
     $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
       $route_parameters + [
         'node_type' => 'se_payment',
-        'source' => $this->node->id()
+        'source' => $this->node->id(),
       ], $this->button_class);
 
     return $items;
   }
 
-//  private function itemLinks(): array {
-//    $items = [];
-//    $route_parameters = $this->setRouteParameters();
-//
-//    $items[] = Link::createFromRoute('Add stock', 'entity.se_stock_item.add_form',
-//      $route_parameters, $this->button_class);
-//
-//    return $items;
-//  }
+  // Private function itemLinks(): array {
+  //    $items = [];
+  //    $route_parameters = $this->setRouteParameters();
+  //
+  //    $items[] = Link::createFromRoute('Add stock', 'entity.se_stock_item.add_form',
+  //      $route_parameters, $this->button_class);
+  //
+  //    return $items;.
 
+  /**
+   * }.
+   */
   private function purchaseOrderLinks(): array {
     $items = [];
 
@@ -291,6 +304,9 @@ class NavigationBlock extends BlockBase {
     return $items;
   }
 
+  /**
+   *
+   */
   private function quoteLinks(): array {
     $items = [];
 
@@ -310,6 +326,9 @@ class NavigationBlock extends BlockBase {
     return $items;
   }
 
+  /**
+   *
+   */
   private function supplierLinks(): array {
     $items = [];
 
@@ -317,15 +336,15 @@ class NavigationBlock extends BlockBase {
 
     $items[] = Link::createFromRoute('Add contact', 'node.add',
       $route_parameters + [
-        'node_type' => 'se_contact'
+        'node_type' => 'se_contact',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $route_parameters + [
-        'se_information_type' => 'se_document'
+        'se_information_type' => 'se_document',
       ], $this->button_class);
     $items[] = Link::createFromRoute('Add ticket', 'node.add',
       $route_parameters + [
-        'node_type' => 'se_ticket'
+        'node_type' => 'se_ticket',
       ], $this->button_class);
 
     return $items;
@@ -351,7 +370,7 @@ class NavigationBlock extends BlockBase {
     if (isset($this->node)) {
       if (in_array($this->node->bundle(), [
         'se_customer',
-        'se_supplier'
+        'se_supplier',
       ], TRUE)) {
         $route_parameters['field_bu_ref'] = $this->node->id();
         $contacts = \Drupal::service('se_contact.service')

@@ -11,12 +11,11 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\node\Entity\Node;
 
 /**
- * Class InvoiceSaveEventSubscriber
+ * Class InvoiceSaveEventSubscriber.
  *
- * Update item status if they have been invoiced out
+ * Update item status if they have been invoiced out.
  *
  * @package Drupal\se_item_line\EventSubscriber
  */
@@ -30,17 +29,16 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsertMarkSold',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdateMarkSold',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceMarkAvailable'
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceMarkAvailable',
     ];
   }
 
   /**
    *
-   * @param EntityInsertEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
   public function invoiceInsertMarkSold(EntityInsertEvent $event) {
-    /** @var Node $entity */
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->nodeMarkItemStatus($entity);
@@ -49,10 +47,10 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    *
-   * @param EntityUpdateEvent $event
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    */
   public function invoiceUpdateMarkSold(EntityUpdateEvent $event) {
-    /** @var Node $entity */
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->nodeMarkItemStatus($entity);
@@ -61,11 +59,10 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    *
-   * @param EntityPresaveEvent $event
-   *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    */
   public function invoiceMarkAvailable(EntityPresaveEvent $event) {
-    /** @var Node $entity */
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->nodeMarkItemStatus($entity, FALSE);
@@ -76,7 +73,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * Loop through the payment entries and mark the invoices as
    * paid/unpaid as dictated by the parameter.
    *
-   * @param Node $entity
+   * @param \Drupal\node\Entity\Node $entity
    * @param bool $sold
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -85,7 +82,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
-      /** @var Item $item */
+      /** @var \Drupal\se_item\Entity\Item $item */
       if (($item = Item::load($item_line->target_id)) && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
         // TODO - Make a service for this?
         if (!empty($item->field_it_item_ref->target_id)) {

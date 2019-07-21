@@ -77,6 +77,7 @@ class NodeController extends ControllerBase {
    *
    * @return array
    *   A node submission form.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */

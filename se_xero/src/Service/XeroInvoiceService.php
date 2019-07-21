@@ -11,35 +11,38 @@ use Drupal\xero\XeroQueryFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
+/**
+ *
+ */
 class XeroInvoiceService {
 
   /**
    * A logger instance.
    *
-   * @var LoggerInterface
+   * @var \Psr\Log\LoggerInterface
    */
   protected $logger;
 
   /**
    * A Xero query.
    *
-   * @var XeroQueryFactory;
+   * @var \Drupal\xero\XeroQueryFactory
    */
   protected $xeroQueryFactory;
 
   /**
    * The typed data manager.
    *
-   * @var TypedDataManagerInterface
+   * @var \Drupal\Core\TypedData\TypedDataManagerInterface
    */
   protected $typedDataManager;
 
   /**
    * SeXeroInvoiceService constructor.
    *
-   * @param LoggerInterface $logger
-   * @param TypedDataManagerInterface $typed_data_manager
-   * @param XeroQueryFactory $xero_query_factory
+   * @param \Psr\Log\LoggerInterface $logger
+   * @param \Drupal\Core\TypedData\TypedDataManagerInterface $typed_data_manager
+   * @param \Drupal\xero\XeroQueryFactory $xero_query_factory
    */
   public function __construct(LoggerInterface $logger, TypedDataManagerInterface $typed_data_manager, XeroQueryFactory $xero_query_factory) {
     $this->logger = $logger;
@@ -47,33 +50,38 @@ class XeroInvoiceService {
     $this->xeroQueryFactory = $xero_query_factory;
   }
 
+  /**
+   *
+   */
   public function lookupInvoice(Node $node) {
-//    $xeroQuery = $this->xeroQueryFactory->get();
-//    $xeroQuery->setType('xero_invoice');
-//    $xeroQuery->addCondition('InvoiceNumber', $node->invoice_id->value);
+    // $xeroQuery = $this->xeroQueryFactory->get();
+    //    $xeroQuery->setType('xero_invoice');
+    //    $xeroQuery->addCondition('InvoiceNumber', $node->invoice_id->value);
     return FALSE;
   }
 
   /**
    * Create an array of data to sync to xero.
    *
-   * @param ImmutableConfig $settings
+   * @param \Drupal\Core\Config\ImmutableConfig $settings
    * @param \Drupal\xero\Plugin\DataType\XeroItemList $invoices
-   * @param Node $node
+   * @param \Drupal\node\Entity\Node $node
    *
-   * @return \Drupal\xero\Plugin\DataType\XeroItemList|boolean
+   * @return \Drupal\xero\Plugin\DataType\XeroItemList|bool
+   *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   private function setInvoiceValues(ImmutableConfig $settings, XeroItemList $invoices, Node $node) {
 
-    // Setup the invoice data
+    // Setup the invoice data.
     $values = [
       'Contact' => [
         'ContactID' => $node->customer->se_xero_uuid->value,
       ],
       'Type' => 'ACCREC',
       'Date' => date('Y-m-d', $node->created->value),
-      'DueDate' => date('Y-m-d', $node->created->value + (86400 * 7)), // TODO
+      // TODO.
+      'DueDate' => date('Y-m-d', $node->created->value + (86400 * 7)),
       'LineAmountTypes' => 'Inclusive',
       'Status' => 'SUBMITTED',
       'InvoiceNumber' => $node->field_in_id->value,
@@ -95,11 +103,12 @@ class XeroInvoiceService {
   }
 
   /**
-   * Create an Invoice in Xero
+   * Create an Invoice in Xero.
    *
    * @param \Drupal\node\Entity\Node $node
    *
    * @return bool
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
@@ -121,12 +130,12 @@ class XeroInvoiceService {
       \Drupal::service('se_xero.contact_service')->sync($node->customer);
     }
 
-    // Setup the data structure
+    // Setup the data structure.
     $list_definition = $this->typedDataManager->createListDataDefinition('xero_invoice');
     /** @var \Drupal\xero\Plugin\DataType\XeroItemList $invoices */
     $invoices = $this->typedDataManager->create($list_definition, []);
 
-    // Setup the query
+    // Setup the query.
     $xeroQuery = $this->xeroQueryFactory->get();
 
     // Setup the values, return if there are no invoice lines.

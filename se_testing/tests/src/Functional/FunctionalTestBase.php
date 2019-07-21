@@ -13,6 +13,9 @@ use weitzman\DrupalTestTraits\Entity\TaxonomyCreationTrait;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 use weitzman\DrupalTestTraits\GoutteTrait;
 
+/**
+ *
+ */
 class FunctionalTestBase extends TestCase {
   use DrupalTrait;
   use GoutteTrait;
@@ -38,6 +41,9 @@ class FunctionalTestBase extends TestCase {
   protected $fakerFactory;
   protected $faker;
 
+  /**
+   *
+   */
   protected function setUp() {
     parent::setUp();
     $this->setupMinkSession();
@@ -57,8 +63,7 @@ class FunctionalTestBase extends TestCase {
    * Override \Drupal\Tests\UiHelperTrait::prepareRequest since it generates
    * an error, and does nothing useful for DTT. @see https://www.drupal.org/node/2246725.
    */
-  protected function prepareRequest()
-  {
+  protected function prepareRequest() {
   }
 
   /**

@@ -7,10 +7,9 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\node\Entity\Node;
 
 /**
- * Class GoodsReceiptPresaveEventSubscriber
+ * Class GoodsReceiptPresaveEventSubscriber.
  *
  * Handle goods being received and create new stock items for the ones
  * that have serial numbers.
@@ -33,12 +32,12 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
    * has a serial number, and then update the list of items with the new
    * stock item ids.
    *
-   * @param EntityPresaveEvent $event
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *
-   * TODO - Config option to generate serial numbers if blank?
+   *   TODO - Config option to generate serial numbers if blank?
    */
   public function itemLineNodePresave(EntityPresaveEvent $event) {
-    /** @var Node $entity */
+    /** @var \Drupal\node\Entity\Node $entity */
     if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
       return;
     }
@@ -50,7 +49,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if (!empty($item_line->serial)) {
-        /** @var Item $item */
+        /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = Item::load($item_line->target_id)) {
           if ($item->field_it_serial->value !== $item_line->serial) {
             $new_item = $item->createDuplicate();

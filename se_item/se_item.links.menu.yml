@@ -15,4 +15,3 @@ entity.se_item_type.collection:
   description: 'List Item type (bundles)'
   parent: system.admin_structure
   weight: 99
-
