@@ -18,7 +18,7 @@ function se_basic_setup_install() {
 }
 
 /**
- *
+ * Create some taxonomy terms.
  */
 function se_basic_setup_taxonomy_terms() {
   se_core_create_terms('se_sale_category', [
@@ -102,7 +102,7 @@ function se_basic_setup_taxonomy_terms() {
 }
 
 /**
- *
+ * Setup basic service items.
  */
 function se_basic_setup_example_service_items() {
   $defaults = se_basic_setup_item_defaults('Service', 'Domain name', 'Internal', 'se_service');
@@ -127,7 +127,7 @@ function se_basic_setup_example_service_items() {
 }
 
 /**
- *
+ * Setup basic recurring items.
  */
 function se_basic_setup_example_recurring_items() {
   $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
@@ -167,7 +167,7 @@ function se_basic_setup_example_recurring_items() {
 }
 
 /**
- *
+ * Setup basic stock items.
  */
 function se_basic_setup_example_stock_items() {
   $defaults = se_basic_setup_item_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
@@ -249,7 +249,18 @@ function se_basic_setup_example_stock_items() {
 }
 
 /**
+ * Helper function for adding items.
  *
+ * @param $category
+ *   Taxonomy category.
+ * @param $product_type
+ *   Taxonomy product type.
+ * @param $manufacturer
+ *   Taxonomy manufacturer.
+ * @param $type
+ *   Item type.
+ *
+ * @return array
  */
 function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $type) {
   $term = taxonomy_term_load_multiple_by_name($category, 'se_sale_category');
@@ -275,7 +286,8 @@ function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $
 }
 
 /**
- *
+ * Setup some
+ * basic configuration defaults.
  */
 function se_basic_setup_config_defaults() {
   $config_storage = \Drupal::service('config.storage');
@@ -308,7 +320,7 @@ function se_basic_setup_config_defaults() {
   if ($terms = taxonomy_term_load_multiple_by_name('Open', 'se_status')) {
     $term = reset($terms);
     foreach ($types as $index => $type) {
-      $type_config = $config_storage->read($type);
+      $type_config = $config_storage->read($index);
       $type_config['vocabulary'] = $type['vocab'];
       $type_config[$type['setting']] = $term->id();
       $config_storage->write($index, $type_config);
