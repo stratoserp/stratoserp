@@ -44,9 +44,9 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_customer_invoice_statistics: true
-  extra_field_customer_quote_statistics: true
-  extra_field_customer_ticket_statistics: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_quote_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true
   field_bu_ref: true
   field_co_ref: true
   field_in_customer_order: true

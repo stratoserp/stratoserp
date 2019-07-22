@@ -41,7 +41,6 @@ class TimekeepingCrudTest extends TimekeepingTestBase {
     $test_customer = $this->addCustomer();
     $ticket = $this->addTicket($test_customer);
     $timekeeping = $this->addTimekeeping($ticket);
-
     $this->drupalLogout();
 
     // Ensure customer can't delete timekeeping.
