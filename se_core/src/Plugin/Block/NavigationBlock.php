@@ -22,7 +22,7 @@ use Drupal\node\NodeInterface;
 class NavigationBlock extends BlockBase {
 
   /**
-   * @var \Drupal\node\Entity\NodeInterface*/
+   * @var \Drupal\node\Entity\Node */
   protected $node;
 
   protected $destination;
@@ -58,17 +58,10 @@ class NavigationBlock extends BlockBase {
           $items = $this->customerLinks();
           break;
 
-        // Case 'se_goods_receipt':
-        //          $items = $this->goodsReceiptLinks();
-        //          break;
         case 'se_invoice':
           $items = $this->invoiceLinks();
           break;
 
-        // Case 'se_item':
-        //          $items = $this->itemLinks();
-        //          break;
-        //
         case 'se_purchase_order':
           $items = $this->purchaseOrderLinks();
           break;
@@ -125,11 +118,11 @@ class NavigationBlock extends BlockBase {
   private function billLinks(): array {
     $items = [];
 
-    // This is quite different to a customer payment
-    //    $items[] = Link::createFromRoute('Add payment', 'node.add',
-    //      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
-    //      $this->button_class);
-    // .
+    // TODO - This is quite different to a customer payment.
+    // $items[] = Link::createFromRoute('Add payment', 'node.add',
+    //   this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
+    //   $this->button_class);
+
     return $items;
   }
 
@@ -192,19 +185,8 @@ class NavigationBlock extends BlockBase {
       $route_parameters + [
         'node_type' => 'se_invoice',
       ], $this->button_class);
-    $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
-      $route_parameters + [
-        'node_type' => 'se_payment',
-        'source' => $this->node->id(),
-      ], $this->button_class);
-    $items[] = Link::createFromRoute('Add quote', 'node.add',
-      $route_parameters + [
-        'node_type' => 'se_quote',
-      ], $this->button_class);
-    $items[] = Link::createFromRoute('Add ticket', 'node.add',
-      $route_parameters + [
-        'node_type' => 'se_ticket',
-      ], $this->button_class);
+
+    $items = $this->commonLinks($items, $route_parameters);
 
     return $items;
   }
@@ -229,6 +211,29 @@ class NavigationBlock extends BlockBase {
       $route_parameters + [
         'node_type' => 'se_invoice',
       ], $this->button_class);
+    $items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page',
+      $route_parameters, $this->button_class);
+    $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
+      $route_parameters + [
+        'node_type' => 'se_invoice',
+        'source' => $this->node->id(),
+      ], $this->button_class);
+
+    $items = $this->commonLinks($items, $route_parameters);
+
+    return $items;
+  }
+
+  /**
+   * Return the items with common links added.
+   *
+   * @param array $items
+   * @param $route_parameters
+   *
+   * @return array
+   */
+  private function commonLinks(array $items, $route_parameters): array {
+
     $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
       $route_parameters + [
         'node_type' => 'se_payment',
@@ -242,24 +247,9 @@ class NavigationBlock extends BlockBase {
       $route_parameters + [
         'node_type' => 'se_ticket',
       ], $this->button_class);
-    $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
-      $route_parameters + [
-        'node_type' => 'se_invoice',
-        'source' => $this->node->id(),
-      ], $this->button_class);
+
     return $items;
   }
-
-  // Private function goodsReceiptLinks() {
-  //    $items = [];
-  //
-  //    $items[] = Link::createFromRoute('Pay bill', 'node.add', [
-  //      'node_type' => 'se_payment',
-  //      'field_bu_ref' => $this->node->id(),
-  //      'destination'  => $this->destination,
-  //    ], $this->button_class);
-  //
-  //    return $items;.
 
   /**
    * }.
@@ -277,15 +267,6 @@ class NavigationBlock extends BlockBase {
 
     return $items;
   }
-
-  // Private function itemLinks(): array {
-  //    $items = [];
-  //    $route_parameters = $this->setRouteParameters();
-  //
-  //    $items[] = Link::createFromRoute('Add stock', 'entity.se_stock_item.add_form',
-  //      $route_parameters, $this->button_class);
-  //
-  //    return $items;.
 
   /**
    * }.
