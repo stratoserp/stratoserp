@@ -64,8 +64,8 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
         if (isset($entity->field_it_manufacturer_ref)) {
           $stock_item->field_it_manufacturer_ref->target_id = $entity->field_it_manufacturer_ref->target_id;
         }
-        if (isset($entity->field_it_category_ref)) {
-          $stock_item->field_it_category_ref->target_id = $entity->field_it_category_ref->target_id;
+        if (isset($entity->field_it_sale_category_ref)) {
+          $stock_item->field_it_sale_category_ref->target_id = $entity->field_it_sale_category_ref->target_id;
         }
         $stock_item->save();
       }
