@@ -1,0 +1,30 @@
+add subscription entities:
+  title: 'Create new Subscription entities'
+
+administer subscription entities:
+  title: 'Administer Subscription entities'
+  description: 'Allow to access the administration form to configure Subscription entities.'
+  restrict access: true
+
+delete subscription entities:
+  title: 'Delete Subscription entities'
+
+edit subscription entities:
+  title: 'Edit Subscription entities'
+
+view published subscription entities:
+  title: 'View published Subscription entities'
+
+view unpublished subscription entities:
+  title: 'View unpublished Subscription entities'
+
+view all subscription revisions:
+  title: 'View all Subscription revisions'
+
+revert all subscription revisions:
+  title: 'Revert all Subscription revisions'
+  description: 'Role requires permission <em>view Subscription revisions</em> and <em>edit rights</em> for subscription entities in question or <em>administer subscription entities</em>.'
+
+delete all subscription revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Subscription revisions</em> and <em>delete rights</em> for subscription entities in question or <em>administer subscription entities</em>.'

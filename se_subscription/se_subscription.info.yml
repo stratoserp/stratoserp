@@ -1,0 +1,8 @@
+name: 'Subscription'
+description: 'Provides a subscription entity type.'
+type: module
+core: 8.x
+package: Stratos ERP
+dependencies:
+  - se_item
+  - se_recurring

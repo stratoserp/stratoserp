@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Contains se_subscription.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function se_subscription_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the se_subscription module.
+    case 'help.page.se_subscription':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function se_subscription_theme() {
+  $theme = [];
+  $theme['se_subscription'] = [
+    'render element' => 'elements',
+    'file' => 'se_subscription.page.inc',
+    'template' => 'se_subscription',
+  ];
+  $theme['se_subscription_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'se_subscription.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function se_subscription_theme_suggestions_se_subscription(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#se_subscription'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'se_subscription__' . $sanitized_view_mode;
+  $suggestions[] = 'se_subscription__' . $entity->bundle();
+  $suggestions[] = 'se_subscription__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'se_subscription__' . $entity->id();
+  $suggestions[] = 'se_subscription__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}

@@ -1,9 +1,0 @@
-name: 'Basic subscription'
-description: 'Provides a basic subscription entity type and related configuration.'
-type: module
-core: 8.x
-package: Stratos ERP
-dependencies:
-  - se_information
-  - se_item
-  - se_recurring
