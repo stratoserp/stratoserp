@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.field_ea_email_aliases
+    - se_subscription.se_subscription_type.se_email_account
+id: se_subscription.se_email_account.field_ea_email_aliases
+field_name: field_ea_email_aliases
+entity_type: se_subscription
+bundle: se_email_account
+label: 'Email aliases'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

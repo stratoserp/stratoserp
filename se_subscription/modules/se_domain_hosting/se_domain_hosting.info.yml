@@ -1,0 +1,9 @@
+name: 'Domain hosting'
+description: 'Provides a domain hosting subscription entity type.'
+type: module
+core: 8.x
+package: 'Stratos ERP subscription'
+dependencies:
+  - se_item
+  - se_recurring
+  - se_subscription

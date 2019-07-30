@@ -48,6 +48,7 @@ third_party_settings:
         - group_cu_tab_purchase_orders
         - group_cu_tab_quotes
         - group_cu_tab_reports
+        - group_cu_tab_timekeeping
       parent_name: ''
       weight: 0
       format_type: tabs
@@ -516,3 +517,4 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_customer_ticket_statistics: true

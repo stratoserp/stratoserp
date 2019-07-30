@@ -1,0 +1,84 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_subscription.se_managed_service.field_bu_ref
+    - field.field.se_subscription.se_managed_service.field_su_item
+    - field.field.se_subscription.se_managed_service.field_su_management_link
+    - field.field.se_subscription.se_managed_service.field_su_period
+    - field.field.se_subscription.se_managed_service.field_su_ref
+    - se_subscription.se_subscription_type.se_managed_service
+  module:
+    - duration_field
+    - field_layout
+    - layout_discovery
+    - link
+    - se_item_line
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
+id: se_subscription.se_managed_service.default
+targetEntityType: se_subscription
+bundle: se_managed_service
+mode: default
+content:
+  field_bu_ref:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
+  field_su_item:
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: '40'
+      placeholder: ''
+    third_party_settings: {  }
+    type: se_item_line_widget
+    region: bottom
+  field_su_management_link:
+    weight: 5
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: second
+  field_su_period:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: duration_widget
+    region: second
+  field_su_ref:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
+  name:
+    type: string_textfield
+    weight: 0
+    region: first
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: first
+    third_party_settings: {  }
+hidden: {  }

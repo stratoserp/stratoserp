@@ -11,7 +11,6 @@ dependencies:
   - se_item
   - se_service
   - se_stock
-  - se_subscription
   - se_ticket
   - se_timekeeping
   - text

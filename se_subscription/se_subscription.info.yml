@@ -5,4 +5,5 @@ core: 8.x
 package: Stratos ERP
 dependencies:
   - se_item
+  - se_item_line
   - se_recurring

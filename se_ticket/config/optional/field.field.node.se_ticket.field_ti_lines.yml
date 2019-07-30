@@ -156,4 +156,10 @@ settings:
   date_format:
     handler: 'default:date_format'
     handler_settings: {  }
+  se_subscription:
+    handler: 'default:se_subscription'
+    handler_settings: {  }
+  se_subscription_type:
+    handler: 'default:se_subscription_type'
+    handler_settings: {  }
 field_type: se_item_line

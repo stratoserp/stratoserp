@@ -1,0 +1,9 @@
+name: 'Domain name'
+description: 'Provides a name name subscription entity type.'
+type: module
+core: 8.x
+package: 'Stratos ERP subscription'
+dependencies:
+  - se_item
+  - se_recurring
+  - se_subscription

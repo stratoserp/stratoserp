@@ -5,6 +5,7 @@ dependencies:
     - field.field.se_item.se_recurring.field_it_code
     - field.field.se_item.se_recurring.field_it_cost_price
     - field.field.se_item.se_recurring.field_it_description
+    - field.field.se_item.se_recurring.field_it_item_ref
     - field.field.se_item.se_recurring.field_it_manufacturer_ref
     - field.field.se_item.se_recurring.field_it_product_type_ref
     - field.field.se_item.se_recurring.field_it_recurring_period
@@ -100,4 +101,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_it_item_ref: true
   user_id: true

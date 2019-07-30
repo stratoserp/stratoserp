@@ -1,0 +1,102 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_subscription.se_email_account.field_bu_ref
+    - field.field.se_subscription.se_email_account.field_ea_email_address
+    - field.field.se_subscription.se_email_account.field_ea_email_aliases
+    - field.field.se_subscription.se_email_account.field_su_item
+    - field.field.se_subscription.se_email_account.field_su_management_link
+    - field.field.se_subscription.se_email_account.field_su_period
+    - field.field.se_subscription.se_email_account.field_su_ref
+    - se_subscription.se_subscription_type.se_email_account
+  module:
+    - duration_field
+    - field_layout
+    - layout_discovery
+    - link
+    - se_item_line
+    - user
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
+id: se_subscription.se_email_account.default
+targetEntityType: se_subscription
+bundle: se_email_account
+mode: default
+content:
+  field_bu_ref:
+    weight: 2
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  field_ea_email_address:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: second
+  field_ea_email_aliases:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: second
+  field_su_item:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: se_item_line_formatter
+    region: bottom
+  field_su_management_link:
+    weight: 7
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: second
+  field_su_period:
+    weight: 4
+    label: above
+    settings:
+      text_length: full
+      separator: space
+    third_party_settings: {  }
+    type: duration_human_display
+    region: second
+  field_su_ref:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  name:
+    label: above
+    type: string
+    weight: 0
+    region: first
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 1
+    region: first
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
