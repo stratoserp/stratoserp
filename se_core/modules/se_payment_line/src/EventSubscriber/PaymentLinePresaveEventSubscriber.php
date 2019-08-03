@@ -32,7 +32,9 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
    */
   public function paymentLineNodePresave(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
-    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
+    $entity = $event->getEntity();
+
+    if ($entity->getEntityTypeId() !== 'node') {
       return;
     }
 

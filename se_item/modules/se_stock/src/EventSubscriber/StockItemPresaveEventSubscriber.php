@@ -33,9 +33,12 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
    */
   public function stockItemPresave(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
-    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'se_item')) {
+    $entity = $event->getEntity();
+
+    if ($entity->getEntityTypeId() !== 'se_item') {
       return;
     }
+
     if ($entity->bundle() !== 'se_stock') {
       return;
     }
@@ -72,7 +75,6 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
       else {
         $stock_item = Item::load(reset($items));
       }
-
     }
 
     if (!empty($stock_item)) {

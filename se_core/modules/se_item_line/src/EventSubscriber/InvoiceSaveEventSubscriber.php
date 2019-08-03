@@ -40,6 +40,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   public function invoiceInsertMarkSold(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
+
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->nodeMarkItemStatus($entity);
     }
@@ -52,6 +53,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   public function invoiceUpdateMarkSold(EntityUpdateEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
+
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->nodeMarkItemStatus($entity);
     }
@@ -64,6 +66,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   public function invoiceMarkAvailable(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
+
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->nodeMarkItemStatus($entity, FALSE);
     }

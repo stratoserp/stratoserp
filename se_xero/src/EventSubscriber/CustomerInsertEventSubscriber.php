@@ -33,21 +33,31 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
   public function customerInsert(EntityInsertEvent $event) {
-    /** @var \Drupal\node\Entity\Node $node */
-    $node = $event->getEntity();
-    if ($node->bundle() === 'se_customer' && !$node->get('se_xero_uuid')) {
-      \Drupal::service('se_xero.contact_service')->sync($node);
+    /** @var \Drupal\node\Entity\Node $entity */
+    $entity = $event->getEntity();
+    if (isset($invoice->skipCustomerXeroEvents)) {
+      return;
+    }
+
+    if ($entity->bundle() === 'se_customer' && !$entity->get('se_xero_uuid')) {
+      \Drupal::service('se_xero.contact_service')->sync($entity);
     }
   }
 
   /**
+   * When a customer is updated, update in Xero.
    *
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    */
   public function customerUpdate(EntityUpdateEvent $event) {
-    /** @var \Drupal\node\Entity\Node $node */
-    $node = $event->getEntity();
-    if ($node->bundle() === 'se_customer' && !$node->get('se_xero_uuid')) {
-      \Drupal::service('se_xero.contact_service')->sync($node);
+    /** @var \Drupal\node\Entity\Node $entity */
+    $entity = $event->getEntity();
+    if (isset($invoice->skipCustomerXeroEvents)) {
+      return;
+    }
+
+    if ($entity->bundle() === 'se_customer' && !$entity->get('se_xero_uuid')) {
+      \Drupal::service('se_xero.contact_service')->sync($entity);
     }
   }
 

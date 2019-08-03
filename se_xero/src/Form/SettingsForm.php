@@ -114,6 +114,12 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('invoice.account'),
     ];
 
+    $form['se_xero_sync_start'] = [
+      '#title' => $this->t('Sync start date'),
+      '#type' => 'date',
+      '#default_value' => $config->get('invoice.sync_start_date'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -125,7 +131,8 @@ class SettingsForm extends ConfigFormBase {
     $form_state_values = $form_state->getValues();
     $config
       ->set('system.enabled', $form_state_values['se_xero_enabled'])
-      ->set('invoice.account', $form_state_values['se_xero_invoice_account']);
+      ->set('invoice.account', $form_state_values['se_xero_invoice_account'])
+      ->set('invoice.sync_start_date', $form_state_values['se_xero_sync_start']);
     $config->save();
   }
 

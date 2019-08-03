@@ -48,7 +48,6 @@ third_party_settings:
         - group_cu_tab_purchase_orders
         - group_cu_tab_quotes
         - group_cu_tab_reports
-        - group_cu_tab_timekeeping
       parent_name: ''
       weight: 0
       format_type: tabs
@@ -61,8 +60,8 @@ third_party_settings:
       region: content
     group_cu_tab_tickets:
       children:
+        - se_ticket_eva_entity_view_1_form
         - se_ticket_eva_entity_view_1
-        - extra_field_ticket_statistics_customer
       parent_name: group_cu_tabs
       weight: 9
       format_type: tab
@@ -130,8 +129,8 @@ third_party_settings:
       region: content
     group_cu_tab_invoices:
       children:
+        - se_invoice_eva_entity_view_1_form
         - se_invoice_eva_entity_view_1
-        - extra_field_invoice_statistics_monthly
       parent_name: group_cu_tabs
       weight: 10
       format_type: tab
@@ -144,6 +143,7 @@ third_party_settings:
       region: content
     group_cu_tab_purchase_orders:
       children:
+        - se_purchase_order_eva_entity_view_1_form
         - se_purchase_order_eva_entity_view_1
         - extra_field_customer_purchase_order_statistics
       parent_name: group_cu_tabs
@@ -158,8 +158,8 @@ third_party_settings:
       region: content
     group_cu_tab_quotes:
       children:
+        - se_quote_eva_entity_view_1_form
         - se_quote_eva_entity_view_1
-        - extra_field_quote_statistics_monthly
       parent_name: group_cu_tabs
       weight: 14
       format_type: tab
@@ -231,7 +231,7 @@ bundle: se_customer
 mode: default
 content:
   extra_field_customer_purchase_order_statistics:
-    weight: 17
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -459,7 +459,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_invoice_eva_entity_view_1:
-    weight: 14
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_invoice_eva_entity_view_1_form:
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -479,7 +484,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_purchase_order_eva_entity_view_1:
-    weight: 16
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_purchase_order_eva_entity_view_1_form:
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -489,7 +499,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_quote_eva_entity_view_1:
-    weight: 19
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_quote_eva_entity_view_1_form:
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -504,7 +519,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_ticket_eva_entity_view_1:
-    weight: 14
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_ticket_eva_entity_view_1_form:
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -517,4 +537,6 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_customer_invoice_statistics: true
+  extra_field_customer_quote_statistics: true
   extra_field_customer_ticket_statistics: true

@@ -34,7 +34,8 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
    */
   public function itemsInsert(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
-    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
+    $entity = $event->getEntity();
+    if ($entity->getEntityTypeId() !== 'node') {
       return;
     }
 

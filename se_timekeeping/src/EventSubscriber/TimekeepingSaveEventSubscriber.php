@@ -40,6 +40,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
   public function timekeepingInsertMarkBilled(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
+
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->timekeepingMarkItemsBilled($entity);
     }
@@ -54,6 +55,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
   public function timekeepingUpdateMarkBilled(EntityUpdateEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
+
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->timekeepingMarkItemsBilled($entity);
     }
@@ -69,6 +71,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
   public function timekeepingMarkNotBilled(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
+
     if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
       $this->timekeepingMarkItemsBilled($entity, FALSE);
     }

@@ -7,7 +7,7 @@ use Drush\Commands\DrushCommands;
 /**
  * A Drush commandfile.
  */
-class SeXeroCommands extends DrushCommands {
+class XeroCommands extends DrushCommands {
 
   /**
    * Sync up customers changes since the last sync with xero.

@@ -24,11 +24,13 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityCreateEvent $event
    */
   public function purchaseOrderInsert(EntityCreateEvent $event) {
-    if (($entity = $event->getEntity()) && ($entity->getEntityTypeId() !== 'node')) {
+    $entity = $event->getEntity();
+
+    if ($entity->getEntityTypeId() !== 'node') {
       return;
     }
 
-    // TODO.
+    // TODO
   }
 
 }

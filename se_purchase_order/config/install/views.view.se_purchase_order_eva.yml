@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_po_id
     - field.storage.node.field_po_total
     - node.type.se_purchase_order
+    - taxonomy.vocabulary.se_status
     - user.role.administrator
     - user.role.developer
     - user.role.staff
@@ -13,6 +14,7 @@ dependencies:
     - node
     - se_accounting
     - serial
+    - taxonomy
     - user
 id: se_purchase_order_eva
 label: 'Purchase orders'
@@ -515,6 +517,55 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+        field_status_ref_target_id:
+          id: field_status_ref_target_id
+          table: node__field_status_ref
+          field: field_status_ref_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_status_ref_target_id_op
+            label: Status
+            description: ''
+            use_operator: false
+            operator: field_status_ref_target_id_op
+            identifier: status
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              staff: '0'
+              developer: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: se_status
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
       sorts: {  }
       header: {  }
       footer: {  }
@@ -577,6 +628,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -602,6 +654,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:

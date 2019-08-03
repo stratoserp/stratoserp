@@ -1,5 +1,5 @@
 services:
   se_xero.commands:
-    class: \Drupal\se_xero\Commands\SeXeroCommands
+    class: Drupal\se_xero\Commands\XeroCommands
     tags:
       - { name: drush.command }
