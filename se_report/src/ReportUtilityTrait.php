@@ -195,7 +195,6 @@ trait ReportUtilityTrait {
             \Drupal::logger('item_breakdown_report_action')
               ->error('Unhandled item type %type.', ['%type' => $type]);
             continue 2;
-          break;
         }
       }
 

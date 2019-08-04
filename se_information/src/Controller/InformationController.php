@@ -89,7 +89,10 @@ class InformationController extends ControllerBase implements ContainerInjection
         // Use revision link to link to revisions that are not active.
         $date = \Drupal::service('date.formatter')->format($revision->getRevisionCreationTime(), 'short');
         if ($vid !== $se_information->getRevisionId()) {
-          $link = Link::fromTextAndUrl($date, new Url('entity.se_information.revision', ['se_information' => $se_information->id(), 'se_information_revision' => $vid]));
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_information.revision', [
+            'se_information' => $se_information->id(),
+            'se_information_revision' => $vid
+          ]));
         }
         else {
           $link = $se_information->toLink($date);

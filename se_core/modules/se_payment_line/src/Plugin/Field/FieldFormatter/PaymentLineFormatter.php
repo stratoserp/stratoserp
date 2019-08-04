@@ -62,14 +62,14 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
       t('Payment date'),
     ];
 
-    $cache_tags = [];
-
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
+      $row = [];
+
       $uri = $entity->toUrl();
 
       $element = [
         '#type' => 'link',
-        '#title' => $entity->title,
+        '#title' => $entity->title->value,
         '#url' => $uri,
         '#options' => $uri->getOptions(),
       ];
@@ -89,6 +89,8 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
         \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->amount ?? 0),
         $display_date,
       ];
+
+      $rows[] = $row;
     }
 
     // Now wrap the lines into a bundle.
@@ -96,9 +98,6 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $headers,
-      '#cache' => [
-        '#tags' => $cache_tags,
-      ],
     ];
   }
 

@@ -7,6 +7,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\NodeTypeInterface;
+use Drupal\se_payment\Traits\ErpPaymentTrait;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -14,6 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Returns responses for Node routes.
  */
 class NodeController extends ControllerBase {
+
+  use ErpPaymentTrait;
 
   /**
    * The date formatter service.
@@ -114,10 +117,11 @@ class NodeController extends ControllerBase {
     foreach ($entity_ids as $id) {
       /** @var \Drupal\node\Entity\Node $invoice */
       if ($invoice = $this->entityTypeManager()->getStorage('node')->load($id)) {
+        $outstanding_amount = $this->getInvoiceBalance($invoice);
         $line = [
           'target_id' => $invoice->id(),
           'target_type' => 'node',
-          'amount'  => $invoice->field_in_total->value,
+          'amount'  => $outstanding_amount,
           'payment_type' => $payment_term->id(),
         ];
         $lines[] = $line;

@@ -134,13 +134,13 @@ class SubscriptionController extends ControllerBase implements ContainerInjectio
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_subscription->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_subscription.revision', [
+          $link = \Drupal\Core\Link::fromTextAndUrl($date, new Url('entity.se_subscription.revision', [
             'se_subscription' => $se_subscription->id(),
             'se_subscription_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_subscription->link($date);
+          $link = $se_subscription->toLink($date);
         }
 
         $row = [];

@@ -73,7 +73,9 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return t('Are you sure you want to delete the revision from %revision-date?', ['%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime())]);
+    return t('Are you sure you want to delete the revision from %revision-date?', [
+      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime())
+    ]);
   }
 
   /**
@@ -108,7 +110,9 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
 
     $this->logger('content')->notice('Information: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
     $messenger = \Drupal::messenger();
-    $messenger->addMessage(t('Revision from %revision-date of Information %title has been deleted.', ['%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));
+    $messenger->addMessage(t('Revision from %revision-date of Information %title has been deleted.', [
+      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()
+    ]));
     $form_state->setRedirect(
       'entity.se_information.canonical',
        ['se_information' => $this->revision->id()]

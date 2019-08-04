@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
 
 /**
- *
+ * Customer service class for common custom related manipulations.
  */
 class CustomerService {
 
@@ -29,7 +29,9 @@ class CustomerService {
    * SeContactService constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   *   Provide a config factory to the constructor.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   *   Provide an entityTypeManager to the constructor.
    */
   public function __construct(ConfigFactory $config_factory, EntityTypeManager $entity_type_manager) {
     $this->configFactory = $config_factory;
@@ -40,8 +42,10 @@ class CustomerService {
    * Given any node with a customer, return the customer.
    *
    * @param \Drupal\node\Entity\Node $node
+   *   Node to return the customer for.
    *
    * @return bool|\Drupal\node\Entity\Node
+   *   Customer node.
    */
   public function lookupCustomer(Node $node) {
     if ($node->bundle() === 'se_customer') {
@@ -59,32 +63,44 @@ class CustomerService {
    * Retrieve the current balance for a customer.
    *
    * @param \Drupal\node\Entity\Node $node
+   *   Customer to return the balance for.
    *
-   * @return float
+   * @return int
+   *   The balance for the customer in cents.
    */
   public function getBalance(Node $node) {
-    return (float) $node->field_cu_balance->value;
+    return $node->field_cu_balance->value;
   }
 
   /**
-   * @param \Drupal\node\Entity\Node $node
-   * @param $value
+   * Set the customers balance to a specific value.
    *
-   * @return float
+   * @param \Drupal\node\Entity\Node $node
+   *   Customer to set the balance for.
+   * @param int $value
+   *   Amount to set as the customer balance in cents.
+   *
+   * @return int
+   *   The balance of the customers account afterwards.
    */
-  public function setBalance(Node $node, $value) {
+  public function setBalance(Node $node, int $value) {
     $node->field_cu_balance->value = $value;
     $node->save();
     return $this->getBalance($node);
   }
 
   /**
-   * @param \Drupal\node\Entity\Node $node
-   * @param $value
+   * Add a value to the customers existing balance.
    *
-   * @return float
+   * @param \Drupal\node\Entity\Node $node
+   *   Customer to adjust the balance for.
+   * @param int $value
+   *   The value to be added to the customer, positives and negatives will work.
+   *
+   * @return int
+   *   The balance of the customers account afterwards.
    */
-  public function adjustBalance(Node $node, $value) {
+  public function adjustBalance(Node $node, int $value) {
     $node->field_cu_balance->value += $value;
     $node->save();
     return $this->getBalance($node);
