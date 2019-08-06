@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
+    - field.field.node.se_invoice.field_in_transaction_type
     - field.field.node.se_invoice.field_se_body
     - field.field.node.se_invoice.field_se_comments
     - field.field.node.se_invoice.field_status_ref
@@ -33,6 +34,11 @@ targetEntityType: node
 bundle: se_invoice
 mode: default
 content:
+  extra_field_invoice_payments:
+    weight: 4
+    region: second
+    settings: {  }
+    third_party_settings: {  }
   field_bu_ref:
     weight: 1
     label: inline
@@ -50,7 +56,7 @@ content:
     type: entity_reference_label
     region: first
   field_in_customer_order:
-    weight: 5
+    weight: 6
     label: inline
     settings:
       link_to_entity: false
@@ -65,14 +71,14 @@ content:
     type: serial_default_formatter
     region: second
   field_in_lines:
-    weight: 8
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
   field_in_quote_ref:
-    weight: 6
+    weight: 7
     label: inline
     settings:
       link: true
@@ -80,7 +86,7 @@ content:
     type: entity_reference_label
     region: second
   field_in_sent:
-    weight: 7
+    weight: 8
     label: inline
     settings:
       format: default
@@ -90,21 +96,31 @@ content:
     type: boolean
     region: second
   field_in_total:
-    weight: 9
+    weight: 10
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
     region: bottom
+  field_in_transaction_type:
+    weight: 13
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: first
   field_se_body:
     label: hidden
     type: text_default
-    weight: 10
+    weight: 11
     settings: {  }
     third_party_settings: {  }
     region: bottom
   field_se_comments:
-    weight: 11
+    weight: 12
     label: above
     settings:
       view_mode: default
@@ -113,7 +129,7 @@ content:
     type: comment_default
     region: bottom
   field_status_ref:
-    weight: 4
+    weight: 5
     label: inline
     settings:
       link: true

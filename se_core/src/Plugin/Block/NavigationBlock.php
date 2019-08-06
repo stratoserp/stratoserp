@@ -22,11 +22,24 @@ use Drupal\node\NodeInterface;
 class NavigationBlock extends BlockBase {
 
   /**
-   * @var \Drupal\node\Entity\NodeInterface*/
+   * Node to work on.
+   *
+   * @var \Drupal\node\Entity\Node
+   */
   protected $node;
 
+  /**
+   * Destination to send the user to.
+   *
+   * @var string
+   */
   protected $destination;
 
+  /**
+   * Class to use on buttons.
+   *
+   * @var string
+   */
   protected $button_class;
 
   /**
@@ -35,7 +48,15 @@ class NavigationBlock extends BlockBase {
   public function build(): array {
     $build = [];
     $items = [];
-    $this->button_class = ['attributes' => ['class' => ['btn', 'btn-xs', 'btn-success']]];
+    $this->button_class = [
+      'attributes' => [
+        'class' => [
+          'btn',
+          'btn-xs',
+          'btn-success',
+        ],
+      ],
+    ];
     $this->node = \Drupal::routeMatch()->getParameter('node');
 
     if (!isset($this->node) && \Drupal::routeMatch()->getRouteName() === 'se_core.search_form') {
@@ -58,17 +79,10 @@ class NavigationBlock extends BlockBase {
           $items = $this->customerLinks();
           break;
 
-        // Case 'se_goods_receipt':
-        //          $items = $this->goodsReceiptLinks();
-        //          break;
         case 'se_invoice':
           $items = $this->invoiceLinks();
           break;
 
-        // Case 'se_item':
-        //          $items = $this->itemLinks();
-        //          break;
-        //
         case 'se_purchase_order':
           $items = $this->purchaseOrderLinks();
           break;
@@ -82,7 +96,6 @@ class NavigationBlock extends BlockBase {
           break;
 
       }
-
     }
 
     if (isset($items)) {
@@ -100,6 +113,7 @@ class NavigationBlock extends BlockBase {
    * Set cache tags on a per node basis.
    *
    * @return array|string[]
+   *   The cache tags.
    */
   public function getCacheTags() {
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
@@ -113,28 +127,37 @@ class NavigationBlock extends BlockBase {
   }
 
   /**
-   *
+   * Retrieve the cache contexts.
    */
   public function getCacheContexts() {
     return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
   }
 
   /**
+   * Build a list of bill links for display.
    *
+   * @return array
+   *   Output array.
    */
   private function billLinks(): array {
     $items = [];
 
-    // This is quite different to a customer payment
-    //    $items[] = Link::createFromRoute('Add payment', 'node.add',
-    //      $this->setRouteParameters(TRUE, ['node_type' => 'se_payment']),
-    //      $this->button_class);
-    // .
+    $route_parameters = $this->setRouteParameters();
+
+    $items[] = Link::createFromRoute('Pay bill', 'se_bill_payment.add',
+      $route_parameters + [
+        'node_type' => 'se_bill_payment',
+        'source' => $this->node->id(),
+      ], $this->button_class);
+
     return $items;
   }
 
   /**
+   * Build a list of search links for display.
+   *
    * @return array
+   *   Output array.
    */
   private function searchLinks(): array {
     $items = [];
@@ -173,7 +196,10 @@ class NavigationBlock extends BlockBase {
   }
 
   /**
+   * Build a list of contact links for display.
    *
+   * @return array
+   *   Output array.
    */
   private function contactLinks(): array {
     $items = [];
@@ -192,25 +218,17 @@ class NavigationBlock extends BlockBase {
       $route_parameters + [
         'node_type' => 'se_invoice',
       ], $this->button_class);
-    $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
-      $route_parameters + [
-        'node_type' => 'se_payment',
-        'source' => $this->node->id(),
-      ], $this->button_class);
-    $items[] = Link::createFromRoute('Add quote', 'node.add',
-      $route_parameters + [
-        'node_type' => 'se_quote',
-      ], $this->button_class);
-    $items[] = Link::createFromRoute('Add ticket', 'node.add',
-      $route_parameters + [
-        'node_type' => 'se_ticket',
-      ], $this->button_class);
+
+    $items = $this->commonLinks($items, $route_parameters);
 
     return $items;
   }
 
   /**
+   * Build a list of customer links for display.
+   *
    * @return array
+   *   Output array.
    */
   private function customerLinks(): array {
     $items = [];
@@ -229,6 +247,32 @@ class NavigationBlock extends BlockBase {
       $route_parameters + [
         'node_type' => 'se_invoice',
       ], $this->button_class);
+    $items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page',
+      $route_parameters, $this->button_class);
+    $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
+      $route_parameters + [
+        'node_type' => 'se_invoice',
+        'source' => $this->node->id(),
+      ], $this->button_class);
+
+    $items = $this->commonLinks($items, $route_parameters);
+
+    return $items;
+  }
+
+  /**
+   * Return the items with common links added.
+   *
+   * @param array $items
+   *   Existing items array.
+   * @param array $route_parameters
+   *   Any extra route parameters.
+   *
+   * @return array
+   *   Output array.
+   */
+  private function commonLinks(array $items, array $route_parameters): array {
+
     $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
       $route_parameters + [
         'node_type' => 'se_payment',
@@ -242,27 +286,15 @@ class NavigationBlock extends BlockBase {
       $route_parameters + [
         'node_type' => 'se_ticket',
       ], $this->button_class);
-    $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
-      $route_parameters + [
-        'node_type' => 'se_invoice',
-        'source' => $this->node->id(),
-      ], $this->button_class);
+
     return $items;
   }
 
-  // Private function goodsReceiptLinks() {
-  //    $items = [];
-  //
-  //    $items[] = Link::createFromRoute('Pay bill', 'node.add', [
-  //      'node_type' => 'se_payment',
-  //      'field_bu_ref' => $this->node->id(),
-  //      'destination'  => $this->destination,
-  //    ], $this->button_class);
-  //
-  //    return $items;.
-
   /**
-   * }.
+   * Build a list of invoice links for display.
+   *
+   * @return array
+   *   Output array.
    */
   private function invoiceLinks(): array {
     $items = [];
@@ -274,21 +306,20 @@ class NavigationBlock extends BlockBase {
         'node_type' => 'se_payment',
         'source' => $this->node->id(),
       ], $this->button_class);
+    $items[] = Link::createFromRoute('Add credit', 'node.add',
+      $route_parameters + [
+        'node_type' => 'se_invoice',
+        'se_transaction_type' => 'credit',
+      ], $this->button_class);
 
     return $items;
   }
 
-  // Private function itemLinks(): array {
-  //    $items = [];
-  //    $route_parameters = $this->setRouteParameters();
-  //
-  //    $items[] = Link::createFromRoute('Add stock', 'entity.se_stock_item.add_form',
-  //      $route_parameters, $this->button_class);
-  //
-  //    return $items;.
-
   /**
-   * }.
+   * Build a list of purchase order links for display.
+   *
+   * @return array
+   *   Output array.
    */
   private function purchaseOrderLinks(): array {
     $items = [];
@@ -305,7 +336,10 @@ class NavigationBlock extends BlockBase {
   }
 
   /**
+   * Build a list of quote links for display.
    *
+   * @return array
+   *   Output array.
    */
   private function quoteLinks(): array {
     $items = [];
@@ -327,7 +361,10 @@ class NavigationBlock extends BlockBase {
   }
 
   /**
+   * Build a list of supplier links for display.
    *
+   * @return array
+   *   Output array.
    */
   private function supplierLinks(): array {
     $items = [];
@@ -351,12 +388,17 @@ class NavigationBlock extends BlockBase {
   }
 
   /**
+   * Set route parameters.
+   *
    * @param bool $include_contact
+   *   Whether to include contact information.
    * @param array $extra
+   *   Extra information.
    *
    * @return array
+   *   Output array.
    */
-  private function setRouteParameters($include_contact = TRUE, $extra = []): array {
+  private function setRouteParameters($include_contact = TRUE, array $extra = []): array {
     $contacts = [];
     $route_parameters = [];
 
