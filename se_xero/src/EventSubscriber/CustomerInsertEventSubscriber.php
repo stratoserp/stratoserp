@@ -5,6 +5,7 @@ namespace Drupal\se_xero\EventSubscriber;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\se_core\Traits\ErpEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -15,6 +16,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @package Drupal\se_xero\EventSubscriber
  */
 class CustomerInsertEventSubscriber implements EventSubscriberInterface {
+
+  use ErpEventTrait;
 
   /**
    * {@inheritdoc}
@@ -31,11 +34,16 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    * When a customer is inserted, create the same customer in Xero.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event to work with.
    */
   public function customerInsert(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if (isset($invoice->skipCustomerXeroEvents)) {
+    if ($entity->getEntityTypeId() !== 'node') {
+      return;
+    }
+
+    if ($this->isSkipCustomerXeroEvents($entity)) {
       return;
     }
 
@@ -48,11 +56,16 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    * When a customer is updated, update in Xero.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The event to work with.
    */
   public function customerUpdate(EntityUpdateEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if (isset($invoice->skipCustomerXeroEvents)) {
+    if ($entity->getEntityTypeId() !== 'node') {
+      return;
+    }
+
+    if ($this->isSkipCustomerXeroEvents($entity)) {
       return;
     }
 

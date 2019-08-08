@@ -20,23 +20,39 @@ trait ErpEventTrait {
   }
 
   /**
-   * Add a flag to an invoice so that future events are not processed on it.
+   * Retrieve whether to skip invoice save events.
    *
    * @param \Drupal\node\Entity\Node $invoice
    *   The invoice to adjust.
+   *
+   * @return bool
+   *   Return the current setting.
    */
-  public function setSkipCustomerXeroEvents(Node $invoice) {
-    $invoice->skipCustomerXeroEvents = TRUE;
+  public function isSkipInvoiceSaveEvents(Node $invoice) {
+    return $invoice->skipInvoiceSaveEvents;
   }
 
   /**
-   * Return the amount outstanding for an invoice.
+   * Add a flag to an invoice so that future events are not processed on it.
    *
-   * @param Node $invoice
-   *   The invoice node to return the balance of.
+   * @param \Drupal\node\Entity\Node $customer
+   *   The invoice to adjust.
    */
-  public function getInvoiceOutstanding($invoice) {
+  public function setSkipCustomerXeroEvents(Node $customer) {
+    $customer->skipCustomerXeroEvents = TRUE;
+  }
 
+  /**
+   * Retrieve whether to skip invoice save events.
+   *
+   * @param \Drupal\node\Entity\Node $customer
+   *   The customer to skip events.
+   *
+   * @return bool
+   *   Return the current setting.
+   */
+  public function isSkipCustomerXeroEvents(Node $customer) {
+    return $customer->skipInvoiceSaveEvents;
   }
 
 }

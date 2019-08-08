@@ -9,6 +9,7 @@ use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Drupal\se_core\Traits\ErpEventTrait;
+use Drupal\se_payment\Traits\ErpPaymentTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\node\Entity\Node;
 
@@ -24,6 +25,7 @@ use Drupal\node\Entity\Node;
 class PaymentSaveEventSubscriber implements EventSubscriberInterface {
 
   use ErpEventTrait;
+  use ErpPaymentTrait;
 
   /**
    * {@inheritdoc}
@@ -126,14 +128,11 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
     $bundle_field_type = 'field_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     $amount = 0;
-    foreach ($entity->{$bundle_field_type . '_lines'} as $item_line) {
-      if ($invoice = Node::load($item_line->target_id)) {
-        // TODO - Make a service for this?
-        if ($item_line->amount == $invoice->field_in_total) {
-          $invoice->set('field_status_ref', $term);
-        }
-
-
+    foreach ($entity->{$bundle_field_type . '_lines'} as $payment_line) {
+      // Don't try on operate on invoices with no payment.
+      /** @var \Drupal\node\Entity\Node $invoice */
+      if ($payment_line->amount
+      && $invoice = Node::load($payment_line->target_id)) {
         // Set a dynamic field on the node so that other events dont try and
         // do things that we will take care of once save things multiple times
         // for no reason.
@@ -145,8 +144,19 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
         // This event updates the total at the end.
         $this->setSkipCustomerXeroEvents($invoice);
 
+        // TODO - Make a service for this?
+        if ($payment_line->amount === $invoice->field_in_total
+        || $payment_line->amount === $invoice->field_in_outstanding) {
+          $invoice->set('field_status_ref', $term);
+        }
+        else {
+          // Update the outstanding amount if required.
+          $invoice->field_in_outstanding->value =
+            $this->getInvoiceBalance($invoice);
+        }
+
         $invoice->save();
-        $amount += $item_line->amount;
+        $amount += $payment_line->amount;
       }
     }
 

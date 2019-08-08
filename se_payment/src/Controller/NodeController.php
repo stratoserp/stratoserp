@@ -76,8 +76,6 @@ class NodeController extends ControllerBase {
    * @param \Drupal\node\NodeTypeInterface $node_type
    *   The node type entity for the node.
    *
-   * @param \Drupal\node\Entity\Node $source
-   *
    * @return array
    *   A node submission form.
    *
@@ -85,6 +83,7 @@ class NodeController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function add(NodeTypeInterface $node_type) {
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);
@@ -128,7 +127,8 @@ class NodeController extends ControllerBase {
       }
     }
 
-    $node->{'field_pa_lines'} = $lines;
+    $node->field_pa_lines = $lines;
+    $node->field_pa_total = $total;
 
     return $this->entityFormBuilder()->getForm($node);
   }
