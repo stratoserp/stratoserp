@@ -31,7 +31,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
+    /* @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',

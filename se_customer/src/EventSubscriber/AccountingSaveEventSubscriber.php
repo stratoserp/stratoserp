@@ -27,7 +27,7 @@ class AccountingSaveEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
+    /* @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'accountingInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'accountingUpdate',

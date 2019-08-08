@@ -23,7 +23,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
+    /* @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInsertMarkBilled',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingUpdateMarkBilled',

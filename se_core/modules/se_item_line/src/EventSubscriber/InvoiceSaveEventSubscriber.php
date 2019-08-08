@@ -25,7 +25,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
+    /* @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsertMarkSold',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdateMarkSold',
