@@ -131,7 +131,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
     foreach ($entity->{$bundle_field_type . '_lines'} as $payment_line) {
       // Don't try on operate on invoices with no payment.
       /** @var \Drupal\node\Entity\Node $invoice */
-      if ($payment_line->amount
+      if (!empty($payment_line->amount)
       && $invoice = Node::load($payment_line->target_id)) {
         // Set a dynamic field on the node so that other events dont try and
         // do things that we will take care of once save things multiple times
@@ -145,8 +145,8 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
         $this->setSkipCustomerXeroEvents($invoice);
 
         // TODO - Make a service for this?
-        if ($payment_line->amount === $invoice->field_in_total
-        || $payment_line->amount === $invoice->field_in_outstanding) {
+        if ($payment_line->amount === $invoice->field_in_total->value
+        || $payment_line->amount === $invoice->field_in_outstanding->value) {
           $invoice->set('field_status_ref', $term);
         }
         else {

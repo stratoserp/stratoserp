@@ -3,6 +3,7 @@
 namespace Drupal\se_invoice\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 use Drupal\node\Entity\Node;
@@ -36,7 +37,7 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabelDisplay() {
-    return 'above';
+    return 'hidden';
   }
 
   /**
@@ -51,14 +52,18 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
 
       /** @var \Drupal\node\Entity\Node $payment */
       $payment = Node::load($payment_line->entity_id);
+      $uri = $payment->toUrl();
+
       foreach ($payment->field_pa_lines as $line) {
+
         /** @var \Drupal\taxonomy\Entity\Term $type */
         $type = Term::load($line->payment_type);
         $row = [
+          'payment' => Link::fromTextAndUrl($payment->field_pa_id->value, $uri),
+          'date' => Link::fromTextAndUrl($line->payment_date, $uri),
+          'type' => $type->name->value,
           'amount' => \Drupal::service('se_accounting.currency_format')
             ->formatDisplay($line->amount),
-          'date' => $line->payment_date,
-          'type' => $type->name->value,
         ];
       }
 
