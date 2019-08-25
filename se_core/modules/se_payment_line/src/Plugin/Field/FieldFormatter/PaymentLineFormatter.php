@@ -24,21 +24,21 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 class PaymentLineFormatter extends EntityReferenceLabelFormatter {
 
   /**
-   *
+   * {@inheritdoc}
    */
   public static function defaultSettings() {
     return [];
   }
 
   /**
-   *
+   * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     return [];
   }
 
   /**
-   *
+   * {@inheritdoc}
    */
   public function settingsSummary() {
     return [];

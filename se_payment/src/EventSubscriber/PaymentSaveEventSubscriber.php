@@ -78,7 +78,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * When a payment is about to be saves, change existing payment lines.
+   * When a payment is about to be saved, change existing payment lines.
    *
    * This is in case the payment is saved and has had some lines removed.
    * Without this, those invoices would then still show as paid.
@@ -97,7 +97,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
     }
 
     $amount = $this->updateInvoices($entity, FALSE);
-    $this->updateCustomerBalance($entity, $amount, TRUE);
+    $this->updateCustomerBalance($entity, $amount);
   }
 
   /**

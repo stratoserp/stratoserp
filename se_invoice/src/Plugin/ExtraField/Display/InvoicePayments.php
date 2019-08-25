@@ -42,8 +42,12 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @var \Drupal\node\Entity\Node $entity.
    */
   public function viewElements(ContentEntityInterface $entity) {
+
+    $rows = [];
 
     $payments = $this->getInvoicePayments($entity);
 
