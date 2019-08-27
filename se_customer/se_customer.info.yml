@@ -3,7 +3,7 @@ description: 'Provides Customer content type and related configuration.'
 type: module
 core: 8.x
 package: Stratos ERP
-dependencies:cardinality: 1
+dependencies:
   - field
   - field_layout
   - geolocation
@@ -13,7 +13,6 @@ dependencies:cardinality: 1
   - node
   - options
   - path
-  - se_core
   - se_accounting
   - serial
   - telephone
