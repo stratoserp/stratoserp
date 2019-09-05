@@ -1,5 +1,6 @@
+
 se_core.home:
-  title: Overview
+  title: Home
   route_name: <front>
   expanded: FALSE
   weight: -5

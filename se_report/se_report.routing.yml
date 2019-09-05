@@ -5,4 +5,4 @@ se_report.overview:
     _controller: '\Drupal\se_report\Controller\OverviewPageController::dashboard'
     _title: 'Report overview page'
   requirements:
-    _permission: 'access content'
+    _permission: 'access all customers'
