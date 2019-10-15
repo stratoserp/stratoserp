@@ -36,6 +36,8 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   /**
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function invoiceInsertMarkSold(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -49,6 +51,8 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   /**
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function invoiceUpdateMarkSold(EntityUpdateEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -62,6 +66,8 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   /**
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function invoiceMarkAvailable(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */

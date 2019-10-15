@@ -27,6 +27,7 @@ function se_item_line_form_alter(&$form, FormStateInterface $form_state, $form_i
 
   if (in_array($form_id, $se_item_forms, TRUE)) {
     $form['#attached']['library'][] = 'core/drupal.ajax';
+    $form['#attached']['library'][] = 'se_item_line/drupal.autocomplete';
   }
 }
 

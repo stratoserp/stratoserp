@@ -3,5 +3,8 @@ drupal.autocomplete:
   js:
     js/se_item_line_autocomplete.js: {}
   dependencies:
-  - core/jquery
-  - core/drupalSettings
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.ajax
+    - core/jquery.ui.autocomplete

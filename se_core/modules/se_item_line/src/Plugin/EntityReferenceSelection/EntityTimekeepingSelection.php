@@ -23,6 +23,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
   protected $target_type;
   protected $target_bundles;
   protected $configuration;
+  protected $business;
 
   /**
    * {@inheritdoc}
@@ -52,8 +53,22 @@ class EntityTimekeepingSelection extends DefaultSelection {
     $this->configuration = $this->getConfiguration();
     $this->target_type = $this->configuration['target_type'];
     $this->target_bundles = $this->configuration['target_bundles'];
-    $parameters = \Drupal::request()->query->all();
-    $this->business = $parameters['field_bu_ref'];
+
+    // Extract the business ref from the query
+    $parameters = \Drupal::request()->query;
+    if ($parameters->has('field_bu_ref')) {
+      $this->business = $parameters->get('field_bu_ref');
+    }
+
+    // Extract the business ref from the ajax request?
+    $parameters = \Drupal::request()->request;
+    if ($parameters->has('field_bu_ref')) {
+      $matches = [];
+      $business = $parameters->get('field_bu_ref');
+      if (preg_match("/.+\s\(([^\)]+)\)/", $business[0]['target_id'], $matches)) {
+        $this->business = $matches[1];
+      }
+    }
 
     $filters = [];
 
@@ -78,13 +93,9 @@ class EntityTimekeepingSelection extends DefaultSelection {
 
       $output[] = $item->field_it_code->value;
 
-      if ($bundle === 'se_stock' && !$item->field_it_serial->isEmpty()) {
-        $output[] = '#' . $item->field_it_serial->value . '#';
-      }
       // $output[] = substr($item->label(), 0, 80);
-      $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value);
+      // $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value);
 
-      // Format - Code #Serial# Desc - Price.
       $options[$bundle][$entity_id] = implode(' ', $output);
     }
 
@@ -122,7 +133,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
       }
     }
 
-    $query->condition('field_bu_ref', $this->business);
+    //$query->condition('field_bu_ref', $this->business);
 
     return $query;
   }

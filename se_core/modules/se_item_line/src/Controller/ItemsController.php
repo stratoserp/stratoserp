@@ -35,6 +35,10 @@ class ItemsController extends ControllerBase {
 
     // Load the chosen item.
     /** @var \Drupal\se_item\Entity\Item $item */
+    if ($values[$field][$index]['target_id'] == NULL) {
+      return $response;
+    }
+
     if (!$item = Item::load($values[$field][$index]['target_id'])) {
       return $response;
     }
