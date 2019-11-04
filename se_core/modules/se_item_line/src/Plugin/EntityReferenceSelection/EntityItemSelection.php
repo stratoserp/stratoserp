@@ -132,7 +132,10 @@ class EntityItemSelection extends DefaultSelection {
       $matches = explode(' ', $match);
       foreach ($matches as $partial) {
         $key = Tags::encode($partial);
-        $query->condition($label_key, $key, $match_operator);
+        $conditionGroup = $query->orConditionGroup()
+          ->condition($label_key, $key, $match_operator)
+          ->condition('field_it_serial', $key, 'CONTAINS');
+        $query->condition($conditionGroup);
       }
 
       // Apply the filters supplied by the user.
