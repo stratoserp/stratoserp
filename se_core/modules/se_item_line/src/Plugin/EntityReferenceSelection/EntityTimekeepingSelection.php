@@ -2,6 +2,7 @@
 
 namespace Drupal\se_item_line\Plugin\EntityReferenceSelection;
 
+use Drupal\Component\Utility\Tags;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -21,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class EntityTimekeepingSelection extends DefaultSelection {
 
   protected $target_type;
-  protected $target_bundles;
   protected $configuration;
   protected $business;
 
@@ -50,9 +50,8 @@ class EntityTimekeepingSelection extends DefaultSelection {
    * {@inheritdoc}
    */
   public function getReferenceableEntities($match = NULL, $match_operator = 'CONTAINS', $limit = 0) {
-    $this->configuration = $this->getConfiguration();
-    $this->target_type = $this->configuration['target_type'];
-    $this->target_bundles = $this->configuration['target_bundles'];
+    $configuration = $this->getConfiguration();
+    $this->target_type = $configuration['target_type'];
 
     // Extract the business ref from the query
     $parameters = \Drupal::request()->query;
@@ -62,7 +61,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
 
     // Extract the business ref from the ajax request?
     $parameters = \Drupal::request()->request;
-    if ($parameters->has('field_bu_ref')) {
+    if (empty($this->business) && $parameters->has('field_bu_ref')) {
       $matches = [];
       $business = $parameters->get('field_bu_ref');
       if (preg_match("/.+\s\(([^\)]+)\)/", $business[0]['target_id'], $matches)) {
@@ -77,8 +76,6 @@ class EntityTimekeepingSelection extends DefaultSelection {
       $query->range(0, $limit);
     }
 
-    $query_string = $query->__toString();
-    \Drupal::logger('se_timekeeping')->info($query_string);
     $result = $query->execute();
 
     if (empty($result)) {
@@ -87,16 +84,21 @@ class EntityTimekeepingSelection extends DefaultSelection {
 
     $options = [];
     $entities = $this->entityManager->getStorage($this->target_type)->loadMultiple($result);
-    foreach ($entities as $entity_id => $item) {
+    foreach ($entities as $entity_id => $comment) {
       $output = [];
-      $bundle = $item->bundle();
+      $bundle = $comment->bundle();
 
-      $output[] = $item->field_it_code->value;
+      if ($item_code = $comment->field_tk_item->entity) {
+        $output[] = $item_code->field_it_code->value;
 
-      // $output[] = substr($item->label(), 0, 80);
-      // $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value);
+        //$output[] = substr($item_code->label(), 0, 80);
+        $output[] = substr($comment->label(), 0, 80);
+        if (isset($item_code->field_it_sell_price->value)) {
+          $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item_code->field_it_sell_price->value);
+        }
 
-      $options[$bundle][$entity_id] = implode(' ', $output);
+        $options[$bundle][$entity_id] = implode(' ', $output);
+      }
     }
 
     return $options;
@@ -121,7 +123,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
     // Call parent to build the base query. Do not provide the $match
     // parameter, because we want to implement our own logic and we can't
     // unset conditions.
-    /** @var \Drupal\Core\Entity\Query\Sql\Query  $query */
+    /** @var \Drupal\Core\Entity\Query\Sql\Query $query */
     $query = parent::buildEntityQuery(NULL, $match_operator);
 
     $entity_type = $this->entityManager->getDefinition($this->target_type);
@@ -129,11 +131,12 @@ class EntityTimekeepingSelection extends DefaultSelection {
     if (isset($match) && $label_key = $entity_type->getKey('label')) {
       $matches = explode(' ', $match);
       foreach ($matches as $partial) {
-        $query->condition($label_key, $partial, $match_operator);
+        $key = Tags::encode($partial);
+        $query->condition($label_key, $key, $match_operator);
       }
     }
 
-    //$query->condition('field_bu_ref', $this->business);
+    $query->condition('field_bu_ref', $this->business);
 
     return $query;
   }

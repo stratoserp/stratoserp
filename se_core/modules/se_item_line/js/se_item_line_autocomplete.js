@@ -8,10 +8,6 @@
 (function ($, Drupal) {
   var autocomplete = void 0;
 
-  function autocompleteSplitValues(value) {
-    return value.substring(value.indexOf("|") + 1);
-  }
-
   function searchHandler(event) {
     var options = autocomplete.options;
 
@@ -64,7 +60,7 @@
   }
 
   function selectHandler(event, ui) {
-    ui.item.value = autocomplete.splitValues(event.target.value);
+    event.target.value = ui.item.value;
 
     return false;
   }
@@ -103,8 +99,6 @@
 
   autocomplete = {
     cache: {},
-
-    splitValues: autocompleteSplitValues,
 
     options: {
       source: sourceData,

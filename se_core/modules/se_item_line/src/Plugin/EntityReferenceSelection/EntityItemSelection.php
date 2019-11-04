@@ -2,13 +2,13 @@
 
 namespace Drupal\se_item_line\Plugin\EntityReferenceSelection;
 
+use Drupal\Component\Utility\Tags;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Plugin implementation of the 'selection' entity_reference.
@@ -24,7 +24,6 @@ class EntityItemSelection extends DefaultSelection {
 
   protected $virtual_only = FALSE;
   protected $target_type;
-  protected $target_bundles;
   protected $configuration;
 
   public const FILTER_VIRTUAL = '@';
@@ -58,9 +57,8 @@ class EntityItemSelection extends DefaultSelection {
    * {@inheritdoc}
    */
   public function getReferenceableEntities($match = NULL, $match_operator = 'CONTAINS', $limit = 0) {
-    $this->configuration = $this->getConfiguration();
-    $this->target_type = $this->configuration['target_type'];
-    $this->target_bundles = $this->configuration['target_bundles'];
+    $configuration = $this->getConfiguration();
+    $this->target_type = $configuration['target_type'];
 
     $filters = [];
 
@@ -120,7 +118,7 @@ class EntityItemSelection extends DefaultSelection {
     // Call parent to build the base query. Do not provide the $match
     // parameter, because we want to implement our own logic and we can't
     // unset conditions.
-    /** @var \Drupal\Core\Entity\Query\Sql\Query  $query */
+    /** @var \Drupal\Core\Entity\Query\Sql\Query $query */
     $query = parent::buildEntityQuery(NULL, $match_operator);
 
     // Include virtual items, or not.
@@ -133,7 +131,8 @@ class EntityItemSelection extends DefaultSelection {
     if (isset($match) && $label_key = $entity_type->getKey('label')) {
       $matches = explode(' ', $match);
       foreach ($matches as $partial) {
-        $query->condition($label_key, $partial, $match_operator);
+        $key = Tags::encode($partial);
+        $query->condition($label_key, $key, $match_operator);
       }
 
       // Apply the filters supplied by the user.

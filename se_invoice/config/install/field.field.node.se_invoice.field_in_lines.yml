@@ -101,8 +101,20 @@ settings:
   rest_resource_config:
     handler: 'default:rest_resource_config'
     handler_settings: {  }
+  se_information_type:
+    handler: 'default:se_information_type'
+    handler_settings: {  }
+  se_information:
+    handler: 'default:se_information'
+    handler_settings: {  }
   se_item_type:
     handler: 'default:se_item_type'
+    handler_settings: {  }
+  se_subscription:
+    handler: 'default:se_subscription'
+    handler_settings: {  }
+  se_subscription_type:
+    handler: 'default:se_subscription_type'
     handler_settings: {  }
   search_page:
     handler: 'default:search_page'
@@ -160,11 +172,5 @@ settings:
     handler_settings: {  }
   date_format:
     handler: 'default:date_format'
-    handler_settings: {  }
-  se_subscription:
-    handler: 'default:se_subscription'
-    handler_settings: {  }
-  se_subscription_type:
-    handler: 'default:se_subscription_type'
     handler_settings: {  }
 field_type: se_item_line

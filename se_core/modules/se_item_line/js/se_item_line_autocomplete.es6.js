@@ -7,21 +7,6 @@
   let autocomplete;
 
   /**
-   * Helper splitting terms from the autocomplete value.
-   *
-   * @function Drupal.autocomplete.splitValues
-   *
-   * @param {string} value
-   *   The value being entered by the user.
-   *
-   * @return {string}
-   *   Array of values, split by comma.
-   */
-  function autocompleteSplitValues(value) {
-    return value.substring(value.indexOf("|") + 1);
-  }
-
-  /**
    * The search handler is called before a search is performed.
    *
    * @function Drupal.autocomplete.options.search
@@ -136,7 +121,7 @@
    *   Returns false to indicate the event status.
    */
   function selectHandler(event, ui) {
-    ui.item.value = autocomplete.splitValues(event.target.value);
+    event.target.value = ui.item.value;
     // Return false to tell jQuery UI that we've filled in the value already.
     return false;
   }
@@ -216,7 +201,6 @@
   autocomplete = {
     cache: {},
     // Exposes options to allow overriding by contrib.
-    splitValues: autocompleteSplitValues,
     // jQuery UI autocomplete options.
 
     /**
