@@ -1,4 +1,4 @@
 
-To build javascript, use
+To build javascript, use yarn
 
-npm run build:js
+yarn run build:js

@@ -14,7 +14,7 @@
    * @param {object} event
    *   The event triggered.
    *
-   * @return {bool}
+   * @return {boolean}
    *   Whether to perform a search or not.
    */
   function searchHandler(event) {
@@ -102,7 +102,7 @@
   /**
    * Handles an autocompletefocus event.
    *
-   * @return {bool}
+   * @return {boolean}
    *   Always returns false.
    */
   function focusHandler() {
@@ -117,7 +117,7 @@
    * @param {object} ui
    *   The jQuery UI settings object.
    *
-   * @return {bool}
+   * @return {boolean}
    *   Returns false to indicate the event status.
    */
   function selectHandler(event, ui) {
@@ -174,7 +174,6 @@
             autocomplete.options.renderItem;
         });
 
-        // Use CompositionEvent to handle IME inputs. It requests remote server on "compositionend" event only.
         $autocomplete.on("compositionstart.autocomplete", () => {
           autocomplete.options.isComposing = true;
         });
