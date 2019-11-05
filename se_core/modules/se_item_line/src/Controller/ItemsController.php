@@ -2,6 +2,8 @@
 
 namespace Drupal\se_item_line\Controller;
 
+use Drupal\comment\Entity\Comment;
+use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Controller\ControllerBase;
@@ -35,11 +37,43 @@ class ItemsController extends ControllerBase {
 
     // Load the chosen item.
     /** @var \Drupal\se_item\Entity\Item $item */
-    if ($values[$field][$index]['target_id'] == NULL) {
+    if ($values[$field][$index]['target_id'] === NULL) {
       return $response;
     }
 
-    if (!$item = Item::load($values[$field][$index]['target_id'])) {
+    $target_type = $values[$field][$index]['target_type'];
+
+    switch ($target_type) {
+      case 'comment':
+        /** @var \Drupal\comment\Entity\Comment $comment */
+        if ($comment = Comment::load($values[$field][$index]['target_id'])) {
+          if ($item = $comment->field_tk_item->entity) {
+            $date = new DateTimePlus($comment->field_tk_date->value);
+            $response->addCommand(new InvokeCommand(
+              "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-completed-date-date']",
+              'val',
+              [$date->format("Y-m-d")]
+            ));
+          }
+        }
+        break;
+      case 'se_item':
+        /** @var \Drupal\se_item\Entity\Item $item */
+        if ($item = Item::load($values[$field][$index]['target_id'])) {
+          if (!empty($item->field_it_serial->value)) {
+            $response->addCommand(new InvokeCommand(
+              "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-serial']",
+              'val',
+              [$item->field_it_serial->value]
+            ));
+          }
+
+        }
+
+        break;
+    }
+
+    if (!isset($item)) {
       return $response;
     }
 
@@ -53,14 +87,6 @@ class ItemsController extends ControllerBase {
         'val',
         [\Drupal::service('se_accounting.currency_format')->formatDisplay($item_price)]
       ));
-
-      if (!empty($item->field_it_serial->value)) {
-        $response->addCommand(new InvokeCommand(
-          "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-serial']",
-          'val',
-          [$item->field_it_serial->value]
-        ));
-      }
     }
 
     // Update the total.
