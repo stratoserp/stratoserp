@@ -3,8 +3,3 @@ services:
     class: Drupal\se_item_line\EventSubscriber\ItemLinePresaveEventSubscriber
     tags:
       - { name: event_subscriber }
-
-  se_item_line.node_save:
-    class: Drupal\se_item_line\EventSubscriber\InvoiceSaveEventSubscriber
-    tags:
-      - { name: event_subscriber }

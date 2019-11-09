@@ -4,6 +4,11 @@ services:
     tags:
       - { name: event_subscriber }
 
+  se_item.node_save:
+    class: Drupal\se_item\EventSubscriber\InvoiceSaveEventSubscriber
+    tags:
+      - { name: event_subscriber }
+
   se_item.service:
     class: Drupal\se_item\Service\Item
     arguments: ['@entity_type.manager']

@@ -1,9 +1,8 @@
 <?php
 
-namespace Drupal\se_item_line\EventSubscriber;
+namespace Drupal\se_item\EventSubscriber;
 
-use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -89,18 +88,28 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    */
   private function nodeMarkItemStatus($entity, $sold = TRUE) {
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $date = new DateTimePlus(NULL, drupal_get_user_timezone());
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
-      /** @var \Drupal\se_item\Entity\Item $item */
-      if (($item = Item::load($item_line->target_id)) && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
-        // TODO - Make a service for this?
-        if (!empty($item->field_it_item_ref->target_id)) {
-          $date = new DrupalDateTime(NULL, drupal_get_user_timezone());
-          $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
-          $item->field_it_sale_date->value = $storage_date;
-          $item->field_it_sale_price->value = $item_line->price;
-          $item->field_it_invoice_ref->target_id = $entity->id();
-          $item->save();
+      if ($item_line->target_type === 'se_item') {
+        /** @var \Drupal\se_item\Entity\Item $item */
+        if (($item = Item::load($item_line->target_id)) && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
+          // TODO - Make a service for this?
+          // Only operate on things that have a 'parent', not the parents
+          // themselves, they are never sold.
+          if (!empty($item->field_it_item_ref->target_id)) {
+            if (isset($item->field_it_invoice_ref->value) !== $sold) {
+              if ($sold) {
+                $item->field_it_sale_date->value = $date->format('Y-m-d');
+                $item->field_it_sale_price->value = $item_line->price;
+                $item->field_it_invoice_ref->target_id = $entity->id();
+              }
+              else {
+                unset($item->field_it_sale_date->value, $item->field_it_sale_price->value, $item->field_it_invoice_ref->target_id);
+              }
+              $item->save();
+            }
+          }
         }
       }
     }

@@ -44,6 +44,8 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function paymentInsert(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -63,6 +65,8 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function paymentUpdate(EntityUpdateEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -85,6 +89,8 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function paymentAdjust(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */

@@ -27,9 +27,12 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * When a stock item is saved, if it has a serial number and no existing
-   * stock item exists with no serial number, create one with no serial.
+   * stock item exists with no serial number, create one with no serial as
+   * a 'parent' item to be used in quotes etc.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function stockItemPresave(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */

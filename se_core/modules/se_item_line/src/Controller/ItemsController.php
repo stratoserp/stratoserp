@@ -48,11 +48,11 @@ class ItemsController extends ControllerBase {
         /** @var \Drupal\comment\Entity\Comment $comment */
         if ($comment = Comment::load($values[$field][$index]['target_id'])) {
           if ($item = $comment->field_tk_item->entity) {
-            $date = new DateTimePlus($comment->field_tk_date->value);
+            $date = new DateTimePlus($comment->field_tk_date->value, drupal_get_user_timezone());
             $response->addCommand(new InvokeCommand(
               "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-completed-date-date']",
               'val',
-              [$date->format("Y-m-d")]
+              [$date->format('Y-m-d')]
             ));
           }
         }

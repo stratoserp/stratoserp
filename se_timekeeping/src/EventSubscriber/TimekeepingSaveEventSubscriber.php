@@ -36,6 +36,8 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    * If there are, mark them as billed.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function timekeepingInsertMarkBilled(EntityInsertEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -51,6 +53,8 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    * If there are, mark them as billed.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function timekeepingUpdateMarkBilled(EntityUpdateEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -67,6 +71,8 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    * invoice.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function timekeepingMarkNotBilled(EntityPresaveEvent $event) {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -90,12 +96,21 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
-      if ($item_line->target_type !== 'se_timekeeping') {
-        continue;
-      }
-      if ($comment = Comment::load($item_line->target_id)) {
-        $comment->set('field_tk_billed', $billed);
-        $comment->save();
+      if ($item_line->target_type === 'comment') {
+        /** @var \Drupal\comment\Entity\Comment $comment */
+        if ($comment = Comment::load($item_line->target_id)) {
+          // TODO - Make a service for this?
+          if ($comment->field_tk_billed != $billed) {
+            $comment->field_tk_billed->value = $billed;
+            if ($billed) {
+              $comment->field_tk_invoice_ref->value = $entity->id();
+            }
+            else {
+              unset($comment->field_tk_invoice_ref->value);
+            }
+            $comment->save();
+          }
+        }
       }
     }
   }
