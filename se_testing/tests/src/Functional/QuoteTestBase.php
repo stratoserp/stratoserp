@@ -1,29 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\Tests\se_testing\Functional;
 
 use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
-use Drupal\Tests\se_testing\Traits\UserCreateTrait;
+use Drupal\Tests\se_testing\Traits\QuoteTestTrait;
 
 /**
  *
  */
-class CustomerTestBase extends FunctionalTestBase {
+class QuoteTestBase extends FunctionalTestBase {
 
   // Now our own Traits.
   use CustomerTestTrait;
-  use UserCreateTrait;
+  use QuoteTestTrait;
 
   protected $customer;
+  protected $quote;
 
   /**
    *
    */
   protected function setUp() {
     parent::setUp();
-    $this->customerFakerSetup();
+    $this->quoteFakerSetup();
   }
 
 }

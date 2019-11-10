@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_testing\Functional;
 
+use Behat\Mink\Exception\ExpectationException;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\RandomGeneratorTrait;
+use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\UiHelperTrait;
 use PHPUnit\Framework\TestCase;
 use weitzman\DrupalTestTraits\DrupalTrait;
@@ -105,37 +109,44 @@ class FunctionalTestBase extends TestCase {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function basicPermissionCheck(array $pages) {
+  public function basicPermissionCheck(array $pages): void {
 
-    $customer = $this->createUser();
-    $customer->addRole('customer');
-    $customer->save();
-
-    $staff = $this->createUser();
-    $staff->addRole('staff');
-    $staff->save();
-
-    foreach ($pages as $page) {
-      $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(403);
+    // Can't test anon 403 if r4032login is present.
+    if (!\Drupal::moduleHandler()->moduleExists('r4032login')) {
+      foreach ($pages as $page) {
+        $this->drupalGet($page);
+        try {
+          $this->assertSession()->statusCodeEquals(403);
+        } catch (ExpectationException $e) {
+          $this->fail(t('Anon - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
+        }
+      }
     }
+
+    $customer = $this->setupCustomerUser();
+    $staff = $this->setupStaffUser();
 
     foreach ($pages as $page) {
       $this->drupalLogin($customer);
       $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(403);
+      try {
+        $this->assertSession()->statusCodeEquals(403);
+      } catch (ExpectationException $e) {
+        $this->fail(t('Customer - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
+      }
       $this->drupalLogout();
     }
 
     foreach ($pages as $page) {
       $this->drupalLogin($staff);
       $this->drupalGet($page);
-      $this->assertSession()->statusCodeEquals(200);
+      try {
+        $this->assertSession()->statusCodeEquals(200);
+      } catch (ExpectationException $e) {
+        $this->fail(t('Staff - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
+      }
       $this->drupalLogout();
     }
-
-    $customer->delete();
-    $staff->delete();
   }
 
 }

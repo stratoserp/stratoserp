@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_document\Functional;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;

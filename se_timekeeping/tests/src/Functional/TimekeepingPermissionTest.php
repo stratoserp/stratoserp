@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_timekeeping\Functional;
 
 use Drupal\Tests\se_testing\Functional\TicketTestBase;

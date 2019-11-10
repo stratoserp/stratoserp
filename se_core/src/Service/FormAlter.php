@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_core\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -67,17 +69,19 @@ class FormAlter {
    * @param string $field
    * @param string $var
    *
-   * @return null
+   * @return void
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function setReferenceField(array &$form, string $field, string $var) {
+  public function setReferenceField(array &$form, string $field, string $var): void {
     if (!$value = $this->currentRequest->get($var)) {
-      return NULL;
+      return;
     }
 
     $chosen = isset($form[$field]['widget']['#chosen']) && $form[$field]['widget']['#chosen'] === 1;
     if ($chosen) {
       if (!empty($form[$field]['widget']['#default_value'])) {
-        return NULL;
+        return;
       }
       if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
         ->load($value)) {
@@ -86,7 +90,7 @@ class FormAlter {
     }
     else {
       if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-        return NULL;
+        return;
       }
       if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
         ->load($value)) {
@@ -94,7 +98,7 @@ class FormAlter {
       }
     }
 
-    return NULL;
+    return;
   }
 
   /**
@@ -105,6 +109,8 @@ class FormAlter {
    * @param int $term_id
    *
    * @return \Drupal\taxonomy\Entity\Term|null
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function setTaxonomyField(array &$form, string $field, int $term_id): Term {
     /** @var \Drupal\taxonomy\Entity\Term $term */

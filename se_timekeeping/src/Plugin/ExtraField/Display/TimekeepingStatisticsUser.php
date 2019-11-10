@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_timekeeping\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;

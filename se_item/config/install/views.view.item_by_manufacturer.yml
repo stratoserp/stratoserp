@@ -20,9 +20,12 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            developer: developer
+            staff: staff
+            administrator: administrator
       cache:
         type: tag
         options: {  }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_goods_receipt\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

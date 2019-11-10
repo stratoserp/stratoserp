@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_accounting\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
@@ -24,10 +26,10 @@ class CurrencyWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $value = $items[$delta]->value ?? '';
+    $value = $items[$delta]->value ?? 0;
     $element += [
       '#type' => 'textfield',
-      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($value ?? 0),
+      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int)$value),
       '#size' => 12,
       '#maxlength' => 12,
     // '#element_validate' => [

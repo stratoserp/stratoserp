@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_timekeeping\Functional;
 
 use Drupal\Tests\se_testing\Functional\TimekeepingTestBase;
@@ -14,8 +16,11 @@ class TimekeepingCrudTest extends TimekeepingTestBase {
 
   /**
    * Ensure that timekeeping can be successfully added.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function testTimekeepingAdd() {
+  public function testTimekeepingAdd(): void {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
@@ -30,8 +35,11 @@ class TimekeepingCrudTest extends TimekeepingTestBase {
 
   /**
    *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Behat\Mink\Exception\ExpectationException
    */
-  public function testTimekeepingDelete() {
+  public function testTimekeepingDelete(): void {
 
     $staff = $this->setupStaffUser();
     $customer = $this->setupCustomerUser();
@@ -39,18 +47,18 @@ class TimekeepingCrudTest extends TimekeepingTestBase {
     // Create a customer for testing.
     $this->drupalLogin($staff);
     $test_customer = $this->addCustomer();
-    $ticket = $this->addTicket($test_customer);
-    $timekeeping = $this->addTimekeeping($ticket);
+    $test_ticket = $this->addTicket($test_customer);
+    $test_timekeeping = $this->addTimekeeping($test_ticket);
     $this->drupalLogout();
 
     // Ensure customer can't delete timekeeping.
     $this->drupalLogin($customer);
-    $this->deleteNode($timekeeping, FALSE);
+    $this->deleteNode($test_timekeeping, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can't delete timekeeping either!
     $this->drupalLogin($staff);
-    $this->deleteNode($timekeeping, FALSE);
+    $this->deleteNode($test_timekeeping, FALSE);
     $this->drupalLogout();
 
   }

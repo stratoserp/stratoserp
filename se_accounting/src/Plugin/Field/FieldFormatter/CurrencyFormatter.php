@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_accounting\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
@@ -36,7 +38,7 @@ class CurrencyFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       // Render each element as markup.
       $element[$delta] = [
-        '#markup' => \Drupal::service('se_accounting.currency_format')->formatDisplay($item->value),
+        '#markup' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int)$item->value),
       ];
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_testing\Traits;
 
 use Drupal\Tests\comment\Functional\CommentTypeTest;
@@ -14,7 +16,7 @@ trait TimekeepingTestTrait {
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function timekeepingFakerSetup() {
+  public function timekeepingFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                         = error_reporting(0);
@@ -38,7 +40,7 @@ trait TimekeepingTestTrait {
    * @return \Drupal\node\Entity\Node
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addTimekeeping(Node $ticket) {
+  public function addTimekeeping(Node $ticket): Node {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createComment([
       'type' => 'se_timekeeping',

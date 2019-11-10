@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_report\Plugin\Action;
 
 use Drupal\Core\Form\FormStateInterface;

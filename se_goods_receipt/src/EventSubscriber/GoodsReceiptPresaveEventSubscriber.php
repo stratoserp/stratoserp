@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_goods_receipt\EventSubscriber;
 
 use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_accounting\Service;
 
 /**
@@ -10,13 +12,13 @@ namespace Drupal\se_accounting\Service;
 class CurrencyFormat {
 
   /**
-   * Convert an cents string from storage to a human readable float style currency amount.
+   * Convert a cents string from storage to a human readable float style currency amount.
    *
-   * @param string $value
+   * @param int $value
    *
    * @return string
    */
-  public function formatDisplay(string $value) {
+  public function formatDisplay(int $value): string {
 
     // Don't try and divide by zero.
     if (!empty($value)) {
@@ -25,7 +27,7 @@ class CurrencyFormat {
       return (string) number_format($value / 100, 2);
     }
 
-    return 0;
+    return '0';
   }
 
   /**
@@ -35,7 +37,7 @@ class CurrencyFormat {
    *
    * @return string
    */
-  public function formatStorage(string $value) {
+  public function formatStorage(string $value): string {
 
     // Remove thousands separator.
     $value = str_replace(',', '', $value);
@@ -46,17 +48,17 @@ class CurrencyFormat {
       return (string) ($value * 100);
     }
 
-    return 0;
+    return '0';
   }
 
   /**
-   * Convert an cents string from storage to a raw format for graphing.
+   * Convert a cents string from storage to a raw format for graphing.
    *
-   * @param string $value
+   * @param int $value
    *
    * @return string
    */
-  public function formatRaw(string $value) {
+  public function formatRaw(int $value): string {
 
     // Don't try and divide by zero.
     if (!empty($value)) {
@@ -65,7 +67,7 @@ class CurrencyFormat {
       return sprintf('%0.2f', $value / 100);
     }
 
-    return 0;
+    return '0';
   }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_item_line\Plugin\EntityReferenceSelection;
 
 use Drupal\Component\Utility\Tags;

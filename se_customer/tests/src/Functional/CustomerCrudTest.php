@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_customer\Functional;
 
 use Drupal\Tests\se_testing\Functional\CustomerTestBase;
@@ -28,6 +30,7 @@ class CustomerCrudTest extends CustomerTestBase {
 
   /**
    *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testCustomerDelete() {
 

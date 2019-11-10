@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_quote\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;

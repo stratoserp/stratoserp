@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_stock\Functional;
 
 use Drupal\Tests\se_item\Functional\ItemTestBase;

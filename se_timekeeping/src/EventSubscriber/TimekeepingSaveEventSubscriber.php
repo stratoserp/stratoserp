@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_timekeeping\EventSubscriber;
 
 use Drupal\comment\Entity\Comment;

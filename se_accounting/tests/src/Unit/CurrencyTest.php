@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_accounting\Unit;
 
 use Drupal\se_accounting\Service\CurrencyFormat;
@@ -13,7 +15,7 @@ use Drupal\Tests\UnitTestCase;
 class CurrencyTest extends UnitTestCase {
 
   /**
-   * @var \Drupal\se_accounting\Service\CurrencyFormatclass
+   * @var \Drupal\se_accounting\Service\CurrencyFormat
    */
   protected $currencyFormatService;
 
@@ -65,9 +67,9 @@ class CurrencyTest extends UnitTestCase {
    */
   public function currencyStorageProvider() {
     return [
-      [1, '100'],
-      ['1,000.00', 100000],
-      ['1,234.56', 123456],
+      ['1', '100'],
+      ['1,000.00', '100000'],
+      ['1,234.56', '123456'],
     ];
   }
 

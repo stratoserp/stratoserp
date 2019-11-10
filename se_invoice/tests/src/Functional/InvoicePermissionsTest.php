@@ -22,8 +22,7 @@ class InvoicePermissionsTest extends InvoiceTestBase {
   /**
    *
    */
-  public function testInvoicePermissions() {
-
+  public function testInvoicePermissions(): void {
     $this->basicPermissionCheck($this->pages);
   }
 

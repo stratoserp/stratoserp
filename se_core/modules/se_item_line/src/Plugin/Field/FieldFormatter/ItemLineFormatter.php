@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_item_line\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
@@ -132,7 +134,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       $row = [
         $items[$delta]->quantity,
         render($element),
-        \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price),
+        \Drupal::service('se_accounting.currency_format')->formatDisplay((int)$items[$delta]->price),
         $items[$delta]->serial,
         $display_date,
         render($processed_output),

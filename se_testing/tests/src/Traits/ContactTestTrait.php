@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_testing\Traits;
 
 use Drupal\node\Entity\Node;
