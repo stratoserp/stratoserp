@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\se_stock\Functional;
 
 use Drupal\Tests\se_item\Functional\ItemTestBase;
+use Drupal\Tests\se_item\Traits\ItemCreationTestTrait;
 
 /**
  * @coversDefault Drupal\se_stock
@@ -13,12 +14,14 @@ use Drupal\Tests\se_item\Functional\ItemTestBase;
  */
 class StockItemCrudTest extends ItemTestBase {
 
+  use ItemCreationTestTrait;
+
   protected $staff;
 
   /**
    *
    */
-  public function testStockItemAdd() {
+  public function testAddStockItem() {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
@@ -26,6 +29,13 @@ class StockItemCrudTest extends ItemTestBase {
     $item = $this->addStockItem();
 
     $this->drupalLogout();
+  }
+
+  private function addStockItem() {
+    $this->createItemContent([
+      'name' => $this->faker->name,
+
+    ]);
   }
 
 }

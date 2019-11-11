@@ -4,13 +4,27 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_item\Traits;
 
+use Drupal\KernelTests\Core\Plugin\FactoryTest;
 use Drupal\se_item\Entity\Item;
 use Drupal\user\Entity\User;
+use Faker\Factory;
 
 /**
  *
  */
 trait ItemCreationTestTrait {
+
+  public function itemFakerSetup() {
+    $this->faker = Factory::create();
+
+    $original                    = error_reporting(0);
+    $this->item->name            = $this->faker->realText(20);
+    $this->item->code            = $this->faker->word();
+    $this->item->serial          = $this->faker->randomNumber(5);
+    $this->item->cost_price      = $this->faker->numberBetween(5, 10);
+    $this->item->sell_price      = $this->item->cost_price * 1.2;
+    error_reporting($original);
+  }
 
   /**
    *
