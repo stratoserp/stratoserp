@@ -24,11 +24,9 @@ class TimekeepingCrudTest extends TimekeepingTestBase {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
-
-    $customer = $this->addCustomer();
-    $ticket = $this->addTicket($customer);
-    $timekeeping = $this->addTimekeeping($ticket);
-
+    $test_customer = $this->addCustomer();
+    $test_ticket = $this->addTicket($test_customer);
+    $test_timekeeping = $this->addTimekeeping($test_ticket);
     $this->drupalLogout();
 
   }
@@ -37,7 +35,6 @@ class TimekeepingCrudTest extends TimekeepingTestBase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function testTimekeepingDelete(): void {
 
@@ -53,12 +50,12 @@ class TimekeepingCrudTest extends TimekeepingTestBase {
 
     // Ensure customer can't delete timekeeping.
     $this->drupalLogin($customer);
-    $this->deleteNode($test_timekeeping, FALSE);
+    $this->deleteTimekeeping($test_timekeeping, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can't delete timekeeping either!
     $this->drupalLogin($staff);
-    $this->deleteNode($test_timekeeping, FALSE);
+    $this->deleteTimekeeping($test_timekeeping, FALSE);
     $this->drupalLogout();
 
   }

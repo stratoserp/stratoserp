@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\se_testing\Functional;
 
 use Behat\Mink\Exception\ExpectationException;
+use Drupal\comment\Entity\Comment;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\RandomGeneratorTrait;
@@ -79,7 +80,7 @@ class FunctionalTestBase extends TestCase {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function deleteNode(Node $node, bool $allowed) {
+  public function deleteNode(Node $node, bool $allowed): void {
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
@@ -99,6 +100,37 @@ class FunctionalTestBase extends TestCase {
     $button->press();
     $this->assertSession()->statusCodeEquals(200);
   }
+
+  /**
+   * Deleting a comment.
+   *
+   * @param \Drupal\comment\Entity\Comment $comment
+   * @param bool $allowed
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function deleteComment(Comment $comment, bool $allowed): void {
+    $this->drupalGet($comment->toUrl());
+    $this->assertSession()->statusCodeEquals(200);
+
+    /** @var \Behat\Mink\Element\DocumentElement $page */
+    $page = $this->getCurrentPage();
+    $link = $page->find('xpath', '//*[@id="comment-' . $comment->id() . '"]//ul/li/a[contains(text(), \'Delete\')]');
+
+    if (!$allowed) {
+      $this->assertNull($link);
+      return;
+    }
+
+    $link->click();
+    $this->assertSession()->statusCodeEquals(200);
+    $page = $this->getCurrentPage();
+    $button = $page->findButton('Delete');
+    $button->press();
+    $this->assertSession()->statusCodeEquals(200);
+  }
+
 
   /**
    * Test standard permissions.

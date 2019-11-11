@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_testing\Traits;
 
-use Drupal\Tests\comment\Functional\CommentTypeTest;
+use Drupal\comment\CommentInterface;
+use Drupal\comment\Entity\Comment;
 use Drupal\node\Entity\Node;
 use Faker\Factory;
 
@@ -20,7 +21,7 @@ trait TimekeepingTestTrait {
     $this->faker = Factory::create();
 
     $original                         = error_reporting(0);
-    $this->timekeeping->name          = $this->faker->text;
+    $this->timekeeping->name          = $this->faker->realText(50);
     $this->timekeeping->phoneNumber   = $this->faker->phoneNumber;
     $this->timekeeping->mobileNumber  = $this->faker->phoneNumber;
     $this->timekeeping->streetAddress = $this->faker->streetAddress;
@@ -37,19 +38,22 @@ trait TimekeepingTestTrait {
    *
    * @param \Drupal\node\Entity\Node $ticket
    *
-   * @return \Drupal\node\Entity\Node
+   * @return \Drupal\comment\Entity\Comment
    * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addTimekeeping(Node $ticket): Node {
+  public function addTimekeeping(Node $ticket): Comment {
     /** @var \Drupal\node\Entity\Node $node */
-    $node = $this->createComment([
-      'type' => 'se_timekeeping',
-      'title' => $this->timekeeping->name,
-      'field_tk_phone' => $this->timekeeping->phoneNumber,
-      'field_tk_email' => $this->timekeeping->companyEmail,
+    $comment = Comment::create([
+      'entity_id' => $ticket->id(),
+      'entity_type' => 'node',
+      'field_name' => 'field_se_timekeeping',
+      'field_tk_comment' => $this->timekeeping->name,
+      'status' => CommentInterface::PUBLISHED,
     ]);
-    $this->assertNotEqual($node, FALSE);
-    $this->drupalGet($node->toUrl());
+    $comment->save();
+    $this->assertNotEqual($comment, FALSE);
+    $this->drupalGet($comment->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
@@ -58,9 +62,19 @@ trait TimekeepingTestTrait {
 
     // Check that what we entered is shown.
     $this->assertContains($this->timekeeping->name, $content);
-    $this->assertContains($this->timekeeping->phoneNumber, $content);
+    //$this->assertContains($this->timekeeping->phoneNumber, $content);
 
-    return $node;
+    return $comment;
+  }
+
+  /**
+   * Test deleting a ticket.
+   *
+   * @param \Drupal\comment\Entity\Comment $comment
+   * @param bool $allowed
+   */
+  public function deleteTimekeeping(Comment $comment, bool $allowed): void {
+    $this->deleteComment($comment, $allowed);
   }
 
 }
