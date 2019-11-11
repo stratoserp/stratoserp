@@ -84,7 +84,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
         '#date_time_element' => 'none',
         '#default_value' => $date,
         '#weight' => 30,
-        '#date_timezone' => drupal_get_user_timezone(),
+        '#date_timezone' => date_default_timezone_get(),
         '#description' => t('Completed date'),
       ];
     }

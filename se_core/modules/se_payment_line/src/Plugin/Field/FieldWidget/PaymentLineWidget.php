@@ -53,7 +53,7 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
       '#date_time_element' => 'none',
       '#default_value' => $date,
       '#weight' => 20,
-      '#date_timezone' => drupal_get_user_timezone(),
+      '#date_timezone' => date_default_timezone_get(),
       '#description' => t('Payment date'),
     ];
 

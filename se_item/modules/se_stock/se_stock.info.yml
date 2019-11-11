@@ -2,6 +2,7 @@ name: 'Stock line item'
 description: 'Provides a selectable line item for stock.'
 type: module
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Stratos ERP
 dependencies:
   - se_item

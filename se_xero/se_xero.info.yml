@@ -2,6 +2,7 @@ name: Xero integration
 description: 'Provides an integration layer between StratosERP and Xero.'
 type: module
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Stratos ERP
 dependencies:
   - se_contact

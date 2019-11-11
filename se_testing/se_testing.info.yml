@@ -2,4 +2,5 @@ name: Testing
 description: 'Provides a set of traits for testing Stratos ERP.'
 type: module
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Stratos ERP

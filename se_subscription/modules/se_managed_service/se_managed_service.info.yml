@@ -2,6 +2,7 @@ name: 'Managed service'
 description: 'Provides a managed service subscription entity type.'
 type: module
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: 'Stratos ERP subscription'
 dependencies:
   - se_item

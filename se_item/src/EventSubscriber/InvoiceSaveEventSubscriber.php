@@ -88,7 +88,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    */
   private function nodeMarkItemStatus($entity, $sold = TRUE) {
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
-    $date = new DateTimePlus(NULL, drupal_get_user_timezone());
+    $date = new DateTimePlus(NULL, date_default_timezone_get());
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if ($item_line->target_type === 'se_item') {

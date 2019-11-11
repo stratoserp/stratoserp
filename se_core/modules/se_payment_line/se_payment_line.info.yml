@@ -2,6 +2,7 @@ name: Payments
 description: 'Provides a payment line item.'
 type: module
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Stratos ERP
 dependencies:
   - field

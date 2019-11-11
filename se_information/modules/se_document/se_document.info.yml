@@ -2,6 +2,7 @@ name: 'Basic document'
 description: 'Provides a basic document entity type and related configuration.'
 type: module
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Stratos ERP
 dependencies:
   - se_information
