@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\se_quote\Plugin\ExtraField\Display;
+namespace Drupal\se_purchase_order\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
