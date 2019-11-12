@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_item\Traits;
 
+use Drupal\se_item\Entity\Item;
+use Drupal\user\Entity\User;
 use Faker\Factory;
 
 /**
@@ -9,15 +13,10 @@ use Faker\Factory;
  */
 trait ItemTestTrait {
 
-  use ItemCreationTestTrait {
-    createItem as stratosCreateItem;
-    createItemContent as stratosCreateItemContent;
-  }
-
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function itemFakerSetup() {
+  public function itemFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original               = error_reporting(0);
@@ -39,6 +38,7 @@ trait ItemTestTrait {
       'name' => $this->item->name,
       'field_it_code' => $this->item->code,
     ]);
+
     $this->assertNotEqual($item, FALSE);
     $this->drupalGet($item->toUrl());
     $this->assertSession()->statusCodeEquals(200);
@@ -52,5 +52,57 @@ trait ItemTestTrait {
 
     return $item;
   }
+
+  public function createItem(array $settings = []) {
+    /** @var \Drupal\se_item\Entity\Item $item */
+    $item = $this->createItemContent($settings);
+    $item->save();
+
+    $this->markEntityForCleanup($item);
+
+    return $item;
+  }
+
+  /**
+   *
+   */
+  public function createItemContent(array $settings = []): Item {
+    $settings += [
+      'type' => 'se_stock',
+    ];
+
+    if (!array_key_exists('uid', $settings)) {
+      $user = User::load(\Drupal::currentUser()->id());
+      if ($user) {
+        $settings['uid'] = $user->id();
+      }
+      elseif (method_exists($this, 'setUpCurrentUser')) {
+        /** @var \Drupal\user\UserInterface $user */
+        $user = $this->setUpCurrentUser();
+        $settings['uid'] = $user->id();
+      }
+      else {
+        $settings['uid'] = 0;
+      }
+    }
+
+    return Item::create($settings);
+  }
+
+  /**
+   *
+   */
+  public function getItemByTitle($name, $reset = FALSE) {
+    if ($reset) {
+      \Drupal::entityTypeManager()->getStorage('se_item')->resetCache();
+    }
+    $name = (string) $name;
+    $items = \Drupal::entityTypeManager()
+      ->getStorage('se_item')
+      ->loadByProperties(['name' => $name]);
+
+    return reset($items);
+  }
+
 
 }

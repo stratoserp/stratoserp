@@ -24,7 +24,7 @@ class StockItemPermissionsTest extends ItemTestBase {
   /**
    *
    */
-  public function testStockItemPermissions() {
+  public function testStockItemPermissions(): void {
 
     $this->basicPermissionCheck($this->pages);
   }

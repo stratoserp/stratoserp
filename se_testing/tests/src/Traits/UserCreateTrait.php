@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_testing\Traits;
 
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\user\Entity\User;
 
 /**
@@ -15,7 +16,6 @@ trait UserCreateTrait {
    * Setup a customer, with appropriate role.
    *
    * @return User
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function setupCustomerUser(): User {
     return $this->createUserAndCleanup(['customer']);
@@ -25,7 +25,6 @@ trait UserCreateTrait {
    * Setup a staff member, with appropriate role.
    *
    * @return \Drupal\user\Entity\User
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function setupStaffUser(): User {
     return $this->createUserAndCleanup(['staff']);
@@ -39,9 +38,8 @@ trait UserCreateTrait {
    * @param array $values
    *   An optional array of values to create the user with.
    *
-   * @return \Drupal\user\Entity\User
+   * @return \Drupal\user\Entity\User|bool
    *   The user.
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function createUserAndCleanup(array $roles, array $values = []): User {
     $password = user_password();
@@ -60,6 +58,7 @@ trait UserCreateTrait {
       $user->addRole($role);
     }
     $user->save();
+
     $this->cleanupEntities[] = $user;
     return $user;
   }

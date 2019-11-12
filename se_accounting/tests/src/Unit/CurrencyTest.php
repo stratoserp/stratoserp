@@ -22,7 +22,7 @@ class CurrencyTest extends UnitTestCase {
   /**
    *
    */
-  protected function setup() {
+  protected function setup(): void {
     $this->currencyFormatService = new CurrencyFormat();
   }
 
@@ -34,7 +34,7 @@ class CurrencyTest extends UnitTestCase {
    * @param $input
    * @param $expected
    */
-  public function testCurrencyStorage($input, $expected) {
+  public function testCurrencyStorage($input, $expected): void {
     $this->assertEquals($expected, $this->currencyFormatService->formatStorage($input));
   }
 
@@ -46,7 +46,7 @@ class CurrencyTest extends UnitTestCase {
    * @param $input
    * @param $expected
    */
-  public function testCurrencyDisplay($input, $expected) {
+  public function testCurrencyDisplay($input, $expected): void {
     $this->assertEquals($expected, $this->currencyFormatService->formatDisplay($input));
   }
 
@@ -58,14 +58,14 @@ class CurrencyTest extends UnitTestCase {
    * @param $input
    * @param $expected
    */
-  public function testCurrencyRaw($input, $expected) {
+  public function testCurrencyRaw($input, $expected): void {
     $this->assertEquals($expected, $this->currencyFormatService->formatRaw($input));
   }
 
   /**
    * Data provider for testCurrencyStorage.
    */
-  public function currencyStorageProvider() {
+  public function currencyStorageProvider(): array {
     return [
       ['1', '100'],
       ['1,000.00', '100000'],
@@ -76,7 +76,7 @@ class CurrencyTest extends UnitTestCase {
   /**
    * Data provider for testCurrencyDisplay.
    */
-  public function currencyDisplayProvider() {
+  public function currencyDisplayProvider(): array {
     return [
       [100, '1.00'],
       [100000, '1,000.00'],
@@ -87,7 +87,7 @@ class CurrencyTest extends UnitTestCase {
   /**
    * Data provider for testCurrencyDisplay.
    */
-  public function currencyRawProvider() {
+  public function currencyRawProvider(): array {
     return [
       [100, '1.00'],
       [100000, '1000.00'],

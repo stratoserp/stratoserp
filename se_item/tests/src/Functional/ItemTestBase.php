@@ -21,18 +21,9 @@ class ItemTestBase extends FunctionalTestBase {
   /**
    *
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->itemFakerSetup();
-  }
-
-  /**
-   *
-   */
-  public function createItem(array $settings = []) {
-    $entity = $this->stratosCreateItem($settings);
-    $this->markEntityForCleanup($entity);
-    return $entity;
   }
 
 }

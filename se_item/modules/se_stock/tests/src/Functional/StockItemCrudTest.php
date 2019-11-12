@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_stock\Functional;
 
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\se_item\Entity\Item;
 use Drupal\Tests\se_item\Functional\ItemTestBase;
-use Drupal\Tests\se_item\Traits\ItemCreationTestTrait;
+use Drupal\Tests\se_item\Traits\ItemTestTrait;
 
 /**
  * @coversDefault Drupal\se_stock
@@ -14,16 +16,17 @@ use Drupal\Tests\se_item\Traits\ItemCreationTestTrait;
  */
 class StockItemCrudTest extends ItemTestBase {
 
-  use ItemCreationTestTrait;
+  use ItemTestTrait;
 
   protected $staff;
 
   /**
    *
    */
-  public function testAddStockItem() {
+  public function testAddStockItem(): void {
 
     $staff = $this->setupStaffUser();
+
     $this->drupalLogin($staff);
 
     $item = $this->addStockItem();
@@ -31,10 +34,9 @@ class StockItemCrudTest extends ItemTestBase {
     $this->drupalLogout();
   }
 
-  private function addStockItem() {
-    $this->createItemContent([
+  private function addStockItem(): Item {
+    return $this->createItemContent([
       'name' => $this->faker->name,
-
     ]);
   }
 
