@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_testing\Traits;
 
+use Drupal\node\Entity\Node;
 use Faker\Factory;
 
 /**
@@ -9,10 +12,12 @@ use Faker\Factory;
  */
 trait GoodsReceiptTestTrait {
 
+  protected $goodsReceipt;
+
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function goodsReceiptFakerSetup() {
+  public function goodsReceiptFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                          = error_reporting(0);
@@ -35,7 +40,9 @@ trait GoodsReceiptTestTrait {
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addGoodsReceipt() {
+  public function addGoodsReceipt(): Node {
+    $this->goodsReceiptFakerSetup();
+
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_goodsReceipt',

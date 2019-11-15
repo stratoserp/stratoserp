@@ -12,14 +12,16 @@ use Faker\Factory;
  */
 trait ContactTestTrait {
 
+  protected $contact;
+
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function contactFakerSetup() {
+  public function contactFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                     = error_reporting(0);
-    $this->contact->name          = $this->faker->text;
+    $this->contact->name          = $this->faker->realText(50);
     $this->contact->phoneNumber   = $this->faker->phoneNumber;
     $this->contact->mobileNumber  = $this->faker->phoneNumber;
     $this->contact->streetAddress = $this->faker->streetAddress;
@@ -33,9 +35,13 @@ trait ContactTestTrait {
   }
 
   /**
+   * @param \Drupal\node\Entity\Node $test_customer
    *
+   * @return \Drupal\node\Entity\Node
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addContact(Node $test_customer) {
+  public function addContact(Node $test_customer): Node {
+    $this->contactFakerSetup();
 
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([

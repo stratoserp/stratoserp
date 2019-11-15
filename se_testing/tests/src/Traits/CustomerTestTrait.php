@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_testing\Traits;
 
+use Drupal\node\Entity\Node;
 use Faker\Factory;
 
 /**
@@ -11,14 +12,16 @@ use Faker\Factory;
  */
 trait CustomerTestTrait {
 
+  protected $customer;
+
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function customerFakerSetup() {
+  public function customerFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                      = error_reporting(0);
-    $this->customer->name          = $this->faker->text;
+    $this->customer->name          = $this->faker->realText(50);
     $this->customer->phoneNumber   = $this->faker->phoneNumber;
     $this->customer->mobileNumber  = $this->faker->phoneNumber;
     $this->customer->streetAddress = $this->faker->streetAddress;
@@ -33,7 +36,9 @@ trait CustomerTestTrait {
   /**
    *
    */
-  public function addCustomer() {
+  public function addCustomer(): Node {
+    $this->customerFakerSetup();
+
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_customer',

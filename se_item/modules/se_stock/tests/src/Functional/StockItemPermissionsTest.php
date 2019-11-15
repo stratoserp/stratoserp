@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_stock\Functional;
 
-use Drupal\Tests\se_item\Functional\ItemTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_stock
  * @group se_stock
  * @group stratoserp
  */
-class StockItemPermissionsTest extends ItemTestBase {
+class StockItemPermissionsTest extends FunctionalTestBase {
 
   protected $customer;
   protected $staff;

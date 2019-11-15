@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_customer\Functional;
 
-use Drupal\Tests\se_testing\Functional\CustomerTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_customer
  * @group se_customer
  * @group stratoserp
  */
-class CustomerBalanceTest extends CustomerTestBase {
+class CustomerBalanceTest extends FunctionalTestBase {
 
   /**
    *
    */
-  public function testCustomerBalance() {
+  public function testCustomerBalance(): void {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);

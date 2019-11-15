@@ -8,8 +8,16 @@ use Behat\Mink\Exception\ExpectationException;
 use Drupal\comment\Entity\Comment;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\RandomGeneratorTrait;
+use Drupal\Tests\se_testing\Traits\ContactTestTrait;
+use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
+use Drupal\Tests\se_testing\Traits\GoodsReceiptTestTrait;
+use Drupal\Tests\se_testing\Traits\InvoiceTestTrait;
+use Drupal\Tests\se_testing\Traits\QuoteTestTrait;
+use Drupal\Tests\se_testing\Traits\SupplierTestTrait;
+use Drupal\Tests\se_testing\Traits\TicketTestTrait;
+use Drupal\Tests\se_testing\Traits\TimekeepingTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
+use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\Tests\UiHelperTrait;
 use PHPUnit\Framework\TestCase;
 use weitzman\DrupalTestTraits\DrupalTrait;
@@ -36,6 +44,16 @@ class FunctionalTestBase extends TestCase {
   // using the UserCreationTrait.
   use AssertLegacyTrait;
 
+  use ContactTestTrait;
+  use CustomerTestTrait;
+  use GoodsReceiptTestTrait;
+  use InvoiceTestTrait;
+  use QuoteTestTrait;
+  use TicketTestTrait;
+  use TimekeepingTestTrait;
+  use SupplierTestTrait;
+  use UserCreateTrait;
+
   /**
    * The database prefix of this test run.
    *
@@ -53,6 +71,8 @@ class FunctionalTestBase extends TestCase {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
+
+
   }
 
   /**
@@ -138,8 +158,6 @@ class FunctionalTestBase extends TestCase {
    * @param array $pages
    *   Array of pages to test permissions against.
    *
-   * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function basicPermissionCheck(array $pages): void {
 

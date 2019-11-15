@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\se_invoice\Functional;
 
-use Drupal\Tests\se_testing\Functional\InvoiceTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_invoice
  * @group se_invoice
  * @group stratoserp
  */
-class InvoicePermissionsTest extends InvoiceTestBase {
+class InvoicePermissionsTest extends FunctionalTestBase {
 
   protected $customer;
   protected $staff;

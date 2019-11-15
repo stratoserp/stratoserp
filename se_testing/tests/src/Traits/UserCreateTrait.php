@@ -4,20 +4,31 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_testing\Traits;
 
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\user\Entity\User;
+use Faker\Factory;
 
 /**
  *
  */
 trait UserCreateTrait {
 
-  /**
+  protected $user;
+
+  public function userFakerSetup(): void {
+    $this->faker = Factory::create();
+
+    $original = error_reporting(0);
+    $this->user->name = $this->faker->realText(50);
+    error_reporting($original);
+  }
+
+    /**
    * Setup a customer, with appropriate role.
    *
    * @return User
    */
   public function setupCustomerUser(): User {
+    $this->userFakerSetup();
     return $this->createUserAndCleanup(['customer']);
   }
 
@@ -27,6 +38,7 @@ trait UserCreateTrait {
    * @return \Drupal\user\Entity\User
    */
   public function setupStaffUser(): User {
+    $this->userFakerSetup();
     return $this->createUserAndCleanup(['staff']);
   }
 
@@ -43,11 +55,10 @@ trait UserCreateTrait {
    */
   protected function createUserAndCleanup(array $roles, array $values = []): User {
     $password = user_password();
-    $username = $this->randomString();
 
     $values += [
-      'name' => $username,
-      'username' => $username,
+      'name' => $this->user->name,
+      'username' => $this->user->name,
       'status' => TRUE,
       'pass' => $password,
     ];

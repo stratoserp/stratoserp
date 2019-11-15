@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_contact\Functional;
 
-use Drupal\Tests\se_testing\Functional\ContactTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_contact
  * @group se_contact
  * @group stratoserp
  */
-class ContactCrudTest extends ContactTestBase {
-
-  protected $staff;
+class ContactCrudTest extends FunctionalTestBase {
 
   /**
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * Add a customer as staff.
    */
   public function testContactAdd(): void {
 
@@ -31,15 +28,12 @@ class ContactCrudTest extends ContactTestBase {
   }
 
   /**
+   * Try and delete a contact as staff and customer.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testContactDelete(): void {
-
-    $this->contactFakerSetup();
-    $this->customerFakerSetup();
 
     $staff = $this->setupStaffUser();
     $customer = $this->setupCustomerUser();

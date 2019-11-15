@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_testing\Traits;
 
 use Drupal\node\Entity\Node;
@@ -10,10 +12,12 @@ use Faker\Factory;
  */
 trait InvoiceTestTrait {
 
+  protected $invoice;
+
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function invoiceFakerSetup() {
+  public function invoiceFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                     = error_reporting(0);
@@ -30,9 +34,14 @@ trait InvoiceTestTrait {
   }
 
   /**
+   * @param \Drupal\node\Entity\Node $test_customer
+   * @param array $items
    *
+   * @return \Drupal\node\Entity\Node
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addInvoice(Node $test_customer, array $items = []) {
+    $this->invoiceFakerSetup();
 
     $lines = [];
     foreach ($items as $item) {

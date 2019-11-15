@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_testing\Traits;
 
 use Drupal\node\Entity\Node;
@@ -10,10 +12,12 @@ use Faker\Factory;
  */
 trait QuoteTestTrait {
 
+  protected $quote;
+
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function quoteFakerSetup() {
+  public function quoteFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                   = error_reporting(0);
@@ -30,9 +34,14 @@ trait QuoteTestTrait {
   }
 
   /**
+   * @param \Drupal\node\Entity\Node $test_customer
+   * @param array $items
    *
+   * @return \Drupal\node\Entity\Node
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addQuote(Node $test_customer, array $items = []) {
+  public function addQuote(Node $test_customer, array $items = []): Node {
+    $this->quoteFakerSetup();
 
     $lines = [];
     foreach ($items as $item) {

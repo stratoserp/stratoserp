@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_timekeeping\Functional;
 
-use Drupal\Tests\se_testing\Functional\TimekeepingTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_timekeeping
  * @group se_timekeeping
  * @group stratoserp
  */
-class TimekeepingCrudTest extends TimekeepingTestBase {
+class TimekeepingCrudTest extends FunctionalTestBase {
   protected $staff;
 
   /**
    * Ensure that timekeeping can be successfully added.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function testTimekeepingAdd(): void {
 
@@ -33,8 +31,6 @@ class TimekeepingCrudTest extends TimekeepingTestBase {
 
   /**
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function testTimekeepingDelete(): void {
 

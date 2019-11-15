@@ -14,6 +14,8 @@ use Faker\Factory;
  */
 trait TimekeepingTestTrait {
 
+  protected $timekeeping;
+
   /**
    * Setup basic faker fields for this test trait.
    */
@@ -43,6 +45,8 @@ trait TimekeepingTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addTimekeeping(Node $ticket): Comment {
+    $this->timekeepingFakerSetup();
+
     /** @var \Drupal\node\Entity\Node $node */
     $comment = Comment::create([
       'entity_id' => $ticket->id(),

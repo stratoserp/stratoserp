@@ -35,13 +35,14 @@ class AutocompleteController extends ControllerBase {
       $search_string = mb_strtolower(array_pop($search_string));
 
       $customers = $this->findNodes('se_customer', 'Customer', 'title', $search_string);
+      $contacts = $this->findNodes('se_contact', 'Contact', 'title', $search_string);
       $invoices = $this->findNodes('se_invoice', 'Invoice', 'field_in_id', $search_string);
       $quotes = $this->findNodes('se_quote', 'Quote', 'field_qu_id', $search_string);
       $items = $this->findItems('se_item', 'Item', 'name', $search_string);
       $serials = $this->findItems('se_item', 'Item', 'field_it_serial', $search_string);
       $information = $this->findInformation('se_document', 'Document', 'name', $search_string);
 
-      $matches = array_merge($customers, $invoices, $quotes, $items, $serials, $information);
+      $matches = array_merge($customers, $contacts, $invoices, $quotes, $items, $serials, $information);
 
     }
 

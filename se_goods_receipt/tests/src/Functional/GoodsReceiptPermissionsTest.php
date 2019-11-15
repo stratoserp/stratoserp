@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_goods_receipt\Functional;
 
-use Drupal\Tests\se_testing\Functional\GoodsReceiptTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_goods_receipt
  * @group se_goods_receipt
  * @group stratoserp
  */
-class GoodsReceiptPermissionsTest extends GoodsReceiptTestBase {
+class GoodsReceiptPermissionsTest extends FunctionalTestBase {
 
   protected $customer;
   protected $staff;
@@ -24,7 +24,7 @@ class GoodsReceiptPermissionsTest extends GoodsReceiptTestBase {
   /**
    *
    */
-  public function testGoodsReceiptPermissions() {
+  public function testGoodsReceiptPermissions(): void {
 
     $this->basicPermissionCheck($this->pages);
 

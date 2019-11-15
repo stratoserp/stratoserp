@@ -13,6 +13,8 @@ use Faker\Factory;
  */
 trait ItemTestTrait {
 
+  protected $item;
+
   /**
    * Setup basic faker fields for this test trait.
    */
@@ -72,14 +74,14 @@ trait ItemTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $user = User::load(\Drupal::currentUser()->id());
-      if ($user) {
-        $settings['uid'] = $user->id();
+      $this->item->user = User::load(\Drupal::currentUser()->id());
+      if ($this->item->user) {
+        $settings['uid'] = $this->item->user->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $user = $this->setUpCurrentUser();
-        $settings['uid'] = $user->id();
+        $this->item->user = $this->setUpCurrentUser();
+        $settings['uid'] = $this->item->user->id();
       }
       else {
         $settings['uid'] = 0;

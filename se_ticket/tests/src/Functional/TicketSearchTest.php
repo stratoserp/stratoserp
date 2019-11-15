@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_ticket\Functional;
 
-use Drupal\Tests\se_testing\Functional\TicketTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
  */
-class TicketSearchTest extends TicketTestBase {
+class TicketSearchTest extends FunctionalTestBase {
   protected $staff;
 
   /**
    *
    */
-  public function testTicketSearch() {
+  public function testTicketSearch(): void {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);

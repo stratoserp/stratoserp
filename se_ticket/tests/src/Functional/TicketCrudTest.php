@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_ticket\Functional;
 
-use Drupal\Tests\se_testing\Functional\TicketTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
  */
-class TicketCrudTest extends TicketTestBase {
+class TicketCrudTest extends FunctionalTestBase {
   protected $staff;
 
   /**
    * Ensure that a ticket can be successfully added.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function testTicketAdd(): void {
 
@@ -35,9 +33,6 @@ class TicketCrudTest extends TicketTestBase {
   /**
    * Ensure that ticket access levels are correct.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function testTicketDelete(): void {
 

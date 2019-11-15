@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace Drupal\Tests\se_item\Functional;
 
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_stock
  * @group se_stock
  * @group stratoserp
  */
-class ItemContentValidationTest extends ItemTestBase {
+class ItemContentValidationTest extends FunctionalTestBase {
 
   use ItemTestTrait;
-
-  protected $item;
 
   /**
    * Tests the item validation constraints.

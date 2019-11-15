@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_supplier\Functional;
 
-use Drupal\Tests\se_testing\Functional\SupplierTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_supplier
  * @group se_supplier
  * @group stratoserp
  */
-class SupplierPermissionsTest extends SupplierTestBase {
+class SupplierPermissionsTest extends FunctionalTestBase {
 
   protected $customer;
   protected $staff;

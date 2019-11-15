@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_testing\Traits;
 
+use Drupal\node\Entity\Node;
 use Faker\Factory;
 
 /**
@@ -9,14 +12,16 @@ use Faker\Factory;
  */
 trait SupplierTestTrait {
 
+  protected $supplier;
+
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function supplierFakerSetup() {
+  public function supplierFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                      = error_reporting(0);
-    $this->supplier->name          = $this->faker->text;
+    $this->supplier->name          = $this->faker->realText(50);
     $this->supplier->phoneNumber   = $this->faker->phoneNumber;
     $this->supplier->mobileNumber  = $this->faker->phoneNumber;
     $this->supplier->streetAddress = $this->faker->streetAddress;
@@ -31,7 +36,9 @@ trait SupplierTestTrait {
   /**
    *
    */
-  public function addSupplier() {
+  public function addSupplier(): Node {
+    $this->supplierFakerSetup();
+
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_supplier',

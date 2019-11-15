@@ -6,15 +6,15 @@ namespace Drupal\Tests\se_stock\Functional;
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\se_item\Entity\Item;
-use Drupal\Tests\se_item\Functional\ItemTestBase;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_stock
  * @group se_stock
  * @group stratoserp
  */
-class StockItemCrudTest extends ItemTestBase {
+class StockItemCrudTest extends FunctionalTestBase {
 
   use ItemTestTrait;
 

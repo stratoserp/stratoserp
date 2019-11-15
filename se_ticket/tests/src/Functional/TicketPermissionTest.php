@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_ticket\Functional;
 
-use Drupal\Tests\se_testing\Functional\TicketTestBase;
+use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
  */
-class TicketPermissionTest extends TicketTestBase {
+class TicketPermissionTest extends FunctionalTestBase {
 
   protected $customer;
   protected $staff;
@@ -24,7 +24,7 @@ class TicketPermissionTest extends TicketTestBase {
   /**
    * Test the ticket permissions.
    */
-  public function testTicketPermissions() {
+  public function testTicketPermissions(): void {
     $this->basicPermissionCheck($this->pages);
   }
 
