@@ -40,7 +40,7 @@ trait ReportUtilityTrait {
    * Get the batch id from the url.
    * Is there a better way?
    */
-  private function setBatchId() {
+  private function setBatchId(): void {
     $query = \Drupal::request()->query;
     if (!$this->batch_id = $query->get('id')) {
       \Drupal::logger('item_breakdown_report_action')->error('Unable to get batch id to save state.');
@@ -63,7 +63,7 @@ trait ReportUtilityTrait {
    * Create/load the temp store based on the batch id which is used
    * to keep data between parts of the batch run.
    */
-  private function createLoadBatchInfo() {
+  private function createLoadBatchInfo(): void {
     $temp_store = \Drupal::service('tempstore.private');
     $this->store = $temp_store->get('item_breakdown_report_action');
 
@@ -86,7 +86,7 @@ trait ReportUtilityTrait {
    *
    * @throws \Drupal\Core\TempStore\TempStoreException
    */
-  private function setBatchData($key, $value) {
+  private function setBatchData($key, $value): void {
     $batch_data = $this->getBatchData();
     $batch_data[$key] = $value;
     $this->store->set($this->getBatchName(), $batch_data);
@@ -113,7 +113,7 @@ trait ReportUtilityTrait {
    *
    * @return bool
    */
-  private function getBatchDataByKey(string $key) {
+  private function getBatchDataByKey(string $key): bool {
     $batch_data = $this->getBatchData();
     if (!isset($batch_data[$key])) {
       return FALSE;
@@ -126,7 +126,7 @@ trait ReportUtilityTrait {
    * Create/load the report node which will hold the results
    * of the batch run.
    */
-  private function createLoadReportNode() {
+  private function createLoadReportNode(): void {
     if (($nid = $this->getBatchDataByKey('report_node')) && $node = Node::load($nid)) {
       $this->report_node = $node;
       return;
@@ -157,7 +157,7 @@ trait ReportUtilityTrait {
    *
    * @return array
    */
-  private function convertItemLineToArray(EntityInterface $entity) {
+  private function convertItemLineToArray(EntityInterface $entity): array {
     $data = [];
 
     foreach ($entity->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()] . '_lines'} as $index => $item_line) {
@@ -215,7 +215,7 @@ trait ReportUtilityTrait {
    * @param $amount
    *   Item sale amount
    */
-  private function setStatisticsArray(&$data = [], $item = NULL, $amount = 0) {
+  private function setStatisticsArray(&$data = [], $item = NULL, $amount = 0): void {
     if (!empty($item)) {
       if (isset($data[$item])) {
         $data[$item] += $amount;
@@ -250,7 +250,7 @@ trait ReportUtilityTrait {
   /**
    * @return string
    */
-  private function createReportTitle() {
+  private function createReportTitle(): string {
     $title_parts[] = $this->configuration['input_parameters']['action_label'];
     if (empty($this->configuration['business_ref'])) {
       if (!empty($this->configuration['input_parameters']['exposed_input']['business'])) {
@@ -277,7 +277,7 @@ trait ReportUtilityTrait {
    *
    * @return \Drupal\Core\Entity\EntityInterface
    */
-  public function get_current_controller_entity() {
+  public function get_current_controller_entity(): EntityInterface {
     $currentRouteParameters = \Drupal::routeMatch()->getParameters();
     foreach ($currentRouteParameters as $param) {
       if ($param instanceof EntityInterface) {
@@ -298,7 +298,7 @@ trait ReportUtilityTrait {
    *
    * @return array
    */
-  public function reportingMonths($year = '') {
+  public function reportingMonths($year = ''): array {
     $months = [];
 
     if (empty($year)) {
@@ -326,11 +326,18 @@ trait ReportUtilityTrait {
    *
    * @throws \Exception
    */
-  public function generateColorsDarkening($red = NULL, $green = NULL, $blue = NULL) {
+  public function generateColorsDarkening($red = NULL, $green = NULL, $blue = NULL): array {
     static $start = 255;
     $fg = $bg = [];
 
-    $adjustment = random_int(20, 30);
+    try {
+      $adjustment = random_int(20, 30);
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('se_report')->warning('Insufficient entropy for random, fudging.');
+      $adjustment = 20;
+    }
+
     $bg[] = empty($red) ? $start - $adjustment : $red;
     $bg[] = empty($green) ? $start - $adjustment : $green;
     $bg[] = empty($blue) ? $start - $adjustment : $blue;

@@ -42,9 +42,12 @@ class MonthlyStatistics extends BlockBase {
         $query->condition('nfd.created', $timestamps['start'], '>=');
         $query->condition('nfd.created', $timestamps['end'], '<');
         $query->groupBy('nfd.type');
-        $result = $query->execute()->fetchAssoc();
-        if ($result && count($result)) {
-          $content = TRUE;
+        $result = $query->execute();
+        if ($result) {
+          $results = $result->fetchAssoc();
+          if (count($result)) {
+            $content = TRUE;
+          }
         }
 
         $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($result['total'] ?? 0);

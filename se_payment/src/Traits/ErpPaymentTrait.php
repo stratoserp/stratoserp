@@ -25,9 +25,11 @@ trait ErpPaymentTrait {
     $query = $database->select('node__field_pa_lines', 'nfpl');
     $query->fields('nfpl', ['entity_id']);
     $query->condition('nfpl.field_pa_lines_target_id', $invoice->id());
-    $payments = $query->execute()->fetchAll();
-
-    return $payments;
+    $result = $query->execute();
+    if ($result) {
+      return $result->fetchAll();
+    }
+    return [];
   }
 
   /**
@@ -39,15 +41,17 @@ trait ErpPaymentTrait {
    * @return mixed
    *   Return an array of payment amounts.
    */
-  public function getInvoicePaymentAmounts(Node $invoice) {
+  private function getInvoicePaymentAmounts(Node $invoice) {
     // TODO? Is there a nicer way to do this?
     $database = Database::getConnection();
     $query = $database->select('node__field_pa_lines', 'nfpl');
     $query->fields('nfpl', ['field_pa_lines_amount']);
     $query->condition('nfpl.field_pa_lines_target_id', $invoice->id());
-    $payments = $query->execute()->fetchAll();
-
-    return $payments;
+    $result = $query->execute();
+    if ($result) {
+      return $result->fetchAll();
+    }
+    return [];
   }
 
   /**

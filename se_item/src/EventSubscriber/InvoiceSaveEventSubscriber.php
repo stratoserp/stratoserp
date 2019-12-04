@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_item\EventSubscriber;
 
 use Drupal\Component\Datetime\DateTimePlus;
@@ -23,7 +25,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsertMarkSold',
@@ -38,7 +40,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function invoiceInsertMarkSold(EntityInsertEvent $event) {
+  public function invoiceInsertMarkSold(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -53,7 +55,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function invoiceUpdateMarkSold(EntityUpdateEvent $event) {
+  public function invoiceUpdateMarkSold(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -68,7 +70,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function invoiceMarkAvailable(EntityPresaveEvent $event) {
+  public function invoiceMarkAvailable(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -86,7 +88,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function nodeMarkItemStatus($entity, $sold = TRUE) {
+  private function nodeMarkItemStatus($entity, $sold = TRUE): void {
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     $date = new DateTimePlus(NULL, date_default_timezone_get());
 

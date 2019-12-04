@@ -24,7 +24,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInsertMarkBilled',
@@ -41,7 +41,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function timekeepingInsertMarkBilled(EntityInsertEvent $event) {
+  public function timekeepingInsertMarkBilled(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -58,7 +58,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function timekeepingUpdateMarkBilled(EntityUpdateEvent $event) {
+  public function timekeepingUpdateMarkBilled(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -76,7 +76,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function timekeepingMarkNotBilled(EntityPresaveEvent $event) {
+  public function timekeepingMarkNotBilled(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -94,7 +94,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function timekeepingMarkItemsBilled($entity, $billed = TRUE) {
+  private function timekeepingMarkItemsBilled($entity, $billed = TRUE): void {
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {

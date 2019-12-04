@@ -24,7 +24,7 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'customerInsert',
@@ -38,7 +38,7 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event to work with.
    */
-  public function customerInsert(EntityInsertEvent $event) {
+  public function customerInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node') {
@@ -60,7 +60,7 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event to work with.
    */
-  public function customerUpdate(EntityUpdateEvent $event) {
+  public function customerUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node') {

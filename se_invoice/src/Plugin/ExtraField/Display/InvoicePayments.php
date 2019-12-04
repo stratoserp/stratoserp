@@ -43,7 +43,8 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
   /**
    * {@inheritdoc}
    *
-   * @var \Drupal\node\Entity\Node $entity.
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @var \Drupal\node\Entity\Node $entity .
    */
   public function viewElements(ContentEntityInterface $entity) {
 

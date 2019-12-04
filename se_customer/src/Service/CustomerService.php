@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_customer\Service;
 
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
 
@@ -71,7 +72,7 @@ class CustomerService {
    *   The balance for the customer in cents.
    */
   public function getBalance(Node $node) {
-    return $node->field_cu_balance->value;
+    return (int)$node->field_cu_balance->value;
   }
 
   /**
@@ -87,7 +88,12 @@ class CustomerService {
    */
   public function setBalance(Node $node, int $value) {
     $node->field_cu_balance->value = $value;
-    $node->save();
+    try {
+      $node->save();
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::logger('se_customer')->error('Error updating customer balance, this is very bad.');
+    }
     return $this->getBalance($node);
   }
 
@@ -104,7 +110,12 @@ class CustomerService {
    */
   public function adjustBalance(Node $node, int $value) {
     $node->field_cu_balance->value += $value;
-    $node->save();
+    try {
+      $node->save();
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::logger('se_customer')->error('Error updating customer balance, this is very bad.');
+    }
     return $this->getBalance($node);
   }
 

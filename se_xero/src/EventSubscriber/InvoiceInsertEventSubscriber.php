@@ -21,7 +21,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
@@ -34,7 +34,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
-  public function invoiceInsert(EntityInsertEvent $event) {
+  public function invoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if (isset($entity->skipInvoiceXeroEvents)) {
@@ -52,7 +52,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    */
-  public function invoiceUpdate(EntityUpdateEvent $event) {
+  public function invoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if (isset($entity->skipInvoiceXeroEvents)) {

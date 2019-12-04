@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_invoice\EventSubscriber;
 
 use Drupal\Core\Entity\EntityInterface;
@@ -39,7 +41,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
-  public function invoiceInsert(EntityInsertEvent $event) {
+  public function invoiceInsert(EntityInsertEvent $event): void {
     $entity = $event->getEntity();
     if (isset($entity->skipInvoiceSaveEvents)) {
       return;
@@ -57,7 +59,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    */
-  public function invoiceUpdate(EntityUpdateEvent $event) {
+  public function invoiceUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
     if (isset($entity->skipInvoiceSaveEvents)) {
       return;
@@ -76,7 +78,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    */
-  public function invoiceAdjust(EntityPresaveEvent $event) {
+  public function invoiceAdjust(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     if (isset($entity->skipInvoiceSaveEvents)) {
       return;
@@ -100,10 +102,10 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @return void|int new balance.
    */
-  private function updateCustomerBalance(EntityInterface $entity, $reduce_balance = FALSE) {
+  private function updateCustomerBalance(EntityInterface $entity, $reduce_balance = FALSE): int {
     if (!$customer = \Drupal::service('se_customer.service')->lookupCustomer($entity)) {
       \Drupal::logger('se_customer_invoice_save')->error('No customer set for %node', ['%node' => $entity->id()]);
-      return;
+      return 0;
     }
 
     $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
@@ -112,7 +114,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       $amount *= -1;
     }
 
-    return \Drupal::service('se_customer.service')->adjustBalance($customer, $amount);
+    return \Drupal::service('se_customer.service')->adjustBalance($customer, (int)$amount);
   }
 
 }

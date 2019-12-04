@@ -23,7 +23,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineNodePresave',
     ];
@@ -38,7 +38,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
    *
    *   TODO - Config option to generate serial numbers if blank?
    */
-  public function itemLineNodePresave(EntityPresaveEvent $event) {
+  public function itemLineNodePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node') {

@@ -22,7 +22,7 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'itemsInsert',
     ];
@@ -34,7 +34,7 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
    */
-  public function itemsInsert(EntityInsertEvent $event) {
+  public function itemsInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node') {

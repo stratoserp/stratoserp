@@ -16,7 +16,7 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_CREATE => 'purchaseOrderInsert',
     ];
@@ -25,7 +25,7 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
   /**
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityCreateEvent $event
    */
-  public function purchaseOrderInsert(EntityCreateEvent $event) {
+  public function purchaseOrderInsert(EntityCreateEvent $event): void {
     $entity = $event->getEntity();
 
     if ($entity->getEntityTypeId() !== 'node') {

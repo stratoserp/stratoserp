@@ -21,7 +21,7 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentLineNodePresave',
     ];
@@ -32,7 +32,7 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    */
-  public function paymentLineNodePresave(EntityPresaveEvent $event) {
+  public function paymentLineNodePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 

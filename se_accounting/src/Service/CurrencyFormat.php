@@ -45,7 +45,7 @@ class CurrencyFormat {
     // Multiply by 100 to change to cents, dont bother with zero
     // Don't try and divide by zero.
     if (!empty($value)) {
-      return (string) ($value * 100);
+      return (string) ((float)$value * 100);
     }
 
     return '0';

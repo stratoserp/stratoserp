@@ -22,7 +22,7 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineNodePresave',
     ];
@@ -34,7 +34,7 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    */
-  public function itemLineNodePresave(EntityPresaveEvent $event) {
+  public function itemLineNodePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node') {

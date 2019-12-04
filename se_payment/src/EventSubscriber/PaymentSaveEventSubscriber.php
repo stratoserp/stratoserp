@@ -32,7 +32,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
@@ -49,7 +49,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function paymentInsert(EntityInsertEvent $event) {
+  public function paymentInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -70,7 +70,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function paymentUpdate(EntityUpdateEvent $event) {
+  public function paymentUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -94,7 +94,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function paymentAdjust(EntityPresaveEvent $event) {
+  public function paymentAdjust(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -124,7 +124,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function updateInvoices(Node $entity, $paid = TRUE) {
+  private function updateInvoices(Node $entity, bool $paid = TRUE): int {
     // TODO - Configurable?
     if ($paid) {
       $term = \Drupal::service('se_invoice.service')->getPaidTerm();
@@ -172,7 +172,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
       $amount *= -1;
     }
 
-    return $amount;
+    return (int)$amount;
   }
 
   /**
@@ -186,7 +186,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * @return void|int
    *   New balance.
    */
-  private function updateCustomerBalance(EntityInterface $entity, $amount) {
+  private function updateCustomerBalance(EntityInterface $entity, int $amount): int {
     if ($amount === 0) {
       return 0;
     }
