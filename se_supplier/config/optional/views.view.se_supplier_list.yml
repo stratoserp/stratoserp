@@ -149,9 +149,9 @@ display:
           entity_field: title
           plugin_id: field
         field_su_email:
-          id: field_su_email
+          id: se_su_email
           table: node__field_su_email
-          field: field_su_email
+          field: se_su_email
           relationship: none
           group_type: group
           admin_label: ''
@@ -211,9 +211,9 @@ display:
           field_api_classes: false
           plugin_id: field
         field_su_homepage:
-          id: field_su_homepage
+          id: se_su_homepage
           table: node__field_su_homepage
-          field: field_su_homepage
+          field: se_su_homepage
           relationship: none
           group_type: group
           admin_label: ''
@@ -278,9 +278,9 @@ display:
           field_api_classes: false
           plugin_id: field
         field_su_phone:
-          id: field_su_phone
+          id: se_su_phone
           table: node__field_su_phone
-          field: field_su_phone
+          field: se_su_phone
           relationship: none
           group_type: group
           admin_label: ''
@@ -363,9 +363,9 @@ display:
           plugin_id: bundle
           group: 1
         field_su_email_value:
-          id: field_su_email_value
+          id: se_su_email_value
           table: node__field_su_email
-          field: field_su_email_value
+          field: se_su_email_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -374,11 +374,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_su_email_value_op
+            operator_id: se_su_email_value_op
             label: Email
             description: ''
             use_operator: false
-            operator: field_su_email_value_op
+            operator: se_su_email_value_op
             identifier: email
             required: false
             remember: false
@@ -447,9 +447,9 @@ display:
           entity_field: title
           plugin_id: string
         field_su_phone_value:
-          id: field_su_phone_value
+          id: se_su_phone_value
           table: node__field_su_phone
-          field: field_su_phone_value
+          field: se_su_phone_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -458,11 +458,11 @@ display:
           group: 2
           exposed: true
           expose:
-            operator_id: field_su_phone_value_op
+            operator_id: se_su_phone_value_op
             label: Phone
             description: ''
             use_operator: false
-            operator: field_su_phone_value_op
+            operator: se_su_phone_value_op
             identifier: phone
             required: false
             remember: false

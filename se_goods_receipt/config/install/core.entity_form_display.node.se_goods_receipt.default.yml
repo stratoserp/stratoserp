@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.se_goods_receipt.field_gr_lines
     - field.field.node.se_goods_receipt.field_gr_purchase_order_ref
     - field.field.node.se_goods_receipt.field_gr_total
-    - field.field.node.se_goods_receipt.field_se_body
+    - field.field.node.se_goods_receipt.se_body
     - field.field.node.se_goods_receipt.field_se_comments
     - field.field.node.se_goods_receipt.field_status_ref
     - node.type.se_goods_receipt
@@ -78,7 +78,7 @@ content:
     region: bottom
     settings: {  }
     third_party_settings: {  }
-  field_se_body:
+  se_body:
     type: text_textarea
     weight: 8
     settings:

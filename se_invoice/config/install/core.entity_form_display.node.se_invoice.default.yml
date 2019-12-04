@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
     - field.field.node.se_invoice.field_in_transaction_type
-    - field.field.node.se_invoice.field_se_body
+    - field.field.node.se_invoice.se_body
     - field.field.node.se_invoice.field_se_comments
     - field.field.node.se_invoice.field_status_ref
     - node.type.se_invoice
@@ -103,7 +103,7 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: first
-  field_se_body:
+  se_body:
     type: text_textarea
     weight: 10
     settings:

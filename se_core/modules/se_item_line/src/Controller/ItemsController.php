@@ -29,7 +29,7 @@ class ItemsController extends ControllerBase {
     $trigger = $request->request->get('_triggering_element_name');
 
     // Which we can then use with a regular expression;.
-    preg_match("/(field_(..)_lines)\[(\d)\]\[(.*?)\].*/", $trigger, $matches);
+    preg_match("/(se_(..)_lines)\[(\d)\]\[(.*?)\].*/", $trigger, $matches);
     if (count($matches) < 5) {
       return $response;
     }
@@ -49,8 +49,8 @@ class ItemsController extends ControllerBase {
       case 'comment':
         /** @var \Drupal\comment\Entity\Comment $comment */
         if ($comment = Comment::load($values[$field][$index]['target_id'])) {
-          if ($item = $comment->field_tk_item->entity) {
-            $date = new DateTimePlus($comment->field_tk_date->value, date_default_timezone_get());
+          if ($item = $comment->se_tk_item->entity) {
+            $date = new DateTimePlus($comment->se_tk_date->value, date_default_timezone_get());
             $response->addCommand(new InvokeCommand(
               "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-completed-date-date']",
               'val',
@@ -62,11 +62,11 @@ class ItemsController extends ControllerBase {
       case 'se_item':
         /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = Item::load($values[$field][$index]['target_id'])) {
-          if (!empty($item->field_it_serial->value)) {
+          if (!empty($item->se_it_serial->value)) {
             $response->addCommand(new InvokeCommand(
               "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-serial']",
               'val',
-              [$item->field_it_serial->value]
+              [$item->se_it_serial->value]
             ));
           }
 
@@ -81,7 +81,7 @@ class ItemsController extends ControllerBase {
 
     // If the price field was the change, dont update the price.
     if ($trigger !== 'price') {
-      $item_price = $item->field_it_sell_price->value;
+      $item_price = $item->se_it_sell_price->value;
 
       // Create a new ajax response to set the price.
       $response->addCommand(new InvokeCommand(

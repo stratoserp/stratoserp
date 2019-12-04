@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_bill.field_bi_id
-    - field.field.node.se_bill.field_bi_total
-    - field.field.node.se_bill.field_bu_ref
-    - field.field.node.se_bill.field_co_ref
-    - field.field.node.se_bill.field_se_body
+    - field.field.node.se_bill.se_bi_id
+    - field.field.node.se_bill.se_bi_total
+    - field.field.node.se_bill.se_bu_ref
+    - field.field.node.se_bill.se_co_ref
+    - field.field.node.se_bill.se_body
     - field.field.node.se_bill.field_status_ref
     - node.type.se_bill
   module:
@@ -25,19 +25,19 @@ targetEntityType: node
 bundle: se_bill
 mode: default
 content:
-  field_bi_id:
+  se_bi_id:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
     region: second
-  field_bi_total:
+  se_bi_total:
     weight: 6
     settings: {  }
     third_party_settings: {  }
     type: se_currency_widget
     region: bottom
-  field_bu_ref:
+  se_bu_ref:
     weight: 1
     settings:
       match_operator: CONTAINS
@@ -46,7 +46,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  field_co_ref:
+  se_co_ref:
     weight: 2
     settings:
       match_operator: CONTAINS
@@ -55,7 +55,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  field_se_body:
+  se_body:
     type: text_textarea
     weight: 7
     settings:

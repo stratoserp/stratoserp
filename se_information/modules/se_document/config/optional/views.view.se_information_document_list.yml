@@ -87,7 +87,7 @@ display:
           description: ''
           columns:
             name: name
-            field_bu_ref: field_bu_ref
+            field_bu_ref: se_bu_ref
             type: type
           info:
             name:
@@ -180,9 +180,9 @@ display:
           entity_field: name
           plugin_id: field
         field_bu_ref:
-          id: field_bu_ref
+          id: se_bu_ref
           table: se_information__field_bu_ref
-          field: field_bu_ref
+          field: se_bu_ref
           relationship: none
           group_type: group
           admin_label: ''

@@ -3,11 +3,11 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_bill.field_bi_id
-    - field.field.node.se_bill.field_bi_total
-    - field.field.node.se_bill.field_bu_ref
-    - field.field.node.se_bill.field_co_ref
-    - field.field.node.se_bill.field_se_body
+    - field.field.node.se_bill.se_bi_id
+    - field.field.node.se_bill.se_bi_total
+    - field.field.node.se_bill.se_bu_ref
+    - field.field.node.se_bill.se_co_ref
+    - field.field.node.se_bill.se_body
     - field.field.node.se_bill.field_status_ref
     - node.type.se_bill
   module:
@@ -24,7 +24,7 @@ targetEntityType: node
 bundle: se_bill
 mode: teaser
 content:
-  field_se_body:
+  se_body:
     label: hidden
     type: text_summary_or_trimmed
     weight: 101
@@ -42,8 +42,8 @@ hidden:
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics_customer: true
-  field_bi_id: true
-  field_bi_total: true
-  field_bu_ref: true
-  field_co_ref: true
+  se_bi_id: true
+  se_bi_total: true
+  se_bu_ref: true
+  se_co_ref: true
   field_status_ref: true

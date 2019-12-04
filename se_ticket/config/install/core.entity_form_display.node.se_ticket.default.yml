@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_ticket.field_se_body
+    - field.field.node.se_ticket.se_body
     - field.field.node.se_ticket.field_attachments
     - field.field.node.se_ticket.field_bu_ref
     - field.field.node.se_ticket.field_co_ref
@@ -30,7 +30,7 @@ targetEntityType: node
 bundle: se_ticket
 mode: default
 content:
-  field_se_body:
+  se_body:
     type: text_textarea
     weight: 10
     settings:

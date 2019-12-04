@@ -86,13 +86,13 @@ class EntityItemSelection extends DefaultSelection {
       $output = [];
       $bundle = $item->bundle();
 
-      $output[] = $item->field_it_code->value;
+      $output[] = $item->se_it_code->value;
 
-      if ($bundle === 'se_stock' && !$item->field_it_serial->isEmpty()) {
-        $output[] = '#' . $item->field_it_serial->value . '#';
+      if ($bundle === 'se_stock' && !$item->se_it_serial->isEmpty()) {
+        $output[] = '#' . $item->se_it_serial->value . '#';
       }
       // $output[] = substr($item->label(), 0, 80);
-      $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value);
+      $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->se_it_sell_price->value);
 
       // Format - Code #Serial# Desc - Price.
       $options[$bundle][$entity_id] = implode(' ', $output);
@@ -125,7 +125,7 @@ class EntityItemSelection extends DefaultSelection {
 
     // Include virtual items, or not.
     if ($this->virtual_only) {
-      $query->notExists('field_it_serial');
+      $query->notExists('se_it_serial');
     }
 
     $entity_type = $this->entityManager->getDefinition($this->target_type);
@@ -136,7 +136,7 @@ class EntityItemSelection extends DefaultSelection {
         $key = Tags::encode($partial);
         $conditionGroup = $query->orConditionGroup()
           ->condition($label_key, $key, $match_operator)
-          ->condition('field_it_serial', $key, 'CONTAINS');
+          ->condition('se_it_serial', $key, 'CONTAINS');
         $query->condition($conditionGroup);
       }
 

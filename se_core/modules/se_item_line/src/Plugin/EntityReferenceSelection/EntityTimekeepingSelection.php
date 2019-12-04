@@ -57,15 +57,15 @@ class EntityTimekeepingSelection extends DefaultSelection {
 
     // Extract the business ref from the query
     $parameters = \Drupal::request()->query;
-    if ($parameters->has('field_bu_ref')) {
-      $this->business = $parameters->get('field_bu_ref');
+    if ($parameters->has('se_bu_ref')) {
+      $this->business = $parameters->get('se_bu_ref');
     }
 
     // Extract the business ref from the ajax request?
     $parameters = \Drupal::request()->request;
-    if (empty($this->business) && $parameters->has('field_bu_ref')) {
+    if (empty($this->business) && $parameters->has('se_bu_ref')) {
       $matches = [];
-      $business = $parameters->get('field_bu_ref');
+      $business = $parameters->get('se_bu_ref');
       if (preg_match("/.+\s\(([^\)]+)\)/", $business[0]['target_id'], $matches)) {
         $this->business = $matches[1];
       }
@@ -90,13 +90,13 @@ class EntityTimekeepingSelection extends DefaultSelection {
       $output = [];
       $bundle = $comment->bundle();
 
-      if ($item_code = $comment->field_tk_item->entity) {
-        $output[] = $item_code->field_it_code->value;
+      if ($item_code = $comment->se_tk_item->entity) {
+        $output[] = $item_code->se_it_code->value;
 
         //$output[] = substr($item_code->label(), 0, 80);
         $output[] = substr($comment->label(), 0, 80);
-        if (isset($item_code->field_it_sell_price->value)) {
-          $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item_code->field_it_sell_price->value);
+        if (isset($item_code->se_it_sell_price->value)) {
+          $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item_code->se_it_sell_price->value);
         }
 
         $options[$bundle][$entity_id] = implode(' ', $output);
@@ -138,7 +138,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
       }
     }
 
-    $query->condition('field_bu_ref', $this->business);
+    $query->condition('se_bu_ref', $this->business);
 
     return $query;
   }

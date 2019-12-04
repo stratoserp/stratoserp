@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_bi_id
+    - field.storage.node.se_bi_id
     - node.type.se_bill
     - user.role.administrator
     - user.role.developer
@@ -96,16 +96,16 @@ display:
           summary: ''
           description: ''
           columns:
-            field_bi_id: field_bi_id
+            se_bi_id: se_bi_id
           info:
-            field_bi_id:
+            se_bi_id:
               sortable: true
               default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          default: field_bi_id
+          default: se_bi_id
           empty_table: false
       row:
         type: fields
@@ -181,10 +181,10 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: field
-        field_bi_id:
-          id: field_bi_id
-          table: node__field_bi_id
-          field: field_bi_id
+        se_bi_id:
+          id: se_bi_id
+          table: node__se_bi_id
+          field: se_bi_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -362,7 +362,7 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_bi_id'
+        - 'config:field.storage.node.se_bi_id'
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -385,4 +385,4 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_bi_id'
+        - 'config:field.storage.node.se_bi_id'

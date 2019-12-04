@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.se_report.field_re_json_data
     - field.field.node.se_report.field_re_parameters
     - field.field.node.se_report.field_re_raw_data
-    - field.field.node.se_report.field_se_body
+    - field.field.node.se_report.se_body
     - node.type.se_report
   module:
     - field_layout
@@ -52,7 +52,7 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_se_body:
+  se_body:
     label: hidden
     type: text_default
     weight: 2

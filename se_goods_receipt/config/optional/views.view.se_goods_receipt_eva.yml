@@ -93,7 +93,7 @@ display:
           summary: ''
           description: ''
           columns:
-            field_gr_id: field_gr_id
+            field_gr_id: se_gr_id
           info:
             field_gr_id:
               sortable: true
@@ -102,7 +102,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: field_gr_id
+          default: se_gr_id
           empty_table: false
       row:
         type: fields
@@ -179,9 +179,9 @@ display:
           entity_field: nid
           plugin_id: field
         field_gr_id:
-          id: field_gr_id
+          id: se_gr_id
           table: node__field_gr_id
-          field: field_gr_id
+          field: se_gr_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -314,9 +314,9 @@ display:
       relationships: {  }
       arguments:
         field_bu_ref_target_id:
-          id: field_bu_ref_target_id
+          id: se_bu_ref_target_id
           table: node__field_bu_ref
-          field: field_bu_ref_target_id
+          field: se_bu_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''

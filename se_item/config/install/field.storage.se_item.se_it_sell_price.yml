@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_accounting
+    - se_item
+id: se_item.field_it_sell_price
+field_name: se_it_sell_price
+entity_type: se_item
+type: se_currency
+settings: {  }
+module: se_accounting
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

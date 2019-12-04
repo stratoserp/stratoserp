@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.se_invoice.field_in_quote_ref
     - field.field.node.se_invoice.field_in_sent
     - field.field.node.se_invoice.field_in_total
-    - field.field.node.se_invoice.field_se_body
+    - field.field.node.se_invoice.se_body
     - field.field.node.se_invoice.field_se_comments
     - field.field.node.se_invoice.field_status_ref
     - node.type.se_invoice
@@ -29,7 +29,7 @@ targetEntityType: node
 bundle: se_invoice
 mode: teaser
 content:
-  field_se_body:
+  se_body:
     label: hidden
     type: text_summary_or_trimmed
     weight: 101

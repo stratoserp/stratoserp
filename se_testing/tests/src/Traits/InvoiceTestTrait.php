@@ -57,10 +57,10 @@ trait InvoiceTestTrait {
     $node = $this->createNode([
       'type' => 'se_invoice',
       'title' => $this->invoice->name,
-      'field_bu_ref' => ['target_id' => $test_customer->id()],
-      'field_in_phone' => $this->invoice->phoneNumber,
-      'field_in_email' => $this->invoice->companyEmail,
-      'field_in_lines' => $lines,
+      'se_bu_ref' => ['target_id' => $test_customer->id()],
+      'se_in_phone' => $this->invoice->phoneNumber,
+      'se_in_email' => $this->invoice->companyEmail,
+      'se_in_lines' => $lines,
     ]);
 
     $this->assertNotEqual($node, FALSE);

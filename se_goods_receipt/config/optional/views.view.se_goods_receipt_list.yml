@@ -95,11 +95,11 @@ display:
           description: ''
           columns:
             nid: nid
-            field_gr_id_1: field_gr_id_1
+            field_gr_id_1: se_gr_id_1
             title: title
-            field_bu_ref: field_bu_ref
-            field_gr_total: field_gr_total
-            field_status_ref: field_status_ref
+            field_bu_ref: se_bu_ref
+            field_gr_total: se_gr_total
+            field_status_ref: se_status_ref
           info:
             nid:
               sortable: false
@@ -213,9 +213,9 @@ display:
           entity_field: nid
           plugin_id: field
         field_gr_id_1:
-          id: field_gr_id_1
+          id: se_gr_id_1
           table: node__field_gr_id
-          field: field_gr_id
+          field: se_gr_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -340,9 +340,9 @@ display:
           entity_field: title
           plugin_id: field
         field_bu_ref:
-          id: field_bu_ref
+          id: se_bu_ref
           table: node__field_bu_ref
-          field: field_bu_ref
+          field: se_bu_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -403,9 +403,9 @@ display:
           field_api_classes: false
           plugin_id: field
         field_gr_total:
-          id: field_gr_total
+          id: se_gr_total
           table: node__field_gr_total
-          field: field_gr_total
+          field: se_gr_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -465,9 +465,9 @@ display:
           field_api_classes: false
           plugin_id: field
         field_status_ref:
-          id: field_status_ref
+          id: se_status_ref
           table: node__field_status_ref
-          field: field_status_ref
+          field: se_status_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -550,9 +550,9 @@ display:
           plugin_id: bundle
           group: 1
         field_gr_id_value:
-          id: field_gr_id_value
+          id: se_gr_id_value
           table: node__field_gr_id
-          field: field_gr_id_value
+          field: se_gr_id_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -564,11 +564,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_gr_id_value_op
+            operator_id: se_gr_id_value_op
             label: 'Goods receipt id'
             description: ''
             use_operator: false
-            operator: field_gr_id_value_op
+            operator: se_gr_id_value_op
             identifier: goods_receive_id
             required: false
             remember: false
@@ -597,7 +597,7 @@ display:
           id: title
           table: node_field_data
           field: title
-          relationship: field_bu_ref
+          relationship: se_bu_ref
           group_type: group
           admin_label: ''
           operator: contains
@@ -637,9 +637,9 @@ display:
           entity_field: title
           plugin_id: string
         field_status_ref_target_id:
-          id: field_status_ref_target_id
+          id: se_status_ref_target_id
           table: node__field_status_ref
-          field: field_status_ref_target_id
+          field: se_status_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -648,11 +648,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_status_ref_target_id_op
+            operator_id: se_status_ref_target_id_op
             label: Status
             description: ''
             use_operator: false
-            operator: field_status_ref_target_id_op
+            operator: se_status_ref_target_id_op
             identifier: goods_receive_status
             required: false
             remember: false
@@ -706,9 +706,9 @@ display:
       empty: {  }
       relationships:
         field_bu_ref:
-          id: field_bu_ref
+          id: se_bu_ref
           table: node__field_bu_ref
-          field: field_bu_ref
+          field: se_bu_ref
           relationship: none
           group_type: group
           admin_label: 'field_bu_ref: Content'

@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.se_quote.field_qu_id
     - field.field.node.se_quote.field_qu_lines
     - field.field.node.se_quote.field_qu_total
-    - field.field.node.se_quote.field_se_body
+    - field.field.node.se_quote.se_body
     - field.field.node.se_quote.field_se_comments
     - field.field.node.se_quote.field_status_ref
     - node.type.se_quote
@@ -66,7 +66,7 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-  field_se_body:
+  se_body:
     label: hidden
     type: text_default
     weight: 7

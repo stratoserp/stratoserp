@@ -79,7 +79,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       unset($item);
       switch ($entity->bundle()) {
         case 'se_timekeeping':
-          $item = $entity->field_tk_item->entity->field_it_code->value;
+          $item = $entity->se_tk_item->entity->se_it_code->value;
           if ($commented_entity = $entity->getCommentedEntity()) {
             $cache_tags = Cache::mergeTags($cache_tags, $commented_entity->getCacheTags());
           }
@@ -89,7 +89,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
         case 'se_service':
         case 'se_stock':
         case 'se_recurring':
-          $item = $entity->field_it_code->value;
+          $item = $entity->se_it_code->value;
           $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
           break;
 

@@ -43,8 +43,8 @@ trait CustomerTestTrait {
     $node = $this->createNode([
       'type' => 'se_customer',
       'title' => $this->customer->name,
-      'field_cu_phone' => $this->customer->phoneNumber,
-      'field_cu_email' => $this->customer->companyEmail,
+      'se_cu_phone' => $this->customer->phoneNumber,
+      'se_cu_email' => $this->customer->companyEmail,
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());

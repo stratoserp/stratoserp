@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_assembly.field_as_lines
-    - field.field.se_item.se_assembly.field_it_code
-    - field.field.se_item.se_assembly.field_it_cost_price
-    - field.field.se_item.se_assembly.field_it_description
-    - field.field.se_item.se_assembly.field_it_images
-    - field.field.se_item.se_assembly.field_it_manufacturer_ref
-    - field.field.se_item.se_assembly.field_it_product_type_ref
-    - field.field.se_item.se_assembly.field_it_sale_category_ref
-    - field.field.se_item.se_assembly.field_it_sell_price
+    - field.field.se_item.se_assembly.se_as_lines
+    - field.field.se_item.se_assembly.se_it_code
+    - field.field.se_item.se_assembly.se_it_cost_price
+    - field.field.se_item.se_assembly.se_it_description
+    - field.field.se_item.se_assembly.se_it_images
+    - field.field.se_item.se_assembly.se_it_manufacturer_ref
+    - field.field.se_item.se_assembly.se_it_product_type_ref
+    - field.field.se_item.se_assembly.se_it_sale_category_ref
+    - field.field.se_item.se_assembly.se_it_sell_price
     - image.style.thumbnail
     - se_item.se_item_type.se_assembly
   module:
@@ -30,7 +30,7 @@ targetEntityType: se_item
 bundle: se_assembly
 mode: default
 content:
-  field_as_lines:
+  se_as_lines:
     weight: 7
     settings:
       match_operator: CONTAINS
@@ -39,7 +39,7 @@ content:
     third_party_settings: {  }
     type: se_item_line_widget
     region: bottom
-  field_it_code:
+  se_it_code:
     weight: 2
     settings:
       size: 60
@@ -47,13 +47,13 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: first
-  field_it_cost_price:
+  se_it_cost_price:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: se_currency_widget
     region: first
-  field_it_description:
+  se_it_description:
     weight: 8
     settings:
       rows: 5
@@ -61,7 +61,7 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: bottom
-  field_it_images:
+  se_it_images:
     weight: 9
     settings:
       progress_indicator: throbber
@@ -69,13 +69,13 @@ content:
     third_party_settings: {  }
     type: image_image
     region: bottom
-  field_it_manufacturer_ref:
+  se_it_manufacturer_ref:
     weight: 5
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
     region: second
-  field_it_product_type_ref:
+  se_it_product_type_ref:
     weight: 4
     settings: {  }
     third_party_settings: {  }

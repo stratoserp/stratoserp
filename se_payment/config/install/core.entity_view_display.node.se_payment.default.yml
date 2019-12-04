@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.se_payment.field_pa_id
     - field.field.node.se_payment.field_pa_lines
     - field.field.node.se_payment.field_pa_total
-    - field.field.node.se_payment.field_se_body
+    - field.field.node.se_payment.se_body
     - field.field.node.se_payment.field_se_comments
     - node.type.se_payment
   module:
@@ -56,7 +56,7 @@ content:
     third_party_settings: {  }
     type: se_currency_formatter
     region: bottom
-  field_se_body:
+  se_body:
     label: hidden
     type: text_default
     weight: 5

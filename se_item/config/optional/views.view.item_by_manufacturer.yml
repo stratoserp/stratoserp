@@ -80,12 +80,12 @@ display:
           summary: ''
           description: ''
           columns:
-            field_it_code: field_it_code
+            field_it_code: se_it_code
             name: name
             type: type
-            field_it_cost_price: field_it_cost_price
-            field_it_sell_price: field_it_sell_price
-            field_it_serial: field_it_serial
+            field_it_cost_price: se_it_cost_price
+            field_it_sell_price: se_it_sell_price
+            field_it_serial: se_it_serial
           info:
             field_it_code:
               sortable: true
@@ -129,15 +129,15 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-medium
-          default: field_it_code
+          default: se_it_code
           empty_table: false
       row:
         type: 'entity:se_item'
       fields:
         field_it_code:
-          id: field_it_code
+          id: se_it_code
           table: se_item__field_it_code
-          field: field_it_code
+          field: se_it_code
           relationship: none
           group_type: group
           admin_label: ''

@@ -339,9 +339,9 @@ display:
       relationships: {  }
       arguments:
         field_bu_ref_target_id:
-          id: field_bu_ref_target_id
+          id: se_bu_ref_target_id
           table: se_information__field_bu_ref
-          field: field_bu_ref_target_id
+          field: se_bu_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
