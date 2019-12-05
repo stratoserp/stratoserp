@@ -3,23 +3,23 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_supplier.field_su_address
-    - field.field.node.se_supplier.field_su_email
-    - field.field.node.se_supplier.field_su_email_format
-    - field.field.node.se_supplier.field_su_fax
-    - field.field.node.se_supplier.field_su_homepage
-    - field.field.node.se_supplier.field_su_id
-    - field.field.node.se_supplier.field_su_location
-    - field.field.node.se_supplier.field_su_mobile
-    - field.field.node.se_supplier.field_su_phone
-    - field.field.node.se_supplier.field_su_postal_address
-    - field.field.node.se_supplier.field_su_postal_postcode
-    - field.field.node.se_supplier.field_su_postal_state
-    - field.field.node.se_supplier.field_su_postal_suburb
-    - field.field.node.se_supplier.field_su_postcode
-    - field.field.node.se_supplier.field_su_state
-    - field.field.node.se_supplier.field_su_status
-    - field.field.node.se_supplier.field_su_suburb
+    - field.field.node.se_supplier.se_su_address
+    - field.field.node.se_supplier.se_su_email
+    - field.field.node.se_supplier.se_su_email_format
+    - field.field.node.se_supplier.se_su_fax
+    - field.field.node.se_supplier.se_su_homepage
+    - field.field.node.se_supplier.se_su_id
+    - field.field.node.se_supplier.se_su_location
+    - field.field.node.se_supplier.se_su_mobile
+    - field.field.node.se_supplier.se_su_phone
+    - field.field.node.se_supplier.se_su_postal_address
+    - field.field.node.se_supplier.se_su_postal_postcode
+    - field.field.node.se_supplier.se_su_postal_state
+    - field.field.node.se_supplier.se_su_postal_suburb
+    - field.field.node.se_supplier.se_su_postcode
+    - field.field.node.se_supplier.se_su_state
+    - field.field.node.se_supplier.se_su_status
+    - field.field.node.se_supplier.se_su_suburb
     - node.type.se_supplier
   module:
     - field_layout
@@ -62,20 +62,20 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_su_address: true
-  field_su_email: true
-  field_su_email_format: true
-  field_su_fax: true
-  field_su_homepage: true
-  field_su_id: true
-  field_su_location: true
-  field_su_mobile: true
-  field_su_phone: true
-  field_su_postal_address: true
-  field_su_postal_postcode: true
-  field_su_postal_state: true
-  field_su_postal_suburb: true
-  field_su_postcode: true
-  field_su_state: true
-  field_su_status: true
-  field_su_suburb: true
+  se_su_address: true
+  se_su_email: true
+  se_su_email_format: true
+  se_su_fax: true
+  se_su_homepage: true
+  se_su_id: true
+  se_su_location: true
+  se_su_mobile: true
+  se_su_phone: true
+  se_su_postal_address: true
+  se_su_postal_postcode: true
+  se_su_postal_state: true
+  se_su_postal_suburb: true
+  se_su_postcode: true
+  se_su_state: true
+  se_su_status: true
+  se_su_suburb: true

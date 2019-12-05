@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - se_item
-id: se_item.field_it_serial
+id: se_item.se_it_serial
 field_name: se_it_serial
 entity_type: se_item
 type: string

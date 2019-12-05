@@ -3,16 +3,16 @@ status: true
 dependencies:
   config:
     - field.field.node.se_ticket.se_body
-    - field.field.node.se_ticket.field_attachments
-    - field.field.node.se_ticket.field_bu_ref
-    - field.field.node.se_ticket.field_co_ref
-    - field.field.node.se_ticket.field_ti_id
-    - field.field.node.se_ticket.field_ti_open_date
-    - field.field.node.se_ticket.field_ti_owner_ref
-    - field.field.node.se_ticket.field_ti_priority_ref
-    - field.field.node.se_ticket.field_ti_scheduled
-    - field.field.node.se_ticket.field_ti_status_ref
-    - field.field.node.se_ticket.field_ti_type_ref
+    - field.field.node.se_ticket.se_attachments
+    - field.field.node.se_ticket.se_bu_ref
+    - field.field.node.se_ticket.se_co_ref
+    - field.field.node.se_ticket.se_ti_id
+    - field.field.node.se_ticket.se_ti_open_date
+    - field.field.node.se_ticket.se_ti_owner_ref
+    - field.field.node.se_ticket.se_ti_priority_ref
+    - field.field.node.se_ticket.se_ti_scheduled
+    - field.field.node.se_ticket.se_ti_status_ref
+    - field.field.node.se_ticket.se_ti_type_ref
     - node.type.se_ticket
   module:
     - chosen_field
@@ -39,7 +39,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: bottom
-  field_bu_ref:
+  se_bu_ref:
     weight: 2
     settings:
       match_operator: CONTAINS
@@ -48,7 +48,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  field_co_ref:
+  se_co_ref:
     weight: 3
     settings:
       match_operator: CONTAINS
@@ -57,43 +57,43 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  field_ti_id:
+  se_ti_id:
     weight: 5
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
     region: second
-  field_ti_open_date:
+  se_ti_open_date:
     weight: 6
     settings: {  }
     third_party_settings: {  }
     type: datetime_timestamp
     region: second
-  field_ti_owner_ref:
+  se_ti_owner_ref:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
     region: first
-  field_ti_priority_ref:
+  se_ti_priority_ref:
     weight: 8
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
     region: second
-  field_ti_scheduled:
+  se_ti_scheduled:
     weight: 9
     settings: {  }
     third_party_settings: {  }
     type: daterange_default
     region: second
-  field_ti_status_ref:
+  se_ti_status_ref:
     weight: 7
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
     region: second
-  field_ti_type_ref:
+  se_ti_type_ref:
     weight: 4
     settings: {  }
     third_party_settings: {  }

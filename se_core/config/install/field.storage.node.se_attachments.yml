@@ -4,8 +4,8 @@ dependencies:
   module:
     - file
     - node
-id: node.field_attachments
-field_name: field_attachments
+id: node.se_attachments
+field_name: se_attachments
 entity_type: node
 type: file
 settings:

@@ -4,7 +4,7 @@ dependencies:
   module:
     - link
     - se_subscription
-id: se_subscription.field_su_management_link
+id: se_subscription.se_su_management_link
 field_name: se_su_management_link
 entity_type: se_subscription
 type: link

@@ -89,7 +89,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function nodeMarkItemStatus($entity, $sold = TRUE): void {
-    $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     $date = new DateTimePlus(NULL, date_default_timezone_get());
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
@@ -99,15 +99,15 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
           // TODO - Make a service for this?
           // Only operate on things that have a 'parent', not the parents
           // themselves, they are never sold.
-          if (!empty($item->field_it_item_ref->target_id)) {
-            if (isset($item->field_it_invoice_ref->value) !== $sold) {
+          if (!empty($item->se_it_item_ref->target_id)) {
+            if (isset($item->se_it_invoice_ref->value) !== $sold) {
               if ($sold) {
-                $item->field_it_sale_date->value = $date->format('Y-m-d');
-                $item->field_it_sale_price->value = $item_line->price;
-                $item->field_it_invoice_ref->target_id = $entity->id();
+                $item->se_it_sale_date->value = $date->format('Y-m-d');
+                $item->se_it_sale_price->value = $item_line->price;
+                $item->se_it_invoice_ref->target_id = $entity->id();
               }
               else {
-                unset($item->field_it_sale_date->value, $item->field_it_sale_price->value, $item->field_it_invoice_ref->target_id);
+                unset($item->se_it_sale_date->value, $item->se_it_sale_price->value, $item->se_it_invoice_ref->target_id);
               }
               $item->save();
             }

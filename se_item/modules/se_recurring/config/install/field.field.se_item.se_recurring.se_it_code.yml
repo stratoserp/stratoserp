@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_code
+    - field.storage.se_item.se_it_code
     - se_item.se_item_type.se_recurring
-id: se_item.se_recurring.field_it_code
+id: se_item.se_recurring.se_it_code
 field_name: se_it_code
 entity_type: se_item
 bundle: se_recurring

@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_cu_postal_address
+    - field.storage.node.se_cu_postal_address
     - node.type.se_customer
-id: node.se_customer.field_cu_postal_address
-field_name: field_cu_postal_address
+id: node.se_customer.se_cu_postal_address
+field_name: se_cu_postal_address
 entity_type: node
 bundle: se_customer
 label: 'Postal Address'

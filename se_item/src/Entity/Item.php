@@ -72,7 +72,7 @@ use Drupal\user\UserInterface;
  *     "_admin_route" = "0",
  *   },
  *   bundle_entity_type = "se_item_type",
- *   field_ui_base_route = "entity.se_item_type.edit_form"
+ *   se_ui_base_route = "entity.se_item_type.edit_form"
  * )
  */
 class Item extends RevisionableContentEntityBase implements ItemInterface {

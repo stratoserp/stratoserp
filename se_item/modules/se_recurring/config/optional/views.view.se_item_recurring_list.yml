@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_code
-    - field.storage.se_item.field_it_cost_price
-    - field.storage.se_item.field_it_sell_price
+    - field.storage.se_item.se_it_code
+    - field.storage.se_item.se_it_cost_price
+    - field.storage.se_item.se_it_sell_price
     - se_item.se_item_type.se_recurring
     - system.menu.stratos-erp
     - user.role.administrator
@@ -90,12 +90,12 @@ display:
           summary: ''
           description: ''
           columns:
-            field_it_code: se_it_code
+            se_it_code: se_it_code
             name: name
-            field_it_cost_price: se_it_cost_price
-            field_it_sell_price: se_it_sell_price
+            se_it_cost_price: se_it_cost_price
+            se_it_sell_price: se_it_sell_price
           info:
-            field_it_code:
+            se_it_code:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -109,14 +109,14 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_it_cost_price:
+            se_it_cost_price:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-medium
-            field_it_sell_price:
+            se_it_sell_price:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -128,9 +128,9 @@ display:
       row:
         type: fields
       fields:
-        field_it_code:
+        se_it_code:
           id: se_it_code
-          table: se_item__field_it_code
+          table: se_item__se_it_code
           field: se_it_code
           relationship: none
           group_type: group
@@ -256,9 +256,9 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
-        field_it_cost_price:
+        se_it_cost_price:
           id: se_it_cost_price
-          table: se_item__field_it_cost_price
+          table: se_item__se_it_cost_price
           field: se_it_cost_price
           relationship: none
           group_type: group
@@ -318,9 +318,9 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_it_sell_price:
+        se_it_sell_price:
           id: se_it_sell_price
-          table: se_item__field_it_sell_price
+          table: se_item__se_it_sell_price
           field: se_it_sell_price
           relationship: none
           group_type: group
@@ -421,9 +421,9 @@ display:
           entity_type: se_item
           entity_field: type
           plugin_id: bundle
-        field_it_code_value:
+        se_it_code_value:
           id: se_it_code_value
-          table: se_item__field_it_code
+          table: se_item__se_it_code
           field: se_it_code_value
           relationship: none
           group_type: group
@@ -527,9 +527,9 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_item.field_it_code'
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_sell_price'
+        - 'config:field.storage.se_item.se_it_code'
+        - 'config:field.storage.se_item.se_it_cost_price'
+        - 'config:field.storage.se_item.se_it_sell_price'
   page_1:
     display_plugin: page
     id: page_1
@@ -556,6 +556,6 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_item.field_it_code'
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_sell_price'
+        - 'config:field.storage.se_item.se_it_code'
+        - 'config:field.storage.se_item.se_it_cost_price'
+        - 'config:field.storage.se_item.se_it_sell_price'

@@ -36,10 +36,10 @@ class AutocompleteController extends ControllerBase {
 
       $customers = $this->findNodes('se_customer', 'Customer', 'title', $search_string);
       $contacts = $this->findNodes('se_contact', 'Contact', 'title', $search_string);
-      $invoices = $this->findNodes('se_invoice', 'Invoice', 'field_in_id', $search_string);
-      $quotes = $this->findNodes('se_quote', 'Quote', 'field_qu_id', $search_string);
+      $invoices = $this->findNodes('se_invoice', 'Invoice', 'se_in_id', $search_string);
+      $quotes = $this->findNodes('se_quote', 'Quote', 'se_qu_id', $search_string);
       $items = $this->findItems('se_item', 'Item', 'name', $search_string);
-      $serials = $this->findItems('se_item', 'Item', 'field_it_serial', $search_string);
+      $serials = $this->findItems('se_item', 'Item', 'se_it_serial', $search_string);
       $information = $this->findInformation('se_document', 'Document', 'name', $search_string);
 
       $matches = array_merge($customers, $contacts, $invoices, $quotes, $items, $serials, $information);
@@ -127,8 +127,8 @@ class AutocompleteController extends ControllerBase {
       $fields = [
         $description,
         $item->getName(),
-        $item->field_it_serial->value ?: NULL,
-        \Drupal::service('se_accounting.currency_format')->formatDisplay($item->field_it_sell_price->value),
+        $item->se_it_serial->value ?: NULL,
+        \Drupal::service('se_accounting.currency_format')->formatDisplay($item->se_it_sell_price->value),
       ];
       $fields = array_filter($fields);
       $key = implode(' - ', $fields);
@@ -175,7 +175,7 @@ class AutocompleteController extends ControllerBase {
       $key = Tags::encode($key);
       $output_description = implode(' - ', [
         $description,
-        $information->field_bu_ref->entity->title->value,
+        $information->se_bu_ref->entity->title->value,
         $information->getName(),
       ]);
       $id = $information->id();

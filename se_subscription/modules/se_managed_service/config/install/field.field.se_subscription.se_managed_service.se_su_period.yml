@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.field_su_period
+    - field.storage.se_subscription.se_su_period
     - se_subscription.se_subscription_type.se_managed_service
   module:
     - duration_field
-id: se_subscription.se_managed_service.field_su_period
-field_name: field_su_period
+id: se_subscription.se_managed_service.se_su_period
+field_name: se_su_period
 entity_type: se_subscription
 bundle: se_managed_service
 label: Period

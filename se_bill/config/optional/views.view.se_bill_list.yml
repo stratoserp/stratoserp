@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.se_bi_id
     - field.storage.node.se_bi_total
-    - field.storage.node.field_bu_ref
+    - field.storage.node.se_bu_ref
     - node.type.se_bill
     - system.menu.stratos-erp
     - user.role.administrator
@@ -91,7 +91,7 @@ display:
           description: ''
           columns:
             title: title
-            field_bu_ref: field_bu_ref
+            se_bu_ref: se_bu_ref
             se_bi_id: se_bi_id
           info:
             title:
@@ -101,7 +101,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_bu_ref:
+            se_bu_ref:
               align: ''
               separator: ''
               empty_column: false
@@ -165,10 +165,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_bu_ref:
-          id: field_bu_ref
-          table: node__field_bu_ref
-          field: field_bu_ref
+        se_bu_ref:
+          id: se_bu_ref
+          table: node__se_bu_ref
+          field: se_bu_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -409,7 +409,7 @@ display:
       tags:
         - 'config:field.storage.node.se_bi_id'
         - 'config:field.storage.node.se_bi_total'
-        - 'config:field.storage.node.field_bu_ref'
+        - 'config:field.storage.node.se_bu_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -438,4 +438,4 @@ display:
       tags:
         - 'config:field.storage.node.se_bi_id'
         - 'config:field.storage.node.se_bi_total'
-        - 'config:field.storage.node.field_bu_ref'
+        - 'config:field.storage.node.se_bu_ref'

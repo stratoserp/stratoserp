@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_gr_id
+    - field.storage.node.se_gr_id
     - node.type.se_goods_receipt
   module:
     - eva
@@ -93,9 +93,9 @@ display:
           summary: ''
           description: ''
           columns:
-            field_gr_id: se_gr_id
+           se_gr_id: se_gr_id
           info:
-            field_gr_id:
+           se_gr_id:
               sortable: true
               default_sort_order: desc
               align: ''
@@ -178,9 +178,9 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: field
-        field_gr_id:
+        se_gr_id:
           id: se_gr_id
-          table: node__field_gr_id
+          table: node__se_gr_id
           field: se_gr_id
           relationship: none
           group_type: group
@@ -313,9 +313,9 @@ display:
           plugin_id: text
       relationships: {  }
       arguments:
-        field_bu_ref_target_id:
+        se_bu_ref_target_id:
           id: se_bu_ref_target_id
-          table: node__field_bu_ref
+          table: node__se_bu_ref
           field: se_bu_ref_target_id
           relationship: none
           group_type: group
@@ -359,7 +359,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_gr_id'
+        - 'config:field.storage.node.se_gr_id'
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -382,4 +382,4 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_gr_id'
+        - 'config:field.storage.node.se_gr_id'

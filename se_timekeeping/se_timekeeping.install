@@ -40,7 +40,7 @@ function se_timekeeping_install() {
 function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
   // Create the storage.
   $field = $entity_type_manager->getStorage('field_config')->create([
-    'field_name' => 'field_se_timekeeping',
+    'field_name' => 'se_timekeeping',
     'entity_type' => 'node',
     'bundle' => $bundle,
     'label' => 'Timekeeping',
@@ -54,7 +54,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
   // Set the form display.
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
   $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
-  $form_display->setComponent('field_se_timekeeping', [
+  $form_display->setComponent('se_timekeeping', [
     'type' => 'comment_default',
     'region' => 'content',
     'weight' => 25,
@@ -64,7 +64,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
   // Add the comment field to the entity view display.
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
   $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
-  $display->setComponent('field_se_timekeeping', [
+  $display->setComponent('se_timekeeping', [
     'type' => 'comment_default',
     'region' => 'bottom',
     'label' => 'hidden',
@@ -123,20 +123,20 @@ function se_timekeeping_uninstall() {
 function se_timekeeping_uninstall_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
   $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
-  $form_display->removeComponent('field_se_timekeeping');
+  $form_display->removeComponent('se_timekeeping');
   $form_display->save();
 
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
   $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
-  $display->removeComponent('field_se_timekeeping');
+  $display->removeComponent('se_timekeeping');
   $display->save();
 
-  $field_storage_config = FieldStorageConfig::loadByName('node', 'field_se_timekeeping');
+  $field_storage_config = FieldStorageConfig::loadByName('node', 'se_timekeeping');
   if ($field_storage_config) {
     $field_storage_config->delete();
   }
 
-  $field_config = FieldConfig::loadByName('node', $bundle, 'field_se_timekeeping');
+  $field_config = FieldConfig::loadByName('node', $bundle, 'se_timekeeping');
   if ($field_config && !$field_config->isDeleted()) {
     $field_config->delete();
   }

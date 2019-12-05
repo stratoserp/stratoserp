@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - field.storage.comment.field_tk_billed
-id: comment.se_timekeeping.field_tk_billed
-field_name: field_tk_billed
+    - field.storage.comment.se_tk_billed
+id: comment.se_timekeeping.se_tk_billed
+field_name: se_tk_billed
 entity_type: comment
 bundle: se_timekeeping
 label: Billed

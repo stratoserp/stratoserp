@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_in_quote_ref
+id: node.se_in_quote_ref
 field_name: se_in_quote_ref
 entity_type: node
 type: entity_reference

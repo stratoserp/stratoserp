@@ -5,8 +5,8 @@ dependencies:
     - file
     - image
     - se_item
-id: se_item.field_it_images
-field_name: field_it_images
+id: se_item.se_it_images
+field_name: se_it_images
 entity_type: se_item
 type: image
 settings:

@@ -5,7 +5,7 @@ dependencies:
     - se_item
     - se_item_line
     - se_subscription
-id: se_subscription.field_su_item
+id: se_subscription.se_su_item
 field_name: se_su_item
 entity_type: se_subscription
 type: se_item_line

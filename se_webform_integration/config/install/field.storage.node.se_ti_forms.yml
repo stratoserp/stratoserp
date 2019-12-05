@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - webform
-id: node.field_ti_forms
-field_name: field_ti_forms
+id: node.se_ti_forms
+field_name: se_ti_forms
 entity_type: node
 type: webform
 settings:

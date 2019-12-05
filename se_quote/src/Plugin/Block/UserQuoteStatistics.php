@@ -54,7 +54,7 @@ class UserQuoteStatistics extends BlockBase {
         $month = 0;
         /** @var \Drupal\node\Entity\Node $quote */
         foreach ($quotes as $quote) {
-          $month += $quote->field_qu_total->value;
+          $month += $quote->se_qu_total->value;
         }
         $month_data[] = $month;
         $fg_colors[] = $fg_color;

@@ -57,7 +57,7 @@ class UserInvoiceStatistics extends BlockBase {
         $month = 0;
         /** @var \Drupal\node\Entity\Node $invoice */
         foreach ($invoices as $invoice) {
-          $month += $invoice->field_in_total->value;
+          $month += $invoice->se_in_total->value;
         }
         $month_data[] = $month;
         $fg_colors[] = $fg_color;

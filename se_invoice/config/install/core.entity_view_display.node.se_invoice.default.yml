@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_invoice.field_bu_ref
-    - field.field.node.se_invoice.field_co_ref
-    - field.field.node.se_invoice.field_in_customer_order
-    - field.field.node.se_invoice.field_in_id
-    - field.field.node.se_invoice.field_in_lines
-    - field.field.node.se_invoice.field_in_quote_ref
-    - field.field.node.se_invoice.field_in_sent
-    - field.field.node.se_invoice.field_in_total
-    - field.field.node.se_invoice.field_in_transaction_type
+    - field.field.node.se_invoice.se_bu_ref
+    - field.field.node.se_invoice.se_co_ref
+    - field.field.node.se_invoice.se_in_customer_order
+    - field.field.node.se_invoice.se_in_id
+    - field.field.node.se_invoice.se_in_lines
+    - field.field.node.se_invoice.se_in_quote_ref
+    - field.field.node.se_invoice.se_in_sent
+    - field.field.node.se_invoice.se_in_total
+    - field.field.node.se_invoice.se_in_transaction_type
     - field.field.node.se_invoice.se_body
-    - field.field.node.se_invoice.field_se_comments
-    - field.field.node.se_invoice.field_status_ref
+    - field.field.node.se_invoice.se_comments
+    - field.field.node.se_invoice.se_status_ref
     - node.type.se_invoice
   module:
     - comment
@@ -38,7 +38,7 @@ content:
     region: second
     settings: {  }
     third_party_settings: {  }
-  field_bu_ref:
+  se_bu_ref:
     weight: 1
     label: inline
     settings:
@@ -46,7 +46,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_co_ref:
+  se_co_ref:
     weight: 2
     label: inline
     settings:
@@ -54,7 +54,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_in_customer_order:
+  se_in_customer_order:
     weight: 6
     label: inline
     settings:
@@ -62,21 +62,21 @@ content:
     third_party_settings: {  }
     type: string
     region: second
-  field_in_id:
+  se_in_id:
     weight: 3
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
-  field_in_lines:
+  se_in_lines:
     weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
-  field_in_quote_ref:
+  se_in_quote_ref:
     weight: 7
     label: inline
     settings:
@@ -84,7 +84,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_in_sent:
+  se_in_sent:
     weight: 8
     label: inline
     settings:
@@ -94,14 +94,14 @@ content:
     third_party_settings: {  }
     type: boolean
     region: second
-  field_in_total:
+  se_in_total:
     weight: 10
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
     region: bottom
-  field_in_transaction_type:
+  se_in_transaction_type:
     weight: 13
     label: above
     settings:
@@ -118,7 +118,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: bottom
-  field_se_comments:
+  se_comments:
     weight: 12
     label: above
     settings:
@@ -127,7 +127,7 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: bottom
-  field_status_ref:
+  se_status_ref:
     weight: 5
     label: inline
     settings:

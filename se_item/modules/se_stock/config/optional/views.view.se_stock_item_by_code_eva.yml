@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_cost_price
-    - field.storage.se_item.field_it_goods_receipt_ref
-    - field.storage.se_item.field_it_invoice_ref
-    - field.storage.se_item.field_it_purchase_order_ref
-    - field.storage.se_item.field_it_sale_price
-    - field.storage.se_item.field_it_serial
+    - field.storage.se_item.se_it_cost_price
+    - field.storage.se_item.se_it_goods_receipt_ref
+    - field.storage.se_item.se_it_invoice_ref
+    - field.storage.se_item.se_it_purchase_order_ref
+    - field.storage.se_item.se_it_sale_price
+    - field.storage.se_item.se_it_serial
     - se_item.se_item_type.se_stock
     - user.role.administrator
     - user.role.developer
@@ -151,10 +151,10 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
-        field_it_serial:
-          id: field_it_serial
-          table: se_item__field_it_serial
-          field: field_it_serial
+        se_it_serial:
+          id: se_it_serial
+          table: se_item__se_it_serial
+          field: se_it_serial
           relationship: none
           group_type: group
           admin_label: ''
@@ -214,10 +214,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_it_invoice_ref:
-          id: field_it_invoice_ref
-          table: se_item__field_it_invoice_ref
-          field: field_it_invoice_ref
+        se_it_invoice_ref:
+          id: se_it_invoice_ref
+          table: se_item__se_it_invoice_ref
+          field: se_it_invoice_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -277,10 +277,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_it_goods_receipt_ref:
-          id: field_it_goods_receipt_ref
-          table: se_item__field_it_goods_receipt_ref
-          field: field_it_goods_receipt_ref
+        se_it_goods_receipt_ref:
+          id: se_it_goods_receipt_ref
+          table: se_item__se_it_goods_receipt_ref
+          field: se_it_goods_receipt_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -340,10 +340,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_it_purchase_order_ref:
-          id: field_it_purchase_order_ref
-          table: se_item__field_it_purchase_order_ref
-          field: field_it_purchase_order_ref
+        se_it_purchase_order_ref:
+          id: se_it_purchase_order_ref
+          table: se_item__se_it_purchase_order_ref
+          field: se_it_purchase_order_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -403,10 +403,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_it_cost_price:
-          id: field_it_cost_price
-          table: se_item__field_it_cost_price
-          field: field_it_cost_price
+        se_it_cost_price:
+          id: se_it_cost_price
+          table: se_item__se_it_cost_price
+          field: se_it_cost_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -465,10 +465,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_it_sale_price:
-          id: field_it_sale_price
-          table: se_item__field_it_sale_price
-          field: field_it_sale_price
+        se_it_sale_price:
+          id: se_it_sale_price
+          table: se_item__se_it_sale_price
+          field: se_it_sale_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -537,10 +537,10 @@ display:
           entity_type: se_item
           entity_field: type
           plugin_id: bundle
-        field_it_item_ref_target_id:
-          id: field_it_item_ref_target_id
-          table: se_item__field_it_item_ref
-          field: field_it_item_ref_target_id
+        se_it_item_ref_target_id:
+          id: se_it_item_ref_target_id
+          table: se_item__se_it_item_ref
+          field: se_it_item_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -586,10 +586,10 @@ display:
       empty: {  }
       relationships: {  }
       arguments:
-        field_it_item_ref_target_id:
-          id: field_it_item_ref_target_id
-          table: se_item__field_it_item_ref
-          field: field_it_item_ref_target_id
+        se_it_item_ref_target_id:
+          id: se_it_item_ref_target_id
+          table: se_item__se_it_item_ref
+          field: se_it_item_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -630,12 +630,12 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_goods_receipt_ref'
-        - 'config:field.storage.se_item.field_it_invoice_ref'
-        - 'config:field.storage.se_item.field_it_purchase_order_ref'
-        - 'config:field.storage.se_item.field_it_sale_price'
-        - 'config:field.storage.se_item.field_it_serial'
+        - 'config:field.storage.se_item.se_it_cost_price'
+        - 'config:field.storage.se_item.se_it_goods_receipt_ref'
+        - 'config:field.storage.se_item.se_it_invoice_ref'
+        - 'config:field.storage.se_item.se_it_purchase_order_ref'
+        - 'config:field.storage.se_item.se_it_sale_price'
+        - 'config:field.storage.se_item.se_it_serial'
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -655,9 +655,9 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_item.field_it_cost_price'
-        - 'config:field.storage.se_item.field_it_goods_receipt_ref'
-        - 'config:field.storage.se_item.field_it_invoice_ref'
-        - 'config:field.storage.se_item.field_it_purchase_order_ref'
-        - 'config:field.storage.se_item.field_it_sale_price'
-        - 'config:field.storage.se_item.field_it_serial'
+        - 'config:field.storage.se_item.se_it_cost_price'
+        - 'config:field.storage.se_item.se_it_goods_receipt_ref'
+        - 'config:field.storage.se_item.se_it_invoice_ref'
+        - 'config:field.storage.se_item.se_it_purchase_order_ref'
+        - 'config:field.storage.se_item.se_it_sale_price'
+        - 'config:field.storage.se_item.se_it_serial'

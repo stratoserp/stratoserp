@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - comment
-id: comment.field_tk_billable
-field_name: field_tk_billable
+id: comment.se_tk_billable
+field_name: se_tk_billable
 entity_type: comment
 type: boolean
 settings: {  }

@@ -4,8 +4,8 @@ dependencies:
   module:
     - json_field
     - node
-id: node.field_re_json_data
-field_name: field_re_json_data
+id: node.se_re_json_data
+field_name: se_re_json_data
 entity_type: node
 type: json
 settings:

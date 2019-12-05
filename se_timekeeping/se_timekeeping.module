@@ -18,9 +18,9 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
     // If the business ref is not set, try and Retrieve the entity
     // the comment is being attached to.
     /** @var \Drupal\node\Entity\Node $node */
-    if (empty($form['field_bu_ref']['widget'][0]['target_id']['#default_value'])
+    if (empty($form['se_bu_ref']['widget'][0]['target_id']['#default_value'])
     && $node = $form_state->getFormObject()->getEntity()->getCommentedEntity()) {
-      $form['field_bu_ref']['widget'][0]['target_id']['#default_value'] =
+      $form['se_bu_ref']['widget'][0]['target_id']['#default_value'] =
         \Drupal::service('se_customer.service')->lookupCustomer($node);
     }
 
@@ -38,7 +38,7 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
     }
 
     // Now hide the fields.
-    $form['field_bu_ref']['widget']['#access'] = FALSE;
+    $form['se_bu_ref']['widget']['#access'] = FALSE;
     $form['subject']['widget']['#access'] = FALSE;
   }
 }

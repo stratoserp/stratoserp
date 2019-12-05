@@ -69,9 +69,9 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
 
     // Check if we're finished, and if so, update report node, set redirect.
     if ($progress >= $total) {
-      $this->report_node->field_re_parameters->value = json_encode($this->getBatchDataByKey('input_parameters'));
-      $this->report_node->field_re_json_data->value = json_encode($report_array);
-      $this->report_node->field_re_raw_data->value = $this->createCSV($report_array);
+      $this->report_node->se_re_parameters->value = json_encode($this->getBatchDataByKey('input_parameters'));
+      $this->report_node->se_re_json_data->value = json_encode($report_array);
+      $this->report_node->se_re_raw_data->value = $this->createCSV($report_array);
       $this->report_node->save();
 
       // Set new redirect url (hmm doesn't work).

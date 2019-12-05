@@ -12,11 +12,11 @@ use Drupal\Core\Form\FormStateInterface;
  *
  */
 function se_contact_form_node_se_contact_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  \Drupal::service('se_core.set_field')->setReferenceField($form, 'field_bu_ref', 'field_bu_ref');
+  \Drupal::service('se_core.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
 
   $config = \Drupal::configFactory()->get('se_contact.settings');
   if ($contact_type = (int) $config->get('main_contact_term')) {
     \Drupal::service('se_core.set_field')
-      ->setTaxonomyField($form, 'field_co_type_ref', $contact_type);
+      ->setTaxonomyField($form, 'se_co_type_ref', $contact_type);
   }
 }

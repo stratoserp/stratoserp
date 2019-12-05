@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_subscription.se_managed_service.field_bu_ref
-    - field.field.se_subscription.se_managed_service.field_su_item
-    - field.field.se_subscription.se_managed_service.field_su_management_link
-    - field.field.se_subscription.se_managed_service.field_su_period
-    - field.field.se_subscription.se_managed_service.field_su_ref
+    - field.field.se_subscription.se_managed_service.se_bu_ref
+    - field.field.se_subscription.se_managed_service.se_su_item
+    - field.field.se_subscription.se_managed_service.se_su_management_link
+    - field.field.se_subscription.se_managed_service.se_su_period
+    - field.field.se_subscription.se_managed_service.se_su_ref
     - se_subscription.se_subscription_type.se_managed_service
   module:
     - duration_field
@@ -24,7 +24,7 @@ targetEntityType: se_subscription
 bundle: se_managed_service
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 2
     label: above
     settings:
@@ -32,14 +32,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_su_item:
+  se_su_item:
     weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
-  field_su_management_link:
+  se_su_management_link:
     weight: 5
     label: above
     settings:
@@ -51,7 +51,7 @@ content:
     third_party_settings: {  }
     type: link
     region: second
-  field_su_period:
+  se_su_period:
     weight: 4
     label: above
     settings:
@@ -60,7 +60,7 @@ content:
     third_party_settings: {  }
     type: duration_human_display
     region: second
-  field_su_ref:
+  se_su_ref:
     weight: 3
     label: above
     settings:

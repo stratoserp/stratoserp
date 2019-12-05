@@ -81,13 +81,13 @@ content:
     third_party_settings: {  }
     type: chosen_select
     region: second
-  field_it_sale_category_ref:
+  se_it_sale_category_ref:
     weight: 6
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
     region: second
-  field_it_sell_price:
+  se_it_sell_price:
     weight: 1
     settings: {  }
     third_party_settings: {  }

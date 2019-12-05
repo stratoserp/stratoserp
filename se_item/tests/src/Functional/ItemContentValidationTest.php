@@ -24,7 +24,7 @@ class ItemContentValidationTest extends FunctionalTestBase {
     $this->itemFakerSetup();
 
     $item = $this->createItemContent([
-      'field_it_code' => $this->item->code
+      'se_it_code' => $this->item->code
     ]);
     $violations = $item->validate();
     $this->assertEqual(count($violations), 1);
@@ -36,15 +36,15 @@ class ItemContentValidationTest extends FunctionalTestBase {
     );
     unset($item);
 
-    $item = $this->createItemContent(['name' => $this->item->name, 'field_it_code' => $this->item->code]);
+    $item = $this->createItemContent(['name' => $this->item->name, 'se_it_code' => $this->item->code]);
     $violations = $item->validate();
     $this->assertEqual(count($violations), 0);
     $item->save();
 
-    $new_item = $this->createItemContent(['name' => $this->item->name, 'field_it_code' => $this->item->code]);
+    $new_item = $this->createItemContent(['name' => $this->item->name, 'se_it_code' => $this->item->code]);
     $violations = $new_item->validate();
     $this->assertEqual(count($violations), 1);
-    $this->assertEqual($violations[0]->getPropertyPath(), 'field_it_code');
+    $this->assertEqual($violations[0]->getPropertyPath(), 'se_it_code');
     $this->assertEqual($violations[0]->getMessage(), t('Item with code %value already exists.',
       ['%id' => $item->id(), '%value' => $this->item->code],
       ['langcode' => NULL]

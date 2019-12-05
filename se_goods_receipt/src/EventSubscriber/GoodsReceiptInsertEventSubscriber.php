@@ -45,15 +45,15 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       /** @var \Drupal\se_item\Entity\Item $item */
       if ($item = Item::load($item_line->target_id)) {
         if ($item->bundle() !== 'se_stock') {
           continue;
         }
-        $item->set('field_it_goods_receipt_ref', $entity->id());
-        $item->set('field_it_purchase_order_ref', $entity->field_gr_purchase_order_ref->target_id);
+        $item->set('se_it_goods_receipt_ref', $entity->id());
+        $item->set('se_it_purchase_order_ref', $entity->se_gr_purchase_order_ref->target_id);
         $item->save();
       }
     }

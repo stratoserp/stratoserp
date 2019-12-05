@@ -50,7 +50,7 @@ trait TicketTestTrait {
     $node = $this->createNode([
       'type' => 'se_ticket',
       'title' => $this->ticket->name,
-      'field_bu_ref' => $customer,
+      'se_bu_ref' => $customer,
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());

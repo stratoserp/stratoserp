@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_subscription.se_managed_service.field_bu_ref
-    - field.field.se_subscription.se_managed_service.field_su_item
-    - field.field.se_subscription.se_managed_service.field_su_management_link
-    - field.field.se_subscription.se_managed_service.field_su_period
-    - field.field.se_subscription.se_managed_service.field_su_ref
+    - field.field.se_subscription.se_managed_service.se_bu_ref
+    - field.field.se_subscription.se_managed_service.se_su_item
+    - field.field.se_subscription.se_managed_service.se_su_management_link
+    - field.field.se_subscription.se_managed_service.se_su_period
+    - field.field.se_subscription.se_managed_service.se_su_ref
     - se_subscription.se_subscription_type.se_managed_service
   module:
     - duration_field
@@ -23,7 +23,7 @@ targetEntityType: se_subscription
 bundle: se_managed_service
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 0
     settings:
       match_operator: CONTAINS
@@ -32,7 +32,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  field_su_item:
+  se_su_item:
     weight: 4
     settings:
       match_operator: CONTAINS
@@ -41,7 +41,7 @@ content:
     third_party_settings: {  }
     type: se_item_line_widget
     region: bottom
-  field_su_management_link:
+  se_su_management_link:
     weight: 3
     settings:
       placeholder_url: ''
@@ -49,13 +49,13 @@ content:
     third_party_settings: {  }
     type: link_default
     region: second
-  field_su_period:
+  se_su_period:
     weight: 2
     settings: {  }
     third_party_settings: {  }
     type: duration_widget
     region: first
-  field_su_ref:
+  se_su_ref:
     weight: 1
     settings:
       match_operator: CONTAINS

@@ -49,8 +49,8 @@ class InvoiceService {
     $open_term = $this->getOpenTerm();
     $query = \Drupal::entityQuery('node');
     $query->condition('type', 'se_invoice');
-    $query->condition('field_bu_ref', $customer->id());
-    $query->condition('field_status_ref', $open_term->id());
+    $query->condition('se_bu_ref', $customer->id());
+    $query->condition('se_status_ref', $open_term->id());
     $entity_ids = $query->execute();
 
     $invoices = \Drupal::entityTypeManager()

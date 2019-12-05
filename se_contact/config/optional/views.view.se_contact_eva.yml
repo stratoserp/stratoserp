@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_co_email
-    - field.storage.node.field_co_phone
-    - field.storage.node.field_co_type_ref
+    - field.storage.node.se_co_email
+    - field.storage.node.se_co_phone
+    - field.storage.node.se_co_type_ref
     - node.type.se_contact
     - user.role.administrator
     - user.role.developer
@@ -92,9 +92,9 @@ display:
           columns:
             created: created
             title: title
-            field_co_email: field_co_email
-            field_co_phone: field_co_phone
-            field_co_type_ref: field_co_type_ref
+            se_co_email: se_co_email
+            se_co_phone: se_co_phone
+            se_co_type_ref: se_co_type_ref
           info:
             created:
               sortable: true
@@ -110,17 +110,17 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-medium
-            field_co_email:
+            se_co_email:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_co_phone:
+            se_co_phone:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_co_type_ref:
+            se_co_type_ref:
               align: ''
               separator: ''
               empty_column: false
@@ -267,10 +267,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_co_email:
-          id: field_co_email
-          table: node__field_co_email
-          field: field_co_email
+        se_co_email:
+          id: se_co_email
+          table: node__se_co_email
+          field: se_co_email
           relationship: none
           group_type: group
           admin_label: ''
@@ -329,10 +329,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_co_phone:
-          id: field_co_phone
-          table: node__field_co_phone
-          field: field_co_phone
+        se_co_phone:
+          id: se_co_phone
+          table: node__se_co_phone
+          field: se_co_phone
           relationship: none
           group_type: group
           admin_label: ''
@@ -392,10 +392,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_co_type_ref:
-          id: field_co_type_ref
-          table: node__field_co_type_ref
-          field: field_co_type_ref
+        se_co_type_ref:
+          id: se_co_type_ref
+          table: node__se_co_type_ref
+          field: se_co_type_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -509,10 +509,10 @@ display:
           plugin_id: text
       relationships: {  }
       arguments:
-        field_bu_ref_target_id:
-          id: field_bu_ref_target_id
-          table: node__field_bu_ref
-          field: field_bu_ref_target_id
+        se_bu_ref_target_id:
+          id: se_bu_ref_target_id
+          table: node__se_bu_ref
+          field: se_bu_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -555,9 +555,9 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_co_email'
-        - 'config:field.storage.node.field_co_phone'
-        - 'config:field.storage.node.field_co_type_ref'
+        - 'config:field.storage.node.se_co_email'
+        - 'config:field.storage.node.se_co_phone'
+        - 'config:field.storage.node.se_co_type_ref'
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -581,6 +581,6 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_co_email'
-        - 'config:field.storage.node.field_co_phone'
-        - 'config:field.storage.node.field_co_type_ref'
+        - 'config:field.storage.node.se_co_email'
+        - 'config:field.storage.node.se_co_phone'
+        - 'config:field.storage.node.se_co_type_ref'

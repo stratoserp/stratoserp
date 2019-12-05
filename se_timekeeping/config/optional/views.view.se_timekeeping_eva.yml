@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - field.storage.comment.field_tk_amount
-    - field.storage.comment.field_tk_billable
-    - field.storage.comment.field_tk_billed
-    - field.storage.comment.field_tk_review
+    - field.storage.comment.se_tk_amount
+    - field.storage.comment.se_tk_billable
+    - field.storage.comment.se_tk_billed
+    - field.storage.comment.se_tk_review
     - user.role.administrator
     - user.role.developer
     - user.role.staff
@@ -96,9 +96,9 @@ display:
             created: created
             subject: subject
             title: title
-            field_tk_billable: field_tk_billable
-            field_tk_billed: field_tk_billed
-            field_tk_review: field_tk_review
+            se_tk_billable: se_tk_billable
+            se_tk_billed: se_tk_billed
+            se_tk_review: se_tk_review
             uid: uid
           info:
             view_comment:
@@ -129,21 +129,21 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-medium
-            field_tk_billable:
+            se_tk_billable:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-medium
-            field_tk_billed:
+            se_tk_billed:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-medium
-            field_tk_review:
+            se_tk_review:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -428,10 +428,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_tk_billable:
-          id: field_tk_billable
-          table: comment__field_tk_billable
-          field: field_tk_billable
+        se_tk_billable:
+          id: se_tk_billable
+          table: comment__se_tk_billable
+          field: se_tk_billable
           relationship: none
           group_type: group
           admin_label: ''
@@ -493,10 +493,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_tk_billed:
-          id: field_tk_billed
-          table: comment__field_tk_billed
-          field: field_tk_billed
+        se_tk_billed:
+          id: se_tk_billed
+          table: comment__se_tk_billed
+          field: se_tk_billed
           relationship: none
           group_type: group
           admin_label: ''
@@ -558,10 +558,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_tk_review:
-          id: field_tk_review
-          table: comment__field_tk_review
-          field: field_tk_review
+        se_tk_review:
+          id: se_tk_review
+          table: comment__se_tk_review
+          field: se_tk_review
           relationship: none
           group_type: group
           admin_label: ''
@@ -688,10 +688,10 @@ display:
           entity_type: comment
           entity_field: uid
           plugin_id: field
-        field_tk_amount:
-          id: field_tk_amount
-          table: comment__field_tk_amount
-          field: field_tk_amount
+        se_tk_amount:
+          id: se_tk_amount
+          table: comment__se_tk_amount
+          field: se_tk_amount
           relationship: none
           group_type: group
           admin_label: ''
@@ -804,10 +804,10 @@ display:
             format: basic_html
           plugin_id: text
       arguments:
-        field_bu_ref_target_id:
-          id: field_bu_ref_target_id
-          table: node__field_bu_ref
-          field: field_bu_ref_target_id
+        se_bu_ref_target_id:
+          id: se_bu_ref_target_id
+          table: node__se_bu_ref
+          field: se_bu_ref_target_id
           relationship: node
           group_type: group
           admin_label: ''
@@ -850,10 +850,10 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.comment.field_tk_amount'
-        - 'config:field.storage.comment.field_tk_billable'
-        - 'config:field.storage.comment.field_tk_billed'
-        - 'config:field.storage.comment.field_tk_review'
+        - 'config:field.storage.comment.se_tk_amount'
+        - 'config:field.storage.comment.se_tk_billable'
+        - 'config:field.storage.comment.se_tk_billed'
+        - 'config:field.storage.comment.se_tk_review'
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -878,7 +878,7 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.comment.field_tk_amount'
-        - 'config:field.storage.comment.field_tk_billable'
-        - 'config:field.storage.comment.field_tk_billed'
-        - 'config:field.storage.comment.field_tk_review'
+        - 'config:field.storage.comment.se_tk_amount'
+        - 'config:field.storage.comment.se_tk_billable'
+        - 'config:field.storage.comment.se_tk_billed'
+        - 'config:field.storage.comment.se_tk_review'

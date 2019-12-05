@@ -51,8 +51,8 @@ trait TimekeepingTestTrait {
     $comment = Comment::create([
       'entity_id' => $ticket->id(),
       'entity_type' => 'node',
-      'field_name' => 'field_se_timekeeping',
-      'field_tk_comment' => $this->timekeeping->name,
+      'field_name' => 'se_timekeeping',
+      'se_tk_comment' => $this->timekeeping->name,
       'status' => CommentInterface::PUBLISHED,
     ]);
     $comment->save();

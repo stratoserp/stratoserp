@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_in_transaction_type
+    - field.storage.node.se_in_transaction_type
     - node.type.se_invoice
-id: node.se_invoice.field_in_transaction_type
-field_name: field_in_transaction_type
+id: node.se_invoice.se_in_transaction_type
+field_name: se_in_transaction_type
 entity_type: node
 bundle: se_invoice
 label: 'Transaction type'

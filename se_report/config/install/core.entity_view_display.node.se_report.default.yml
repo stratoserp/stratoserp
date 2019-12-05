@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_report.field_bu_ref
-    - field.field.node.se_report.field_re_json_data
-    - field.field.node.se_report.field_re_parameters
-    - field.field.node.se_report.field_re_raw_data
+    - field.field.node.se_report.se_bu_ref
+    - field.field.node.se_report.se_re_json_data
+    - field.field.node.se_report.se_re_parameters
+    - field.field.node.se_report.se_re_raw_data
     - field.field.node.se_report.se_body
     - node.type.se_report
   module:
@@ -23,7 +23,7 @@ targetEntityType: node
 bundle: se_report
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 1
     label: inline
     settings:
@@ -31,21 +31,21 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_re_json_data:
+  se_re_json_data:
     weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: json
     region: content
-  field_re_parameters:
+  se_re_parameters:
     weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_re_raw_data:
+  se_re_raw_data:
     weight: 4
     label: above
     settings: {  }

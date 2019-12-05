@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_co_email
+    - field.storage.node.se_co_email
     - node.type.se_contact
-id: node.se_contact.field_co_email
-field_name: field_co_email
+id: node.se_contact.se_co_email
+field_name: se_co_email
 entity_type: node
 bundle: se_contact
 label: Email

@@ -69,7 +69,7 @@ use Drupal\user\UserInterface;
  *     "collection" = "/admin/content/information",
  *   },
  *   bundle_entity_type = "se_information_type",
- *   field_ui_base_route = "entity.se_information_type.edit_form"
+ *   se_ui_base_route = "entity.se_information_type.edit_form"
  * )
  */
 class Information extends RevisionableContentEntityBase implements InformationInterface {

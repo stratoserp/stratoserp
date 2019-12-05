@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_display.comment.se_if_comments.default
-    - field.field.se_information.se_document.field_bu_ref
-    - field.field.se_information.se_document.field_if_body
-    - field.field.se_information.se_document.field_if_comments
+    - field.field.se_information.se_document.se_bu_ref
+    - field.field.se_information.se_document.se_if_body
+    - field.field.se_information.se_document.se_if_comments
     - se_information.se_information_type.se_document
   module:
     - comment
@@ -21,7 +21,7 @@ targetEntityType: se_information
 bundle: se_document
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 1
     label: inline
     settings:
@@ -29,14 +29,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_if_body:
+  se_if_body:
     weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
-  field_if_comments:
+  se_if_comments:
     weight: 3
     label: above
     settings:

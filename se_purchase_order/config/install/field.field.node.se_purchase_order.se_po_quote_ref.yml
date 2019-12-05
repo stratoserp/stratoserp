@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_po_quote_ref
+    - field.storage.node.se_po_quote_ref
     - node.type.se_purchase_order
     - node.type.se_quote
-id: node.se_purchase_order.field_po_quote_ref
-field_name: field_po_quote_ref
+id: node.se_purchase_order.se_po_quote_ref
+field_name: se_po_quote_ref
 entity_type: node
 bundle: se_purchase_order
 label: Quote

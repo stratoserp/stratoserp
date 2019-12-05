@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.field_ea_email_address
+    - field.storage.se_subscription.se_ea_email_address
     - se_subscription.se_subscription_type.se_email_account
-id: se_subscription.se_email_account.field_ea_email_address
-field_name: field_ea_email_address
+id: se_subscription.se_email_account.se_ea_email_address
+field_name: se_ea_email_address
 entity_type: se_subscription
 bundle: se_email_account
 label: 'Email address'

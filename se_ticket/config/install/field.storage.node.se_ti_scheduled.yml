@@ -4,8 +4,8 @@ dependencies:
   module:
     - datetime_range
     - node
-id: node.field_ti_scheduled
-field_name: field_ti_scheduled
+id: node.se_ti_scheduled
+field_name: se_ti_scheduled
 entity_type: node
 type: daterange
 settings:

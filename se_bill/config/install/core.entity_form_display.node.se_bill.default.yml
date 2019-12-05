@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.se_bill.se_bu_ref
     - field.field.node.se_bill.se_co_ref
     - field.field.node.se_bill.se_body
-    - field.field.node.se_bill.field_status_ref
+    - field.field.node.se_bill.se_status_ref
     - node.type.se_bill
   module:
     - chosen_field
@@ -64,7 +64,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: bottom
-  field_status_ref:
+  se_status_ref:
     weight: 4
     settings: {  }
     third_party_settings: {  }

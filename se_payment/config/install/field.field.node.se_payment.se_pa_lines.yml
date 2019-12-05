@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_pa_lines
+    - field.storage.node.se_pa_lines
     - node.type.se_invoice
     - node.type.se_payment
   module:
     - se_payment_line
-id: node.se_payment.field_pa_lines
-field_name: field_pa_lines
+id: node.se_payment.se_pa_lines
+field_name: se_pa_lines
 entity_type: node
 bundle: se_payment
 label: Payments

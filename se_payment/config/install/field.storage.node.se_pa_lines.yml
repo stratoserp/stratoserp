@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - se_payment_line
-id: node.field_pa_lines
-field_name: field_pa_lines
+id: node.se_pa_lines
+field_name: se_pa_lines
 entity_type: node
 type: se_payment_line
 settings:

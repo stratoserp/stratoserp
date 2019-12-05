@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_goods_receipt.field_bu_ref
-    - field.field.node.se_goods_receipt.field_co_ref
-    - field.field.node.se_goods_receipt.field_gr_id
-    - field.field.node.se_goods_receipt.field_gr_lines
-    - field.field.node.se_goods_receipt.field_gr_purchase_order_ref
-    - field.field.node.se_goods_receipt.field_gr_total
+    - field.field.node.se_goods_receipt.se_bu_ref
+    - field.field.node.se_goods_receipt.se_co_ref
+    - field.field.node.se_goods_receipt.se_gr_id
+    - field.field.node.se_goods_receipt.se_gr_lines
+    - field.field.node.se_goods_receipt.se_gr_purchase_order_ref
+    - field.field.node.se_goods_receipt.se_gr_total
     - field.field.node.se_goods_receipt.se_body
-    - field.field.node.se_goods_receipt.field_se_comments
-    - field.field.node.se_goods_receipt.field_status_ref
+    - field.field.node.se_goods_receipt.se_comments
+    - field.field.node.se_goods_receipt.se_status_ref
     - node.type.se_goods_receipt
   module:
     - comment
@@ -30,7 +30,7 @@ targetEntityType: node
 bundle: se_goods_receipt
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 1
     label: inline
     settings:
@@ -38,7 +38,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_co_ref:
+  se_co_ref:
     weight: 2
     label: inline
     settings:
@@ -46,21 +46,21 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_gr_id:
+  se_gr_id:
     weight: 4
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
-  field_gr_lines:
+  se_gr_lines:
     weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
-  field_gr_purchase_order_ref:
+  se_gr_purchase_order_ref:
     weight: 3
     label: above
     settings:
@@ -68,7 +68,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_gr_total:
+  se_gr_total:
     type: se_currency_formatter
     weight: 7
     region: bottom
@@ -82,7 +82,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: bottom
-  field_se_comments:
+  se_comments:
     weight: 9
     label: above
     settings:
@@ -91,7 +91,7 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: bottom
-  field_status_ref:
+  se_status_ref:
     type: entity_reference_label
     weight: 5
     region: second

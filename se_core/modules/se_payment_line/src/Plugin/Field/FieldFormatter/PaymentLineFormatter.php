@@ -76,7 +76,7 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
       $display_date = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
 
       $row = [
-        Link::fromTextAndUrl($entity->field_in_id->value, $uri),
+        Link::fromTextAndUrl($entity->se_in_id->value, $uri),
         Link::fromTextAndUrl($entity->title->value, $uri),
         \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->amount ?? 0),
         $display_date,

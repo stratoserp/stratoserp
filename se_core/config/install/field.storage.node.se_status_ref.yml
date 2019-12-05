@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - taxonomy
-id: node.field_status_ref
-field_name: field_status_ref
+id: node.se_status_ref
+field_name: se_status_ref
 entity_type: node
 type: entity_reference
 settings:

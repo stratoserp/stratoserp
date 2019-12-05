@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_sell_price
+    - field.storage.se_item.se_it_sell_price
     - se_item.se_item_type.se_recurring
   module:
     - se_accounting
-id: se_item.se_recurring.field_it_sell_price
-field_name: field_it_sell_price
+id: se_item.se_recurring.se_it_sell_price
+field_name: se_it_sell_price
 entity_type: se_item
 bundle: se_recurring
 label: Price

@@ -4,8 +4,8 @@ dependencies:
   module:
     - comment
     - text
-id: comment.field_tk_comment
-field_name: field_tk_comment
+id: comment.se_tk_comment
+field_name: se_tk_comment
 entity_type: comment
 type: text_long
 settings: {  }

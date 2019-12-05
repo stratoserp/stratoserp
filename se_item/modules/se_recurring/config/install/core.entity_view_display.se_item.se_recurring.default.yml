@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_recurring.field_it_code
-    - field.field.se_item.se_recurring.field_it_cost_price
-    - field.field.se_item.se_recurring.field_it_description
-    - field.field.se_item.se_recurring.field_it_item_ref
-    - field.field.se_item.se_recurring.field_it_manufacturer_ref
-    - field.field.se_item.se_recurring.field_it_product_type_ref
-    - field.field.se_item.se_recurring.field_it_recurring_period
-    - field.field.se_item.se_recurring.field_it_sale_category_ref
-    - field.field.se_item.se_recurring.field_it_sell_price
+    - field.field.se_item.se_recurring.se_it_code
+    - field.field.se_item.se_recurring.se_it_cost_price
+    - field.field.se_item.se_recurring.se_it_description
+    - field.field.se_item.se_recurring.se_it_item_ref
+    - field.field.se_item.se_recurring.se_it_manufacturer_ref
+    - field.field.se_item.se_recurring.se_it_product_type_ref
+    - field.field.se_item.se_recurring.se_it_recurring_period
+    - field.field.se_item.se_recurring.se_it_sale_category_ref
+    - field.field.se_item.se_recurring.se_it_sell_price
     - se_item.se_item_type.se_recurring
   module:
     - duration_field
@@ -27,7 +27,7 @@ targetEntityType: se_item
 bundle: se_recurring
 mode: default
 content:
-  field_it_code:
+  se_it_code:
     weight: 1
     label: inline
     settings:
@@ -35,21 +35,21 @@ content:
     third_party_settings: {  }
     type: string
     region: first
-  field_it_cost_price:
+  se_it_cost_price:
     weight: 4
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
     region: second
-  field_it_description:
+  se_it_description:
     weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: bottom
-  field_it_manufacturer_ref:
+  se_it_manufacturer_ref:
     weight: 7
     label: inline
     settings:
@@ -57,7 +57,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_it_product_type_ref:
+  se_it_product_type_ref:
     weight: 6
     label: inline
     settings:
@@ -65,7 +65,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_it_recurring_period:
+  se_it_recurring_period:
     weight: 3
     label: inline
     settings:
@@ -74,7 +74,7 @@ content:
     third_party_settings: {  }
     type: duration_human_display
     region: first
-  field_it_sale_category_ref:
+  se_it_sale_category_ref:
     weight: 5
     label: inline
     settings:
@@ -82,7 +82,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_it_sell_price:
+  se_it_sell_price:
     weight: 2
     label: inline
     settings: {  }
@@ -101,5 +101,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_it_item_ref: true
+  se_it_item_ref: true
   user_id: true

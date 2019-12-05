@@ -4,8 +4,8 @@ dependencies:
   module:
     - comment
     - se_information
-id: se_information.field_if_comments
-field_name: field_if_comments
+id: se_information.se_if_comments
+field_name: se_if_comments
 entity_type: se_information
 type: comment
 settings:

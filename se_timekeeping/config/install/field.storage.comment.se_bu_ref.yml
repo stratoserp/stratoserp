@@ -4,8 +4,8 @@ dependencies:
   module:
     - comment
     - node
-id: comment.field_bu_ref
-field_name: field_bu_ref
+id: comment.se_bu_ref
+field_name: se_bu_ref
 entity_type: comment
 type: entity_reference
 settings:

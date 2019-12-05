@@ -95,20 +95,20 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function timekeepingMarkItemsBilled($entity, $billed = TRUE): void {
-    $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if ($item_line->target_type === 'comment') {
         /** @var \Drupal\comment\Entity\Comment $comment */
         if ($comment = Comment::load($item_line->target_id)) {
           // TODO - Make a service for this?
-          if ($comment->field_tk_billed != $billed) {
-            $comment->field_tk_billed->value = $billed;
+          if ($comment->se_tk_billed != $billed) {
+            $comment->se_tk_billed->value = $billed;
             if ($billed) {
-              $comment->field_tk_invoice_ref->value = $entity->id();
+              $comment->se_tk_invoice_ref->value = $entity->id();
             }
             else {
-              unset($comment->field_tk_invoice_ref->value);
+              unset($comment->se_tk_invoice_ref->value);
             }
             $comment->save();
           }

@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_in_sent
+    - field.storage.node.se_in_sent
     - node.type.se_invoice
-id: node.se_invoice.field_in_sent
-field_name: field_in_sent
+id: node.se_invoice.se_in_sent
+field_name: se_in_sent
 entity_type: node
 bundle: se_invoice
 label: Sent

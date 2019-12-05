@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_re_parameters
-field_name: field_re_parameters
+id: node.se_re_parameters
+field_name: se_re_parameters
 entity_type: node
 type: string_long
 settings:

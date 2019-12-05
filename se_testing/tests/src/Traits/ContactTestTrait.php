@@ -47,8 +47,8 @@ trait ContactTestTrait {
     $node = $this->createNode([
       'type' => 'se_contact',
       'title' => $this->contact->name,
-      'field_co_phone' => $this->contact->phoneNumber,
-      'field_bu_ref' => ['target_id' => $test_customer->id()],
+      'se_co_phone' => $this->contact->phoneNumber,
+      'se_bu_ref' => ['target_id' => $test_customer->id()],
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());

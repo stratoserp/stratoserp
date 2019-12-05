@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_pa_id
+    - field.storage.node.se_pa_id
     - node.type.se_payment
   module:
     - serial
-id: node.se_payment.field_pa_id
-field_name: field_pa_id
+id: node.se_payment.se_pa_id
+field_name: se_pa_id
 entity_type: node
 bundle: se_payment
 label: 'Payment id'

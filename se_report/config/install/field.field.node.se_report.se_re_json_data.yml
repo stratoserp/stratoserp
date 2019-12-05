@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_re_json_data
+    - field.storage.node.se_re_json_data
     - node.type.se_report
   module:
     - json_field
-id: node.se_report.field_re_json_data
-field_name: field_re_json_data
+id: node.se_report.se_re_json_data
+field_name: se_re_json_data
 entity_type: node
 bundle: se_report
 label: 'Report json data'

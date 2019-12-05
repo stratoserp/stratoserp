@@ -57,10 +57,10 @@ trait QuoteTestTrait {
     $node = $this->createNode([
       'type' => 'se_quote',
       'title' => $this->quote->name,
-      'field_bu_ref' => ['target_id' => $test_customer->id()],
-      'field_qu_phone' => $this->quote->phoneNumber,
-      'field_qu_email' => $this->quote->companyEmail,
-      'field_qu_lines' => $lines,
+      'se_bu_ref' => ['target_id' => $test_customer->id()],
+      'se_qu_phone' => $this->quote->phoneNumber,
+      'se_qu_email' => $this->quote->companyEmail,
+      'se_qu_lines' => $lines,
     ]);
 
     $this->assertNotEqual($node, FALSE);

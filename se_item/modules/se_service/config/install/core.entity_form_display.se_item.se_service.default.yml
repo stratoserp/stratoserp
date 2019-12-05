@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_service.field_it_code
-    - field.field.se_item.se_service.field_it_cost_price
-    - field.field.se_item.se_service.field_it_description
-    - field.field.se_item.se_service.field_it_manufacturer_ref
-    - field.field.se_item.se_service.field_it_product_type_ref
-    - field.field.se_item.se_service.field_it_sale_category_ref
-    - field.field.se_item.se_service.field_it_sell_price
+    - field.field.se_item.se_service.se_it_code
+    - field.field.se_item.se_service.se_it_cost_price
+    - field.field.se_item.se_service.se_it_description
+    - field.field.se_item.se_service.se_it_manufacturer_ref
+    - field.field.se_item.se_service.se_it_product_type_ref
+    - field.field.se_item.se_service.se_it_sale_category_ref
+    - field.field.se_item.se_service.se_it_sell_price
     - se_item.se_item_type.se_service
   module:
     - chosen_field
@@ -25,7 +25,7 @@ targetEntityType: se_item
 bundle: se_service
 mode: default
 content:
-  field_it_code:
+  se_it_code:
     weight: 27
     settings:
       size: 60
@@ -33,13 +33,13 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_it_cost_price:
+  se_it_cost_price:
     weight: 31
     settings: {  }
     third_party_settings: {  }
     type: se_currency_widget
     region: content
-  field_it_description:
+  se_it_description:
     weight: 32
     settings:
       rows: 5
@@ -47,25 +47,25 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_it_manufacturer_ref:
+  se_it_manufacturer_ref:
     weight: 29
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
     region: content
-  field_it_product_type_ref:
+  se_it_product_type_ref:
     weight: 30
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
     region: content
-  field_it_sale_category_ref:
+  se_it_sale_category_ref:
     weight: 28
     settings: {  }
     third_party_settings: {  }
     type: chosen_select
     region: content
-  field_it_sell_price:
+  se_it_sell_price:
     weight: 26
     settings: {  }
     third_party_settings: {  }

@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_se_comments
+    - field.storage.node.se_comments
     - node.type.se_quote
   module:
     - comment
@@ -10,8 +10,8 @@ dependencies:
 third_party_settings:
   flat_comments:
     remove_reply_link: 0
-id: node.se_quote.field_se_comments
-field_name: field_se_comments
+id: node.se_quote.se_comments
+field_name: se_comments
 entity_type: node
 bundle: se_quote
 label: Comments

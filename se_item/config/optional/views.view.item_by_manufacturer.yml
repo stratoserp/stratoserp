@@ -80,14 +80,14 @@ display:
           summary: ''
           description: ''
           columns:
-            field_it_code: se_it_code
+            se_it_code: se_it_code
             name: name
             type: type
-            field_it_cost_price: se_it_cost_price
-            field_it_sell_price: se_it_sell_price
-            field_it_serial: se_it_serial
+            se_it_cost_price: se_it_cost_price
+            se_it_sell_price: se_it_sell_price
+            se_it_serial: se_it_serial
           info:
-            field_it_code:
+            se_it_code:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -108,21 +108,21 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-low
-            field_it_cost_price:
+            se_it_cost_price:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-low
-            field_it_sell_price:
+            se_it_sell_price:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_it_serial:
+            se_it_serial:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -134,9 +134,9 @@ display:
       row:
         type: 'entity:se_item'
       fields:
-        field_it_code:
+        se_it_code:
           id: se_it_code
-          table: se_item__field_it_code
+          table: se_item__se_it_code
           field: se_it_code
           relationship: none
           group_type: group
@@ -326,10 +326,10 @@ display:
           entity_type: se_item
           entity_field: type
           plugin_id: field
-        field_it_cost_price:
-          id: field_it_cost_price
-          table: se_item__field_it_cost_price
-          field: field_it_cost_price
+        se_it_cost_price:
+          id: se_it_cost_price
+          table: se_item__se_it_cost_price
+          field: se_it_cost_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -392,10 +392,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_it_sell_price:
-          id: field_it_sell_price
-          table: se_item__field_it_sell_price
-          field: field_it_sell_price
+        se_it_sell_price:
+          id: se_it_sell_price
+          table: se_item__se_it_sell_price
+          field: se_it_sell_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -458,10 +458,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_it_serial:
-          id: field_it_serial
-          table: se_item__field_it_serial
-          field: field_it_serial
+        se_it_serial:
+          id: se_it_serial
+          table: se_item__se_it_serial
+          field: se_it_serial
           relationship: none
           group_type: group
           admin_label: ''
@@ -600,10 +600,10 @@ display:
           entity_type: se_item
           entity_field: status
           plugin_id: boolean
-        field_it_code_value:
-          id: field_it_code_value
-          table: se_item__field_it_code
-          field: field_it_code_value
+        se_it_code_value:
+          id: se_it_code_value
+          table: se_item__se_it_code
+          field: se_it_code_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -612,11 +612,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_it_code_value_op
+            operator_id: se_it_code_value_op
             label: Code
             description: ''
             use_operator: false
-            operator: field_it_code_value_op
+            operator: se_it_code_value_op
             identifier: code
             required: false
             remember: false
@@ -733,10 +733,10 @@ display:
           entity_type: se_item
           entity_field: name
           plugin_id: string
-        field_it_serial_value:
-          id: field_it_serial_value
-          table: se_item__field_it_serial
-          field: field_it_serial_value
+        se_it_serial_value:
+          id: se_it_serial_value
+          table: se_item__se_it_serial
+          field: se_it_serial_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -745,11 +745,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_it_serial_value_op
+            operator_id: se_it_serial_value_op
             label: Serial
             description: ''
             use_operator: false
-            operator: field_it_serial_value_op
+            operator: se_it_serial_value_op
             identifier: serial
             required: false
             remember: false
@@ -783,10 +783,10 @@ display:
       empty: {  }
       relationships: {  }
       arguments:
-        field_it_manufacturer_ref_target_id:
-          id: field_it_manufacturer_ref_target_id
-          table: se_item__field_it_manufacturer_ref
-          field: field_it_manufacturer_ref_target_id
+        se_it_manufacturer_ref_target_id:
+          id: se_it_manufacturer_ref_target_id
+          table: se_item__se_it_manufacturer_ref
+          field: se_it_manufacturer_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''

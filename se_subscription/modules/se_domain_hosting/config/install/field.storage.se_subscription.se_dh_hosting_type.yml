@@ -4,8 +4,8 @@ dependencies:
   module:
     - options
     - se_subscription
-id: se_subscription.field_dh_hosting_type
-field_name: field_dh_hosting_type
+id: se_subscription.se_dh_hosting_type
+field_name: se_dh_hosting_type
 entity_type: se_subscription
 type: list_string
 settings:

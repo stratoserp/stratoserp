@@ -35,7 +35,7 @@ trait InformationTestTrait {
     $information = $this->createInformation([
       'type' => $type,
       'name' => $this->information->name,
-      'field_it_code' => $this->information->code,
+      'se_it_code' => $this->information->code,
     ]);
     $this->assertNotEqual($information, FALSE);
     $this->drupalGet($information->toUrl());

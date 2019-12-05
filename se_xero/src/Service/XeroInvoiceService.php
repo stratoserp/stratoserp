@@ -86,7 +86,7 @@ class XeroInvoiceService {
       'DueDate' => date('Y-m-d', $node->created->value + (86400 * 7)),
       'LineAmountTypes' => 'Inclusive',
       'Status' => 'SUBMITTED',
-      'InvoiceNumber' => $node->field_in_id->value,
+      'InvoiceNumber' => $node->se_in_id->value,
       'LineItems' => [],
     ];
     $invoices->appendItem($values);
@@ -96,8 +96,8 @@ class XeroInvoiceService {
     $invoices->get(0)->get('LineItems')->appendItem([
       'Description' => 'ERP Sale',
       'Quantity' => 1,
-      'UnitAmount' => $node->field_in_total->value,
-      'LineAmount' => $node->field_in_total->value,
+      'UnitAmount' => $node->se_in_total->value,
+      'LineAmount' => $node->se_in_total->value,
       'AccountCode' => $settings->get('invoice.account'),
     ]);
 
@@ -122,7 +122,7 @@ class XeroInvoiceService {
     }
 
     // If the invoice has zero value, bail.
-    if ($node->field_in_total->value == 0) {
+    if ($node->se_in_total->value == 0) {
       return FALSE;
     }
 

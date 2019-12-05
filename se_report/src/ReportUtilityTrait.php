@@ -142,7 +142,7 @@ trait ReportUtilityTrait {
     ]);
     if (!empty($this->configuration['business_ref'])
       && $business_node = Node::load($this->configuration['business_ref'])) {
-      $this->report_node->field_bu_ref->target_id = $business_node->id();
+      $this->report_node->se_bu_ref->target_id = $business_node->id();
     }
     $this->report_node->save();
 
@@ -171,7 +171,7 @@ trait ReportUtilityTrait {
             if (!$item = Item::load($item_line->target_id)) {
               continue 2;
             }
-            $item->field_it_code->value;
+            $item->se_it_code->value;
             $amount = $item_line->price->value * $item_line->quantity->value;
             $this->setStatisticsArray($data, $item_line, $amount);
             break;
@@ -184,7 +184,7 @@ trait ReportUtilityTrait {
             if (!$item = Item::load($item_line->target_id)) {
               continue 2;
             }
-            $item->field_it_code->value;
+            $item->se_it_code->value;
             $amount = $item_line->price->value * $item_line->quantity->value;
             $this->setStatisticsArray($data, $item_line, $amount);
             break;

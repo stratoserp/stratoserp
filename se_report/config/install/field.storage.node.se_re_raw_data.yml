@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_re_raw_data
-field_name: field_re_raw_data
+id: node.se_re_raw_data
+field_name: se_re_raw_data
 entity_type: node
 type: string_long
 settings:

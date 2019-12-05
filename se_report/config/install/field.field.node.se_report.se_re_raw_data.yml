@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_re_raw_data
+    - field.storage.node.se_re_raw_data
     - node.type.se_report
-id: node.se_report.field_re_raw_data
-field_name: field_re_raw_data
+id: node.se_report.se_re_raw_data
+field_name: se_re_raw_data
 entity_type: node
 bundle: se_report
 label: 'Raw output data'

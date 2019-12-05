@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - field.storage.comment.field_tk_item
+    - field.storage.comment.se_tk_item
     - se_item.se_item_type.se_service
-id: comment.se_timekeeping.field_tk_item
-field_name: field_tk_item
+id: comment.se_timekeeping.se_tk_item
+field_name: se_tk_item
 entity_type: comment
 bundle: se_timekeeping
 label: Type

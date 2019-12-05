@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_cu_balance
-    - field.storage.node.field_in_total
+    - field.storage.node.se_cu_balance
+    - field.storage.node.se_in_total
     - node.type.se_customer
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_status
@@ -95,8 +95,8 @@ display:
           columns:
             nid: nid
             title: title
-            field_in_total: field_in_total
-            field_cu_balance: field_cu_balance
+            se_in_total: se_in_total
+            se_cu_balance: se_cu_balance
           info:
             nid:
               sortable: false
@@ -112,21 +112,21 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_in_total:
+            se_in_total:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_cu_balance:
+            se_cu_balance:
               sortable: true
               default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          default: field_cu_balance
+          default: se_cu_balance
           empty_table: false
       row:
         type: fields
@@ -201,7 +201,7 @@ display:
           id: nid_1
           table: node_field_data
           field: nid
-          relationship: reverse__node__field_bu_ref
+          relationship: reverse__node__se_bu_ref
           group_type: group
           admin_label: ''
           label: 'Invoice ID'
@@ -310,11 +310,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_in_total:
-          id: field_in_total
-          table: node__field_in_total
-          field: field_in_total
-          relationship: reverse__node__field_bu_ref
+        se_in_total:
+          id: se_in_total
+          table: node__se_in_total
+          field: se_in_total
+          relationship: reverse__node__se_bu_ref
           group_type: group
           admin_label: ''
           label: Invoice
@@ -372,10 +372,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_cu_balance:
-          id: field_cu_balance
-          table: node__field_cu_balance
-          field: field_cu_balance
+        se_cu_balance:
+          id: se_cu_balance
+          table: node__se_cu_balance
+          field: se_cu_balance
           relationship: none
           group_type: group
           admin_label: ''
@@ -500,10 +500,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: string
-        field_cu_balance_value:
-          id: field_cu_balance_value
-          table: node__field_cu_balance
-          field: field_cu_balance_value
+        se_cu_balance_value:
+          id: se_cu_balance_value
+          table: node__se_cu_balance
+          field: se_cu_balance_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -542,11 +542,11 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: numeric
-        field_status_ref_target_id:
-          id: field_status_ref_target_id
-          table: node__field_status_ref
-          field: field_status_ref_target_id
-          relationship: reverse__node__field_bu_ref
+        se_status_ref_target_id:
+          id: se_status_ref_target_id
+          table: node__se_status_ref
+          field: se_status_ref_target_id
+          relationship: reverse__node__se_bu_ref
           group_type: group
           admin_label: ''
           operator: or
@@ -555,11 +555,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_status_ref_target_id_op
+            operator_id: se_status_ref_target_id_op
             label: Status
             description: ''
             use_operator: false
-            operator: field_status_ref_target_id_op
+            operator: se_status_ref_target_id_op
             identifier: status
             required: false
             remember: false
@@ -613,13 +613,13 @@ display:
       footer: {  }
       empty: {  }
       relationships:
-        reverse__node__field_bu_ref:
-          id: reverse__node__field_bu_ref
+        reverse__node__se_bu_ref:
+          id: reverse__node__se_bu_ref
           table: node_field_data
-          field: reverse__node__field_bu_ref
+          field: reverse__node__se_bu_ref
           relationship: none
           group_type: group
-          admin_label: field_bu_ref
+          admin_label: se_bu_ref
           required: false
           entity_type: node
           plugin_id: entity_reverse
@@ -637,8 +637,8 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_cu_balance'
-        - 'config:field.storage.node.field_in_total'
+        - 'config:field.storage.node.se_cu_balance'
+        - 'config:field.storage.node.se_in_total'
   page_1:
     display_plugin: page
     id: page_1
@@ -667,5 +667,5 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_cu_balance'
-        - 'config:field.storage.node.field_in_total'
+        - 'config:field.storage.node.se_cu_balance'
+        - 'config:field.storage.node.se_in_total'

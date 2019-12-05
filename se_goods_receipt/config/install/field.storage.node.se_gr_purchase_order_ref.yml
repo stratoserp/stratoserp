@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_gr_purchase_order_ref
-field_name: field_gr_purchase_order_ref
+id: node.se_gr_purchase_order_ref
+field_name: se_gr_purchase_order_ref
 entity_type: node
 type: entity_reference
 settings:

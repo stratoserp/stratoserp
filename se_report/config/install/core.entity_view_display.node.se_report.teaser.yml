@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_report.field_bu_ref
-    - field.field.node.se_report.field_re_json_data
-    - field.field.node.se_report.field_re_parameters
-    - field.field.node.se_report.field_re_raw_data
+    - field.field.node.se_report.se_bu_ref
+    - field.field.node.se_report.se_re_json_data
+    - field.field.node.se_report.se_re_parameters
+    - field.field.node.se_report.se_re_raw_data
     - field.field.node.se_report.se_body
     - node.type.se_report
   module:
@@ -44,7 +44,7 @@ hidden:
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics_customer: true
-  field_bu_ref: true
-  field_re_json_data: true
-  field_re_parameters: true
-  field_re_raw_data: true
+  se_bu_ref: true
+  se_re_json_data: true
+  se_re_parameters: true
+  se_re_raw_data: true

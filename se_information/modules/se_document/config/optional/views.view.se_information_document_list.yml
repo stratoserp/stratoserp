@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_information.field_bu_ref
+    - field.storage.se_information.se_bu_ref
     - se_information.se_information_type.se_document
     - system.menu.stratos-erp
     - user.role.administrator
@@ -87,7 +87,7 @@ display:
           description: ''
           columns:
             name: name
-            field_bu_ref: se_bu_ref
+            se_bu_ref: se_bu_ref
             type: type
           info:
             name:
@@ -97,7 +97,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_bu_ref:
+            se_bu_ref:
               align: ''
               separator: ''
               empty_column: false
@@ -179,9 +179,9 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
-        field_bu_ref:
+        se_bu_ref:
           id: se_bu_ref
-          table: se_information__field_bu_ref
+          table: se_information__se_bu_ref
           field: se_bu_ref
           relationship: none
           group_type: group
@@ -346,7 +346,7 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_information.field_bu_ref'
+        - 'config:field.storage.se_information.se_bu_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -373,4 +373,4 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_information.field_bu_ref'
+        - 'config:field.storage.se_information.se_bu_ref'

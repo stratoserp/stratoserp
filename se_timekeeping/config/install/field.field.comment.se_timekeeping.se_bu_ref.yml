@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - field.storage.comment.field_bu_ref
+    - field.storage.comment.se_bu_ref
     - node.type.se_customer
-id: comment.se_timekeeping.field_bu_ref
-field_name: field_bu_ref
+id: comment.se_timekeeping.se_bu_ref
+field_name: se_bu_ref
 entity_type: comment
 bundle: se_timekeeping
 label: Business

@@ -102,15 +102,15 @@ class NodeController extends ControllerBase {
     }
 
     $query = \Drupal::request()->query;
-    if (!$customer_id = $query->get('field_bu_ref')) {
+    if (!$customer_id = $query->get('se_bu_ref')) {
       return $this->entityFormBuilder()->getForm($node);
     }
 
     $total = 0;
     $query = \Drupal::entityQuery('node');
     $query->condition('type', 'se_invoice');
-    $query->condition('field_bu_ref', $customer_id);
-    $query->condition('field_status_ref', $open->id());
+    $query->condition('se_bu_ref', $customer_id);
+    $query->condition('se_status_ref', $open->id());
     $entity_ids = $query->execute();
 
     // Build a list of outstanding invoices and make payment lines out of them.
@@ -129,8 +129,8 @@ class NodeController extends ControllerBase {
       }
     }
 
-    $node->field_pa_lines = $lines;
-    $node->field_pa_total = $total;
+    $node->se_pa_lines = $lines;
+    $node->se_pa_total = $total;
 
     return $this->entityFormBuilder()->getForm($node);
   }

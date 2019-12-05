@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_in_transaction_type
-field_name: field_in_transaction_type
+id: node.se_in_transaction_type
+field_name: se_in_transaction_type
 entity_type: node
 type: boolean
 settings: {  }

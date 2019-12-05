@@ -47,8 +47,8 @@ trait GoodsReceiptTestTrait {
     $node = $this->createNode([
       'type' => 'se_goodsReceipt',
       'title' => $this->goodsReceipt->name,
-      'field_ti_phone' => $this->goodsReceipt->phoneNumber,
-      'field_ti_email' => $this->goodsReceipt->companyEmail,
+      'se_ti_phone' => $this->goodsReceipt->phoneNumber,
+      'se_ti_email' => $this->goodsReceipt->companyEmail,
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());

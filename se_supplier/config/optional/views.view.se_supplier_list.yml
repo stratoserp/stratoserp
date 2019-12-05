@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_su_email
-    - field.storage.node.field_su_homepage
-    - field.storage.node.field_su_phone
+    - field.storage.node.se_su_email
+    - field.storage.node.se_su_homepage
+    - field.storage.node.se_su_phone
     - node.type.se_supplier
     - system.menu.stratos-erp
     - user.role.administrator
@@ -148,9 +148,9 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_su_email:
+        se_su_email:
           id: se_su_email
-          table: node__field_su_email
+          table: node__se_su_email
           field: se_su_email
           relationship: none
           group_type: group
@@ -210,9 +210,9 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_su_homepage:
+        se_su_homepage:
           id: se_su_homepage
-          table: node__field_su_homepage
+          table: node__se_su_homepage
           field: se_su_homepage
           relationship: none
           group_type: group
@@ -277,9 +277,9 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_su_phone:
+        se_su_phone:
           id: se_su_phone
-          table: node__field_su_phone
+          table: node__se_su_phone
           field: se_su_phone
           relationship: none
           group_type: group
@@ -362,9 +362,9 @@ display:
           entity_field: type
           plugin_id: bundle
           group: 1
-        field_su_email_value:
+        se_su_email_value:
           id: se_su_email_value
-          table: node__field_su_email
+          table: node__se_su_email
           field: se_su_email_value
           relationship: none
           group_type: group
@@ -446,9 +446,9 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: string
-        field_su_phone_value:
+        se_su_phone_value:
           id: se_su_phone_value
-          table: node__field_su_phone
+          table: node__se_su_phone
           field: se_su_phone_value
           relationship: none
           group_type: group
@@ -487,10 +487,10 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: string
-        field_su_mobile_value:
-          id: field_su_mobile_value
-          table: node__field_su_mobile
-          field: field_su_mobile_value
+        se_su_mobile_value:
+          id: se_su_mobile_value
+          table: node__se_su_mobile
+          field: se_su_mobile_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -499,11 +499,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_su_mobile_value_op
+            operator_id: se_su_mobile_value_op
             label: Mobile
             description: ''
             use_operator: false
-            operator: field_su_mobile_value_op
+            operator: se_su_mobile_value_op
             identifier: mobile
             required: false
             remember: false
@@ -552,9 +552,9 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_su_email'
-        - 'config:field.storage.node.field_su_homepage'
-        - 'config:field.storage.node.field_su_phone'
+        - 'config:field.storage.node.se_su_email'
+        - 'config:field.storage.node.se_su_homepage'
+        - 'config:field.storage.node.se_su_phone'
   page_1:
     display_plugin: page
     id: page_1
@@ -582,6 +582,6 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_su_email'
-        - 'config:field.storage.node.field_su_homepage'
-        - 'config:field.storage.node.field_su_phone'
+        - 'config:field.storage.node.se_su_email'
+        - 'config:field.storage.node.se_su_homepage'
+        - 'config:field.storage.node.se_su_phone'

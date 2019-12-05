@@ -64,8 +64,8 @@ function se_item_theme_suggestions_se_item(array $variables) {
  */
 function se_item_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
   if (in_array($bundle, ErpCore::STRATOS_ITEM_BUNDLES, TRUE)) {
-    if (isset($fields['field_it_code'])) {
-      $fields['field_it_code']->addConstraint('UniqueItem', []);
+    if (isset($fields['se_it_code'])) {
+      $fields['se_it_code']->addConstraint('UniqueItem', []);
     }
   }
 }

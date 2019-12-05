@@ -112,18 +112,18 @@ function se_basic_setup_example_service_items() {
   $item = Item::create($defaults + [
     'name' => 'Technical service',
     'body' => 'Technical service by one of our qualified technicians.',
-    'field_it_code'  => [['value' => 'TECHSERVICE']],
-    'field_it_sell_price' => [['value' => 16000]],
-    'field_it_cost_price' => [['value' => 5500]],
+    'se_it_code'  => [['value' => 'TECHSERVICE']],
+    'se_it_sell_price' => [['value' => 16000]],
+    'se_it_cost_price' => [['value' => 5500]],
   ]);
   $item->save();
 
   $item = Item::create($defaults + [
     'name' => 'Workshop service',
     'body' => 'Workshop service by one of our qualified technicians.',
-    'field_it_code'  => [['value' => 'WORKSHOP']],
-    'field_it_sell_price' => [['value' => 12000]],
-    'field_it_cost_price' => [['value' => 5500]],
+    'se_it_code'  => [['value' => 'WORKSHOP']],
+    'se_it_sell_price' => [['value' => 12000]],
+    'se_it_cost_price' => [['value' => 5500]],
   ]);
   $item->save();
 }
@@ -138,20 +138,20 @@ function se_basic_setup_example_recurring_items() {
   $item = Item::create($defaults + [
     'name' => 'Domain name registration',
     'body' => 'Domain name registration - yearly.',
-    'field_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
-    'field_it_sell_price' => [['value' => 6000]],
-    'field_it_recurring_period' => [['duration' => 'P1Y']],
-    'field_it_cost_price' => [['value' => 2000]],
+    'se_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
+    'se_it_sell_price' => [['value' => 6000]],
+    'se_it_recurring_period' => [['duration' => 'P1Y']],
+    'se_it_cost_price' => [['value' => 2000]],
   ]);
   $item->save();
 
   $item = Item::create($defaults + [
     'name' => 'Domain name - biennually',
     'body' => 'Domain name - biennually.',
-    'field_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
-    'field_it_sell_price' => [['value' => 12000]],
-    'field_it_recurring_period' => [['duration' => 'P2Y']],
-    'field_it_cost_price' => [['value' => 4000]],
+    'se_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
+    'se_it_sell_price' => [['value' => 12000]],
+    'se_it_recurring_period' => [['duration' => 'P2Y']],
+    'se_it_cost_price' => [['value' => 4000]],
   ]);
   $item->save();
 
@@ -160,10 +160,10 @@ function se_basic_setup_example_recurring_items() {
   $item = Item::create($defaults + [
     'name' => 'Domain hosting',
     'body' => 'Domain hosting - yearly.',
-    'field_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
-    'field_it_sell_price' => [['value' => 24000]],
-    'field_it_recurring_period' => [['duration' => 'P1Y']],
-    'field_it_cost_price' => [['value' => 12000]],
+    'se_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
+    'se_it_sell_price' => [['value' => 24000]],
+    'se_it_recurring_period' => [['duration' => 'P1Y']],
+    'se_it_cost_price' => [['value' => 12000]],
   ]);
   $item->save();
 }
@@ -177,20 +177,20 @@ function se_basic_setup_example_stock_items() {
   $item = Item::create($defaults + [
     'name' => 'Microsoft KB600',
     'body' => 'Microsoft KB600',
-    'field_it_code'  => [['value' => 'MS-KB-600']],
-    'field_it_serial' => [['value' => '111111']],
-    'field_it_sell_price' => [['value' => 4500]],
-    'field_it_cost_price' => [['value' => 2500]],
+    'se_it_code'  => [['value' => 'MS-KB-600']],
+    'se_it_serial' => [['value' => '111111']],
+    'se_it_sell_price' => [['value' => 4500]],
+    'se_it_cost_price' => [['value' => 2500]],
   ]);
   $item->save();
 
   $item = Item::create($defaults + [
     'name' => 'Microsoft KB800',
     'body' => 'Microsoft KB800',
-    'field_it_code'  => [['value' => 'MS-KB-800']],
-    'field_it_serial' => [['value' => '222222']],
-    'field_it_sell_price' => [['value' => 5500]],
-    'field_it_cost_price' => [['value' => 3000]],
+    'se_it_code'  => [['value' => 'MS-KB-800']],
+    'se_it_serial' => [['value' => '222222']],
+    'se_it_sell_price' => [['value' => 5500]],
+    'se_it_cost_price' => [['value' => 3000]],
   ]);
   $item->save();
 
@@ -199,20 +199,20 @@ function se_basic_setup_example_stock_items() {
   $item = Item::create($defaults + [
     'name' => 'Lenovo 11e',
     'body' => 'Lenovo 11e',
-    'field_it_code'  => [['value' => 'LN-11E']],
-    'field_it_serial' => [['value' => '333333']],
-    'field_it_sell_price' => [['value' => 89900]],
-    'field_it_cost_price' => [['value' => 67900]],
+    'se_it_code'  => [['value' => 'LN-11E']],
+    'se_it_serial' => [['value' => '333333']],
+    'se_it_sell_price' => [['value' => 89900]],
+    'se_it_cost_price' => [['value' => 67900]],
   ]);
   $item->save();
 
   $item = Item::create($defaults + [
     'name' => 'Lenovo x280',
     'body' => 'Lenovo x280',
-    'field_it_code'  => [['value' => 'LN-X280']],
-    'field_it_serial' => [['value' => '444444']],
-    'field_it_sell_price' => [['value' => 129900]],
-    'field_it_cost_price' => [['value' => 100100]],
+    'se_it_code'  => [['value' => 'LN-X280']],
+    'se_it_serial' => [['value' => '444444']],
+    'se_it_sell_price' => [['value' => 129900]],
+    'se_it_cost_price' => [['value' => 100100]],
   ]);
   $item->save();
 
@@ -221,30 +221,30 @@ function se_basic_setup_example_stock_items() {
   $item = Item::create($defaults + [
     'name' => 'Canon PIXMA - Cyan',
     'body' => 'Canon PIXMA - Cyan',
-    'field_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
-    'field_it_serial' => [['value' => '555555']],
-    'field_it_sell_price' => [['value' => 149900]],
-    'field_it_cost_price' => [['value' => 100000]],
+    'se_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
+    'se_it_serial' => [['value' => '555555']],
+    'se_it_sell_price' => [['value' => 149900]],
+    'se_it_cost_price' => [['value' => 100000]],
   ]);
   $item->save();
 
   $item = Item::create($defaults + [
     'name' => 'Canon PIXMA - Yellow',
     'body' => 'Canon PIXMA - Yellow',
-    'field_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
-    'field_it_serial' => [['value' => '666666']],
-    'field_it_sell_price' => [['value' => 149900]],
-    'field_it_cost_price' => [['value' => 100000]],
+    'se_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
+    'se_it_serial' => [['value' => '666666']],
+    'se_it_sell_price' => [['value' => 149900]],
+    'se_it_cost_price' => [['value' => 100000]],
   ]);
   $item->save();
 
   $item = Item::create($defaults + [
     'name' => 'Canon PIXMA - Magenta',
     'body' => 'Canon PIXMA - Magenta',
-    'field_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
-    'field_it_serial' => [['value' => '777777']],
-    'field_it_sell_price' => [['value' => 149900]],
-    'field_it_cost_price' => [['value' => 100000]],
+    'se_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
+    'se_it_serial' => [['value' => '777777']],
+    'se_it_sell_price' => [['value' => 149900]],
+    'se_it_cost_price' => [['value' => 100000]],
   ]);
   $item->save();
 
@@ -279,9 +279,9 @@ function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $
     'langcode' => 'en',
     'uid' => '1',
     'status' => 1,
-    'field_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
-    'field_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
-    'field_it_product_type_ref'  => [['target_id' => $product_type->id()]],
+    'se_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
+    'se_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
+    'se_it_product_type_ref'  => [['target_id' => $product_type->id()]],
   ];
 
   return $defaults;

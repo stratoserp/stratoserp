@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.field_su_management_link
+    - field.storage.se_subscription.se_su_management_link
     - se_subscription.se_subscription_type.se_managed_service
   module:
     - link
-id: se_subscription.se_managed_service.field_su_management_link
-field_name: field_su_management_link
+id: se_subscription.se_managed_service.se_su_management_link
+field_name: se_su_management_link
 entity_type: se_subscription
 bundle: se_managed_service
 label: 'Management link'

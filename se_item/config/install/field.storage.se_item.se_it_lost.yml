@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - se_item
-id: se_item.field_it_lost
-field_name: field_it_lost
+id: se_item.se_it_lost
+field_name: se_it_lost
 entity_type: se_item
 type: boolean
 settings: {  }

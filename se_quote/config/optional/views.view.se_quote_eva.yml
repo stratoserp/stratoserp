@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_qu_id
-    - field.storage.node.field_qu_total
+    - field.storage.node.se_qu_id
+    - field.storage.node.se_qu_total
     - node.type.se_quote
     - taxonomy.vocabulary.se_status
     - user.role.administrator
@@ -94,9 +94,9 @@ display:
           columns:
             nid: nid
             created: created
-            field_qu_id: field_qu_id
+            se_qu_id: se_qu_id
             title: title
-            field_qu_total: field_qu_total
+            se_qu_total: se_qu_total
           info:
             nid:
               sortable: false
@@ -112,7 +112,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_qu_id:
+            se_qu_id:
               sortable: true
               default_sort_order: desc
               align: ''
@@ -126,7 +126,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_qu_total:
+            se_qu_total:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -276,10 +276,10 @@ display:
           entity_type: node
           entity_field: created
           plugin_id: field
-        field_qu_id:
-          id: field_qu_id
-          table: node__field_qu_id
-          field: field_qu_id
+        se_qu_id:
+          id: se_qu_id
+          table: node__se_qu_id
+          field: se_qu_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -405,10 +405,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_qu_total:
-          id: field_qu_total
-          table: node__field_qu_total
-          field: field_qu_total
+        se_qu_total:
+          id: se_qu_total
+          table: node__se_qu_total
+          field: se_qu_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -519,10 +519,10 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-        field_status_ref_target_id:
-          id: field_status_ref_target_id
-          table: node__field_status_ref
-          field: field_status_ref_target_id
+        se_status_ref_target_id:
+          id: se_status_ref_target_id
+          table: node__se_status_ref
+          field: se_status_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -531,11 +531,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_status_ref_target_id_op
+            operator_id: se_status_ref_target_id_op
             label: Status
             description: ''
             use_operator: false
-            operator: field_status_ref_target_id_op
+            operator: se_status_ref_target_id_op
             identifier: status
             required: false
             remember: false
@@ -587,10 +587,10 @@ display:
           plugin_id: text
       relationships: {  }
       arguments:
-        field_bu_ref_target_id:
-          id: field_bu_ref_target_id
-          table: node__field_bu_ref
-          field: field_bu_ref_target_id
+        se_bu_ref_target_id:
+          id: se_bu_ref_target_id
+          table: node__se_bu_ref
+          field: se_bu_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -634,8 +634,8 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_qu_id'
-        - 'config:field.storage.node.field_qu_total'
+        - 'config:field.storage.node.se_qu_id'
+        - 'config:field.storage.node.se_qu_total'
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -659,5 +659,5 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_qu_id'
-        - 'config:field.storage.node.field_qu_total'
+        - 'config:field.storage.node.se_qu_id'
+        - 'config:field.storage.node.se_qu_total'

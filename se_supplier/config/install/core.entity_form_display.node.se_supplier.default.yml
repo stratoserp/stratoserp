@@ -2,23 +2,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_supplier.field_su_address
-    - field.field.node.se_supplier.field_su_email
-    - field.field.node.se_supplier.field_su_email_format
-    - field.field.node.se_supplier.field_su_fax
-    - field.field.node.se_supplier.field_su_homepage
-    - field.field.node.se_supplier.field_su_id
-    - field.field.node.se_supplier.field_su_location
-    - field.field.node.se_supplier.field_su_mobile
-    - field.field.node.se_supplier.field_su_phone
-    - field.field.node.se_supplier.field_su_postal_address
-    - field.field.node.se_supplier.field_su_postal_postcode
-    - field.field.node.se_supplier.field_su_postal_state
-    - field.field.node.se_supplier.field_su_postal_suburb
-    - field.field.node.se_supplier.field_su_postcode
-    - field.field.node.se_supplier.field_su_state
-    - field.field.node.se_supplier.field_su_status
-    - field.field.node.se_supplier.field_su_suburb
+    - field.field.node.se_supplier.se_su_address
+    - field.field.node.se_supplier.se_su_email
+    - field.field.node.se_supplier.se_su_email_format
+    - field.field.node.se_supplier.se_su_fax
+    - field.field.node.se_supplier.se_su_homepage
+    - field.field.node.se_supplier.se_su_id
+    - field.field.node.se_supplier.se_su_location
+    - field.field.node.se_supplier.se_su_mobile
+    - field.field.node.se_supplier.se_su_phone
+    - field.field.node.se_supplier.se_su_postal_address
+    - field.field.node.se_supplier.se_su_postal_postcode
+    - field.field.node.se_supplier.se_su_postal_state
+    - field.field.node.se_supplier.se_su_postal_suburb
+    - field.field.node.se_supplier.se_su_postcode
+    - field.field.node.se_supplier.se_su_state
+    - field.field.node.se_supplier.se_su_status
+    - field.field.node.se_supplier.se_su_suburb
     - node.type.se_supplier
   module:
     - chosen_field
@@ -36,7 +36,7 @@ targetEntityType: node
 bundle: se_supplier
 mode: default
 content:
-  field_su_address:
+  se_su_address:
     type: string_textfield
     weight: 4
     region: first
@@ -44,7 +44,7 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  field_su_email:
+  se_su_email:
     type: email_default
     weight: 10
     region: second
@@ -52,20 +52,20 @@ content:
       placeholder: ''
       size: 25
     third_party_settings: {  }
-  field_su_email_format:
+  se_su_email_format:
     type: chosen_select
     weight: 11
     region: second
     settings: {  }
     third_party_settings: {  }
-  field_su_fax:
+  se_su_fax:
     type: telephone_default
     weight: 3
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
-  field_su_homepage:
+  se_su_homepage:
     type: link_default
     weight: 9
     region: second
@@ -73,27 +73,27 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-  field_su_id:
+  se_su_id:
     weight: 8
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
     region: second
-  field_su_mobile:
+  se_su_mobile:
     type: telephone_default
     weight: 2
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
-  field_su_phone:
+  se_su_phone:
     type: telephone_default
     weight: 1
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
-  field_su_postal_address:
+  se_su_postal_address:
     type: string_textfield
     weight: 13
     region: second
@@ -101,7 +101,7 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  field_su_postal_postcode:
+  se_su_postal_postcode:
     type: string_textfield
     weight: 16
     region: second
@@ -109,7 +109,7 @@ content:
       size: 10
       placeholder: ''
     third_party_settings: {  }
-  field_su_postal_state:
+  se_su_postal_state:
     type: string_textfield
     weight: 15
     region: second
@@ -117,7 +117,7 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  field_su_postal_suburb:
+  se_su_postal_suburb:
     type: string_textfield
     weight: 14
     region: second
@@ -125,7 +125,7 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  field_su_postcode:
+  se_su_postcode:
     type: string_textfield
     weight: 7
     region: first
@@ -133,7 +133,7 @@ content:
       size: 10
       placeholder: ''
     third_party_settings: {  }
-  field_su_state:
+  se_su_state:
     type: string_textfield
     weight: 6
     region: first
@@ -141,13 +141,13 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  field_su_status:
+  se_su_status:
     type: chosen_select
     weight: 12
     region: second
     settings: {  }
     third_party_settings: {  }
-  field_su_suburb:
+  se_su_suburb:
     type: string_textfield
     weight: 5
     region: first
@@ -168,7 +168,7 @@ hidden:
   extra_field_actions_field: true
   extra_field_meta_field: true
   extra_field_revision_field: true
-  field_su_location: true
+  se_su_location: true
   path: true
   promote: true
   status: true

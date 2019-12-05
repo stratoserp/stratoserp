@@ -97,8 +97,8 @@ class NodeController extends ControllerBase {
       $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item);
     }
 
-    $node->field_bu_ref->target_id = $source->field_bu_ref->target_id;
-    $node->field_co_ref->target_id = $source->field_co_ref->target_id;
+    $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    $node->se_co_ref->target_id = $source->se_co_ref->target_id;
     $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);
@@ -132,16 +132,16 @@ class NodeController extends ControllerBase {
     $query = \Drupal::entityQuery('comment');
 
     if ($source->bundle() !== 'se_customer') {
-      if (!$customer_id = $source->field_bu_ref->target_id) {
+      if (!$customer_id = $source->se_bu_ref->target_id) {
         return $this->entityFormBuilder()->getForm($node);
       }
     }
 
     $query->condition('comment_type', 'se_timekeeping');
-    $query->condition('field_bu_ref', $source->id());
-    $query->condition('field_tk_billed', TRUE, '<>');
-    $query->condition('field_tk_billable', TRUE);
-    $query->condition('field_tk_amount', 0, '>');
+    $query->condition('se_bu_ref', $source->id());
+    $query->condition('se_tk_billed', TRUE, '<>');
+    $query->condition('se_tk_billable', TRUE);
+    $query->condition('se_tk_amount', 0, '>');
     $entity_ids = $query->execute();
 
     $lines = [];
@@ -149,15 +149,15 @@ class NodeController extends ControllerBase {
       /** @var \Drupal\comment\Entity\Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
         /** @var \Drupal\se_item\Entity\Item $item */
-        if ($item = Item::load($comment->field_tk_item->target_id)) {
-          $price = $item->field_it_sell_price->value;
+        if ($item = Item::load($comment->se_tk_item->target_id)) {
+          $price = $item->se_it_sell_price->value;
         }
         $line = [
           'target_type' => 'se_item',
           'target_id' => $item->id(),
-          'quantity' => $comment->field_tk_amount->value,
-          'notes' => $comment->field_tk_comment->value,
-          'format' => $comment->field_tk_comment->format,
+          'quantity' => $comment->se_tk_amount->value,
+          'notes' => $comment->se_tk_comment->value,
+          'format' => $comment->se_tk_comment->format,
           'price' => $price,
         ];
         $lines[] = $line;
@@ -167,7 +167,7 @@ class NodeController extends ControllerBase {
     $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'} = $lines;
 
     if ($open) {
-      $node->field_status_ref->target_id = $open->id();
+      $node->se_status_ref->target_id = $open->id();
     }
 
     return $this->entityFormBuilder()->getForm($node);

@@ -4,7 +4,7 @@ dependencies:
   module:
     - duration_field
     - se_subscription
-id: se_subscription.field_su_period
+id: se_subscription.se_su_period
 field_name: se_su_period
 entity_type: se_subscription
 type: duration

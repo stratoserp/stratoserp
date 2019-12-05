@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.se_bill.se_bu_ref
     - field.field.node.se_bill.se_co_ref
     - field.field.node.se_bill.se_body
-    - field.field.node.se_bill.field_status_ref
+    - field.field.node.se_bill.se_status_ref
     - node.type.se_bill
   module:
     - field_layout
@@ -46,4 +46,4 @@ hidden:
   se_bi_total: true
   se_bu_ref: true
   se_co_ref: true
-  field_status_ref: true
+  se_status_ref: true

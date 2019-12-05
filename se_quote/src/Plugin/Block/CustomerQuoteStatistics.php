@@ -44,7 +44,7 @@ class CustomerQuoteStatistics extends BlockBase {
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'se_quote');
-        $query->condition('field_bu_ref', $node->id());
+        $query->condition('se_bu_ref', $node->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
@@ -54,7 +54,7 @@ class CustomerQuoteStatistics extends BlockBase {
         $total = 0;
         /** @var \Drupal\node\Entity\Node $quote */
         foreach ($quotes as $quote) {
-          $total += $quote->field_in_total->value;
+          $total += $quote->se_in_total->value;
         }
         $month_data[] = $total;
         $fg_colors[] = $fg_color;

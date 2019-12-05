@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_contact.field_bu_ref
-    - field.field.node.se_contact.field_co_email
-    - field.field.node.se_contact.field_co_id
-    - field.field.node.se_contact.field_co_mobile
-    - field.field.node.se_contact.field_co_phone
-    - field.field.node.se_contact.field_co_type_ref
+    - field.field.node.se_contact.se_bu_ref
+    - field.field.node.se_contact.se_co_email
+    - field.field.node.se_contact.se_co_id
+    - field.field.node.se_contact.se_co_mobile
+    - field.field.node.se_contact.se_co_phone
+    - field.field.node.se_contact.se_co_type_ref
     - node.type.se_contact
   module:
     - field_layout
@@ -23,7 +23,7 @@ targetEntityType: node
 bundle: se_contact
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 1
     settings:
       match_operator: CONTAINS
@@ -32,7 +32,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  field_co_email:
+  se_co_email:
     weight: 6
     settings:
       size: 25
@@ -40,27 +40,27 @@ content:
     third_party_settings: {  }
     type: email_default
     region: second
-  field_co_id:
+  se_co_id:
     weight: 4
     settings: {  }
     third_party_settings: {  }
     type: serial_default_widget
     region: second
-  field_co_mobile:
+  se_co_mobile:
     weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: second
-  field_co_phone:
+  se_co_phone:
     weight: 3
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: first
-  field_co_type_ref:
+  se_co_type_ref:
     weight: 2
     settings:
       match_operator: CONTAINS

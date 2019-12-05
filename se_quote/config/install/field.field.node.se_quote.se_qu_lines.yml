@@ -3,15 +3,15 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - field.storage.node.field_qu_lines
+    - field.storage.node.se_qu_lines
     - node.type.se_quote
     - se_item.se_item_type.se_recurring
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
   module:
     - se_item_line
-id: node.se_quote.field_qu_lines
-field_name: field_qu_lines
+id: node.se_quote.se_qu_lines
+field_name: se_qu_lines
 entity_type: node
 bundle: se_quote
 label: Items

@@ -43,8 +43,8 @@ trait SupplierTestTrait {
     $node = $this->createNode([
       'type' => 'se_supplier',
       'title' => $this->supplier->name,
-      'field_su_phone' => $this->supplier->phoneNumber,
-      'field_su_email' => $this->supplier->companyEmail,
+      'se_su_phone' => $this->supplier->phoneNumber,
+      'se_su_email' => $this->supplier->companyEmail,
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());

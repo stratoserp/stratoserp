@@ -3,14 +3,14 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - field.field.comment.se_timekeeping.field_bu_ref
-    - field.field.comment.se_timekeeping.field_tk_amount
-    - field.field.comment.se_timekeeping.field_tk_billable
-    - field.field.comment.se_timekeeping.field_tk_billed
-    - field.field.comment.se_timekeeping.field_tk_comment
-    - field.field.comment.se_timekeeping.field_tk_date
-    - field.field.comment.se_timekeeping.field_tk_item
-    - field.field.comment.se_timekeeping.field_tk_review
+    - field.field.comment.se_timekeeping.se_bu_ref
+    - field.field.comment.se_timekeeping.se_tk_amount
+    - field.field.comment.se_timekeeping.se_tk_billable
+    - field.field.comment.se_timekeeping.se_tk_billed
+    - field.field.comment.se_timekeeping.se_tk_comment
+    - field.field.comment.se_timekeeping.se_tk_date
+    - field.field.comment.se_timekeeping.se_tk_item
+    - field.field.comment.se_timekeeping.se_tk_review
   module:
     - datetime
     - field_layout
@@ -31,7 +31,7 @@ content:
     region: second
     settings: {  }
     third_party_settings: {  }
-  field_bu_ref:
+  se_bu_ref:
     type: entity_reference_autocomplete
     weight: 3
     region: second
@@ -40,27 +40,27 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_tk_amount:
+  se_tk_amount:
     weight: 10
     settings: {  }
     third_party_settings: {  }
     type: TimeWidget
     region: first
-  field_tk_billable:
+  se_tk_billable:
     weight: 7
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: second
-  field_tk_billed:
+  se_tk_billed:
     weight: 8
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: second
-  field_tk_comment:
+  se_tk_comment:
     weight: 1
     settings:
       rows: 6
@@ -68,13 +68,13 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: first
-  field_tk_date:
+  se_tk_date:
     weight: 6
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: second
-  field_tk_item:
+  se_tk_item:
     weight: 5
     settings:
       match_operator: CONTAINS
@@ -83,7 +83,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second
-  field_tk_review:
+  se_tk_review:
     weight: 9
     settings:
       display_label: true

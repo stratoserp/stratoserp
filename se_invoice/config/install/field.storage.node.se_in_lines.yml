@@ -6,8 +6,8 @@ dependencies:
     - node
     - se_item
     - se_item_line
-id: node.field_in_lines
-field_name: field_in_lines
+id: node.se_in_lines
+field_name: se_in_lines
 entity_type: node
 type: se_item_line
 settings:

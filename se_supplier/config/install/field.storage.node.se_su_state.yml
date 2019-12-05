@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_su_state
-field_name: field_su_state
+id: node.se_su_state
+field_name: se_su_state
 entity_type: node
 type: string
 settings:

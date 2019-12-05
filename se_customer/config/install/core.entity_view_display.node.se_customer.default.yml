@@ -2,24 +2,24 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_customer.field_cu_address
-    - field.field.node.se_customer.field_cu_balance
-    - field.field.node.se_customer.field_cu_email
-    - field.field.node.se_customer.field_cu_email_format
-    - field.field.node.se_customer.field_cu_fax
-    - field.field.node.se_customer.field_cu_homepage
-    - field.field.node.se_customer.field_cu_id
-    - field.field.node.se_customer.field_cu_location
-    - field.field.node.se_customer.field_cu_mobile
-    - field.field.node.se_customer.field_cu_phone
-    - field.field.node.se_customer.field_cu_postal_address
-    - field.field.node.se_customer.field_cu_postal_postcode
-    - field.field.node.se_customer.field_cu_postal_state
-    - field.field.node.se_customer.field_cu_postal_suburb
-    - field.field.node.se_customer.field_cu_postcode
-    - field.field.node.se_customer.field_cu_state
-    - field.field.node.se_customer.field_cu_status
-    - field.field.node.se_customer.field_cu_suburb
+    - field.field.node.se_customer.se_cu_address
+    - field.field.node.se_customer.se_cu_balance
+    - field.field.node.se_customer.se_cu_email
+    - field.field.node.se_customer.se_cu_email_format
+    - field.field.node.se_customer.se_cu_fax
+    - field.field.node.se_customer.se_cu_homepage
+    - field.field.node.se_customer.se_cu_id
+    - field.field.node.se_customer.se_cu_location
+    - field.field.node.se_customer.se_cu_mobile
+    - field.field.node.se_customer.se_cu_phone
+    - field.field.node.se_customer.se_cu_postal_address
+    - field.field.node.se_customer.se_cu_postal_postcode
+    - field.field.node.se_customer.se_cu_postal_state
+    - field.field.node.se_customer.se_cu_postal_suburb
+    - field.field.node.se_customer.se_cu_postcode
+    - field.field.node.se_customer.se_cu_state
+    - field.field.node.se_customer.se_cu_status
+    - field.field.node.se_customer.se_cu_suburb
     - node.type.se_customer
   module:
     - field_group
@@ -88,23 +88,23 @@ third_party_settings:
       region: content
     group_cu_tab_details:
       children:
-        - field_cu_id
-        - field_cu_address
-        - field_cu_suburb
-        - field_cu_state
-        - field_cu_postcode
-        - field_cu_postal_address
-        - field_cu_postal_suburb
-        - field_cu_postal_state
-        - field_cu_postal_postcode
-        - field_cu_phone
-        - field_cu_mobile
-        - field_cu_email
-        - field_cu_fax
-        - field_cu_email_format
-        - field_cu_homepage
-        - field_cu_status
-        - field_cu_balance
+        - se_cu_id
+        - se_cu_address
+        - se_cu_suburb
+        - se_cu_state
+        - se_cu_postcode
+        - se_cu_postal_address
+        - se_cu_postal_suburb
+        - se_cu_postal_state
+        - se_cu_postal_postcode
+        - se_cu_phone
+        - se_cu_mobile
+        - se_cu_email
+        - se_cu_fax
+        - se_cu_email_format
+        - se_cu_homepage
+        - se_cu_status
+        - se_cu_balance
       parent_name: group_cu_tabs
       weight: 5
       format_type: tab
@@ -117,7 +117,7 @@ third_party_settings:
       region: content
     group_cu_tab_location:
       children:
-        - field_cu_location
+        - se_cu_location
       parent_name: group_cu_tabs
       weight: 6
       format_type: tab
@@ -261,7 +261,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_cu_address:
+  se_cu_address:
     type: string
     weight: 2
     region: content
@@ -269,28 +269,28 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_cu_balance:
+  se_cu_balance:
     weight: 17
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
     region: content
-  field_cu_email:
+  se_cu_email:
     type: email_mailto
     weight: 12
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
-  field_cu_email_format:
+  se_cu_email_format:
     type: list_default
     weight: 14
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
-  field_cu_fax:
+  se_cu_fax:
     type: telephone_link
     weight: 13
     region: content
@@ -298,7 +298,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-  field_cu_homepage:
+  se_cu_homepage:
     type: link
     weight: 15
     region: content
@@ -310,14 +310,14 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-  field_cu_id:
+  se_cu_id:
     type: serial_default_formatter
     weight: 1
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
-  field_cu_location:
+  se_cu_location:
     weight: 10
     label: inline
     settings:
@@ -350,7 +350,7 @@ content:
     third_party_settings: {  }
     type: geolocation_map
     region: content
-  field_cu_mobile:
+  se_cu_mobile:
     weight: 11
     label: inline
     settings:
@@ -358,7 +358,7 @@ content:
     third_party_settings: {  }
     type: telephone_link
     region: content
-  field_cu_phone:
+  se_cu_phone:
     type: telephone_link
     weight: 10
     region: content
@@ -366,7 +366,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-  field_cu_postal_address:
+  se_cu_postal_address:
     type: string
     weight: 6
     region: content
@@ -374,7 +374,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_cu_postal_postcode:
+  se_cu_postal_postcode:
     type: string
     weight: 9
     region: content
@@ -382,7 +382,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_cu_postal_state:
+  se_cu_postal_state:
     type: string
     weight: 8
     region: content
@@ -390,7 +390,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_cu_postal_suburb:
+  se_cu_postal_suburb:
     type: string
     weight: 7
     region: content
@@ -398,7 +398,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_cu_postcode:
+  se_cu_postcode:
     type: string
     weight: 5
     region: content
@@ -406,7 +406,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_cu_state:
+  se_cu_state:
     type: string
     weight: 4
     region: content
@@ -414,14 +414,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_cu_status:
+  se_cu_status:
     type: list_default
     weight: 16
     region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
-  field_cu_suburb:
+  se_cu_suburb:
     type: string
     weight: 3
     region: content

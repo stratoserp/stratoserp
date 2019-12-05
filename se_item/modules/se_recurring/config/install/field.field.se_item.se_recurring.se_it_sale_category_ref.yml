@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.field_it_sale_category_ref
+    - field.storage.se_item.se_it_sale_category_ref
     - se_item.se_item_type.se_recurring
     - taxonomy.vocabulary.se_sale_category
-id: se_item.se_recurring.field_it_sale_category_ref
+id: se_item.se_recurring.se_it_sale_category_ref
 field_name: se_it_sale_category_ref
 entity_type: se_item
 bundle: se_recurring

@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - user
-id: node.field_ti_owner_ref
-field_name: field_ti_owner_ref
+id: node.se_ti_owner_ref
+field_name: se_ti_owner_ref
 entity_type: node
 type: entity_reference
 settings:

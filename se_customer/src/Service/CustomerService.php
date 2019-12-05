@@ -55,7 +55,7 @@ class CustomerService {
       return $node;
     }
 
-    if ($customers = $node->field_bu_ref->referencedEntities()) {
+    if ($customers = $node->se_bu_ref->referencedEntities()) {
       return reset($customers);
     }
 
@@ -72,7 +72,7 @@ class CustomerService {
    *   The balance for the customer in cents.
    */
   public function getBalance(Node $node) {
-    return (int)$node->field_cu_balance->value;
+    return (int)$node->se_cu_balance->value;
   }
 
   /**
@@ -87,7 +87,7 @@ class CustomerService {
    *   The balance of the customers account afterwards.
    */
   public function setBalance(Node $node, int $value) {
-    $node->field_cu_balance->value = $value;
+    $node->se_cu_balance->value = $value;
     try {
       $node->save();
     }
@@ -109,7 +109,7 @@ class CustomerService {
    *   The balance of the customers account afterwards.
    */
   public function adjustBalance(Node $node, int $value) {
-    $node->field_cu_balance->value += $value;
+    $node->se_cu_balance->value += $value;
     try {
       $node->save();
     }

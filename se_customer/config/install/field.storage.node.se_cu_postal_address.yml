@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_cu_postal_address
-field_name: field_cu_postal_address
+id: node.se_cu_postal_address
+field_name: se_cu_postal_address
 entity_type: node
 type: string
 settings:

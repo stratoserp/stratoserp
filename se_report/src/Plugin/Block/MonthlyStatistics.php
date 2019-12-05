@@ -36,8 +36,8 @@ class MonthlyStatistics extends BlockBase {
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = $connection->select('node_field_data', 'nfd');
         $query->fields('nfd', ['type']);
-        $query->leftjoin('node__field_in_total', 'nft', 'nfd.nid = nft.entity_id AND nfd.vid = nft.revision_id');
-        $query->addExpression('SUM(field_in_total_value)', 'total');
+        $query->leftjoin('node__se_in_total', 'nft', 'nfd.nid = nft.entity_id AND nfd.vid = nft.revision_id');
+        $query->addExpression('SUM(se_in_total_value)', 'total');
         $query->condition('nfd.type', 'se_invoice');
         $query->condition('nfd.created', $timestamps['start'], '>=');
         $query->condition('nfd.created', $timestamps['end'], '<');

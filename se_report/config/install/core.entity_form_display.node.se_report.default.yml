@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_report.field_bu_ref
-    - field.field.node.se_report.field_re_json_data
-    - field.field.node.se_report.field_re_parameters
-    - field.field.node.se_report.field_re_raw_data
+    - field.field.node.se_report.se_bu_ref
+    - field.field.node.se_report.se_re_json_data
+    - field.field.node.se_report.se_re_parameters
+    - field.field.node.se_report.se_re_raw_data
     - field.field.node.se_report.se_body
     - node.type.se_report
   module:
@@ -29,7 +29,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_bu_ref:
+  se_bu_ref:
     weight: 126
     settings:
       match_operator: CONTAINS
@@ -38,7 +38,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_re_json_data:
+  se_re_json_data:
     weight: 125
     settings:
       rows: 5
@@ -46,7 +46,7 @@ content:
     third_party_settings: {  }
     type: json_textarea
     region: content
-  field_re_parameters:
+  se_re_parameters:
     weight: 123
     settings:
       rows: 5
@@ -54,7 +54,7 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
-  field_re_raw_data:
+  se_re_raw_data:
     weight: 124
     settings:
       rows: 5

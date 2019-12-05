@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_ti_open_date
-field_name: field_ti_open_date
+id: node.se_ti_open_date
+field_name: se_ti_open_date
 entity_type: node
 type: timestamp
 settings: {  }

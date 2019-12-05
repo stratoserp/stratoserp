@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_co_ref
+    - field.storage.node.se_co_ref
     - node.type.se_contact
     - node.type.se_purchase_order
-id: node.se_purchase_order.field_co_ref
-field_name: field_co_ref
+id: node.se_purchase_order.se_co_ref
+field_name: se_co_ref
 entity_type: node
 bundle: se_purchase_order
 label: Contact

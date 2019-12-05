@@ -48,11 +48,11 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if (!empty($entity->field_it_serial->value)) {
+    if (!empty($entity->se_it_serial->value)) {
       $query = \Drupal::entityQuery('se_item')
         ->condition('type', 'se_stock')
-        ->notExists('field_it_serial')
-        ->condition('field_it_code', $entity->field_it_code->value);
+        ->notExists('se_it_serial')
+        ->condition('se_it_code', $entity->se_it_code->value);
       $items = $query->execute();
 
       /** @var \Drupal\se_item\Entity\Item $stock_item */
@@ -61,19 +61,19 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
           'type' => 'se_stock',
           'user_id' => $entity->user_id->target_id,
           'name' => $entity->name->value,
-          'field_it_code' => ['value' => $entity->field_it_code->value],
-          'field_it_serial' => ['value' => ''],
-          'field_it_sell_price' => ['value' => $entity->field_it_sell_price->value],
-          'field_it_cost_price' => ['value' => $entity->field_it_cost_price->value],
+          'se_it_code' => ['value' => $entity->se_it_code->value],
+          'se_it_serial' => ['value' => ''],
+          'se_it_sell_price' => ['value' => $entity->se_it_sell_price->value],
+          'se_it_cost_price' => ['value' => $entity->se_it_cost_price->value],
         ]);
-        if (isset($entity->field_it_product_type_ref)) {
-          $stock_item->field_it_product_type_ref->target_id = $entity->field_it_product_type_ref->target_id;
+        if (isset($entity->se_it_product_type_ref)) {
+          $stock_item->se_it_product_type_ref->target_id = $entity->se_it_product_type_ref->target_id;
         }
-        if (isset($entity->field_it_manufacturer_ref)) {
-          $stock_item->field_it_manufacturer_ref->target_id = $entity->field_it_manufacturer_ref->target_id;
+        if (isset($entity->se_it_manufacturer_ref)) {
+          $stock_item->se_it_manufacturer_ref->target_id = $entity->se_it_manufacturer_ref->target_id;
         }
-        if (isset($entity->field_it_sale_category_ref)) {
-          $stock_item->field_it_sale_category_ref->target_id = $entity->field_it_sale_category_ref->target_id;
+        if (isset($entity->se_it_sale_category_ref)) {
+          $stock_item->se_it_sale_category_ref->target_id = $entity->se_it_sale_category_ref->target_id;
         }
         $stock_item->save();
       }
@@ -83,7 +83,7 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
     }
 
     if (!empty($stock_item)) {
-      $entity->field_it_item_ref->target_id = $stock_item->id();
+      $entity->se_it_item_ref->target_id = $stock_item->id();
     }
 
   }

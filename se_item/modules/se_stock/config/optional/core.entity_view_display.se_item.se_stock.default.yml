@@ -2,22 +2,22 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_stock.field_it_code
-    - field.field.se_item.se_stock.field_it_cost_price
-    - field.field.se_item.se_stock.field_it_description
-    - field.field.se_item.se_stock.field_it_goods_receipt_ref
-    - field.field.se_item.se_stock.field_it_images
-    - field.field.se_item.se_stock.field_it_invoice_ref
-    - field.field.se_item.se_stock.field_it_item_ref
-    - field.field.se_item.se_stock.field_it_lost
-    - field.field.se_item.se_stock.field_it_manufacturer_ref
-    - field.field.se_item.se_stock.field_it_product_type_ref
-    - field.field.se_item.se_stock.field_it_purchase_order_ref
-    - field.field.se_item.se_stock.field_it_sale_category_ref
-    - field.field.se_item.se_stock.field_it_sale_date
-    - field.field.se_item.se_stock.field_it_sale_price
-    - field.field.se_item.se_stock.field_it_sell_price
-    - field.field.se_item.se_stock.field_it_serial
+    - field.field.se_item.se_stock.se_it_code
+    - field.field.se_item.se_stock.se_it_cost_price
+    - field.field.se_item.se_stock.se_it_description
+    - field.field.se_item.se_stock.se_it_goods_receipt_ref
+    - field.field.se_item.se_stock.se_it_images
+    - field.field.se_item.se_stock.se_it_invoice_ref
+    - field.field.se_item.se_stock.se_it_item_ref
+    - field.field.se_item.se_stock.se_it_lost
+    - field.field.se_item.se_stock.se_it_manufacturer_ref
+    - field.field.se_item.se_stock.se_it_product_type_ref
+    - field.field.se_item.se_stock.se_it_purchase_order_ref
+    - field.field.se_item.se_stock.se_it_sale_category_ref
+    - field.field.se_item.se_stock.se_it_sale_date
+    - field.field.se_item.se_stock.se_it_sale_price
+    - field.field.se_item.se_stock.se_it_sell_price
+    - field.field.se_item.se_stock.se_it_serial
     - se_item.se_item_type.se_stock
   module:
     - datetime
@@ -35,7 +35,7 @@ targetEntityType: se_item
 bundle: se_stock
 mode: default
 content:
-  field_it_code:
+  se_it_code:
     type: string
     weight: 4
     region: first
@@ -43,21 +43,21 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_it_cost_price:
+  se_it_cost_price:
     type: se_currency_formatter
     weight: 13
     region: second
     label: inline
     settings: {  }
     third_party_settings: {  }
-  field_it_description:
+  se_it_description:
     weight: 15
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: bottom
-  field_it_goods_receipt_ref:
+  se_it_goods_receipt_ref:
     weight: 12
     label: inline
     settings:
@@ -65,7 +65,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_it_images:
+  se_it_images:
     type: image
     weight: 16
     region: bottom
@@ -74,7 +74,7 @@ content:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
-  field_it_invoice_ref:
+  se_it_invoice_ref:
     type: entity_reference_label
     weight: 14
     region: second
@@ -82,7 +82,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  field_it_item_ref:
+  se_it_item_ref:
     weight: 10
     label: inline
     settings:
@@ -90,7 +90,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_it_lost:
+  se_it_lost:
     type: boolean
     weight: 6
     region: first
@@ -100,7 +100,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-  field_it_manufacturer_ref:
+  se_it_manufacturer_ref:
     type: entity_reference_label
     weight: 2
     region: top
@@ -108,7 +108,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  field_it_product_type_ref:
+  se_it_product_type_ref:
     type: entity_reference_label
     weight: 1
     region: top
@@ -116,7 +116,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  field_it_purchase_order_ref:
+  se_it_purchase_order_ref:
     type: entity_reference_label
     weight: 11
     region: second
@@ -124,7 +124,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  field_it_sale_category_ref:
+  se_it_sale_category_ref:
     type: entity_reference_label
     weight: 3
     region: top
@@ -132,7 +132,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  field_it_sale_date:
+  se_it_sale_date:
     type: datetime_default
     weight: 9
     region: first
@@ -141,21 +141,21 @@ content:
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
-  field_it_sale_price:
+  se_it_sale_price:
     type: se_currency_formatter
     weight: 8
     region: first
     label: inline
     settings: {  }
     third_party_settings: {  }
-  field_it_sell_price:
+  se_it_sell_price:
     type: se_currency_formatter
     weight: 7
     region: first
     label: inline
     settings: {  }
     third_party_settings: {  }
-  field_it_serial:
+  se_it_serial:
     type: string
     weight: 5
     region: first

@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - telephone
-id: node.field_cu_phone
-field_name: field_cu_phone
+id: node.se_cu_phone
+field_name: se_cu_phone
 entity_type: node
 type: telephone
 settings: {  }

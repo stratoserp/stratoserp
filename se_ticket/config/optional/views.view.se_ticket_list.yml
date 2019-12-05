@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.storage.node.field_bu_ref
-    - field.storage.node.field_ti_id
-    - field.storage.node.field_ti_owner_ref
-    - field.storage.node.field_ti_status_ref
+    - field.storage.node.se_bu_ref
+    - field.storage.node.se_ti_id
+    - field.storage.node.se_ti_owner_ref
+    - field.storage.node.se_ti_status_ref
     - node.type.se_ticket
     - system.menu.stratos-erp
     - user.role.administrator
@@ -94,11 +94,11 @@ display:
           columns:
             nid: nid
             created: created
-            field_ti_id: field_ti_id
+            se_ti_id: se_ti_id
             title: title
-            field_bu_ref: field_bu_ref
-            field_ti_owner_ref: field_ti_owner_ref
-            field_ti_status_ref: field_ti_status_ref
+            se_bu_ref: se_bu_ref
+            se_ti_owner_ref: se_ti_owner_ref
+            se_ti_status_ref: se_ti_status_ref
           info:
             nid:
               sortable: false
@@ -114,7 +114,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_ti_id:
+            se_ti_id:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -128,17 +128,17 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_bu_ref:
+            se_bu_ref:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_ti_owner_ref:
+            se_ti_owner_ref:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_ti_status_ref:
+            se_ti_status_ref:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -285,10 +285,10 @@ display:
           entity_type: node
           entity_field: created
           plugin_id: field
-        field_ti_id:
-          id: field_ti_id
-          table: node__field_ti_id
-          field: field_ti_id
+        se_ti_id:
+          id: se_ti_id
+          table: node__se_ti_id
+          field: se_ti_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -412,10 +412,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_bu_ref:
-          id: field_bu_ref
-          table: node__field_bu_ref
-          field: field_bu_ref
+        se_bu_ref:
+          id: se_bu_ref
+          table: node__se_bu_ref
+          field: se_bu_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -475,10 +475,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_ti_status_ref:
-          id: field_ti_status_ref
-          table: node__field_ti_status_ref
-          field: field_ti_status_ref
+        se_ti_status_ref:
+          id: se_ti_status_ref
+          table: node__se_ti_status_ref
+          field: se_ti_status_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -538,10 +538,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_ti_owner_ref:
-          id: field_ti_owner_ref
-          table: node__field_ti_owner_ref
-          field: field_ti_owner_ref
+        se_ti_owner_ref:
+          id: se_ti_owner_ref
+          table: node__se_ti_owner_ref
+          field: se_ti_owner_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -670,7 +670,7 @@ display:
           id: title
           table: node_field_data
           field: title
-          relationship: field_bu_ref
+          relationship: se_bu_ref
           group_type: group
           admin_label: ''
           operator: contains
@@ -713,7 +713,7 @@ display:
           id: uid
           table: users_field_data
           field: uid
-          relationship: field_ti_owner_ref
+          relationship: se_ti_owner_ref
           group_type: group
           admin_label: ''
           operator: in
@@ -774,22 +774,22 @@ display:
       footer: {  }
       empty: {  }
       relationships:
-        field_bu_ref:
-          id: field_bu_ref
-          table: node__field_bu_ref
-          field: field_bu_ref
+        se_bu_ref:
+          id: se_bu_ref
+          table: node__se_bu_ref
+          field: se_bu_ref
           relationship: none
           group_type: group
-          admin_label: 'field_bu_ref: Content'
+          admin_label: 'se_bu_ref: Content'
           required: false
           plugin_id: standard
-        field_ti_owner_ref:
-          id: field_ti_owner_ref
-          table: node__field_ti_owner_ref
-          field: field_ti_owner_ref
+        se_ti_owner_ref:
+          id: se_ti_owner_ref
+          table: node__se_ti_owner_ref
+          field: se_ti_owner_ref
           relationship: none
           group_type: group
-          admin_label: 'field_ti_owner_ref: User'
+          admin_label: 'se_ti_owner_ref: User'
           required: false
           plugin_id: standard
       arguments: {  }
@@ -809,10 +809,10 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_bu_ref'
-        - 'config:field.storage.node.field_ti_id'
-        - 'config:field.storage.node.field_ti_owner_ref'
-        - 'config:field.storage.node.field_ti_status_ref'
+        - 'config:field.storage.node.se_bu_ref'
+        - 'config:field.storage.node.se_ti_id'
+        - 'config:field.storage.node.se_ti_owner_ref'
+        - 'config:field.storage.node.se_ti_status_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -840,7 +840,7 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_bu_ref'
-        - 'config:field.storage.node.field_ti_id'
-        - 'config:field.storage.node.field_ti_owner_ref'
-        - 'config:field.storage.node.field_ti_status_ref'
+        - 'config:field.storage.node.se_bu_ref'
+        - 'config:field.storage.node.se_ti_id'
+        - 'config:field.storage.node.se_ti_owner_ref'
+        - 'config:field.storage.node.se_ti_status_ref'

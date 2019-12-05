@@ -38,7 +38,7 @@ trait ItemTestTrait {
     $item = $this->createItem([
       'type' => $type,
       'name' => $this->item->name,
-      'field_it_code' => $this->item->code,
+      'se_it_code' => $this->item->code,
     ]);
 
     $this->assertNotEqual($item, FALSE);

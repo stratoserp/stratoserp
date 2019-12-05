@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_cu_email
-    - field.storage.node.field_cu_homepage
-    - field.storage.node.field_cu_mobile
-    - field.storage.node.field_cu_phone
+    - field.storage.node.se_cu_email
+    - field.storage.node.se_cu_homepage
+    - field.storage.node.se_cu_mobile
+    - field.storage.node.se_cu_phone
     - node.type.se_customer
     - system.menu.stratos-erp
     - user.role.administrator
@@ -92,10 +92,10 @@ display:
           description: ''
           columns:
             title: title
-            field_cu_email: field_cu_email
-            field_cu_homepage: field_cu_homepage
-            field_cu_phone: field_cu_phone
-            field_cu_mobile: field_cu_mobile
+            se_cu_email: se_cu_email
+            se_cu_homepage: se_cu_homepage
+            se_cu_phone: se_cu_phone
+            se_cu_mobile: se_cu_mobile
           info:
             title:
               sortable: true
@@ -104,26 +104,26 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_cu_email:
+            se_cu_email:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-medium
-            field_cu_homepage:
+            se_cu_homepage:
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-low
-            field_cu_phone:
+            se_cu_phone:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-medium
-            field_cu_mobile:
+            se_cu_mobile:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -200,10 +200,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_cu_email:
-          id: field_cu_email
-          table: node__field_cu_email
-          field: field_cu_email
+        se_cu_email:
+          id: se_cu_email
+          table: node__se_cu_email
+          field: se_cu_email
           relationship: none
           group_type: group
           admin_label: ''
@@ -262,10 +262,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_cu_homepage:
-          id: field_cu_homepage
-          table: node__field_cu_homepage
-          field: field_cu_homepage
+        se_cu_homepage:
+          id: se_cu_homepage
+          table: node__se_cu_homepage
+          field: se_cu_homepage
           relationship: none
           group_type: group
           admin_label: ''
@@ -329,10 +329,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_cu_phone:
-          id: field_cu_phone
-          table: node__field_cu_phone
-          field: field_cu_phone
+        se_cu_phone:
+          id: se_cu_phone
+          table: node__se_cu_phone
+          field: se_cu_phone
           relationship: none
           group_type: group
           admin_label: ''
@@ -392,10 +392,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_cu_mobile:
-          id: field_cu_mobile
-          table: node__field_cu_mobile
-          field: field_cu_mobile
+        se_cu_mobile:
+          id: se_cu_mobile
+          table: node__se_cu_mobile
+          field: se_cu_mobile
           relationship: none
           group_type: group
           admin_label: ''
@@ -520,10 +520,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: string
-        field_cu_email_value:
-          id: field_cu_email_value
-          table: node__field_cu_email
-          field: field_cu_email_value
+        se_cu_email_value:
+          id: se_cu_email_value
+          table: node__se_cu_email
+          field: se_cu_email_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -532,11 +532,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_cu_email_value_op
+            operator_id: se_cu_email_value_op
             label: Email
             description: ''
             use_operator: false
-            operator: field_cu_email_value_op
+            operator: se_cu_email_value_op
             identifier: email
             required: false
             remember: false
@@ -561,10 +561,10 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: string
-        field_cu_phone_value:
-          id: field_cu_phone_value
-          table: node__field_cu_phone
-          field: field_cu_phone_value
+        se_cu_phone_value:
+          id: se_cu_phone_value
+          table: node__se_cu_phone
+          field: se_cu_phone_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -573,11 +573,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_cu_phone_value_op
+            operator_id: se_cu_phone_value_op
             label: Phone
             description: ''
             use_operator: false
-            operator: field_cu_phone_value_op
+            operator: se_cu_phone_value_op
             identifier: phone
             required: false
             remember: false
@@ -602,10 +602,10 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: string
-        field_cu_mobile_value:
-          id: field_cu_mobile_value
-          table: node__field_cu_mobile
-          field: field_cu_mobile_value
+        se_cu_mobile_value:
+          id: se_cu_mobile_value
+          table: node__se_cu_mobile
+          field: se_cu_mobile_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -614,11 +614,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_cu_mobile_value_op
+            operator_id: se_cu_mobile_value_op
             label: Mobile
             description: ''
             use_operator: false
-            operator: field_cu_mobile_value_op
+            operator: se_cu_mobile_value_op
             identifier: mobile
             required: false
             remember: false
@@ -666,10 +666,10 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_cu_email'
-        - 'config:field.storage.node.field_cu_homepage'
-        - 'config:field.storage.node.field_cu_mobile'
-        - 'config:field.storage.node.field_cu_phone'
+        - 'config:field.storage.node.se_cu_email'
+        - 'config:field.storage.node.se_cu_homepage'
+        - 'config:field.storage.node.se_cu_mobile'
+        - 'config:field.storage.node.se_cu_phone'
   page_1:
     display_plugin: page
     id: page_1
@@ -697,7 +697,7 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_cu_email'
-        - 'config:field.storage.node.field_cu_homepage'
-        - 'config:field.storage.node.field_cu_mobile'
-        - 'config:field.storage.node.field_cu_phone'
+        - 'config:field.storage.node.se_cu_email'
+        - 'config:field.storage.node.se_cu_homepage'
+        - 'config:field.storage.node.se_cu_mobile'
+        - 'config:field.storage.node.se_cu_phone'

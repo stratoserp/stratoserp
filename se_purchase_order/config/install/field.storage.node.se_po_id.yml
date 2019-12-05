@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - serial
-id: node.field_po_id
-field_name: field_po_id
+id: node.se_po_id
+field_name: se_po_id
 entity_type: node
 type: serial
 settings:

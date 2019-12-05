@@ -5,8 +5,8 @@ dependencies:
   module:
     - node
     - se_accounting
-id: node.field_in_outstanding
-field_name: field_in_outstanding
+id: node.se_in_outstanding
+field_name: se_in_outstanding
 entity_type: node
 type: se_currency
 settings: {  }

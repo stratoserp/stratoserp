@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - se_accounting
-id: node.field_gr_total
-field_name: field_gr_total
+id: node.se_gr_total
+field_name: se_gr_total
 entity_type: node
 type: se_currency
 settings: {  }

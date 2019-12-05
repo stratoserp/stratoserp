@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_cu_state
+    - field.storage.node.se_cu_state
     - node.type.se_customer
-id: node.se_customer.field_cu_state
-field_name: field_cu_state
+id: node.se_customer.se_cu_state
+field_name: se_cu_state
 entity_type: node
 bundle: se_customer
 label: State

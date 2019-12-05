@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_service.field_it_code
-    - field.field.se_item.se_service.field_it_cost_price
-    - field.field.se_item.se_service.field_it_description
-    - field.field.se_item.se_service.field_it_manufacturer_ref
-    - field.field.se_item.se_service.field_it_product_type_ref
-    - field.field.se_item.se_service.field_it_sale_category_ref
-    - field.field.se_item.se_service.field_it_sell_price
+    - field.field.se_item.se_service.se_it_code
+    - field.field.se_item.se_service.se_it_cost_price
+    - field.field.se_item.se_service.se_it_description
+    - field.field.se_item.se_service.se_it_manufacturer_ref
+    - field.field.se_item.se_service.se_it_product_type_ref
+    - field.field.se_item.se_service.se_it_sale_category_ref
+    - field.field.se_item.se_service.se_it_sell_price
     - se_item.se_item_type.se_service
   module:
     - field_layout
@@ -24,7 +24,7 @@ targetEntityType: se_item
 bundle: se_service
 mode: default
 content:
-  field_it_code:
+  se_it_code:
     weight: 1
     label: above
     settings:
@@ -32,21 +32,21 @@ content:
     third_party_settings: {  }
     type: string
     region: top
-  field_it_cost_price:
+  se_it_cost_price:
     weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
     region: second
-  field_it_description:
+  se_it_description:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: bottom
-  field_it_manufacturer_ref:
+  se_it_manufacturer_ref:
     weight: 6
     label: above
     settings:
@@ -54,7 +54,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_it_product_type_ref:
+  se_it_product_type_ref:
     weight: 5
     label: above
     settings:
@@ -62,7 +62,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_it_sale_category_ref:
+  se_it_sale_category_ref:
     weight: 4
     label: above
     settings:
@@ -70,7 +70,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  field_it_sell_price:
+  se_it_sell_price:
     weight: 2
     label: above
     settings: {  }

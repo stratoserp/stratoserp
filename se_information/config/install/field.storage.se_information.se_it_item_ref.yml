@@ -4,8 +4,8 @@ dependencies:
   module:
     - se_information
     - se_item
-id: se_information.field_it_item_ref
-field_name: field_it_item_ref
+id: se_information.se_it_item_ref
+field_name: se_it_item_ref
 entity_type: se_information
 type: entity_reference
 settings:

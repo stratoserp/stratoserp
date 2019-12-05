@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_subscription.se_email_account.field_bu_ref
-    - field.field.se_subscription.se_email_account.field_ea_email_address
-    - field.field.se_subscription.se_email_account.field_ea_email_aliases
-    - field.field.se_subscription.se_email_account.field_su_item
-    - field.field.se_subscription.se_email_account.field_su_management_link
-    - field.field.se_subscription.se_email_account.field_su_period
-    - field.field.se_subscription.se_email_account.field_su_ref
+    - field.field.se_subscription.se_email_account.se_bu_ref
+    - field.field.se_subscription.se_email_account.se_ea_email_address
+    - field.field.se_subscription.se_email_account.se_ea_email_aliases
+    - field.field.se_subscription.se_email_account.se_su_item
+    - field.field.se_subscription.se_email_account.se_su_management_link
+    - field.field.se_subscription.se_email_account.se_su_period
+    - field.field.se_subscription.se_email_account.se_su_ref
     - se_subscription.se_subscription_type.se_email_account
   module:
     - duration_field
@@ -26,7 +26,7 @@ targetEntityType: se_subscription
 bundle: se_email_account
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 2
     label: above
     settings:
@@ -34,28 +34,28 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_ea_email_address:
+  se_ea_email_address:
     weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: second
-  field_ea_email_aliases:
+  se_ea_email_aliases:
     weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: second
-  field_su_item:
+  se_su_item:
     weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
-  field_su_management_link:
+  se_su_management_link:
     weight: 7
     label: above
     settings:
@@ -67,7 +67,7 @@ content:
     third_party_settings: {  }
     type: link
     region: second
-  field_su_period:
+  se_su_period:
     weight: 4
     label: above
     settings:
@@ -76,7 +76,7 @@ content:
     third_party_settings: {  }
     type: duration_human_display
     region: second
-  field_su_ref:
+  se_su_ref:
     weight: 3
     label: above
     settings:

@@ -91,7 +91,7 @@
       const options = $.extend(
         {
           success: sourceCallbackHandler,
-          data: { q: request.term, field_bu_ref: businessNid }
+          data: { q: request.term, se_bu_ref: businessNid }
         },
         autocomplete.ajax
       );

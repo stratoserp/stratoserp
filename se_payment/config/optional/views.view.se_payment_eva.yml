@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_pa_id
-    - field.storage.node.field_pa_total
+    - field.storage.node.se_pa_id
+    - field.storage.node.se_pa_total
     - node.type.se_payment
   module:
     - eva
@@ -89,9 +89,9 @@ display:
           columns:
             nid: nid
             created: created
-            field_pa_id: field_pa_id
+            se_pa_id: se_pa_id
             title: title
-            field_pa_total: field_pa_total
+            se_pa_total: se_pa_total
           info:
             nid:
               sortable: false
@@ -107,7 +107,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_pa_id:
+            se_pa_id:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -121,7 +121,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_pa_total:
+            se_pa_total:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -271,10 +271,10 @@ display:
           entity_type: node
           entity_field: created
           plugin_id: field
-        field_pa_id:
-          id: field_pa_id
-          table: node__field_pa_id
-          field: field_pa_id
+        se_pa_id:
+          id: se_pa_id
+          table: node__se_pa_id
+          field: se_pa_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -398,10 +398,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_pa_total:
-          id: field_pa_total
-          table: node__field_pa_total
-          field: field_pa_total
+        se_pa_total:
+          id: se_pa_total
+          table: node__se_pa_total
+          field: se_pa_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -549,10 +549,10 @@ display:
           plugin_id: text
       relationships: {  }
       arguments:
-        field_bu_ref_target_id:
-          id: field_bu_ref_target_id
-          table: node__field_bu_ref
-          field: field_bu_ref_target_id
+        se_bu_ref_target_id:
+          id: se_bu_ref_target_id
+          table: node__se_bu_ref
+          field: se_bu_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -595,8 +595,8 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_pa_id'
-        - 'config:field.storage.node.field_pa_total'
+        - 'config:field.storage.node.se_pa_id'
+        - 'config:field.storage.node.se_pa_total'
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -620,5 +620,5 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_pa_id'
-        - 'config:field.storage.node.field_pa_total'
+        - 'config:field.storage.node.se_pa_id'
+        - 'config:field.storage.node.se_pa_total'

@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_co_ref
-field_name: field_co_ref
+id: node.se_co_ref
+field_name: se_co_ref
 entity_type: node
 type: entity_reference
 settings:

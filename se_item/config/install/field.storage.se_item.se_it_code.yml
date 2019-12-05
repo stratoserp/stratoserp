@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - se_item
-id: se_item.field_it_code
+id: se_item.se_it_code
 field_name: se_it_code
 entity_type: se_item
 type: string

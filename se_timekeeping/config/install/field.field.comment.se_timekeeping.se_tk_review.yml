@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - field.storage.comment.field_tk_review
-id: comment.se_timekeeping.field_tk_review
-field_name: field_tk_review
+    - field.storage.comment.se_tk_review
+id: comment.se_timekeeping.se_tk_review
+field_name: se_tk_review
 entity_type: comment
 bundle: se_timekeeping
 label: Review

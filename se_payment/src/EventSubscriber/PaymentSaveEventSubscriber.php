@@ -133,7 +133,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
       $term = \Drupal::service('se_invoice.service')->getOpenTerm();
     }
 
-    $bundle_field_type = 'field_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'se_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     $amount = 0;
     foreach ($entity->{$bundle_field_type . '_lines'} as $payment_line) {
@@ -153,13 +153,13 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
         $this->setSkipCustomerXeroEvents($invoice);
 
         // TODO - Make a service for this?
-        if ($payment_line->amount === $invoice->field_in_total->value
-        || $payment_line->amount === $invoice->field_in_outstanding->value) {
-          $invoice->set('field_status_ref', $term);
+        if ($payment_line->amount === $invoice->se_in_total->value
+        || $payment_line->amount === $invoice->se_in_outstanding->value) {
+          $invoice->set('se_status_ref', $term);
         }
         else {
           // Update the outstanding amount if required.
-          $invoice->field_in_outstanding->value =
+          $invoice->se_in_outstanding->value =
             $this->getInvoiceBalance($invoice);
         }
 

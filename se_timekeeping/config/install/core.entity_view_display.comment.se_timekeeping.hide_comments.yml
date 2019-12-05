@@ -4,14 +4,14 @@ dependencies:
   config:
     - comment.type.se_timekeeping
     - core.entity_view_mode.comment.hide_comments
-    - field.field.comment.se_timekeeping.field_bu_ref
-    - field.field.comment.se_timekeeping.field_tk_amount
-    - field.field.comment.se_timekeeping.field_tk_billable
-    - field.field.comment.se_timekeeping.field_tk_billed
-    - field.field.comment.se_timekeeping.field_tk_comment
-    - field.field.comment.se_timekeeping.field_tk_date
-    - field.field.comment.se_timekeeping.field_tk_item
-    - field.field.comment.se_timekeeping.field_tk_review
+    - field.field.comment.se_timekeeping.se_bu_ref
+    - field.field.comment.se_timekeeping.se_tk_amount
+    - field.field.comment.se_timekeeping.se_tk_billable
+    - field.field.comment.se_timekeeping.se_tk_billed
+    - field.field.comment.se_timekeeping.se_tk_comment
+    - field.field.comment.se_timekeeping.se_tk_date
+    - field.field.comment.se_timekeeping.se_tk_item
+    - field.field.comment.se_timekeeping.se_tk_review
   module:
     - field_layout
     - layout_discovery
@@ -28,12 +28,12 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_bu_ref: true
-  field_tk_amount: true
-  field_tk_billable: true
-  field_tk_billed: true
-  field_tk_comment: true
-  field_tk_date: true
-  field_tk_item: true
-  field_tk_review: true
+  se_bu_ref: true
+  se_tk_amount: true
+  se_tk_billable: true
+  se_tk_billed: true
+  se_tk_comment: true
+  se_tk_date: true
+  se_tk_item: true
+  se_tk_review: true
   links: true

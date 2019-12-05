@@ -4,8 +4,8 @@ dependencies:
   module:
     - datetime
     - se_item
-id: se_item.field_it_sale_date
-field_name: field_it_sale_date
+id: se_item.se_it_sale_date
+field_name: se_it_sale_date
 entity_type: se_item
 type: datetime
 settings:

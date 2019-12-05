@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_ti_open_date
+    - field.storage.node.se_ti_open_date
     - node.type.se_ticket
-id: node.se_ticket.field_ti_open_date
-field_name: field_ti_open_date
+id: node.se_ticket.se_ti_open_date
+field_name: se_ti_open_date
 entity_type: node
 bundle: se_ticket
 label: 'Open date'

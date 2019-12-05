@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_co_ref
+    - field.storage.node.se_co_ref
     - node.type.se_contact
     - node.type.se_ticket
-id: node.se_ticket.field_co_ref
-field_name: field_co_ref
+id: node.se_ticket.se_co_ref
+field_name: se_co_ref
 entity_type: node
 bundle: se_ticket
 label: Contact

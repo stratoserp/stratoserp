@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_subscription.se_domain_hosting.field_bu_ref
-    - field.field.se_subscription.se_domain_hosting.field_dh_hosting_type
-    - field.field.se_subscription.se_domain_hosting.field_su_item
-    - field.field.se_subscription.se_domain_hosting.field_su_management_link
-    - field.field.se_subscription.se_domain_hosting.field_su_period
-    - field.field.se_subscription.se_domain_hosting.field_su_ref
+    - field.field.se_subscription.se_domain_hosting.se_bu_ref
+    - field.field.se_subscription.se_domain_hosting.se_dh_hosting_type
+    - field.field.se_subscription.se_domain_hosting.se_su_item
+    - field.field.se_subscription.se_domain_hosting.se_su_management_link
+    - field.field.se_subscription.se_domain_hosting.se_su_period
+    - field.field.se_subscription.se_domain_hosting.se_su_ref
     - se_subscription.se_subscription_type.se_domain_hosting
   module:
     - duration_field
@@ -26,7 +26,7 @@ targetEntityType: se_subscription
 bundle: se_domain_hosting
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 2
     label: above
     settings:
@@ -34,21 +34,21 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_dh_hosting_type:
+  se_dh_hosting_type:
     weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: second
-  field_su_item:
+  se_su_item:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
-  field_su_management_link:
+  se_su_management_link:
     weight: 6
     label: above
     settings:
@@ -60,7 +60,7 @@ content:
     third_party_settings: {  }
     type: link
     region: second
-  field_su_period:
+  se_su_period:
     weight: 4
     label: above
     settings:
@@ -69,7 +69,7 @@ content:
     third_party_settings: {  }
     type: duration_human_display
     region: second
-  field_su_ref:
+  se_su_ref:
     weight: 3
     label: above
     settings:

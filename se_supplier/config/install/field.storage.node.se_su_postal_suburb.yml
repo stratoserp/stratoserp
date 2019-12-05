@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_su_postal_suburb
-field_name: field_su_postal_suburb
+id: node.se_su_postal_suburb
+field_name: se_su_postal_suburb
 entity_type: node
 type: string
 settings:

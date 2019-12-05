@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.field_su_item
+    - field.storage.se_subscription.se_su_item
     - se_item.se_item_type.se_recurring
     - se_item.se_item_type.se_service
     - se_subscription.se_subscription_type.se_managed_service
   module:
     - se_item_line
-id: se_subscription.se_managed_service.field_su_item
-field_name: field_su_item
+id: se_subscription.se_managed_service.se_su_item
+field_name: se_su_item
 entity_type: se_subscription
 bundle: se_managed_service
 label: Item

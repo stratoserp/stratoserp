@@ -59,12 +59,12 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
       $payment = Node::load($payment_line->entity_id);
       $uri = $payment->toUrl();
 
-      foreach ($payment->field_pa_lines as $line) {
+      foreach ($payment->se_pa_lines as $line) {
 
         /** @var \Drupal\taxonomy\Entity\Term $type */
         $type = Term::load($line->payment_type);
         $row = [
-          'payment' => Link::fromTextAndUrl($payment->field_pa_id->value, $uri),
+          'payment' => Link::fromTextAndUrl($payment->se_pa_id->value, $uri),
           'date' => Link::fromTextAndUrl($line->payment_date, $uri),
           'type' => $type->name->value,
           'amount' => \Drupal::service('se_accounting.currency_format')

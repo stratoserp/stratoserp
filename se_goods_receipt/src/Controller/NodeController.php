@@ -98,8 +98,8 @@ class NodeController extends ControllerBase {
       }
     }
 
-    $node->field_bu_ref->target_id = $source->field_bu_ref->target_id;
-    $node->field_co_ref->target_id = $source->field_co_ref->target_id;
+    $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    $node->se_co_ref->target_id = $source->se_co_ref->target_id;
     $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_purchase_order_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);

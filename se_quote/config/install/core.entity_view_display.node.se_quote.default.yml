@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_quote.field_bu_ref
-    - field.field.node.se_quote.field_co_ref
-    - field.field.node.se_quote.field_qu_id
-    - field.field.node.se_quote.field_qu_lines
-    - field.field.node.se_quote.field_qu_total
+    - field.field.node.se_quote.se_bu_ref
+    - field.field.node.se_quote.se_co_ref
+    - field.field.node.se_quote.se_qu_id
+    - field.field.node.se_quote.se_qu_lines
+    - field.field.node.se_quote.se_qu_total
     - field.field.node.se_quote.se_body
-    - field.field.node.se_quote.field_se_comments
-    - field.field.node.se_quote.field_status_ref
+    - field.field.node.se_quote.se_comments
+    - field.field.node.se_quote.se_status_ref
     - node.type.se_quote
   module:
     - comment
@@ -29,7 +29,7 @@ targetEntityType: node
 bundle: se_quote
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 1
     label: inline
     settings:
@@ -37,7 +37,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_co_ref:
+  se_co_ref:
     weight: 2
     label: inline
     settings:
@@ -45,21 +45,21 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  field_qu_id:
+  se_qu_id:
     weight: 3
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
-  field_qu_lines:
+  se_qu_lines:
     weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
-  field_qu_total:
+  se_qu_total:
     type: se_currency_formatter
     weight: 6
     region: bottom
@@ -73,7 +73,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: bottom
-  field_se_comments:
+  se_comments:
     weight: 8
     label: above
     settings:
@@ -82,7 +82,7 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: bottom
-  field_status_ref:
+  se_status_ref:
     weight: 4
     label: inline
     settings:

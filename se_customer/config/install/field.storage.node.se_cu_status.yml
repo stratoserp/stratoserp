@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - options
-id: node.field_cu_status
-field_name: field_cu_status
+id: node.se_cu_status
+field_name: se_cu_status
 entity_type: node
 type: list_string
 settings:

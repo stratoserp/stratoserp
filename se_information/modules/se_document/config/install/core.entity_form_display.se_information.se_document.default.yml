@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_information.se_document.field_bu_ref
-    - field.field.se_information.se_document.field_if_body
-    - field.field.se_information.se_document.field_if_comments
+    - field.field.se_information.se_document.se_bu_ref
+    - field.field.se_information.se_document.se_if_body
+    - field.field.se_information.se_document.se_if_comments
     - se_information.se_information_type.se_document
   module:
     - chosen_field
@@ -21,7 +21,7 @@ targetEntityType: se_information
 bundle: se_document
 mode: default
 content:
-  field_bu_ref:
+  se_bu_ref:
     weight: 26
     settings:
       match_operator: CONTAINS
@@ -30,7 +30,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_if_body:
+  se_if_body:
     weight: 27
     settings:
       rows: 5
@@ -38,7 +38,7 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_if_comments:
+  se_if_comments:
     weight: 28
     settings: {  }
     third_party_settings: {  }

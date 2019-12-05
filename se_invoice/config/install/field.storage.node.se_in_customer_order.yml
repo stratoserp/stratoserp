@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_in_customer_order
-field_name: field_in_customer_order
+id: node.se_in_customer_order
+field_name: se_in_customer_order
 entity_type: node
 type: string
 settings:

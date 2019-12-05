@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_in_sent
-field_name: field_in_sent
+id: node.se_in_sent
+field_name: se_in_sent
 entity_type: node
 type: boolean
 settings: {  }

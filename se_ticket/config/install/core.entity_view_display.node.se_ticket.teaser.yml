@@ -3,17 +3,17 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.se_ticket.field_attachments
-    - field.field.node.se_ticket.field_bu_ref
-    - field.field.node.se_ticket.field_co_ref
+    - field.field.node.se_ticket.se_attachments
+    - field.field.node.se_ticket.se_bu_ref
+    - field.field.node.se_ticket.se_co_ref
     - field.field.node.se_ticket.se_body
-    - field.field.node.se_ticket.field_ti_id
-    - field.field.node.se_ticket.field_ti_open_date
-    - field.field.node.se_ticket.field_ti_owner_ref
-    - field.field.node.se_ticket.field_ti_priority_ref
-    - field.field.node.se_ticket.field_ti_scheduled
-    - field.field.node.se_ticket.field_ti_status_ref
-    - field.field.node.se_ticket.field_ti_type_ref
+    - field.field.node.se_ticket.se_ti_id
+    - field.field.node.se_ticket.se_ti_open_date
+    - field.field.node.se_ticket.se_ti_owner_ref
+    - field.field.node.se_ticket.se_ti_priority_ref
+    - field.field.node.se_ticket.se_ti_scheduled
+    - field.field.node.se_ticket.se_ti_status_ref
+    - field.field.node.se_ticket.se_ti_type_ref
     - node.type.se_ticket
   module:
     - field_layout
@@ -44,12 +44,12 @@ hidden:
   extra_field_ticket_statistics: true
   extra_field_ticket_statistics_customer: true
   field_attachments: true
-  field_bu_ref: true
-  field_co_ref: true
-  field_ti_id: true
-  field_ti_open_date: true
-  field_ti_owner_ref: true
-  field_ti_priority_ref: true
-  field_ti_scheduled: true
-  field_ti_status_ref: true
-  field_ti_type_ref: true
+  se_bu_ref: true
+  se_co_ref: true
+  se_ti_id: true
+  se_ti_open_date: true
+  se_ti_owner_ref: true
+  se_ti_priority_ref: true
+  se_ti_scheduled: true
+  se_ti_status_ref: true
+  se_ti_type_ref: true

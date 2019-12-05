@@ -6,8 +6,8 @@ dependencies:
     - node
     - se_item
     - se_item_line
-id: node.field_gr_lines
-field_name: field_gr_lines
+id: node.se_gr_lines
+field_name: se_gr_lines
 entity_type: node
 type: se_item_line
 settings:

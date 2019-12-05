@@ -4,8 +4,8 @@ dependencies:
   module:
     - geolocation
     - node
-id: node.field_su_location
-field_name: field_su_location
+id: node.se_su_location
+field_name: se_su_location
 entity_type: node
 type: geolocation
 settings: {  }

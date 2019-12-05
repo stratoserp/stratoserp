@@ -49,7 +49,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
         $query->condition('type', $bundle_field_type);
-        $query->condition('field_bu_ref', $node->id());
+        $query->condition('se_bu_ref', $node->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();

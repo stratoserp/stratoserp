@@ -22,9 +22,9 @@ trait ErpPaymentTrait {
   public function getInvoicePayments(Node $invoice) {
     // TODO? Is there a nicer way to do this?
     $database = Database::getConnection();
-    $query = $database->select('node__field_pa_lines', 'nfpl');
+    $query = $database->select('node__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['entity_id']);
-    $query->condition('nfpl.field_pa_lines_target_id', $invoice->id());
+    $query->condition('nfpl.se_pa_lines_target_id', $invoice->id());
     $result = $query->execute();
     if ($result) {
       return $result->fetchAll();
@@ -44,9 +44,9 @@ trait ErpPaymentTrait {
   private function getInvoicePaymentAmounts(Node $invoice) {
     // TODO? Is there a nicer way to do this?
     $database = Database::getConnection();
-    $query = $database->select('node__field_pa_lines', 'nfpl');
-    $query->fields('nfpl', ['field_pa_lines_amount']);
-    $query->condition('nfpl.field_pa_lines_target_id', $invoice->id());
+    $query = $database->select('node__se_pa_lines', 'nfpl');
+    $query->fields('nfpl', ['se_pa_lines_amount']);
+    $query->condition('nfpl.se_pa_lines_target_id', $invoice->id());
     $result = $query->execute();
     if ($result) {
       return $result->fetchAll();
@@ -67,10 +67,10 @@ trait ErpPaymentTrait {
     $paid_amount = 0;
 
     foreach ($this->getInvoicePaymentAmounts($invoice) as $payment) {
-      $paid_amount += $payment->field_pa_lines_amount;
+      $paid_amount += $payment->se_pa_lines_amount;
     }
 
-    return $invoice->field_in_total->value - $paid_amount;
+    return $invoice->se_in_total->value - $paid_amount;
   }
 
 }

@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_ti_open_date
-    - field.storage.node.field_ti_owner_ref
-    - field.storage.node.field_ti_scheduled
-    - field.storage.node.field_ti_type_ref
+    - field.storage.node.se_ti_open_date
+    - field.storage.node.se_ti_owner_ref
+    - field.storage.node.se_ti_scheduled
+    - field.storage.node.se_ti_type_ref
     - node.type.se_ticket
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_ticket_type
@@ -71,8 +71,8 @@ display:
         options:
           default_date_source: now
           defaultDate: ''
-          start: field_ti_scheduled
-          end: field_ti_scheduled
+          start: se_ti_scheduled
+          end: se_ti_scheduled
           title: title
           des:
             body: body
@@ -87,7 +87,7 @@ display:
           defaultLanguage: en
           languageSelector: 0
           createEventLink: 1
-          tax_field: field_ti_type_ref
+          tax_field: se_ti_type_ref
           vocabularies: se_ticket_type
           color_bundle:
             se_bill: '#3a87ad'
@@ -186,10 +186,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_ti_type_ref:
-          id: field_ti_type_ref
-          table: node__field_ti_type_ref
-          field: field_ti_type_ref
+        se_ti_type_ref:
+          id: se_ti_type_ref
+          table: node__se_ti_type_ref
+          field: se_ti_type_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -249,10 +249,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_ti_owner_ref:
-          id: field_ti_owner_ref
-          table: node__field_ti_owner_ref
-          field: field_ti_owner_ref
+        se_ti_owner_ref:
+          id: se_ti_owner_ref
+          table: node__se_ti_owner_ref
+          field: se_ti_owner_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -323,7 +323,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ title }} {{ field_ti_type_ref }} - {{ field_ti_owner_ref }}'
+            text: '{{ title }} {{ se_ti_type_ref }} - {{ se_ti_owner_ref }}'
             make_link: false
             path: ''
             absolute: false
@@ -361,10 +361,10 @@ display:
           empty_zero: false
           hide_alter_empty: false
           plugin_id: custom
-        field_ti_open_date:
-          id: field_ti_open_date
-          table: node__field_ti_open_date
-          field: field_ti_open_date
+        se_ti_open_date:
+          id: se_ti_open_date
+          table: node__se_ti_open_date
+          field: se_ti_open_date
           relationship: none
           group_type: group
           admin_label: ''
@@ -426,10 +426,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_ti_scheduled:
-          id: field_ti_scheduled
-          table: node__field_ti_scheduled
-          field: field_ti_scheduled
+        se_ti_scheduled:
+          id: se_ti_scheduled
+          table: node__se_ti_scheduled
+          field: se_ti_scheduled
           relationship: none
           group_type: group
           admin_label: ''
@@ -574,10 +574,10 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-        field_ti_type_ref_target_id:
-          id: field_ti_type_ref_target_id
-          table: node__field_ti_type_ref
-          field: field_ti_type_ref_target_id
+        se_ti_type_ref_target_id:
+          id: se_ti_type_ref_target_id
+          table: node__se_ti_type_ref
+          field: se_ti_type_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -586,11 +586,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_ti_type_ref_target_id_op
+            operator_id: se_ti_type_ref_target_id_op
             label: 'Ticket type'
             description: ''
             use_operator: false
-            operator: field_ti_type_ref_target_id_op
+            operator: se_ti_type_ref_target_id_op
             identifier: ti_type
             required: false
             remember: false
@@ -657,10 +657,10 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.body'
-        - 'config:field.storage.node.field_ti_open_date'
-        - 'config:field.storage.node.field_ti_owner_ref'
-        - 'config:field.storage.node.field_ti_scheduled'
-        - 'config:field.storage.node.field_ti_type_ref'
+        - 'config:field.storage.node.se_ti_open_date'
+        - 'config:field.storage.node.se_ti_owner_ref'
+        - 'config:field.storage.node.se_ti_scheduled'
+        - 'config:field.storage.node.se_ti_type_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -689,7 +689,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.body'
-        - 'config:field.storage.node.field_ti_open_date'
-        - 'config:field.storage.node.field_ti_owner_ref'
-        - 'config:field.storage.node.field_ti_scheduled'
-        - 'config:field.storage.node.field_ti_type_ref'
+        - 'config:field.storage.node.se_ti_open_date'
+        - 'config:field.storage.node.se_ti_owner_ref'
+        - 'config:field.storage.node.se_ti_scheduled'
+        - 'config:field.storage.node.se_ti_type_ref'
