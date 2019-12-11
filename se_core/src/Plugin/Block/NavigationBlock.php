@@ -417,16 +417,14 @@ class NavigationBlock extends BlockBase {
         'se_supplier',
       ], TRUE)) {
         $route_parameters['se_bu_ref'] = $this->node->id();
-        $contacts = \Drupal::service('se_contact.service')
-          ->loadMainContactByCustomer($this->node);
+        $contacts = \Drupal::service('se_contact.service')->loadMainContactByBusiness($this->node);
       }
       else {
         // Otherwise, load the main contact from the associated business.
         $entities = $this->node->{'se_bu_ref'}->referencedEntities();
         if ($business = reset($entities)) {
           $route_parameters['se_bu_ref'] = $business->id();
-          $contacts = \Drupal::service('se_contact.service')
-            ->loadMainContactByCustomer($business);
+          $contacts = \Drupal::service('se_contact.service')->loadMainContactByBusiness($business);
         }
       }
 

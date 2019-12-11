@@ -108,7 +108,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       return 0;
     }
 
-    $bundle_field_type = 'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     $amount = $entity->{$bundle_field_type . '_total'}->value;
     if ($reduce_balance) {
       $amount *= -1;

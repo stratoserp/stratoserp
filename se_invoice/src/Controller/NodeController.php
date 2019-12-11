@@ -93,13 +93,13 @@ class NodeController extends ControllerBase {
     ]);
 
     // TODO - Make this a service?
-    foreach ($source->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item) {
-      $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item);
+    foreach ($source->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item) {
+      $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item);
     }
 
     $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
     $node->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
+    $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);
   }
@@ -164,7 +164,7 @@ class NodeController extends ControllerBase {
       }
     }
 
-    $node->{'field_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'} = $lines;
+    $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'} = $lines;
 
     if ($open) {
       $node->se_status_ref->target_id = $open->id();

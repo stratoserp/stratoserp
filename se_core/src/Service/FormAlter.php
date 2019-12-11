@@ -83,8 +83,7 @@ class FormAlter {
       if (!empty($form[$field]['widget']['#default_value'])) {
         return;
       }
-      if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
-        ->load($value)) {
+      if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')->load($value)) {
         $form[$field]['widget']['#default_value'] = $node->id();
       }
     }
@@ -92,45 +91,42 @@ class FormAlter {
       if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
         return;
       }
-      if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')
-        ->load($value)) {
+      if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')->load($value)) {
         $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
       }
     }
 
-    return;
   }
 
   /**
    * Alter taxonomy field on node form.
    *
    * @param array $form
+   *   Form render array.
    * @param string $field
    * @param int $term_id
    *
-   * @return \Drupal\taxonomy\Entity\Term|null
+   * @return void
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function setTaxonomyField(array &$form, string $field, int $term_id): Term {
     /** @var \Drupal\taxonomy\Entity\Term $term */
     if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id)) {
-      return NULL;
+      return;
     }
 
+    // Handle the 'chosen' module field type.
     $chosen = isset($form[$field]['widget']['#chosen']) && $form[$field]['widget']['#chosen'] === 1;
-    if ($chosen) {
-      if (empty($form[$field]['widget']['#default_value'])) {
-        $form[$field]['widget']['#default_value'] = $term->id();
-      }
-    }
-    else {
-      if (empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-        $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
-      }
+    if ($chosen && empty($form[$field]['widget']['#default_value'])) {
+      $form[$field]['widget']['#default_value'] = $term->id();
+      return;
     }
 
-    return $term;
+    if (empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+      $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
+    }
+
   }
 
 }

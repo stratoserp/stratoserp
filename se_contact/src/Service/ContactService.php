@@ -10,7 +10,7 @@ use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
 /**
- *
+ * Simple service the take
  */
 class ContactService {
 
@@ -44,9 +44,9 @@ class ContactService {
    *
    * @param \Drupal\node\Entity\Node $node
    *
-   * @return array|bool|int
+   * @return array
    */
-  public function loadMainContactByCustomer(Node $node) {
+  public function loadMainContactByBusiness(Node $node): array {
     $config = $this->configFactory->get('se_contact.settings');
 
     // If no main contact term is selected, bail.
@@ -57,13 +57,11 @@ class ContactService {
     /** @var \Drupal\taxonomy\Entity\Term $term */
     $term = Term::load($term_id);
 
-    $contacts = \Drupal::entityQuery('node')
+    return \Drupal::entityQuery('node')
       ->condition('type', 'se_contact')
       ->condition('se_bu_ref', $node->id())
       ->condition('se_co_type_ref', $term->id())
       ->execute();
-
-    return $contacts;
   }
 
 }
