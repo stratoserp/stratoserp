@@ -18,7 +18,7 @@ class CurrencyFormat {
    *
    * @return string
    */
-  public function formatDisplay(int $value): string {
+  public function formatDisplay($value): string {
 
     // Don't try and divide by zero.
     if (!empty($value)) {

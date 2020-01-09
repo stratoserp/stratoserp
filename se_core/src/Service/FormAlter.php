@@ -110,7 +110,7 @@ class FormAlter {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function setTaxonomyField(array &$form, string $field, int $term_id): Term {
+  public function setTaxonomyField(array &$form, string $field, int $term_id) {
     /** @var \Drupal\taxonomy\Entity\Term $term */
     if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id)) {
       return;

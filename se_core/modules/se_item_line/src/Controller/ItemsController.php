@@ -52,7 +52,7 @@ class ItemsController extends ControllerBase {
           if ($item = $comment->se_tk_item->entity) {
             $date = new DateTimePlus($comment->se_tk_date->value, date_default_timezone_get());
             $response->addCommand(new InvokeCommand(
-              "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-completed-date-date']",
+              "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-completed-date-date']",
               'val',
               [$date->format('Y-m-d')]
             ));
@@ -64,7 +64,7 @@ class ItemsController extends ControllerBase {
         if ($item = Item::load($values[$field][$index]['target_id'])) {
           if (!empty($item->se_it_serial->value)) {
             $response->addCommand(new InvokeCommand(
-              "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-serial']",
+              "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
               'val',
               [$item->se_it_serial->value]
             ));
@@ -85,7 +85,7 @@ class ItemsController extends ControllerBase {
 
       // Create a new ajax response to set the price.
       $response->addCommand(new InvokeCommand(
-        "form input[data-drupal-selector='edit-field-{$type}-lines-{$index}-price']",
+        "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-price']",
         'val',
         [\Drupal::service('se_accounting.currency_format')->formatDisplay($item_price)]
       ));
@@ -106,7 +106,7 @@ class ItemsController extends ControllerBase {
     }
 
     $response->addCommand(new InvokeCommand(
-      "form input[data-drupal-selector='edit-field-{$type}-total-0-value']",
+      "form input[data-drupal-selector='edit-se-{$type}-total-0-value']",
       'val',
       [\Drupal::service('se_accounting.currency_format')->formatDisplay($total)]
     ));

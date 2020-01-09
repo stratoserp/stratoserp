@@ -35,7 +35,7 @@
       response(suggestions);
     }
 
-    var business = $("#edit-field-bu-ref-0-target-id").val();
+    var business = $("#edit-se-bu-ref-0-target-id").val();
     var businessNid = business.substring(business.indexOf("(") + 1, business.indexOf(")"));
 
     function sourceCallbackHandler(data) {

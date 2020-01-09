@@ -65,7 +65,7 @@
     }
 
     // Get the desired term and construct the autocomplete URL for it.
-    const business = $("#edit-field-bu-ref-0-target-id").val();
+    const business = $("#edit-se-bu-ref-0-target-id").val();
     const businessNid = business.substring(
       business.indexOf("(") + 1,
       business.indexOf(")")
