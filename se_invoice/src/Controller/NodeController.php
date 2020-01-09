@@ -151,16 +151,19 @@ class NodeController extends ControllerBase {
         /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = Item::load($comment->se_tk_item->target_id)) {
           $price = $item->se_it_sell_price->value;
+          $line = [
+            'target_type' => 'se_item',
+            'target_id' => $item->id(),
+            'quantity' => $comment->se_tk_amount->value,
+            'notes' => $comment->se_tk_comment->value,
+            'format' => $comment->se_tk_comment->format,
+            'price' => $price,
+          ];
+          $lines[] = $line;
         }
-        $line = [
-          'target_type' => 'se_item',
-          'target_id' => $item->id(),
-          'quantity' => $comment->se_tk_amount->value,
-          'notes' => $comment->se_tk_comment->value,
-          'format' => $comment->se_tk_comment->format,
-          'price' => $price,
-        ];
-        $lines[] = $line;
+        else {
+          \Drupal::logger('se_timekeeping')->error('No matching item for entry @cid', ['@cid' => $comment->id()]);
+        }
       }
     }
 
