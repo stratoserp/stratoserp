@@ -92,14 +92,18 @@ class NodeController extends ControllerBase {
       'type' => $node_type->id(),
     ]);
 
+    $total = 0;
+    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
+
     // TODO - Make this a service?
     foreach ($source->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item) {
-      $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item);
+      $node->{$bundle_field_type . '_lines'}->appendItem($item);
     }
 
     $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
     $node->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
+    $node->{$bundle_field_type . '_quote_ref'}->target_id = $source->id();
+    $node->{$bundle_field_type . '_total'} = $total;
 
     return $this->entityFormBuilder()->getForm($node);
   }
@@ -144,7 +148,11 @@ class NodeController extends ControllerBase {
     $query->condition('se_tk_amount', 0, '>');
     $entity_ids = $query->execute();
 
+    $total = 0;
     $lines = [];
+    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
+
+    // Loop through the timekeeping entries and setup invoice lines
     foreach ($entity_ids as $entity_id) {
       /** @var \Drupal\comment\Entity\Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
@@ -154,12 +162,13 @@ class NodeController extends ControllerBase {
           $line = [
             'target_type' => 'se_item',
             'target_id' => $item->id(),
-            'quantity' => $comment->se_tk_amount->value,
+            'quantity' => round($comment->se_tk_amount->value / 60, 2),
             'notes' => $comment->se_tk_comment->value,
             'format' => $comment->se_tk_comment->format,
             'price' => $price,
           ];
           $lines[] = $line;
+          $total += $line['quantity'] * $line['price'];
         }
         else {
           \Drupal::logger('se_timekeeping')->error('No matching item for entry @cid', ['@cid' => $comment->id()]);
@@ -167,7 +176,8 @@ class NodeController extends ControllerBase {
       }
     }
 
-    $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'} = $lines;
+    $node->{$bundle_field_type . '_lines'} = $lines;
+    $node->{$bundle_field_type . '_total'} = $total;
 
     if ($open) {
       $node->se_status_ref->target_id = $open->id();
