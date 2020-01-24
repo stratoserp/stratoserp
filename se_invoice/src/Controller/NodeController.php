@@ -160,8 +160,8 @@ class NodeController extends ControllerBase {
         if ($item = Item::load($comment->se_tk_item->target_id)) {
           $price = $item->se_it_sell_price->value;
           $line = [
-            'target_type' => 'se_item',
-            'target_id' => $item->id(),
+            'target_type' => 'comment',
+            'target_id' => $comment->id(),
             'quantity' => round($comment->se_tk_amount->value / 60, 2),
             'notes' => $comment->se_tk_comment->value,
             'format' => $comment->se_tk_comment->format,

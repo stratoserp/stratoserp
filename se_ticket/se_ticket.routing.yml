@@ -1,3 +1,27 @@
+se_ticket.add:
+  path: '/ticket/add'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeController::add'
+    _title: 'Add ticket'
+    node_type: 'se_ticket'
+  requirements:
+    _permission: 'access content'
+
+se_ticket.edit:
+  path: '/ticket/{node}/edit'
+  defaults:
+    _entity_form: 'node.edit'
+  requirements:
+    node: \d+
+    _permission: 'access content'
+
+se_ticket.view:
+  path: '/ticket/{node}'
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeViewController::view'
+  requirements:
+    node: \d+
+    _permission: 'access content'
 
 se_ticket.configure:
   path: 'se/ticket/settings'

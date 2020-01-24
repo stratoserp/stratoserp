@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.se_timekeeping
+    - field.storage.comment.se_tk_invoice_ref
+    - node.type.se_invoice
+id: comment.se_timekeeping.se_tk_invoice_ref
+field_name: se_tk_invoice_ref
+entity_type: comment
+bundle: se_timekeeping
+label: Invoice
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      se_invoice: se_invoice
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

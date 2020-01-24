@@ -4,7 +4,7 @@ dependencies:
   module:
     - node
     - se_timekeeping
-id: se_item.se_tk_invoice_ref
+id: comment.se_tk_invoice_ref
 field_name: se_tk_invoice_ref
 entity_type: comment
 type: entity_reference

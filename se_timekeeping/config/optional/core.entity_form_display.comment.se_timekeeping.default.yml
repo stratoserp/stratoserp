@@ -1,3 +1,4 @@
+uuid: a6cf4539-f694-4dfc-95a0-628682f25e16
 langcode: en
 status: true
 dependencies:
@@ -9,6 +10,7 @@ dependencies:
     - field.field.comment.se_timekeeping.se_tk_billed
     - field.field.comment.se_timekeeping.se_tk_comment
     - field.field.comment.se_timekeeping.se_tk_date
+    - field.field.comment.se_timekeeping.se_tk_invoice_ref
     - field.field.comment.se_timekeeping.se_tk_item
     - field.field.comment.se_timekeeping.se_tk_review
   module:
@@ -20,7 +22,8 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: comment.se_timekeeping.default
 targetEntityType: comment
 bundle: se_timekeeping
@@ -39,6 +42,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   se_tk_amount:
     weight: 10
@@ -74,12 +78,23 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: second
+  se_tk_invoice_ref:
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
   se_tk_item:
     weight: 5
     settings:
       match_operator: CONTAINS
       size: 25
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second

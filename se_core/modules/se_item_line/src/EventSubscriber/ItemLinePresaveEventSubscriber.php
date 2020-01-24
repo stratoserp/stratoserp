@@ -51,6 +51,11 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
 
     // Loop through the item lines to calculate total.
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
+      // We don't need to do anything with comments.
+      if ($item_line->target_type === 'comment') {
+        continue;
+      }
+
       if (empty($item_line->serial)) {
         /** @var \Drupal\se_item\Entity\Item $item */
         if (($item = Item::load($item_line->target_id)) && $item->bundle() === 'se_stock') {

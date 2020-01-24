@@ -1,3 +1,4 @@
+uuid: ee09f273-eef8-4e45-87bc-df48f9a8b38e
 langcode: en
 status: true
 dependencies:
@@ -10,6 +11,7 @@ dependencies:
     - field.field.comment.se_timekeeping.se_tk_billed
     - field.field.comment.se_timekeeping.se_tk_comment
     - field.field.comment.se_timekeeping.se_tk_date
+    - field.field.comment.se_timekeeping.se_tk_invoice_ref
     - field.field.comment.se_timekeeping.se_tk_item
     - field.field.comment.se_timekeeping.se_tk_review
   module:
@@ -18,7 +20,8 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_onecol
-    settings: {  }
+    settings:
+      label: ''
 id: comment.se_timekeeping.hide_comments
 targetEntityType: comment
 bundle: se_timekeeping
@@ -28,12 +31,13 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  links: true
   se_bu_ref: true
   se_tk_amount: true
   se_tk_billable: true
   se_tk_billed: true
   se_tk_comment: true
   se_tk_date: true
+  se_tk_invoice_ref: true
   se_tk_item: true
   se_tk_review: true
-  links: true

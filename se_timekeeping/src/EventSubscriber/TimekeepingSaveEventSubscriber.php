@@ -102,13 +102,13 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
         /** @var \Drupal\comment\Entity\Comment $comment */
         if ($comment = Comment::load($item_line->target_id)) {
           // TODO - Make a service for this?
-          if ($comment->se_tk_billed != $billed) {
+          if ($comment->se_tk_billed !== $billed) {
             $comment->se_tk_billed->value = $billed;
             if ($billed) {
-              $comment->se_tk_invoice_ref->value = $entity->id();
+              $comment->se_tk_invoice_ref->target_id = $entity->id();
             }
             else {
-              unset($comment->se_tk_invoice_ref->value);
+              unset($comment->se_tk_invoice_ref->target_id);
             }
             $comment->save();
           }

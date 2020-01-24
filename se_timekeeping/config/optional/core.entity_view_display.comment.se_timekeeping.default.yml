@@ -9,6 +9,7 @@ dependencies:
     - field.field.comment.se_timekeeping.se_tk_billed
     - field.field.comment.se_timekeeping.se_tk_comment
     - field.field.comment.se_timekeeping.se_tk_date
+    - field.field.comment.se_timekeeping.se_tk_invoice_ref
     - field.field.comment.se_timekeeping.se_tk_item
     - field.field.comment.se_timekeeping.se_tk_review
   module:

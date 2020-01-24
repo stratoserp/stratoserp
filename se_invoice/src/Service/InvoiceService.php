@@ -53,11 +53,10 @@ class InvoiceService {
     $query->condition('se_status_ref', $open_term->id());
     $entity_ids = $query->execute();
 
-    $invoices = \Drupal::entityTypeManager()
+    return \Drupal::entityTypeManager()
       ->getStorage('node')
       ->loadMultiple($entity_ids);
 
-    return $invoices;
   }
 
   /**
