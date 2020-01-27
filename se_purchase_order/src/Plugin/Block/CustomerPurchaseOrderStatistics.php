@@ -63,7 +63,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
         $total = 0;
         /** @var \Drupal\node\Entity\Node $node */
         foreach ($nodes as $node) {
-          $total += $node->field_{$bundle_field_type . '_total'}->value;
+          $total += $node->se_{$bundle_field_type . '_total'}->value;
         }
         $month_data[] = $total;
         $fg_colors[] = $fg_color;
