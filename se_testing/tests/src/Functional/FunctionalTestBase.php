@@ -71,8 +71,6 @@ class FunctionalTestBase extends TestCase {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
-
-
   }
 
   /**
