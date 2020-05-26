@@ -2,6 +2,7 @@
 
 namespace Drupal\se_subscription\Controller;
 
+use Drupal\Core\Link;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatter;
@@ -134,7 +135,7 @@ class SubscriptionController extends ControllerBase implements ContainerInjectio
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_subscription->getRevisionId()) {
-          $link = \Drupal\Core\Link::fromTextAndUrl($date, new Url('entity.se_subscription.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_subscription.revision', [
             'se_subscription' => $se_subscription->id(),
             'se_subscription_revision' => $vid,
           ]));
