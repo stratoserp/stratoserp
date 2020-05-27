@@ -18,14 +18,14 @@ class UserInvoiceStatistics extends BlockBase {
   use ReportUtilityTrait;
 
   /**
-   *
+   * User invoice statistics block builder.
    */
   public function build() {
     $content = FALSE;
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$entity = $this->get_current_controller_entity()) {
+    if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 
@@ -55,11 +55,15 @@ class UserInvoiceStatistics extends BlockBase {
         }
 
         $month = 0;
+        if (count($invoices)) {
+          $content = TRUE;
+        }
+
         /** @var \Drupal\node\Entity\Node $invoice */
         foreach ($invoices as $invoice) {
           $month += $invoice->se_in_total->value;
         }
-        $month_data[] = $month;
+        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw((int) ($month ?? 0));
         $fg_colors[] = $fg_color;
       }
 

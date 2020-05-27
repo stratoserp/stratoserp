@@ -20,13 +20,13 @@ class UserTicketStatistics extends BlockBase {
   use ReportUtilityTrait;
 
   /**
-   *
+   * User ticket statistics block builder.
    */
   public function build() {
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$entity = $this->get_current_controller_entity()) {
+    if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 

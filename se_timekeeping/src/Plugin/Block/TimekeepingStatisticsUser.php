@@ -20,13 +20,13 @@ class TimekeepingStatisticsUser extends BlockBase {
   use ReportUtilityTrait;
 
   /**
-   *
+   * User timekeeping block builder.
    */
   public function build() {
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$entity = $this->get_current_controller_entity()) {
+    if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 
@@ -56,7 +56,7 @@ class TimekeepingStatisticsUser extends BlockBase {
         foreach ($comments as $comment) {
           $total += $comment->se_tk_amount->value;
         }
-        $month_data[] = \Drupal::service('se_timekeeping.time_format')->formatHours($total);
+        $month_data[] = \Drupal::service('se_timekeeping.time_format')->formatDecimal($total);
         $fg_colors[] = $fg_color;
       }
 

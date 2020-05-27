@@ -69,13 +69,10 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
 
     // Check if we're finished, and if so, update report node, set redirect.
     if ($progress >= $total) {
-      $this->report_node->se_re_parameters->value = json_encode($this->getBatchDataByKey('input_parameters'));
-      $this->report_node->se_re_json_data->value = json_encode($report_array);
-      $this->report_node->se_re_raw_data->value = $this->createCSV($report_array);
-      $this->report_node->save();
-
-      // Set new redirect url (hmm doesn't work).
-      // $this->context['results']['redirect_url'] = Url::fromUri('internal:/node/' . $this->report_node->id());
+      $this->reportNode->se_re_parameters->value = json_encode($this->getBatchDataByKey('input_parameters'));
+      $this->reportNode->se_re_json_data->value = json_encode($report_array);
+      $this->reportNode->se_re_raw_data->value = $this->createCSV($report_array);
+      $this->reportNode->save();
     }
   }
 
@@ -94,7 +91,14 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
     $form_storage = $form_state->getStorage();
 
     $input_parameters = $form_storage['views_bulk_operations'];
-    foreach (['list', 'redirect_url', 'entity_labels', 'selected_count', 'sandbox', 'results'] as $field) {
+    foreach ([
+      'list',
+      'redirect_url',
+      'entity_labels',
+      'selected_count',
+      'sandbox',
+      'results',
+    ] as $field) {
       unset($input_parameters[$field]);
     }
 

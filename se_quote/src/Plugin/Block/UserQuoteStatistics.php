@@ -20,13 +20,13 @@ class UserQuoteStatistics extends BlockBase {
   use ReportUtilityTrait;
 
   /**
-   *
+   * User quote statistics block builder.
    */
   public function build() {
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$entity = $this->get_current_controller_entity()) {
+    if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 

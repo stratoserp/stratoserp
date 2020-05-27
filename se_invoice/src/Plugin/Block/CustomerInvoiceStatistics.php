@@ -20,14 +20,14 @@ class CustomerInvoiceStatistics extends BlockBase {
   use ReportUtilityTrait;
 
   /**
-   *
+   * Customer invoice statistics block builder.
    */
   public function build() {
     $content = FALSE;
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$node = $this->get_current_controller_entity()) {
+    if (!$node = $this->getCurrentControllerEntity()) {
       return [];
     }
 
@@ -52,11 +52,16 @@ class CustomerInvoiceStatistics extends BlockBase {
           ->getStorage('node')
           ->loadMultiple($entity_ids);
         $total = 0;
+        if (count($invoices)) {
+          $content = TRUE;
+        }
         /** @var \Drupal\node\Entity\Node $invoice */
         foreach ($invoices as $invoice) {
-          $total += $invoice->se_in_total->value;
+          if (is_object($invoice) && $invoice->hasField('se_in_total')) {
+            $total += $invoice->se_in_total->value;
+          }
         }
-        $month_data[] = $total;
+        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw((int) ($total ?? 0));
         $fg_colors[] = $fg_color;
       }
 

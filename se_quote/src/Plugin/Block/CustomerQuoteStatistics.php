@@ -20,14 +20,14 @@ class CustomerQuoteStatistics extends BlockBase {
   use ReportUtilityTrait;
 
   /**
-   *
+   * Customer quote statistics block builder.
    */
   public function build() {
     $content = FALSE;
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$node = $this->get_current_controller_entity()) {
+    if (!$node = $this->getCurrentControllerEntity()) {
       return [];
     }
 
@@ -52,11 +52,16 @@ class CustomerQuoteStatistics extends BlockBase {
           ->getStorage('node')
           ->loadMultiple($entity_ids);
         $total = 0;
+        if (count($quotes)) {
+          $content = TRUE;
+        }
         /** @var \Drupal\node\Entity\Node $quote */
         foreach ($quotes as $quote) {
-          $total += $quote->se_in_total->value;
+          if (is_object($quote) && $quote->hasField('se_qu_total')) {
+            $total += $quote->se_qu_total->value;
+          }
         }
-        $month_data[] = $total;
+        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw((int) ($total ?? 0));
         $fg_colors[] = $fg_color;
       }
 

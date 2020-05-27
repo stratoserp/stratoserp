@@ -21,7 +21,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
   use ReportUtilityTrait;
 
   /**
-   *
+   * Customer purchase order statics block builder.
    */
   public function build() {
     $content = FALSE;
@@ -31,7 +31,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
     $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$node = $this->get_current_controller_entity()) {
+    if (!$node = $this->getCurrentControllerEntity()) {
       return [];
     }
 

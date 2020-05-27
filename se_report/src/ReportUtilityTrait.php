@@ -11,38 +11,41 @@ use Drupal\Core\Routing\RedirectDestinationTrait;
 use Drupal\se_item\Entity\Item;
 
 /**
- *
+ * Trait with common utility functions for building reports.
  */
 trait ReportUtilityTrait {
 
   use RedirectDestinationTrait;
 
   /**
+   * Batch id is used to save the state.
+   *
    * @var int
    */
-  protected $batch_id;
+  protected int $batchId;
 
   /**
-   * Here just for ide checks.
+   * Temporary storage used for generating reports.
    *
    * @var \Drupal\Core\TempStore\PrivateTempStore
    */
   protected $store;
 
   /**
-   * Here just for ide checks.
+   * Hold the node that the report is about.
    *
-   * @var \Drupal\node\Entity\Node
+   * @var \Drupal\core\Entity\EntityInterface
    */
-  protected $report_node;
+  protected EntityInterface $reportNode;
 
   /**
    * Get the batch id from the url.
+   *
    * Is there a better way?
    */
   private function setBatchId(): void {
     $query = \Drupal::request()->query;
-    if (!$this->batch_id = $query->get('id')) {
+    if (!$this->batchId = (int) $query->get('id')) {
       \Drupal::logger('item_breakdown_report_action')->error('Unable to get batch id to save state.');
     }
   }
@@ -51,17 +54,19 @@ trait ReportUtilityTrait {
    * Retrieve the name to use in the temp store.
    *
    * @return bool|string
+   *   The batch name.
    */
   private function getBatchName() {
-    if (!isset($this->batch_id)) {
+    if (!isset($this->batchId)) {
       return FALSE;
     }
-    return 'batch_' . $this->batch_id;
+    return 'batch_' . $this->batchId;
   }
 
   /**
-   * Create/load the temp store based on the batch id which is used
-   * to keep data between parts of the batch run.
+   * Create/load the temp store based on the batch id.
+   *
+   * This is used to keep data between parts of the batch run.
    */
   private function createLoadBatchInfo(): void {
     $temp_store = \Drupal::service('tempstore.private');
@@ -81,12 +86,14 @@ trait ReportUtilityTrait {
   /**
    * Store things for this batch.
    *
-   * @param $key
-   * @param $value
+   * @param string $key
+   *   The key of the value in the temp store.
+   * @param string $value
+   *   The value in the temp store.
    *
    * @throws \Drupal\Core\TempStore\TempStoreException
    */
-  private function setBatchData($key, $value): void {
+  private function setBatchData(string $key, string $value): void {
     $batch_data = $this->getBatchData();
     $batch_data[$key] = $value;
     $this->store->set($this->getBatchName(), $batch_data);
@@ -101,6 +108,7 @@ trait ReportUtilityTrait {
    * Retrieve all data for this batch.
    *
    * @return mixed
+   *   The data for the requested batch name.
    */
   private function getBatchData() {
     return $this->store->get($this->getBatchName());
@@ -110,8 +118,10 @@ trait ReportUtilityTrait {
    * Retrieve a value for this batch.
    *
    * @param string $key
+   *   The key to retrieve data for.
    *
    * @return bool
+   *   The batch data.
    */
   private function getBatchDataByKey(string $key): bool {
     $batch_data = $this->getBatchData();
@@ -123,17 +133,16 @@ trait ReportUtilityTrait {
   }
 
   /**
-   * Create/load the report node which will hold the results
-   * of the batch run.
+   * Create/load the report node which will hold the results.
    */
   private function createLoadReportNode(): void {
     if (($nid = $this->getBatchDataByKey('report_node')) && $node = Node::load($nid)) {
-      $this->report_node = $node;
+      $this->reportNode = $node;
       return;
     }
 
     // Setup new report node to store results in.
-    $this->report_node = Node::create([
+    $this->reportNode = Node::create([
       'type' => 'se_report',
       'langcode' => 'en',
       'uid' => \Drupal::currentUser()->id(),
@@ -142,20 +151,21 @@ trait ReportUtilityTrait {
     ]);
     if (!empty($this->configuration['business_ref'])
       && $business_node = Node::load($this->configuration['business_ref'])) {
-      $this->report_node->se_bu_ref->target_id = $business_node->id();
+      $this->reportNode->se_bu_ref->target_id = $business_node->id();
     }
-    $this->report_node->save();
+    $this->reportNode->save();
 
-    $this->setBatchData('report_node', $this->report_node->id());
+    $this->setBatchData('report_node', $this->reportNode->id());
   }
 
   /**
-   * Take an entity and convert that to an array
-   * of values for statistical reporting.
+   * Take an entity and convert that to an array.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to be converted.
    *
    * @return array
+   *   The entity statistics.
    */
   private function convertItemLineToArray(EntityInterface $entity): array {
     $data = [];
@@ -208,14 +218,14 @@ trait ReportUtilityTrait {
   /**
    * Update the data array with information about the item and amount.
    *
-   * @param $data
-   *   Array of data being build for statistics
-   * @param $item
-   *   Item code string
-   * @param $amount
-   *   Item sale amount
+   * @param array $data
+   *   Array of data being build for statistics.
+   * @param string $item
+   *   Item code string.
+   * @param int $amount
+   *   Item sale amount.
    */
-  private function setStatisticsArray(&$data = [], $item = NULL, $amount = 0): void {
+  private function setStatisticsArray(array &$data = [], $item = NULL, $amount = 0): void {
     if (!empty($item)) {
       if (isset($data[$item])) {
         $data[$item] += $amount;
@@ -227,11 +237,15 @@ trait ReportUtilityTrait {
   }
 
   /**
-   * @param $data
+   * Create a csv output file.
+   *
+   * @param array $data
+   *   Data array.
    *
    * @return bool|string
+   *   Csv string.
    */
-  private function createCSV($data) {
+  private function createCsv(array $data): string {
     // Generate CSV data from array.
     $fh = fopen('php://temp', 'rwb');
     // Don't create a file, attempt to use memory instead.
@@ -248,7 +262,10 @@ trait ReportUtilityTrait {
   }
 
   /**
+   * Take the configuration and create a title from it.
+   *
    * @return string
+   *   The formatted report title.
    */
   private function createReportTitle(): string {
     $title_parts[] = $this->configuration['input_parameters']['action_label'];
@@ -272,12 +289,12 @@ trait ReportUtilityTrait {
   }
 
   /**
-   * Helper function to return the currently loaded entity from the URL (controller).
-   * Returns NULL if the currently loaded page is no entity.
+   * Helper function to return the currently loaded entity from the controller.
    *
    * @return \Drupal\Core\Entity\EntityInterface
+   *   The entity, or null.
    */
-  public function get_current_controller_entity(): EntityInterface {
+  public function getCurrentControllerEntity(): ?EntityInterface {
     $currentRouteParameters = \Drupal::routeMatch()->getParameters();
     foreach ($currentRouteParameters as $param) {
       if ($param instanceof EntityInterface) {
@@ -288,21 +305,22 @@ trait ReportUtilityTrait {
   }
 
   /**
-   * Return a list of months for the year with
-   * start and end timestamps.
+   * Return a list of months for the year with start and end timestamps.
    *
    * TODO - Make more flexible
    * TODO - Timezones, sigh.
    *
    * @param string $year
+   *   The year to report on.
    *
    * @return array
+   *   Values of the months.
    */
-  public function reportingMonths($year = ''): array {
+  public function reportingMonths($year = 0): array {
     $months = [];
 
     if (empty($year)) {
-      $year = date('Y');
+      $year = (int) date('Y');
     }
 
     for ($i = 1; $i <= 12; $i++) {
@@ -319,10 +337,14 @@ trait ReportUtilityTrait {
    * Generate a color, darker each time the function is called.
    *
    * @param string $red
+   *   Holder for red value.
    * @param string $green
+   *   Holder for green value.
    * @param string $blue
+   *   Holder for blue value.
    *
    * @return array
+   *   An array of colors.
    *
    * @throws \Exception
    */

@@ -36,10 +36,8 @@ class TimeFormatter extends FormatterBase {
     $element = [];
 
     foreach ($items as $delta => $item) {
-      $hours = (int) ($item->value / 60);
-      $minutes = $item->value % 60;
       $element[$delta] = [
-        '#markup' => sprintf('%1s:%02s', $hours, $minutes),
+        '#markup' => \Drupal::service('se_timekeeping.time_format')->formatHours($item->value),
       ];
     }
 
