@@ -10,6 +10,9 @@ use Drupal\se_report\ReportUtilityTrait;
 /**
  * Provides a "Monthly statistics" block.
  *
+ * For all these 'statistics' blocks, we should move to a #lazy_builder
+ * style - https://labs.tadigital.com/index.php/2018/04/02/
+ *
  * @Block(
  *   id = "monthly_statistics",
  *   admin_label = @Translation("Monthly statistics"),
