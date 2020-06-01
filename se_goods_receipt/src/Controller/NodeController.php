@@ -53,7 +53,6 @@ class NodeController extends ControllerBase {
     $this->dateFormatter = $date_formatter;
     $this->renderer = $renderer;
     if (!$entity_repository) {
-      @trigger_error('The entity.repository service must be passed to NodeController::__construct(), it is required before Drupal 9.0.0. See https://www.drupal.org/node/2549139.', E_USER_DEPRECATED);
       $entity_repository = \Drupal::service('entity.repository');
     }
     $this->entityRepository = $entity_repository;
@@ -75,8 +74,8 @@ class NodeController extends ControllerBase {
    *
    * @param \Drupal\node\NodeTypeInterface $node_type
    *   The node type entity for the node.
-   *
    * @param \Drupal\node\Entity\Node $source
+   *   Source node to copy data from.
    *
    * @return array
    *   A node submission form.
@@ -90,17 +89,20 @@ class NodeController extends ControllerBase {
       'type' => $node_type->id(),
     ]);
 
-    foreach ($source->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item_line) {
+    $source_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
+    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
+
+    foreach ($source->{$source_field_type . '_lines'} as $index => $item_line) {
       // TODO: Ensure we're using the non-serialised item here?
       $item_count = $item_line->quantity;
       for ($i = 0; $i < $item_count; $i++) {
-        $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item_line->getValue());
+        $node->{$bundle_field_type . '_lines'}->appendItem($item_line->getValue());
       }
     }
 
     $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
     $node->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_purchase_order_ref'}->target_id = $source->id();
+    $node->{$bundle_field_type . '_purchase_order_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);
   }

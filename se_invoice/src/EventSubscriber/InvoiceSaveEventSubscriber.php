@@ -106,7 +106,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * @param bool $reduce_balance
    *   Whether we are increasing or reducing the balance.
    *
-   * @return void|int new balance.
+   * @return void|int
    *   The new balance is returned.
    */
   private function updateCustomerBalance(EntityInterface $entity, $reduce_balance = FALSE): int {
@@ -121,7 +121,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       $amount *= -1;
     }
 
-    return \Drupal::service('se_customer.service')->adjustBalance($customer, (int)$amount);
+    return \Drupal::service('se_customer.service')->adjustBalance($customer, (int) $amount);
   }
 
 }

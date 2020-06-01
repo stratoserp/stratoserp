@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Drupal\se_item_line\Plugin\EntityReferenceSelection;
 
 use Drupal\Component\Utility\Tags;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -35,7 +32,6 @@ class EntityItemSelection extends DefaultSelection {
    * Const for the character used to indicate virtual.
    */
   public const FILTER_VIRTUAL = '@';
-
 
   /**
    * Target type.

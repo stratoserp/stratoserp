@@ -9,6 +9,7 @@ use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\node\Entity\Node;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,8 +35,10 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * When an invoice is inserted, mark all items as sold.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -49,8 +52,10 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * When an invoice is inserted, mark all items as sold.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -64,8 +69,10 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * When an invoice is inserted, mark all items as back in stock.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -79,15 +86,16 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Loop through the payment entries and mark the invoices as
-   * paid/unpaid as dictated by the parameter.
+   * Mark the items as sold/in stock as dictated by the parameter.
    *
    * @param \Drupal\node\Entity\Node $entity
+   *   The node that is being processed.
    * @param bool $sold
+   *   Whether to update as sold or returned.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function nodeMarkItemStatus($entity, $sold = TRUE): void {
+  private function nodeMarkItemStatus(Node $entity, $sold = TRUE): void {
     $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     $date = new DateTimePlus(NULL, date_default_timezone_get());
 

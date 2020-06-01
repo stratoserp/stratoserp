@@ -30,6 +30,8 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Process items on goods receipt saving.
+   *
    * For goods receipts, We need to make new stock items for everything that
    * has a serial number, and then update the list of items with the new
    * stock item ids.

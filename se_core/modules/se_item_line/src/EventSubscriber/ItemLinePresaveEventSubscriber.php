@@ -29,10 +29,10 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * When one of the node types that has items in it is saved,
-   * adjust the prices for storage and calculate the total for the node.
+   * Process line items when a node with them is saved.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event we are working with.
    */
   public function itemLineNodePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
