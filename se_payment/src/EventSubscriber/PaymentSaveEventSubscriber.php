@@ -33,7 +33,6 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',
@@ -125,7 +124,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function updateInvoices(Node $entity, bool $paid = TRUE): int {
-    // TODO - Configurable?
+    // TODO: Configurable?
     if ($paid) {
       $term = \Drupal::service('se_invoice.service')->getPaidTerm();
     }
@@ -152,7 +151,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
         // This event updates the total at the end.
         $this->setSkipCustomerXeroEvents($invoice);
 
-        // TODO - Make a service for this?
+        // TODO: Make a service for this?
         if ($payment_line->amount === $invoice->se_in_total->value
         || $payment_line->amount === $invoice->se_in_outstanding->value) {
           $invoice->set('se_status_ref', $term);
@@ -172,7 +171,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
       $amount *= -1;
     }
 
-    return (int)$amount;
+    return (int) $amount;
   }
 
   /**

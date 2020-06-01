@@ -3,7 +3,7 @@ description: 'Provides reporting content and functionality.'
 type: module
 core: 8.x
 core_version_requirement: ^8 || ^9
-package: Stratos ERP
+package: StratosERP
 dependencies:
   - se_invoice
   - se_ticket

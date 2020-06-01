@@ -9,6 +9,7 @@ use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\node\Entity\Node;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -25,7 +26,6 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInsertMarkBilled',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingUpdateMarkBilled',
@@ -35,9 +35,11 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * When an invoice is saved, check if there are any timekeeping entries.
-   * If there are, mark them as billed.
+   *
+   * When there are, mark them as billed.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The Event to handle.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -52,9 +54,11 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
 
   /**
    * When an invoice is updated, check if there are any timekeeping entries.
-   * If there are, mark them as billed.
+   *
+   * When there are, mark them as billed.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The Event to handle.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -68,11 +72,13 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * When an invoice is about to be saved, mark any timekeeping entries in
-   * its pre-saved state as unbilled in case they have been removed from the
-   * invoice.
+   * Mark timekeeping entries as unbilled before saving.
+   *
+   * This needs to be done in case they have been removed from the invoice,
+   * and will need to be available to be billed again.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The Event to handle.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -86,22 +92,23 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Loop through the invoice entries and mark the originals as
-   * billed/un-billed as dictated by the parameter.
+   * Loop through the invoice entries and mark the originals as required.
    *
    * @param \Drupal\node\Entity\Node $entity
+   *   The entity to update timekeeping items.
    * @param bool $billed
+   *   Marking billed or not billed?
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function timekeepingMarkItemsBilled($entity, $billed = TRUE): void {
+  private function timekeepingMarkItemsBilled(Node $entity, $billed = TRUE): void {
     $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
       if ($item_line->target_type === 'comment') {
         /** @var \Drupal\comment\Entity\Comment $comment */
         if ($comment = Comment::load($item_line->target_id)) {
-          // TODO - Make a service for this?
+          // TODO: Make a service for this?
           if ($comment->se_tk_billed !== $billed) {
             $comment->se_tk_billed->value = $billed;
             if ($billed) {

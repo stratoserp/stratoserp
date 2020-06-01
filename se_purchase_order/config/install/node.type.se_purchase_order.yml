@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: 'Purchase order'
 type: se_purchase_order
-description: 'Stratos ERP Purchase order module'
+description: 'StratosERP Purchase order module'
 help: ''
 new_revision: false
 preview_mode: 0

@@ -91,10 +91,10 @@ class NodeController extends ControllerBase {
     ]);
 
     foreach ($source->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item_line) {
-      // TODO - Ensure we're using the non-serialised item here?
+      // TODO: Ensure we're using the non-serialised item here?
       $item_count = $item_line->quantity;
       for ($i = 0; $i < $item_count; $i++) {
-        $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item_line);
+        $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item_line->getValue());
       }
     }
 

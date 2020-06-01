@@ -6,7 +6,6 @@ namespace Drupal\se_purchase_order\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\Entity\Node;
@@ -17,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Returns responses for Node routes.
  */
-class NodeController extends ControllerBase implements ContainerInjectionInterface {
+class NodeController extends ControllerBase {
 
   /**
    * The date formatter service.
@@ -54,7 +53,6 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
     $this->dateFormatter = $date_formatter;
     $this->renderer = $renderer;
     if (!$entity_repository) {
-      @trigger_error('The entity.repository service must be passed to NodeController::__construct(), it is required before Drupal 9.0.0. See https://www.drupal.org/node/2549139.', E_USER_DEPRECATED);
       $entity_repository = \Drupal::service('entity.repository');
     }
     $this->entityRepository = $entity_repository;
@@ -76,8 +74,8 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
    *
    * @param \Drupal\node\NodeTypeInterface $node_type
    *   The node type entity for the node.
-   *
    * @param \Drupal\node\Entity\Node $source
+   *   Source node to copy data from.
    *
    * @return array
    *   A node submission form.
@@ -86,16 +84,28 @@ class NodeController extends ControllerBase implements ContainerInjectionInterfa
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function add(NodeTypeInterface $node_type, Node $source) {
+    /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);
 
-    // TODO - Make this a service?
-    foreach ($source->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item) {
-      $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_lines'}->appendItem($item);
+    $total = 0;
+    $source_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
+    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
+
+    // TODO: Make this a service?
+    /**
+     * @var int $index
+     * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
+     */
+    foreach ($source->{$source_field_type . '_lines'} as $index => $item) {
+      $node->{$bundle_field_type . '_lines'}->appendItem($item->getValue());
     }
 
-    $node->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()] . '_quote_ref'}->target_id = $source->id();
+    $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    $node->se_co_ref->target_id = $source->se_co_ref->target_id;
+    $node->{$bundle_field_type . '_quote_ref'}->target_id = $source->id();
+    $node->{$bundle_field_type . '_total'} = $total;
 
     return $this->entityFormBuilder()->getForm($node);
   }

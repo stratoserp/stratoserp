@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_core;
 
 /**
- *
+ * Simple class to store some constants for the StratosERP system.
  */
 final class ErpCore {
 

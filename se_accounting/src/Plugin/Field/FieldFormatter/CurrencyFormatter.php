@@ -8,7 +8,7 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 
 /**
- * Plugin implementation of stratoserp accounting formatter.
+ * Plugin implementation of StratosERP accounting formatter.
  *
  * @FieldFormatter(
  *   id = "se_currency_formatter",
@@ -38,7 +38,8 @@ class CurrencyFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       // Render each element as markup.
       $element[$delta] = [
-        '#markup' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int)$item->value),
+        '#markup' => \Drupal::service('se_accounting.currency_format')
+          ->formatDisplay((int) $item->value),
       ];
     }
 

@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: Supplier
 type: se_supplier
-description: 'Stratos ERP Supplier module'
+description: 'StratosERP Supplier module'
 help: ''
 new_revision: false
 preview_mode: 0

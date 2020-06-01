@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: Customer
 type: se_customer
-description: 'Stratos ERP Customer module'
+description: 'StratosERP Customer module'
 help: ''
 new_revision: false
 preview_mode: 0

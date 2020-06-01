@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: 'Goods receipt'
 type: se_goods_receipt
-description: 'Stratos ERP goods receipt module'
+description: 'StratosERP goods receipt module'
 help: ''
 new_revision: false
 preview_mode: 0

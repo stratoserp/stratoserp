@@ -1,9 +1,12 @@
-# Stratos ERP
+#
+# StratosERP
+#
 
-This repository contains the modules that are used by the stratoserp install
+This repository contains the modules that are used by the StratosERP install
 profile.
 
-In general, you wont want to use these directly.
+The installation profile is the best way to get started, rather than using the
+modules directly.
 
 On linux you can test the system out with docker by pasting these commands.
 
@@ -20,7 +23,8 @@ docker run --rm -p 80:8080 \
   singularo/stratoserp
 ```
 
-After the image is pulled down and started, you can access the system using 
-http://localhost and performing a standard Drupal install, choosing 
-StratosERP as the install profile.
+Retrieve the docker image and start it. Afterwards, you can access the system using 
+http://localhost and performing a standard Drupal install, choosing the 
+StratosERP install profile.
+
  

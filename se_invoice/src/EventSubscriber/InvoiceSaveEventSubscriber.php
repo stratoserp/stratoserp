@@ -28,7 +28,6 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
@@ -40,6 +39,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * Add the total of this invoice to the amount the customer owes.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event we are working with.
    */
   public function invoiceInsert(EntityInsertEvent $event): void {
     $entity = $event->getEntity();
@@ -58,6 +58,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * Add the total of this invoice to the amount the customer owes.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The event we are working with.
    */
   public function invoiceUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
@@ -73,10 +74,13 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * In case the amount changes on the saving of this entity, we need
-   * to reduce the current balance by the old balance first.
+   * Reduce the customer balance by the amount of the old invoice.
+   *
+   * This need to be done in case the amount changes on the saving
+   * of this invoice.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event we are working with.
    */
   public function invoiceAdjust(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
@@ -98,9 +102,12 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * On invoicing, update the customer balance.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The event we are working with.
    * @param bool $reduce_balance
+   *   Whether we are increasing or reducing the balance.
    *
    * @return void|int new balance.
+   *   The new balance is returned.
    */
   private function updateCustomerBalance(EntityInterface $entity, $reduce_balance = FALSE): int {
     if (!$customer = \Drupal::service('se_customer.service')->lookupCustomer($entity)) {

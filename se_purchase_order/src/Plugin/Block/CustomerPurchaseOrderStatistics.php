@@ -26,7 +26,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
   public function build() {
     $content = FALSE;
     $datasets = [];
-    // TODO Move this to a service and pass in this.
+    // TODO: Move this to a service and pass in this.
     $type = 'se_purchase_order';
     $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
 

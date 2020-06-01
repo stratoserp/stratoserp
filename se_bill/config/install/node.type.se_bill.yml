@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: Bill
 type: se_bill
-description: 'Stratos ERP Bill module'
+description: 'StratosERP Bill module'
 help: ''
 new_revision: false
 preview_mode: 0

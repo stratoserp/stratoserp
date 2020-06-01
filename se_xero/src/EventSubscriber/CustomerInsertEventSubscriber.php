@@ -25,7 +25,6 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'customerInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'customerUpdate',

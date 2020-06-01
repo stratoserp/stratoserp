@@ -1,6 +1,6 @@
 se_xero.settings:
   type: mapping
-  label: Stratos ERP Xero settings
+  label: StratosERP Xero settings
   mapping:
     system:
       type: mapping

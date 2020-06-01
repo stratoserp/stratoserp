@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: Ticket
 type: se_ticket
-description: 'Stratos ERP ticket module'
+description: 'StratosERP ticket module'
 help: ''
 new_revision: false
 preview_mode: 0

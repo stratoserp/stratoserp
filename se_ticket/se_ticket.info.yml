@@ -3,7 +3,7 @@ description: 'Provides Ticket content type and related configuration.'
 type: module
 core: 8.x
 core_version_requirement: ^8 || ^9
-package: Stratos ERP
+package: StratosERP
 dependencies:
   - datetime_range
   - eva

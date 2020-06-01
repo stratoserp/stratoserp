@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
- *
+ * Service to update Xero when an invoice is saved.
  */
 class XeroInvoiceService {
 
@@ -43,8 +43,11 @@ class XeroInvoiceService {
    * SeXeroInvoiceService constructor.
    *
    * @param \Psr\Log\LoggerInterface $logger
+   *   Logger for logging.
    * @param \Drupal\Core\TypedData\TypedDataManagerInterface $typed_data_manager
+   *   Used for loading data.
    * @param \Drupal\xero\XeroQueryFactory $xero_query_factory
+   *   Provide ability to query Xero.
    */
   public function __construct(LoggerInterface $logger, TypedDataManagerInterface $typed_data_manager, XeroQueryFactory $xero_query_factory) {
     $this->logger = $logger;
@@ -53,12 +56,20 @@ class XeroInvoiceService {
   }
 
   /**
+   * Lookup an invoice in Xero.
    *
+   * TODO: Stub needs to be completed.
+   *
+   * @param \Drupal\node\Entity\Node $node
+   *   The invoice node to check for.
+   *
+   * @return bool
+   *   Whether the invoice is already uploaded to Xero.
    */
-  public function lookupInvoice(Node $node) {
+  public function lookupInvoice(Node $node): bool {
     // $xeroQuery = $this->xeroQueryFactory->get();
-    //    $xeroQuery->setType('xero_invoice');
-    //    $xeroQuery->addCondition('InvoiceNumber', $node->invoice_id->value);
+    // $xeroQuery->setType('xero_invoice');
+    // $xeroQuery->addCondition('InvoiceNumber', $node->invoice_id->value);
     return FALSE;
   }
 
@@ -66,10 +77,14 @@ class XeroInvoiceService {
    * Create an array of data to sync to xero.
    *
    * @param \Drupal\Core\Config\ImmutableConfig $settings
+   *   Provide config access.
    * @param \Drupal\xero\Plugin\DataType\XeroItemList $invoices
+   *   The Item list.
    * @param \Drupal\node\Entity\Node $node
+   *   The Item list.
    *
    * @return \Drupal\xero\Plugin\DataType\XeroItemList|bool
+   *   The item list ready to post to Xero.
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
@@ -82,7 +97,7 @@ class XeroInvoiceService {
       ],
       'Type' => 'ACCREC',
       'Date' => date('Y-m-d', $node->created->value),
-      // TODO.
+      // TODO: Per customer due dates.
       'DueDate' => date('Y-m-d', $node->created->value + (86400 * 7)),
       'LineAmountTypes' => 'Inclusive',
       'Status' => 'SUBMITTED',
@@ -108,8 +123,10 @@ class XeroInvoiceService {
    * Create an Invoice in Xero.
    *
    * @param \Drupal\node\Entity\Node $node
+   *   The node being processed.
    *
    * @return bool
+   *   The upload transaction result.
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException

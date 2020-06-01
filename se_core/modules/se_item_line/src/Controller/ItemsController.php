@@ -14,12 +14,12 @@ use Drupal\se_item\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- *
+ * Class for Ajax controller to upate the item serial/price.
  */
 class ItemsController extends ControllerBase {
 
   /**
-   *
+   * Lookup the selected item and update the price and serial.
    */
   public static function updatePrice(array &$form, FormStateInterface $form_state, Request $request): AjaxResponse {
     $values = $form_state->getValues();
@@ -59,6 +59,7 @@ class ItemsController extends ControllerBase {
           }
         }
         break;
+
       case 'se_item':
         /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = Item::load($values[$field][$index]['target_id'])) {

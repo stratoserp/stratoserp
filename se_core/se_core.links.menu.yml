@@ -7,8 +7,8 @@ se_core.home:
   menu_name: stratos-erp
 
 se_core.admin_config_stratoserp:
-  title: 'Stratos ERP'
+  title: 'StratosERP'
   route_name: se_core.admin_config_stratoserp
   parent: system.admin_config
-  description: 'Configure Stratos ERP.'
+  description: 'Configure StratosERP.'
   weight: -50

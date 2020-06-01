@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: Payment
 type: se_payment
-description: 'Stratos ERP payment module'
+description: 'StratosERP payment module'
 help: ''
 new_revision: false
 preview_mode: 0

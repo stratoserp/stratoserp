@@ -3,7 +3,7 @@ description: 'Provides a stock/service item line field.'
 type: module
 core: 8.x
 core_version_requirement: ^8 || ^9
-package: Stratos ERP
+package: StratosERP
 dependencies:
   - dynamic_entity_reference
   - field

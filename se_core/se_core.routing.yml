@@ -31,7 +31,7 @@ se_core.admin_config_stratoserp:
   path: 'se/config/stratoserp'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Stratos ERP'
+    _title: 'StratosERP'
   options:
     no_cache: TRUE
   requirements:

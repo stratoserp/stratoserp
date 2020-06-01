@@ -22,7 +22,6 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
@@ -33,6 +32,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
    * Add a new invoice to Xero.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event we are working with.
    */
   public function invoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
@@ -51,6 +51,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
    * Update an existing invoice in Xero.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The event we are working with.
    */
   public function invoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */

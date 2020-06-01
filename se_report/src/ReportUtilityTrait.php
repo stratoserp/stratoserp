@@ -200,7 +200,7 @@ trait ReportUtilityTrait {
             break;
 
           case 'se_assembly':
-            // TODO Recursion required? See Recursion.
+            // TODO: Recursion required? See Recursion.
             break;
 
           default:
@@ -307,8 +307,8 @@ trait ReportUtilityTrait {
   /**
    * Return a list of months for the year with start and end timestamps.
    *
-   * TODO - Make more flexible
-   * TODO - Timezones, sigh.
+   * TODO: Make more flexible
+   * TODO: Timezones, sigh.
    *
    * @param string $year
    *   The year to report on.

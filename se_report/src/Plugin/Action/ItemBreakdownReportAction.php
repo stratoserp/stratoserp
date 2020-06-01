@@ -107,7 +107,7 @@ class ItemBreakdownReportAction extends ViewsBulkOperationsActionBase implements
       '#value' => $input_parameters,
     ];
 
-    // TODO Convert this to a form alter of the views exposed form.
+    // TODO: Convert this to a form alter of the views exposed form.
     $form['business_ref'] = [
       '#title' => 'Business reference',
       '#type' => 'entity_autocomplete',

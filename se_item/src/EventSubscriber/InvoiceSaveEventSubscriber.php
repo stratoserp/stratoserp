@@ -26,7 +26,6 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    /** @noinspection PhpDuplicateArrayKeysInspection */
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsertMarkSold',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdateMarkSold',
@@ -96,7 +95,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       if ($item_line->target_type === 'se_item') {
         /** @var \Drupal\se_item\Entity\Item $item */
         if (($item = Item::load($item_line->target_id)) && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
-          // TODO - Make a service for this?
+          // TODO: Make a service for this?
           // Only operate on things that have a 'parent', not the parents
           // themselves, they are never sold.
           if (!empty($item->se_it_item_ref->target_id)) {

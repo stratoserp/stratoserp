@@ -36,7 +36,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *
-   *   TODO - Config option to generate serial numbers if blank?
+   *   TODO: Config option to generate serial numbers if blank?
    */
   public function itemLineNodePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */

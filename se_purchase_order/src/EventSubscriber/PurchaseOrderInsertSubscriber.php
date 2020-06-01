@@ -9,7 +9,11 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
+ * Class PurchaseOrderInsertSubscriber.
  *
+ * On inserting a purchase order, do things.
+ *
+ * @package Drupal\se_purchase_order\EventSubscriber
  */
 class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
 
@@ -23,7 +27,10 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * When a purchase order is saved, process its event.
+   *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityCreateEvent $event
+   *   The event we are working with.
    */
   public function purchaseOrderInsert(EntityCreateEvent $event): void {
     $entity = $event->getEntity();
@@ -32,7 +39,7 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    // TODO
+    // TODO: Stuff here?
   }
 
 }

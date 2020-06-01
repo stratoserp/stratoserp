@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
- *
+ * Service to update Xero when a contact is saved.
  */
 class XeroContactService {
 
@@ -43,8 +43,11 @@ class XeroContactService {
    * SeXeroContactService constructor.
    *
    * @param \Psr\Log\LoggerInterface $logger
+   *   Logger for logging.
    * @param \Drupal\Core\TypedData\TypedDataManagerInterface $typed_data_manager
+   *   Used for loading data.
    * @param \Drupal\xero\XeroQueryFactory $xero_query_factory
+   *   Provide ability to query Xero.
    */
   public function __construct(LoggerInterface $logger, TypedDataManagerInterface $typed_data_manager, XeroQueryFactory $xero_query_factory) {
     $this->logger = $logger;
@@ -53,13 +56,17 @@ class XeroContactService {
   }
 
   /**
+   * Lookup a contact in Xero.
+   *
    * @param \Drupal\node\Entity\Node $node
+   *   The contact node to check for.
    *
    * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
+   *   The contact if they already exist in Xero.
    */
   public function lookupContact(Node $node) {
     // Check if its an existing contact and update fields vs new.
-    if (isset($node->se_xero_uuid->value) && $contact = $this->lookupByContactID($node->se_xero_uuid->value)) {
+    if (isset($node->se_xero_uuid->value) && $contact = $this->lookupByContactId($node->se_xero_uuid->value)) {
       return $contact;
     }
 
@@ -75,9 +82,14 @@ class XeroContactService {
   }
 
   /**
+   * Helper function to retrieve contacts by number from Xero.
+   *
    * @param int $contact_number
+   *   The contact number to lookup.
    *
    * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
+   *   The contact if they exist.
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
@@ -98,13 +110,18 @@ class XeroContactService {
   }
 
   /**
+   * Helper function to retrieve contact by id from Xero.
+   *
    * @param string $contact_id
+   *   The contact id to lookup.
    *
    * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
+   *   The contact if they exist.
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public function lookupByContactID(string $contact_id) {
+  public function lookupByContactId(string $contact_id) {
     if ($contact_id === NULL) {
       return FALSE;
     }
@@ -121,9 +138,14 @@ class XeroContactService {
   }
 
   /**
+   * Helper function to retrieve contact by email address from Xero.
+   *
    * @param string $email
+   *   The email to lookup.
    *
    * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
+   *   The contact if they exist.
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
@@ -147,10 +169,16 @@ class XeroContactService {
    * Create an array of data to sync to xero.
    *
    * @param \Drupal\Core\Config\ImmutableConfig $settings
+   *   Provide config access.
    * @param \Drupal\xero\Plugin\DataType\XeroItemList $contacts
+   *   The Item list.
    * @param \Drupal\node\Entity\Node $node
+   *   The Item list.
    *
    * @return \Drupal\xero\Plugin\DataType\XeroItemList
+   *   The item list ready to post to Xero.
+   *
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   private function setContactValues(ImmutableConfig $settings, XeroItemList $contacts, Node $node) {
     $values = [
@@ -164,7 +192,7 @@ class XeroContactService {
 
     $contacts->appendItem($values);
 
-    // TODO Make nicer.
+    // TODO: Make nicer.
     $name = str_replace(['-', '  '], ['', ' '], $node->title->value);
     $names = explode(' ', $name);
     if ($main_contact = \Drupal::service('se_contact.service')->loadMainContactByCustomer($node)) {
@@ -189,6 +217,7 @@ class XeroContactService {
    *   Node to process.
    *
    * @return bool
+   *   The upload transaction result.
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException

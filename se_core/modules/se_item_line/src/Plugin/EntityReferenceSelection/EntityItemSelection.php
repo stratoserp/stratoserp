@@ -24,22 +24,41 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class EntityItemSelection extends DefaultSelection {
 
-  protected $virtual_only = FALSE;
-  protected $target_type;
-  protected $configuration;
-
-  public const FILTER_VIRTUAL = '@';
-
-  protected $filterCharacters = [
-    'virtual' => EntityItemSelection::FILTER_VIRTUAL,
-  ];
+  /**
+   * Flag to indicate whether we want to see all items.
+   *
+   * @var bool
+   */
+  protected bool $virtualOnly = FALSE;
 
   /**
-   * {@inheritdoc}
+   * Const for the character used to indicate virtual.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_manager, ModuleHandlerInterface $module_handler, AccountInterface $current_user) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_manager, $module_handler, $current_user);
-  }
+  public const FILTER_VIRTUAL = '@';
+
+
+  /**
+   * Target type.
+   *
+   * @var string
+   */
+  protected string $targetType;
+
+  /**
+   * Configuration.
+   *
+   * @var array
+   */
+  protected $configuration;
+
+  /**
+   * List of filtering characters.
+   *
+   * @var array
+   */
+  protected array $filterCharacters = [
+    'virtual' => EntityItemSelection::FILTER_VIRTUAL,
+  ];
 
   /**
    * {@inheritdoc}
@@ -60,7 +79,7 @@ class EntityItemSelection extends DefaultSelection {
    */
   public function getReferenceableEntities($match = NULL, $match_operator = 'CONTAINS', $limit = 0) {
     $configuration = $this->getConfiguration();
-    $this->target_type = $configuration['target_type'];
+    $this->targetType = $configuration['target_type'];
 
     $filters = [];
 
@@ -81,7 +100,7 @@ class EntityItemSelection extends DefaultSelection {
     }
 
     $options = [];
-    $entities = $this->entityManager->getStorage($this->target_type)->loadMultiple($result);
+    $entities = $this->entityManager->getStorage($this->targetType)->loadMultiple($result);
     foreach ($entities as $entity_id => $item) {
       $output = [];
       $bundle = $item->bundle();
@@ -124,11 +143,11 @@ class EntityItemSelection extends DefaultSelection {
     $query = parent::buildEntityQuery(NULL, $match_operator);
 
     // Include virtual items, or not.
-    if ($this->virtual_only) {
+    if ($this->virtualOnly) {
       $query->notExists('se_it_serial');
     }
 
-    $entity_type = $this->entityManager->getDefinition($this->target_type);
+    $entity_type = $this->entityManager->getDefinition($this->targetType);
 
     if (isset($match) && $label_key = $entity_type->getKey('label')) {
       $matches = explode(' ', $match);
@@ -165,7 +184,7 @@ class EntityItemSelection extends DefaultSelection {
       switch ($first_char) {
         case EntityItemSelection::FILTER_VIRTUAL:
           $filters['virtual'][0] = substr($partial, 1);
-          $this->virtual_only = TRUE;
+          $this->virtualOnly = TRUE;
           break;
       }
     }
@@ -228,8 +247,8 @@ class EntityItemSelection extends DefaultSelection {
   public function validateReferenceableEntities(array $ids) {
     $result = [];
     if ($ids) {
-      $this->target_type = $this->configuration['target_type'];
-      $entity_type = $this->entityManager->getDefinition($this->target_type);
+      $this->targetType = $this->configuration['target_type'];
+      $entity_type = $this->entityManager->getDefinition($this->targetType);
       $query = parent::buildEntityQuery();
       $result = $query
         ->condition($entity_type->getKey('id'), $ids, 'IN')

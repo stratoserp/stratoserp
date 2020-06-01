@@ -1,9 +1,9 @@
 name: Basic setup
-description: 'Provides some basic setup for a fresh install of Stratos ERP.'
+description: 'Provides some basic setup for a fresh install of StratosERP.'
 type: module
 core: 8.x
 core_version_requirement: ^8 || ^9
-package: Stratos ERP
+package: StratosERP
 dependencies:
  - se_core
  - se_subscription

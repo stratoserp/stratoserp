@@ -7,7 +7,7 @@ use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Remove the _admin_route from item links.
- * TODO - Is there a nicer way to do this?
+ * TODO: Is there a nicer way to do this?
  */
 class ItemRouteSubscriber extends RouteSubscriberBase {
 

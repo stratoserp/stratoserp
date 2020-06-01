@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: Contact
 type: se_contact
-description: 'Stratos ERP contact module'
+description: 'StratosERP contact module'
 help: ''
 new_revision: false
 preview_mode: 0

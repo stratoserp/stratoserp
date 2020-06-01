@@ -55,7 +55,6 @@ class NodeController extends ControllerBase {
     $this->dateFormatter = $date_formatter;
     $this->renderer = $renderer;
     if (!$entity_repository) {
-      @trigger_error('The entity.repository service must be passed to NodeController::__construct(), it is required before Drupal 9.0.0. See https://www.drupal.org/node/2549139.', E_USER_DEPRECATED);
       $entity_repository = \Drupal::service('entity.repository');
     }
     $this->entityRepository = $entity_repository;
@@ -77,8 +76,8 @@ class NodeController extends ControllerBase {
    *
    * @param \Drupal\node\NodeTypeInterface $node_type
    *   The node type entity for the node.
-   *
    * @param \Drupal\node\Entity\Node $source
+   *   Source node to copy data from.
    *
    * @return array
    *   A node submission form.
@@ -93,11 +92,12 @@ class NodeController extends ControllerBase {
     ]);
 
     $total = 0;
+    $source_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
     $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
-    // TODO - Make this a service?
-    foreach ($source->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()] . '_lines'} as $index => $item) {
-      $node->{$bundle_field_type . '_lines'}->appendItem($item);
+    // TODO: Make this a service?
+    foreach ($source->{$source_field_type . '_lines'} as $index => $item) {
+      $node->{$bundle_field_type . '_lines'}->appendItem($item->getValue());
     }
 
     $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
@@ -113,7 +113,6 @@ class NodeController extends ControllerBase {
    *
    * @param \Drupal\node\NodeTypeInterface $node_type
    *   The node type entity for the node.
-   *
    * @param \Drupal\node\Entity\Node $source
    *   The source node.
    *
@@ -132,7 +131,7 @@ class NodeController extends ControllerBase {
     $default_status = \Drupal::config('se_invoice.settings')->get('invoice_status_term');
     $open = Term::load($default_status);
 
-    // Retrieve a list of unbilled timekeeping entries for this customer.
+    // Retrieve a list of non billed timekeeping entries for this customer.
     $query = \Drupal::entityQuery('comment');
 
     if ($source->bundle() !== 'se_customer') {
@@ -152,7 +151,7 @@ class NodeController extends ControllerBase {
     $lines = [];
     $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
-    // Loop through the timekeeping entries and setup invoice lines
+    // Loop through the timekeeping entries and setup invoice lines.
     foreach ($entity_ids as $entity_id) {
       /** @var \Drupal\comment\Entity\Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {

@@ -3,6 +3,6 @@ description: 'Provides accounting utilities and helpers.'
 type: module
 core: 8.x
 core_version_requirement: ^8 || ^9
-package: Stratos ERP
+package: StratosERP
 dependencies:
   - se_core

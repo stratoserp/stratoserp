@@ -9,7 +9,7 @@ third_party_settings:
     parent: ''
 name: Report
 type: se_report
-description: 'Stratos ERP quote module'
+description: 'StratosERP quote module'
 help: ''
 new_revision: false
 preview_mode: 0
