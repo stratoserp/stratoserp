@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityReferenceWidget;
+use Drupal\se_core\ErpCore;
 
 /**
  * Plugin implementation of the 'se_item_line_widget' widget.
@@ -116,7 +117,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#weight' => 60,
     ];
 
-    // TODO This is a bit icky, how to do better.
+    // TODO: This is a bit icky, how to do better.
     $build['left_prefix'] = [
       '#weight' => 1,
       '#suffix' => '<div class="se-item-line-left">',
@@ -141,27 +142,36 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   }
 
   /**
+   * Massage the form values on submit.
    *
+   * {@inheritdoc}
+   *
+   * TODO: There should be a way to do this in ItemLineType setValue().
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $new_values = parent::massageFormValues($values, $form, $form_state);
 
-    if ($form['#form_id'] !== 'node_se_invoice_edit_form'
-    && $form['#form_id'] !== 'node_se_invoice_form') {
+    $host_type = $form_state->getFormObject()->getEntity()->bundle();
+
+    if (!array_key_exists($host_type, ErpCore::ITEM_LINE_NODE_BUNDLE_MAP)) {
       return $new_values;
     }
 
     foreach ($new_values as $index => $line) {
-      // TODO - Get this working in the ItemLineType setValue()
-      // instead of here.
-      $date = $line['completed_date'];
-      $storage_date = '';
-      if (!empty($date)) {
-        $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+
+      // Only invoices have a completed date.
+      if ($host_type === 'se_invoice') {
+        $date = $line['completed_date'];
+        $storage_date = '';
+        if (!empty($date)) {
+          $storage_date = \Drupal::service('date.formatter')
+            ->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+        }
+        $new_values[$index]['completed_date'] = $storage_date;
       }
+
       $new_values[$index]['note'] = $line['note']['value'];
       $new_values[$index]['format'] = $line['note']['format'];
-      $new_values[$index]['completed_date'] = $storage_date;
       $new_values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
     }
 
