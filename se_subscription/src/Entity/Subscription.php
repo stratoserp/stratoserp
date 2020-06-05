@@ -68,7 +68,12 @@ use Drupal\user\UserInterface;
  *     "collection" = "/admin/structure/subscription",
  *   },
  *   bundle_entity_type = "se_subscription_type",
- *   se_ui_base_route = "entity.se_subscription_type.edit_form"
+ *   se_ui_base_route = "entity.se_subscription_type.edit_form",
+ *   revision_metadata_keys = {
+ *     "revision_user" = "revision_user",
+ *     "revision_created" = "revision_created",
+ *     "revision_log_message" = "revision_log_message"
+ *   }
  * )
  */
 class Subscription extends RevisionableContentEntityBase implements SubscriptionInterface {

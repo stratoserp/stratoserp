@@ -7,7 +7,6 @@ dependencies:
     - field.storage.node.se_co_type_ref
     - node.type.se_contact
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
@@ -21,7 +20,6 @@ description: ''
 tag: ''
 base_table: node_field_data
 base_field: nid
-core: 8.x
 display:
   default:
     display_plugin: default

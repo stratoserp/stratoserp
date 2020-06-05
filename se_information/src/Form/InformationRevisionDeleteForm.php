@@ -31,7 +31,7 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $InformationStorage;
+  protected $informationStorage;
 
   /**
    * The database connection.
@@ -49,7 +49,7 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
    *   The database connection.
    */
   public function __construct(EntityStorageInterface $entity_storage, Connection $connection) {
-    $this->InformationStorage = $entity_storage;
+    $this->informationStorage = $entity_storage;
     $this->connection = $connection;
   }
 
@@ -57,7 +57,7 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $entity_manager = $container->get('entity.manager');
+    $entity_manager = $container->get('entity_type.manager');
     return new static(
       $entity_manager->getStorage('se_information'),
       $container->get('database')
@@ -76,7 +76,7 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
    */
   public function getQuestion() {
     return t('Are you sure you want to delete the revision from %revision-date?', [
-      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime())
+      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()),
     ]);
   }
 
@@ -98,7 +98,7 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $se_information_revision = NULL) {
-    $this->revision = $this->InformationStorage->loadRevision($se_information_revision);
+    $this->revision = $this->informationStorage->loadRevision($se_information_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -108,12 +108,13 @@ class InformationRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->InformationStorage->deleteRevision($this->revision->getRevisionId());
+    $this->informationStorage->deleteRevision($this->revision->getRevisionId());
 
     $this->logger('content')->notice('Information: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
     $messenger = \Drupal::messenger();
     $messenger->addMessage(t('Revision from %revision-date of Information %title has been deleted.', [
-      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()
+      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()),
+      '%title' => $this->revision->label(),
     ]));
     $form_state->setRedirect(
       'entity.se_information.canonical',

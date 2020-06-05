@@ -1,11 +1,11 @@
 name: Report
 description: 'Provides reporting content and functionality.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
   - se_invoice
   - se_ticket
   - chartjs_api
+  - json_field
   - views_bulk_operations

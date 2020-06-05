@@ -1,3 +1,4 @@
+uuid: 74162d7a-c793-48a4-9ed5-7d7407bc2331
 langcode: en
 status: true
 dependencies:
@@ -16,7 +17,6 @@ description: ''
 tag: ''
 base_table: node_field_data
 base_field: nid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -93,9 +93,9 @@ display:
           summary: ''
           description: ''
           columns:
-           se_gr_id: se_gr_id
+            se_gr_id: se_gr_id
           info:
-           se_gr_id:
+            se_gr_id:
               sortable: true
               default_sort_order: desc
               align: ''
@@ -253,6 +253,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -279,6 +281,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''

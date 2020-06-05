@@ -1,3 +1,4 @@
+uuid: 96041b95-eb15-4604-ac89-dbbefd442e4d
 langcode: en
 status: true
 dependencies:
@@ -63,6 +64,7 @@ third_party_settings:
       children:
         - se_ticket_eva_entity_view_1_form
         - se_ticket_eva_entity_view_1
+        - extra_field_customer_ticket_statistics
       parent_name: group_cu_tabs
       weight: 9
       format_type: tab
@@ -132,6 +134,7 @@ third_party_settings:
       children:
         - se_invoice_eva_entity_view_1_form
         - se_invoice_eva_entity_view_1
+        - extra_field_customer_invoice_statistics
       parent_name: group_cu_tabs
       weight: 10
       format_type: tab
@@ -161,6 +164,7 @@ third_party_settings:
       children:
         - se_quote_eva_entity_view_1_form
         - se_quote_eva_entity_view_1
+        - extra_field_customer_quote_statistics
       parent_name: group_cu_tabs
       weight: 14
       format_type: tab
@@ -225,13 +229,31 @@ third_party_settings:
       region: content
   field_layout:
     id: layout_onecol
-    settings: {  }
+    settings:
+      label: ''
+_core:
+  default_config_hash: X1bOluKDb4yeRugAhsdEjrpxRVnCnXfj2xoFZeXNXYk
 id: node.se_customer.default
 targetEntityType: node
 bundle: se_customer
 mode: default
 content:
+  extra_field_customer_invoice_statistics:
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   extra_field_customer_purchase_order_statistics:
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  extra_field_customer_quote_statistics:
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  extra_field_customer_ticket_statistics:
     weight: 11
     region: content
     settings: {  }
@@ -258,6 +280,26 @@ content:
     third_party_settings: {  }
   extra_field_ticket_statistics_customer:
     weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  links:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  re_report_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_bills_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_contact_eva_entity_view_1:
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -321,32 +363,22 @@ content:
     weight: 10
     label: inline
     settings:
-      set_marker: '1'
+      set_marker: true
       title: ''
       info_text: ''
-      google_map_settings:
-        height: 400px
-        width: 100%
-        type: ROADMAP
-        zoom: '10'
-        maxZoom: 18
-        minZoom: 0
-        mapTypeControl: 1
-        streetViewControl: 1
-        zoomControl: 1
-        scrollwheel: 1
-        gestureHandling: auto
-        draggable: 1
-        style: ''
-        info_auto_display: 1
-        marker_icon_path: ''
-        disableAutoPan: 1
-        rotateControl: 0
-        fullscreenControl: 0
-        preferScrollingToZooming: 0
-        disableDoubleClickZoom: 0
-      use_overridden_map_settings: 0
-      common_map: ''
+      use_overridden_map_settings: false
+      common_map: false
+      show_delta_label: false
+      data_provider_settings: {  }
+      map_provider_id: ''
+      centre:
+        fit_bounds:
+          enable: true
+          weight: -101
+          map_center_id: fit_bounds
+          settings:
+            reset_zoom: true
+      map_provider_settings: {  }
     third_party_settings: {  }
     type: geolocation_map
     region: content
@@ -428,26 +460,6 @@ content:
     label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
-  links:
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  re_report_eva_entity_view_1:
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  se_bills_eva_entity_view_1:
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  se_contact_eva_entity_view_1:
-    weight: 13
-    region: content
-    settings: {  }
     third_party_settings: {  }
   se_document_eva_entity_view_1:
     weight: 13
@@ -538,6 +550,3 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_customer_invoice_statistics: true
-  extra_field_customer_quote_statistics: true
-  extra_field_customer_ticket_statistics: true

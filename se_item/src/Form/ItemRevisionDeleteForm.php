@@ -31,7 +31,7 @@ class ItemRevisionDeleteForm extends ConfirmFormBase {
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $ItemStorage;
+  protected $itemStorage;
 
   /**
    * The database connection.
@@ -49,7 +49,7 @@ class ItemRevisionDeleteForm extends ConfirmFormBase {
    *   The database connection.
    */
   public function __construct(EntityStorageInterface $entity_storage, Connection $connection) {
-    $this->ItemStorage = $entity_storage;
+    $this->itemStorage = $entity_storage;
     $this->connection = $connection;
   }
 
@@ -57,7 +57,7 @@ class ItemRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $entity_manager = $container->get('entity.manager');
+    $entity_manager = $container->get('entity_type.manager');
     return new static(
       $entity_manager->getStorage('se_item'),
       $container->get('database')
@@ -96,7 +96,7 @@ class ItemRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $se_item_revision = NULL) {
-    $this->revision = $this->ItemStorage->loadRevision($se_item_revision);
+    $this->revision = $this->itemStorage->loadRevision($se_item_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -106,7 +106,7 @@ class ItemRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->ItemStorage->deleteRevision($this->revision->getRevisionId());
+    $this->itemStorage->deleteRevision($this->revision->getRevisionId());
 
     $this->logger('content')->notice('Item: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
     $messenger = \Drupal::messenger();

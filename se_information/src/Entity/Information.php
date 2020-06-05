@@ -69,7 +69,12 @@ use Drupal\user\UserInterface;
  *     "collection" = "/admin/content/information",
  *   },
  *   bundle_entity_type = "se_information_type",
- *   se_ui_base_route = "entity.se_information_type.edit_form"
+ *   se_ui_base_route = "entity.se_information_type.edit_form",
+ *   revision_metadata_keys = {
+ *     "revision_user" = "revision_user",
+ *     "revision_created" = "revision_created",
+ *     "revision_log_message" = "revision_log_message"
+ *   }
  * )
  */
 class Information extends RevisionableContentEntityBase implements InformationInterface {
@@ -117,8 +122,8 @@ class Information extends RevisionableContentEntityBase implements InformationIn
       }
     }
 
-    // If no revision author has been set explicitly, make the se_information owner the
-    // revision author.
+    // If no revision author has been set explicitly, make the
+    // se_information owner the revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }

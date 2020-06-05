@@ -1,7 +1,7 @@
 se_quote.add:
   path: '/quote/add'
   defaults:
-    _controller: '\Drupal\node\Controller\NodeController::add'
+    _entity_form: 'node.default'
     _title: 'Add qote'
     node_type: 'se_quote'
   requirements:

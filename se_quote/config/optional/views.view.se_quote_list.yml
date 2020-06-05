@@ -7,7 +7,6 @@ dependencies:
     - field.storage.node.se_qu_total
     - node.type.se_quote
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
@@ -22,7 +21,6 @@ description: ''
 tag: ''
 base_table: node_field_data
 base_field: nid
-core: 8.x
 display:
   default:
     display_plugin: default

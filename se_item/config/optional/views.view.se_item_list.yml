@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
@@ -16,7 +15,6 @@ description: ''
 tag: ''
 base_table: se_item_field_data
 base_field: id
-core: 8.x
 display:
   default:
     display_plugin: default

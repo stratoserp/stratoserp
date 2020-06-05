@@ -72,7 +72,12 @@ use Drupal\user\UserInterface;
  *     "_admin_route" = "0",
  *   },
  *   bundle_entity_type = "se_item_type",
- *   se_ui_base_route = "entity.se_item_type.edit_form"
+ *   se_ui_base_route = "entity.se_item_type.edit_form",
+ *   revision_metadata_keys = {
+ *     "revision_user" = "revision_user",
+ *     "revision_created" = "revision_created",
+ *     "revision_log_message" = "revision_log_message"
+ *   }
  * )
  */
 class Item extends RevisionableContentEntityBase implements ItemInterface {

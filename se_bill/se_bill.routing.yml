@@ -1,8 +1,8 @@
 se_bill.add:
   path: '/bill/add'
   defaults:
-    _controller: '\Drupal\node\Controller\NodeController::add'
-    _title: 'Add qote'
+    _entity_form: 'node.default'
+    _title: 'Add bill'
     node_type: 'se_bill'
   requirements:
     _permission: 'access content'

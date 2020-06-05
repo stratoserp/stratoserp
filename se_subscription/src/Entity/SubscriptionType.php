@@ -36,6 +36,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "edit-form" = "/admin/structure/se_subscription_type/{se_subscription_type}/edit",
  *     "delete-form" = "/admin/structure/se_subscription_type/{se_subscription_type}/delete",
  *     "collection" = "/admin/structure/se_subscription_type"
+ *   },
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "locked",
+ *     "pattern",
  *   }
  * )
  */

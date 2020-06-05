@@ -1,7 +1,7 @@
 se_ticket.add:
   path: '/ticket/add'
   defaults:
-    _controller: '\Drupal\node\Controller\NodeController::add'
+    _entity_form: 'node.default'
     _title: 'Add ticket'
     node_type: 'se_ticket'
   requirements:

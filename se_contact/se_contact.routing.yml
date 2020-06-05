@@ -1,7 +1,7 @@
 se_contact.add:
   path: '/contact/add'
   defaults:
-    _controller: '\Drupal\node\Controller\NodeController::add'
+    _entity_form: 'node.default'
     _title: 'Add contact'
     node_type: 'se_contact'
   requirements:

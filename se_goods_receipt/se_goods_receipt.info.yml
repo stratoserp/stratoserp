@@ -1,7 +1,6 @@
 name: Goods receipt
 description: 'Provides Goods receipt content type and related configuration.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:

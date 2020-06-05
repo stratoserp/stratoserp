@@ -38,6 +38,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "edit-form" = "/admin/item_type/{se_item_type}/edit",
  *     "delete-form" = "/admin/item_type/{se_item_type}/delete",
  *     "collection" = "/admin/item_type"
+ *   },
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "locked",
+ *     "pattern",
  *   }
  * )
  */

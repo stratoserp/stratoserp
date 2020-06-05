@@ -2,25 +2,26 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_bu_ref
-    - field.storage.node.se_po_id
-    - field.storage.node.se_po_total
-    - node.type.se_purchase_order
+    - field.storage.se_item.se_it_code
+    - field.storage.se_item.se_it_cost_price
+    - field.storage.se_item.se_it_sell_price
+    - field.storage.se_item.se_it_serial
+    - se_item.se_item_type.se_stock
     - system.menu.stratos-erp
     - user.role.developer
     - user.role.staff
   module:
-    - node
+    - datetime
     - se_accounting
-    - serial
+    - se_item
     - user
-id: se_purchase_order_list
-label: 'Purchase orders'
+id: se_stock_item_list
+label: 'Stock items'
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
-base_field: nid
+base_table: se_item_field_data
+base_field: id
 display:
   default:
     display_plugin: default
@@ -32,9 +33,9 @@ display:
         type: role
         options:
           role:
-            developer: developer
-            staff: staff
             administrator: administrator
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -50,7 +51,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: true
+          reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -89,62 +90,64 @@ display:
           summary: ''
           description: ''
           columns:
-            nid: nid
-            created: created
-            se_po_id: se_po_id
-            title: title
-            se_bu_ref: se_bu_ref
-            se_po_total: se_po_total
+            id: id
+            se_it_code: se_it_code
+            name: name
+            se_it_serial: se_it_serial
+            se_it_cost_price: se_it_cost_price
+            se_it_sell_price: se_it_sell_price
           info:
-            nid:
+            id:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            created:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            se_po_id:
+            se_it_code:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            title:
+            name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-medium
+            se_it_serial:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_ref:
+            se_it_cost_price:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
-              responsive: ''
-            se_po_total:
+              responsive: priority-low
+            se_it_sell_price:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          default: created
+          default: se_it_code
           empty_table: false
       row:
         type: fields
       fields:
-        nid:
-          id: nid
-          table: node_field_data
-          field: nid
+        id:
+          id: id
+          table: se_item_field_data
+          field: id
           relationship: none
           group_type: group
           admin_label: ''
@@ -204,23 +207,23 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: nid
+          entity_type: se_item
+          entity_field: id
           plugin_id: field
-        created:
-          id: created
-          table: node_field_data
-          field: created
+        se_it_code:
+          id: se_it_code
+          table: se_item__se_it_code
+          field: se_it_code
           relationship: none
           group_type: group
           admin_label: ''
-          label: Date
+          label: Code
           exclude: false
           alter:
             alter_text: false
             text: ''
             make_link: true
-            path: 'node/{{ nid }}'
+            path: 'item/{{ id }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -236,135 +239,6 @@ display:
             max_length: 0
             word_boundary: true
             ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: custom
-            custom_date_format: Y-m-d
-            timezone: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: node
-          entity_field: created
-          plugin_id: field
-        se_po_id:
-          id: se_po_id
-          table: node__se_po_id
-          field: se_po_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Purchase_order
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: true
-            path: 'node/{{ nid }}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: serial_default_formatter
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Title
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: false
-            ellipsis: false
             more_link: false
             more_link_text: ''
             more_link_path: ''
@@ -387,7 +261,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -398,23 +272,21 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
           plugin_id: field
-        se_bu_ref:
-          id: se_bu_ref
-          table: node__se_bu_ref
-          field: se_bu_ref
+        name:
+          id: name
+          table: se_item_field_data
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
-          label: Business
+          label: Name
           exclude: false
           alter:
             alter_text: false
             text: ''
-            make_link: false
-            path: ''
+            make_link: true
+            path: 'item/{{ id }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -449,11 +321,76 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: value
+          type: string
           settings:
-            link: true
-          group_column: target_id
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: null
+          entity_field: name
+          plugin_id: field
+        se_it_serial:
+          id: se_it_serial
+          table: se_item__se_it_serial
+          field: se_it_serial
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Serial
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: 'item/{{ id }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -464,20 +401,82 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        se_po_total:
-          id: se_po_total
-          table: node__se_po_total
-          field: se_po_total
+        se_it_cost_price:
+          id: se_it_cost_price
+          table: se_item__se_it_cost_price
+          field: se_it_cost_price
           relationship: none
           group_type: group
           admin_label: ''
-          label: Total
+          label: 'Purchase price'
           exclude: false
           alter:
             alter_text: false
             text: ''
             make_link: true
-            path: 'node/{{ nid }}'
+            path: 'item/{{ id }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: se_currency_formatter
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        se_it_sell_price:
+          id: se_it_sell_price
+          table: se_item__se_it_sell_price
+          field: se_it_sell_price
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Price
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: 'item/{{ id }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -527,58 +526,49 @@ display:
           field_api_classes: false
           plugin_id: field
       filters:
-        status:
-          value: '1'
-          table: node_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: node
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-          group: 1
         type:
           id: type
-          table: node_field_data
+          table: se_item_field_data
           field: type
           value:
-            se_purchase_order: se_purchase_order
-          entity_type: node
+            se_stock: se_stock
+          entity_type: se_item
           entity_field: type
           plugin_id: bundle
-          group: 1
-        se_po_id_value:
-          id: se_po_id_value
-          table: node__se_po_id
-          field: se_po_id_value
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        se_it_item_ref_target_id:
+          id: se_it_item_ref_target_id
+          table: se_item__se_it_item_ref
+          field: se_it_item_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '='
+          operator: 'not empty'
           value:
             min: ''
             max: ''
             value: ''
           group: 1
-          exposed: true
+          exposed: false
           expose:
-            operator_id: se_po_id_value_op
-            label: 'Purchase order id'
+            operator_id: ''
+            label: ''
             description: ''
             use_operator: false
-            operator: se_po_id_value_op
-            identifier: purchase_order_id
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -592,34 +582,38 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: numeric
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: se_bu_ref
+        se_it_sale_date_value:
+          id: se_it_sale_date_value
+          table: se_item__se_it_sale_date
+          field: se_it_sale_date_value
+          relationship: none
           group_type: group
           admin_label: ''
-          operator: contains
-          value: ''
+          operator: empty
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
           group: 1
-          exposed: true
+          exposed: false
           expose:
-            operator_id: title_op
-            label: Business
+            operator_id: ''
+            label: ''
             description: ''
             use_operator: false
-            operator: title_op
-            identifier: business
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -632,59 +626,27 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: title
-          plugin_id: string
-      sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          order: DESC
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          exposed: false
-          expose:
-            label: ''
-          granularity: second
-      title: 'Purchase orders'
+          plugin_id: datetime
+      sorts: {  }
+      title: 'Stock items'
       header: {  }
       footer: {  }
       empty: {  }
-      relationships:
-        se_bu_ref:
-          id: se_bu_ref
-          table: node__se_bu_ref
-          field: se_bu_ref
-          relationship: none
-          group_type: group
-          admin_label: 'se_bu_ref: Content'
-          required: false
-          plugin_id: standard
+      relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_bu_ref'
-        - 'config:field.storage.node.se_po_id'
-        - 'config:field.storage.node.se_po_total'
+        - 'config:field.storage.se_item.se_it_code'
+        - 'config:field.storage.se_item.se_it_cost_price'
+        - 'config:field.storage.se_item.se_it_sell_price'
+        - 'config:field.storage.se_item.se_it_serial'
   page_1:
     display_plugin: page
     id: page_1
@@ -692,26 +654,20 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/purchase-order-list
+      path: se/stock-items
       menu:
         type: normal
-        title: 'Purchase orders'
-        description: ''
-        expanded: false
-        parent: 'views_view:views.se_supplier_list.page_1'
-        weight: -48
-        context: '0'
+        title: 'Stock items'
         menu_name: stratos-erp
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_bu_ref'
-        - 'config:field.storage.node.se_po_id'
-        - 'config:field.storage.node.se_po_total'
+        - 'config:field.storage.se_item.se_it_code'
+        - 'config:field.storage.se_item.se_it_cost_price'
+        - 'config:field.storage.se_item.se_it_sell_price'
+        - 'config:field.storage.se_item.se_it_serial'

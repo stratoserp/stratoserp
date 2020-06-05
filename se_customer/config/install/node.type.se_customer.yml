@@ -1,3 +1,4 @@
+uuid: 9110162d-b428-4022-9a7c-06ab2ec58958
 langcode: en
 status: true
 dependencies:
@@ -7,6 +8,8 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
+_core:
+  default_config_hash: hyLx2xY-fHz_00PKD6LaAoT8x7FNufsueqNeTODVSK8
 name: Customer
 type: se_customer
 description: 'StratosERP Customer module'

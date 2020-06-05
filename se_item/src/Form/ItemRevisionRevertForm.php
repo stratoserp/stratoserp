@@ -32,7 +32,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $ItemStorage;
+  protected $itemStorage;
 
   /**
    * The date formatter service.
@@ -50,7 +50,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
    *   The date formatter service.
    */
   public function __construct(EntityStorageInterface $entity_storage, DateFormatterInterface $date_formatter) {
-    $this->ItemStorage = $entity_storage;
+    $this->itemStorage = $entity_storage;
     $this->dateFormatter = $date_formatter;
   }
 
@@ -59,7 +59,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.manager')->getStorage('se_item'),
+      $container->get('entity_type.manager')->getStorage('se_item'),
       $container->get('date.formatter')
     );
   }
@@ -103,7 +103,7 @@ class ItemRevisionRevertForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $se_item_revision = NULL) {
-    $this->revision = $this->ItemStorage->loadRevision($se_item_revision);
+    $this->revision = $this->itemStorage->loadRevision($se_item_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;

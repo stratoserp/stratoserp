@@ -12,7 +12,7 @@ use Drupal\se_information\Entity\InformationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for reverting a Information revision for a single translation.
+ * Provides a form for reverting an Information revision for a translation.
  *
  * @ingroup se_information
  */
@@ -53,7 +53,7 @@ class InformationRevisionRevertTranslationForm extends InformationRevisionRevert
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.manager')->getStorage('se_information'),
+      $container->get('entity_type.manager')->getStorage('se_information'),
       $container->get('date.formatter'),
       $container->get('language_manager')
     );
