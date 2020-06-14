@@ -3,7 +3,7 @@ description: 'Provides a domain hosting subscription entity type.'
 type: module
 core: 8.x
 core_version_requirement: ^8 || ^9
-package: 'StratosERP subscription'
+package: StratosERP
 dependencies:
   - se_item
   - se_recurring
