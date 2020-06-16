@@ -14,6 +14,8 @@ trait InvoiceTestTrait {
 
   /**
    * Storage for the faker data for invoice.
+   *
+   * @var FakerFactory
    */
   protected $invoice;
 
@@ -40,10 +42,13 @@ trait InvoiceTestTrait {
    * Add an invoice node.
    *
    * @param \Drupal\node\Entity\Node $test_customer
+   *   The customer to associate the node with.
    * @param array $items
    *   An array of items to use for invoice lines.
    *
    * @return \Drupal\node\Entity\Node
+   *   The node to return.
+   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addInvoice(Node $test_customer, array $items = []): Node {

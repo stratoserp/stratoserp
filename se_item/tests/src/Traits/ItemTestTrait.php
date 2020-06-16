@@ -15,6 +15,8 @@ trait ItemTestTrait {
 
   /**
    * Storage for the faker data for an item.
+   *
+   * @var FakerFactory
    */
   protected $item;
 

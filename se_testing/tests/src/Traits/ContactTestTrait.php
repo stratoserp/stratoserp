@@ -14,6 +14,8 @@ trait ContactTestTrait {
 
   /**
    * Storage for the faker data for contact.
+   *
+   * @var FakerFactory
    */
   protected $contact;
 
@@ -44,6 +46,8 @@ trait ContactTestTrait {
    *   The customer to add the contact to.
    *
    * @return \Drupal\node\Entity\Node
+   *   The node to return.
+   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addContact(Node $test_customer): Node {

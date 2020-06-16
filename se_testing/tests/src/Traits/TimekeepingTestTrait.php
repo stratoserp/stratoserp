@@ -14,6 +14,11 @@ use Faker\Factory;
  */
 trait TimekeepingTestTrait {
 
+  /**
+   * Storage for the faker data for timekeeping.
+   *
+   * @var FakerFactory
+   */
   protected $timekeeping;
 
   /**
@@ -39,8 +44,11 @@ trait TimekeepingTestTrait {
    * Add timekeeping to a ticket.
    *
    * @param \Drupal\node\Entity\Node $ticket
+   *   The ticket node to attache the timekeeping to.
    *
    * @return \Drupal\comment\Entity\Comment
+   *   The returned comment.
+   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -66,16 +74,17 @@ trait TimekeepingTestTrait {
 
     // Check that what we entered is shown.
     $this->assertStringContainsString($this->timekeeping->name, $content);
-    //$this->assertStringContainsString($this->timekeeping->phoneNumber, $content);
 
     return $comment;
   }
 
   /**
-   * Test deleting a ticket.
+   * Test deleting a timekeeping entry.
    *
    * @param \Drupal\comment\Entity\Comment $comment
+   *   The timekeeping comment to try and delete.
    * @param bool $allowed
+   *   Whether the deletion shoulw be allowed.
    */
   public function deleteTimekeeping(Comment $comment, bool $allowed): void {
     $this->deleteComment($comment, $allowed);

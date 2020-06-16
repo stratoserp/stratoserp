@@ -12,6 +12,11 @@ use Faker\Factory;
  */
 trait TicketTestTrait {
 
+  /**
+   * Storage for the faker data for ticket.
+   *
+   * @var FakerFactory
+   */
   protected $ticket;
 
   /**
@@ -37,13 +42,15 @@ trait TicketTestTrait {
   /**
    * Add a ticket and set the customer to the value passed in.
    *
-   * @param null $customer
+   * @param \Drupal\node\Entity\Node $customer
+   *   The customer to associate the ticket with.
    *
    * @return \Drupal\node\Entity\Node
+   *   The node to return.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addTicket($customer = NULL): Node {
+  public function addTicket(Node $customer = NULL): Node {
     $this->ticketFakerSetup();
 
     /** @var \Drupal\node\Entity\Node $node */

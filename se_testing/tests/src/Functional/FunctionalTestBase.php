@@ -63,11 +63,15 @@ class FunctionalTestBase extends TestCase {
 
   /**
    * Storage for faker factory.
+   *
+   * @var FakerFactory
    */
   protected $fakerFactory;
 
   /**
-   * Storage for faker
+   * Storage for faker.
+   *
+   * @var FakerFactory
    */
   protected $faker;
 
@@ -92,8 +96,12 @@ class FunctionalTestBase extends TestCase {
   }
 
   /**
+   * Override to remove error.
+   *
    * Override \Drupal\Tests\UiHelperTrait::prepareRequest since it generates
-   * an error, and does nothing useful for DTT. @see https://www.drupal.org/node/2246725.
+   * an error, and does nothing useful for DTT.
+   *
+   * @see https://www.drupal.org/node/2246725
    */
   protected function prepareRequest() {
   }
@@ -136,7 +144,7 @@ class FunctionalTestBase extends TestCase {
    * @param \Drupal\comment\Entity\Comment $comment
    *   The comment to delete.
    * @param bool $allowed
-   *   Whether it should be allowed or not
+   *   Whether it should be allowed or not.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -162,13 +170,11 @@ class FunctionalTestBase extends TestCase {
     $this->assertSession()->statusCodeEquals(200);
   }
 
-
   /**
    * Test standard permissions.
    *
    * @param array $pages
    *   Array of pages to test permissions against.
-   *
    */
   public function basicPermissionCheck(array $pages): void {
 
@@ -178,7 +184,8 @@ class FunctionalTestBase extends TestCase {
         $this->drupalGet($page);
         try {
           $this->assertSession()->statusCodeEquals(403);
-        } catch (ExpectationException $e) {
+        }
+        catch (ExpectationException $e) {
           $this->fail((string) t('Anon - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
         }
       }
@@ -192,7 +199,8 @@ class FunctionalTestBase extends TestCase {
       $this->drupalGet($page);
       try {
         $this->assertSession()->statusCodeEquals(403);
-      } catch (ExpectationException $e) {
+      }
+      catch (ExpectationException $e) {
         $this->fail((string) t('Customer - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
       }
       $this->drupalLogout();
@@ -203,7 +211,8 @@ class FunctionalTestBase extends TestCase {
       $this->drupalGet($page);
       try {
         $this->assertSession()->statusCodeEquals(200);
-      } catch (ExpectationException $e) {
+      }
+      catch (ExpectationException $e) {
         $this->fail((string) t('Staff - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
       }
       $this->drupalLogout();

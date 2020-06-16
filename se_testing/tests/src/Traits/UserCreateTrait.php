@@ -8,12 +8,20 @@ use Drupal\user\Entity\User;
 use Faker\Factory;
 
 /**
- *
+ * Provides functions for creating users during functional tests.
  */
 trait UserCreateTrait {
 
+  /**
+   * Storage for the faker data for a user.
+   *
+   * @var FakerFactory
+   */
   protected $user;
 
+  /**
+   * Create a fake user.
+   */
   public function userFakerSetup(): void {
     $this->faker = Factory::create();
 
@@ -22,10 +30,11 @@ trait UserCreateTrait {
     error_reporting($original);
   }
 
-    /**
+  /**
    * Setup a customer, with appropriate role.
    *
-   * @return User
+   * @return \Drupal\user\Entity\User
+   *   The created user.
    */
   public function setupCustomerUser(): User {
     $this->userFakerSetup();
@@ -36,6 +45,7 @@ trait UserCreateTrait {
    * Setup a staff member, with appropriate role.
    *
    * @return \Drupal\user\Entity\User
+   *   The created user.
    */
   public function setupStaffUser(): User {
     $this->userFakerSetup();
@@ -51,7 +61,7 @@ trait UserCreateTrait {
    *   An optional array of values to create the user with.
    *
    * @return \Drupal\user\Entity\User|bool
-   *   The user.
+   *   The created user.
    */
   protected function createUserAndCleanup(array $roles, array $values = []): User {
     $password = user_password();
@@ -73,6 +83,5 @@ trait UserCreateTrait {
     $this->cleanupEntities[] = $user;
     return $user;
   }
-
 
 }

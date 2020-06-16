@@ -7,15 +7,23 @@ namespace Drupal\Tests\se_ticket\Functional;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
+ * Class for testing ticket searching.
+ *
  * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
  */
 class TicketSearchTest extends FunctionalTestBase {
+
+  /**
+   * Storage for the faker data for the user.
+   *
+   * @var FakerFactory
+   */
   protected $staff;
 
   /**
-   *
+   * Test searching for tickets.
    */
   public function testTicketSearch(): void {
 

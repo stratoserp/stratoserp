@@ -14,6 +14,8 @@ trait GoodsReceiptTestTrait {
 
   /**
    * Storage for the faker data for goods receipt.
+   *
+   * @var FakerFactory
    */
   protected $goodsReceipt;
 
@@ -40,6 +42,7 @@ trait GoodsReceiptTestTrait {
    * Add a goods receipt node.
    *
    * @return \Drupal\node\Entity\Node
+   *   The node to return.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
