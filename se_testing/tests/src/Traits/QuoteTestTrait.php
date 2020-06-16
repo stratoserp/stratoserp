@@ -12,6 +12,9 @@ use Faker\Factory;
  */
 trait QuoteTestTrait {
 
+  /**
+   * Storage for the faker data for quote.
+   */
   protected $quote;
 
   /**
@@ -34,8 +37,11 @@ trait QuoteTestTrait {
   }
 
   /**
+   * Add a quote node.
+   *
    * @param \Drupal\node\Entity\Node $test_customer
    * @param array $items
+   *   An array of items to use for invoice lines.
    *
    * @return \Drupal\node\Entity\Node
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -69,10 +75,10 @@ trait QuoteTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->quote->name, $content);
+    $this->assertStringContainsString($this->quote->name, $content);
 
     return $node;
   }

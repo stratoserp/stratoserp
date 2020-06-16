@@ -13,6 +13,9 @@ use Faker\Factory;
  */
 trait ItemTestTrait {
 
+  /**
+   * Storage for the faker data for an item.
+   */
   protected $item;
 
   /**
@@ -31,7 +34,7 @@ trait ItemTestTrait {
   }
 
   /**
-   *
+   * Add an item entity.
    */
   public function addItem($type) {
     /** @var \Drupal\se_item\Entity\Item $item */
@@ -47,14 +50,17 @@ trait ItemTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->item->name, $content);
+    $this->assertStringContainsString($this->item->name, $content);
 
     return $item;
   }
 
+  /**
+   * Create an item entity.
+   */
   public function createItem(array $settings = []) {
     /** @var \Drupal\se_item\Entity\Item $item */
     $item = $this->createItemContent($settings);
@@ -66,7 +72,7 @@ trait ItemTestTrait {
   }
 
   /**
-   *
+   * Create and item entity.
    */
   public function createItemContent(array $settings = []): Item {
     $settings += [
@@ -92,7 +98,7 @@ trait ItemTestTrait {
   }
 
   /**
-   *
+   * Retrieve an item by its title.
    */
   public function getItemByTitle($name, $reset = FALSE) {
     if ($reset) {
@@ -105,6 +111,5 @@ trait ItemTestTrait {
 
     return reset($items);
   }
-
 
 }

@@ -27,7 +27,7 @@ use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 use weitzman\DrupalTestTraits\GoutteTrait;
 
 /**
- *
+ * Our own functional test base class.
  */
 class FunctionalTestBase extends TestCase {
   use DrupalTrait;
@@ -61,11 +61,18 @@ class FunctionalTestBase extends TestCase {
    */
   protected $databasePrefix;
 
+  /**
+   * Storage for faker factory.
+   */
   protected $fakerFactory;
+
+  /**
+   * Storage for faker
+   */
   protected $faker;
 
   /**
-   *
+   * Setup for the class.
    */
   protected function setUp() {
     parent::setUp();
@@ -74,6 +81,8 @@ class FunctionalTestBase extends TestCase {
   }
 
   /**
+   * Tear down for the class.
+   *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function tearDown() {
@@ -90,10 +99,12 @@ class FunctionalTestBase extends TestCase {
   }
 
   /**
-   * Deleting a node.
+   * Confirm whether user can delete a node.
    *
    * @param \Drupal\node\Entity\Node $node
+   *   The node to delete.
    * @param bool $allowed
+   *   Whether it should be allowed or not.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -120,10 +131,12 @@ class FunctionalTestBase extends TestCase {
   }
 
   /**
-   * Deleting a comment.
+   * Confirm whether user can delete a comment.
    *
    * @param \Drupal\comment\Entity\Comment $comment
+   *   The comment to delete.
    * @param bool $allowed
+   *   Whether it should be allowed or not
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -166,7 +179,7 @@ class FunctionalTestBase extends TestCase {
         try {
           $this->assertSession()->statusCodeEquals(403);
         } catch (ExpectationException $e) {
-          $this->fail(t('Anon - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
+          $this->fail((string) t('Anon - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
         }
       }
     }
@@ -180,7 +193,7 @@ class FunctionalTestBase extends TestCase {
       try {
         $this->assertSession()->statusCodeEquals(403);
       } catch (ExpectationException $e) {
-        $this->fail(t('Customer - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
+        $this->fail((string) t('Customer - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
       }
       $this->drupalLogout();
     }
@@ -191,7 +204,7 @@ class FunctionalTestBase extends TestCase {
       try {
         $this->assertSession()->statusCodeEquals(200);
       } catch (ExpectationException $e) {
-        $this->fail(t('Staff - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
+        $this->fail((string) t('Staff - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
       }
       $this->drupalLogout();
     }

@@ -12,6 +12,9 @@ use Faker\Factory;
  */
 trait CustomerTestTrait {
 
+  /**
+   * Storage for the faker data for customer.
+   */
   protected $customer;
 
   /**
@@ -34,7 +37,7 @@ trait CustomerTestTrait {
   }
 
   /**
-   *
+   * Add a customer node.
    */
   public function addCustomer(): Node {
     $this->customerFakerSetup();
@@ -52,11 +55,11 @@ trait CustomerTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->customer->name, $content);
-    $this->assertContains($this->customer->phoneNumber, $content);
+    $this->assertStringContainsString($this->customer->name, $content);
+    $this->assertStringContainsString($this->customer->phoneNumber, $content);
 
     return $node;
   }

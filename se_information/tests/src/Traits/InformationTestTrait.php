@@ -28,7 +28,7 @@ trait InformationTestTrait {
   }
 
   /**
-   *
+   * Add an information entity.
    */
   public function addInformation($type) {
     /** @var \Drupal\se_information\Entity\Information $information */
@@ -43,10 +43,10 @@ trait InformationTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->information->name, $content);
+    $this->assertStringContainsString($this->information->name, $content);
 
     return $information;
   }

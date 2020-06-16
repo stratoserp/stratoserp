@@ -45,10 +45,10 @@ class TicketSearchTest extends FunctionalTestBase {
     $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
-    $this->assertContains($search_word, $content);
+    $this->assertStringContainsString($search_word, $content);
     foreach ($tickets as $ticket) {
       $search_word = implode(' ', array_slice(explode(' ', $ticket->title->value), 0, 2));
-      $this->assertNotContains($search_word, $content);
+      $this->assertStringNotContainsString($search_word, $content);
     }
 
     $this->drupalLogout();

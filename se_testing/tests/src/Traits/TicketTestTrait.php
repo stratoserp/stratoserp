@@ -58,10 +58,10 @@ trait TicketTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->ticket->name, $content);
+    $this->assertStringContainsString($this->ticket->name, $content);
 
     return $node;
   }

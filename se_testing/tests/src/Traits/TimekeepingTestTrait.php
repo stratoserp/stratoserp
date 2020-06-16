@@ -62,11 +62,11 @@ trait TimekeepingTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->timekeeping->name, $content);
-    //$this->assertContains($this->timekeeping->phoneNumber, $content);
+    $this->assertStringContainsString($this->timekeeping->name, $content);
+    //$this->assertStringContainsString($this->timekeeping->phoneNumber, $content);
 
     return $comment;
   }

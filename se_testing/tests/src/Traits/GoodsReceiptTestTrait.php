@@ -12,6 +12,9 @@ use Faker\Factory;
  */
 trait GoodsReceiptTestTrait {
 
+  /**
+   * Storage for the faker data for goods receipt.
+   */
   protected $goodsReceipt;
 
   /**
@@ -34,7 +37,7 @@ trait GoodsReceiptTestTrait {
   }
 
   /**
-   * Adding a goods receipt.
+   * Add a goods receipt node.
    *
    * @return \Drupal\node\Entity\Node
    *
@@ -56,11 +59,11 @@ trait GoodsReceiptTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->goodsReceipt->name, $content);
-    $this->assertContains($this->goodsReceipt->phoneNumber, $content);
+    $this->assertStringContainsString($this->goodsReceipt->name, $content);
+    $this->assertStringContainsString($this->goodsReceipt->phoneNumber, $content);
 
     return $node;
   }

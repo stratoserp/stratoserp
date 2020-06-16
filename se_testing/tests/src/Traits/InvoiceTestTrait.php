@@ -12,6 +12,9 @@ use Faker\Factory;
  */
 trait InvoiceTestTrait {
 
+  /**
+   * Storage for the faker data for invoice.
+   */
   protected $invoice;
 
   /**
@@ -34,13 +37,16 @@ trait InvoiceTestTrait {
   }
 
   /**
+   * Add an invoice node.
+   *
    * @param \Drupal\node\Entity\Node $test_customer
    * @param array $items
+   *   An array of items to use for invoice lines.
    *
    * @return \Drupal\node\Entity\Node
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addInvoice(Node $test_customer, array $items = []) {
+  public function addInvoice(Node $test_customer, array $items = []): Node {
     $this->invoiceFakerSetup();
 
     $lines = [];
@@ -69,10 +75,10 @@ trait InvoiceTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->invoice->name, $content);
+    $this->assertStringContainsString($this->invoice->name, $content);
 
     return $node;
   }

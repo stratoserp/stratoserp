@@ -12,6 +12,9 @@ use Faker\Factory;
  */
 trait ContactTestTrait {
 
+  /**
+   * Storage for the faker data for contact.
+   */
   protected $contact;
 
   /**
@@ -35,7 +38,10 @@ trait ContactTestTrait {
   }
 
   /**
+   * Add a contact node.
+   *
    * @param \Drupal\node\Entity\Node $test_customer
+   *   The customer to add the contact to.
    *
    * @return \Drupal\node\Entity\Node
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -56,12 +62,12 @@ trait ContactTestTrait {
     $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
-    $this->assertNotContains('Please fill in this field', $content);
+    $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertContains($this->contact->name, $content);
-    $this->assertContains($this->contact->phoneNumber, $content);
-    $this->assertContains($this->customer->name, $content);
+    $this->assertStringContainsString($this->contact->name, $content);
+    $this->assertStringContainsString($this->contact->phoneNumber, $content);
+    $this->assertStringContainsString($this->customer->name, $content);
 
     return $node;
   }
