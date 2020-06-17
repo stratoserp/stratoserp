@@ -17,9 +17,7 @@
     { "type": "vcs", "url": "https://github.com/singularo/flat_comments.git" }
   ],
   "require": {
-    "drupal/core": "^9"
-  },
-  "require-dev": {
+    "drupal/core": "^9",
     "drupal/duration_field": "^2.0@rc",
     "drupal/eva": "^2.1",
     "drupal/field_group": "dev-3.x",
