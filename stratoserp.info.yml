@@ -6,7 +6,6 @@ dependencies:
   - duration_field
   - eva
   - field_group
-  - flat_comments
   - geolocation
   - serial
   - xero

@@ -6,7 +6,6 @@ package: StratosERP
 dependencies:
   - field
   - file
-  - flat_comments
   - image
   - menu_ui
   - node

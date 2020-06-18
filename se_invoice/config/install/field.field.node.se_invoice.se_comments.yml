@@ -6,10 +6,6 @@ dependencies:
     - node.type.se_invoice
   module:
     - comment
-    - flat_comments
-third_party_settings:
-  flat_comments:
-    remove_reply_link: 0
 id: node.se_invoice.se_comments
 field_name: se_comments
 entity_type: node

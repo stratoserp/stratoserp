@@ -4,6 +4,7 @@
  * @file
  */
 
+use Drupal\comment\CommentInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 
@@ -41,4 +42,40 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
     $form['se_bu_ref']['widget']['#access'] = FALSE;
     $form['subject']['widget']['#access'] = FALSE;
   }
+}
+
+/**
+ * Following code originally from the flat_comments module.
+ */
+
+/**
+ * Implementation of hook_comment_presave().
+ */
+function se_timekeeping_comment_presave(CommentInterface $comment) {
+  $entity = \Drupal::entityTypeManager()
+    ->getStorage($comment->getCommentedEntityTypeId())
+    ->load($comment->getCommentedEntityId());
+
+  // Only alter comments on tickets.
+  if (!isset($entity) || $entity->bundle() !== 'se_ticket') {
+    return;
+  }
+
+  // Only affect new comments and comments set to be displayed flat.
+  if (!$comment->id()) {
+    // Set parent id to NULL to prevent threads.
+    $comment->get('pid')->setValue(NULL);
+  }
+}
+
+/**
+ * Implements hook_comments_links_alter().
+ */
+function se_timekeeping_comment_links_alter(array &$links, CommentInterface $entity, array &$context) {
+  // If there is not a "reply" link, no need to continue.
+  if (!isset($links['comment']['#links']['comment-reply'])) {
+    return;
+  }
+
+  unset($links['comment']['#links']['comment-reply']);
 }
