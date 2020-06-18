@@ -1,0 +1,12 @@
+name: StratosERP
+description: 'StratosERP module set.'
+type: module
+core_version_requirement: ^8 || ^9
+dependencies:
+  - duration_field
+  - eva
+  - field_group
+  - flat_comments
+  - geolocation
+  - serial
+  - xero
