@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.5] - 2020-06-17
+### Added
+- Various subscription types
+- Drush command to fixup customer balances
+- d9 readiness updates
+- Bringing timekeeping into invoices correctly
+- PHP 7.4 & Drupal 9 compatibility updates
+- Menu install
+
+### Changed
+- Converted subscription to its own entity type
+- Adding reference field to items
+- Payment receipt working
+- field_ prexies to se_ to make future upgrades easier and safer
+- Calculate timekeeping correctly
+
+### Removed
+- iseek specific migration moved to private repo
+- Lots of complexity in the testing code
+
+## [0.1.4] - 2019-07-23
+### Added
+- views bulk operations module
+
+## [0.1.3] - 2019-07-21
+### Added
+- More tests added
+- Change to using event subscriber
+
+### Changed
+- Enhanced ticket search
+
 ## [0.1.0] - 2019-07-14
 ### Added
 - Ability to attach items to jobs for later invoicing.
