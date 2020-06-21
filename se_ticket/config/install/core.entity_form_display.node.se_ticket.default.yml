@@ -72,13 +72,13 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: first
   se_ti_priority_ref:
     weight: 8
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: second
   se_ti_scheduled:
     weight: 9
@@ -90,13 +90,13 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: second
   se_ti_type_ref:
     weight: 4
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: first
   title:
     type: string_textfield

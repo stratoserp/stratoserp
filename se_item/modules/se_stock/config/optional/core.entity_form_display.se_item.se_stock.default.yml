@@ -101,13 +101,13 @@ content:
       display_label: true
     third_party_settings: {  }
   se_it_manufacturer_ref:
-    type: chosen_select
+    type: options_select
     weight: 10
     region: second
     settings: {  }
     third_party_settings: {  }
   se_it_product_type_ref:
-    type: chosen_select
+    type: options_select
     weight: 9
     region: second
     settings: {  }
@@ -122,7 +122,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   se_it_sale_category_ref:
-    type: chosen_select
+    type: options_select
     weight: 11
     region: second
     settings: {  }

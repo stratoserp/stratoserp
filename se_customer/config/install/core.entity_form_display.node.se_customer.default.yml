@@ -53,7 +53,7 @@ content:
       size: 25
     third_party_settings: {  }
   se_cu_email_format:
-    type: chosen_select
+    type: options_select
     weight: 11
     region: second
     settings: {  }
@@ -142,7 +142,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   se_cu_status:
-    type: chosen_select
+    type: options_select
     weight: 12
     region: second
     settings: {  }

@@ -72,19 +72,19 @@ content:
     weight: 5
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: second
   se_it_product_type_ref:
     weight: 4
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: second
   se_it_sale_category_ref:
     weight: 6
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: second
   se_it_sell_price:
     weight: 1

@@ -67,7 +67,7 @@ content:
     weight: 4
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: second
   title:
     type: string_textfield

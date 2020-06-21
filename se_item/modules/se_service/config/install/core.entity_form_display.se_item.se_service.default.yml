@@ -50,19 +50,19 @@ content:
     weight: 29
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: content
   se_it_product_type_ref:
     weight: 30
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: content
   se_it_sale_category_ref:
     weight: 28
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: content
   se_it_sell_price:
     weight: 26
@@ -79,7 +79,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   user_id:
-    type: chosen_select
+    type: options_select
     weight: 5
     settings: {  }
     region: content

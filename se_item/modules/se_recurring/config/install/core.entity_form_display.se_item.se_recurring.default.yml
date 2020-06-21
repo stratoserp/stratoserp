@@ -53,13 +53,13 @@ content:
     weight: 30
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: content
   se_it_product_type_ref:
     weight: 31
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: content
   se_it_recurring_period:
     weight: 28
@@ -71,7 +71,7 @@ content:
     weight: 29
     settings: {  }
     third_party_settings: {  }
-    type: chosen_select
+    type: options_select
     region: content
   se_it_sell_price:
     weight: 27
@@ -88,7 +88,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   user_id:
-    type: chosen_select
+    type: options_select
     weight: 5
     settings: {  }
     region: content

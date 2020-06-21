@@ -93,7 +93,7 @@ content:
     type: comment_default
     region: bottom
   se_status_ref:
-    type: chosen_select
+    type: options_select
     weight: 5
     region: second
     settings: {  }
