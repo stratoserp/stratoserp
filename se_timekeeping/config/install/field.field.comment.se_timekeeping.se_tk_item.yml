@@ -10,7 +10,7 @@ field_name: se_tk_item
 entity_type: comment
 bundle: se_timekeeping
 label: Type
-description: ''
+description: 'Select the type of service performed'
 required: false
 translatable: false
 default_value: {  }
