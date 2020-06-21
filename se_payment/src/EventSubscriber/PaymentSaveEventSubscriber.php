@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Drupal\se_payment\EventSubscriber;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Drupal\se_core\Traits\ErpEventTrait;
@@ -43,7 +43,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * When a payment is saved, mark all invoices listed as paid.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -64,7 +64,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * Whn a payment is updated, make all invoices as paid.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -88,7 +88,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    * This is in case the payment is saved and has had some lines removed.
    * Without this, those invoices would then still show as paid.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException

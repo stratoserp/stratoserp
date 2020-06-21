@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
@@ -31,7 +31,7 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
   /**
    * Process line items when a node with them is saved.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
    */
   public function itemLineNodePresave(EntityPresaveEvent $event): void {

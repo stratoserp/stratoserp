@@ -7,7 +7,7 @@ package: StratosERP
 dependencies:
   - dynamic_entity_reference
   - field
-  - hook_event_dispatcher
+  - core_event_dispatcher
   - image
   - se_item
   - se_service

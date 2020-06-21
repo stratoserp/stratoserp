@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\se_xero\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\Traits\ErpEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,7 +34,7 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * When a customer is inserted, create the same customer in Xero.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event to work with.
    */
   public function customerInsert(EntityInsertEvent $event): void {
@@ -56,7 +56,7 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * When a customer is updated, update in Xero.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event to work with.
    */
   public function customerUpdate(EntityUpdateEvent $event): void {

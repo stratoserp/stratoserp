@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_goods_receipt\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
@@ -29,10 +29,13 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Update item details.
+   *
    * For goods receipts, we can update the items with the goods receipt number
    * After the goods receipt has been saved.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event we are working with.
    */
   public function itemsInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */

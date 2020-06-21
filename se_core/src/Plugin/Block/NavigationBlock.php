@@ -100,6 +100,9 @@ class NavigationBlock extends BlockBase {
       }
     }
 
+    // Push a 'Home' link to the front of the navigation block.
+    array_unshift($items, Link::createFromRoute('Home', '<front>', [], $this->buttonClass));
+
     if (isset($items)) {
       $build['navigation_block'] = [
         '#theme' => 'item_list',

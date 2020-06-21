@@ -8,4 +8,4 @@ dependencies:
   - field
   - text
   - se_invoice
-  - hook_event_dispatcher
+  - core_event_dispatcher

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_stock\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,11 +28,14 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Update stock item.
+   *
    * When a stock item is saved, if it has a serial number and no existing
    * stock item exists with no serial number, create one with no serial as
    * a 'parent' item to be used in quotes etc.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment_line\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,7 +30,8 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
   /**
    * When saving a payment, calculate the total of the items for saving.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event we are working with.
    */
   public function paymentLineNodePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */

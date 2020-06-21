@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Drupal\se_item\EventSubscriber;
 
 use Drupal\Component\Datetime\DateTimePlus;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\Entity\Node;
 use Drupal\se_core\ErpCore;
@@ -37,7 +37,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * When an invoice is inserted, mark all items as sold.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -54,7 +54,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * When an invoice is inserted, mark all items as sold.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -71,7 +71,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   /**
    * When an invoice is inserted, mark all items as back in stock.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException

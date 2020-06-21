@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Drupal\se_timekeeping\EventSubscriber;
 
 use Drupal\comment\Entity\Comment;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\Entity\Node;
 use Drupal\se_core\ErpCore;
@@ -38,7 +38,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * When there are, mark them as billed.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The Event to handle.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -57,7 +57,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * When there are, mark them as billed.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The Event to handle.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -77,7 +77,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    * This needs to be done in case they have been removed from the invoice,
    * and will need to be available to be billed again.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The Event to handle.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException

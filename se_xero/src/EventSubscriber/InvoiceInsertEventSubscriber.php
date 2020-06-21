@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\se_xero\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -31,7 +31,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * Add a new invoice to Xero.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
    */
   public function invoiceInsert(EntityInsertEvent $event): void {
@@ -50,7 +50,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
   /**
    * Update an existing invoice in Xero.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
    */
   public function invoiceUpdate(EntityUpdateEvent $event): void {

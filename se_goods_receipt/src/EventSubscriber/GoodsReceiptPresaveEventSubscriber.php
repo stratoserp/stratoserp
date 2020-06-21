@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_goods_receipt\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_core\ErpCore;
 use Drupal\se_item\Entity\Item;
@@ -36,7 +36,7 @@ class GoodsReceiptPresaveEventSubscriber implements EventSubscriberInterface {
    * has a serial number, and then update the list of items with the new
    * stock item ids.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *
    *   TODO: Config option to generate serial numbers if blank?
    */

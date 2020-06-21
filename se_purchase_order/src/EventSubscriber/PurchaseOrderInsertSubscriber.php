@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_purchase_order\EventSubscriber;
 
-use Drupal\hook_event_dispatcher\Event\Entity\EntityCreateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -29,7 +29,7 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
   /**
    * When a purchase order is saved, process its event.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityCreateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent $event
    *   The event we are working with.
    */
   public function purchaseOrderInsert(EntityCreateEvent $event): void {
