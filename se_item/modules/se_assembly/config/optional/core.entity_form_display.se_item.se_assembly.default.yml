@@ -14,7 +14,6 @@ dependencies:
     - image.style.thumbnail
     - se_item.se_item_type.se_assembly
   module:
-    - chosen_field
     - field_layout
     - image
     - layout_discovery

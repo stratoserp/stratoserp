@@ -13,7 +13,6 @@ dependencies:
     - field.field.se_item.se_recurring.se_it_sell_price
     - se_item.se_item_type.se_recurring
   module:
-    - chosen_field
     - duration_field
     - field_layout
     - layout_discovery

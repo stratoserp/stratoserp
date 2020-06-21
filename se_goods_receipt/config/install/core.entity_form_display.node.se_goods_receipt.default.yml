@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.se_goods_receipt.se_status_ref
     - node.type.se_goods_receipt
   module:
-    - chosen_field
     - comment
     - field_layout
     - layout_discovery

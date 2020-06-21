@@ -21,7 +21,6 @@ dependencies:
     - field.field.node.se_supplier.se_su_suburb
     - node.type.se_supplier
   module:
-    - chosen_field
     - field_layout
     - layout_discovery
     - link

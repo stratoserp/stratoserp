@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.se_bill.se_status_ref
     - node.type.se_bill
   module:
-    - chosen_field
     - field_layout
     - layout_discovery
     - se_accounting

@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.se_ticket.se_ti_type_ref
     - node.type.se_ticket
   module:
-    - chosen_field
     - datetime_range
     - field_layout
     - layout_discovery

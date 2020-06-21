@@ -7,7 +7,6 @@ dependencies:
     - field.field.se_information.se_document.se_if_comments
     - se_information.se_information_type.se_document
   module:
-    - chosen_field
     - comment
     - field_layout
     - layout_discovery

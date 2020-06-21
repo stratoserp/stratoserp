@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.se_invoice.se_status_ref
     - node.type.se_invoice
   module:
-    - chosen_field
     - comment
     - field_layout
     - layout_discovery

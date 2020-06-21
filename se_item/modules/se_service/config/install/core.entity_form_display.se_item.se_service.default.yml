@@ -11,7 +11,6 @@ dependencies:
     - field.field.se_item.se_service.se_it_sell_price
     - se_item.se_item_type.se_service
   module:
-    - chosen_field
     - field_layout
     - layout_discovery
     - se_accounting

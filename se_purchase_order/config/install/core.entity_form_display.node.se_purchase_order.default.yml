@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.se_purchase_order.se_status_ref
     - node.type.se_purchase_order
   module:
-    - chosen_field
     - comment
     - field_layout
     - layout_discovery
