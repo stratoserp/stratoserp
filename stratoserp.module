@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * @file
+ * Core functions for StratosERP module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\stratoserp\ErpCore;
+
+/**
+ * Implements hook_help().
+ *
+ * @param $route_name
+ * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+ *
+ * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+ */
+function stratoserp_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name === 'stratoserp_main') {
+    return t('Main console page.');
+  }
+  return NULL;
+}
+
+/**
+ * Change the node buttons to be what we want.
+ *
+ * Implements hook_form_alter().
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ */
+function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Make a list of forms from the core types.
+  $se_forms = array_map(static function ($value) {
+    return 'node_' . $value . '_form';
+  }, ErpCore::STRATOS_NODE_TYPES);
+
+  if (in_array($form_id, $se_forms, TRUE)) {
+    // We don't need the publish button, anywhere.
+    stratoserp_hide_publish_buttons($form);
+
+    // Hide the title fields for some node types.
+    if (!in_array($form_id, [
+      'node_se_customer_form', 'node_se_contact_form', 'node_se_supplier_form', 'node_se_ticket_form',
+    ])) {
+      // Pre-fill the title field with sensible values.
+      stratoserp_populate_title_field($form);
+    }
+  }
+  // If using the ExtraField Form plugins, then some fields need to be removed.
+  // unset($form['meta'], $form['advanced'], $form['status'], $form['actions']);.
+}
+
+/**
+ * Helper function to hide the publish buttons.
+ *
+ * @param array $form
+ *   Form array to be manipulated.
+ */
+function stratoserp_hide_publish_buttons(array &$form) {
+  // This should work.
+  $form['actions']['unpublish']['#access'] = FALSE;
+  $form['actions']['publish']['#access'] = FALSE;
+
+  // But it doesn't. Sledge hammer time.
+  unset($form['actions']['unpublish'], $form['actions']['publish']);
+
+  // Ensure that we can 'Save' as well.
+  $form['actions']['submit']['#access'] = TRUE;
+}
+
+/**
+ * Nodes are handy, but we don't really need the title field.
+ *
+ * @param array $form
+ *   Form array to be manipulated.
+ */
+function stratoserp_populate_title_field(array &$form) {
+  // $form['title']['#hidden'] = TRUE;
+  $form['title']['widget'][0]['value']['#default_value'] = t('@user - @date', [
+    '@user' => \Drupal::currentUser()->getAccountName(),
+    '@date' => date('j-m-Y'),
+  ])->render();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ */
+function stratoserp_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Alter login form and add own custom submit handler.
+  $form['#submit'][] = '_stratoserp_user_login_form_submit';
+}
+
+/**
+ * Custom submit handler for login form.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _stratoserp_user_login_form_submit($form, FormStateInterface $form_state) {
+  $form_state->setRedirect('<front>');
+}
+
+/**
+ *
+ */
+function stratoserp_theme() {
+  return [
+    'stratoserp_admin_page' => [
+      'variables' => [
+        'counters' => [],
+        'general_info' => [],
+        'requirements' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Helper function for modules to install their own terms.
+ *
+ * @param $taxonomy
+ * @param $terms
+ */
+function stratoserp_create_terms($taxonomy, $terms) {
+  foreach ($terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, $taxonomy);
+    if (empty($term)) {
+      Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => $taxonomy,
+      ])->save();
+    }
+  }
+}
+
+/**
+ * Modify field types for which remove button will be added.
+ * See multiple_fields_remove_button.api.php.
+ *
+ * @param array $fieldTypes
+ *   A list with field types.
+ */
+function stratoserp_multiple_field_remove_button_field_types_alter(array &$fieldTypes) {
+  $fieldTypes[] = 'se_item_line';
+  $fieldTypes[] = 'se_payment_line';
+}

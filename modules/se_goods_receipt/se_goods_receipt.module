@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ *
+ */
+function se_goods_receipt_form_node_se_goods_receipt_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
+  \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_po_ref', 'se_po_ref');
+
+  // Perform some goods receipt specific tweaks.
+  foreach ($form['se_gr_lines']['widget'] as $index => $value) {
+    // TODO I'm sure there is a better way to filter these out.
+    if (is_numeric($index)) {
+      // Remove all other options, we can only goods receipt stock.
+      $form['se_gr_lines']['target_type']['#options'] = ['se_item:se_stock'];
+      $form['se_gr_lines']['target_type']['#type'] = 'value';
+    }
+  }
+}

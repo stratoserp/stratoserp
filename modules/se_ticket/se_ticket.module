@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ *
+ */
+function se_ticket_form_node_se_ticket_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
+  \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_co_ref', 'se_co_ref');
+
+  $config = \Drupal::configFactory()->get('se_ticket.settings');
+  if ($ticket_status = $config->get('status_default_term')) {
+    \Drupal::service('stratoserp.set_field')
+      ->setTaxonomyField($form, 'se_ti_status_ref', $ticket_status);
+  }
+
+  if ($ticket_priority = $config->get('priority_default_term')) {
+    \Drupal::service('stratoserp.set_field')
+      ->setTaxonomyField($form, 'se_ti_priority_ref', $ticket_priority);
+  }
+
+  if ($ticket_type = $config->get('type_default_term')) {
+    \Drupal::service('stratoserp.set_field')
+      ->setTaxonomyField($form, 'se_ti_type_ref', $ticket_type);
+  }
+
+}

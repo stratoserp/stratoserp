@@ -1,0 +1,4 @@
+services:
+  stratoserp.set_field:
+    class: Drupal\stratoserp\Service\FormAlter
+    arguments: ['@request_stack', '@entity_type.manager', '@current_user']

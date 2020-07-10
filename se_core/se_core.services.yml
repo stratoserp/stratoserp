@@ -1,4 +1,0 @@
-services:
-  se_core.set_field:
-    class: Drupal\se_core\Service\FormAlter
-    arguments: ['@request_stack', '@entity_type.manager', '@current_user']

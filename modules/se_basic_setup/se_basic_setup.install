@@ -1,0 +1,370 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+use Drupal\se_item\Entity\Item;
+
+/**
+ * Implements hook_install().
+ */
+function se_basic_setup_install() {
+  se_basic_setup_taxonomy_terms();
+  se_basic_setup_example_service_items();
+  se_basic_setup_example_recurring_items();
+  se_basic_setup_example_stock_items();
+  se_basic_setup_config_defaults();
+}
+
+/**
+ * Create some taxonomy terms.
+ */
+function se_basic_setup_taxonomy_terms() {
+  stratoserp_create_terms('se_sale_category', [
+    'Consumables',
+    'Contracting',
+    'Hardware',
+    'Hosting service',
+    'Managed service',
+    'Service',
+    'Software',
+  ]);
+
+  stratoserp_create_terms('se_product_type', [
+    'CPU',
+    'Domain name',
+    'Ink cartridge',
+    'Keyboard',
+    'Memory',
+    'Notebook',
+    'Onsite service',
+    'Video card',
+  ]);
+
+  stratoserp_create_terms('se_manufacturer', [
+    'Acer',
+    'ASUS',
+    'Canon',
+    'Dell',
+    'HP',
+    'Intel',
+    'Internal',
+    'Kingston',
+    'Microsoft',
+    'Lenovo',
+    'Seagate',
+    'System76',
+    'Western digital',
+  ]);
+
+  // Status for quotes, purchase orders, invoices.
+  stratoserp_create_terms('se_status', [
+    'Open',
+    'Ordered',
+    'Closed',
+  ]);
+
+  stratoserp_create_terms('se_ticket_priority', [
+    'Normal',
+    'High',
+    'Low',
+    'Urgent',
+    'Whenever',
+  ]);
+
+  stratoserp_create_terms('se_ticket_type', [
+    'Appointment',
+    'Call',
+    'Follow up',
+    'In store',
+    'Onsite',
+    'Quote',
+    'Remote',
+    'Todo',
+    'Warranty',
+  ]);
+
+  stratoserp_create_terms('se_ticket_status', [
+    'Open',
+    'In progress',
+    'Wait customer',
+    'Closed',
+  ]);
+
+  stratoserp_create_terms('se_payment_type', [
+    'Cash',
+    'Credit/Debit card',
+    'Cheque',
+    'Direct deposit',
+    'Paypal',
+  ]);
+}
+
+/**
+ * Setup basic service items.
+ */
+function se_basic_setup_example_service_items() {
+  $defaults = se_basic_setup_item_defaults('Service', 'Domain name', 'Internal', 'se_service');
+
+  $item = Item::create($defaults + [
+    'name' => 'Technical service',
+    'body' => 'Technical service by one of our qualified technicians.',
+    'se_it_code'  => [['value' => 'TECHSERVICE']],
+    'se_it_sell_price' => [['value' => 16000]],
+    'se_it_cost_price' => [['value' => 5500]],
+  ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+    'name' => 'Workshop service',
+    'body' => 'Workshop service by one of our qualified technicians.',
+    'se_it_code'  => [['value' => 'WORKSHOP']],
+    'se_it_sell_price' => [['value' => 12000]],
+    'se_it_cost_price' => [['value' => 5500]],
+  ]);
+  $item->save();
+}
+
+/**
+ * Setup basic recurring items.
+ */
+function se_basic_setup_example_recurring_items() {
+  $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
+
+  // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
+  $item = Item::create($defaults + [
+    'name' => 'Domain name registration',
+    'body' => 'Domain name registration - yearly.',
+    'se_it_code'  => [['value' => 'DOMAINNAME-YEARLY']],
+    'se_it_sell_price' => [['value' => 6000]],
+    'se_it_recurring_period' => [['duration' => 'P1Y']],
+    'se_it_cost_price' => [['value' => 2000]],
+  ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+    'name' => 'Domain name - biennually',
+    'body' => 'Domain name - biennually.',
+    'se_it_code'  => [['value' => 'DOMAINNAME-BIENNUALLY']],
+    'se_it_sell_price' => [['value' => 12000]],
+    'se_it_recurring_period' => [['duration' => 'P2Y']],
+    'se_it_cost_price' => [['value' => 4000]],
+  ]);
+  $item->save();
+
+  $defaults = se_basic_setup_item_defaults('Hosting service', 'Domain name', 'Internal', 'se_recurring');
+
+  $item = Item::create($defaults + [
+    'name' => 'Domain hosting',
+    'body' => 'Domain hosting - yearly.',
+    'se_it_code'  => [['value' => 'DOMAINHOSTING-YEARLY']],
+    'se_it_sell_price' => [['value' => 24000]],
+    'se_it_recurring_period' => [['duration' => 'P1Y']],
+    'se_it_cost_price' => [['value' => 12000]],
+  ]);
+  $item->save();
+}
+
+/**
+ * Setup basic stock items.
+ */
+function se_basic_setup_example_stock_items() {
+  $defaults = se_basic_setup_item_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
+
+  $item = Item::create($defaults + [
+    'name' => 'Microsoft KB600',
+    'body' => 'Microsoft KB600',
+    'se_it_code'  => [['value' => 'MS-KB-600']],
+    'se_it_serial' => [['value' => '111111']],
+    'se_it_sell_price' => [['value' => 4500]],
+    'se_it_cost_price' => [['value' => 2500]],
+  ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+    'name' => 'Microsoft KB800',
+    'body' => 'Microsoft KB800',
+    'se_it_code'  => [['value' => 'MS-KB-800']],
+    'se_it_serial' => [['value' => '222222']],
+    'se_it_sell_price' => [['value' => 5500]],
+    'se_it_cost_price' => [['value' => 3000]],
+  ]);
+  $item->save();
+
+  $defaults = se_basic_setup_item_defaults('Hardware', 'Notebook', 'Lenovo', 'se_stock');
+
+  $item = Item::create($defaults + [
+    'name' => 'Lenovo 11e',
+    'body' => 'Lenovo 11e',
+    'se_it_code'  => [['value' => 'LN-11E']],
+    'se_it_serial' => [['value' => '333333']],
+    'se_it_sell_price' => [['value' => 89900]],
+    'se_it_cost_price' => [['value' => 67900]],
+  ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+    'name' => 'Lenovo x280',
+    'body' => 'Lenovo x280',
+    'se_it_code'  => [['value' => 'LN-X280']],
+    'se_it_serial' => [['value' => '444444']],
+    'se_it_sell_price' => [['value' => 129900]],
+    'se_it_cost_price' => [['value' => 100100]],
+  ]);
+  $item->save();
+
+  $defaults = se_basic_setup_item_defaults('Consumables', 'Ink cartridge', 'Canon', 'se_stock');
+
+  $item = Item::create($defaults + [
+    'name' => 'Canon PIXMA - Cyan',
+    'body' => 'Canon PIXMA - Cyan',
+    'se_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
+    'se_it_serial' => [['value' => '555555']],
+    'se_it_sell_price' => [['value' => 149900]],
+    'se_it_cost_price' => [['value' => 100000]],
+  ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+    'name' => 'Canon PIXMA - Yellow',
+    'body' => 'Canon PIXMA - Yellow',
+    'se_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
+    'se_it_serial' => [['value' => '666666']],
+    'se_it_sell_price' => [['value' => 149900]],
+    'se_it_cost_price' => [['value' => 100000]],
+  ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+    'name' => 'Canon PIXMA - Magenta',
+    'body' => 'Canon PIXMA - Magenta',
+    'se_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
+    'se_it_serial' => [['value' => '777777']],
+    'se_it_sell_price' => [['value' => 149900]],
+    'se_it_cost_price' => [['value' => 100000]],
+  ]);
+  $item->save();
+
+}
+
+/**
+ * Helper function for adding items.
+ *
+ * @param $category
+ *   Taxonomy category.
+ * @param $product_type
+ *   Taxonomy product type.
+ * @param $manufacturer
+ *   Taxonomy manufacturer.
+ * @param $type
+ *   Item type.
+ *
+ * @return array
+ */
+function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $type) {
+  $term = taxonomy_term_load_multiple_by_name($category, 'se_sale_category');
+  $sale_category = reset($term);
+
+  $term = taxonomy_term_load_multiple_by_name($product_type, 'se_product_type');
+  $product_type = reset($term);
+
+  $term = taxonomy_term_load_multiple_by_name($manufacturer, 'se_manufacturer');
+  $manufacturer = reset($term);
+
+  $defaults = [
+    'type' => $type,
+    'langcode' => 'en',
+    'uid' => '1',
+    'status' => 1,
+    'se_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
+    'se_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
+    'se_it_product_type_ref'  => [['target_id' => $product_type->id()]],
+  ];
+
+  return $defaults;
+}
+
+/**
+ * Setup some
+ * basic configuration defaults.
+ */
+function se_basic_setup_config_defaults() {
+  $config_storage = \Drupal::service('config.storage');
+
+  // Set the contact type.
+  $contact = $config_storage->read('se_contact.settings');
+  $contact['vocabulary'] = 'se_contact_type';
+  if ($terms = taxonomy_term_load_multiple_by_name('Main contact', 'se_contact_type')) {
+    $term = reset($terms);
+    $contact['main_contact_term'] = $term->id();
+  }
+  $config_storage->write('se_contact.settings', $contact);
+
+  // Set the status enabled types.
+  $types = [
+    'se_quote.settings' => [
+      'vocab' => 'se_status',
+      'setting' => 'quote_status_term',
+    ],
+    'se_invoice.settings' => [
+      'vocab' => 'se_status',
+      'setting' => 'invoice_status_term',
+    ],
+    'se_purchase_order.settings' => [
+      'vocab' => 'se_status',
+      'setting' => 'purchase_order_status_term',
+    ],
+  ];
+
+  if ($terms = taxonomy_term_load_multiple_by_name('Open', 'se_status')) {
+    $term = reset($terms);
+    foreach ($types as $index => $type) {
+      $type_config = $config_storage->read($index);
+      $type_config['vocabulary'] = $type['vocab'];
+      $type_config[$type['setting']] = $term->id();
+      $config_storage->write($index, $type_config);
+    }
+  }
+
+  // Set the default payment type.
+  $payment = $config_storage->read('se_payment.settings');
+  $payment['vocabulary'] = 'se_payment_type';
+  if ($terms = taxonomy_term_load_multiple_by_name('Credit/Debit card', 'se_payment_type')) {
+    $term = reset($terms);
+    $payment['default_payment_term'] = $term->id();
+  }
+  $config_storage->write('se_payment.settings', $payment);
+
+  // Set the default payment type.
+  $payment = $config_storage->read('se_payment.settings');
+  $payment['vocabulary'] = 'se_payment_type';
+  if ($terms = taxonomy_term_load_multiple_by_name('Credit/Debit card', 'se_payment_type')) {
+    $term = reset($terms);
+    $payment['default_payment_term'] = $term->id();
+  }
+  $config_storage->write('se_payment.settings', $payment);
+
+  // Set the defaults for tickets.
+  $ticket = $config_storage->read('se_ticket.settings');
+  $ticket['status_vocabulary'] = 'se_ticket_status';
+  if ($terms = taxonomy_term_load_multiple_by_name('Open', 'se_ticket_status')) {
+    $term = reset($terms);
+    $ticket['status_default_term'] = $term->id();
+  }
+
+  $ticket['priority_vocabulary'] = 'se_ticket_priority';
+  if ($terms = taxonomy_term_load_multiple_by_name('Normal', 'se_ticket_priority')) {
+    $term = reset($terms);
+    $ticket['priority_default_term'] = $term->id();
+  }
+
+  $ticket['type_vocabulary'] = 'se_ticket_type';
+  if ($terms = taxonomy_term_load_multiple_by_name('In store', 'se_ticket_type')) {
+    $term = reset($terms);
+    $ticket['type_default_term'] = $term->id();
+  }
+  $config_storage->write('se_ticket.settings', $ticket);
+}

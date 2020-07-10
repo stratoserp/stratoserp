@@ -1,0 +1,14 @@
+se_purchase_order.add_se_purchase_order:
+  title: 'Add purchase order'
+  menu_name: stratos-erp
+  route_name: node.add
+  parent: 'views_view:views.se_supplier_list.page_1'
+  route_parameters:
+    node_type: 'se_purchase_order'
+
+se_purchase_order.configure_settings:
+  title: 'Purchase order settings'
+  route_name: se_purchase_order.configure
+  parent: stratoserp.admin_config_stratoserp
+  description: 'Configure purchase order.'
+  weight: 1

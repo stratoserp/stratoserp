@@ -1,0 +1,38 @@
+
+stratoserp.home:
+  path: '/'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'access all customers'
+
+stratoserp.search_form:
+  path: 'se'
+  defaults:
+    _form: '\Drupal\stratoserp\Form\SearchForm'
+    _title_callback: '\Drupal\stratoserp\Form\SearchForm::getPageTitle'
+    _title: 'Search'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'access all customers'
+
+stratoserp.search:
+  path: 'se/core-search'
+  defaults:
+    _controller: '\Drupal\stratoserp\Controller\AutocompleteController::handleAutocomplete'
+    _format: json
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'access all customers'
+
+stratoserp.admin_config_stratoserp:
+  path: 'se/config/stratoserp'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'StratosERP'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'access administration pages'

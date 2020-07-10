@@ -1,0 +1,17 @@
+name: Goods receipt
+description: 'Provides Goods receipt content type and related configuration.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - field
+  - menu_ui
+  - node
+  - path
+  - stratoserp
+  - se_invoice
+  - se_item_line
+  - se_purchase_order
+  - serial
+  - text
+  - user

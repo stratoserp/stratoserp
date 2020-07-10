@@ -1,7 +1,0 @@
-name: Accounting
-description: 'Provides accounting utilities and helpers.'
-type: module
-core_version_requirement: ^8 || ^9
-package: StratosERP
-dependencies:
-  - se_core

@@ -1,0 +1,22 @@
+name: Ticket
+description: 'Provides Ticket content type and related configuration.'
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - datetime_range
+  - eva
+  - field
+  - menu_ui
+  - node
+  - path
+  - stratoserp
+  - se_contact
+  - se_customer
+  - se_supplier
+  - serial
+  - taxonomy
+  - text
+  - user
+  - views

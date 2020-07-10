@@ -1,0 +1,14 @@
+se_ticket.add_se_ticket:
+  title: 'Add ticket'
+  menu_name: stratos-erp
+  route_name: node.add
+  parent: 'views_view:views.se_ticket_list.page_1'
+  route_parameters:
+    node_type: 'se_ticket'
+
+se_ticket.configure_settings:
+  title: 'Ticket settings'
+  route_name: se_ticket.configure
+  parent: stratoserp.admin_config_stratoserp
+  description: 'Configure ticket.'
+  weight: 1

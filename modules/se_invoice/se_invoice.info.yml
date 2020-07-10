@@ -1,0 +1,21 @@
+name: Invoice
+description: 'Provides Invoice content type and related configuration.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - field
+  - menu_ui
+  - node
+  - path
+  - stratoserp
+  - se_contact
+  - se_customer
+  - se_item
+  - se_item_line
+  - se_quote
+  - se_supplier
+  - serial
+  - text
+  - user
+  - views_data_export

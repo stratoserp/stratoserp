@@ -1,5 +1,0 @@
-se_core.icons:
-  version: VERSION
-  css:
-    theme:
-      css/se_core.icons.css: {}
