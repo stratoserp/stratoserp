@@ -12,11 +12,13 @@ namespace Drupal\se_accounting\Service;
 class CurrencyFormat {
 
   /**
-   * Convert a cents string from storage to a human readable float style currency amount.
+   * Convert cents string from storage to human readable currency amount.
    *
    * @param int $value
+   *   The value in cents to be formatted.
    *
    * @return string
+   *   The formatted value
    */
   public function formatDisplay($value): string {
 
@@ -31,21 +33,22 @@ class CurrencyFormat {
   }
 
   /**
-   * Convert a float style human readable currency amount to an cents and string for storage.
+   * Convert from human readable currency amount to storage cents string.
    *
    * @param string $value
+   *   The formatted value to be converted.
    *
    * @return string
+   *   The string value to store.
    */
   public function formatStorage(string $value): string {
 
     // Remove thousands separator.
-    $value = str_replace(',', '', $value);
+    $value = str_replace(['$', ','], '', $value);
 
-    // Multiply by 100 to change to cents, dont bother with zero
-    // Don't try and divide by zero.
+    // Multiply by 100 to change to cents, dont bother with zero.
     if (!empty($value)) {
-      return (string) ((float)$value * 100);
+      return (string) ((float) $value * 100);
     }
 
     return '0';
@@ -55,8 +58,10 @@ class CurrencyFormat {
    * Convert a cents string from storage to a raw format for graphing.
    *
    * @param int $value
+   *   The value in cents to be formatted.
    *
    * @return string
+   *   The formatted value.
    */
   public function formatRaw(int $value): string {
 

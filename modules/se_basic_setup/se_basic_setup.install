@@ -223,8 +223,8 @@ function se_basic_setup_example_stock_items() {
     'body' => 'Canon PIXMA - Cyan',
     'se_it_code'  => [['value' => 'CN-PIXMA-CYAN']],
     'se_it_serial' => [['value' => '555555']],
-    'se_it_sell_price' => [['value' => 149900]],
-    'se_it_cost_price' => [['value' => 100000]],
+    'se_it_sell_price' => [['value' => 1499]],
+    'se_it_cost_price' => [['value' => 1000]],
   ]);
   $item->save();
 
@@ -233,8 +233,8 @@ function se_basic_setup_example_stock_items() {
     'body' => 'Canon PIXMA - Yellow',
     'se_it_code'  => [['value' => 'CN-PIXMA-YELLOW']],
     'se_it_serial' => [['value' => '666666']],
-    'se_it_sell_price' => [['value' => 149900]],
-    'se_it_cost_price' => [['value' => 100000]],
+    'se_it_sell_price' => [['value' => 1499]],
+    'se_it_cost_price' => [['value' => 1000]],
   ]);
   $item->save();
 
@@ -243,8 +243,8 @@ function se_basic_setup_example_stock_items() {
     'body' => 'Canon PIXMA - Magenta',
     'se_it_code'  => [['value' => 'CN-PIXMA-MAGENTA']],
     'se_it_serial' => [['value' => '777777']],
-    'se_it_sell_price' => [['value' => 149900]],
-    'se_it_cost_price' => [['value' => 100000]],
+    'se_it_sell_price' => [['value' => 1499]],
+    'se_it_cost_price' => [['value' => 1000]],
   ]);
   $item->save();
 

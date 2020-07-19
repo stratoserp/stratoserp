@@ -57,6 +57,7 @@ class GoodsReceiptInsertEventSubscriber implements EventSubscriberInterface {
         }
         $item->set('se_it_goods_receipt_ref', $entity->id());
         $item->set('se_it_purchase_order_ref', $entity->se_gr_purchase_order_ref->target_id);
+        $item->set('se_it_cost_price', $item_line->price);
         $item->save();
       }
     }
