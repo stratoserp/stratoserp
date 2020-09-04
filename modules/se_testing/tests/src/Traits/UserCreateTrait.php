@@ -15,7 +15,7 @@ trait UserCreateTrait {
   /**
    * Storage for the faker data for a user.
    *
-   * @var FakerFactory
+   * @var \Faker\Factory
    */
   protected $user;
 
@@ -35,6 +35,8 @@ trait UserCreateTrait {
    *
    * @return \Drupal\user\Entity\User
    *   The created user.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function setupCustomerUser(): User {
     $this->userFakerSetup();
@@ -46,6 +48,8 @@ trait UserCreateTrait {
    *
    * @return \Drupal\user\Entity\User
    *   The created user.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function setupStaffUser(): User {
     $this->userFakerSetup();
@@ -60,10 +64,12 @@ trait UserCreateTrait {
    * @param array $values
    *   An optional array of values to create the user with.
    *
-   * @return \Drupal\user\Entity\User|bool
+   * @return bool|\Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\user\Entity\User
    *   The created user.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function createUserAndCleanup(array $roles, array $values = []): User {
+  protected function createUserAndCleanup(array $roles, array $values = []) {
     $password = user_password();
 
     $values += [
@@ -81,6 +87,7 @@ trait UserCreateTrait {
     $user->save();
 
     $this->cleanupEntities[] = $user;
+
     return $user;
   }
 

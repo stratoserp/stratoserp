@@ -16,7 +16,7 @@ trait ItemTestTrait {
   /**
    * Storage for the faker data for an item.
    *
-   * @var FakerFactory
+   * @var \Faker\Factory
    */
   protected $item;
 
@@ -37,9 +37,16 @@ trait ItemTestTrait {
 
   /**
    * Add an item entity.
+   *
+   * @param $type
+   *   The type of item entity to add.
+   *
+   * @return \Drupal\se_item\Entity\Item
+   *   The Item Content.
+   *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addItem($type) {
-    /** @var \Drupal\se_item\Entity\Item $item */
+  public function addItem($type): Item {
     $item = $this->createItem([
       'type' => $type,
       'name' => $this->item->name,
@@ -62,9 +69,16 @@ trait ItemTestTrait {
 
   /**
    * Create an item entity.
+   *
+   * @param array $settings
+   *   Content settings to use.
+   *
+   * @return \Drupal\se_item\Entity\Item
+   *   The created Item.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function createItem(array $settings = []) {
-    /** @var \Drupal\se_item\Entity\Item $item */
     $item = $this->createItemContent($settings);
     $item->save();
 
@@ -75,8 +89,14 @@ trait ItemTestTrait {
 
   /**
    * Create and item entity.
+   *
+   * @param array $settings
+   *   Content settings to use.
+   *
+   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_item\Entity\Item
+   *   The created item.
    */
-  public function createItemContent(array $settings = []): Item {
+  public function createItemContent(array $settings = []) {
     $settings += [
       'type' => 'se_stock',
     ];
@@ -101,9 +121,20 @@ trait ItemTestTrait {
 
   /**
    * Retrieve an item by its title.
+   *
+   * @param string $name
+   *   The title to use to retrieve the item by.
+   * @param bool $resetCache
+   *   Whether to reset the cache first.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   The located Item.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getItemByTitle($name, $reset = FALSE) {
-    if ($reset) {
+  public function getItemByTitle($name, $resetCache = FALSE): \Drupal\Core\Entity\EntityInterface {
+    if ($resetCache) {
       \Drupal::entityTypeManager()->getStorage('se_item')->resetCache();
     }
     $name = (string) $name;
@@ -112,6 +143,30 @@ trait ItemTestTrait {
       ->loadByProperties(['name' => $name]);
 
     return reset($items);
+  }
+
+  /**
+   * Add some stock items for use in voices.
+   *
+   * @return array
+   *   And array of items.
+   *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Exception
+   */
+  public function createItems() {
+    // Add some stock items.
+    $count = random_int(5, 10);
+    $items = [];
+    for ($i = 0; $i < $count; $i++) {
+      $this->itemFakerSetup();
+      $items[$i] = [
+        'item' => $this->addItem('se_stock'),
+        'quantity' => random_int(5, 10),
+      ];
+    }
+
+    return $items;
   }
 
 }

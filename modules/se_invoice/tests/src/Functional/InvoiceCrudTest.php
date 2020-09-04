@@ -26,22 +26,16 @@ class InvoiceCrudTest extends FunctionalTestBase {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
-    $test_customer = $this->addCustomer();
+    $testCustomer = $this->addCustomer();
 
-    // Add some stock items.
-    $count = random_int(5, 10);
-    $items = [];
-    for ($i = 0; $i < $count; $i++) {
-      $this->itemFakerSetup();
-      $items[$i] = [
-        'item' => $this->addItem('se_stock'),
-        'quantity' => random_int(5, 10),
-      ];
-    }
-
-    $invoice = $this->addInvoice($test_customer, $items);
+    $items = $this->createItems();
+    $invoice = $this->addInvoice($testCustomer, $items);
 
     $this->drupalLogout();
+  }
+
+  public function addInvoiceWithItems() {
+
   }
 
 }

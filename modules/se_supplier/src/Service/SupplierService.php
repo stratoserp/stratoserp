@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\se_customer\Service;
+namespace Drupal\se_supplier\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityStorageException;
@@ -10,9 +10,9 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
 
 /**
- * Customer service class for common custom related manipulations.
+ * supplier service class for common custom related manipulations.
  */
-class CustomerService {
+class SupplierService {
 
   /**
    * The config factory.
@@ -29,7 +29,7 @@ class CustomerService {
   protected EntityTypeManager $entityTypeManager;
 
   /**
-   * CustomerService constructor.
+   * SupplierService constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactory $configFactory
    *   Provide a config factory to the constructor.
@@ -42,49 +42,49 @@ class CustomerService {
   }
 
   /**
-   * Given any node with a customer, return the (first) customer.
+   * Given any node with a Supplier, return the (first) supplier.
    *
    * @param \Drupal\node\Entity\Node $node
-   *   Node to return the customer for.
+   *   Node to return the supplier for.
    *
    * @return bool|\Drupal\node\Entity\Node
-   *   Customer node.
+   *   supplier node.
    */
-  public function lookupCustomer(Node $node) {
-    if ($node->bundle() === 'se_customer') {
+  public function lookupSupplier(Node $node) {
+    if ($node->bundle() === 'se_supplier') {
       return $node;
     }
 
-    if (isset($node->se_bu_ref) && $customers = $node->se_bu_ref->referencedEntities()) {
-      return reset($customers);
+    if (isset($node->se_bu_ref) && $suppliers = $node->se_bu_ref->referencedEntities()) {
+      return reset($suppliers);
     }
 
     return FALSE;
   }
 
   /**
-   * Retrieve the current balance for a customer.
+   * Retrieve the current balance for a Supplier.
    *
    * @param \Drupal\node\Entity\Node $node
-   *   Customer to return the balance for.
+   *   supplier to return the balance for.
    *
    * @return int
-   *   The balance for the customer in cents.
+   *   The balance for the supplier in cents.
    */
   public function getBalance(Node $node): int {
     return (int) $node->se_cu_balance->value;
   }
 
   /**
-   * Set the customers balance to a specific value.
+   * Set the Suppliers balance to a specific value.
    *
    * @param \Drupal\node\Entity\Node $node
-   *   Customer to set the balance for.
+   *   supplier to set the balance for.
    * @param int $value
-   *   Amount to set as the customer balance in cents.
+   *   Amount to set as the supplier balance in cents.
    *
    * @return int
-   *   The balance of the customers account afterwards.
+   *   The balance of the suppliers account afterwards.
    */
   public function setBalance(Node $node, int $value): int {
     $node->se_cu_balance->value = $value;
@@ -92,21 +92,21 @@ class CustomerService {
       $node->save();
     }
     catch (EntityStorageException $e) {
-      \Drupal::logger('se_customer')->error('Error updating customer balance, this is very bad.');
+      \Drupal::logger('se_supplier')->error('Error updating supplier balance, this is very bad.');
     }
     return $this->getBalance($node);
   }
 
   /**
-   * Add a value to the customers existing balance.
+   * Add a value to the Suppliers existing balance.
    *
    * @param \Drupal\node\Entity\Node $node
-   *   Customer to adjust the balance for.
+   *   supplier to adjust the balance for.
    * @param int $value
-   *   The value to be added to the customer, positives and negatives will work.
+   *   The value to be added to the supplier, positives and negatives will work.
    *
    * @return int
-   *   The balance of the customers account afterwards.
+   *   The balance of the suppliers account afterwards.
    */
   public function adjustBalance(Node $node, int $value): int {
     $node->se_cu_balance->value += $value;
@@ -114,7 +114,7 @@ class CustomerService {
       $node->save();
     }
     catch (EntityStorageException $e) {
-      \Drupal::logger('se_customer')->error('Error updating customer balance, this is very bad.');
+      \Drupal::logger('se_supplier')->error('Error updating supplier balance, this is very bad.');
     }
     return $this->getBalance($node);
   }

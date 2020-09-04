@@ -7,6 +7,8 @@ namespace Drupal\Tests\se_contact\Functional;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
+ * Test Contact Permiossions.
+ *
  * @coversDefault Drupal\se_contact
  * @group se_contact
  * @group stratoserp

@@ -7,16 +7,23 @@ namespace Drupal\Tests\se_supplier\Functional;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
+ * Test various Supplier crud operations.
+ *
  * @coversDefault Drupal\se_supplier
  * @group se_supplier
  * @group stratoserp
  */
 class SupplierCrudTest extends FunctionalTestBase {
 
+  /**
+   * Faker factory for staff.
+   *
+   * @var \Faker\Factory
+   */
   protected $staff;
 
   /**
-   *
+   * Add a Supplier.
    */
   public function testSupplierAdd(): void {
 
@@ -29,26 +36,28 @@ class SupplierCrudTest extends FunctionalTestBase {
   }
 
   /**
+   * Delete a supplier.
+   *
    * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityMalformedException|\Drupal\Core\Entity\EntityStorageException
    */
   public function testSupplierDelete(): void {
     $staff = $this->setupStaffUser();
     $customer = $this->setupCustomerUser();
 
-    // Create a contact for testing.
+    // Create a supplier for testing.
     $this->drupalLogin($staff);
-    $test_supplier = $this->addSupplier();
+    $testSupplier = $this->addSupplier();
     $this->drupalLogout();
 
-    // Ensure customer can't delete customers.
+    // Ensure customer can't delete suppliers.
     $this->drupalLogin($customer);
-    $this->deleteNode($test_supplier, FALSE);
+    $this->deleteNode($testSupplier, FALSE);
     $this->drupalLogout();
 
-    // Ensure staff can delete customers.
+    // Ensure staff can delete suppliers.
     $this->drupalLogin($staff);
-    $this->deleteNode($test_supplier, FALSE);
+    $this->deleteNode($testSupplier, FALSE);
     $this->drupalLogout();
 
   }

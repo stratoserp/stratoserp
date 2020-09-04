@@ -15,7 +15,7 @@ trait ContactTestTrait {
   /**
    * Storage for the faker data for contact.
    *
-   * @var FakerFactory
+   * @var \Faker\Factory
    */
   protected $contact;
 
@@ -42,7 +42,7 @@ trait ContactTestTrait {
   /**
    * Add a contact node.
    *
-   * @param \Drupal\node\Entity\Node $test_customer
+   * @param \Drupal\node\Entity\Node $customer
    *   The customer to add the contact to.
    *
    * @return \Drupal\node\Entity\Node
@@ -50,18 +50,18 @@ trait ContactTestTrait {
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addContact(Node $test_customer): Node {
+  public function addContact(Node $customer): Node {
     $this->contactFakerSetup();
 
-    /** @var \Drupal\node\Entity\Node $node */
-    $node = $this->createNode([
+    /** @var \Drupal\node\Entity\Node $contact */
+    $contact = $this->createNode([
       'type' => 'se_contact',
       'title' => $this->contact->name,
       'se_co_phone' => $this->contact->phoneNumber,
-      'se_bu_ref' => ['target_id' => $test_customer->id()],
+      'se_bu_ref' => ['target_id' => $customer->id()],
     ]);
-    $this->assertNotEqual($node, FALSE);
-    $this->drupalGet($node->toUrl());
+    $this->assertNotEqual($contact, FALSE);
+    $this->drupalGet($contact->toUrl());
 
     $this->assertSession()->statusCodeEquals(200);
 
@@ -73,7 +73,29 @@ trait ContactTestTrait {
     $this->assertStringContainsString($this->contact->phoneNumber, $content);
     $this->assertStringContainsString($this->customer->name, $content);
 
-    return $node;
+    return $contact;
   }
 
+  /**
+   * Add a main contact node.
+   * @param \Drupal\node\Entity\Node $customer
+   *   The customer to add the contact to.
+   *
+   * @return \Drupal\node\Entity\Node
+   *   The node to return.
+   *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function addMainContact(Node $customer): Node {
+    $config = \Drupal::service('config.factory')->get('se_contact.settings');
+    $contact = $this->addContact($customer);
+
+    $termId = $config->get('main_contact_term');
+    if ($termId) {
+      $contact->se_co_type_ref = $termId;
+      $contact->save();
+    }
+
+    return $contact;
+  }
 }

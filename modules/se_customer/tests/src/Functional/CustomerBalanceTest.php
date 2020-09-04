@@ -7,6 +7,8 @@ namespace Drupal\Tests\se_customer\Functional;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
+ * Test getting, setting and ajusting customer balance.
+ *
  * @coversDefault Drupal\se_customer
  * @group se_customer
  * @group stratoserp
@@ -14,7 +16,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class CustomerBalanceTest extends FunctionalTestBase {
 
   /**
-   *
+   * Test getting, setting and ajusting customer balance.
    */
   public function testCustomerBalance(): void {
 

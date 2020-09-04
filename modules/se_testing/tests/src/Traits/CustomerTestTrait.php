@@ -15,7 +15,7 @@ trait CustomerTestTrait {
   /**
    * Storage for the faker data for customer.
    *
-   * @var FakerFactory
+   * @var \Faker\Factory
    */
   protected $customer;
 

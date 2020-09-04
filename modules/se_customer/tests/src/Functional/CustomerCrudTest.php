@@ -7,16 +7,23 @@ namespace Drupal\Tests\se_customer\Functional;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
+ * Test various Customer crud operations.
+ *
  * @coversDefault Drupal\se_customer
  * @group se_customer
  * @group stratoserp
  */
 class CustomerCrudTest extends FunctionalTestBase {
 
+  /**
+   * Faker factory for staff.
+   *
+   * @var \Faker\Factory
+   */
   protected $staff;
 
   /**
-   *
+   * Add a Customer.
    */
   public function testCustomerAdd(): void {
 
@@ -29,26 +36,28 @@ class CustomerCrudTest extends FunctionalTestBase {
   }
 
   /**
+   * Delete a customer.
+   *
    * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityMalformedException|\Drupal\Core\Entity\EntityStorageException
    */
   public function testCustomerDelete(): void {
     $staff = $this->setupStaffUser();
     $customer = $this->setupCustomerUser();
 
-    // Create a contact for testing.
+    // Create a customer for testing.
     $this->drupalLogin($staff);
-    $test_customer = $this->addCustomer();
+    $testCustomer = $this->addCustomer();
     $this->drupalLogout();
 
     // Ensure customer can't delete customers.
     $this->drupalLogin($customer);
-    $this->deleteNode($test_customer, FALSE);
+    $this->deleteNode($testCustomer, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can delete customers.
     $this->drupalLogin($staff);
-    $this->deleteNode($test_customer, TRUE);
+    $this->deleteNode($testCustomer, TRUE);
     $this->drupalLogout();
 
   }

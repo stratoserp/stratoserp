@@ -1,0 +1,5 @@
+services:
+  se_supplier.service:
+    class: Drupal\se_supplier\Service\SupplierService
+    arguments: ['@config.factory', '@entity_type.manager']
+

@@ -8,6 +8,8 @@ use Drupal\Tests\se_item\Traits\ItemTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
+ * Test for item validation.
+ *
  * @coversDefault Drupal\se_stock
  * @group se_stock
  * @group stratoserp
@@ -24,7 +26,7 @@ class ItemContentValidationTest extends FunctionalTestBase {
     $this->itemFakerSetup();
 
     $item = $this->createItemContent([
-      'se_it_code' => $this->item->code
+      'se_it_code' => $this->item->code,
     ]);
     $violations = $item->validate();
     $this->assertEqual(count($violations), 1);
@@ -41,8 +43,8 @@ class ItemContentValidationTest extends FunctionalTestBase {
     $this->assertEqual(count($violations), 0);
     $item->save();
 
-    $new_item = $this->createItemContent(['name' => $this->item->name, 'se_it_code' => $this->item->code]);
-    $violations = $new_item->validate();
+    $newItem = $this->createItemContent(['name' => $this->item->name, 'se_it_code' => $this->item->code]);
+    $violations = $newItem->validate();
     $this->assertEqual(count($violations), 1);
     $this->assertEqual($violations[0]->getPropertyPath(), 'se_it_code');
     $this->assertEqual($violations[0]->getMessage(), t('Item with code %value already exists.',

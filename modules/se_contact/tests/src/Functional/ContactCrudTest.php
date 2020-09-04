@@ -7,6 +7,8 @@ namespace Drupal\Tests\se_contact\Functional;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
+ * Test Contact Add/Delete.
+ *
  * @coversDefault Drupal\se_contact
  * @group se_contact
  * @group stratoserp
@@ -21,8 +23,8 @@ class ContactCrudTest extends FunctionalTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $test_customer = $this->addCustomer();
-    $this->addContact($test_customer);
+    $customer = $this->addCustomer();
+    $this->addContact($customer);
 
     $this->drupalLogout();
   }
@@ -53,7 +55,6 @@ class ContactCrudTest extends FunctionalTestBase {
     $this->drupalLogin($staff);
     $this->deleteNode($test_contact, TRUE);
     $this->drupalLogout();
-
   }
 
 }
