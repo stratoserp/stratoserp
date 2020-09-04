@@ -7,7 +7,6 @@ namespace Drupal\se_contact\Service;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
 /**
  * Contact service class for common contact related manipulation.

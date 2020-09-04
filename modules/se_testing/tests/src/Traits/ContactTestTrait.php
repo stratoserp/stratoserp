@@ -78,6 +78,7 @@ trait ContactTestTrait {
 
   /**
    * Add a main contact node.
+   *
    * @param \Drupal\node\Entity\Node $customer
    *   The customer to add the contact to.
    *
@@ -98,4 +99,5 @@ trait ContactTestTrait {
 
     return $contact;
   }
+
 }

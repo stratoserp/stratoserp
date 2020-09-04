@@ -7,6 +7,7 @@ namespace Drupal\Tests\se_item\Traits;
 use Drupal\se_item\Entity\Item;
 use Drupal\user\Entity\User;
 use Faker\Factory;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Provides functions for creating content during functional tests.
@@ -38,7 +39,7 @@ trait ItemTestTrait {
   /**
    * Add an item entity.
    *
-   * @param $type
+   * @param string $type
    *   The type of item entity to add.
    *
    * @return \Drupal\se_item\Entity\Item
@@ -133,7 +134,7 @@ trait ItemTestTrait {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getItemByTitle($name, $resetCache = FALSE): \Drupal\Core\Entity\EntityInterface {
+  public function getItemByTitle($name, $resetCache = FALSE): EntityInterface {
     if ($resetCache) {
       \Drupal::entityTypeManager()->getStorage('se_item')->resetCache();
     }

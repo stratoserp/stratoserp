@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
 
 /**
- * supplier service class for common custom related manipulations.
+ * Supplier service class for common custom related manipulations.
  */
 class SupplierService {
 
@@ -66,7 +66,7 @@ class SupplierService {
    * Retrieve the current balance for a Supplier.
    *
    * @param \Drupal\node\Entity\Node $node
-   *   supplier to return the balance for.
+   *   Supplier to return the balance for.
    *
    * @return int
    *   The balance for the supplier in cents.
@@ -79,7 +79,7 @@ class SupplierService {
    * Set the Suppliers balance to a specific value.
    *
    * @param \Drupal\node\Entity\Node $node
-   *   supplier to set the balance for.
+   *   Supplier to set the balance for.
    * @param int $value
    *   Amount to set as the supplier balance in cents.
    *
@@ -101,7 +101,7 @@ class SupplierService {
    * Add a value to the Suppliers existing balance.
    *
    * @param \Drupal\node\Entity\Node $node
-   *   supplier to adjust the balance for.
+   *   Supplier to adjust the balance for.
    * @param int $value
    *   The value to be added to the supplier, positives and negatives will work.
    *

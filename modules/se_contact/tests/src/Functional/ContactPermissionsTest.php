@@ -15,9 +15,25 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  */
 class ContactPermissionsTest extends FunctionalTestBase {
 
+  /**
+   * Faker factory for customer.
+   *
+   * @var \Faker\Factory
+   */
   protected $customer;
+
+  /**
+   * Faker factory for staff.
+   *
+   * @var \Faker\Factory
+   */
   protected $staff;
 
+  /**
+   * List of pages to check permissions on.
+   *
+   * @var string[]
+   */
   private $pages = [
     '/node/add/se_contact',
     '/se/contact-list',
