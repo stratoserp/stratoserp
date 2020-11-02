@@ -25,11 +25,12 @@ dependencies:
   module:
     - field_layout
     - layout_discovery
-    - user
+    - manage_display
 third_party_settings:
   field_layout:
     id: layout_onecol
-    settings: {  }
+    settings:
+      label: ''
 id: node.se_customer.teaser
 targetEntityType: node
 bundle: se_customer
@@ -38,14 +39,29 @@ content:
   links:
     weight: 100
     region: content
+  re_report_eva_entity_view_1:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   se_contact_eva_entity_view_1:
     weight: 10
     region: content
   se_document_eva_entity_view_1:
     weight: 10
     region: content
+  se_information_eva_entity_view_1:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   se_invoice_eva_entity_view_1:
     weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  se_invoice_eva_entity_view_1_form:
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -59,18 +75,52 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  se_purchase_order_eva_entity_view_1_form:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   se_quote_eva_entity_view_1:
     weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  se_quote_eva_entity_view_1_form:
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     region: content
   se_ticket_eva_entity_view_1:
     weight: 10
     region: content
+  se_ticket_eva_entity_view_1_form:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  se_timekeeping_eva_entity_view_1:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  title:
+    label: hidden
+    type: title
+    weight: -50
+    region: content
+    settings:
+      tag: h2
+      linked: true
+    third_party_settings: {  }
 hidden:
+  created: true
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  extra_field_customer_invoice_statistics: true
+  extra_field_customer_purchase_order_statistics: true
+  extra_field_customer_quote_statistics: true
+  extra_field_customer_ticket_statistics: true
   se_cu_address: true
   se_cu_balance: true
   se_cu_email: true
@@ -89,3 +139,4 @@ hidden:
   se_cu_state: true
   se_cu_status: true
   se_cu_suburb: true
+  uid: true

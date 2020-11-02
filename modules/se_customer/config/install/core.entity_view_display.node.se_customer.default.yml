@@ -1,4 +1,3 @@
-uuid: 96041b95-eb15-4604-ac89-dbbefd442e4d
 langcode: en
 status: true
 dependencies:
@@ -28,16 +27,15 @@ dependencies:
     - geolocation
     - layout_discovery
     - link
+    - manage_display
     - options
     - se_accounting
     - serial
     - telephone
-    - user
 third_party_settings:
   field_group:
     group_cu_tabs:
       children:
-        - links
         - group_cu_tab_details
         - group_cu_tab_location
         - group_cu_tab_contacts
@@ -49,9 +47,8 @@ third_party_settings:
         - group_cu_tab_purchase_orders
         - group_cu_tab_quotes
         - group_cu_tab_reports
-        - group_cu_tab_timekeeping
       parent_name: ''
-      weight: 0
+      weight: 2
       format_type: tabs
       format_settings:
         id: ''
@@ -231,8 +228,6 @@ third_party_settings:
     id: layout_onecol
     settings:
       label: ''
-_core:
-  default_config_hash: X1bOluKDb4yeRugAhsdEjrpxRVnCnXfj2xoFZeXNXYk
 id: node.se_customer.default
 targetEntityType: node
 bundle: se_customer
@@ -284,7 +279,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   links:
-    weight: 4
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -546,7 +541,18 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  title:
+    label: hidden
+    type: title
+    weight: 0
+    region: content
+    settings:
+      tag: h2
+      linked: true
+    third_party_settings: {  }
 hidden:
+  created: true
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  uid: true

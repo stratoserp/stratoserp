@@ -63,7 +63,7 @@ trait ContactTestTrait {
     $this->assertNotEqual($contact, FALSE);
     $this->drupalGet($contact->toUrl());
 
-    $this->assertSession()->statusCodeEquals(200);
+    sleep(1);
 
     $content = $this->getTextContent();
     $this->assertStringNotContainsString('Please fill in this field', $content);

@@ -17,7 +17,8 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: node.se_contact.default
 targetEntityType: node
 bundle: se_contact

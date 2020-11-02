@@ -12,19 +12,25 @@ dependencies:
   module:
     - field_layout
     - layout_discovery
+    - manage_display
     - serial
-    - user
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: node.se_contact.default
 targetEntityType: node
 bundle: se_contact
 mode: default
 content:
+  links:
+    weight: 1
+    region: top
+    settings: {  }
+    third_party_settings: {  }
   se_bu_ref:
-    weight: 5
+    weight: 6
     label: inline
     settings:
       link: true
@@ -32,28 +38,20 @@ content:
     type: entity_reference_label
     region: second
   se_co_email:
-    weight: 3
+    weight: 4
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: first
   se_co_id:
-    weight: 4
+    weight: 5
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: serial_default_formatter
     region: second
   se_co_mobile:
-    weight: 1
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: first
-  se_co_phone:
     weight: 2
     label: inline
     settings:
@@ -61,20 +59,34 @@ content:
     third_party_settings: {  }
     type: string
     region: first
+  se_co_phone:
+    weight: 3
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: first
   se_co_type_ref:
-    weight: 6
+    weight: 7
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  links:
+  title:
+    label: hidden
+    type: title
     weight: 0
     region: top
-    settings: {  }
+    settings:
+      tag: h2
+      linked: true
     third_party_settings: {  }
 hidden:
+  created: true
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  uid: true

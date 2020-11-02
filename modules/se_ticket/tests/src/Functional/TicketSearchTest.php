@@ -18,7 +18,7 @@ class TicketSearchTest extends FunctionalTestBase {
   /**
    * Storage for the faker data for the user.
    *
-   * @var FakerFactory
+   * @var \Faker\Factory
    */
   protected $staff;
 
@@ -34,7 +34,7 @@ class TicketSearchTest extends FunctionalTestBase {
 
     $tickets = [];
     $count = 15;
-    for ($i = 0; $i < $count; $i++) {
+    for ($i = 0; $i <= $count; $i++) {
       $this->ticketFakerSetup();
       $tickets[] = $this->addTicket($test_customer);
     }
@@ -51,6 +51,8 @@ class TicketSearchTest extends FunctionalTestBase {
     $submit_button = $page->findButton('Apply');
     $submit_button->press();
     $this->assertSession()->statusCodeEquals(200);
+
+    sleep(1);
 
     $content = $this->getTextContent();
     $this->assertStringContainsString($search_word, $content);

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.se_customer.se_cu_address
+    - field.field.node.se_customer.se_cu_balance
     - field.field.node.se_customer.se_cu_email
     - field.field.node.se_customer.se_cu_email_format
     - field.field.node.se_customer.se_cu_fax
@@ -24,13 +25,13 @@ dependencies:
     - field_layout
     - layout_discovery
     - link
-    - se_accounting
     - serial
     - telephone
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: node.se_customer.default
 targetEntityType: node
 bundle: se_customer
@@ -168,9 +169,10 @@ hidden:
   extra_field_actions_field: true
   extra_field_meta_field: true
   extra_field_revision_field: true
-  se_cu_location: true
   path: true
   promote: true
+  se_cu_balance: true
+  se_cu_location: true
   status: true
   sticky: true
   uid: true

@@ -53,7 +53,6 @@ trait CustomerTestTrait {
     ]);
     $this->assertNotEqual($node, FALSE);
     $this->drupalGet($node->toUrl());
-    $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
 
