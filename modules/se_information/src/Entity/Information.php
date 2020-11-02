@@ -68,8 +68,11 @@ use Drupal\user\UserInterface;
  *     "translation_revert" = "/information/{se_information}/revisions/{se_information_revision}/revert/{langcode}",
  *     "collection" = "/admin/content/information",
  *   },
+ *   options = {
+ *     "_admin_route" = "0",
+ *   },
  *   bundle_entity_type = "se_information_type",
- *   se_ui_base_route = "entity.se_information_type.edit_form",
+ *   field_ui_base_route = "entity.se_information_type.edit_form",
  *   revision_metadata_keys = {
  *     "revision_user" = "revision_user",
  *     "revision_created" = "revision_created",
