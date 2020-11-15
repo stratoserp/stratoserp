@@ -155,3 +155,15 @@ function stratoserp_multiple_field_remove_button_field_types_alter(array &$field
   $fieldTypes[] = 'se_item_line';
   $fieldTypes[] = 'se_payment_line';
 }
+
+/**
+ * Implements hook_toolbar_alter().
+ *
+ * See: https://www.drupal.org/project/toolbar_menu/issues/2658470
+ */
+function stratoserp_toolbar_alter(&$items) {
+  $account = Drupal::currentUser();
+  if (!in_array('administrator', $account->getRoles())) {
+    unset($items['administration']);
+  }
+}
