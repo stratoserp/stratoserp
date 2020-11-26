@@ -1,5 +1,5 @@
 se_xero.configure:
-  path: 'se/xero/settings'
+  path: '/se/xero/settings'
   defaults:
     _form: '\Drupal\se_xero\Form\SettingsForm'
     _title: 'Xero settings'

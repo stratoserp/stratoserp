@@ -7,7 +7,7 @@ stratoserp.home:
     _permission: 'access all customers'
 
 stratoserp.search_form:
-  path: 'se'
+  path: '/se'
   defaults:
     _form: '\Drupal\stratoserp\Form\SearchForm'
     _title_callback: '\Drupal\stratoserp\Form\SearchForm::getPageTitle'
@@ -18,7 +18,7 @@ stratoserp.search_form:
     _permission: 'access all customers'
 
 stratoserp.search:
-  path: 'se/core-search'
+  path: '/se/core-search'
   defaults:
     _controller: '\Drupal\stratoserp\Controller\AutocompleteController::handleAutocomplete'
     _format: json
@@ -28,7 +28,7 @@ stratoserp.search:
     _permission: 'access all customers'
 
 stratoserp.admin_config_stratoserp:
-  path: 'se/config/stratoserp'
+  path: '/se/config/stratoserp'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'StratosERP'

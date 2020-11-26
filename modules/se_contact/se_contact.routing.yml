@@ -24,7 +24,7 @@ se_contact.view:
     _permission: 'access content'
 
 se_contact.configure:
-  path: 'se/contacts/settings'
+  path: '/se/contacts/settings'
   defaults:
     _form: '\Drupal\se_contact\Form\SettingsForm'
     _title: 'Contact settings'

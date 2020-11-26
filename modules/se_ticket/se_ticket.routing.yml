@@ -24,7 +24,7 @@ se_ticket.view:
     _permission: 'access content'
 
 se_ticket.configure:
-  path: 'se/ticket/settings'
+  path: '/se/ticket/settings'
   defaults:
     _form: '\Drupal\se_ticket\Form\SettingsForm'
     _title: 'Ticket settings'

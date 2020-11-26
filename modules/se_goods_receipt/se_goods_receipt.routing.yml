@@ -1,5 +1,5 @@
 se_goods_receipt.configure:
-  path: 'se/goods-receipt/settings'
+  path: '/se/goods-receipt/settings'
   defaults:
     _form: '\Drupal\se_goods_receipt\Form\SettingsForm'
     _title: 'Goods receipt settings'
@@ -10,6 +10,7 @@ se_goods_receipt.add:
   path: '/gr/add/{source}'
   defaults:
     _entity_form: 'node.default'
+    _controller: '\Drupal\se_purchase_order\Controller\NodeController::add'
     _title_callback: '\Drupal\node\Controller\NodeController::addPageTitle'
     node_type: se_goods_receipt
   requirements:
