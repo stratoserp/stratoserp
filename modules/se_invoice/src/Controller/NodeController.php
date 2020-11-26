@@ -95,7 +95,11 @@ class NodeController extends ControllerBase {
     $source_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
     $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
-    // TODO: Make this a service?
+    // @todo Make this a service.
+    /**
+     * @var int $index
+     * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
+     */
     foreach ($source->{$source_field_type . '_lines'} as $index => $item) {
       $node->{$bundle_field_type . '_lines'}->appendItem($item->getValue());
     }

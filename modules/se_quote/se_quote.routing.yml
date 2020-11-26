@@ -1,11 +1,19 @@
+se_quote.configure:
+  path: 'se/quote/settings'
+  defaults:
+    _form: '\Drupal\se_quote\Form\SettingsForm'
+    _title: 'Quote settings'
+  requirements:
+    _permission: 'administer site configuration'
+
 se_quote.add:
   path: '/quote/add'
   defaults:
     _entity_form: 'node.default'
-    _title: 'Add qote'
+    _title: 'Add quote'
     node_type: 'se_quote'
   requirements:
-    _permission: 'access content'
+    _node_add_access: 'node:se_quote'
 
 se_quote.edit:
   path: '/quote/{node}/edit'
@@ -13,7 +21,7 @@ se_quote.edit:
     _entity_form: 'node.edit'
   requirements:
     node: \d+
-    _permission: 'access content'
+    _node_edit_access: 'node:se_quote'
 
 se_quote.view:
   path: '/quote/{node}'
@@ -23,10 +31,3 @@ se_quote.view:
     node: \d+
     _permission: 'access content'
 
-se_quote.configure:
-  path: 'se/quote/settings'
-  defaults:
-    _form: '\Drupal\se_quote\Form\SettingsForm'
-    _title: 'Quote settings'
-  requirements:
-    _permission: 'administer site configuration'
