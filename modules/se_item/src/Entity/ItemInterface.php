@@ -57,27 +57,6 @@ interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, En
   public function setCreatedTime($timestamp);
 
   /**
-   * Returns the Item published status indicator.
-   *
-   * Unpublished Item are only visible to restricted users.
-   *
-   * @return bool
-   *   TRUE if the Item is published.
-   */
-  public function isPublished();
-
-  /**
-   * Sets the published status of a Item.
-   *
-   * @param bool $published
-   *   TRUE to set this Item to published, FALSE to set it to unpublished.
-   *
-   * @return \Drupal\se_item\Entity\ItemInterface
-   *   The called Item entity.
-   */
-  public function setPublished($published);
-
-  /**
    * Gets the Item revision creation timestamp.
    *
    * @return int

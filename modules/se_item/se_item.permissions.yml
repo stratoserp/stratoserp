@@ -12,11 +12,8 @@ delete item entities:
 edit item entities:
   title: 'Edit Item entities'
 
-view published item entities:
-  title: 'View published Item entities'
-
-view unpublished item entities:
-  title: 'View unpublished Item entities'
+view item entities:
+  title: 'View Item entities'
 
 view all item revisions:
   title: 'View all Item revisions'

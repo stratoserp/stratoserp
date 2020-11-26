@@ -23,10 +23,7 @@ class InformationAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_information\Entity\InformationInterface $entity */
     switch ($operation) {
       case 'view':
-        if (!$entity->isPublished()) {
-          return AccessResult::allowedIfHasPermission($account, 'view unpublished information entities');
-        }
-        return AccessResult::allowedIfHasPermission($account, 'view published information entities');
+        return AccessResult::allowedIfHasPermission($account, 'view information entities');
 
       case 'update':
         return AccessResult::allowedIfHasPermission($account, 'edit information entities');

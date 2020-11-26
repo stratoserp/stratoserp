@@ -23,10 +23,7 @@ class ItemAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_item\Entity\ItemInterface $entity */
     switch ($operation) {
       case 'view':
-        if (!$entity->isPublished()) {
-          return AccessResult::allowedIfHasPermission($account, 'view unpublished item entities');
-        }
-        return AccessResult::allowedIfHasPermission($account, 'view published item entities');
+        return AccessResult::allowedIfHasPermission($account, 'view item entities');
 
       case 'update':
         return AccessResult::allowedIfHasPermission($account, 'edit item entities');

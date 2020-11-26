@@ -12,11 +12,8 @@ delete subscription entities:
 edit subscription entities:
   title: 'Edit Subscription entities'
 
-view published subscription entities:
-  title: 'View published Subscription entities'
-
-view unpublished subscription entities:
-  title: 'View unpublished Subscription entities'
+view subscription entities:
+  title: 'View Subscription entities'
 
 view all subscription revisions:
   title: 'View all Subscription revisions'

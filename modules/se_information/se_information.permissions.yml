@@ -12,11 +12,8 @@ delete information entities:
 edit information entities:
   title: 'Edit Information entities'
 
-view published information entities:
-  title: 'View published Information entities'
-
-view unpublished information entities:
-  title: 'View unpublished Information entities'
+view information entities:
+  title: 'View Information entities'
 
 view all information revisions:
   title: 'View all Information revisions'

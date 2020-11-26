@@ -57,27 +57,6 @@ interface InformationInterface extends ContentEntityInterface, RevisionLogInterf
   public function setCreatedTime($timestamp);
 
   /**
-   * Returns the Information published status indicator.
-   *
-   * Unpublished Information are only visible to restricted users.
-   *
-   * @return bool
-   *   TRUE if the Information is published.
-   */
-  public function isPublished();
-
-  /**
-   * Sets the published status of a Information.
-   *
-   * @param bool $published
-   *   TRUE to set this Information to published, FALSE to set it to unpublished.
-   *
-   * @return \Drupal\se_information\Entity\InformationInterface
-   *   The called Information entity.
-   */
-  public function setPublished($published);
-
-  /**
    * Gets the Information revision creation timestamp.
    *
    * @return int
