@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- *
+ * A custom autocomplete controller for the main search form.
  */
 class AutocompleteController extends ControllerBase {
 
@@ -23,24 +23,26 @@ class AutocompleteController extends ControllerBase {
    * Handler for autocomplete request.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request object to work with.
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   The response to send back.
    */
   public function handleAutocomplete(Request $request): JsonResponse {
     $matches = [];
 
     // Get the typed string from the URL, if it exists.
     if ($input = $request->query->get('q')) {
-      $search_string = Tags::explode($input);
-      $search_string = mb_strtolower(array_pop($search_string));
+      $searchString = Tags::explode($input);
+      $searchString = mb_strtolower(array_pop($searchString));
 
-      $customers = $this->findNodes('se_customer', 'Customer', 'title', $search_string);
-      $contacts = $this->findNodes('se_contact', 'Contact', 'title', $search_string);
-      $invoices = $this->findNodes('se_invoice', 'Invoice', 'se_in_id', $search_string);
-      $quotes = $this->findNodes('se_quote', 'Quote', 'se_qu_id', $search_string);
-      $items = $this->findItems('se_item', 'Item', 'name', $search_string);
-      $serials = $this->findItems('se_item', 'Item', 'se_it_serial', $search_string);
-      $information = $this->findInformation('se_document', 'Document', 'name', $search_string);
+      $customers = $this->findNodes('se_customer', 'Customer', 'title', $searchString);
+      $contacts = $this->findNodes('se_contact', 'Contact', 'title', $searchString);
+      $invoices = $this->findNodes('se_invoice', 'Invoice', 'se_in_id', $searchString);
+      $quotes = $this->findNodes('se_quote', 'Quote', 'se_qu_id', $searchString);
+      $items = $this->findItems('se_item', 'Item', 'name', $searchString);
+      $serials = $this->findItems('se_item', 'Item', 'se_it_serial', $searchString);
+      $information = $this->findInformation('se_document', 'Document', 'name', $searchString);
 
       $matches = array_merge($customers, $contacts, $invoices, $quotes, $items, $serials, $information);
 
@@ -50,31 +52,33 @@ class AutocompleteController extends ControllerBase {
   }
 
   /**
-   * Find nodes of $type containing $text in $field, prefix
-   * returned data with $description.
+   * Return nodes of $type with $text in $field, prefix with $description.
    *
-   * @param $type
-   * @param $description
-   * @param $field
-   * @param $text
+   * @param string $type
+   *   The type of node to search for.
+   * @param string $description
+   *   The text description for the type.
+   * @param string $field
+   *   The field to be searched.
+   * @param string $text
+   *   The text to search for.
    *
    * @return array
+   *   An array of matches.
    */
   private function findNodes($type, $description, $field, $text): array {
     $matches = [];
 
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
-      ->condition($field, '%' . Database::getConnection()
-        ->escapeLike($text) . '%', 'LIKE')
+      ->condition($field, '%' .
+                  Database::getConnection()->escapeLike($text) . '%', 'LIKE')
       ->condition('type', $type)
       ->range(0, 10);
-
     $node_ids = $query->execute();
-    $result = Node::loadMultiple($node_ids);
 
     /** @var \Drupal\node\Entity\Node $node */
-    foreach ($result as $entity_id => $node) {
+    foreach (Node::loadMultiple($node_ids) as $entity_id => $node) {
       $key = $node->getTitle() . " ($entity_id)";
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
@@ -92,38 +96,42 @@ class AutocompleteController extends ControllerBase {
           '#' . $node->{$field}->value,
         ]);
       }
-      $matches[] = ['value' => $key, 'label' => $output_description];
+      $matches[] = [
+        'value' => $key,
+        'label' => $output_description,
+      ];
     }
 
     return $matches;
   }
 
   /**
-   * Find items of $type containing $text in $field, prefix
-   * returned data with $description.
+   * Return items of $type with $text in $field, prefix with $description.
    *
-   * @param $type
-   * @param $description
-   * @param $field
-   * @param $text
+   * @param string $type
+   *   The type of item to search for.
+   * @param string $description
+   *   The text description for the type.
+   * @param string $field
+   *   The field to be searched.
+   * @param string $text
+   *   The text to search for.
    *
    * @return array
+   *   An array of matches.
    */
   private function findItems($type, $description, $field, $text): array {
     $matches = [];
 
     $query = \Drupal::entityQuery('se_item')
-      // ->condition('status', 1)
-      ->condition($field, '%' . Database::getConnection()
-        ->escapeLike($text) . '%', 'LIKE')
+      ->condition($field, '%' .
+                  Database::getConnection()->escapeLike($text) . '%', 'LIKE')
       // ->condition('type', $type)
       ->range(0, 10);
 
     $item_ids = $query->execute();
-    $result = Item::loadMultiple($item_ids);
-
     /** @var \Drupal\node\Entity\Node $item */
-    foreach ($result as $entity_id => $item) {
+    foreach (Item::loadMultiple($item_ids) as $entity_id => $item) {
       $fields = [
         $description,
         $item->getName(),
@@ -136,39 +144,42 @@ class AutocompleteController extends ControllerBase {
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);
       $key .= ' (!' . $entity_id . ')';
-      $id = $item->id();
-      $matches[] = ['value' => $key, 'label' => $key, "(!$id)"];
+      $matches[] = [
+        'value' => $key,
+        'label' => $key,
+      ];
     }
 
     return $matches;
   }
 
   /**
-   * Find information of $type containing $text in $field, prefix
-   * returned data with $description.
+   * Return information of $type with $text in $field, prefix with $description.
    *
-   * @param $type
-   * @param $description
-   * @param $field
-   * @param $text
+   * @param string $type
+   *   The type of information to search for.
+   * @param string $description
+   *   The text description for the type.
+   * @param string $field
+   *   The field to be searched.
+   * @param string $text
+   *   The text to search for.
    *
    * @return array
+   *   An array of matches.
    */
   private function findInformation($type, $description, $field, $text): array {
     $matches = [];
 
     $query = \Drupal::entityQuery('se_information')
-      // ->condition('status', 1)
-      ->condition($field, '%' . Database::getConnection()
-        ->escapeLike($text) . '%', 'LIKE')
+      ->condition($field, '%' .
+                  Database::getConnection()->escapeLike($text) . '%', 'LIKE')
       // ->condition('type', $type)
       ->range(0, 10);
 
     $item_ids = $query->execute();
-    $result = Information::loadMultiple($item_ids);
-
     /** @var \Drupal\node\Entity\Node $information */
-    foreach ($result as $entity_id => $information) {
+    foreach (Information::loadMultiple($item_ids) as $entity_id => $information) {
       $key = $information->getName() . " (#$entity_id)";
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
@@ -178,8 +189,11 @@ class AutocompleteController extends ControllerBase {
         $information->se_bu_ref->entity->title->value,
         $information->getName(),
       ]);
-      $id = $information->id();
-      $matches[] = ['value' => $key, 'label' => $output_description , "(#$id)"];
+      $informationId = $information->id();
+      $matches[] = [
+        'value' => $key,
+        'label' => $output_description . " (#$informationId)",
+      ];
     }
 
     return $matches;

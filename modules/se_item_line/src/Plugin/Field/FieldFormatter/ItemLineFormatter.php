@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Drupal\se_item_line\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldFormatter\DynamicEntityReferenceLabelFormatter;
 use Drupal\filter\FilterProcessResult;
@@ -28,21 +31,21 @@ use Drupal\filter\Render\FilteredMarkup;
 class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
 
   /**
-   *
+   * Remove default settings.
    */
   public static function defaultSettings() {
     return [];
   }
 
   /**
-   *
+   * Remove default settings form.
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     return [];
   }
 
   /**
-   *
+   * Remove default settings summary.
    */
   public function settingsSummary() {
     return [];
@@ -55,10 +58,6 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
 
-    $host_entity = $items->getEntity();
-    $host_type = $host_entity->bundle();
-
-    $row = [];
     $rows = [];
 
     $headers = [
@@ -97,7 +96,6 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
           \Drupal::logger('ItemLineFormatter')
             ->error('Unhandled item type %type.', ['%type' => $entity->bundle()]);
           continue 2;
-        break;
       }
 
       $element = [
@@ -134,7 +132,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       $row = [
         $items[$delta]->quantity,
         render($element),
-        \Drupal::service('se_accounting.currency_format')->formatDisplay((int)$items[$delta]->price),
+        \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->price),
         $items[$delta]->serial,
         $display_date,
         render($processed_output),
@@ -151,6 +149,47 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
         'tags' => $cache_tags,
       ],
     ];
+  }
+
+  /**
+   * Overridden method that will render items for preview links.
+   *
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $items
+   *   Items to display.
+   * @param string $langcode
+   *   Language code.
+   *
+   * @return array|\Drupal\Core\Entity\EntityInterface[]
+   *   Output for theme to work with.
+   */
+  protected function getEntitiesToView(EntityReferenceFieldItemListInterface $items, $langcode) {
+    $entities = [];
+    $request = \Drupal::requestStack()->getCurrentRequest();
+
+    foreach ($items as $delta => $item) {
+      // Ignore items where no entity could be loaded in prepareView().
+      if (!empty($item->_loaded)) {
+        $entity = $item->entity;
+
+        // Set the entity in the correct language for display.
+        if ($entity instanceof TranslatableInterface) {
+          $entity = \Drupal::service('entity.repository')->getTranslationFromContext($entity, $langcode);
+        }
+
+        $access = $this->checkAccess($entity);
+        // Add the access result's cacheability, ::view() needs it.
+        $item->_accessCacheability = CacheableMetadata::createFromObject($access);
+        // Allow listing items for preview links.
+        if ($access->isAllowed() || preg_match('/^\/preview-link\/.*?/', $request->getPathInfo())) {
+          // Add the referring item, in case the formatter needs it.
+          $entity->_referringItem = $items[$delta];
+          $entities[$delta] = $entity;
+        }
+      }
+    }
+
+    return $entities;
+
   }
 
 }

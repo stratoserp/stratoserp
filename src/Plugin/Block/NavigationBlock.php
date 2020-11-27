@@ -14,7 +14,7 @@ use Drupal\node\NodeInterface;
 /**
  * Provides a 'NavigationBlock' block.
  *
- * TODO: Dependency Injection.
+ * @todo Dependency Injection.
  *
  * @Block(
  *  id = "navigation_block",
@@ -59,6 +59,12 @@ class NavigationBlock extends BlockBase {
         ],
       ],
     ];
+
+    // @todo This should be more granular.
+    if (\Drupal::currentUser()->isAnonymous()) {
+      return [];
+    }
+
     $this->node = \Drupal::routeMatch()->getParameter('node');
 
     if (!isset($this->node) && \Drupal::routeMatch()->getRouteName() === 'stratoserp.search_form') {
