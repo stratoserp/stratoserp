@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_item_line\EventSubscriber
  */
-class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
+class ItemLineNodeEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -46,27 +46,8 @@ class ItemLinePresaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $total = 0;
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    \Drupal::service('se_item_line.total_update')->calculateTotal($entity);
 
-    // Loop through the item lines to calculate total.
-    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
-      // We don't need to do anything with comments.
-      if ($item_line->target_type === 'comment') {
-        continue;
-      }
-
-      if (empty($item_line->serial)) {
-        /** @var \Drupal\se_item\Entity\Item $item */
-        if (($item = Item::load($item_line->target_id)) && $item->bundle() === 'se_stock') {
-          $entity->{$bundle_field_type . '_lines'}[$index]->serial = $item->se_it_serial->value;
-        }
-      }
-
-      $total += $item_line->quantity * $item_line->price;
-    }
-
-    $entity->{$bundle_field_type . '_total'}->value = $total;
   }
 
 }

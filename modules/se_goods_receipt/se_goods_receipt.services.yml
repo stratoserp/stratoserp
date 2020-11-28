@@ -1,10 +1,5 @@
 services:
   se_goods_receipt.items_presave:
-    class: Drupal\se_goods_receipt\EventSubscriber\GoodsReceiptPresaveEventSubscriber
-    tags:
-      - { name: event_subscriber }
-
-  se_goods_receipt.items_postsave:
-    class: Drupal\se_goods_receipt\EventSubscriber\GoodsReceiptInsertEventSubscriber
+    class: Drupal\se_goods_receipt\EventSubscriber\GoodsReceiptEventSubscriber
     tags:
       - { name: event_subscriber }

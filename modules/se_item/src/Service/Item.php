@@ -5,6 +5,11 @@ namespace Drupal\se_item\Service;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
+/**
+ * Various Item related functions.
+ *
+ * @package Drupal\se_item\Service
+ */
 class Item {
   use StringTranslationTrait;
 
@@ -15,17 +20,29 @@ class Item {
    */
   protected $entityTypeManager;
 
+  /**
+   * Item constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entitymanager for injection.
+   */
   public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
   }
 
+  /**
+   * Find an item by its code.
+   *
+   * @param string $code
+   *   Item code to lookup.
+   *
+   * @return array|int
+   *   Found items.
+   */
   public function findByCode($code) {
-    $result = \Drupal::entityQuery('se_item')
-      ->condition('status', 1)
+    return \Drupal::entityQuery('se_item')
       ->condition('se_it_code', $code)
       ->execute();
-
-    return $result;
   }
 
 }

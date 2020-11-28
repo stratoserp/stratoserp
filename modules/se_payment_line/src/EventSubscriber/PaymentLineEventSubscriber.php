@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_payment_line\EventSubscriber
  */
-class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
+class PaymentLineEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -47,14 +47,14 @@ class PaymentLinePresaveEventSubscriber implements EventSubscriberInterface {
     }
 
     $total = 0;
-    $bundle_field_type = 'se_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     // Loop through the payment lines to calculate total.
-    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $payment_line) {
-      $total += $payment_line->amount;
+    foreach ($entity->{$bundleFieldType . '_lines'} as $paymentLine) {
+      $total += $paymentLine->amount;
     }
 
-    $entity->{$bundle_field_type . '_total'}->value = $total;
+    $entity->{$bundleFieldType . '_total'}->value = $total;
   }
 
 }

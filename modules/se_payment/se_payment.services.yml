@@ -1,5 +1,5 @@
 services:
   se_payment.payment_save:
-    class: Drupal\se_payment\EventSubscriber\PaymentSaveEventSubscriber
+    class: Drupal\se_payment\EventSubscriber\PaymentEventSubscriber
     tags:
       - { name: event_subscriber }

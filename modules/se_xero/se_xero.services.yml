@@ -5,12 +5,12 @@ services:
     arguments: ['se_xero']
 
   se_xero.customer_saved:
-    class: Drupal\se_xero\EventSubscriber\CustomerInsertEventSubscriber
+    class: Drupal\se_xero\EventSubscriber\XeroCustomerEventSubscriber
     tags:
       - { name: event_subscriber }
 
   se_xero.invoice_saved:
-    class: Drupal\se_xero\EventSubscriber\InvoiceInsertEventSubscriber
+    class: Drupal\se_xero\EventSubscriber\XeroInvoiceEventSubscriber
     tags:
       - { name: event_subscriber }
 

@@ -16,15 +16,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_xero\EventSubscriber
  */
-class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
+class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'xeroInvoiceInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'xeroInvoiceUpdate',
     ];
   }
 
@@ -34,7 +34,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
    */
-  public function invoiceInsert(EntityInsertEvent $event): void {
+  public function xeroInvoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if (isset($entity->skipInvoiceXeroEvents)) {
@@ -53,7 +53,7 @@ class InvoiceInsertEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
    */
-  public function invoiceUpdate(EntityUpdateEvent $event): void {
+  public function xeroInvoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if (isset($entity->skipInvoiceXeroEvents)) {

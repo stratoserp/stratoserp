@@ -42,18 +42,18 @@ class ContactCrudTest extends FunctionalTestBase {
 
     // Create a contact for testing.
     $this->drupalLogin($staff);
-    $test_customer = $this->addCustomer();
-    $test_contact = $this->addContact($test_customer);
+    $testCustomer = $this->addCustomer();
+    $testContact = $this->addContact($testCustomer);
     $this->drupalLogout();
 
     // Ensure customer can't delete contacts.
     $this->drupalLogin($customer);
-    $this->deleteNode($test_contact, FALSE);
+    $this->deleteNode($testContact, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can delete contacts.
     $this->drupalLogin($staff);
-    $this->deleteNode($test_contact, TRUE);
+    $this->deleteNode($testContact, TRUE);
     $this->drupalLogout();
   }
 

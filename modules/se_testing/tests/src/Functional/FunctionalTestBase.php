@@ -6,6 +6,8 @@ namespace Drupal\Tests\se_testing\Functional;
 
 use Behat\Mink\Exception\ExpectationException;
 use Drupal\comment\Entity\Comment;
+use Drupal\Core\Session\AnonymousUserSession;
+use Drupal\Core\Url;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\se_testing\Traits\ContactTestTrait;
@@ -78,7 +80,7 @@ class FunctionalTestBase extends TestCase {
   /**
    * Setup for the class.
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
@@ -89,7 +91,7 @@ class FunctionalTestBase extends TestCase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function tearDown() {
+  public function tearDown(): void {
     parent::tearDown();
     $this->tearDownDrupal();
     $this->tearDownMinkSession();
@@ -179,15 +181,18 @@ class FunctionalTestBase extends TestCase {
   public function basicPermissionCheck(array $pages): void {
 
     // Can't test anon 403 if r4032login is present.
-    if (!\Drupal::moduleHandler()->moduleExists('r4032login')) {
-      foreach ($pages as $page) {
-        $this->drupalGet($page);
-        try {
-          $this->assertSession()->statusCodeEquals(403);
-        }
-        catch (ExpectationException $e) {
-          $this->fail((string) t('Anon - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
-        }
+    foreach ($pages as $page) {
+      $this->drupalGet($page);
+      try {
+        $content = $this->getTextContent();
+        $this->assertStringContainsString('Login is required.', $content);
+        // $this->assertSession()->statusCodeEquals(403);
+      }
+      catch (ExpectationException $e) {
+        $this->fail((string) t('Anon - @page - @message', [
+          '@page' => $page,
+          '@message' => $e->getMessage(),
+        ]));
       }
     }
 
@@ -201,7 +206,10 @@ class FunctionalTestBase extends TestCase {
         $this->assertSession()->statusCodeEquals(403);
       }
       catch (ExpectationException $e) {
-        $this->fail((string) t('Customer - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
+        $this->fail((string) t('Customer - @page - @message', [
+          '@page' => $page,
+          '@message' => $e->getMessage(),
+        ]));
       }
       $this->drupalLogout();
     }
@@ -213,10 +221,35 @@ class FunctionalTestBase extends TestCase {
         $this->assertSession()->statusCodeEquals(200);
       }
       catch (ExpectationException $e) {
-        $this->fail((string) t('Staff - @page - @message', ['@page' => $page, '@message' => $e->getMessage()]));
+        $this->fail((string) t('Staff - @page - @message', [
+          '@page' => $page,
+          '@message' => $e->getMessage(),
+        ]));
       }
       $this->drupalLogout();
     }
+  }
+
+  /**
+   * Logs a user out of the Mink controlled browser and confirms.
+   *
+   * Confirms logout by checking the login page.
+   */
+  protected function drupalLogout() {
+    // Make a request to the logout page, and redirect to the user page, the
+    // idea being if you were properly logged out you should be seeing a login
+    // screen.
+    $assert_session = $this->assertSession();
+    $destination = Url::fromRoute('user.page')->toString();
+    $this->drupalGet(Url::fromRoute('user.logout', [], ['query' => ['destination' => $destination]]));
+
+    $content = $this->getTextContent();
+    $this->assertStringContainsString('Login is required.', $content);
+
+    // @see BrowserTestBase::drupalUserIsLoggedIn()
+    unset($this->loggedInUser->sessionId);
+    $this->loggedInUser = FALSE;
+    \Drupal::currentUser()->setAccount(new AnonymousUserSession());
   }
 
 }

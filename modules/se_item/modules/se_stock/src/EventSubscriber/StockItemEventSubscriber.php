@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_stock\EventSubscriber
  */
-class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
+class StockItemEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -39,7 +39,7 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function stockItemPresave(EntityPresaveEvent $event) {
+  public function stockItemPresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -58,9 +58,9 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
         ->condition('se_it_code', $entity->se_it_code->value);
       $items = $query->execute();
 
-      /** @var \Drupal\se_item\Entity\Item $stock_item */
+      /** @var \Drupal\se_item\Entity\Item $stockItem */
       if (empty($items)) {
-        $stock_item = Item::create([
+        $stockItem = Item::create([
           'type' => 'se_stock',
           'user_id' => $entity->user_id->target_id,
           'name' => $entity->name->value,
@@ -70,23 +70,23 @@ class StockItemPresaveEventSubscriber implements EventSubscriberInterface {
           'se_it_cost_price' => ['value' => $entity->se_it_cost_price->value],
         ]);
         if (isset($entity->se_it_product_type_ref)) {
-          $stock_item->se_it_product_type_ref->target_id = $entity->se_it_product_type_ref->target_id;
+          $stockItem->se_it_product_type_ref->target_id = $entity->se_it_product_type_ref->target_id;
         }
         if (isset($entity->se_it_manufacturer_ref)) {
-          $stock_item->se_it_manufacturer_ref->target_id = $entity->se_it_manufacturer_ref->target_id;
+          $stockItem->se_it_manufacturer_ref->target_id = $entity->se_it_manufacturer_ref->target_id;
         }
         if (isset($entity->se_it_sale_category_ref)) {
-          $stock_item->se_it_sale_category_ref->target_id = $entity->se_it_sale_category_ref->target_id;
+          $stockItem->se_it_sale_category_ref->target_id = $entity->se_it_sale_category_ref->target_id;
         }
-        $stock_item->save();
+        $stockItem->save();
       }
       else {
-        $stock_item = Item::load(reset($items));
+        $stockItem = Item::load(reset($items));
       }
     }
 
-    if (!empty($stock_item)) {
-      $entity->se_it_item_ref->target_id = $stock_item->id();
+    if (isset($stockItem)) {
+      $entity->se_it_item_ref->target_id = $stockItem->id();
     }
 
   }

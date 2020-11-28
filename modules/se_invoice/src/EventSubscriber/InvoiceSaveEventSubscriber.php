@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * When an invoice is saved, adjust the customer
  * balance by the amount of the invoice.
  *
- * @see \Drupal\se_payment\EventSubscriber\PaymentSaveEventSubscriber
+ * @see \Drupal\se_payment\EventSubscriber\PaymentEventSubscriber
  *
  * @package Drupal\se_invoice\EventSubscriber
  */

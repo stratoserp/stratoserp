@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_xero\EventSubscriber
  */
-class CustomerInsertEventSubscriber implements EventSubscriberInterface {
+class XeroCustomerEventSubscriber implements EventSubscriberInterface {
 
   use ErpEventTrait;
 
@@ -26,8 +26,8 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'customerInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'customerUpdate',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'xeroCustomerInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'xeroCustomerUpdate',
     ];
   }
 
@@ -37,7 +37,7 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event to work with.
    */
-  public function customerInsert(EntityInsertEvent $event): void {
+  public function xeroCustomerInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node') {
@@ -59,7 +59,7 @@ class CustomerInsertEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event to work with.
    */
-  public function customerUpdate(EntityUpdateEvent $event): void {
+  public function xeroCustomerUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'node') {

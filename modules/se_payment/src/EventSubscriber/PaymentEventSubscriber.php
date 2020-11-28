@@ -24,7 +24,7 @@ use Drupal\node\Entity\Node;
  *
  * @package Drupal\se_payment\EventSubscriber
  */
-class PaymentSaveEventSubscriber implements EventSubscriberInterface {
+class PaymentEventSubscriber implements EventSubscriberInterface {
 
   use ErpEventTrait;
   use ErpPaymentTrait;
@@ -36,7 +36,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentAdjust',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentPresave',
     ];
   }
 
@@ -93,7 +93,7 @@ class PaymentSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function paymentAdjust(EntityPresaveEvent $event): void {
+  public function paymentPresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 

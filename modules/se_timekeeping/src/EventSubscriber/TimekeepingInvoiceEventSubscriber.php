@@ -20,16 +20,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_timekeeping\EventSubscriber
  */
-class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
+class TimekeepingInvoiceEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInsertMarkBilled',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingUpdateMarkBilled',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingMarkNotBilled',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInvoiceInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
     ];
   }
 
@@ -43,7 +43,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function timekeepingInsertMarkBilled(EntityInsertEvent $event): void {
+  public function timekeepingInvoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -62,7 +62,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function timekeepingUpdateMarkBilled(EntityUpdateEvent $event): void {
+  public function timekeepingInvoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -82,7 +82,7 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function timekeepingMarkNotBilled(EntityPresaveEvent $event): void {
+  public function timekeepingInvoicePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -102,20 +102,20 @@ class TimekeepingSaveEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function timekeepingMarkItemsBilled(Node $entity, $billed = TRUE): void {
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
-    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
-      if ($item_line->target_type === 'comment') {
+    foreach ($entity->{$bundleFieldType . '_lines'} as $itemLine) {
+      if ($itemLine->target_type === 'comment') {
         /** @var \Drupal\comment\Entity\Comment $comment */
-        if ($comment = Comment::load($item_line->target_id)) {
-          // TODO: Make a service for this?
+        if ($comment = Comment::load($itemLine->target_id)) {
+          // @todo Make a service for this?
           if ($comment->se_tk_billed !== $billed) {
-            $comment->se_tk_billed->value = $billed;
+            $comment->set('se_tk_billed', $billed);
             if ($billed) {
-              $comment->se_tk_invoice_ref->target_id = $entity->id();
+              $comment->set('se_tk_invoice_ref', $entity->id());
             }
             else {
-              unset($comment->se_tk_invoice_ref->target_id);
+              $comment->set('se_tk_invoice_ref', NULL);
             }
             $comment->save();
           }

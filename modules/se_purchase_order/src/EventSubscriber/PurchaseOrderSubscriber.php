@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_purchase_order\EventSubscriber
  */
-class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
+class PurchaseOrderSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -39,7 +39,7 @@ class PurchaseOrderInsertSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    // TODO: Stuff here?
+    // @todo Anything to do here?
   }
 
 }

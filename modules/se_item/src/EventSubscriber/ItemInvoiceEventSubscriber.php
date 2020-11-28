@@ -21,16 +21,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_item_line\EventSubscriber
  */
-class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
+class ItemInvoiceEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsertMarkSold',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdateMarkSold',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceMarkAvailable',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'itemInvoiceInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'itemInvoiceUpdate',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemInvoicePresave',
     ];
   }
 
@@ -42,7 +42,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function invoiceInsertMarkSold(EntityInsertEvent $event): void {
+  public function itemInvoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -59,7 +59,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function invoiceUpdateMarkSold(EntityUpdateEvent $event): void {
+  public function itemInvoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -76,7 +76,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function invoiceMarkAvailable(EntityPresaveEvent $event): void {
+  public function itemInvoicePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
@@ -96,25 +96,30 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function nodeMarkItemStatus(Node $entity, $sold = TRUE): void {
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
     $date = new DateTimePlus(NULL, date_default_timezone_get());
 
-    foreach ($entity->{$bundle_field_type . '_lines'} as $index => $item_line) {
-      if ($item_line->target_type === 'se_item') {
+    foreach ($entity->{$bundleFieldType . '_lines'} as $itemLine) {
+      if ($itemLine->target_type === 'se_item') {
         /** @var \Drupal\se_item\Entity\Item $item */
-        if (($item = Item::load($item_line->target_id)) && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
-          // TODO: Make a service for this?
+        if (($item = Item::load($itemLine->target_id))
+        && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
+          // @todo Make a service for this?
           // Only operate on things that have a 'parent', not the parents
           // themselves, they are never sold.
           if (!empty($item->se_it_item_ref->target_id)) {
             if (isset($item->se_it_invoice_ref->value) !== $sold) {
               if ($sold) {
-                $item->se_it_sale_date->value = $date->format('Y-m-d');
-                $item->se_it_sale_price->value = $item_line->price;
-                $item->se_it_invoice_ref->target_id = $entity->id();
+                $item
+                  ->set('se_it_sale_date', $date->format('Y-m-d'))
+                  ->set('se_it_sale_price', $itemLine->price)
+                  ->set('se_it_invoice_ref', $entity->id());
               }
               else {
-                unset($item->se_it_sale_date->value, $item->se_it_sale_price->value, $item->se_it_invoice_ref->target_id);
+                $item
+                  ->set('se_it_sale_date', NULL)
+                  ->set('se_it_sale_price', NULL)
+                  ->set('se_it_invoice_ref', NULL);
               }
               $item->save();
             }
