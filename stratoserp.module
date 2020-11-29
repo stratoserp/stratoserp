@@ -111,7 +111,7 @@ function _stratoserp_user_login_form_submit($form, FormStateInterface $form_stat
 }
 
 /**
- *
+ * I don't think we're using this.
  */
 function stratoserp_theme() {
   return [
@@ -123,25 +123,6 @@ function stratoserp_theme() {
       ],
     ],
   ];
-}
-
-/**
- * Helper function for modules to install their own terms.
- *
- * @param $taxonomy
- * @param $terms
- */
-function stratoserp_create_terms($taxonomy, $terms) {
-  foreach ($terms as $new_term) {
-    $term = taxonomy_term_load_multiple_by_name($new_term, $taxonomy);
-    if (empty($term)) {
-      Term::create([
-        'parent' => [],
-        'name'   => $new_term,
-        'vid'    => $taxonomy,
-      ])->save();
-    }
-  }
 }
 
 /**

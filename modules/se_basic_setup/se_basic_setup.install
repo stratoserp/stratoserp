@@ -7,9 +7,12 @@ declare(strict_types=1);
  */
 
 use Drupal\se_item\Entity\Item;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_install().
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_install() {
   se_basic_setup_taxonomy_terms();
@@ -21,9 +24,11 @@ function se_basic_setup_install() {
 
 /**
  * Create some taxonomy terms.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_taxonomy_terms() {
-  stratoserp_create_terms('se_sale_category', [
+  se_basic_setup_create_terms('se_sale_category', [
     'Consumables',
     'Contracting',
     'Hardware',
@@ -33,7 +38,7 @@ function se_basic_setup_taxonomy_terms() {
     'Software',
   ]);
 
-  stratoserp_create_terms('se_product_type', [
+  se_basic_setup_create_terms('se_product_type', [
     'CPU',
     'Domain name',
     'Ink cartridge',
@@ -44,7 +49,7 @@ function se_basic_setup_taxonomy_terms() {
     'Video card',
   ]);
 
-  stratoserp_create_terms('se_manufacturer', [
+  se_basic_setup_create_terms('se_manufacturer', [
     'Acer',
     'ASUS',
     'Canon',
@@ -61,13 +66,13 @@ function se_basic_setup_taxonomy_terms() {
   ]);
 
   // Status for quotes, purchase orders, invoices.
-  stratoserp_create_terms('se_status', [
+  se_basic_setup_create_terms('se_status', [
     'Open',
     'Ordered',
     'Closed',
   ]);
 
-  stratoserp_create_terms('se_ticket_priority', [
+  se_basic_setup_create_terms('se_ticket_priority', [
     'Normal',
     'High',
     'Low',
@@ -75,7 +80,7 @@ function se_basic_setup_taxonomy_terms() {
     'Whenever',
   ]);
 
-  stratoserp_create_terms('se_ticket_type', [
+  se_basic_setup_create_terms('se_ticket_type', [
     'Appointment',
     'Call',
     'Follow up',
@@ -87,14 +92,14 @@ function se_basic_setup_taxonomy_terms() {
     'Warranty',
   ]);
 
-  stratoserp_create_terms('se_ticket_status', [
+  se_basic_setup_create_terms('se_ticket_status', [
     'Open',
     'In progress',
     'Wait customer',
     'Closed',
   ]);
 
-  stratoserp_create_terms('se_payment_type', [
+  se_basic_setup_create_terms('se_payment_type', [
     'Cash',
     'Credit/Debit card',
     'Cheque',
@@ -104,7 +109,32 @@ function se_basic_setup_taxonomy_terms() {
 }
 
 /**
+ * Helper function for modules to install their own terms.
+ *
+ * @param $taxonomy
+ *   Taxonomy vocabulary to add terms to.
+ * @param $terms
+ *   Text terms to create.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function se_basic_setup_create_terms($taxonomy, $terms) {
+  foreach ($terms as $new_term) {
+    $term = taxonomy_term_load_multiple_by_name($new_term, $taxonomy);
+    if (empty($term)) {
+      Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => $taxonomy,
+      ])->save();
+    }
+  }
+}
+
+/**
  * Setup basic service items.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_example_service_items() {
   $defaults = se_basic_setup_item_defaults('Service', 'Domain name', 'Internal', 'se_service');
@@ -130,6 +160,8 @@ function se_basic_setup_example_service_items() {
 
 /**
  * Setup basic recurring items.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_example_recurring_items() {
   $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
@@ -170,6 +202,8 @@ function se_basic_setup_example_recurring_items() {
 
 /**
  * Setup basic stock items.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_example_stock_items() {
   $defaults = se_basic_setup_item_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
@@ -274,7 +308,7 @@ function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $
   $term = taxonomy_term_load_multiple_by_name($manufacturer, 'se_manufacturer');
   $manufacturer = reset($term);
 
-  $defaults = [
+  return [
     'type' => $type,
     'langcode' => 'en',
     'uid' => '1',
@@ -283,8 +317,6 @@ function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $
     'se_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
     'se_it_product_type_ref'  => [['target_id' => $product_type->id()]],
   ];
-
-  return $defaults;
 }
 
 /**

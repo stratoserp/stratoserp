@@ -9,7 +9,7 @@ use Drupal\Core\Session\AccountProxyInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- *
+ * Service to insert references when displaying forms.
  */
 class FormAlter {
 
@@ -66,35 +66,36 @@ class FormAlter {
    * @param array $form
    *   Form render array.
    * @param string $field
+   *   The reference field to update.
    * @param string $var
+   *   The GET variable to retrieve.
    *
-   * @return void
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function setReferenceField(array &$form, string $field, string $var): void {
+    // Try and retrieve the named variable from the request.
     if (!$value = $this->currentRequest->get($var)) {
       return;
     }
 
-    $chosen = isset($form[$field]['widget']['#chosen']) && $form[$field]['widget']['#chosen'] === 1;
-    if ($chosen) {
-      if (!empty($form[$field]['widget']['#default_value'])) {
-        return;
-      }
-      if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')->load($value)) {
-        $form[$field]['widget']['#default_value'] = $node->id();
-      }
-    }
-    else {
-      if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-        return;
-      }
-      if (is_numeric($value) && $node = $this->entityTypeManager->getStorage('node')->load($value)) {
-        $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
-      }
+    // If its not a numeric value, return.
+    if (!is_numeric($value)) {
+      return;
     }
 
+    // Try and load the referenced node.
+    if (!$node = $this->entityTypeManager->getStorage('node')->load($value)) {
+      return;
+    }
+
+    // Only update if the field is empty.
+    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+      return;
+    }
+
+    // Really do the update now.
+    $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
   }
 
   /**
@@ -103,29 +104,26 @@ class FormAlter {
    * @param array $form
    *   Form render array.
    * @param string $field
-   * @param int $term_id
+   *   The reference field to update.
+   * @param int $termId
+   *   The id of the term to put into the field.
    *
-   * @return void
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function setTaxonomyField(array &$form, string $field, int $term_id) {
+  public function setTaxonomyField(array &$form, string $field, int $termId): void {
     /** @var \Drupal\taxonomy\Entity\Term $term */
-    if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id)) {
+    if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($termId)) {
       return;
     }
 
-    // Handle the 'chosen' module field type.
-    $chosen = isset($form[$field]['widget']['#chosen']) && $form[$field]['widget']['#chosen'] === 1;
-    if ($chosen && empty($form[$field]['widget']['#default_value'])) {
-      $form[$field]['widget']['#default_value'] = $term->id();
+    // Only update if the field is empty.
+    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
       return;
     }
 
-    if (empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-      $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
-    }
-
+    // Really do the update now.
+    $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
   }
 
 }
