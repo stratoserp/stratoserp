@@ -82,10 +82,7 @@ function stratoserp_hide_publish_buttons(array &$form) {
  */
 function stratoserp_populate_title_field(array &$form) {
   // $form['title']['#hidden'] = TRUE;
-  $form['title']['widget'][0]['value']['#default_value'] = t('@user - @date', [
-    '@user' => \Drupal::currentUser()->getAccountName(),
-    '@date' => date('j-m-Y'),
-  ])->render();
+  $form['title']['widget'][0]['value']['#default_value'] = \Drupal::service('stratoserp.set_field')->generateTitle();
 }
 
 /**

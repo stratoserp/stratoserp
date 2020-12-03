@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\Service;
 
+use Drupal\comment\Entity\Comment;
 use Drupal\node\Entity\Node;
 use Drupal\se_item\Entity\Item;
 use Drupal\stratoserp\ErpCore;
@@ -14,7 +15,7 @@ use Drupal\stratoserp\ErpCore;
 class TotalService {
 
   /**
-   * Given any node with a customer, return the (first) customer.
+   * Calculate the total and more of a node with item lines.
    *
    * @param \Drupal\node\Entity\Node $node
    *   Node to update the totals for..
@@ -28,9 +29,10 @@ class TotalService {
 
     // Loop through the item lines to calculate total.
     foreach ($node->{$bundleFieldType . '_lines'} as $index => $itemLine) {
-      // We don't need to do anything with comments.
       if ($itemLine->target_type === 'comment') {
-        continue;
+        $comment = Comment::load($itemLine->target_id);
+        $item = $comment->se_tk_item->entity;
+        $itemLine->price = $item->se_it_sell_price->value;
       }
 
       if (empty($itemLine->serial)) {

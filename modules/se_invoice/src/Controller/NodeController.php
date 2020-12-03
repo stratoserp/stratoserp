@@ -11,7 +11,6 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeTypeInterface;
 use Drupal\stratoserp\ErpCore;
-use Drupal\se_item\Entity\Item;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -100,7 +99,7 @@ class NodeController extends ControllerBase {
      * @var int $index
      * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
      */
-    foreach ($source->{$source_field_type . '_lines'} as $index => $item) {
+    foreach ($source->{$source_field_type . '_lines'} as $item) {
       $node->{$bundle_field_type . '_lines'}->appendItem($item->getValue());
     }
 
@@ -127,19 +126,39 @@ class NodeController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function timekeeping(NodeTypeInterface $node_type, Node $source) {
+    $node = $this->createNodeFromTimekeeping($node_type, $source);
+
+    return $this->entityFormBuilder()->getForm($node);
+  }
+
+  /**
+   * Provides the node submission form for creation from timekeeping entries.
+   *
+   * @param \Drupal\node\NodeTypeInterface $node_type
+   *   The node type entity for the node.
+   * @param \Drupal\node\Entity\Node $source
+   *   The source node.
+   *
+   * @return array
+   *   A node submission form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function createNodeFromTimekeeping(NodeTypeInterface $node_type, Node $source) {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
       'type' => $node_type->id(),
     ]);
 
-    $default_status = \Drupal::config('se_invoice.settings')->get('invoice_status_term');
-    $open = Term::load($default_status);
+    $defaultStatus = \Drupal::config('se_invoice.settings')->get('invoice_status_term');
+    $open = Term::load($defaultStatus);
 
     // Retrieve a list of non billed timekeeping entries for this customer.
     $query = \Drupal::entityQuery('comment');
 
     if ($source->bundle() !== 'se_customer') {
-      if (!$customer_id = $source->se_bu_ref->target_id) {
+      if (!$source->se_bu_ref->target_id) {
         return $this->entityFormBuilder()->getForm($node);
       }
     }
@@ -160,8 +179,8 @@ class NodeController extends ControllerBase {
       /** @var \Drupal\comment\Entity\Comment $comment */
       if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
         /** @var \Drupal\se_item\Entity\Item $item */
-        if ($item = Item::load($comment->se_tk_item->target_id)) {
-          $price = $item->se_it_sell_price->value;
+        if ($item = $comment->se_tk_item->entity) {
+          $price = (int) $item->se_it_sell_price->value;
           $line = [
             'target_type' => 'comment',
             'target_id' => $comment->id(),
@@ -186,7 +205,7 @@ class NodeController extends ControllerBase {
       $node->se_status_ref->target_id = $open->id();
     }
 
-    return $this->entityFormBuilder()->getForm($node);
+    return $node;
   }
 
 }

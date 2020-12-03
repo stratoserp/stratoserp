@@ -58,7 +58,7 @@ trait ContactTestTrait {
       'type' => 'se_contact',
       'title' => $this->contact->name,
       'se_co_phone' => $this->contact->phoneNumber,
-      'se_bu_ref' => ['target_id' => $customer->id()],
+      'se_bu_ref' => $customer,
     ]);
     $this->assertNotEqual($contact, FALSE);
     $this->drupalGet($contact->toUrl());

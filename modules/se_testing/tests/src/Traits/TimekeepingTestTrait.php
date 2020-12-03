@@ -14,10 +14,12 @@ use Faker\Factory;
  */
 trait TimekeepingTestTrait {
 
+  use CustomerTestTrait;
+
   /**
    * Storage for the faker data for timekeeping.
    *
-   * @var FakerFactory
+   * @var \Faker\Factory
    */
   protected $timekeeping;
 
@@ -50,17 +52,25 @@ trait TimekeepingTestTrait {
    *   The returned comment.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityStorageException|\Behat\Mink\Exception\ExpectationException
    */
   public function addTimekeeping(Node $ticket): Comment {
     $this->timekeepingFakerSetup();
 
-    /** @var \Drupal\node\Entity\Node $node */
+    $item = \Drupal::service('se_item.service')->findByCode('TECHSERVICE');
+
+    /** @var \Drupal\comment\Entity\Comment $comment */
     $comment = Comment::create([
       'entity_id' => $ticket->id(),
       'entity_type' => 'node',
       'field_name' => 'se_timekeeping',
+      'comment_type' => 'se_timekeeping',
+      'se_bu_ref' => $ticket->se_bu_ref,
       'se_tk_comment' => $this->timekeeping->name,
+      'se_tk_billable' => TRUE,
+      'se_tk_billed' => FALSE,
+      'se_tk_amount' => 60,
+      'se_tk_item' => $item,
       'status' => CommentInterface::PUBLISHED,
     ]);
     $comment->save();
@@ -70,10 +80,10 @@ trait TimekeepingTestTrait {
 
     $content = $this->getTextContent();
 
-    $this->assertStringNotContainsString('Please fill in this field', $content);
+    self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertStringContainsString($this->timekeeping->name, $content);
+    self::assertStringContainsString($this->timekeeping->name, $content);
 
     return $comment;
   }

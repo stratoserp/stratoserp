@@ -126,4 +126,17 @@ class FormAlter {
     $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
   }
 
+  /**
+   * Return a basic title for new nodes.
+   *
+   * @return string
+   *   The rendered output.
+   */
+  public function generateTitle() {
+    return t('@user - @date', [
+      '@user' => \Drupal::currentUser()->getAccountName(),
+      '@date' => date('j-m-Y'),
+    ])->render();
+  }
+
 }

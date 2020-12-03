@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_accounting\Service;
 
 /**
- * Class CurrencyFormat.
+ * Provide functions to format currency values.
  *
  * @package Drupal\se_accounting\Service
  */
@@ -20,7 +20,7 @@ class CurrencyFormat {
    * @return string
    *   The formatted value
    */
-  public function formatDisplay($value): string {
+  public function formatDisplay(int $value): string {
 
     // Don't try and divide by zero.
     if (!empty($value)) {
