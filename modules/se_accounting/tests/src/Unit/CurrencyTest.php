@@ -8,6 +8,8 @@ use Drupal\se_accounting\Service\CurrencyFormat;
 use Drupal\Tests\UnitTestCase;
 
 /**
+ * Tests for the currency storage, display and raw conversion.
+ *
  * @coversDefault Drupal\se_accounting
  * @group se_accounting
  * @group stratoserp
@@ -15,51 +17,59 @@ use Drupal\Tests\UnitTestCase;
 class CurrencyTest extends UnitTestCase {
 
   /**
+   * Service holder var.
+   *
    * @var \Drupal\se_accounting\Service\CurrencyFormat
    */
-  protected $currencyFormatService;
+  protected CurrencyFormat $currencyService;
 
   /**
-   *
+   * Setup the service holder var.
    */
   protected function setup(): void {
-    $this->currencyFormatService = new CurrencyFormat();
+    $this->currencyService = new CurrencyFormat();
   }
 
   /**
    * Tests CurrencyStorage.
    *
-   * @dataProvider currencyStorageProvider
+   * @param string $input
+   *   Input strings.
+   * @param string $expected
+   *   Expected output.
    *
-   * @param $input
-   * @param $expected
+   * @dataProvider currencyStorageProvider
    */
-  public function testCurrencyStorage($input, $expected): void {
-    $this->assertEquals($expected, $this->currencyFormatService->formatStorage($input));
+  public function testCurrencyStorage(string $input, string $expected): void {
+    self::assertEquals($expected, $this->currencyService->formatStorage($input));
   }
 
   /**
    * Tests CurrencyDisplay.
    *
-   * @dataProvider currencyDisplayProvider
+   * @param int $input
+   *   Input strings.
+   * @param string $expected
+   *   Expected output.
    *
-   * @param $input
-   * @param $expected
+   * @dataProvider currencyDisplayProvider
    */
-  public function testCurrencyDisplay($input, $expected): void {
-    $this->assertEquals($expected, $this->currencyFormatService->formatDisplay($input));
+  public function testCurrencyDisplay(int $input, string $expected): void {
+    self::assertEquals($expected, $this->currencyService->formatDisplay($input));
   }
 
   /**
    * Tests CurrencyRaw.
    *
-   * @dataProvider currencyRawProvider
+   * @param int $input
+   *   Input strings.
+   * @param string $expected
+   *   Expected output.
    *
-   * @param $input
-   * @param $expected
+   * @dataProvider currencyRawProvider
    */
-  public function testCurrencyRaw($input, $expected): void {
-    $this->assertEquals($expected, $this->currencyFormatService->formatRaw($input));
+  public function testCurrencyRaw(int $input, string $expected): void {
+    self::assertEquals($expected, $this->currencyService->formatRaw($input));
   }
 
   /**

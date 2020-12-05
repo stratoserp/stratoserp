@@ -28,21 +28,21 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     return [];
   }
 
@@ -51,9 +51,7 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
    *
    * Re-implementation of viewElements from EntityReferenceLabelFormatter.
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
-    // $host_entity = $items->getEntity();
-    // $host_type = $host_entity->bundle();
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
     $row = [];
     $rows = [];
 
@@ -73,13 +71,13 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
       $uri = $entity->toUrl();
 
       $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
-      $display_date = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
+      $displayDate = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
 
       $row = [
         Link::fromTextAndUrl($entity->se_in_id->value, $uri),
         Link::fromTextAndUrl($entity->title->value, $uri),
-        \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->amount ?? 0),
-        $display_date,
+        \Drupal::service('se_accounting.currency_format')->formatDisplay((int) ($items[$delta]->amount ?? 0)),
+        $displayDate,
       ];
 
       $rows[] = $row;
