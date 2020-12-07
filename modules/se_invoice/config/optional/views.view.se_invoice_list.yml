@@ -810,7 +810,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/customers/invoice-list
+      path: /se/customers/invoice-list
       menu:
         type: normal
         title: Invoices

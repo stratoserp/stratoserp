@@ -741,7 +741,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/goods-receipt-list
+      path: /se/goods-receipt-list
       menu:
         type: normal
         title: 'Goods receipts'

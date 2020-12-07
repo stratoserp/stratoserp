@@ -654,7 +654,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/stock-items
+      path: /se/stock-items
       menu:
         type: normal
         title: 'Stock items'

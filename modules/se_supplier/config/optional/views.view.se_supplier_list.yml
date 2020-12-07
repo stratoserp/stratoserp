@@ -560,7 +560,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/supplier-list
+      path: /se/supplier-list
       menu:
         type: normal
         title: Suppliers
