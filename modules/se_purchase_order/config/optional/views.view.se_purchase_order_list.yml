@@ -692,7 +692,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/purchase-order-list
+      path: /se/purchase-order-list
       menu:
         type: normal
         title: 'Purchase orders'

@@ -666,7 +666,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/calendar
+      path: /se/calendar
       menu:
         type: normal
         title: Calendar
