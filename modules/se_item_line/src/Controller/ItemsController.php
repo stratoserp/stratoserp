@@ -20,6 +20,16 @@ class ItemsController extends ControllerBase {
 
   /**
    * Lookup the selected item and update the price and serial.
+   *
+   * @param array $form
+   *   The form being processed.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response with appropriate details.
    */
   public static function updatePrice(array &$form, FormStateInterface $form_state, Request $request): AjaxResponse {
     $values = $form_state->getValues();
@@ -43,9 +53,9 @@ class ItemsController extends ControllerBase {
       return $response;
     }
 
-    $target_type = $values[$field][$index]['target_type'];
+    $targetType = $values[$field][$index]['target_type'];
 
-    switch ($target_type) {
+    switch ($targetType) {
       case 'comment':
         /** @var \Drupal\comment\Entity\Comment $comment */
         if ($comment = Comment::load($values[$field][$index]['target_id'])) {
@@ -88,7 +98,7 @@ class ItemsController extends ControllerBase {
       $response->addCommand(new InvokeCommand(
         "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-price']",
         'val',
-        [\Drupal::service('se_accounting.currency_format')->formatDisplay($item_price)]
+        [\Drupal::service('se_accounting.currency_format')->formatDisplay((int) $item_price)]
       ));
     }
 
@@ -109,7 +119,7 @@ class ItemsController extends ControllerBase {
     $response->addCommand(new InvokeCommand(
       "form input[data-drupal-selector='edit-se-{$type}-total-0-value']",
       'val',
-      [\Drupal::service('se_accounting.currency_format')->formatDisplay($total)]
+      [\Drupal::service('se_accounting.currency_format')->formatDisplay((int) $total)]
     ));
 
     return $response;

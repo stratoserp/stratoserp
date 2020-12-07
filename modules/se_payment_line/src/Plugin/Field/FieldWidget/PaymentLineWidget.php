@@ -36,7 +36,7 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
     // Add a new price field.
     $build['amount'] = [
       '#type' => 'textfield',
-      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->amount ?: 0),
+      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->amount ?: 0),
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 10,
@@ -82,7 +82,11 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
   }
 
   /**
+   * Massage the form values on submit.
    *
+   * {@inheritdoc}
+   *
+   * @todo There should be a way to do this in PaymentLineType setValue().
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $new_values = parent::massageFormValues($values, $form, $form_state);

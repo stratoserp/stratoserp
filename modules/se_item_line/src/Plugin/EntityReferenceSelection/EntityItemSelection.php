@@ -107,7 +107,7 @@ class EntityItemSelection extends DefaultSelection {
         $output[] = '#' . $item->se_it_serial->value . '#';
       }
       // $output[] = substr($item->label(), 0, 80);
-      $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay($item->se_it_sell_price->value);
+      $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $item->se_it_sell_price->value);
 
       // Format - Code #Serial# Desc - Price.
       $options[$bundle][$entity_id] = implode(' ', $output);

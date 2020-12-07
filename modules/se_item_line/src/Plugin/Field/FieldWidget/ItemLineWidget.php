@@ -93,7 +93,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     // Add a new price field.
     $build['price'] = [
       '#type' => 'textfield',
-      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay($items[$delta]->price ?: 0),
+      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->price ?: 0),
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 40,
@@ -117,7 +117,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#weight' => 60,
     ];
 
-    // TODO: This is a bit icky, how to do better.
+    // @todo This is a bit icky, how to do better.
     $build['left_prefix'] = [
       '#weight' => 1,
       '#suffix' => '<div class="se-item-line-left">',
@@ -146,7 +146,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
    *
    * {@inheritdoc}
    *
-   * TODO: There should be a way to do this in ItemLineType setValue().
+   * @todo There should be a way to do this in ItemLineType setValue().
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $new_values = parent::massageFormValues($values, $form, $form_state);

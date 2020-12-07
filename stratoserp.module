@@ -7,8 +7,10 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\stratoserp\ErpCore;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Implements hook_help().
@@ -54,6 +56,24 @@ function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id)
   }
   // If using the ExtraField Form plugins, then some fields need to be removed.
   // unset($form['meta'], $form['advanced'], $form['status'], $form['actions']);.
+
+  // If this is something being deleted, redirect back to the frontpage.
+  if (preg_match('/(.*?)_delete_form/', $form_id)) {
+    $form['actions']['submit']['#submit'][] = 'stratoserp_node_delete_redirect_submit';
+  }
+
+}
+
+/**
+ * Redirect delete submissions to the frontpage.
+ *
+ * @todo Make customisable/redirect back to customer?
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function stratoserp_node_delete_redirect_submit(array &$form, FormStateInterface $form_state) {
+  $form_state->setRedirectUrl(Url::fromRoute('<front>'));
 }
 
 /**

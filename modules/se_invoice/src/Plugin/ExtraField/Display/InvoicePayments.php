@@ -68,7 +68,7 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
           'date' => Link::fromTextAndUrl($line->payment_date, $uri),
           'type' => $type->name->value,
           'amount' => \Drupal::service('se_accounting.currency_format')
-            ->formatDisplay($line->amount),
+            ->formatDisplay((int) $line->amount),
         ];
       }
 
