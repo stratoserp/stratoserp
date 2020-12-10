@@ -818,7 +818,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/ticket-list
+      path: se/ticket-list
       menu:
         type: normal
         title: Tickets

@@ -535,7 +535,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/item/service-list
+      path: se/item/service-list
       menu:
         type: normal
         title: 'Service items'

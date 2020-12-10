@@ -675,7 +675,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/customer-list
+      path: se/customer-list
       menu:
         type: normal
         title: Customers

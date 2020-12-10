@@ -644,7 +644,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/customer-balances
+      path: se/customer-balances
       menu:
         type: normal
         title: Balances

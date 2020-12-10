@@ -543,7 +543,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/item/assembly-list
+      path: se/item/assembly-list
       menu:
         type: normal
         title: 'Assembly items'

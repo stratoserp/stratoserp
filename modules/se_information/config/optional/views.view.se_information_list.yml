@@ -230,7 +230,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/information-list
+      path: se/information-list
       menu:
         type: normal
         title: Information

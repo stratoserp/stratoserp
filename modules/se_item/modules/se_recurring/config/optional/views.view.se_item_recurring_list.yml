@@ -535,7 +535,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/item/recurring-list
+      path: se/item/recurring-list
       menu:
         type: normal
         title: 'Recurring items'

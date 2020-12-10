@@ -733,7 +733,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/payment-list
+      path: se/payment-list
       menu:
         type: normal
         title: Payments

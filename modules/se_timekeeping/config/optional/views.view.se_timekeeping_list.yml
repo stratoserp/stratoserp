@@ -756,7 +756,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: /se/timekeeping-list
+      path: se/timekeeping-list
       menu:
         type: normal
         title: Timekeeping
