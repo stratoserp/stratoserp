@@ -1,3 +1,4 @@
+uuid: 215825bb-4f44-4b9c-8fff-278d474bd8bd
 langcode: en
 status: true
 dependencies:
@@ -9,12 +10,15 @@ dependencies:
     - field.storage.node.se_ti_status_ref
     - node.type.se_ticket
     - system.menu.stratos-erp
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
     - node
     - serial
     - user
+_core:
+  default_config_hash: ECVVuf_wfwnt_OdedCfikwsXCG4iH93zN_BXAp6G9hA
 id: se_ticket_list
 label: Tickets
 module: views
@@ -588,7 +592,7 @@ display:
           type: entity_reference_label
           settings:
             link: true
-          group_column: target_id
+          group_column: entity_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -610,6 +614,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -621,6 +627,9 @@ display:
           entity_field: type
           plugin_id: bundle
           group: 1
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         title_1:
           id: title_1
           table: node_field_data
@@ -649,6 +658,8 @@ display:
               customer: '0'
               supplier: '0'
               staff: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -692,6 +703,8 @@ display:
               customer: '0'
               supplier: '0'
               staff: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -736,6 +749,8 @@ display:
               supplier: '0'
               staff: '0'
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -797,6 +812,7 @@ display:
         groups:
           1: AND
       use_ajax: true
+      group_by: true
     cache_metadata:
       max-age: -1
       contexts:
