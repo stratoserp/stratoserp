@@ -10,9 +10,9 @@ use Drupal\Core\Form\FormStateInterface;
  *
  */
 function se_invoice_form_node_se_invoice_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $setField = \Drupal::service('stratoserp.set_field');
-  $setField->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
-  $setField->setReferenceField($form, 'se_co_ref', 'se_co_ref');
+  $service = \Drupal::service('stratoserp.set_field');
+  $service->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
+  $service->setReferenceField($form, 'se_co_ref', 'se_co_ref');
 
   $config = \Drupal::configFactory()->get('se_invoice.settings');
   if ($status_term = $config->get('invoice_status_term')) {
