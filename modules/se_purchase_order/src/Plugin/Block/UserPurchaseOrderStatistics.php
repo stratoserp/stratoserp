@@ -26,9 +26,9 @@ class UserPurchaseOrderStatistics extends BlockBase {
   public function build() {
     $content = FALSE;
     $datasets = [];
-    // TODO: Move this to a service and pass in this.
+    // @todo Move this to a service and pass in this.
     $type = 'se_purchase_order';
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
     if (!$entity = $this->getCurrentControllerEntity()) {
@@ -63,7 +63,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
         $month = 0;
         /** @var \Drupal\node\Entity\Node $node */
         foreach ($nodes as $node) {
-          $month += $node->{$bundle_field_type . '_total'}->value;
+          $month += $node->{$bundleFieldType . '_total'}->value;
         }
         $month_data[] = $month;
         $fg_colors[] = $fg_color;

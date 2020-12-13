@@ -10,6 +10,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Traits\ErpEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -23,6 +24,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @package Drupal\se_invoice\EventSubscriber
  */
 class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
+
+  use ErpEventTrait;
 
   /**
    * {@inheritdoc}
@@ -42,15 +45,17 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *   The event we are working with.
    */
   public function invoiceInsert(EntityInsertEvent $event): void {
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if (isset($entity->skipInvoiceSaveEvents)) {
-      return;
-    }
-
     if ($entity->getEntityTypeId() !== 'node'
       || $entity->bundle() !== 'se_invoice') {
       return;
     }
+
+    if ($this->isSkipInvoiceSaveEvents($entity)) {
+      return;
+    }
+
     $this->updateCustomerBalance($entity);
   }
 
@@ -61,15 +66,18 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *   The event we are working with.
    */
   public function invoiceUpdate(EntityUpdateEvent $event): void {
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if (isset($entity->skipInvoiceSaveEvents)) {
-      return;
-    }
 
     if ($entity->getEntityTypeId() !== 'node'
       || $entity->bundle() !== 'se_invoice') {
       return;
     }
+
+    if ($this->isSkipInvoiceSaveEvents($entity)) {
+      return;
+    }
+
     $this->updateCustomerBalance($entity);
   }
 
@@ -83,14 +91,15 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    *   The event we are working with.
    */
   public function invoiceAdjust(EntityPresaveEvent $event): void {
+    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if (isset($entity->skipInvoiceSaveEvents)) {
-      return;
-    }
-
     if ($entity->getEntityTypeId() !== 'node'
       || $entity->isNew()
       || $entity->bundle() !== 'se_invoice') {
+      return;
+    }
+
+    if ($this->isSkipInvoiceSaveEvents($entity)) {
       return;
     }
 
@@ -115,8 +124,8 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       return 0;
     }
 
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
-    $amount = $entity->{$bundle_field_type . '_total'}->value;
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $amount = $entity->{$bundleFieldType . '_total'}->value;
     if ($reduce_balance) {
       $amount *= -1;
     }

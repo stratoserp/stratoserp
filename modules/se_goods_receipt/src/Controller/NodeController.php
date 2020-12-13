@@ -90,19 +90,19 @@ class NodeController extends ControllerBase {
     ]);
 
     $source_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
     foreach ($source->{$source_field_type . '_lines'} as $index => $item_line) {
-      // TODO: Ensure we're using the non-serialised item here?
+      // @todo ensure we're using the non-serialised item here?
       $item_count = $item_line->quantity;
       for ($i = 0; $i < $item_count; $i++) {
-        $node->{$bundle_field_type . '_lines'}->appendItem($item_line->getValue());
+        $node->{$bundleFieldType . '_lines'}->appendItem($item_line->getValue());
       }
     }
 
     $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
     $node->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $node->{$bundle_field_type . '_purchase_order_ref'}->target_id = $source->id();
+    $node->{$bundleFieldType . '_purchase_order_ref'}->target_id = $source->id();
 
     return $this->entityFormBuilder()->getForm($node);
   }

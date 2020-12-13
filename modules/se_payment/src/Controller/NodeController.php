@@ -25,14 +25,14 @@ class NodeController extends ControllerBase {
    *
    * @var \Drupal\Core\Datetime\DateFormatterInterface
    */
-  protected $dateFormatter;
+  protected DateFormatterInterface $dateFormatter;
 
   /**
    * The renderer service.
    *
    * @var \Drupal\Core\Render\RendererInterface
    */
-  protected $renderer;
+  protected RendererInterface $renderer;
 
   /**
    * The entity repository service.
@@ -54,10 +54,6 @@ class NodeController extends ControllerBase {
   public function __construct(DateFormatterInterface $date_formatter, RendererInterface $renderer, EntityRepositoryInterface $entity_repository = NULL) {
     $this->dateFormatter = $date_formatter;
     $this->renderer = $renderer;
-    if (!$entity_repository) {
-      @trigger_error('The entity.repository service must be passed to NodeController::__construct(), it is required before Drupal 9.0.0. See https://www.drupal.org/node/2549139.', E_USER_DEPRECATED);
-      $entity_repository = \Drupal::service('entity.repository');
-    }
     $this->entityRepository = $entity_repository;
   }
 
@@ -108,9 +104,14 @@ class NodeController extends ControllerBase {
 
     $total = 0;
     $query = \Drupal::entityQuery('node');
-    $query->condition('type', 'se_invoice');
-    $query->condition('se_bu_ref', $customer_id);
-    $query->condition('se_status_ref', $open->id());
+    $group = $query->orConditionGroup()
+      ->condition('se_status_ref', $open->id())
+      ->notExists('se_status_ref');
+
+    $query->condition('type', 'se_invoice')
+      ->condition('se_bu_ref', $customer_id)
+      ->condition($group);
+
     $entity_ids = $query->execute();
 
     // Build a list of outstanding invoices and make payment lines out of them.

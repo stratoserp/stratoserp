@@ -20,9 +20,8 @@ trait ErpPaymentTrait {
    *   Return an array of payment nodes.
    */
   public function getInvoicePayments(Node $invoice) {
-    // TODO: Is there a nicer way to do this?
-    $database = Database::getConnection();
-    $query = $database->select('node__se_pa_lines', 'nfpl');
+    // @todo Is there a nicer way to do this?
+    $query = Database::getConnection()->select('node__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['entity_id']);
     $query->condition('nfpl.se_pa_lines_target_id', $invoice->id());
     $result = $query->execute();
@@ -42,9 +41,8 @@ trait ErpPaymentTrait {
    *   Return an array of payment amounts.
    */
   private function getInvoicePaymentAmounts(Node $invoice) {
-    // TODO: Is there a nicer way to do this?
-    $database = Database::getConnection();
-    $query = $database->select('node__se_pa_lines', 'nfpl');
+    // @todo Is there a nicer way to do this?
+    $query = Database::getConnection()->select('node__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['se_pa_lines_amount']);
     $query->condition('nfpl.se_pa_lines_target_id', $invoice->id());
     $result = $query->execute();
@@ -64,13 +62,13 @@ trait ErpPaymentTrait {
    *   Return the outstanding amount.
    */
   public function getInvoiceBalance(Node $invoice) {
-    $paid_amount = 0;
+    $paidAmount = 0;
 
     foreach ($this->getInvoicePaymentAmounts($invoice) as $payment) {
-      $paid_amount += $payment->se_pa_lines_amount;
+      $paidAmount += $payment->se_pa_lines_amount;
     }
 
-    return $invoice->se_in_total->value - $paid_amount;
+    return $invoice->se_in_total->value - $paidAmount;
   }
 
 }

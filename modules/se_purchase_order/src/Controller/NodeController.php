@@ -91,21 +91,21 @@ class NodeController extends ControllerBase {
 
     $total = 0;
     $source_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
-    // TODO: Make this a service?
+    // @todo Make this a service?
     /**
      * @var int $index
      * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
      */
     foreach ($source->{$source_field_type . '_lines'} as $index => $item) {
-      $node->{$bundle_field_type . '_lines'}->appendItem($item->getValue());
+      $node->{$bundleFieldType . '_lines'}->appendItem($item->getValue());
     }
 
     $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
     $node->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $node->{$bundle_field_type . '_quote_ref'}->target_id = $source->id();
-    $node->{$bundle_field_type . '_total'} = $total;
+    $node->{$bundleFieldType . '_quote_ref'}->target_id = $source->id();
+    $node->{$bundleFieldType . '_total'} = $total;
 
     return $this->entityFormBuilder()->getForm($node);
   }

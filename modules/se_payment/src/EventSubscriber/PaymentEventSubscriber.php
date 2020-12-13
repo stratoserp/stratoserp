@@ -124,7 +124,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function updateInvoices(Node $entity, bool $paid = TRUE): int {
-    // TODO: Configurable?
+    // @todo Make configurable?
     if ($paid) {
       $term = \Drupal::service('se_invoice.service')->getPaidTerm();
     }
@@ -132,28 +132,28 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
       $term = \Drupal::service('se_invoice.service')->getOpenTerm();
     }
 
-    $bundle_field_type = 'se_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
 
     $amount = 0;
-    foreach ($entity->{$bundle_field_type . '_lines'} as $payment_line) {
+    foreach ($entity->{$bundleFieldType . '_lines'} as $paymentLine) {
       // Don't try on operate on invoices with no payment.
       /** @var \Drupal\node\Entity\Node $invoice */
-      if (!empty($payment_line->amount)
-      && $invoice = Node::load($payment_line->target_id)) {
+      if (!empty($paymentLine->amount)
+      && $invoice = Node::load($paymentLine->target_id)) {
         // Set a dynamic field on the node so that other events dont try and
         // do things that we will take care of once save things multiple times
         // for no reason.
         // $event->stopPropagation() didn't appear to work for this.
         //
-        // This event saves the invoice.
+        // This event saves the invoice, avoid it in other triggered events.
         $this->setSkipInvoiceSaveEvents($invoice);
 
-        // This event updates the total at the end.
+        // This event updates the total, avoid it in other triggered events.
         $this->setSkipCustomerXeroEvents($invoice);
 
-        // TODO: Make a service for this?
-        if ($payment_line->amount === $invoice->se_in_total->value
-        || $payment_line->amount === $invoice->se_in_outstanding->value) {
+        // @todo Make a service for this?
+        if ($paymentLine->amount === $invoice->se_in_total->value
+        || $paymentLine->amount === $invoice->se_in_outstanding->value) {
           $invoice->set('se_status_ref', $term);
         }
         else {
@@ -163,7 +163,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
         }
 
         $invoice->save();
-        $amount += $payment_line->amount;
+        $amount += $paymentLine->amount;
       }
     }
 

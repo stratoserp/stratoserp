@@ -92,7 +92,7 @@ class NodeController extends ControllerBase {
 
     $total = 0;
     $source_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
     // @todo Make this a service.
     /**
@@ -100,13 +100,13 @@ class NodeController extends ControllerBase {
      * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
      */
     foreach ($source->{$source_field_type . '_lines'} as $item) {
-      $node->{$bundle_field_type . '_lines'}->appendItem($item->getValue());
+      $node->{$bundleFieldType . '_lines'}->appendItem($item->getValue());
     }
 
     $node->se_bu_ref->target_id = $source->se_bu_ref->target_id;
     $node->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $node->{$bundle_field_type . '_quote_ref'}->target_id = $source->id();
-    $node->{$bundle_field_type . '_total'} = $total;
+    $node->{$bundleFieldType . '_quote_ref'}->target_id = $source->id();
+    $node->{$bundleFieldType . '_total'} = $total;
 
     return $this->entityFormBuilder()->getForm($node);
   }
@@ -172,7 +172,7 @@ class NodeController extends ControllerBase {
 
     $total = 0;
     $lines = [];
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
     // Loop through the timekeeping entries and setup invoice lines.
     foreach ($entity_ids as $entity_id) {
@@ -198,8 +198,8 @@ class NodeController extends ControllerBase {
       }
     }
 
-    $node->{$bundle_field_type . '_lines'} = $lines;
-    $node->{$bundle_field_type . '_total'} = $total;
+    $node->{$bundleFieldType . '_lines'} = $lines;
+    $node->{$bundleFieldType . '_total'} = $total;
 
     if ($open) {
       $node->se_status_ref->target_id = $open->id();

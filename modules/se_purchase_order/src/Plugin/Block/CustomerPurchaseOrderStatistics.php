@@ -26,9 +26,9 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
   public function build() {
     $content = FALSE;
     $datasets = [];
-    // TODO: Move this to a service and pass in this.
+    // @todo Move this to a service and pass in this.
     $type = 'se_purchase_order';
-    $bundle_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
 
     /** @var \Drupal\Core\Entity\EntityInterface $node */
     if (!$node = $this->getCurrentControllerEntity()) {
@@ -48,7 +48,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('node');
-        $query->condition('type', $bundle_field_type);
+        $query->condition('type', $bundleFieldType);
         $query->condition('se_bu_ref', $node->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
@@ -61,7 +61,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
         }
 
         $total = 0;
-        $bundle_field_total = 'se_' . $bundle_field_type . '_total';
+        $bundle_field_total = 'se_' . $bundleFieldType . '_total';
         /** @var \Drupal\node\Entity\Node $node */
         foreach ($nodes as $node) {
           $total += $node->{$bundle_field_total}->value;
