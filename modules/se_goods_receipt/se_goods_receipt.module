@@ -12,8 +12,9 @@ use Drupal\Core\Form\FormStateInterface;
  *
  */
 function se_goods_receipt_form_node_se_goods_receipt_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
-  \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_po_ref', 'se_po_ref');
+  $service = \Drupal::service('stratoserp.set_field');
+  $service->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
+  $service->setReferenceField($form, 'se_po_ref', 'se_po_ref');
 
   // Perform some goods receipt specific tweaks.
   foreach ($form['se_gr_lines']['widget'] as $index => $value) {
