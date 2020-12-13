@@ -1,4 +1,3 @@
-uuid: 215825bb-4f44-4b9c-8fff-278d474bd8bd
 langcode: en
 status: true
 dependencies:
@@ -10,15 +9,12 @@ dependencies:
     - field.storage.node.se_ti_status_ref
     - node.type.se_ticket
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
     - node
     - serial
     - user
-_core:
-  default_config_hash: ECVVuf_wfwnt_OdedCfikwsXCG4iH93zN_BXAp6G9hA
 id: se_ticket_list
 label: Tickets
 module: views
