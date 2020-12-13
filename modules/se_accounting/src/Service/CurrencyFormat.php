@@ -38,13 +38,13 @@ class CurrencyFormat {
    * @param string $value
    *   The formatted value to be converted.
    *
-   * @return string
+   * @return string|float
    *   The string value to store.
    */
-  public function formatStorage(string $value): string {
+  public function formatStorage($value): string {
 
     // Remove thousands separator.
-    $value = str_replace(['$', ','], '', $value);
+    $value = str_replace(['$', ','], '', (string) $value);
 
     // Multiply by 100 to change to cents, dont bother with zero.
     if (!empty($value)) {
