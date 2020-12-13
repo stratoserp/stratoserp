@@ -52,7 +52,7 @@ trait ErpEventTrait {
    *   Return the current setting.
    */
   public function isSkipCustomerXeroEvents(Node $customer): bool {
-    return $customer->skipInvoiceSaveEvents ?: TRUE;
+    return $customer->skipCustomerXeroEvents ?: TRUE;
   }
 
 }
