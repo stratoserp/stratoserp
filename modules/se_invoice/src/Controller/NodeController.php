@@ -24,21 +24,21 @@ class NodeController extends ControllerBase {
    *
    * @var \Drupal\Core\Datetime\DateFormatterInterface
    */
-  protected $dateFormatter;
+  protected DateFormatterInterface $dateFormatter;
 
   /**
    * The renderer service.
    *
    * @var \Drupal\Core\Render\RendererInterface
    */
-  protected $renderer;
+  protected RendererInterface $renderer;
 
   /**
    * The entity repository service.
    *
    * @var \Drupal\Core\Entity\EntityRepositoryInterface
    */
-  protected $entityRepository;
+  protected EntityRepositoryInterface $entityRepository;
 
   /**
    * Constructs a NodeController object.
@@ -50,12 +50,9 @@ class NodeController extends ControllerBase {
    * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
    *   The entity repository.
    */
-  public function __construct(DateFormatterInterface $date_formatter, RendererInterface $renderer, EntityRepositoryInterface $entity_repository = NULL) {
+  public function __construct(DateFormatterInterface $date_formatter, RendererInterface $renderer, EntityRepositoryInterface $entity_repository) {
     $this->dateFormatter = $date_formatter;
     $this->renderer = $renderer;
-    if (!$entity_repository) {
-      $entity_repository = \Drupal::service('entity.repository');
-    }
     $this->entityRepository = $entity_repository;
   }
 
@@ -73,7 +70,7 @@ class NodeController extends ControllerBase {
   /**
    * Provides the node submission form for creation from a quote.
    *
-   * @param \Drupal\node\NodeTypeInterface $node_type
+   * @param \Drupal\node\NodeTypeInterface $nodeType
    *   The node type entity for the node.
    * @param \Drupal\node\Entity\Node $source
    *   Source node to copy data from.
@@ -84,14 +81,14 @@ class NodeController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function add(NodeTypeInterface $node_type, Node $source) {
+  public function add(NodeTypeInterface $nodeType, Node $source) {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
-      'type' => $node_type->id(),
+      'type' => $nodeType->id(),
     ]);
 
     $total = 0;
-    $source_field_type = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
+    $sourceFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$source->bundle()];
     $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
     // @todo Make this a service.
@@ -99,7 +96,7 @@ class NodeController extends ControllerBase {
      * @var int $index
      * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
      */
-    foreach ($source->{$source_field_type . '_lines'} as $item) {
+    foreach ($source->{$sourceFieldType . '_lines'} as $item) {
       $node->{$bundleFieldType . '_lines'}->appendItem($item->getValue());
     }
 
@@ -114,7 +111,7 @@ class NodeController extends ControllerBase {
   /**
    * Provides the node submission form for creation from timekeeping entries.
    *
-   * @param \Drupal\node\NodeTypeInterface $node_type
+   * @param \Drupal\node\NodeTypeInterface $nodeType
    *   The node type entity for the node.
    * @param \Drupal\node\Entity\Node $source
    *   The source node.
@@ -125,8 +122,8 @@ class NodeController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function timekeeping(NodeTypeInterface $node_type, Node $source) {
-    $node = $this->createNodeFromTimekeeping($node_type, $source);
+  public function timekeeping(NodeTypeInterface $nodeType, Node $source): array {
+    $node = $this->createNodeFromTimekeeping($nodeType, $source);
 
     return $this->entityFormBuilder()->getForm($node);
   }
@@ -134,7 +131,7 @@ class NodeController extends ControllerBase {
   /**
    * Provides the node submission form for creation from timekeeping entries.
    *
-   * @param \Drupal\node\NodeTypeInterface $node_type
+   * @param \Drupal\node\NodeTypeInterface $nodeType
    *   The node type entity for the node.
    * @param \Drupal\node\Entity\Node $source
    *   The source node.
@@ -145,10 +142,10 @@ class NodeController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function createNodeFromTimekeeping(NodeTypeInterface $node_type, Node $source) {
+  public function createNodeFromTimekeeping(NodeTypeInterface $nodeType, Node $source) {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
-      'type' => $node_type->id(),
+      'type' => $nodeType->id(),
     ]);
 
     $defaultStatus = \Drupal::config('se_invoice.settings')->get('invoice_status_term');
@@ -163,21 +160,21 @@ class NodeController extends ControllerBase {
       }
     }
 
-    $query->condition('comment_type', 'se_timekeeping');
-    $query->condition('se_bu_ref', $source->id());
-    $query->condition('se_tk_billed', TRUE, '<>');
-    $query->condition('se_tk_billable', TRUE);
-    $query->condition('se_tk_amount', 0, '>');
-    $entity_ids = $query->execute();
+    $query->condition('comment_type', 'se_timekeeping')
+      ->condition('se_bu_ref', $source->id())
+      ->condition('se_tk_billed', TRUE, '<>')
+      ->condition('se_tk_billable', TRUE)
+      ->condition('se_tk_amount', 0, '>');
+    $entityIds = $query->execute();
 
     $total = 0;
     $lines = [];
     $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$node->bundle()];
 
     // Loop through the timekeeping entries and setup invoice lines.
-    foreach ($entity_ids as $entity_id) {
+    foreach ($entityIds as $entityId) {
       /** @var \Drupal\comment\Entity\Comment $comment */
-      if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entity_id)) {
+      if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entityId)) {
         /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = $comment->se_tk_item->entity) {
           $price = (int) $item->se_it_sell_price->value;

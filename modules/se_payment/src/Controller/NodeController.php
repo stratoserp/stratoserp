@@ -39,7 +39,7 @@ class NodeController extends ControllerBase {
    *
    * @var \Drupal\Core\Entity\EntityRepositoryInterface
    */
-  protected $entityRepository;
+  protected EntityRepositoryInterface $entityRepository;
 
   /**
    * Constructs a NodeController object.
@@ -51,7 +51,7 @@ class NodeController extends ControllerBase {
    * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
    *   The entity repository.
    */
-  public function __construct(DateFormatterInterface $date_formatter, RendererInterface $renderer, EntityRepositoryInterface $entity_repository = NULL) {
+  public function __construct(DateFormatterInterface $date_formatter, RendererInterface $renderer, EntityRepositoryInterface $entity_repository) {
     $this->dateFormatter = $date_formatter;
     $this->renderer = $renderer;
     $this->entityRepository = $entity_repository;
@@ -71,7 +71,7 @@ class NodeController extends ControllerBase {
   /**
    * Provides the node submission form.
    *
-   * @param \Drupal\node\NodeTypeInterface $node_type
+   * @param \Drupal\node\NodeTypeInterface $nodeType
    *   The node type entity for the node.
    *
    * @return array
@@ -80,25 +80,25 @@ class NodeController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function add(NodeTypeInterface $node_type): array {
+  public function add(NodeTypeInterface $nodeType): array {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->entityTypeManager()->getStorage('node')->create([
-      'type' => $node_type->id(),
+      'type' => $nodeType->id(),
     ]);
 
-    if ((!$invoice_status = \Drupal::config('se_invoice.settings')->get('invoice_status_term'))
-      || !$open = Term::load($invoice_status)) {
+    if ((!$invoiceStatus = \Drupal::config('se_invoice.settings')->get('invoice_status_term'))
+      || !$open = Term::load($invoiceStatus)) {
       \Drupal::messenger()->addWarning('No invoice status term issue, unable to retrieve list of open invoices automatically.');
       return $this->entityFormBuilder()->getForm($node);
     }
 
-    $payment_term = NULL;
-    if ($payment_type = \Drupal::config('se_payment.settings')->get('default_payment_term')) {
-      $payment_term = Term::load($payment_type);
+    $paymentTerm = NULL;
+    if ($paymentType = \Drupal::config('se_payment.settings')->get('default_payment_term')) {
+      $paymentTerm = Term::load($paymentType);
     }
 
     $query = \Drupal::request()->query;
-    if (!$customer_id = $query->get('se_bu_ref')) {
+    if (!$customerId = $query->get('se_bu_ref')) {
       return $this->entityFormBuilder()->getForm($node);
     }
 
@@ -109,22 +109,22 @@ class NodeController extends ControllerBase {
       ->notExists('se_status_ref');
 
     $query->condition('type', 'se_invoice')
-      ->condition('se_bu_ref', $customer_id)
+      ->condition('se_bu_ref', $customerId)
       ->condition($group);
 
-    $entity_ids = $query->execute();
+    $entityIds = $query->execute();
 
     // Build a list of outstanding invoices and make payment lines out of them.
     $lines = [];
-    foreach ($entity_ids as $id) {
+    foreach ($entityIds as $id) {
       /** @var \Drupal\node\Entity\Node $invoice */
       if ($invoice = $this->entityTypeManager()->getStorage('node')->load($id)) {
-        $outstanding_amount = $this->getInvoiceBalance($invoice);
+        $outstandingAmount = $this->getInvoiceBalance($invoice);
         $line = [
           'target_id' => $invoice->id(),
           'target_type' => 'node',
-          'amount'  => $outstanding_amount,
-          'payment_type' => $payment_term->id(),
+          'amount'  => $outstandingAmount,
+          'payment_type' => $paymentTerm->id(),
         ];
         $lines[] = $line;
       }
