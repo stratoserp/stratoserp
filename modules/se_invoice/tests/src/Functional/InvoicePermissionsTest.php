@@ -7,7 +7,7 @@ namespace Drupal\Tests\se_invoice\Functional;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
- * Test invioce permissions.
+ * Test invoice permissions.
  *
  * @coversDefault Drupal\se_invoice
  * @group se_invoice
