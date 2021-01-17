@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\se_invoice\Functional;
+namespace Drupal\Tests\se_quote\Functional;
 
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
- * Test invioce permissions.
+ * Test quote permissions.
  *
  * @coversDefault Drupal\se_invoice
- * @group se_invoice
+ * @group se_quote
  * @group stratoserp
  */
-class InvoicePermissionsTest extends FunctionalTestBase {
+class QuotePermissionsTest extends FunctionalTestBase {
 
   /**
    * Faker factory for customer.
@@ -35,14 +35,14 @@ class InvoicePermissionsTest extends FunctionalTestBase {
    * @var string[]
    */
   private $pages = [
-    '/node/add/se_invoice',
-    '/se/customers/invoice-list',
+    '/node/add/se_quote',
+    '/se/customers/quote-list',
   ];
 
   /**
    * Run the basic permissions check on the pages.
    */
-  public function testInvoicePermissions(): void {
+  public function testQuotePermissions(): void {
     $this->basicPermissionCheck($this->pages);
   }
 

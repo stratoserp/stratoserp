@@ -41,7 +41,7 @@ trait InvoiceTestTrait {
   /**
    * Add an invoice node.
    *
-   * @param \Drupal\node\Entity\Node $test_customer
+   * @param \Drupal\node\Entity\Node $testCustomer
    *   The customer to associate the node with.
    * @param array $items
    *   An array of items to use for invoice lines.
@@ -50,8 +50,10 @@ trait InvoiceTestTrait {
    *   The node to return.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Behat\Mink\Exception\ExpectationException
    */
-  public function addInvoice(Node $test_customer, array $items = []): Node {
+  public function addInvoice(Node $testCustomer, array $items = []): Node {
+
     $this->invoiceFakerSetup();
 
     $lines = [];
@@ -60,6 +62,7 @@ trait InvoiceTestTrait {
         'target_type' => 'se_item',
         'target_id' => $item['item']->id(),
         'quantity' => $item['quantity'],
+        'price' => $item['item']->se_it_cost_price->value,
       ];
       $lines[] = $line;
     }
@@ -68,13 +71,20 @@ trait InvoiceTestTrait {
     $node = $this->createNode([
       'type' => 'se_invoice',
       'title' => $this->invoice->name,
-      'se_bu_ref' => ['target_id' => $test_customer->id()],
+      'se_bu_ref' => ['target_id' => $testCustomer->id()],
       'se_in_phone' => $this->invoice->phoneNumber,
       'se_in_email' => $this->invoice->companyEmail,
       'se_in_lines' => $lines,
     ]);
 
-    $this->assertNotEqual($node, FALSE);
+    $this->assertNotEquals($node, FALSE);
+    $this->assertNotNull($node->se_in_total->value);
+
+    // Ensure that the items are present and valid.
+    foreach ($node->se_in_lines as $line) {
+      $this->assertNotNull($line->price);
+    }
+
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
@@ -86,6 +96,23 @@ trait InvoiceTestTrait {
     $this->assertStringContainsString($this->invoice->name, $content);
 
     return $node;
+  }
+
+  /**
+   * Check the payment status of an invoice.
+   *
+   * @param \Drupal\node\Entity\Node $invoice
+   *   The invoice to check.
+   * @param \Drupal\node\Entity\Node $payment
+   *   The payment to confirm.
+   *
+   * @return bool
+   *   Whether the payment finalises the invoice.
+   */
+  public function checkInvoicePaymentStatus(Node $invoice, Node $payment): bool {
+    $this->assertEquals($invoice->se_in_total->value, $payment->se_pa_total->value);
+
+    return TRUE;
   }
 
 }

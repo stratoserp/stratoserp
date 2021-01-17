@@ -56,7 +56,7 @@ trait GoodsReceiptTestTrait {
       'se_ti_phone' => $this->goodsReceipt->phoneNumber,
       'se_ti_email' => $this->goodsReceipt->companyEmail,
     ]);
-    $this->assertNotEqual($node, FALSE);
+    $this->assertNotEquals($node, FALSE);
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 

@@ -51,7 +51,7 @@ trait CustomerTestTrait {
       'se_cu_phone' => $this->customer->phoneNumber,
       'se_cu_email' => $this->customer->companyEmail,
     ]);
-    $this->assertNotEqual($node, FALSE);
+    $this->assertNotEquals($node, FALSE);
     $this->drupalGet($node->toUrl());
 
     $content = $this->getTextContent();

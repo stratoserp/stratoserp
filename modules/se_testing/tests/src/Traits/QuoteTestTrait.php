@@ -74,7 +74,7 @@ trait QuoteTestTrait {
       'se_qu_lines' => $lines,
     ]);
 
-    $this->assertNotEqual($node, FALSE);
+    $this->assertNotEquals($node, FALSE);
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 

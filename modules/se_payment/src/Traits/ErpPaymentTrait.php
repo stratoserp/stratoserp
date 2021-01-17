@@ -19,7 +19,7 @@ trait ErpPaymentTrait {
    * @return mixed
    *   Return an array of payment nodes.
    */
-  public function getInvoicePayments(Node $invoice) {
+  public function getInvoicePayments(Node $invoice): array {
     // @todo Is there a nicer way to do this?
     $query = Database::getConnection()->select('node__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['entity_id']);
@@ -40,7 +40,7 @@ trait ErpPaymentTrait {
    * @return mixed
    *   Return an array of payment amounts.
    */
-  private function getInvoicePaymentAmounts(Node $invoice) {
+  private function getInvoicePaymentAmounts(Node $invoice): array {
     // @todo Is there a nicer way to do this?
     $query = Database::getConnection()->select('node__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['se_pa_lines_amount']);

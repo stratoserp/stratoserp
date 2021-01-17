@@ -51,7 +51,7 @@ trait SupplierTestTrait {
       'se_su_phone' => $this->supplier->phoneNumber,
       'se_su_email' => $this->supplier->companyEmail,
     ]);
-    $this->assertNotEqual($node, FALSE);
+    $this->assertNotEquals($node, FALSE);
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 

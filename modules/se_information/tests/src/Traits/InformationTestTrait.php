@@ -37,7 +37,7 @@ trait InformationTestTrait {
       'name' => $this->information->name,
       'se_it_code' => $this->information->code,
     ]);
-    $this->assertNotEqual($information, FALSE);
+    $this->assertNotEquals($information, FALSE);
     $this->drupalGet($information->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 

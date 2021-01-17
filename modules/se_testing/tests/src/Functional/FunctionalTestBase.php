@@ -14,6 +14,7 @@ use Drupal\Tests\se_testing\Traits\ContactTestTrait;
 use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
 use Drupal\Tests\se_testing\Traits\GoodsReceiptTestTrait;
 use Drupal\Tests\se_testing\Traits\InvoiceTestTrait;
+use Drupal\Tests\se_testing\Traits\PaymentTestTrait;
 use Drupal\Tests\se_testing\Traits\QuoteTestTrait;
 use Drupal\Tests\se_testing\Traits\SupplierTestTrait;
 use Drupal\Tests\se_testing\Traits\TicketTestTrait;
@@ -46,10 +47,12 @@ class FunctionalTestBase extends TestCase {
   // using the UserCreationTrait.
   use AssertLegacyTrait;
 
+  // Include various StratoeERP traits.
   use ContactTestTrait;
   use CustomerTestTrait;
   use GoodsReceiptTestTrait;
   use InvoiceTestTrait;
+  use PaymentTestTrait;
   use QuoteTestTrait;
   use TicketTestTrait;
   use TimekeepingTestTrait;

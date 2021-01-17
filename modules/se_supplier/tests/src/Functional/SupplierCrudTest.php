@@ -39,7 +39,8 @@ class SupplierCrudTest extends FunctionalTestBase {
    * Delete a supplier.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityMalformedException|\Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testSupplierDelete(): void {
     $staff = $this->setupStaffUser();

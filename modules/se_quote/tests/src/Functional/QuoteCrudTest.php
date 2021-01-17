@@ -1,27 +1,27 @@
 <?php
 
-namespace Drupal\Tests\se_invoice\Functional;
+namespace Drupal\Tests\se_quote\Functional;
 
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
- * Invoice create/update/delete tests.
+ * Quote create/update/delete tests.
  *
- * @coversDefault Drupal\se_invoice
- * @group se_invoice
+ * @coversDefault Drupal\se_quote
+ * @group se_quote
  * @group stratoserp
  */
-class InvoiceCrudTest extends FunctionalTestBase {
+class QuoteCrudTest extends FunctionalTestBase {
 
   use ItemTestTrait;
 
   /**
-   * Invoice holding var.
+   * Quote holding var.
    *
    * @var \Drupal\node\Entity\Node
    */
-  protected $invoice;
+  protected $quote;
 
   /**
    * Faker Factory for staff.
@@ -31,16 +31,16 @@ class InvoiceCrudTest extends FunctionalTestBase {
   protected $staff;
 
   /**
-   * Test adding an invoice.
+   * Test adding an quote.
    */
-  public function testInvoiceStockAdd() {
+  public function testQuoteAdd() {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
     $testCustomer = $this->addCustomer();
 
     $items = $this->createItems();
-    $this->addInvoice($testCustomer, $items);
+    $this->addQuote($testCustomer, $items);
 
     $this->drupalLogout();
   }

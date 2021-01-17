@@ -39,7 +39,8 @@ class CustomerCrudTest extends FunctionalTestBase {
    * Delete a customer.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityMalformedException|\Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testCustomerDelete(): void {
     $staff = $this->setupStaffUser();

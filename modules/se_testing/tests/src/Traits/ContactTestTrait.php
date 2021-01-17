@@ -60,7 +60,7 @@ trait ContactTestTrait {
       'se_co_phone' => $this->contact->phoneNumber,
       'se_bu_ref' => $customer,
     ]);
-    $this->assertNotEqual($contact, FALSE);
+    $this->assertNotEquals($contact, FALSE);
     $this->drupalGet($contact->toUrl());
 
     sleep(1);

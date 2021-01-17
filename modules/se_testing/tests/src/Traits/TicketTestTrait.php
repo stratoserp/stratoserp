@@ -59,7 +59,7 @@ trait TicketTestTrait {
       'title' => $this->ticket->name,
       'se_bu_ref' => $customer,
     ]);
-    $this->assertNotEqual($node, FALSE);
+    $this->assertNotEquals($node, FALSE);
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 

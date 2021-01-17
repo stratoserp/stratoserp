@@ -29,12 +29,13 @@ class TotalService {
 
     // Loop through the item lines to calculate total.
     foreach ($node->{$bundleFieldType . '_lines'} as $index => $itemLine) {
-      if ($itemLine->target_type === 'comment') {
-        $comment = Comment::load($itemLine->target_id);
+      // If its a comment type, load the comment item to get the price.
+      if (($itemLine->target_type === 'comment') && $comment = Comment::load($itemLine->target_id)) {
         $item = $comment->se_tk_item->entity;
         $itemLine->price = $item->se_it_sell_price->value;
       }
 
+      // This isn't really 'total' calculation, should be separated?
       if (empty($itemLine->serial)) {
         /** @var \Drupal\se_item\Entity\Item $item */
         if (($item = Item::load($itemLine->target_id)) && $item->bundle() === 'se_stock') {
@@ -45,7 +46,7 @@ class TotalService {
       $total += $itemLine->quantity * $itemLine->price;
     }
 
-    $node->{$bundleFieldType . '_total'}->value = $total;
+    $node->set($bundleFieldType . '_total', $total);
 
     return $node;
   }

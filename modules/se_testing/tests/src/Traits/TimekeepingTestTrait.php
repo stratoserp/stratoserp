@@ -14,8 +14,6 @@ use Faker\Factory;
  */
 trait TimekeepingTestTrait {
 
-  use CustomerTestTrait;
-
   /**
    * Storage for the faker data for timekeeping.
    *
@@ -52,7 +50,8 @@ trait TimekeepingTestTrait {
    *   The returned comment.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Drupal\Core\Entity\EntityStorageException|\Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function addTimekeeping(Node $ticket): Comment {
     $this->timekeepingFakerSetup();
@@ -74,7 +73,7 @@ trait TimekeepingTestTrait {
       'status' => CommentInterface::PUBLISHED,
     ]);
     $comment->save();
-    $this->assertNotEqual($comment, FALSE);
+    $this->assertNotEquals($comment, FALSE);
     $this->drupalGet($comment->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
