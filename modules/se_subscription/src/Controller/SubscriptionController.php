@@ -2,6 +2,7 @@
 
 namespace Drupal\se_subscription\Controller;
 
+use Drupal\Core\Entity\Controller\EntityController;
 use Drupal\Core\Link;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
@@ -9,6 +10,7 @@ use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Render\Renderer;
 use Drupal\Core\Url;
+use Drupal\node\Entity\Node;
 use Drupal\se_subscription\Entity\SubscriptionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -18,7 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *  Returns responses for Subscription routes.
  */
 class SubscriptionController extends ControllerBase implements ContainerInjectionInterface {
-
 
   /**
    * The date formatter.
@@ -45,6 +46,41 @@ class SubscriptionController extends ControllerBase implements ContainerInjectio
   public function __construct(DateFormatter $date_formatter, Renderer $renderer) {
     $this->dateFormatter = $date_formatter;
     $this->renderer = $renderer;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function add() {
+
+    // Let entityController do all the work, we just want to adjust links.
+    $entityController = \Drupal::classResolver()->getInstanceFromDefinition(EntityController::class);
+
+    $build = $entityController->addPage('se_subscription');
+
+    // Now add in the things we want.
+    if ($businessRef = \Drupal::request()->get('se_bu_ref')) {
+      $business = Node::load($businessRef);
+    }
+
+    if ($contactRef = \Drupal::request()->get('se_co_ref')) {
+      $contact = Node::load($contactRef);
+    }
+
+    foreach ($build['#bundles'] as $details) {
+      $link = $details['add_link'];
+      $url = $link->getUrl();
+      if ($business !== NULL) {
+        $url->setRouteParameter('se_bu_ref', $business->id());
+      }
+      if ($contact !== NULL) {
+        $url->setRouteParameter('se_co_ref', $contact->id());
+      }
+      $link->setUrl($url);
+      $details['add_link'] = $link;
+    }
+
+    return $build;
   }
 
   /**
@@ -109,7 +145,17 @@ class SubscriptionController extends ControllerBase implements ContainerInjectio
     $langname = $se_subscription->language()->getName();
     $languages = $se_subscription->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', ['@langname' => $langname, '%title' => $se_subscription->label()]) : $this->t('Revisions for %title', ['%title' => $se_subscription->label()]);
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_subscription->label(),
+      ]);
+    }
+    else {
+      $build['#title'] = $this->t('Revisions for %title', [
+        '%title' => $se_subscription->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all subscription revisions") || $account->hasPermission('administer subscription entities')));

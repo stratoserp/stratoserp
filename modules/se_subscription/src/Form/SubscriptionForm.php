@@ -59,8 +59,12 @@ class SubscriptionForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var \Drupal\se_subscription\Entity\Subscription $entity */
+    /** @var \Drupal\se_subscription\Entity\Subscription $entity */
     $form = parent::buildForm($form, $form_state);
+
+    $service = \Drupal::service('stratoserp.set_field');
+    $service->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
+    $service->setReferenceField($form, 'se_co_ref', 'se_co_ref');
 
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [

@@ -5,6 +5,7 @@
  * Contains se_subscription.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**

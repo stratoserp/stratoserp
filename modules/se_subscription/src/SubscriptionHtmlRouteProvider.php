@@ -4,6 +4,7 @@ namespace Drupal\se_subscription;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\se_subscription\Controller\SubscriptionController;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -21,6 +22,12 @@ class SubscriptionHtmlRouteProvider extends AdminHtmlRouteProvider {
     $collection = parent::getRoutes($entity_type);
 
     $entity_type_id = $entity_type->id();
+
+    // Hijack the core entity controller route and use our own.
+    if ($add_page_route = $this->getAddPageRoute($entity_type)) {
+      $add_page_route->setDefault('_controller', SubscriptionController::class . '::add');
+      $collection->add("entity.{$entity_type_id}.add_page", $add_page_route);
+    }
 
     if ($history_route = $this->getHistoryRoute($entity_type)) {
       $collection->add("entity.{$entity_type_id}.version_history", $history_route);
