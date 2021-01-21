@@ -34,7 +34,7 @@ function se_item_line_form_alter(&$form, FormStateInterface $form_state, $form_i
 /**
  * Implements hook_theme().
  */
-function se_item_line_theme() {
+function se_item_line_theme(): array {
   return [
     'se_item_line_widget' => [
       'variables' => [

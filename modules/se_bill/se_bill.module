@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @file
  */
@@ -8,7 +10,7 @@
  *
  */
 function se_bill_form_node_se_bill_form_alter(&$form) {
-  Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
+  \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
 
   $config = \Drupal::configFactory()->get('se_bill.settings');
   if ($bill_status = $config->get('bill_status_term')) {

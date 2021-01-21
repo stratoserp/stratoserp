@@ -8,7 +8,7 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * Remove the _admin_route from item links.
  *
- * TODO: Is there a nicer way to do this?
+ * @todo Is there a nicer way to do this?
  */
 class ItemRouteSubscriber extends RouteSubscriberBase {
 
@@ -17,7 +17,7 @@ class ItemRouteSubscriber extends RouteSubscriberBase {
    */
   protected function alterRoutes(RouteCollection $collection) {
 
-    // Set admin route for webform admin routes.
+    // Remove admin route for Item routes.
     foreach ($collection->all() as $route) {
       if (strpos($route->getPath(), '/item') === 0) {
         $route->setOption('_admin_route', FALSE);
