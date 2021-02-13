@@ -1,0 +1,23 @@
+uuid: 801d675e-84d0-40ae-913c-e8d97552ba27
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_customer.se_cu_fax
+  module:
+    - se_customer
+    - telephone
+_core:
+  default_config_hash: MI5Bw0uGtMTA03Tg3RH06W-dKXFbfd1Y3TkZEsbviZM
+id: se_customer.se_customer.se_cu_fax
+field_name: se_cu_fax
+entity_type: se_customer
+bundle: se_customer
+label: Fax
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

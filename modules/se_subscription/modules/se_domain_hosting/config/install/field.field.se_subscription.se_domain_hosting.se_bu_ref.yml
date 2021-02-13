@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.se_subscription.se_bu_ref
-    - node.type.se_customer
     - se_subscription.se_subscription_type.se_domain_hosting
 id: se_subscription.se_domain_hosting.se_bu_ref
 field_name: se_bu_ref
@@ -18,8 +17,7 @@ default_value_callback: ''
 settings:
   handler: 'default:node'
   handler_settings:
-    target_bundles:
-      se_customer: se_customer
+    target_bundles: {  }
     sort:
       field: _none
     auto_create: false

@@ -18,7 +18,7 @@ class CustomerServiceTest extends FunctionalTestBase {
    * Test customer lookup service.
    *
    * Ensure that the customer lookup service will return
-   * the customer node if called with a customer node.
+   * the customer if called with a customer entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -38,7 +38,7 @@ class CustomerServiceTest extends FunctionalTestBase {
   }
 
   /**
-   * Test customer lookup service with an invoice node.
+   * Test customer lookup service with an invoice.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -63,7 +63,7 @@ class CustomerServiceTest extends FunctionalTestBase {
   }
 
   /**
-   * Test customer lookup service with an invoice node.
+   * Test customer lookup service with an quote.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException

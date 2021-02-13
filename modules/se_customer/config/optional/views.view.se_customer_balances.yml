@@ -2,9 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_cu_balance
-    - field.storage.node.se_in_total
-    - node.type.se_customer
+    - field.storage.se_customer.se_cu_balance
+    - field.storage.se_customer.se_in_total
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_status
     - user.role.developer
@@ -12,7 +11,7 @@ dependencies:
   content:
     - 'taxonomy_term:se_status:b73441fa-6f8d-4163-a45f-1ba9574245a3'
   module:
-    - node
+    - se_customer
     - se_accounting
     - taxonomy
     - user
@@ -21,7 +20,7 @@ label: 'Customer balances'
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
+base_table: se_customer_field_data
 base_field: nid
 display:
   default:
@@ -131,7 +130,7 @@ display:
       fields:
         nid:
           id: nid
-          table: node_field_data
+          table: se_customer_field_data
           field: nid
           relationship: none
           group_type: group
@@ -192,14 +191,14 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
+          entity_type: se_customer
           entity_field: nid
           plugin_id: field
         nid_1:
           id: nid_1
-          table: node_field_data
+          table: se_customer_field_data
           field: nid
-          relationship: reverse__node__se_bu_ref
+          relationship: reverse__se_customer__se_bu_ref
           group_type: group
           admin_label: ''
           label: 'Invoice ID'
@@ -258,14 +257,14 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
+          entity_type: se_customer
           entity_field: nid
           plugin_id: field
         title:
           id: title
-          table: node_field_data
+          table: se_customer_field_data
           field: title
-          entity_type: node
+          entity_type: se_customer
           entity_field: title
           alter:
             alter_text: false
@@ -310,9 +309,9 @@ display:
           field_api_classes: false
         se_in_total:
           id: se_in_total
-          table: node__se_in_total
+          table: se_customer__se_in_total
           field: se_in_total
-          relationship: reverse__node__se_bu_ref
+          relationship: reverse__se_customer__se_bu_ref
           group_type: group
           admin_label: ''
           label: Invoice
@@ -321,7 +320,7 @@ display:
             alter_text: false
             text: ''
             make_link: true
-            path: 'node/{{ nid_1}}'
+            path: 'se_customer/{{ nid_1}}'
             absolute: false
             external: false
             replace_spaces: false
@@ -372,7 +371,7 @@ display:
           plugin_id: field
         se_cu_balance:
           id: se_cu_balance
-          table: node__se_cu_balance
+          table: se_customer__se_cu_balance
           field: se_cu_balance
           relationship: none
           group_type: group
@@ -383,7 +382,7 @@ display:
             alter_text: false
             text: ''
             make_link: true
-            path: 'node/{{ nid }}'
+            path: 'customer/{{ nid }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -435,10 +434,10 @@ display:
       filters:
         status:
           value: '1'
-          table: node_field_data
+          table: se_customer_field_data
           field: status
           plugin_id: boolean
-          entity_type: node
+          entity_type: se_customer
           entity_field: status
           id: status
           expose:
@@ -446,16 +445,16 @@ display:
           group: 1
         type:
           id: type
-          table: node_field_data
+          table: se_customer_field_data
           field: type
           value:
             se_customer: se_customer
-          entity_type: node
+          entity_type: se_customer
           entity_field: type
           plugin_id: bundle
         title:
           id: title
-          table: node_field_data
+          table: se_customer_field_data
           field: title
           relationship: none
           group_type: group
@@ -495,12 +494,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
+          entity_type: se_customer
           entity_field: title
           plugin_id: string
         se_cu_balance_value:
           id: se_cu_balance_value
-          table: node__se_cu_balance
+          table: se_customer__se_cu_balance
           field: se_cu_balance_value
           relationship: none
           group_type: group
@@ -542,9 +541,9 @@ display:
           plugin_id: numeric
         se_status_ref_target_id:
           id: se_status_ref_target_id
-          table: node__se_status_ref
+          table: se_customer__se_status_ref
           field: se_status_ref_target_id
-          relationship: reverse__node__se_bu_ref
+          relationship: reverse__se_customer__se_bu_ref
           group_type: group
           admin_label: ''
           operator: or
@@ -593,10 +592,10 @@ display:
       sorts:
         created:
           id: created
-          table: node_field_data
+          table: se_customer_field_data
           field: created
           order: DESC
-          entity_type: node
+          entity_type: se_customer
           entity_field: created
           plugin_id: date
           relationship: none
@@ -611,15 +610,15 @@ display:
       footer: {  }
       empty: {  }
       relationships:
-        reverse__node__se_bu_ref:
-          id: reverse__node__se_bu_ref
-          table: node_field_data
-          field: reverse__node__se_bu_ref
+        reverse__se_customer__se_bu_ref:
+          id: reverse__se_customer__se_bu_ref
+          table: se_customer_field_data
+          field: reverse__se_customer__se_bu_ref
           relationship: none
           group_type: group
           admin_label: se_bu_ref
           required: false
-          entity_type: node
+          entity_type: se_customer
           plugin_id: entity_reverse
       arguments: {  }
       display_extenders: {  }
@@ -632,11 +631,11 @@ display:
         - url
         - url.query_args
         - user
-        - 'user.node_grants:view'
+        - 'user.se_customer_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_cu_balance'
-        - 'config:field.storage.node.se_in_total'
+        - 'config:field.storage.se_customer.se_cu_balance'
+        - 'config:field.storage.se_customer.se_in_total'
   page_1:
     display_plugin: page
     id: page_1
@@ -662,8 +661,8 @@ display:
         - url
         - url.query_args
         - user
-        - 'user.node_grants:view'
+        - 'user.se_customer_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_cu_balance'
-        - 'config:field.storage.node.se_in_total'
+        - 'config:field.storage.se_customer.se_cu_balance'
+        - 'config:field.storage.se_customer.se_in_total'

@@ -609,7 +609,7 @@ display:
       display_extenders: {  }
       argument_mode: id
       default_argument: null
-      entity_type: node
+      entity_type: se_customer
       bundles:
         - se_customer
         - se_supplier

@@ -1,0 +1,21 @@
+uuid: 2fdd5caa-888c-4612-84a2-c5f8c2867ea7
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_customer
+    - telephone
+_core:
+  default_config_hash: 4KpAcyrYCKtCS3q_eLXjJSkMcOHowmND-qpOvzq2D5c
+id: se_customer.se_cu_fax
+field_name: se_cu_fax
+entity_type: se_customer
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

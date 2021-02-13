@@ -53,12 +53,12 @@ class CustomerCrudTest extends FunctionalTestBase {
 
     // Ensure customer can't delete customers.
     $this->drupalLogin($customer);
-    $this->deleteNode($testCustomer, FALSE);
+    $this->deleteCustomer($testCustomer, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can delete customers.
     $this->drupalLogin($staff);
-    $this->deleteNode($testCustomer, TRUE);
+    $this->deleteCustomer($testCustomer, TRUE);
     $this->drupalLogout();
 
   }

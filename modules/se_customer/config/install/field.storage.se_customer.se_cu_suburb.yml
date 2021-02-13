@@ -1,0 +1,23 @@
+uuid: 79090edf-9e11-462c-8226-ed4d2eee4082
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_customer
+_core:
+  default_config_hash: WeaHcn0L4pZHcW8AVcKzc583wSborNgPiO1P4dM4SQY
+id: se_customer.se_cu_suburb
+field_name: se_cu_suburb
+entity_type: se_customer
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

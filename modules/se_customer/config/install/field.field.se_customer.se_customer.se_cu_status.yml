@@ -1,0 +1,25 @@
+uuid: 8367880c-8b90-428a-a35c-f9810f7af215
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_customer.se_cu_status
+  module:
+    - options
+    - se_customer
+_core:
+  default_config_hash: Mb-wOTGP2jjm5VB43Ddm4uRXrVB2evhZyxLHkyDVXpo
+id: se_customer.se_customer.se_cu_status
+field_name: se_cu_status
+entity_type: se_customer
+bundle: se_customer
+label: Status
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: '1'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

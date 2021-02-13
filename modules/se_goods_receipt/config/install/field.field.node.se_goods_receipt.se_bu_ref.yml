@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.node.se_bu_ref
-    - node.type.se_customer
     - node.type.se_goods_receipt
     - node.type.se_supplier
 id: node.se_goods_receipt.se_bu_ref
@@ -20,7 +19,6 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      se_customer: se_customer
       se_supplier: se_supplier
     sort:
       field: _none

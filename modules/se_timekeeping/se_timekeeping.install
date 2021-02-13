@@ -21,7 +21,7 @@ function se_timekeeping_install() {
 
   se_timekeeping_install_attach($entity_type_manager, 'se_ticket');
 
-  $group = field_group_load_field_group('group_cu_tabs', 'node', 'se_customer', 'view', 'default');
+  $group = field_group_load_field_group('group_cu_tabs', 'se_customer', 'se_customer', 'view', 'default');
   create_field_group($group);
 }
 
@@ -154,7 +154,7 @@ function create_field_group($group) {
 
   $field_group = (object) [
     'group_name' => 'group_cu_tab_timekeeping',
-    'entity_type' => 'node',
+    'entity_type' => 'se_customer',
     'bundle' => 'se_customer',
     'mode' => 'default',
     'context' => 'view',

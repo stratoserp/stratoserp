@@ -1,0 +1,22 @@
+uuid: 1e10933e-82d2-4ac5-bc4f-135ffd06d55c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_customer.se_cu_postcode
+  module:
+    - se_customer
+_core:
+  default_config_hash: olmeWxVkc1c7TUzLgGCseq-hHVViMuG-RJFMXzIQvBQ
+id: se_customer.se_customer.se_cu_postcode
+field_name: se_cu_postcode
+entity_type: se_customer
+bundle: se_customer
+label: Postcode
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

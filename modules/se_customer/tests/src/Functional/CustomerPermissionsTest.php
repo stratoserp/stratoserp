@@ -35,7 +35,7 @@ class CustomerPermissionsTest extends FunctionalTestBase {
    * @var string[]
    */
   private $pages = [
-    '/node/add/se_customer',
+    '/customer/add',
     '/se/customer-list',
   ];
 

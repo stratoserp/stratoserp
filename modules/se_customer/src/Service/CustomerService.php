@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Drupal\se_customer\Service;
 
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\node\Entity\Node;
+use Drupal\se_customer\Entity\Customer;
+use Drupal\se_customer\Entity\CustomerInterface;
 
 /**
  * Customer service class for common custom related manipulations.
@@ -42,20 +44,20 @@ class CustomerService {
   }
 
   /**
-   * Given any node with a customer, return the (first) customer.
+   * Given any entity with a customer, return the (first) customer.
    *
-   * @param \Drupal\node\Entity\Node $node
-   *   Node to return the customer for.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity to return the customer for.
    *
-   * @return bool|\Drupal\node\Entity\Node
-   *   Customer node.
+   * @return bool|\Drupal\se_customer\Entity\Customer
+   *   Customer entity.
    */
-  public function lookupCustomer(Node $node) {
-    if ($node->bundle() === 'se_customer') {
-      return $node;
+  public function lookupCustomer(EntityInterface $entity) {
+    if ($entity instanceof CustomerInterface) {
+      return $entity;
     }
 
-    if (isset($node->se_bu_ref) && $customers = $node->se_bu_ref->referencedEntities()) {
+    if (isset($entity->se_bu_ref) && $customers = $entity->se_bu_ref->referencedEntities()) {
       return reset($customers);
     }
 
@@ -65,20 +67,20 @@ class CustomerService {
   /**
    * Retrieve the current balance for a customer.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\se_customer\Entity\Customer $entity
    *   Customer to return the balance for.
    *
    * @return int
    *   The balance for the customer in cents.
    */
-  public function getBalance(Node $node): int {
-    return (int) $node->se_cu_balance->value;
+  public function getBalance(Customer $entity): int {
+    return (int) $entity->se_cu_balance->value;
   }
 
   /**
    * Set the customers balance to a specific value.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\se_customer\Entity\Customer $entity
    *   Customer to set the balance for.
    * @param int $value
    *   Amount to set as the customer balance in cents.
@@ -86,21 +88,21 @@ class CustomerService {
    * @return int
    *   The balance of the customers account afterwards.
    */
-  public function setBalance(Node $node, int $value): int {
-    $node->se_cu_balance->value = $value;
+  public function setBalance(Customer $entity, int $value): int {
+    $entity->se_cu_balance->value = $value;
     try {
-      $node->save();
+      $entity->save();
     }
     catch (EntityStorageException $e) {
       \Drupal::logger('se_customer')->error('Error updating customer balance, this is very bad.');
     }
-    return $this->getBalance($node);
+    return $this->getBalance($entity);
   }
 
   /**
    * Add a value to the customers existing balance.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\se_customer\Entity\Customer $entity
    *   Customer to adjust the balance for.
    * @param int $value
    *   The value to be added to the customer, positives and negatives will work.
@@ -108,15 +110,15 @@ class CustomerService {
    * @return int
    *   The balance of the customers account afterwards.
    */
-  public function adjustBalance(Node $node, int $value): int {
-    $node->se_cu_balance->value += $value;
+  public function adjustBalance(Customer $entity, int $value): int {
+    $entity->se_cu_balance->value += $value;
     try {
-      $node->save();
+      $entity->save();
     }
     catch (EntityStorageException $e) {
       \Drupal::logger('se_customer')->error('Error updating customer balance, this is very bad.');
     }
-    return $this->getBalance($node);
+    return $this->getBalance($entity);
   }
 
 }

@@ -1,0 +1,21 @@
+uuid: 63106169-066e-4287-b075-4a2a6cbccd9e
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - se_customer
+_core:
+  default_config_hash: 9Rb4trPP-hH6XkapqUUt7kH3k0gZ6Ea1bnK811GoIwk
+id: se_customer.se_cu_homepage
+field_name: se_cu_homepage
+entity_type: se_customer
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

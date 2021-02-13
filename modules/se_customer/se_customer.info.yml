@@ -10,7 +10,6 @@ dependencies:
   - layout_discovery
   - link
   - menu_ui
-  - node
   - options
   - path
   - se_accounting

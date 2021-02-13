@@ -2,17 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_cu_email
-    - field.storage.node.se_cu_homepage
-    - field.storage.node.se_cu_mobile
-    - field.storage.node.se_cu_phone
-    - node.type.se_customer
+    - field.storage.se_customer.se_cu_email
+    - field.storage.se_customer.se_cu_homepage
+    - field.storage.se_customer.se_cu_mobile
+    - field.storage.se_customer.se_cu_phone
     - system.menu.stratos-erp
     - user.role.developer
     - user.role.staff
   module:
     - link
-    - node
+    - se_customer
     - telephone
     - user
 id: se_customer_list
@@ -20,7 +19,7 @@ label: Customers
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
+base_table: se_customer_field_data
 base_field: nid
 display:
   default:
@@ -135,7 +134,7 @@ display:
       fields:
         title:
           id: title
-          table: node_field_data
+          table: se_customer_field_data
           field: title
           relationship: none
           group_type: group
@@ -195,12 +194,12 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
+          entity_type: se_customer
           entity_field: title
           plugin_id: field
         se_cu_email:
           id: se_cu_email
-          table: node__se_cu_email
+          table: se_customer__se_cu_email
           field: se_cu_email
           relationship: none
           group_type: group
@@ -262,7 +261,7 @@ display:
           plugin_id: field
         se_cu_homepage:
           id: se_cu_homepage
-          table: node__se_cu_homepage
+          table: se_customer__se_cu_homepage
           field: se_cu_homepage
           relationship: none
           group_type: group
@@ -329,7 +328,7 @@ display:
           plugin_id: field
         se_cu_phone:
           id: se_cu_phone
-          table: node__se_cu_phone
+          table: se_customer__se_cu_phone
           field: se_cu_phone
           relationship: none
           group_type: group
@@ -392,7 +391,7 @@ display:
           plugin_id: field
         se_cu_mobile:
           id: se_cu_mobile
-          table: node__se_cu_mobile
+          table: se_customer__se_cu_mobile
           field: se_cu_mobile
           relationship: none
           group_type: group
@@ -456,10 +455,10 @@ display:
       filters:
         status:
           value: '1'
-          table: node_field_data
+          table: se_customer_field_data
           field: status
           plugin_id: boolean
-          entity_type: node
+          entity_type: se_customer
           entity_field: status
           id: status
           expose:
@@ -467,17 +466,17 @@ display:
           group: 1
         type:
           id: type
-          table: node_field_data
+          table: se_customer_field_data
           field: type
           value:
             se_customer: se_customer
-          entity_type: node
+          entity_type: se_customer
           entity_field: type
           plugin_id: bundle
           group: 1
         title:
           id: title
-          table: node_field_data
+          table: se_customer_field_data
           field: title
           relationship: none
           group_type: group
@@ -515,12 +514,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
+          entity_type: se_customer
           entity_field: title
           plugin_id: string
         se_cu_email_value:
           id: se_cu_email_value
-          table: node__se_cu_email
+          table: se_customer__se_cu_email
           field: se_cu_email_value
           relationship: none
           group_type: group
@@ -561,7 +560,7 @@ display:
           plugin_id: string
         se_cu_phone_value:
           id: se_cu_phone_value
-          table: node__se_cu_phone
+          table: se_customer__se_cu_phone
           field: se_cu_phone_value
           relationship: none
           group_type: group
@@ -602,7 +601,7 @@ display:
           plugin_id: string
         se_cu_mobile_value:
           id: se_cu_mobile_value
-          table: node__se_cu_mobile
+          table: se_customer__se_cu_mobile
           field: se_cu_mobile_value
           relationship: none
           group_type: group
@@ -661,13 +660,13 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.node_grants:view'
+        - 'user.se_customer_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_cu_email'
-        - 'config:field.storage.node.se_cu_homepage'
-        - 'config:field.storage.node.se_cu_mobile'
-        - 'config:field.storage.node.se_cu_phone'
+        - 'config:field.storage.se_customer.se_cu_email'
+        - 'config:field.storage.se_customer.se_cu_homepage'
+        - 'config:field.storage.se_customer.se_cu_mobile'
+        - 'config:field.storage.se_customer.se_cu_phone'
   page_1:
     display_plugin: page
     id: page_1
@@ -692,10 +691,10 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.node_grants:view'
+        - 'user.se_customer_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_cu_email'
-        - 'config:field.storage.node.se_cu_homepage'
-        - 'config:field.storage.node.se_cu_mobile'
-        - 'config:field.storage.node.se_cu_phone'
+        - 'config:field.storage.se_customer.se_cu_email'
+        - 'config:field.storage.se_customer.se_cu_homepage'
+        - 'config:field.storage.se_customer.se_cu_mobile'
+        - 'config:field.storage.se_customer.se_cu_phone'

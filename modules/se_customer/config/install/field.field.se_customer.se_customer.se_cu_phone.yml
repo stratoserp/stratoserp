@@ -1,0 +1,23 @@
+uuid: 76bbddd4-7b4e-4078-86a4-2bccaa8f2d5f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_customer.se_cu_phone
+  module:
+    - se_customer
+    - telephone
+_core:
+  default_config_hash: FjWKllZxugmWltZvY8VdN_BowCPtuQ1q0DIon1Drnvg
+id: se_customer.se_customer.se_cu_phone
+field_name: se_cu_phone
+entity_type: se_customer
+bundle: se_customer
+label: Phone
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

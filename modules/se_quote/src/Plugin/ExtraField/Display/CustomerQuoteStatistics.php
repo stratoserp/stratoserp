@@ -15,7 +15,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *   id = "customer_quote_statistics",
  *   label = @Translation("Quote statistics"),
  *   bundles = {
- *     "node.se_customer",
+ *     "se_customerse_customer",
  *   }
  * )
  */
@@ -24,21 +24,21 @@ class CustomerQuoteStatistics extends ExtraFieldDisplayFormattedBase {
   use StringTranslationTrait;
 
   /**
-   *
+   * Provide the label for the field.
    */
   public function getLabel() {
     return $this->t('Quote statistics');
   }
 
   /**
-   *
+   * Return the default display for the label.
    */
   public function getLabelDisplay() {
     return 'above';
   }
 
   /**
-   *
+   * Show the actual statistics.
    */
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')

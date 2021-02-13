@@ -15,7 +15,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *   id = "customer_purchase_order_statistics",
  *   label = @Translation("Customer purchase order statistics"),
  *   bundles = {
- *     "node.se_customer",
+ *     "se_customer.se_customer",
  *   }
  * )
  */
@@ -24,21 +24,21 @@ class CustomerPurchaseOrderStatistics extends ExtraFieldDisplayFormattedBase {
   use StringTranslationTrait;
 
   /**
-   *
+   * Provide the label for the field.
    */
   public function getLabel() {
     return $this->t('Purchase order statistics');
   }
 
   /**
-   *
+   * Return the default display for the label.
    */
   public function getLabelDisplay() {
     return 'above';
   }
 
   /**
-   *
+   * Show the actual statistics.
    */
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')

@@ -1,0 +1,22 @@
+uuid: 93b99ba2-75a7-4b70-aca3-1aabee0ce863
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_customer.se_cu_state
+  module:
+    - se_customer
+_core:
+  default_config_hash: wA8bgVoZYS_KJ5ILmpTafJ2aDcnDGyXQQ5SHqn0qCNA
+id: se_customer.se_customer.se_cu_state
+field_name: se_cu_state
+entity_type: se_customer
+bundle: se_customer
+label: State
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
