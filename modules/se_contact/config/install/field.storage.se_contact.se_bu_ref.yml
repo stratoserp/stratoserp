@@ -1,12 +1,21 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - dynamic_entity_reference
+    - se_contact
+    - se_customer
+    - se_supplier
 id: se_contact.se_bu_ref
 field_name: se_bu_ref
 entity_type: se_contact
-type: entity_reference
-settings: { }
-module: core
+type: dynamic_entity_reference
+settings:
+  exclude_entity_types: false
+  entity_type_ids:
+    se_customer: se_customer
+    se_supplier: se_supplier
+module: dynamic_entity_reference
 locked: false
 cardinality: 1
 translatable: true
