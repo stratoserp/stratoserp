@@ -1,0 +1,26 @@
+# Quote routing definition
+se_quote.settings_tab:
+  route_name: se_quote.settings
+  title: 'Settings'
+  base_route: se_quote.settings
+
+entity.se_quote.canonical:
+  route_name: entity.se_quote.canonical
+  base_route: entity.se_quote.canonical
+  title: 'View'
+
+entity.se_quote.edit_form:
+  route_name: entity.se_quote.edit_form
+  base_route: entity.se_quote.canonical
+  title: 'Edit'
+
+entity.se_quote.version_history:
+  route_name: entity.se_quote.version_history
+  base_route: entity.se_quote.canonical
+  title: 'Revisions'
+
+entity.se_quote.delete_form:
+  route_name:  entity.se_quote.delete_form
+  base_route:  entity.se_quote.canonical
+  title: Delete
+  weight: 10

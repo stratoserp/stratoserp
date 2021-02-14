@@ -2,16 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
-    - serial
-id: node.se_qu_id
-field_name: se_qu_id
-entity_type: node
-type: serial
-settings:
-  start_value: 1
-  init_existing_entities: 0
-module: serial
+    - se_accounting
+    - se_quote
+id: se_quote.se_qu_total
+field_name: se_qu_total
+entity_type: se_quote
+type: se_currency
+settings: {  }
+module: se_accounting
 locked: false
 cardinality: 1
 translatable: true

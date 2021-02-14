@@ -35,7 +35,7 @@ class QuotePermissionsTest extends FunctionalTestBase {
    * @var string[]
    */
   private $pages = [
-    '/node/add/se_quote',
+    '/quote/add',
     '/se/customers/quote-list',
   ];
 

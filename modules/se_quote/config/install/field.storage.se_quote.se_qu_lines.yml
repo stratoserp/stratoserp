@@ -3,12 +3,12 @@ status: true
 dependencies:
   module:
     - comment
-    - node
     - se_item
     - se_item_line
-id: node.se_qu_lines
+    - se_quote
+id: se_quote.se_qu_lines
 field_name: se_qu_lines
-entity_type: node
+entity_type: se_quote
 type: se_item_line
 settings:
   exclude_entity_types: 0

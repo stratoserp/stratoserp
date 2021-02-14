@@ -20,3 +20,18 @@ function se_quote_form_node_se_quote_form_alter(&$form, FormStateInterface $form
       ->setTaxonomyField($form, 'se_status_ref', $quote_status);
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function se_quote_theme() {
+  $theme = [];
+
+  $theme['se_quote'] = [
+    'render element' => 'elements',
+    'file' => 'se_quote.page.inc',
+    'template' => 'se_quote',
+  ];
+
+  return $theme;
+}

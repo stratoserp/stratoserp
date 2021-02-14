@@ -2,12 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_status_ref
-    - node.type.se_quote
+    - field.storage.se_quote.se_status_ref
     - taxonomy.vocabulary.se_status
-id: node.se_quote.se_status_ref
+  module:
+    - se_quote
+id: se_quote.se_quote.se_status_ref
 field_name: se_status_ref
-entity_type: node
+entity_type: se_quote
 bundle: se_quote
 label: Status
 description: ''

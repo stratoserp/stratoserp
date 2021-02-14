@@ -1,0 +1,28 @@
+add quote entities:
+  title: 'Create new Quote entities'
+
+administer quote entities:
+  title: 'Administer Quote entities'
+  description: 'Allow to access the administration form to configure Quote entities.'
+  restrict access: true
+
+delete quote entities:
+  title: 'Delete Quote entities'
+
+edit quote entities:
+  title: 'Edit Quote entities'
+
+view quote entities:
+  title: 'View Quote entities'
+
+view all quote revisions:
+  title: 'View all Quote revisions'
+
+revert all quote revisions:
+  title: 'Revert all Quote revisions'
+  description: 'Role requires permission <em>view Quote revisions</em> and <em>edit rights</em> for quote entities in question or <em>administer quote entities</em>.'
+
+delete all quote revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Quote revisions</em> and <em>delete rights</em> for quote entities in question or <em>administer quote entities</em>.'
+
