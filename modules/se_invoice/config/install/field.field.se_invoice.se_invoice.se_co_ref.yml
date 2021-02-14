@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_invoice.se_co_ref
+  module:
+    - se_invoice
+id: se_invoice.se_invoice.se_co_ref
+field_name: se_co_ref
+entity_type: se_invoice
+bundle: se_invoice
+label: Contact
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:se_contact'
+  handler_settings:
+    target_bundles:
+      se_contact: se_contact
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

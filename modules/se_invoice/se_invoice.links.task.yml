@@ -1,0 +1,26 @@
+# Invoice routing definition
+se_invoice.settings_tab:
+  route_name: se_invoice.settings
+  title: 'Settings'
+  base_route: se_invoice.settings
+
+entity.se_invoice.canonical:
+  route_name: entity.se_invoice.canonical
+  base_route: entity.se_invoice.canonical
+  title: 'View'
+
+entity.se_invoice.edit_form:
+  route_name: entity.se_invoice.edit_form
+  base_route: entity.se_invoice.canonical
+  title: 'Edit'
+
+entity.se_invoice.version_history:
+  route_name: entity.se_invoice.version_history
+  base_route: entity.se_invoice.canonical
+  title: 'Revisions'
+
+entity.se_invoice.delete_form:
+  route_name:  entity.se_invoice.delete_form
+  base_route:  entity.se_invoice.canonical
+  title: Delete
+  weight: 10

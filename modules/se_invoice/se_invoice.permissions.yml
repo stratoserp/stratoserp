@@ -1,0 +1,28 @@
+add invoice entities:
+  title: 'Create new Invoice entities'
+
+administer invoice entities:
+  title: 'Administer Invoice entities'
+  description: 'Allow to access the administration form to configure Invoice entities.'
+  restrict access: true
+
+delete invoice entities:
+  title: 'Delete Invoice entities'
+
+edit invoice entities:
+  title: 'Edit Invoice entities'
+
+view invoice entities:
+  title: 'View Invoice entities'
+
+view all invoice revisions:
+  title: 'View all Invoice revisions'
+
+revert all invoice revisions:
+  title: 'Revert all Invoice revisions'
+  description: 'Role requires permission <em>view Invoice revisions</em> and <em>edit rights</em> for invoice entities in question or <em>administer invoice entities</em>.'
+
+delete all invoice revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Invoice revisions</em> and <em>delete rights</em> for invoice entities in question or <em>administer invoice entities</em>.'
+

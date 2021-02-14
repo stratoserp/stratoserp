@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_invoice\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
 /**
- *
+ * Service for various invoice related functions.
  */
 class InvoiceService {
 
@@ -30,7 +31,9 @@ class InvoiceService {
    * SeContactService constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   *   The config factory being used.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   *   The entity type manager being used.
    */
   public function __construct(ConfigFactory $config_factory, EntityTypeManager $entity_type_manager) {
     $this->configFactory = $config_factory;
@@ -38,14 +41,19 @@ class InvoiceService {
   }
 
   /**
+   * Retrieve the outstnading invoices for a customer.
+   *
    * @param \Drupal\node\Entity\Node $customer
+   *   The Customer node.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
+   *   The found entity.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function getOutstandingInvoices(Node $customer) {
-    /** @var Term $open_term */
+    /** @var \Drupal\taxonomy\Entity\Term $open_term */
     $open_term = $this->getOpenTerm();
     $query = \Drupal::entityQuery('node');
     $query->condition('type', 'se_invoice');
@@ -56,11 +64,13 @@ class InvoiceService {
     return \Drupal::entityTypeManager()
       ->getStorage('node')
       ->loadMultiple($entity_ids);
-
   }
 
   /**
+   * Retrieve the term user for paid status.
+   *
    * @return \Drupal\Core\Entity\EntityInterface|\Drupal\taxonomy\Entity\Term|null
+   *   The term for paid status.
    */
   public function getPaidTerm() {
     $term = taxonomy_term_load_multiple_by_name('closed', 'se_status');
@@ -68,7 +78,10 @@ class InvoiceService {
   }
 
   /**
+   * Retrieve the term user for open status.
+   *
    * @return \Drupal\Core\Entity\EntityInterface|\Drupal\taxonomy\Entity\Term|null
+   *   The term for open status.
    */
   public function getOpenTerm() {
     $term = taxonomy_term_load_multiple_by_name('open', 'se_status');
@@ -76,4 +89,3 @@ class InvoiceService {
   }
 
 }
-

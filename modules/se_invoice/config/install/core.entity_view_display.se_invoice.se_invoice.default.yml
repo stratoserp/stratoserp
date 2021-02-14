@@ -1,0 +1,122 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_invoice.se_invoice.se_bu_ref
+    - field.field.se_invoice.se_invoice.se_co_ref
+    - field.field.se_invoice.se_invoice.se_in_customer_order
+    - field.field.se_invoice.se_invoice.se_in_lines
+    - field.field.se_invoice.se_invoice.se_in_quote_ref
+    - field.field.se_invoice.se_invoice.se_in_sent
+    - field.field.se_invoice.se_invoice.se_in_total
+    - field.field.se_invoice.se_invoice.se_in_transaction_type
+    - field.field.se_invoice.se_invoice.se_status_ref
+  module:
+    - comment
+    - field_layout
+    - layout_discovery
+    - se_accounting
+    - se_item_line
+    - serial
+    - text
+    - user
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
+id: se_invoice.se_invoice.default
+targetEntityType: se_invoice
+bundle: se_invoice
+mode: default
+content:
+  extra_field_invoice_payments:
+    weight: 4
+    region: second
+    settings: {  }
+    third_party_settings: {  }
+  se_bu_ref:
+    weight: 1
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  se_co_ref:
+    weight: 2
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  se_in_customer_order:
+    weight: 6
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: second
+  se_in_lines:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: se_item_line_formatter
+    region: bottom
+  se_in_quote_ref:
+    weight: 7
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
+  se_in_sent:
+    weight: 8
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: second
+  se_in_total:
+    weight: 10
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: se_currency_formatter
+    region: bottom
+  se_in_transaction_type:
+    weight: 13
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: first
+  se_status_ref:
+    weight: 5
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
+  links:
+    weight: 0
+    region: top
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_quote_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true

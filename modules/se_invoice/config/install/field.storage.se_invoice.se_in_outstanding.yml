@@ -1,0 +1,19 @@
+uuid: 51475cb0-7c1f-4578-8665-4265cb544a4a
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_invoice
+    - se_accounting
+id: se_invoice.se_in_outstanding
+field_name: se_in_outstanding
+entity_type: se_invoice
+type: se_currency
+settings: {  }
+module: se_accounting
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

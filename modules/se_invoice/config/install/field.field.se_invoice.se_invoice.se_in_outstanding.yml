@@ -1,0 +1,26 @@
+uuid: acdd06f3-da76-4031-95f4-6f847f140f20
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_invoice.se_in_outstanding
+  module:
+    - se_accounting
+id: se_invoice.se_invoice.se_in_outstanding
+field_name: se_in_outstanding
+entity_type: se_invoice
+bundle: se_invoice
+label: Outstanding
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: ''
+  max: ''
+  prefix: ''
+  suffix: ''
+field_type: se_currency

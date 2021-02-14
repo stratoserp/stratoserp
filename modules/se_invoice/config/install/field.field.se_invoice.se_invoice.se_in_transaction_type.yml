@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_invoice.se_in_transaction_type
+id: se_invoice.se_invoice.se_in_transaction_type
+field_name: se_in_transaction_type
+entity_type: se_invoice
+bundle: se_invoice
+label: 'Transaction type'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Invoice
+  off_label: Credit
+field_type: boolean

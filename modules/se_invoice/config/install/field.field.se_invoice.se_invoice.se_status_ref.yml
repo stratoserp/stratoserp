@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_invoice.se_status_ref
+    - taxonomy.vocabulary.se_status
+id: se_invoice.se_invoice.se_status_ref
+field_name: se_status_ref
+entity_type: se_invoice
+bundle: se_invoice
+label: Status
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      se_status: se_status
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -6,3 +6,8 @@ se_invoice.add_se_invoice:
   title: 'Add invoice'
   appears_on:
     - 'view.se_invoice_list.page_1'
+entity.se_invoice.add_form:
+  route_name: entity.se_invoice.add_form
+  title: 'Add Invoice'
+  appears_on:
+    - entity.se_invoice.collection

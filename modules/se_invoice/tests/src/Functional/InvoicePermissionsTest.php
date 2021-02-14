@@ -35,7 +35,7 @@ class InvoicePermissionsTest extends FunctionalTestBase {
    * @var string[]
    */
   private $pages = [
-    '/node/add/se_invoice',
+    '/invoice/add',
     '/se/customers/invoice-list',
   ];
 

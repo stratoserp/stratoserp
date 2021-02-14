@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_invoice\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -43,8 +45,9 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
   /**
    * {@inheritdoc}
    *
+   * @var \Drupal\node\Entity\Node $entity
+   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @var \Drupal\node\Entity\Node $entity .
    */
   public function viewElements(ContentEntityInterface $entity) {
 

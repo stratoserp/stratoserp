@@ -1,0 +1,110 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_invoice.se_invoice.se_bu_ref
+    - field.field.se_invoice.se_invoice.se_co_ref
+    - field.field.se_invoice.se_invoice.se_in_customer_order
+    - field.field.se_invoice.se_invoice.se_in_lines
+    - field.field.se_invoice.se_invoice.se_in_quote_ref
+    - field.field.se_invoice.se_invoice.se_in_sent
+    - field.field.se_invoice.se_invoice.se_in_total
+    - field.field.se_invoice.se_invoice.se_in_transaction_type
+    - field.field.se_invoice.se_invoice.se_status_ref
+  module:
+    - comment
+    - field_layout
+    - layout_discovery
+    - se_accounting
+    - se_item_line
+    - serial
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings: {  }
+id: se_invoice.se_invoice.default
+targetEntityType: se_invoice
+bundle: se_invoice
+mode: default
+content:
+  se_bu_ref:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
+  se_co_ref:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
+  se_in_customer_order:
+    weight: 5
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: second
+  se_in_lines:
+    type: se_item_line_widget
+    weight: 8
+    region: bottom
+    settings:
+      match_operator: CONTAINS
+      size: '40'
+      placeholder: ''
+    third_party_settings: {  }
+  se_in_quote_ref:
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: second
+  se_in_sent:
+    weight: 7
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: second
+  se_in_total:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: se_currency_widget
+    region: bottom
+  se_in_transaction_type:
+    weight: 26
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: first
+  se_status_ref:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: second
+hidden:
+  created: true
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

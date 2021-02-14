@@ -1,6 +1,14 @@
-se_invoice.configure_settings:
+
+# Invoice menu items definition
+entity.se_invoice.collection:
+  title: 'Invoice list'
+  route_name: entity.se_invoice.collection
+  description: 'List Invoice entities'
+  parent: system.admin_content
+  weight: 100
+
+se_invoice.admin.structure.settings:
   title: 'Invoice settings'
-  route_name: se_invoice.configure
+  description: 'Configure Invoice entities'
+  route_name: se_invoice.settings
   parent: stratoserp.admin_config_stratoserp
-  description: 'Configure invoice.'
-  weight: 1

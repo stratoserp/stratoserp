@@ -6,7 +6,6 @@ package: StratosERP
 dependencies:
   - field
   - menu_ui
-  - node
   - path
   - stratoserp
   - se_contact
@@ -19,3 +18,31 @@ dependencies:
   - text
   - user
   - views_data_export
+
+config_devel:
+  install:
+    - core.entity_form_display.se_invoice.se_invoice.default
+    - core.entity_view_display.se_invoice.se_invoice.default
+    - field.field.se_invoice.se_invoice.se_bu_ref
+    - field.field.se_invoice.se_invoice.se_co_ref
+    - field.field.se_invoice.se_invoice.se_in_customer_order
+    - field.field.se_invoice.se_invoice.se_in_lines
+    - field.field.se_invoice.se_invoice.se_in_outstanding
+    - field.field.se_invoice.se_invoice.se_in_quote
+    - field.field.se_invoice.se_invoice.se_in_sent
+    - field.field.se_invoice.se_invoice.se_in_total
+    - field.field.se_invoice.se_invoice.se_in_transaction_type
+    - field.field.se_invoice.se_invoice.se_status_ref
+    - field.storage.se_invoice.se_bu_ref
+    - field.storage.se_invoice.se_co_ref
+    - field.storage.se_invoice.se_in_customer_order
+    - field.storage.se_invoice.se_in_lines
+    - field.storage.se_invoice.se_in_outstanding
+    - field.storage.se_invoice.se_in_quote
+    - field.storage.se_invoice.se_in_sent
+    - field.storage.se_invoice.se_in_total
+    - field.storage.se_invoice.se_in_transaction_type
+    - field.storage.se_invoice.se_status_ref
+  optional:
+    - views.view.se_invoice_eva
+    - views.view.se_invoice_list
