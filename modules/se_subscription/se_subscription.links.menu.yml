@@ -4,14 +4,12 @@ entity.se_subscription.collection:
   title: 'Subscription list'
   route_name: entity.se_subscription.collection
   description: 'List Subscription entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
-
 
 # Subscription type menu items definition
 entity.se_subscription_type.collection:
   title: 'Subscription type'
   route_name: entity.se_subscription_type.collection
   description: 'List Subscription type (bundles)'
-  parent: system.admin_structure
-  weight: 99
+  parent: stratoserp.admin_config_stratoserp

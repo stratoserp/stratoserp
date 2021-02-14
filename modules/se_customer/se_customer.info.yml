@@ -58,5 +58,5 @@ config_devel:
     - field.storage.se_customer.se_cu_suburb
   optional:
     - user.role.customer
-    - views.view.se_customer_balances.yml
+    - views.view.se_customer_balances
     - views.view.se_customer_list

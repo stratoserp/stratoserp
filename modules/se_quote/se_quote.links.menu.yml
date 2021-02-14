@@ -4,11 +4,11 @@ entity.se_quote.collection:
   title: 'Quote list'
   route_name: entity.se_quote.collection
   description: 'List Quote entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
 
 se_quote.admin.structure.settings:
   title: 'Quote settings'
   description: 'Configure Quote entities'
   route_name: se_quote.settings
-  parent: system.admin_structure
+  parent: stratoserp.admin_config_stratoserp

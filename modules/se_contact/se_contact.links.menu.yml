@@ -4,11 +4,11 @@ entity.se_contact.collection:
   title: 'Contact list'
   route_name: entity.se_contact.collection
   description: 'List Contact entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
 
 se_contact.admin.structure.settings:
   title: 'Contact settings'
   description: 'Configure Contact entities'
   route_name: se_contact.settings
-  parent: system.admin_structure
+  parent: stratoserp.admin_config_stratoserp

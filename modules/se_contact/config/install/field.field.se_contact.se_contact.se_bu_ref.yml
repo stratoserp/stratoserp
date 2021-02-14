@@ -51,9 +51,6 @@ settings:
   file:
     handler: 'default:file'
     handler_settings: {  }
-  se_information:
-    handler: 'default:se_information'
-    handler_settings: {  }
   se_item:
     handler: 'default:se_item'
     handler_settings: {  }
@@ -62,9 +59,6 @@ settings:
     handler_settings: {  }
   social_auth:
     handler: 'default:social_auth'
-    handler_settings: {  }
-  se_subscription:
-    handler: 'default:se_subscription'
     handler_settings: {  }
   taxonomy_term:
     handler: 'default:taxonomy_term'

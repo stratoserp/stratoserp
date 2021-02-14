@@ -4,11 +4,11 @@ entity.se_customer.collection:
   title: 'Customer list'
   route_name: entity.se_customer.collection
   description: 'List Customer entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
 
 se_customer.admin.structure.settings:
   title: 'Customer settings'
   description: 'Configure Customer entities'
   route_name: se_customer.settings
-  parent: system.admin_structure
+  parent: stratoserp.admin_config_stratoserp

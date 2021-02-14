@@ -87,17 +87,18 @@ class NavigationBlock extends BlockBase {
         $items = $this->supplierLinks();
         $this->destination = Url::fromUri('internal:/supplier/' . $entity->id())->toString();
       }
-      elseif ($this->node->getType() == 'se_bill') {
+      elseif ($entity = $parameterBag->get('se_quote')) {
+        $items = $this->quoteLinks();
+        $this->destination = Url::fromUri('internal:/quote/' . $entity->id())->toString();
+      }
+      elseif (isset($this->node) && $this->node->getType() == 'se_bill') {
         $items = $this->billLinks();
       }
-      elseif ($this->node->getType() == 'se_invoice') {
+      elseif (isset($this->node) && $this->node->getType() == 'se_invoice') {
         $items = $this->invoiceLinks();
       }
-      elseif ($this->node->getType() == 'se_purchase_order') {
+      elseif (isset($this->node) && $this->node->getType() == 'se_purchase_order') {
         $items = $this->purchaseOrderLinks();
-      }
-      elseif ($this->node->getType() == 'se_quote') {
-        $items = $this->quoteLinks();
       }
     }
 
@@ -279,10 +280,8 @@ class NavigationBlock extends BlockBase {
         'node_type' => 'se_payment',
         'source' => 1,
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add quote', 'node.add',
-      $routeParameters + [
-        'node_type' => 'se_quote',
-      ], $this->buttonClass);
+    $items[] = Link::createFromRoute('Add quote', 'entity.se_quote.add_form',
+      $routeParameters + [], $this->buttonClass);
     $items[] = Link::createFromRoute('Add ticket', 'node.add',
       $routeParameters + [
         'node_type' => 'se_ticket',

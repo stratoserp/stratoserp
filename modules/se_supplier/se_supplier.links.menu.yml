@@ -4,11 +4,11 @@ entity.se_supplier.collection:
   title: 'Supplier list'
   route_name: entity.se_supplier.collection
   description: 'List Supplier entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
 
 se_supplier.admin.structure.settings:
   title: 'Supplier settings'
   description: 'Configure Supplier entities'
   route_name: se_supplier.settings
-  parent: system.admin_structure
+  parent: stratoserp.admin_config_stratoserp
