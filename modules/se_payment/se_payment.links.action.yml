@@ -5,5 +5,5 @@ se_payment.add_se_payment:
     node_type: 'se_payment'
   title: 'Add payment'
   appears_on:
-    - 'entity.entity_view_display.se_customer.default'
+    - 'entity.se_customer.canonical'
     - 'view.se_payment_list.page_1'

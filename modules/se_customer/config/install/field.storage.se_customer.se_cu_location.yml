@@ -1,12 +1,9 @@
-uuid: fc44e39b-e5a1-4028-b672-7275543f6545
 langcode: en
 status: true
 dependencies:
   module:
     - geolocation
     - se_customer
-_core:
-  default_config_hash: OynWTt1844k9QZQU9XePJzT22ABNn3tb0mGIrQNHog0
 id: se_customer.se_cu_location
 field_name: se_cu_location
 entity_type: se_customer

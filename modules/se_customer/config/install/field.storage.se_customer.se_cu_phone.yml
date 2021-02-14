@@ -1,12 +1,9 @@
-uuid: 49b2fd97-d9a8-4f92-b1ab-082dbb3ca9ac
 langcode: en
 status: true
 dependencies:
   module:
     - se_customer
     - telephone
-_core:
-  default_config_hash: 4nPf6OQpqbizzJBKNuWaaRTIwhTAN3-iNEFQvLAnZ1E
 id: se_customer.se_cu_phone
 field_name: se_cu_phone
 entity_type: se_customer

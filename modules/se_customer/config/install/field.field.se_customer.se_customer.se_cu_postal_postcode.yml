@@ -1,4 +1,3 @@
-uuid: 044204ed-c9bf-4bf9-83b0-27f07beaf67c
 langcode: en
 status: true
 dependencies:
@@ -6,8 +5,6 @@ dependencies:
     - field.storage.se_customer.se_cu_postal_postcode
   module:
     - se_customer
-_core:
-  default_config_hash: STuXDv6NzAAsfevzlGp4lp-j6ODIwBW1Z-jIR-mJJC0
 id: se_customer.se_customer.se_cu_postal_postcode
 field_name: se_cu_postal_postcode
 entity_type: se_customer

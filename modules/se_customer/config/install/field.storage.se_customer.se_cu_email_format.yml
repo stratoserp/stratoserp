@@ -1,12 +1,9 @@
-uuid: f6e9dd09-ef9b-4b7d-98a5-961c86b36eaf
 langcode: en
 status: true
 dependencies:
   module:
     - options
     - se_customer
-_core:
-  default_config_hash: BO9PYKgGsGUp8IVL4h1GZ_e1JgVZQeks5opr_2rWuCc
 id: se_customer.se_cu_email_format
 field_name: se_cu_email_format
 entity_type: se_customer

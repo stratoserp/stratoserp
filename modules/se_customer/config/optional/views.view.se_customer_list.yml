@@ -463,6 +463,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -474,6 +476,9 @@ display:
           entity_field: type
           plugin_id: bundle
           group: 1
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         title:
           id: title
           table: se_customer_field_data
@@ -502,6 +507,8 @@ display:
               customer: '0'
               supplier: '0'
               staff: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -545,6 +552,8 @@ display:
               customer: '0'
               supplier: '0'
               staff: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -586,6 +595,8 @@ display:
               customer: '0'
               supplier: '0'
               staff: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -627,6 +638,8 @@ display:
               customer: '0'
               supplier: '0'
               staff: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''

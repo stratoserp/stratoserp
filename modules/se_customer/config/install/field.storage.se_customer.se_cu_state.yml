@@ -1,11 +1,8 @@
-uuid: 87bb3eec-1fb3-4303-9517-7023c0d55f21
 langcode: en
 status: true
 dependencies:
   module:
     - se_customer
-_core:
-  default_config_hash: rw5z51LI1wyIYZ8FhOxCeYwYcQe2fRJN0YXMUQ1Z3nA
 id: se_customer.se_cu_state
 field_name: se_cu_state
 entity_type: se_customer

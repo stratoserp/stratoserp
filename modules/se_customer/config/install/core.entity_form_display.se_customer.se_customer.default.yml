@@ -1,4 +1,3 @@
-uuid: a3a398a7-dd01-485e-ad81-987dcb39967c
 langcode: en
 status: true
 dependencies:
@@ -9,7 +8,6 @@ dependencies:
     - field.field.se_customer.se_customer.se_cu_email_format
     - field.field.se_customer.se_customer.se_cu_fax
     - field.field.se_customer.se_customer.se_cu_homepage
-    - field.field.se_customer.se_customer.se_cu_id
     - field.field.se_customer.se_customer.se_cu_location
     - field.field.se_customer.se_customer.se_cu_mobile
     - field.field.se_customer.se_customer.se_cu_phone
@@ -33,8 +31,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-_core:
-  default_config_hash: RrRYOTxQ6UJp7gr2GbZMZgEaeo_4mIO8PW9aXSKPXHI
 id: se_customer.se_customer.default
 targetEntityType: se_customer
 bundle: se_customer
@@ -85,12 +81,6 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-  se_cu_id:
-    weight: 8
-    settings: {  }
-    third_party_settings: {  }
-    type: serial_default_widget
-    region: second
   se_cu_mobile:
     type: telephone_default
     weight: 2

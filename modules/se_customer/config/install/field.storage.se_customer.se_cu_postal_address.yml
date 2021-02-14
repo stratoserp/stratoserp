@@ -1,11 +1,8 @@
-uuid: 85ff8d56-a707-4c64-a933-8af6ed61b5da
 langcode: en
 status: true
 dependencies:
   module:
     - se_customer
-_core:
-  default_config_hash: BsbLZyic06rT6yEix1Bker-3B8P2QQuld7w2bffY5vg
 id: se_customer.se_cu_postal_address
 field_name: se_cu_postal_address
 entity_type: se_customer

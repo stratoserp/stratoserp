@@ -13,8 +13,50 @@ dependencies:
   - options
   - path
   - se_accounting
-  - serial
   - telephone
   - text
   - user
   - views
+
+config_devel:
+  install:
+    - core.entity_form_display.se_customer.se_customer.default
+    - core.entity_view_display.se_customer.se_customer.default
+    - field.field.se_customer.se_customer.se_cu_address
+    - field.field.se_customer.se_customer.se_cu_balance
+    - field.field.se_customer.se_customer.se_cu_email
+    - field.field.se_customer.se_customer.se_cu_email_format
+    - field.field.se_customer.se_customer.se_cu_fax
+    - field.field.se_customer.se_customer.se_cu_homepage
+    - field.field.se_customer.se_customer.se_cu_location
+    - field.field.se_customer.se_customer.se_cu_mobile
+    - field.field.se_customer.se_customer.se_cu_phone
+    - field.field.se_customer.se_customer.se_cu_postal_address
+    - field.field.se_customer.se_customer.se_cu_postal_postcode
+    - field.field.se_customer.se_customer.se_cu_postal_state
+    - field.field.se_customer.se_customer.se_cu_postal_suburb
+    - field.field.se_customer.se_customer.se_cu_postcode
+    - field.field.se_customer.se_customer.se_cu_state
+    - field.field.se_customer.se_customer.se_cu_status
+    - field.field.se_customer.se_customer.se_cu_suburb
+    - field.storage.se_customer.se_cu_address
+    - field.storage.se_customer.se_cu_balance
+    - field.storage.se_customer.se_cu_email
+    - field.storage.se_customer.se_cu_email_format
+    - field.storage.se_customer.se_cu_fax
+    - field.storage.se_customer.se_cu_homepage
+    - field.storage.se_customer.se_cu_location
+    - field.storage.se_customer.se_cu_mobile
+    - field.storage.se_customer.se_cu_phone
+    - field.storage.se_customer.se_cu_postal_address
+    - field.storage.se_customer.se_cu_postal_postcode
+    - field.storage.se_customer.se_cu_postal_state
+    - field.storage.se_customer.se_cu_postal_suburb
+    - field.storage.se_customer.se_cu_postcode
+    - field.storage.se_customer.se_cu_state
+    - field.storage.se_customer.se_cu_status
+    - field.storage.se_customer.se_cu_suburb
+  optional:
+    - user.role.customer
+    - views.view.se_customer_balances.yml
+    - views.view.se_customer_list

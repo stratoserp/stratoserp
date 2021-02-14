@@ -1,12 +1,9 @@
-uuid: e0b37117-b765-45f9-b691-728d5dc2acec
 langcode: en
 status: true
 dependencies:
   module:
     - se_accounting
     - se_customer
-_core:
-  default_config_hash: 4HBEYHrqaMjfxtV7kz6HDdqX7S0325epjLn5_vcGO28
 id: se_customer.se_cu_balance
 field_name: se_cu_balance
 entity_type: se_customer
