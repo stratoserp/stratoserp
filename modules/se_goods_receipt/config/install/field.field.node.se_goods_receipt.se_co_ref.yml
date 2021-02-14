@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.node.se_co_ref
-    - node.type.se_contact
     - node.type.se_goods_receipt
 id: node.se_goods_receipt.se_co_ref
 field_name: se_co_ref

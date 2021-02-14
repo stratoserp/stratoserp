@@ -2,18 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_supplier.se_su_email
-    - field.storage.se_supplier.se_su_homepage
-    - field.storage.se_supplier.se_su_mobile
-    - field.storage.se_supplier.se_su_phone
-    - user.role.administrator
-    - user.role.developer
-    - user.role.staff
+    - system.menu.stratos-erp
   module:
-    - link
     - se_supplier
-    - telephone
-    - user
 id: se_supplier_list
 label: 'Supplier list'
 module: views
@@ -29,12 +20,8 @@ display:
     position: 0
     display_options:
       access:
-        type: role
-        options:
-          role:
-            administrator: administrator
-            staff: staff
-            developer: developer
+        type: none
+        options: {  }
       cache:
         type: tag
         options: {  }
@@ -75,28 +62,12 @@ display:
             previous: ‹‹
             next: ››
       style:
-        type: table
+        type: default
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            name: name
-          info:
-            name:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: '-1'
-          empty_table: false
+          uses_fields: false
       row:
         type: fields
         options:
@@ -106,9 +77,12 @@ display:
           default_field_elements: true
       fields:
         name:
-          id: name
           table: se_supplier_field_data
           field: name
+          id: name
+          entity_type: null
+          entity_field: name
+          plugin_id: field
           relationship: none
           group_type: group
           admin_label: ''
@@ -145,71 +119,6 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: null
-          entity_field: name
-          plugin_id: field
-        se_su_email:
-          id: se_su_email
-          table: se_supplier__se_su_email
-          field: se_su_email
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Email
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
@@ -219,7 +128,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: basic_string
+          type: string
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -231,200 +140,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
-        se_su_homepage:
-          id: se_su_homepage
-          table: se_supplier__se_su_homepage
-          field: se_su_homepage
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Homepage
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: uri
-          type: link
-          settings:
-            trim_length: 80
-            url_only: false
-            url_plain: false
-            rel: '0'
-            target: '0'
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        se_su_mobile:
-          id: se_su_mobile
-          table: se_supplier__se_su_mobile
-          field: se_su_mobile
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Mobile
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: telephone_link
-          settings:
-            title: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        se_su_phone:
-          id: se_su_phone
-          table: se_supplier__se_su_phone
-          field: se_su_phone
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Phone
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: telephone_link
-          settings:
-            title: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
       filters:
         name:
           id: name
@@ -487,12 +202,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
-      tags:
-        - 'config:field.storage.se_supplier.se_su_email'
-        - 'config:field.storage.se_supplier.se_su_homepage'
-        - 'config:field.storage.se_supplier.se_su_mobile'
-        - 'config:field.storage.se_supplier.se_su_phone'
+      tags: {  }
   page_1:
     display_plugin: page
     id: page_1
@@ -501,6 +211,15 @@ display:
     display_options:
       display_extenders: {  }
       path: se/supplier-list
+      menu:
+        type: normal
+        title: Suppliers
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: stratos-erp
     cache_metadata:
       max-age: -1
       contexts:
@@ -508,9 +227,4 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
-      tags:
-        - 'config:field.storage.se_supplier.se_su_email'
-        - 'config:field.storage.se_supplier.se_su_homepage'
-        - 'config:field.storage.se_supplier.se_su_mobile'
-        - 'config:field.storage.se_supplier.se_su_phone'
+      tags: {  }
