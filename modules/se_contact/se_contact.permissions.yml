@@ -1,0 +1,28 @@
+add contact entities:
+  title: 'Create new Contact entities'
+
+administer contact entities:
+  title: 'Administer Contact entities'
+  description: 'Allow to access the administration form to configure Contact entities.'
+  restrict access: true
+
+delete contact entities:
+  title: 'Delete Contact entities'
+
+edit contact entities:
+  title: 'Edit Contact entities'
+
+view contact entities:
+  title: 'View Contact entities'
+
+view all contact revisions:
+  title: 'View all Contact revisions'
+
+revert all contact revisions:
+  title: 'Revert all Contact revisions'
+  description: 'Role requires permission <em>view Contact revisions</em> and <em>edit rights</em> for contact entities in question or <em>administer contact entities</em>.'
+
+delete all contact revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Contact revisions</em> and <em>delete rights</em> for contact entities in question or <em>administer contact entities</em>.'
+

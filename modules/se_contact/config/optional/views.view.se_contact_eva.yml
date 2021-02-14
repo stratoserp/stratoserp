@@ -1,25 +1,16 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - field.storage.node.se_co_email
-    - field.storage.node.se_co_phone
-    - field.storage.node.se_co_type_ref
-    - node.type.se_contact
-    - user.role.developer
-    - user.role.staff
   module:
     - eva
-    - node
-    - telephone
-    - user
+    - se_contact
 id: se_contact_eva
 label: Contacts
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
-base_field: nid
+base_table: se_contact_field_data
+base_field: id
 display:
   default:
     display_plugin: default
@@ -28,12 +19,8 @@ display:
     position: 0
     display_options:
       access:
-        type: role
-        options:
-          role:
-            developer: developer
-            staff: staff
-            administrator: administrator
+        type: none
+        options: {  }
       cache:
         type: tag
         options: {  }
@@ -56,17 +43,12 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: full
+        type: mini
         options:
           items_per_page: 10
           offset: 0
           id: 0
           total_pages: null
-          tags:
-            previous: ‹
-            next: ›
-            first: ‹‹
-            last: ››
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -75,7 +57,9 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 5
+          tags:
+            previous: ‹‹
+            next: ››
       style:
         type: table
         options:
@@ -88,42 +72,16 @@ display:
           summary: ''
           description: ''
           columns:
-            created: created
-            title: title
-            se_co_email: se_co_email
-            se_co_phone: se_co_phone
-            se_co_type_ref: se_co_type_ref
+            name: name
           info:
-            created:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-low
-            title:
-              sortable: true
+            name:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
-              responsive: priority-medium
-            se_co_email:
-              align: ''
-              separator: ''
-              empty_column: false
               responsive: ''
-            se_co_phone:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            se_co_type_ref:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-medium
-          default: title
+          default: '-1'
           empty_table: false
       row:
         type: fields
@@ -133,15 +91,18 @@ display:
           hide_empty: false
           default_field_elements: true
       fields:
-        nid:
-          id: nid
-          table: node_field_data
-          field: nid
+        name:
+          table: se_contact_field_data
+          field: name
+          id: name
+          entity_type: null
+          entity_field: name
+          plugin_id: field
           relationship: none
           group_type: group
           admin_label: ''
-          label: ID
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -162,139 +123,6 @@ display:
             max_length: 0
             word_boundary: true
             ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Date
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: true
-            path: 'node/{{ nid }}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: custom
-            custom_date_format: Y-m-d
-            timezone: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: node
-          entity_field: created
-          plugin_id: field
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Name
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: false
-            ellipsis: false
             more_link: false
             more_link_text: ''
             more_link_path: ''
@@ -316,71 +144,6 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: node
-          entity_field: title
-          plugin_id: field
-        se_co_email:
-          id: se_co_email
-          table: node__se_co_email
-          field: se_co_email
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Email
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: email_mailto
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -392,197 +155,16 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
-        se_co_phone:
-          id: se_co_phone
-          table: node__se_co_phone
-          field: se_co_phone
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Phone
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: telephone_link
-          settings:
-            title: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        se_co_type_ref:
-          id: se_co_type_ref
-          table: node__se_co_type_ref
-          field: se_co_type_ref
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Type
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-      filters:
-        status:
-          value: '1'
-          table: node_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: node
-          entity_field: status
-          id: status
-          exposed: false
-          expose:
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-          group: 1
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          value:
-            se_contact: se_contact
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          exposed: false
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
-      sorts:
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          order: ASC
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
-          relationship: none
-          group_type: group
-          admin_label: ''
-          exposed: false
-          expose:
-            label: ''
+      filters: {  }
+      sorts: {  }
       header: {  }
       footer: {  }
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: 'No contacts'
-            format: basic_html
-          plugin_id: text
+      empty: {  }
       relationships: {  }
       arguments:
         se_bu_ref_target_id:
           id: se_bu_ref_target_id
-          table: node__se_bu_ref
+          table: se_contact__se_bu_ref
           field: se_bu_ref_target_id
           relationship: none
           group_type: group
@@ -600,7 +182,7 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 10
+            items_per_page: 25
             override: false
           summary:
             sort_order: asc
@@ -615,7 +197,10 @@ display:
           not: false
           plugin_id: numeric
       display_extenders: {  }
-      use_ajax: true
+      title: Contacts
+      filter_groups:
+        operator: AND
+        groups: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -623,24 +208,20 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.node_grants:view'
-        - user.roles
-      tags:
-        - 'config:field.storage.node.se_co_email'
-        - 'config:field.storage.node.se_co_phone'
-        - 'config:field.storage.node.se_co_type_ref'
+      tags: {  }
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
-    display_title: EVA
+    display_title: 'Customer contacts'
     position: 1
     display_options:
       display_extenders: {  }
-      argument_mode: id
-      default_argument: null
       entity_type: se_customer
       bundles:
         - se_customer
+      defaults:
+        title: true
+      display_description: ''
     cache_metadata:
       max-age: -1
       contexts:
@@ -648,9 +229,23 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.node_grants:view'
-        - user.roles
-      tags:
-        - 'config:field.storage.node.se_co_email'
-        - 'config:field.storage.node.se_co_phone'
-        - 'config:field.storage.node.se_co_type_ref'
+      tags: {  }
+  entity_view_2:
+    display_plugin: entity_view
+    id: entity_view_2
+    display_title: 'Supplier contacts'
+    position: 2
+    display_options:
+      display_extenders: {  }
+      entity_type: se_supplier
+      bundles:
+        - se_supplier
+      display_description: ''
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+      tags: {  }

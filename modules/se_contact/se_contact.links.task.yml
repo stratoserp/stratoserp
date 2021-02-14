@@ -1,0 +1,26 @@
+# Contact routing definition
+se_contact.settings_tab:
+  route_name: se_contact.settings
+  title: 'Settings'
+  base_route: se_contact.settings
+
+entity.se_contact.canonical:
+  route_name: entity.se_contact.canonical
+  base_route: entity.se_contact.canonical
+  title: 'View'
+
+entity.se_contact.edit_form:
+  route_name: entity.se_contact.edit_form
+  base_route: entity.se_contact.canonical
+  title: 'Edit'
+
+entity.se_contact.version_history:
+  route_name: entity.se_contact.version_history
+  base_route: entity.se_contact.canonical
+  title: 'Revisions'
+
+entity.se_contact.delete_form:
+  route_name:  entity.se_contact.delete_form
+  base_route:  entity.se_contact.canonical
+  title: Delete
+  weight: 10

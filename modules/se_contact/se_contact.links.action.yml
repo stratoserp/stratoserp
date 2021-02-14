@@ -1,9 +1,9 @@
 
-se_contact.add_se_contact:
-  route_name: 'node.add'
-  route_parameters:
-    node_type: 'se_contact'
-  title: 'Add contact'
+entity.se_contact.add_form:
+  route_name: entity.se_contact.add_form
+  title: 'Add Contact'
   appears_on:
+    - entity.se_contact.collection
+    - entity.se_customer.canonical
     - 'view.se_contact_list.page_1'
     - 'view.se_contact_eva.entity_view_1'

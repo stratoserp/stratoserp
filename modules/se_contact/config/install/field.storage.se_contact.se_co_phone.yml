@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - se_contact
     - telephone
-id: node.se_co_phone
+id: se_contact.se_co_phone
 field_name: se_co_phone
-entity_type: node
+entity_type: se_contact
 type: telephone
 settings: {  }
 module: telephone

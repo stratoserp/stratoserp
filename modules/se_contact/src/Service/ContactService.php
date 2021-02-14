@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\se_contact\Service;
 
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\node\Entity\Node;
 
 /**
  * Contact service class for common contact related manipulation.
@@ -43,16 +43,16 @@ class ContactService {
   /**
    * Given a customer node, return the main contact for that customer.
    *
-   * @param \Drupal\node\Entity\Node $node
-   *   Node to return the contact for.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity to return the contact for.
    *
    * @return array
    *   The list of contacts set as main contacts.
    */
-  public function loadMainContactsByBusiness(Node $node): array {
-    // Ensure its really a customer node.
-    $customer = \Drupal::service('se_customer.service')->lookupCustomer($node);
-    $supplier = \Drupal::service('se_supplier.service')->lookupSupplier($node);
+  public function loadMainContactsByBusiness(EntityInterface $entity): array {
+    // Ensure its really a customer or supplier passed.
+    $customer = \Drupal::service('se_customer.service')->lookupCustomer($entity);
+    $supplier = \Drupal::service('se_supplier.service')->lookupSupplier($entity);
 
     if (!($customer || $supplier)) {
       return [];
@@ -87,15 +87,15 @@ class ContactService {
   /**
    * Given a customer node, return all contacts for the customer.
    *
-   * @param \Drupal\node\Entity\Node $node
-   *   Node to return the contacs for.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity to return the contacts for.
    *
    * @return array
    *   The list of contacts.
    */
-  public function loadContactsByCustomer(Node $node): array {
+  public function loadContactsByCustomer(EntityInterface $entity): array {
     // Ensure its really a customer node.
-    $customer = \Drupal::service('se_customer.service')->lookupCustomer($node);
+    $customer = \Drupal::service('se_customer.service')->lookupCustomer($entity);
 
     return \Drupal::entityQuery('node')
       ->condition('type', 'se_contact')

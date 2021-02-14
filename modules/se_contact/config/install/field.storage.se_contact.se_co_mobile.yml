@@ -2,13 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
-id: node.se_co_email
-field_name: se_co_email
-entity_type: node
-type: email
+    - se_contact
+    - telephone
+id: se_contact.se_co_mobile
+field_name: se_co_mobile
+entity_type: se_contact
+type: telephone
 settings: {  }
-module: core
+module: telephone
 locked: false
 cardinality: -1
 translatable: true

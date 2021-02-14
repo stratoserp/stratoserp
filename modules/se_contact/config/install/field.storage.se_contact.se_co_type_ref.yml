@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - se_contact
     - taxonomy
-id: node.se_co_type_ref
+id: se_contact.se_co_type_ref
 field_name: se_co_type_ref
-entity_type: node
+entity_type: se_contact
 type: entity_reference
 settings:
   target_type: taxonomy_term

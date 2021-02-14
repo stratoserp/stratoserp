@@ -20,3 +20,18 @@ function se_contact_form_node_se_contact_form_alter(&$form, FormStateInterface $
       ->setTaxonomyField($form, 'se_co_type_ref', $contact_type);
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function se_contact_theme() {
+  $theme = [];
+
+  $theme['se_contact'] = [
+    'render element' => 'elements',
+    'file' => 'se_contact.page.inc',
+    'template' => 'se_contact',
+  ];
+
+  return $theme;
+}

@@ -2,19 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_co_mobile
-    - node.type.se_contact
+    - field.storage.se_contact.se_co_email
   module:
-    - telephone
-id: node.se_contact.se_co_mobile
-field_name: se_co_mobile
-entity_type: node
+    - se_contact
+id: se_contact.se_contact.se_co_email
+field_name: se_co_email
+entity_type: se_contact
 bundle: se_contact
-label: Mobile
+label: Email
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: telephone
+field_type: email
