@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Tags;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\node\Entity\Node;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_information\Entity\Information;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,7 +37,7 @@ class AutocompleteController extends ControllerBase {
       $searchString = Tags::explode($input);
       $searchString = mb_strtolower(array_pop($searchString));
 
-      $customers = $this->findNodes('se_customer', 'Customer', 'title', $searchString);
+      $customers = $this->findCustomers($searchString);
       $contacts = $this->findNodes('se_contact', 'Contact', 'title', $searchString);
       $invoices = $this->findNodes('se_invoice', 'Invoice', 'se_in_id', $searchString);
       $quotes = $this->findNodes('se_quote', 'Quote', 'se_qu_id', $searchString);
@@ -99,6 +100,50 @@ class AutocompleteController extends ControllerBase {
       $matches[] = [
         'value' => $key,
         'label' => $output_description,
+      ];
+    }
+
+    return $matches;
+  }
+
+  /**
+   * Return customers matching text.
+   *
+   * @param string $text
+   *   The text to search for.
+   *
+   * @return array
+   *   An array of matches.
+   */
+  private function findCustomers($text): array {
+    $matches = [];
+
+    $query = \Drupal::entityQuery('se_customer')
+      ->condition('name', '%' .
+        Database::getConnection()->escapeLike($text) . '%', 'LIKE')
+      // ->condition('type', $type)
+      ->range(0, 10);
+
+    $item_ids = $query->execute();
+    /** @var \Drupal\node\Entity\Node $item */
+    foreach (Customer::loadMultiple($item_ids) as $entity_id => $customer) {
+      $fields = [
+        $customer->getName(),
+      ];
+      $fields = array_filter($fields);
+      $key = implode(' - ', $fields);
+      $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
+      // Names containing commas or quotes must be wrapped in quotes.
+      $key = Tags::encode($key);
+      $output_description = implode(' - ', [
+        $customer->getName(),
+      ]);
+
+      $key .= ' (' . $entity_id . ')';
+      $customerId = $customer->id();
+      $matches[] = [
+        'value' => $key,
+        'label' => $output_description . "($customerId)",
       ];
     }
 
@@ -189,6 +234,7 @@ class AutocompleteController extends ControllerBase {
         $information->se_bu_ref->entity->title->value,
         $information->getName(),
       ]);
+
       $informationId = $information->id();
       $matches[] = [
         'value' => $key,

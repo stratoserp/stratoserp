@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\node\Entity\Node;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_information\Entity\Information;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -93,6 +94,10 @@ class SearchForm extends FormBase {
       return $this->messenger->addError(t('No search string found'));
     }
 
+    if ($this->searchLoadCustomer($values['search'], $form_state)) {
+      return NULL;
+    }
+
     if ($this->searchLoadNode($values['search'], $form_state)) {
       return NULL;
     }
@@ -107,6 +112,36 @@ class SearchForm extends FormBase {
 
     // Otherwise, perform a full text search, something like
     // https://www.drupal.org/docs/8/modules/search-api/developer-documentation/executing-a-search-in-code
+  }
+
+  /**
+   * Extract node information from a search string and try to load it.
+   *
+   * @param string $search
+   *   The string the user entered.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return \Drupal\Core\Messenger\MessengerInterface|false
+   *   A message or false if it wasn't this type.
+   */
+  protected function searchLoadCustomer($search, FormStateInterface $form_state) {
+    // If the user has chosen a node from the popup, load it.
+    if (preg_match("/.+\s\(([^!#)[a-zA-Z]+)\)/", $search, $matches)) {
+      $match = $matches[1];
+      if (empty($match)) {
+        return $this->messenger->addMessage(t('No matches found'));
+      }
+
+      if (!Customer::load($match)) {
+        return $this->messenger->addError(t('Invalid node'));
+      }
+
+      $form_state->setRedirect('entity.se_customer.canonical', ['se_customer' => $match]);
+      return TRUE;
+    }
+
+    return FALSE;
   }
 
   /**
