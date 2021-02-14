@@ -1,0 +1,28 @@
+add supplier entities:
+  title: 'Create new Supplier entities'
+
+administer supplier entities:
+  title: 'Administer Supplier entities'
+  description: 'Allow to access the administration form to configure Supplier entities.'
+  restrict access: true
+
+delete supplier entities:
+  title: 'Delete Supplier entities'
+
+edit supplier entities:
+  title: 'Edit Supplier entities'
+
+view supplier entities:
+  title: 'View Supplier entities'
+
+view all supplier revisions:
+  title: 'View all Supplier revisions'
+
+revert all supplier revisions:
+  title: 'Revert all Supplier revisions'
+  description: 'Role requires permission <em>view Supplier revisions</em> and <em>edit rights</em> for supplier entities in question or <em>administer supplier entities</em>.'
+
+delete all supplier revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Supplier revisions</em> and <em>delete rights</em> for supplier entities in question or <em>administer supplier entities</em>.'
+

@@ -7,6 +7,7 @@ dependencies:
     - field.storage.se_customer.se_cu_mobile
     - field.storage.se_customer.se_cu_phone
     - system.menu.stratos-erp
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
@@ -15,12 +16,12 @@ dependencies:
     - telephone
     - user
 id: se_customer_list
-label: Customers
+label: 'Customer list'
 module: views
 description: ''
 tag: ''
 base_table: se_customer_field_data
-base_field: nid
+base_field: id
 display:
   default:
     display_plugin: default
@@ -32,9 +33,9 @@ display:
         type: role
         options:
           role:
-            developer: developer
-            staff: staff
             administrator: administrator
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -50,16 +51,16 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: true
+          reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: full
+        type: mini
         options:
-          items_per_page: 20
+          items_per_page: 10
           offset: 0
           id: 0
           total_pages: null
@@ -72,10 +73,8 @@ display:
             offset: false
             offset_label: Offset
           tags:
-            previous: ‹
-            next: ›
-            first: ‹‹
-            last: ››
+            previous: ‹‹
+            next: ››
       style:
         type: table
         options:
@@ -88,58 +87,33 @@ display:
           summary: ''
           description: ''
           columns:
-            title: title
-            se_cu_email: se_cu_email
-            se_cu_homepage: se_cu_homepage
-            se_cu_phone: se_cu_phone
-            se_cu_mobile: se_cu_mobile
+            name: name
           info:
-            title:
-              sortable: true
+            name:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_cu_email:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-medium
-            se_cu_homepage:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-low
-            se_cu_phone:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-medium
-            se_cu_mobile:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: title
+          default: '-1'
           empty_table: false
       row:
         type: fields
+        options:
+          inline: {  }
+          separator: ''
+          hide_empty: false
+          default_field_elements: true
       fields:
-        title:
-          id: title
+        name:
+          id: name
           table: se_customer_field_data
-          field: title
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
-          label: Name
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -159,8 +133,8 @@ display:
             target: ''
             nl2br: false
             max_length: 0
-            word_boundary: false
-            ellipsis: false
+            word_boundary: true
+            ellipsis: true
             more_link: false
             more_link_text: ''
             more_link_path: ''
@@ -172,7 +146,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -194,8 +168,8 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: se_customer
-          entity_field: title
+          entity_type: null
+          entity_field: name
           plugin_id: field
         se_cu_email:
           id: se_cu_email
@@ -326,69 +300,6 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        se_cu_phone:
-          id: se_cu_phone
-          table: se_customer__se_cu_phone
-          field: se_cu_phone
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Phone
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: telephone_link
-          settings:
-            title: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
         se_cu_mobile:
           id: se_cu_mobile
           table: se_customer__se_cu_mobile
@@ -452,37 +363,74 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
+        se_cu_phone:
+          id: se_cu_phone
+          table: se_customer__se_cu_phone
+          field: se_cu_phone
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Phone
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: telephone_link
+          settings:
+            title: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
       filters:
-        status:
-          value: '1'
+        name:
+          id: name
           table: se_customer_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: se_customer
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-          group: 1
-        type:
-          id: type
-          table: se_customer_field_data
-          field: type
-          value:
-            se_customer: se_customer
-          entity_type: se_customer
-          entity_field: type
-          plugin_id: bundle
-          group: 1
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
-        title:
-          id: title
-          table: se_customer_field_data
-          field: title
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
@@ -491,11 +439,13 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: title_op
+            operator_id: name_op
             label: Name
             description: ''
             use_operator: false
-            operator: title_op
+            operator: name_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: name
             required: false
             remember: false
@@ -507,8 +457,8 @@ display:
               customer: '0'
               supplier: '0'
               staff: '0'
-            operator_limit_selection: false
-            operator_list: {  }
+              developer: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -522,150 +472,15 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           entity_type: se_customer
-          entity_field: title
-          plugin_id: string
-        se_cu_email_value:
-          id: se_cu_email_value
-          table: se_customer__se_cu_email
-          field: se_cu_email_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_cu_email_value_op
-            label: Email
-            description: ''
-            use_operator: false
-            operator: se_cu_email_value_op
-            identifier: email
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-            operator_limit_selection: false
-            operator_list: {  }
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: string
-        se_cu_phone_value:
-          id: se_cu_phone_value
-          table: se_customer__se_cu_phone
-          field: se_cu_phone_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_cu_phone_value_op
-            label: Phone
-            description: ''
-            use_operator: false
-            operator: se_cu_phone_value_op
-            identifier: phone
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-            operator_limit_selection: false
-            operator_list: {  }
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: string
-        se_cu_mobile_value:
-          id: se_cu_mobile_value
-          table: se_customer__se_cu_mobile
-          field: se_cu_mobile_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_cu_mobile_value_op
-            label: Mobile
-            description: ''
-            use_operator: false
-            operator: se_cu_mobile_value_op
-            identifier: mobile
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-            operator_limit_selection: false
-            operator_list: {  }
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+          entity_field: name
           plugin_id: string
       sorts: {  }
-      title: Customers
       header: {  }
       footer: {  }
       empty: {  }
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -673,7 +488,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.se_customer_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.se_customer.se_cu_email'
@@ -690,7 +504,7 @@ display:
       path: se/customer-list
       menu:
         type: normal
-        title: Customers
+        title: 'Customer list'
         description: ''
         expanded: false
         parent: ''
@@ -704,7 +518,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.se_customer_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.se_customer.se_cu_email'

@@ -176,10 +176,8 @@ class NavigationBlock extends BlockBase {
     $items[] = Link::createFromRoute('Add customer', 'entity.se_customer.add_form',
       $this->setRouteParameters(FALSE, []), $this->buttonClass);
 
-    $items[] = Link::createFromRoute('Add supplier', 'node.add',
-      $this->setRouteParameters(FALSE, [
-        'node_type' => 'se_supplier',
-      ]), $this->buttonClass);
+    $items[] = Link::createFromRoute('Add supplier', 'entity.se_supplier.add_form',
+      $this->setRouteParameters(FALSE, []), $this->buttonClass);
 
     $items[] = Link::createFromRoute('Add assembly', 'entity.se_item.add_form',
       $this->setRouteParameters(FALSE, [

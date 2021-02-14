@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.se_information.se_bu_ref
-    - node.type.se_supplier
     - se_information.se_information_type.se_document
 id: se_information.se_document.se_bu_ref
 field_name: se_bu_ref

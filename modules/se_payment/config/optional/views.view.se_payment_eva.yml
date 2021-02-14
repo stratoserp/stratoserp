@@ -612,7 +612,6 @@ display:
       entity_type: se_customer
       bundles:
         - se_customer
-        - se_supplier
     cache_metadata:
       max-age: -1
       contexts:

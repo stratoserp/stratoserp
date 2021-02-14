@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.se_subscription.se_su_ref
-    - node.type.se_supplier
     - se_subscription.se_subscription_type.se_email_account
 id: se_subscription.se_email_account.se_su_ref
 field_name: se_su_ref

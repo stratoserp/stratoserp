@@ -24,7 +24,6 @@ dependencies:
     - layout_discovery
     - link
     - se_customer
-    - serial
     - telephone
 third_party_settings:
   field_layout:

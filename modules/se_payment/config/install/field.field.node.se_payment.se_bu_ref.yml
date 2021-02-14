@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.node.se_bu_ref
     - node.type.se_payment
-    - node.type.se_supplier
 id: node.se_payment.se_bu_ref
 field_name: se_bu_ref
 entity_type: node

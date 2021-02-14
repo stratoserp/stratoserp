@@ -2,24 +2,25 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_su_email
-    - field.storage.node.se_su_homepage
-    - field.storage.node.se_su_phone
-    - node.type.se_supplier
-    - system.menu.stratos-erp
+    - field.storage.se_supplier.se_su_email
+    - field.storage.se_supplier.se_su_homepage
+    - field.storage.se_supplier.se_su_mobile
+    - field.storage.se_supplier.se_su_phone
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
     - link
-    - node
+    - se_supplier
+    - telephone
     - user
 id: se_supplier_list
-label: Suppliers
+label: 'Supplier list'
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
-base_field: nid
+base_table: se_supplier_field_data
+base_field: id
 display:
   default:
     display_plugin: default
@@ -31,9 +32,9 @@ display:
         type: role
         options:
           role:
-            developer: developer
-            staff: staff
             administrator: administrator
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -49,24 +50,19 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: true
+          reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: full
+        type: mini
         options:
-          items_per_page: 20
+          items_per_page: 10
           offset: 0
           id: 0
           total_pages: null
-          tags:
-            previous: ‹
-            next: ›
-            first: ‹‹
-            last: ››
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -75,20 +71,48 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 5
+          tags:
+            previous: ‹‹
+            next: ››
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            name: name
+          info:
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: '-1'
+          empty_table: false
       row:
         type: fields
+        options:
+          inline: {  }
+          separator: ''
+          hide_empty: false
+          default_field_elements: true
       fields:
-        title:
-          id: title
-          table: node_field_data
-          field: title
+        name:
+          id: name
+          table: se_supplier_field_data
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
-          label: Name
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -108,8 +132,8 @@ display:
             target: ''
             nl2br: false
             max_length: 0
-            word_boundary: false
-            ellipsis: false
+            word_boundary: true
+            ellipsis: true
             more_link: false
             more_link_text: ''
             more_link_path: ''
@@ -121,7 +145,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -143,12 +167,12 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
+          entity_type: null
+          entity_field: name
           plugin_id: field
         se_su_email:
           id: se_su_email
-          table: node__se_su_email
+          table: se_supplier__se_su_email
           field: se_su_email
           relationship: none
           group_type: group
@@ -210,7 +234,7 @@ display:
           plugin_id: field
         se_su_homepage:
           id: se_su_homepage
-          table: node__se_su_homepage
+          table: se_supplier__se_su_homepage
           field: se_su_homepage
           relationship: none
           group_type: group
@@ -275,9 +299,72 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
+        se_su_mobile:
+          id: se_su_mobile
+          table: se_supplier__se_su_mobile
+          field: se_su_mobile
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Mobile
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: telephone_link
+          settings:
+            title: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
         se_su_phone:
           id: se_su_phone
-          table: node__se_su_phone
+          table: se_supplier__se_su_phone
           field: se_su_phone
           relationship: none
           group_type: group
@@ -324,9 +411,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
+          type: telephone_link
           settings:
-            link_to_entity: false
+            title: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -339,31 +426,10 @@ display:
           field_api_classes: false
           plugin_id: field
       filters:
-        status:
-          value: '1'
-          table: node_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: node
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-          group: 1
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          value:
-            se_supplier: se_supplier
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          group: 1
-        se_su_email_value:
-          id: se_su_email_value
-          table: node__se_su_email
-          field: se_su_email_value
+        name:
+          id: name
+          table: se_supplier_field_data
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
@@ -372,52 +438,13 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: se_su_email_value_op
-            label: Email
-            description: ''
-            use_operator: false
-            operator: se_su_email_value_op
-            identifier: email
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: string
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: title_op
+            operator_id: name_op
             label: Name
             description: ''
             use_operator: false
-            operator: title_op
+            operator: name_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: name
             required: false
             remember: false
@@ -429,6 +456,8 @@ display:
               customer: '0'
               supplier: '0'
               staff: '0'
+              developer: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -441,105 +470,16 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: title
-          plugin_id: string
-        se_su_phone_value:
-          id: se_su_phone_value
-          table: node__se_su_phone
-          field: se_su_phone_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 2
-          exposed: true
-          expose:
-            operator_id: se_su_phone_value_op
-            label: Phone
-            description: ''
-            use_operator: false
-            operator: se_su_phone_value_op
-            identifier: phone
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: string
-        se_su_mobile_value:
-          id: se_su_mobile_value
-          table: node__se_su_mobile
-          field: se_su_mobile_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_su_mobile_value_op
-            label: Mobile
-            description: ''
-            use_operator: false
-            operator: se_su_mobile_value_op
-            identifier: mobile
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+          entity_type: se_supplier
+          entity_field: name
           plugin_id: string
       sorts: {  }
-      title: suppliers
       header: {  }
       footer: {  }
       empty: {  }
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-          2: OR
-      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -547,12 +487,12 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_su_email'
-        - 'config:field.storage.node.se_su_homepage'
-        - 'config:field.storage.node.se_su_phone'
+        - 'config:field.storage.se_supplier.se_su_email'
+        - 'config:field.storage.se_supplier.se_su_homepage'
+        - 'config:field.storage.se_supplier.se_su_mobile'
+        - 'config:field.storage.se_supplier.se_su_phone'
   page_1:
     display_plugin: page
     id: page_1
@@ -561,15 +501,6 @@ display:
     display_options:
       display_extenders: {  }
       path: se/supplier-list
-      menu:
-        type: normal
-        title: Suppliers
-        description: ''
-        expanded: false
-        parent: ''
-        weight: 0
-        context: '0'
-        menu_name: stratos-erp
     cache_metadata:
       max-age: -1
       contexts:
@@ -577,9 +508,9 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_su_email'
-        - 'config:field.storage.node.se_su_homepage'
-        - 'config:field.storage.node.se_su_phone'
+        - 'config:field.storage.se_supplier.se_su_email'
+        - 'config:field.storage.se_supplier.se_su_homepage'
+        - 'config:field.storage.se_supplier.se_su_mobile'
+        - 'config:field.storage.se_supplier.se_su_phone'

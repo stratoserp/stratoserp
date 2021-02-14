@@ -63,7 +63,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/customer/{se_customer}/revisions/{se_customer_revision}/revert",
  *     "revision_delete" = "/customer/{se_customer}/revisions/{se_customer_revision}/delete",
  *     "translation_revert" = "/customer/{se_customer}/revisions/{se_customer_revision}/revert/{langcode}",
- *     "collection" = "/admin/content/customer",
+ *     "collection" = "/admin/se/customer",
  *   },
  *   field_ui_base_route = "se_customer.settings",
  *   revision_metadata_keys = {
