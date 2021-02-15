@@ -6,7 +6,7 @@ dependencies:
   module:
     - se_quote
 id: se_quote_list
-label: 'Contact list'
+label: 'Quote list'
 module: views
 description: ''
 tag: ''
@@ -226,10 +226,10 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/contact-list
+      path: se/quote-list
       menu:
         type: normal
-        title: Contacts
+        title: Quotes
         description: ''
         expanded: false
         parent: ''

@@ -5,7 +5,7 @@ dependencies:
     - eva
     - se_quote
 id: se_quote_eva
-label: Contacts
+label: Quotes
 module: views
 description: ''
 tag: ''
@@ -197,7 +197,7 @@ display:
           not: false
           plugin_id: numeric
       display_extenders: {  }
-      title: Contacts
+      title: Quotes
       filter_groups:
         operator: AND
         groups: {  }

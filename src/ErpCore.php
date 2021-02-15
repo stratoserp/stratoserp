@@ -17,6 +17,14 @@ final class ErpCore {
     'se_purchase_order' => 'po',
   ];
 
+  public const ITEM_LINE_ENTITY_BUNDLE_MAP = [
+    'se_bill'           => 'bi',
+    'se_goods_receipt'  => 'gr',
+    'se_invoice'        => 'in',
+    'se_quote'          => 'qu',
+    'se_purchase_order' => 'po',
+  ];
+
   public const PAYMENT_LINE_NODE_BUNDLE_MAP = [
     'se_payment' => 'pa',
   ];

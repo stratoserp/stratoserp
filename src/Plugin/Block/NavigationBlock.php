@@ -30,6 +30,13 @@ class NavigationBlock extends BlockBase {
   protected $node;
 
   /**
+   * Entity to work on.
+   *
+   * @var \Drupal\Core\Entity\EntityInterface
+   */
+  protected $entity;
+
+  /**
    * Destination to send the user to.
    *
    * @var string
@@ -75,30 +82,33 @@ class NavigationBlock extends BlockBase {
     }
 
     if (empty($items)) {
-      if ($entity = $parameterBag->get('se_contact')) {
+      if ($this->entity = $parameterBag->get('se_contact')) {
         $items = $this->contactLinks();
-        $this->destination = Url::fromUri('internal:/contact/' . $entity->id())->toString();
+        $this->destination = Url::fromUri('internal:/contact/' . $this->entity->id())->toString();
       }
-      elseif ($entity = $parameterBag->get('se_customer')) {
+      elseif ($this->entity = $parameterBag->get('se_customer')) {
         $items = $this->customerLinks();
-        $this->destination = Url::fromUri('internal:/customer/' . $entity->id())->toString();
+        $this->destination = Url::fromUri('internal:/customer/' . $this->entity->id())->toString();
       }
-      elseif ($entity = $parameterBag->get('se_supplier')) {
+      elseif ($this->entity = $parameterBag->get('se_supplier')) {
         $items = $this->supplierLinks();
-        $this->destination = Url::fromUri('internal:/supplier/' . $entity->id())->toString();
+        $this->destination = Url::fromUri('internal:/supplier/' . $this->entity->id())->toString();
       }
-      elseif ($entity = $parameterBag->get('se_quote')) {
+      elseif ($this->entity = $parameterBag->get('se_quote')) {
         $items = $this->quoteLinks();
-        $this->destination = Url::fromUri('internal:/quote/' . $entity->id())->toString();
+        $this->destination = Url::fromUri('internal:/quote/' . $this->entity->id())->toString();
       }
-      elseif (isset($this->node) && $this->node->getType() == 'se_bill') {
-        $items = $this->billLinks();
-      }
-      elseif (isset($this->node) && $this->node->getType() == 'se_invoice') {
+      elseif ($this->entity = $parameterBag->get('se_invoice')) {
         $items = $this->invoiceLinks();
+        $this->destination = Url::fromUri('internal:/invoice/' . $this->entity->id())->toString();
       }
-      elseif (isset($this->node) && $this->node->getType() == 'se_purchase_order') {
+      elseif ($this->entity = $parameterBag->get('se_bill')) {
+        $items = $this->billLinks();
+        $this->destination = Url::fromUri('internal:/bill/' . $this->entity->id())->toString();
+      }
+      elseif ($this->entity = $parameterBag->get('se_purchase_order')) {
         $items = $this->purchaseOrderLinks();
+        $this->destination = Url::fromUri('internal:/purchase-order/' . $this->entity->id())->toString();
       }
     }
 
@@ -117,18 +127,19 @@ class NavigationBlock extends BlockBase {
   }
 
   /**
-   * Set cache tags on a per node basis.
+   * Set cache tags on a per entity basis.
    *
    * @return array|string[]
    *   The cache tags.
    */
   public function getCacheTags() {
-    // @todo Convert from Node.
-    if ($node = \Drupal::routeMatch()->getParameter('node')) {
-      if (is_object($node)) {
-        $node = $node->id();
-      }
-      return Cache::mergeTags(parent::getCacheTags(), ['node:' . $node]);
+    if ($this->node && is_object($this->node)) {
+      return Cache::mergeTags(parent::getCacheTags(), ['node:' . $this->node->id()]);
+    }
+
+    // @todo is this right? Fix it.
+    if ($this->entity && is_object($this->entity)) {
+      return Cache::mergeTags(parent::getCacheTags(), ['entity:' . $this->entity->id()]);
     }
 
     return parent::getCacheTags();
@@ -155,7 +166,7 @@ class NavigationBlock extends BlockBase {
     $items[] = Link::createFromRoute('Pay bill', 'se_bill_payment.add',
       $routeParameters + [
         'node_type' => 'se_bill_payment',
-        'source' => $this->node->id(),
+        'source' => $this->entity->id(),
       ], $this->buttonClass);
 
     return $items;
@@ -170,31 +181,33 @@ class NavigationBlock extends BlockBase {
   private function searchLinks(): array {
     $items = [];
 
+    $routeParameters = $this->setRouteParameters(FALSE);
+
     $items[] = Link::createFromRoute('Add customer', 'entity.se_customer.add_form',
-      $this->setRouteParameters(FALSE, []), $this->buttonClass);
+      $routeParameters, $this->buttonClass);
 
     $items[] = Link::createFromRoute('Add supplier', 'entity.se_supplier.add_form',
-      $this->setRouteParameters(FALSE, []), $this->buttonClass);
+      $routeParameters, $this->buttonClass);
 
     $items[] = Link::createFromRoute('Add assembly', 'entity.se_item.add_form',
-      $this->setRouteParameters(FALSE, [
+      $routeParameters + [
         'se_item_type' => 'se_assembly',
-      ]), $this->buttonClass);
+      ], $this->buttonClass);
 
     $items[] = Link::createFromRoute('Add stock', 'entity.se_item.add_form',
-      $this->setRouteParameters(FALSE, [
+      $routeParameters + [
         'se_item_type' => 'se_stock',
-      ]), $this->buttonClass);
+      ], $this->buttonClass);
 
     $items[] = Link::createFromRoute('Add recurring', 'entity.se_item.add_form',
-      $this->setRouteParameters(FALSE, [
+      $routeParameters + [
         'se_item_type' => 'se_recurring',
-      ]), $this->buttonClass);
+      ], $this->buttonClass);
 
     $items[] = Link::createFromRoute('Add service', 'entity.se_item.add_form',
-      $this->setRouteParameters(FALSE, [
+      $routeParameters + [
         'se_item_type' => 'se_service',
-      ]), $this->buttonClass);
+      ], $this->buttonClass);
 
     return $items;
   }
@@ -235,25 +248,21 @@ class NavigationBlock extends BlockBase {
   private function customerLinks(): array {
     $items = [];
 
-    $routeParameters = $this->setRouteParameters();
+    $routeParameters = $this->setRouteParameters(FALSE);
 
-    // @todo Fix source
     $items[] = Link::createFromRoute('Add contact', 'entity.se_contact.add_form',
-      $this->setRouteParameters(FALSE, []), $this->buttonClass);
+      $routeParameters, $this->buttonClass);
     $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $routeParameters + [
         'se_information_type' => 'se_document',
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add invoice', 'node.add',
-      $routeParameters + [
-        'node_type' => 'se_invoice',
-      ], $this->buttonClass);
+    $items[] = Link::createFromRoute('Add invoice', 'entity.se_invoice.add_form',
+      $routeParameters, $this->buttonClass);
     $items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page',
       $routeParameters, $this->buttonClass);
     $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
       $routeParameters + [
-        'node_type' => 'se_invoice',
-        'source' => 1,
+        'source' => $this->entity->id(),
       ], $this->buttonClass);
 
     $items = $this->commonLinks($items, $routeParameters);
@@ -350,13 +359,11 @@ class NavigationBlock extends BlockBase {
     // @todo Fix source
     $items[] = Link::createFromRoute('Add invoice', 'se_invoice.add',
       $routeParameters + [
-        'node_type' => 'se_invoice',
-        'source' => 1,
+        'source' => $this->entity->id(),
       ], $this->buttonClass);
     $items[] = Link::createFromRoute('Add purchase order', 'se_purchase_order.add',
       $routeParameters + [
-        'node_type' => 'se_invoice',
-        'source' => 1,
+        'source' => $this->entity->id(),
       ], $this->buttonClass);
 
     return $items;
