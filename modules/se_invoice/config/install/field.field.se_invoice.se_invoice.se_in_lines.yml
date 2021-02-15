@@ -8,6 +8,7 @@ dependencies:
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
   module:
+    - se_invoice
     - se_item_line
 id: se_invoice.se_invoice.se_in_lines
 field_name: se_in_lines
@@ -40,110 +41,23 @@ settings:
         field: _none
       auto_create: 0
       auto_create_bundle: se_service
-  block:
-    handler: 'default:block'
-    handler_settings: {  }
-  block_content_type:
-    handler: 'default:block_content_type'
-    handler_settings: {  }
   block_content:
     handler: 'default:block_content'
-    handler_settings: {  }
-  comment_type:
-    handler: 'default:comment_type'
-    handler_settings: {  }
-  contact_form:
-    handler: 'default:contact_form'
-    handler_settings: {  }
-  contact_message:
-    handler: 'default:contact_message'
-    handler_settings: {  }
-  editor:
-    handler: 'default:editor'
-    handler_settings: {  }
-  facets_facet:
-    handler: 'default:facets_facet'
-    handler_settings: {  }
-  facets_facet_source:
-    handler: 'default:facets_facet_source'
-    handler_settings: {  }
-  field_config:
-    handler: 'default:field_config'
-    handler_settings: {  }
-  field_storage_config:
-    handler: 'default:field_storage_config'
     handler_settings: {  }
   file:
     handler: 'default:file'
     handler_settings: {  }
-  filter_format:
-    handler: 'default:filter_format'
-    handler_settings: {  }
-  image_style:
-    handler: 'default:image_style'
-    handler_settings: {  }
-  linkit_profile:
-    handler: 'default:linkit_profile'
-    handler_settings: {  }
-  migration_group:
-    handler: 'default:migration_group'
-    handler_settings: {  }
-  migration:
-    handler: 'default:migration'
-    handler_settings: {  }
-  node_type:
-    handler: 'default:node_type'
-    handler_settings: {  }
   node:
     handler: 'default:node'
-    handler_settings: {  }
-  rest_resource_config:
-    handler: 'default:rest_resource_config'
-    handler_settings: {  }
-  se_information_type:
-    handler: 'default:se_information_type'
-    handler_settings: {  }
-  se_information:
-    handler: 'default:se_information'
-    handler_settings: {  }
-  se_item_type:
-    handler: 'default:se_item_type'
     handler_settings: {  }
   se_subscription:
     handler: 'default:se_subscription'
     handler_settings: {  }
-  se_subscription_type:
-    handler: 'default:se_subscription_type'
-    handler_settings: {  }
-  search_page:
-    handler: 'default:search_page'
-    handler_settings: {  }
-  menu:
-    handler: 'default:menu'
-    handler_settings: {  }
-  action:
-    handler: 'default:action'
-    handler_settings: {  }
   taxonomy_term:
     handler: 'default:taxonomy_term'
     handler_settings: {  }
-  taxonomy_vocabulary:
-    handler: 'default:taxonomy_vocabulary'
-    handler_settings: {  }
-  tour:
-    handler: 'default:tour'
-    handler_settings: {  }
   user:
     handler: 'default:user'
-    handler_settings: {  }
-  user_role:
-    handler: 'default:user_role'
-    handler_settings: {  }
-  webform_options:
-    handler: 'default:webform_options'
-    handler_settings: {  }
-  webform:
-    handler: 'default:webform'
     handler_settings: {  }
   webform_submission:
     handler: 'default:webform_submission'
@@ -151,25 +65,28 @@ settings:
   menu_link_content:
     handler: 'default:menu_link_content'
     handler_settings: {  }
-  view:
-    handler: 'default:view'
+  se_contact:
+    handler: 'default:se_contact'
     handler_settings: {  }
-  base_field_override:
-    handler: 'default:base_field_override'
+  se_customer:
+    handler: 'default:se_customer'
     handler_settings: {  }
-  entity_form_display:
-    handler: 'default:entity_form_display'
+  se_invoice:
+    handler: 'default:se_invoice'
     handler_settings: {  }
-  entity_form_mode:
-    handler: 'default:entity_form_mode'
+  preview_link:
+    handler: 'default:preview_link'
     handler_settings: {  }
-  entity_view_mode:
-    handler: 'default:entity_view_mode'
+  se_quote:
+    handler: 'default:se_quote'
     handler_settings: {  }
-  entity_view_display:
-    handler: 'default:entity_view_display'
+  social_auth:
+    handler: 'default:social_auth'
     handler_settings: {  }
-  date_format:
-    handler: 'default:date_format'
+  se_supplier:
+    handler: 'default:se_supplier'
+    handler_settings: {  }
+  path_alias:
+    handler: 'default:path_alias'
     handler_settings: {  }
 field_type: se_item_line

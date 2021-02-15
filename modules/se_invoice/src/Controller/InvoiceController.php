@@ -6,9 +6,11 @@ namespace Drupal\se_invoice\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_invoice\Entity\InvoiceInterface;
+use Drupal\stratoserp\ErpCore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  *  Returns responses for Invoice routes.
  */
-class InvoiceController extends ControllerBase implements ContainerInjectionInterface {
+class InvoiceController extends ControllerBase {
 
   /**
    * The date formatter.
@@ -209,6 +211,133 @@ class InvoiceController extends ControllerBase implements ContainerInjectionInte
     ];
 
     return $build;
+  }
+
+  /**
+   * Provides the node submission form for creation from a quote.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   Source entity to copy data from.
+   *
+   * @return array
+   *   A node submission form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function add(EntityInterface $source) {
+
+    $destination = Invoice::create([
+      'bundle' => 'se_invoice',
+    ]);
+
+    $total = 0;
+    $sourceFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$source->getEntityTypeId()];
+    $destFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$destination->getEntityTypeId()];
+
+    // @todo Make this a service.
+    /**
+     * @var int $index
+     * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
+     */
+    foreach ($source->{$sourceFieldType . '_lines'} as $item) {
+      $destination->{$destFieldType . '_lines'}->appendItem($item->getValue());
+    }
+
+    $destination->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    $destination->se_bu_ref->target_type = $source->se_bu_ref->target_type;
+    $destination->se_co_ref->target_id = $source->se_co_ref->target_id;
+    $destination->{$destFieldType . '_quote_ref'}->target_id = $source->id();
+    $destination->{$destFieldType . '_total'} = $total;
+
+    return $this->entityFormBuilder()->getForm($destination);
+  }
+
+  /**
+   * Provides the node submission form for creation from timekeeping entries.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   The source entity.
+   *
+   * @return array
+   *   A node submission form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function timekeeping(EntityInterface $source): array {
+    $entity = $this->createInvoiceFromTimekeeping($source);
+
+    return $this->entityFormBuilder()->getForm($entity);
+  }
+
+  /**
+   * Provides the node submission form for creation from timekeeping entries.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   The source entity.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   A build entity ready to display in a form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function createInvoiceFromTimekeeping(EntityInterface $source): array {
+
+    $destination = Invoice::create([
+      'bundle' => 'se_invoice',
+    ]);
+
+    // Retrieve a list of non billed timekeeping entries for this customer.
+    $query = \Drupal::entityQuery('comment');
+
+    // @todo something wrong here.
+    if ($source->getEntityTypeId() !== 'se_customer') {
+      if (!$source->se_bu_ref->target_id) {
+        return $this->entityFormBuilder()->getForm($destination);
+      }
+    }
+
+    $query->condition('comment_type', 'se_timekeeping')
+      ->condition('se_bu_ref', $source->id())
+      ->condition('se_tk_billed', TRUE, '<>')
+      ->condition('se_tk_billable', TRUE)
+      ->condition('se_tk_amount', 0, '>');
+    $entityIds = $query->execute();
+
+    $total = 0;
+    $lines = [];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$source->getEntityTypeId()];
+
+    // Loop through the timekeeping entries and setup invoice lines.
+    foreach ($entityIds as $entityId) {
+      /** @var \Drupal\comment\Entity\Comment $comment */
+      if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entityId)) {
+        /** @var \Drupal\se_item\Entity\Item $item */
+        if ($item = $comment->se_tk_item->entity) {
+          $price = (int) $item->se_it_sell_price->value;
+          $line = [
+            'target_type' => 'comment',
+            'target_id' => $comment->id(),
+            'quantity' => round($comment->se_tk_amount->value / 60, 2),
+            'notes' => $comment->se_tk_comment->value,
+            'format' => $comment->se_tk_comment->format,
+            'price' => $price,
+          ];
+          $lines[] = $line;
+          $total += $line['quantity'] * $line['price'];
+        }
+        else {
+          \Drupal::logger('se_timekeeping')->error('No matching item for entry @cid', ['@cid' => $comment->id()]);
+        }
+      }
+    }
+
+    $destination->{$bundleFieldType . '_lines'} = $lines;
+    $destination->{$bundleFieldType . '_total'} = $total;
+
+    return $destination;
   }
 
 }

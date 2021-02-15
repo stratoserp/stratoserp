@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.storage.se_invoice.se_in_customer_order
+  module:
+    - se_invoice
 id: se_invoice.se_invoice.se_in_customer_order
 field_name: se_in_customer_order
 entity_type: se_invoice

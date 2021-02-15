@@ -55,14 +55,14 @@ class InvoiceService {
   public function getOutstandingInvoices(Node $customer) {
     /** @var \Drupal\taxonomy\Entity\Term $open_term */
     $open_term = $this->getOpenTerm();
-    $query = \Drupal::entityQuery('node');
+    $query = \Drupal::entityQuery('se_invoice');
     $query->condition('type', 'se_invoice');
     $query->condition('se_bu_ref', $customer->id());
     $query->condition('se_status_ref', $open_term->id());
     $entity_ids = $query->execute();
 
     return \Drupal::entityTypeManager()
-      ->getStorage('node')
+      ->getStorage('se_invoice')
       ->loadMultiple($entity_ids);
   }
 

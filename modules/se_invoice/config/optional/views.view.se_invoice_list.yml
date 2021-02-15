@@ -6,7 +6,7 @@ dependencies:
   module:
     - se_invoice
 id: se_invoice_list
-label: 'Contact list'
+label: 'Invoice list'
 module: views
 description: ''
 tag: ''
@@ -226,7 +226,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/contact-list
+      path: se/invoice-list
       menu:
         type: normal
         title: Invoices

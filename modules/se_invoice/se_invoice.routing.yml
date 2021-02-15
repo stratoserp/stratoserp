@@ -1,40 +1,26 @@
-se_invoice.configure:
-  path: '/se/invoice/settings'
-  defaults:
-    _form: '\Drupal\se_invoice\Form\SettingsForm'
-    _title: 'Invoice settings'
-  requirements:
-    _permission: 'administer site configuration'
 
 se_invoice.add:
-  path: '/invoice/add/{source}'
+  path: '/invoice/quote/{source}'
   defaults:
-    _entity_form: 'node.default'
-    _controller: '\Drupal\se_invoice\Controller\NodeController::add'
-    _title_callback: '\Drupal\node\Controller\NodeController::addPageTitle'
-    node_type: se_invoice
+    _title: 'Add invoice'
+    _controller: '\Drupal\se_invoice\Controller\InvoiceController::add'
+    type: se_invoice
   requirements:
-    _node_add_access: 'node:se_invoice'
+    _permission: 'add invoice entities'
   options:
-    _node_operation_route: TRUE
     parameters:
-      node_type:
-        with_config_overrides: TRUE
       source:
-        type: 'entity:node'
+        type: entity:se_quote
 
 se_invoice.timekeeping:
   path: '/invoice/timekeeping/{source}'
   defaults:
-    _controller: '\Drupal\se_invoice\Controller\NodeController::timekeeping'
-    _title_callback: '\Drupal\node\Controller\NodeController::addPageTitle'
-    node_type: se_invoice
+    _title: 'Add invoice'
+    _controller: '\Drupal\se_invoice\Controller\InvoiceController::timekeeping'
+    type: se_invoice
   requirements:
-    _node_add_access: 'node:se_invoice'
+    _permission: 'add invoice entities'
   options:
-    _node_operation_route: TRUE
     parameters:
-      node_type:
-        with_config_overrides: TRUE
       source:
-        type: 'entity:node'
+        type: entity:se_customer

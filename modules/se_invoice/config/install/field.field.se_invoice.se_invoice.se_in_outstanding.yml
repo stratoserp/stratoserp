@@ -1,4 +1,3 @@
-uuid: acdd06f3-da76-4031-95f4-6f847f140f20
 langcode: en
 status: true
 dependencies:
@@ -6,6 +5,7 @@ dependencies:
     - field.storage.se_invoice.se_in_outstanding
   module:
     - se_accounting
+    - se_invoice
 id: se_invoice.se_invoice.se_in_outstanding
 field_name: se_in_outstanding
 entity_type: se_invoice
