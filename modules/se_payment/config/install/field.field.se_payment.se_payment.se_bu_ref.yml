@@ -5,7 +5,7 @@ dependencies:
     - field.storage.se_payment.se_bu_ref
   module:
     - dynamic_entity_reference
-    - se_invoice
+    - se_payment
 id: se_payment.se_payment.se_bu_ref
 field_name: se_bu_ref
 entity_type: se_payment
@@ -13,7 +13,7 @@ bundle: se_payment
 label: Business
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -81,4 +81,4 @@ settings:
   se_quote:
     handler: 'default:se_quote'
     handler_settings: {  }
-field_type: entity_reference
+field_type: dynamic_entity_reference
