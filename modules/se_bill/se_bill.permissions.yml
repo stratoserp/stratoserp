@@ -1,0 +1,28 @@
+add bill entities:
+  title: 'Create new Bill entities'
+
+administer bill entities:
+  title: 'Administer Bill entities'
+  description: 'Allow to access the administration form to configure Bill entities.'
+  restrict access: true
+
+delete bill entities:
+  title: 'Delete Bill entities'
+
+edit bill entities:
+  title: 'Edit Bill entities'
+
+view bill entities:
+  title: 'View Bill entities'
+
+view all bill revisions:
+  title: 'View all Bill revisions'
+
+revert all bill revisions:
+  title: 'Revert all Bill revisions'
+  description: 'Role requires permission <em>view Bill revisions</em> and <em>edit rights</em> for bill entities in question or <em>administer bill entities</em>.'
+
+delete all bill revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Bill revisions</em> and <em>delete rights</em> for bill entities in question or <em>administer bill entities</em>.'
+

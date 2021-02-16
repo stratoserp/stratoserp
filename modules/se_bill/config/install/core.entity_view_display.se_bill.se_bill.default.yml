@@ -2,36 +2,26 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_bill.se_bi_id
-    - field.field.node.se_bill.se_bi_total
-    - field.field.node.se_bill.se_bu_ref
-    - field.field.node.se_bill.se_co_ref
-    - field.field.node.se_bill.se_body
-    - field.field.node.se_bill.se_status_ref
-    - node.type.se_bill
+    - field.field.se_bill.se_bill.se_bi_total
+    - field.field.se_bill.se_bill.se_bu_ref
+    - field.field.se_bill.se_bill.se_co_ref
+    - field.field.se_bill.se_bill.se_body
+    - field.field.se_bill.se_bill.se_status_ref
   module:
     - field_layout
     - layout_discovery
     - se_accounting
-    - serial
     - text
     - user
 third_party_settings:
   field_layout:
     id: layout_twocol
     settings: {  }
-id: node.se_bill.default
-targetEntityType: node
+id: se_bill.se_bill.default
+targetEntityType: se_bill
 bundle: se_bill
 mode: default
 content:
-  se_bi_id:
-    weight: 3
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
-    type: serial_default_formatter
-    region: second
   se_bi_total:
     weight: 6
     label: above

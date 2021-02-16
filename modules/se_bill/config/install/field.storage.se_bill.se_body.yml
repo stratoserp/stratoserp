@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_bill
+    - text
+id: se_bill.se_body
+field_name: se_body
+entity_type: se_bill
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: true
+custom_storage: false

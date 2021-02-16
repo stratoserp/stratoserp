@@ -1,14 +1,14 @@
-se_bill.add_se_bill:
-  title: 'Add bill'
-  menu_name: stratos-erp
-  route_name: node.add
-  parent: 'views_view:views.se_supplier_list.page_1'
-  route_parameters:
-    node_type: 'se_bill'
 
-se_bill.configure_settings:
+# Bill menu items definition
+entity.se_bill.collection:
+  title: 'Bill list'
+  route_name: entity.se_bill.collection
+  description: 'List Bill entities'
+  parent: system.admin_structure
+  weight: 100
+
+se_bill.admin.structure.settings:
   title: 'Bill settings'
-  route_name: se_bill.configure
-  parent: stratoserp.admin_config_stratoserp
-  description: 'Configure bill.'
-  weight: 1
+  description: 'Configure Bill entities'
+  route_name: se_bill.settings
+  parent: system.admin_structure

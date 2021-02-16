@@ -2,16 +2,15 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
-    - serial
-id: node.se_bi_id
-field_name: se_bi_id
-entity_type: node
-type: serial
+    - se_bill
+    - taxonomy
+id: se_bill.se_status_ref
+field_name: se_status_ref
+entity_type: se_bill
+type: entity_reference
 settings:
-  start_value: 1
-  init_existing_entities: 0
-module: serial
+  target_type: taxonomy_term
+module: core
 locked: false
 cardinality: 1
 translatable: true

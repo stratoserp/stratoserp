@@ -1,8 +1,7 @@
 
-se_bill.add_bill:
-  route_name: 'node.add'
-  route_parameters:
-    node_type: 'se_bill'
-  title: 'Add bill'
+entity.se_bill.add_form:
+  route_name: entity.se_bill.add_form
+  title: 'Add Bill'
   appears_on:
+    - entity.se_bill.collection
     - 'view.se_bill_list.page_1'

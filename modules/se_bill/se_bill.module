@@ -18,3 +18,18 @@ function se_bill_form_node_se_bill_form_alter(&$form) {
       ->setTaxonomyField($form, 'se_status_ref', $bill_status);
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function se_bill_theme() {
+  $theme = [];
+
+  $theme['se_bill'] = [
+    'render element' => 'elements',
+    'file' => 'se_bill.page.inc',
+    'template' => 'se_bill',
+  ];
+
+  return $theme;
+}

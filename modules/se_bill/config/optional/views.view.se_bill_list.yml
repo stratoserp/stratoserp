@@ -2,24 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_bi_id
-    - field.storage.node.se_bi_total
-    - field.storage.node.se_bu_ref
-    - node.type.se_bill
+    - field.storage.se_bill.se_bi_total
+    - field.storage.se_bill.se_bu_ref
     - system.menu.stratos-erp
     - user.role.developer
     - user.role.staff
   module:
-    - node
     - se_accounting
-    - serial
     - user
 id: se_bill_list
 label: Bills
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
+base_table: se_bill_field_data
 base_field: nid
 display:
   default:
@@ -90,7 +86,6 @@ display:
           columns:
             title: title
             se_bu_ref: se_bu_ref
-            se_bi_id: se_bi_id
           info:
             title:
               sortable: false
@@ -118,9 +113,9 @@ display:
       fields:
         title:
           id: title
-          table: node_field_data
+          table: se_bill_field_data
           field: title
-          entity_type: node
+          entity_type: se_bill
           entity_field: title
           label: ''
           alter:
@@ -165,7 +160,7 @@ display:
           field_api_classes: false
         se_bu_ref:
           id: se_bu_ref
-          table: node__se_bu_ref
+          table: se_bill__se_bu_ref
           field: se_bu_ref
           relationship: none
           group_type: group
@@ -226,73 +221,9 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        se_bi_id:
-          id: se_bi_id
-          table: node__se_bi_id
-          field: se_bi_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: bill
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
         se_bi_total:
           id: se_bi_total
-          table: node__se_bi_total
+          table: se_bill__se_bi_total
           field: se_bi_total
           relationship: none
           group_type: group
@@ -355,10 +286,10 @@ display:
       filters:
         status:
           value: '1'
-          table: node_field_data
+          table: se_bill_field_data
           field: status
           plugin_id: boolean
-          entity_type: node
+          entity_type: se_bill
           entity_field: status
           id: status
           expose:
@@ -366,20 +297,20 @@ display:
           group: 1
         type:
           id: type
-          table: node_field_data
+          table: se_bill_field_data
           field: type
           value:
             se_bill: se_bill
-          entity_type: node
+          entity_type: se_bill
           entity_field: type
           plugin_id: bundle
       sorts:
         created:
           id: created
-          table: node_field_data
+          table: se_bill_field_data
           field: created
           order: DESC
-          entity_type: node
+          entity_type: se_bill
           entity_field: created
           plugin_id: date
           relationship: none
@@ -402,12 +333,11 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_bi_id'
-        - 'config:field.storage.node.se_bi_total'
-        - 'config:field.storage.node.se_bu_ref'
+        - 'config:field.storage.se_bill.se_bi_id'
+        - 'config:field.storage.se_bill.se_bi_total'
+        - 'config:field.storage.se_bill.se_bu_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -431,9 +361,8 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.se_bi_id'
-        - 'config:field.storage.node.se_bi_total'
-        - 'config:field.storage.node.se_bu_ref'
+        - 'config:field.storage.se_bill.se_bi_id'
+        - 'config:field.storage.se_bill.se_bi_total'
+        - 'config:field.storage.se_bill.se_bu_ref'

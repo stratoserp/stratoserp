@@ -1,0 +1,26 @@
+# Bill routing definition
+se_bill.settings_tab:
+  route_name: se_bill.settings
+  title: 'Settings'
+  base_route: se_bill.settings
+
+entity.se_bill.canonical:
+  route_name: entity.se_bill.canonical
+  base_route: entity.se_bill.canonical
+  title: 'View'
+
+entity.se_bill.edit_form:
+  route_name: entity.se_bill.edit_form
+  base_route: entity.se_bill.canonical
+  title: 'Edit'
+
+entity.se_bill.version_history:
+  route_name: entity.se_bill.version_history
+  base_route: entity.se_bill.canonical
+  title: 'Revisions'
+
+entity.se_bill.delete_form:
+  route_name:  entity.se_bill.delete_form
+  base_route:  entity.se_bill.canonical
+  title: Delete
+  weight: 10
