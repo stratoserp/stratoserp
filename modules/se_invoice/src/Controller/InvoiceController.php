@@ -214,13 +214,13 @@ class InvoiceController extends ControllerBase {
   }
 
   /**
-   * Provides the node submission form for creation from a quote.
+   * Provides the entity submission form for invoice creation from a quote.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   Source entity to copy data from.
    *
    * @return array
-   *   A node submission form.
+   *   An entity submission form.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException

@@ -5,6 +5,7 @@ dependencies:
     - field.storage.se_payment.se_pa_total
   module:
     - se_accounting
+    - se_payment
 id: se_payment.se_payment.se_pa_total
 field_name: se_pa_total
 entity_type: se_payment

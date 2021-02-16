@@ -7,7 +7,7 @@ declare(strict_types=1);
  */
 
 /**
- *
+ * Implements hook_form_alter().
  */
 function se_bill_form_node_se_bill_form_alter(&$form) {
   \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');

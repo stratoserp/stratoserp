@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - se_payment
     - se_payment_line
 id: se_payment.se_pa_lines
 field_name: se_pa_lines

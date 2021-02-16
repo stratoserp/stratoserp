@@ -14,13 +14,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  handler: 'default:node'
-  handler_settings:
-    target_bundles:
-      se_contact: se_contact
-    sort:
-      field: _none
-    auto_create: false
-    auto_create_bundle: ''
+settings: {  }
 field_type: entity_reference

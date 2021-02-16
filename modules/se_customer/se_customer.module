@@ -9,7 +9,7 @@ declare(strict_types=1);
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- *
+ * Implements hook_form_alter().
  */
 function se_customer_form_se_customer_se_customer_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');

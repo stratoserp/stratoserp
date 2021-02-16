@@ -61,7 +61,7 @@ function se_information_theme_suggestions_se_information(array $variables) {
 }
 
 /**
- *
+ * Implements hook_form_alter().
  */
 function se_information_form_se_information_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');

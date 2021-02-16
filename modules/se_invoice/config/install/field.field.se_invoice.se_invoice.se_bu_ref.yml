@@ -81,4 +81,7 @@ settings:
   se_quote:
     handler: 'default:se_quote'
     handler_settings: {  }
+  se_ticket:
+    handler: 'default:se_ticket'
+    handler_settings: {  }
 field_type: dynamic_entity_reference

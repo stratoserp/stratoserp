@@ -89,4 +89,7 @@ settings:
   path_alias:
     handler: 'default:path_alias'
     handler_settings: {  }
+  se_ticket:
+    handler: 'default:se_ticket'
+    handler_settings: {  }
 field_type: se_item_line

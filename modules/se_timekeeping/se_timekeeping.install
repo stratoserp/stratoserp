@@ -41,7 +41,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
   // Create the storage.
   $field = $entity_type_manager->getStorage('field_config')->create([
     'field_name' => 'se_timekeeping',
-    'entity_type' => 'node',
+    'entity_type' => 'se_ticket',
     'bundle' => $bundle,
     'label' => 'Timekeeping',
     'settings' => [
@@ -53,7 +53,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
 
   // Set the form display.
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
-  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('se_ticket.' . $bundle . '.default');
   $form_display->setComponent('se_timekeeping', [
     'type' => 'comment_default',
     'region' => 'content',
@@ -63,7 +63,7 @@ function se_timekeeping_install_attach(EntityTypeManagerInterface $entity_type_m
 
   // Add the comment field to the entity view display.
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
-  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('se_ticket.' . $bundle . '.default');
   $display->setComponent('se_timekeeping', [
     'type' => 'comment_default',
     'region' => 'bottom',
@@ -98,13 +98,13 @@ function se_timekeeping_uninstall() {
   }
 
   // Remove the tab from the customer display.
-  if ($group = field_group_load_field_group('group_cu_tabs', 'node', 'se_customer', 'view', 'default')) {
+  if ($group = field_group_load_field_group('group_cu_tabs', 'se_ticket', 'se_customer', 'view', 'default')) {
     $group->children = array_diff($group->children, ['group_cu_tab_timekeeping']);
     field_group_group_save($group);
   }
   // Now remove the timekeeping tab group.
-  if ($group = field_group_load_field_group('group_cu_tab_timekeeping', 'node', 'se_customer', 'view', 'default')) {
-    field_group_group_delete($group);
+  if ($group = field_group_load_field_group('group_cu_tab_timekeeping', 'se_ticket', 'se_customer', 'view', 'default')) {
+    field_group_delete_field_group($group);
   }
 }
 
@@ -122,21 +122,21 @@ function se_timekeeping_uninstall() {
  */
 function se_timekeeping_uninstall_detach(EntityTypeManagerInterface $entity_type_manager, $bundle) {
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
-  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.' . $bundle . '.default');
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('se_ticket.' . $bundle . '.default');
   $form_display->removeComponent('se_timekeeping');
   $form_display->save();
 
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
-  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.' . $bundle . '.default');
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('se_ticket.' . $bundle . '.default');
   $display->removeComponent('se_timekeeping');
   $display->save();
 
-  $field_storage_config = FieldStorageConfig::loadByName('node', 'se_timekeeping');
+  $field_storage_config = FieldStorageConfig::loadByName('se_ticket', 'se_timekeeping');
   if ($field_storage_config) {
     $field_storage_config->delete();
   }
 
-  $field_config = FieldConfig::loadByName('node', $bundle, 'se_timekeeping');
+  $field_config = FieldConfig::loadByName('se_ticket', $bundle, 'se_timekeeping');
   if ($field_config && !$field_config->isDeleted()) {
     $field_config->delete();
   }

@@ -4,7 +4,7 @@ dependencies:
   module:
     - dynamic_entity_reference
     - se_customer
-    - se_invoice
+    - se_payment
     - se_supplier
 id: se_payment.se_bu_ref
 field_name: se_bu_ref

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @file
  */
@@ -7,7 +9,7 @@
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- *
+ * Implements hook_form_alter().
  */
 function se_quote_form_node_se_quote_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $service = \Drupal::service('stratoserp.set_field');
