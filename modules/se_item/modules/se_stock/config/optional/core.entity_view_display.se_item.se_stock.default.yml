@@ -29,12 +29,21 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: se_item.se_stock.default
 targetEntityType: se_item
 bundle: se_stock
 mode: default
 content:
+  name:
+    label: inline
+    type: string
+    weight: 0
+    region: top
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   se_it_code:
     type: string
     weight: 4
@@ -160,14 +169,6 @@ content:
     weight: 5
     region: first
     label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-  name:
-    label: inline
-    type: string
-    weight: 0
-    region: top
     settings:
       link_to_entity: false
     third_party_settings: {  }

@@ -30,12 +30,21 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: se_item.se_stock.default
 targetEntityType: se_item
 bundle: se_stock
 mode: default
 content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: top
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   se_it_code:
     type: string_textfield
     weight: 3
@@ -148,14 +157,6 @@ content:
   se_it_serial:
     type: string_textfield
     weight: 1
-    region: top
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  name:
-    type: string_textfield
-    weight: 0
     region: top
     settings:
       size: 60

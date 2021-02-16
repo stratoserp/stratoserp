@@ -7,3 +7,28 @@ package: StratosERP
 dependencies:
   - se_item
   - hook_event_dispatcher
+
+config_devel:
+  install:
+    - field.field.se_item.se_stock.se_it_code
+    - field.field.se_item.se_stock.se_it_cost_price
+    - field.field.se_item.se_stock.se_it_description
+    - field.field.se_item.se_stock.se_it_images
+    - field.field.se_item.se_stock.se_it_item_ref
+    - field.field.se_item.se_stock.se_it_lost
+    - field.field.se_item.se_stock.se_it_manufacturer_ref
+    - field.field.se_item.se_stock.se_it_product_type_ref
+    - field.field.se_item.se_stock.se_it_sale_category_ref
+    - field.field.se_item.se_stock.se_it_sale_date
+    - field.field.se_item.se_stock.se_it_sale_price
+    - field.field.se_item.se_stock.se_it_sell_price
+    - field.field.se_item.se_stock.se_it_serial
+    - se_item.se_item_type.se_stock
+  optional:
+    - core.entity_form_display.se_item.se_stock.default
+    - core.entity_view_display.se_item.se_stock.default
+    - field.field.se_item.se_stock.se_it_goods_receipt_ref
+    - field.field.se_item.se_stock.se_it_invoice_ref
+    - field.field.se_item.se_stock.se_it_purchase_order_ref
+    - views.view.se_stock_item_by_code_eva
+    - views.view.se_stock_item_list

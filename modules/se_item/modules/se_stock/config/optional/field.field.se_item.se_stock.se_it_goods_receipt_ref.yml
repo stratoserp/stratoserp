@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.se_item.se_it_goods_receipt_ref
-    - node.type.se_goods_receipt
     - se_item.se_item_type.se_stock
 id: se_item.se_stock.se_it_goods_receipt_ref
 field_name: se_it_goods_receipt_ref

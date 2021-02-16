@@ -535,6 +535,9 @@ display:
           entity_type: se_item
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         se_it_item_ref_target_id:
           id: se_it_item_ref_target_id
           table: se_item__se_it_item_ref
@@ -564,6 +567,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''

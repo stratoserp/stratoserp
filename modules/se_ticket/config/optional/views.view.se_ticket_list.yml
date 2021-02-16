@@ -9,6 +9,8 @@ dependencies:
     - user.role.developer
     - user.role.staff
   module:
+    - dynamic_entity_reference
+    - se_ticket
     - user
 id: se_ticket_list
 label: Tickets
@@ -16,7 +18,7 @@ module: views
 description: ''
 tag: ''
 base_table: se_ticket_field_data
-base_field: nid
+base_field: id
 display:
   default:
     display_plugin: default

@@ -6,3 +6,28 @@ package: StratosERP
 dependencies:
   - stratoserp
   - dynamic_entity_reference
+
+config_devel:
+  install:
+    - field.storage.se_item.se_it_code
+    - field.storage.se_item.se_it_cost_price
+    - field.storage.se_item.se_it_description
+    - field.storage.se_item.se_it_goods_receipt
+    - field.storage.se_item.se_it_goods_receipt_ref
+    - field.storage.se_item.se_it_images
+    - field.storage.se_item.se_it_invoice_ref
+    - field.storage.se_item.se_it_item_ref
+    - field.storage.se_item.se_it_lost
+    - field.storage.se_item.se_it_manufacturer_ref
+    - field.storage.se_item.se_it_product_type_ref
+    - field.storage.se_item.se_it_purchase_order_ref
+    - field.storage.se_item.se_it_sale_category_ref
+    - field.storage.se_item.se_it_sale_date
+    - field.storage.se_item.se_it_sale_price
+    - field.storage.se_item.se_it_sell_price
+    - field.storage.se_item.se_it_serial
+  optional:
+    - views.view.item_by_manufacturer
+    - views.view.item_by_product_type
+    - views.view.item_by_sale_category
+    - views.view.se_item_list

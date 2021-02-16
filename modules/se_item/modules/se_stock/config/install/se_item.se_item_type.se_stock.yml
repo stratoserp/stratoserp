@@ -3,3 +3,5 @@ status: true
 dependencies: {  }
 id: se_stock
 label: Stock
+locked: null
+pattern: null

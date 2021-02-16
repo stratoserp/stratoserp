@@ -90,4 +90,13 @@ settings:
   se_ticket:
     handler: 'default:se_ticket'
     handler_settings: {  }
+  se_bill:
+    handler: 'default:se_bill'
+    handler_settings: {  }
+  se_goods_receipt:
+    handler: 'default:se_goods_receipt'
+    handler_settings: {  }
+  se_purchase_order:
+    handler: 'default:se_purchase_order'
+    handler_settings: {  }
 field_type: dynamic_entity_reference

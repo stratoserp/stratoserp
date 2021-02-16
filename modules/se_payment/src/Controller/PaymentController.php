@@ -214,7 +214,7 @@ class PaymentController extends ControllerBase {
   }
 
   /**
-   * Provides the entity submission form for invoice creation from an invoice.
+   * Provides the entity submission form for payment creation from an invoice.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   Source entity to copy data from.

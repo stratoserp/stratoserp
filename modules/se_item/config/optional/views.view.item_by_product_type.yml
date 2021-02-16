@@ -1,7 +1,15 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.se_item.se_it_code
+    - field.storage.se_item.se_it_cost_price
+    - field.storage.se_item.se_it_sell_price
+    - field.storage.se_item.se_it_serial
+    - user.role.developer
+    - user.role.staff
   module:
+    - se_accounting
     - se_item
     - user
 id: item_by_product_type
@@ -546,6 +554,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -584,6 +594,8 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -629,6 +641,8 @@ display:
               staff: '0'
               developer: '0'
             placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -672,6 +686,8 @@ display:
               staff: '0'
               developer: '0'
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -717,6 +733,8 @@ display:
               staff: '0'
               developer: '0'
             placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -762,6 +780,8 @@ display:
               staff: '0'
               developer: '0'
             placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''

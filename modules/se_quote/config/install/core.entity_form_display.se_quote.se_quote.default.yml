@@ -61,12 +61,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  se_qu_id:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: serial_default_widget
-    region: second
   se_qu_lines:
     weight: 5
     settings:
