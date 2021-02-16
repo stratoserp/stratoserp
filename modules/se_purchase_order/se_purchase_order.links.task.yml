@@ -1,0 +1,26 @@
+# PurchaseOrder routing definition
+se_purchase_order.settings_tab:
+  route_name: se_purchase_order.settings
+  title: 'Settings'
+  base_route: se_purchase_order.settings
+
+entity.se_purchase_order.canonical:
+  route_name: entity.se_purchase_order.canonical
+  base_route: entity.se_purchase_order.canonical
+  title: 'View'
+
+entity.se_purchase_order.edit_form:
+  route_name: entity.se_purchase_order.edit_form
+  base_route: entity.se_purchase_order.canonical
+  title: 'Edit'
+
+entity.se_purchase_order.version_history:
+  route_name: entity.se_purchase_order.version_history
+  base_route: entity.se_purchase_order.canonical
+  title: 'Revisions'
+
+entity.se_purchase_order.delete_form:
+  route_name:  entity.se_purchase_order.delete_form
+  base_route:  entity.se_purchase_order.canonical
+  title: Delete
+  weight: 10

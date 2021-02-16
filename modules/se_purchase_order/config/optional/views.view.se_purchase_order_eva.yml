@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.node.se_po_id
     - field.storage.node.se_po_total
-    - node.type.se_purchase_order
     - taxonomy.vocabulary.se_status
     - user.role.developer
     - user.role.staff
@@ -13,7 +12,6 @@ dependencies:
     - eva
     - node
     - se_accounting
-    - serial
     - taxonomy
     - user
 id: se_purchase_order_eva

@@ -1,0 +1,117 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_purchase_order.se_purchase_order.se_bu_ref
+    - field.field.se_purchase_order.se_purchase_order.se_co_ref
+    - field.field.se_purchase_order.se_purchase_order.se_po_lines
+    - field.field.se_purchase_order.se_purchase_order.se_po_quote_ref
+    - field.field.se_purchase_order.se_purchase_order.se_po_total
+    - field.field.se_purchase_order.se_purchase_order.se_status_ref
+  module:
+    - field_layout
+    - layout_discovery
+    - se_accounting
+    - se_item_line
+    - se_purchase_order
+    - user
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings:
+      label: ''
+id: se_purchase_order.se_purchase_order.default
+targetEntityType: se_purchase_order
+bundle: se_purchase_order
+mode: default
+content:
+  links:
+    weight: 0
+    region: top
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    label: above
+    type: string
+    weight: -4
+    region: first
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_body:
+    label: hidden
+    type: text_default
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    region: bottom
+  se_bu_ref:
+    weight: 2
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  se_co_ref:
+    weight: 3
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  se_comments:
+    weight: 9
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: bottom
+  se_po_lines:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: se_item_line_formatter
+    region: bottom
+  se_po_quote_ref:
+    weight: 4
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
+  se_po_total:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: se_currency_formatter
+    region: bottom
+  se_status_ref:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: second
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    region: first
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  extra_field_customer_purchase_order_statistics: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_quote_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true

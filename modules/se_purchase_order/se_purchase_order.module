@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @file
  */
@@ -19,4 +21,19 @@ function se_purchase_order_form_node_se_purchase_order_form_alter(&$form, FormSt
     \Drupal::service('stratoserp.set_field')
       ->setTaxonomyField($form, 'se_status_ref', $purchase_order_status);
   }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function se_purchase_order_theme() {
+  $theme = [];
+
+  $theme['se_purchase_order'] = [
+    'render element' => 'elements',
+    'file' => 'se_purchase_order.page.inc',
+    'template' => 'se_purchase_order',
+  ];
+
+  return $theme;
 }

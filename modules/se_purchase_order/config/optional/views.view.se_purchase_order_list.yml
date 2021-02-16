@@ -5,14 +5,12 @@ dependencies:
     - field.storage.node.se_bu_ref
     - field.storage.node.se_po_id
     - field.storage.node.se_po_total
-    - node.type.se_purchase_order
     - system.menu.stratos-erp
     - user.role.developer
     - user.role.staff
   module:
     - node
     - se_accounting
-    - serial
     - user
 id: se_purchase_order_list
 label: 'Purchase orders'
