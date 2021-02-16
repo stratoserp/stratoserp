@@ -3,31 +3,53 @@ status: true
 dependencies:
   config:
     - field.field.se_bill.se_bill.se_bi_total
+    - field.field.se_bill.se_bill.se_body
     - field.field.se_bill.se_bill.se_bu_ref
     - field.field.se_bill.se_bill.se_co_ref
-    - field.field.se_bill.se_bill.se_body
     - field.field.se_bill.se_bill.se_status_ref
   module:
     - field_layout
     - layout_discovery
     - se_accounting
+    - se_bill
     - text
     - user
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: se_bill.se_bill.default
 targetEntityType: se_bill
 bundle: se_bill
 mode: default
 content:
+  links:
+    weight: 0
+    region: top
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    label: above
+    type: string
+    weight: -4
+    region: first
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   se_bi_total:
     weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
+    region: bottom
+  se_body:
+    label: hidden
+    type: text_default
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
     region: bottom
   se_bu_ref:
     weight: 1
@@ -45,13 +67,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_body:
-    label: hidden
-    type: text_default
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    region: bottom
   se_status_ref:
     weight: 4
     label: above
@@ -60,9 +75,11 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  links:
+  user_id:
+    label: hidden
+    type: author
     weight: 0
-    region: top
+    region: first
     settings: {  }
     third_party_settings: {  }
 hidden:

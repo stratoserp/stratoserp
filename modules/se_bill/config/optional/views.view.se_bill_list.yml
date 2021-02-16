@@ -8,7 +8,9 @@ dependencies:
     - user.role.developer
     - user.role.staff
   module:
+    - dynamic_entity_reference
     - se_accounting
+    - se_bill
     - user
 id: se_bill_list
 label: Bills
@@ -294,6 +296,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -304,6 +308,9 @@ display:
           entity_type: se_bill
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
       sorts:
         created:
           id: created

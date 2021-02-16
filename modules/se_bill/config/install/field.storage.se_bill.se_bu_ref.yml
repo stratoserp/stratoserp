@@ -3,9 +3,9 @@ status: true
 dependencies:
   module:
     - dynamic_entity_reference
+    - se_bill
     - se_customer
     - se_supplier
-    - se_bill
 id: se_bill.se_bu_ref
 field_name: se_bu_ref
 entity_type: se_bill

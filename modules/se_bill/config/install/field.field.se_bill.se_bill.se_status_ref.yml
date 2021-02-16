@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.se_bill.se_status_ref
     - taxonomy.vocabulary.se_status
+  module:
+    - se_bill
 id: se_bill.se_bill.se_status_ref
 field_name: se_status_ref
 entity_type: se_bill

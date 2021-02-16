@@ -84,4 +84,7 @@ settings:
   se_ticket:
     handler: 'default:se_ticket'
     handler_settings: {  }
+  se_bill:
+    handler: 'default:se_bill'
+    handler_settings: {  }
 field_type: dynamic_entity_reference

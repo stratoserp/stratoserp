@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.storage.se_bill.se_co_ref
+  module:
+    - se_bill
 id: se_bill.se_bill.se_co_ref
 field_name: se_co_ref
 entity_type: se_bill
@@ -14,7 +16,7 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_bill'
+  handler: 'default:se_contact'
   handler_settings:
     target_bundles:
       se_contact: se_contact

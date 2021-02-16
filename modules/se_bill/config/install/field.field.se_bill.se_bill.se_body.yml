@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.se_bill.se_body
   module:
+    - se_bill
     - text
 id: se_bill.se_bill.se_body
 field_name: se_body

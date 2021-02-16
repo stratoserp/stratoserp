@@ -3,29 +3,48 @@ status: true
 dependencies:
   config:
     - field.field.se_bill.se_bill.se_bi_total
+    - field.field.se_bill.se_bill.se_body
     - field.field.se_bill.se_bill.se_bu_ref
     - field.field.se_bill.se_bill.se_co_ref
-    - field.field.se_bill.se_bill.se_body
     - field.field.se_bill.se_bill.se_status_ref
   module:
     - field_layout
     - layout_discovery
     - se_accounting
+    - se_bill
     - text
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: se_bill.se_bill.default
 targetEntityType: se_bill
 bundle: se_bill
 mode: default
 content:
+  name:
+    type: string_textfield
+    weight: -4
+    region: first
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   se_bi_total:
     weight: 6
     settings: {  }
     third_party_settings: {  }
     type: se_currency_widget
+    region: bottom
+  se_body:
+    type: text_textarea
+    weight: 7
+    settings:
+      rows: 5
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
     region: bottom
   se_bu_ref:
     weight: 1
@@ -45,15 +64,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  se_body:
-    type: text_textarea
-    weight: 7
-    settings:
-      rows: 5
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: bottom
   se_status_ref:
     weight: 4
     settings: {  }
@@ -67,6 +77,16 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: '60'
+      placeholder: ''
+      match_limit: 10
+    region: first
     third_party_settings: {  }
 hidden:
   created: true
