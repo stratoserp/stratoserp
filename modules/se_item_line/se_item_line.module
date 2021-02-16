@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 
+// @todo Convert Node to Entity.
 define('SE_ITEM_NODE_TYPES', [
   'se_bill', 'se_goods_receipt', 'se_invoice', 'se_purchase_order', 'se_quote',
 ]);

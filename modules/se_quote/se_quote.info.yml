@@ -13,7 +13,6 @@ dependencies:
   - se_item
   - se_item_line
   - se_supplier
-  - serial
   - text
   - user
 
