@@ -25,7 +25,7 @@ class UserTicketStatistics extends BlockBase {
   public function build() {
     $datasets = [];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
@@ -41,7 +41,7 @@ class UserTicketStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
-        $query = \Drupal::entityQuery('node');
+        $query = \Drupal::entityQuery('se_ticket');
         $query->condition('type', 'se_ticket');
         $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');

@@ -7,7 +7,7 @@
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- *
+ * Implements hook_form_alter().
  */
 function se_ticket_form_node_se_ticket_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $service = \Drupal::service('stratoserp.set_field');
@@ -30,4 +30,19 @@ function se_ticket_form_node_se_ticket_form_alter(&$form, FormStateInterface $fo
       ->setTaxonomyField($form, 'se_ti_type_ref', $ticket_type);
   }
 
+}
+
+/**
+ * Implements hook_theme().
+ */
+function se_ticket_theme() {
+  $theme = [];
+
+  $theme['se_ticket'] = [
+    'render element' => 'elements',
+    'file' => 'se_ticket.page.inc',
+    'template' => 'se_ticket',
+  ];
+
+  return $theme;
 }

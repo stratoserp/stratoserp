@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_ticket
+    - user
+id: se_ticket.se_ti_owner_ref
+field_name: se_ti_owner_ref
+entity_type: se_ticket
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,8 +1,7 @@
 
-se_ticket.add_se_ticket:
-  route_name: 'node.add'
-  route_parameters:
-    node_type: 'se_ticket'
-  title: 'Add ticket'
+entity.se_ticket.add_form:
+  route_name: entity.se_ticket.add_form
+  title: 'Add Ticket'
   appears_on:
+    - entity.se_ticket.collection
     - 'view.se_ticket_list.page_1'

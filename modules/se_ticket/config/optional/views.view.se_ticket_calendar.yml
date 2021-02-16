@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_ti_open_date
-    - field.storage.node.se_ti_owner_ref
-    - field.storage.node.se_ti_scheduled
-    - field.storage.node.se_ti_type_ref
-    - node.type.se_ticket
+    - field.storage.se_ticket.se_ti_open_date
+    - field.storage.se_ticket.se_ti_owner_ref
+    - field.storage.se_ticket.se_ti_scheduled
+    - field.storage.se_ticket.se_ti_type_ref
+    - se_ticket.type.se_ticket
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_ticket_type
     - user.role.developer
@@ -14,7 +14,7 @@ dependencies:
   module:
     - datetime_range
     - fullcalendar_view
-    - node
+    - se_ticket
     - taxonomy
     - user
 id: se_ticket_calendar
@@ -22,7 +22,7 @@ label: Calendar
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
+base_table: se_ticket_field_data
 base_field: nid
 display:
   default:
@@ -121,7 +121,7 @@ display:
       fields:
         title:
           id: title
-          table: node_field_data
+          table: se_ticket_field_data
           field: title
           relationship: none
           group_type: group
@@ -181,12 +181,12 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
+          entity_type: se_ticket
           entity_field: title
           plugin_id: field
         se_ti_type_ref:
           id: se_ti_type_ref
-          table: node__se_ti_type_ref
+          table: se_ticket__se_ti_type_ref
           field: se_ti_type_ref
           relationship: none
           group_type: group
@@ -249,7 +249,7 @@ display:
           plugin_id: field
         se_ti_owner_ref:
           id: se_ti_owner_ref
-          table: node__se_ti_owner_ref
+          table: se_ticket__se_ti_owner_ref
           field: se_ti_owner_ref
           relationship: none
           group_type: group
@@ -361,7 +361,7 @@ display:
           plugin_id: custom
         se_ti_open_date:
           id: se_ti_open_date
-          table: node__se_ti_open_date
+          table: se_ticket__se_ti_open_date
           field: se_ti_open_date
           relationship: none
           group_type: group
@@ -426,7 +426,7 @@ display:
           plugin_id: field
         se_ti_scheduled:
           id: se_ti_scheduled
-          table: node__se_ti_scheduled
+          table: se_ticket__se_ti_scheduled
           field: se_ti_scheduled
           relationship: none
           group_type: group
@@ -491,7 +491,7 @@ display:
           plugin_id: field
         body:
           id: body
-          table: node__body
+          table: se_ticket__body
           field: body
           relationship: none
           group_type: group
@@ -554,10 +554,10 @@ display:
       filters:
         status:
           value: '1'
-          table: node_field_data
+          table: se_ticket_field_data
           field: status
           plugin_id: boolean
-          entity_type: node
+          entity_type: se_ticket
           entity_field: status
           id: status
           expose:
@@ -565,16 +565,16 @@ display:
           group: 1
         type:
           id: type
-          table: node_field_data
+          table: se_ticket_field_data
           field: type
           value:
             se_ticket: se_ticket
-          entity_type: node
+          entity_type: se_ticket
           entity_field: type
           plugin_id: bundle
         se_ti_type_ref_target_id:
           id: se_ti_type_ref_target_id
-          table: node__se_ti_type_ref
+          table: se_ticket__se_ti_type_ref
           field: se_ti_type_ref_target_id
           relationship: none
           group_type: group
@@ -624,10 +624,10 @@ display:
       sorts:
         created:
           id: created
-          table: node_field_data
+          table: se_ticket_field_data
           field: created
           order: DESC
-          entity_type: node
+          entity_type: se_ticket
           entity_field: created
           plugin_id: date
           relationship: none
@@ -651,14 +651,14 @@ display:
         - 'languages:language_interface'
         - url
         - user
-        - 'user.node_grants:view'
+        - 'user.se_ticket_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.body'
-        - 'config:field.storage.node.se_ti_open_date'
-        - 'config:field.storage.node.se_ti_owner_ref'
-        - 'config:field.storage.node.se_ti_scheduled'
-        - 'config:field.storage.node.se_ti_type_ref'
+        - 'config:field.storage.se_ticket.body'
+        - 'config:field.storage.se_ticket.se_ti_open_date'
+        - 'config:field.storage.se_ticket.se_ti_owner_ref'
+        - 'config:field.storage.se_ticket.se_ti_scheduled'
+        - 'config:field.storage.se_ticket.se_ti_type_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -683,11 +683,10 @@ display:
         - 'languages:language_interface'
         - url
         - user
-        - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.body'
-        - 'config:field.storage.node.se_ti_open_date'
-        - 'config:field.storage.node.se_ti_owner_ref'
-        - 'config:field.storage.node.se_ti_scheduled'
-        - 'config:field.storage.node.se_ti_type_ref'
+        - 'config:field.storage.se_ticket.body'
+        - 'config:field.storage.se_ticket.se_ti_open_date'
+        - 'config:field.storage.se_ticket.se_ti_owner_ref'
+        - 'config:field.storage.se_ticket.se_ti_scheduled'
+        - 'config:field.storage.se_ticket.se_ti_type_ref'

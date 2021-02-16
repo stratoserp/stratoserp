@@ -25,12 +25,12 @@ class CustomerTicketStatistics extends BlockBase {
   public function build() {
     $datasets = [];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$node = $this->getCurrentControllerEntity()) {
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
+    if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 
-    if ($node->bundle() !== 'se_customer') {
+    if ($entity->bundle() !== 'se_customer') {
       return [];
     }
 
@@ -41,9 +41,8 @@ class CustomerTicketStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
-        $query = \Drupal::entityQuery('node');
-        $query->condition('type', 'se_ticket');
-        $query->condition('se_bu_ref', $node->id());
+        $query = \Drupal::entityQuery('se_ticket');
+        $query->condition('se_bu_ref', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();

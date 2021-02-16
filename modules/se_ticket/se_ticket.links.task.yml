@@ -1,0 +1,26 @@
+# Ticket routing definition
+se_ticket.settings_tab:
+  route_name: se_ticket.settings
+  title: 'Settings'
+  base_route: se_ticket.settings
+
+entity.se_ticket.canonical:
+  route_name: entity.se_ticket.canonical
+  base_route: entity.se_ticket.canonical
+  title: 'View'
+
+entity.se_ticket.edit_form:
+  route_name: entity.se_ticket.edit_form
+  base_route: entity.se_ticket.canonical
+  title: 'Edit'
+
+entity.se_ticket.version_history:
+  route_name: entity.se_ticket.version_history
+  base_route: entity.se_ticket.canonical
+  title: 'Revisions'
+
+entity.se_ticket.delete_form:
+  route_name:  entity.se_ticket.delete_form
+  base_route:  entity.se_ticket.canonical
+  title: Delete
+  weight: 10
