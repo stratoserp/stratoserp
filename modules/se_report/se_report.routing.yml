@@ -1,8 +1,0 @@
-
-se_report.overview:
-  path: '/se/report'
-  defaults:
-    _controller: '\Drupal\se_report\Controller\OverviewPageController::dashboard'
-    _title: 'Report overview page'
-  requirements:
-    _permission: 'access all customers'
