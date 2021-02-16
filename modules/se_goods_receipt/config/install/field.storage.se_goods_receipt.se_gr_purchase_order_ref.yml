@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
-id: node.se_gr_purchase_order_ref
+    - se_goods_receipt
+id: se_goods_receipt.se_gr_purchase_order_ref
 field_name: se_gr_purchase_order_ref
-entity_type: node
+entity_type: se_goods_receipt
 type: entity_reference
 settings:
-  target_type: node
+  target_type: se_purchase_order
 module: core
 locked: false
 cardinality: 1

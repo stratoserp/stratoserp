@@ -1,8 +1,7 @@
 
-se_goods_receipt.add_se_goods_receipt:
-  route_name: 'node.add'
-  route_parameters:
-    node_type: 'se_goods_receipt'
-  title: 'Add goods receipt'
+entity.se_goods_receipt.add_form:
+  route_name: entity.se_goods_receipt.add_form
+  title: 'Add Goods Receipt'
   appears_on:
+    - entity.se_goods_receipt.collection
     - 'view.se_goods_receipt_list.page_1'

@@ -1,0 +1,14 @@
+
+# Goods Receipt menu items definition
+entity.se_goods_receipt.collection:
+  title: 'Goods Receipt list'
+  route_name: entity.se_goods_receipt.collection
+  description: 'List Goods Receipt entities'
+  parent: system.admin_structure
+  weight: 100
+
+se_goods_receipt.admin.structure.settings:
+  title: 'Goods Receipt settings'
+  description: 'Configure Goods Receipt entities'
+  route_name: se_goods_receipt.settings
+  parent: system.admin_structure

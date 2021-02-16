@@ -2,34 +2,49 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_goods_receipt.se_bu_ref
-    - field.field.node.se_goods_receipt.se_co_ref
-    - field.field.node.se_goods_receipt.se_gr_id
-    - field.field.node.se_goods_receipt.se_gr_lines
-    - field.field.node.se_goods_receipt.se_gr_purchase_order_ref
-    - field.field.node.se_goods_receipt.se_gr_total
-    - field.field.node.se_goods_receipt.se_body
-    - field.field.node.se_goods_receipt.se_comments
-    - field.field.node.se_goods_receipt.se_status_ref
-    - node.type.se_goods_receipt
+    - field.field.se_goods_receipt.se_goods_receipt.se_bu_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_co_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_gr_lines
+    - field.field.se_goods_receipt.se_goods_receipt.se_gr_purchase_order_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_gr_total
+    - field.field.se_goods_receipt.se_goods_receipt.se_status_ref
   module:
-    - comment
     - field_layout
     - layout_discovery
     - se_accounting
+    - se_goods_receipt
     - se_item_line
-    - serial
-    - text
     - user
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
-id: node.se_goods_receipt.default
-targetEntityType: node
+    settings:
+      label: ''
+id: se_goods_receipt.se_goods_receipt.default
+targetEntityType: se_goods_receipt
 bundle: se_goods_receipt
 mode: default
 content:
+  links:
+    weight: 0
+    region: first
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    label: above
+    type: string
+    weight: -4
+    region: first
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_body:
+    label: hidden
+    type: text_default
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    region: bottom
   se_bu_ref:
     weight: 1
     label: inline
@@ -46,13 +61,15 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_gr_id:
-    weight: 4
-    label: inline
-    settings: {  }
+  se_comments:
+    weight: 9
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
     third_party_settings: {  }
-    type: serial_default_formatter
-    region: second
+    type: comment_default
+    region: bottom
   se_gr_lines:
     weight: 6
     label: above
@@ -75,22 +92,6 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-  se_body:
-    label: hidden
-    type: text_default
-    weight: 8
-    settings: {  }
-    third_party_settings: {  }
-    region: bottom
-  se_comments:
-    weight: 9
-    label: above
-    settings:
-      view_mode: default
-      pager_id: 0
-    third_party_settings: {  }
-    type: comment_default
-    region: bottom
   se_status_ref:
     type: entity_reference_label
     weight: 5
@@ -99,7 +100,9 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  links:
+  user_id:
+    label: hidden
+    type: author
     weight: 0
     region: first
     settings: {  }

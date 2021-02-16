@@ -4,11 +4,11 @@ dependencies:
   module:
     - dynamic_entity_reference
     - se_customer
-    - se_invoice
+    - se_goods_receipt
     - se_supplier
-id: se_invoice.se_bu_ref
+id: se_goods_receipt.se_bu_ref
 field_name: se_bu_ref
-entity_type: se_invoice
+entity_type: se_goods_receipt
 type: dynamic_entity_reference
 settings:
   exclude_entity_types: false

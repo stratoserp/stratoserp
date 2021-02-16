@@ -1,0 +1,26 @@
+# Goods Receipt routing definition
+se_goods_receipt.settings_tab:
+  route_name: se_goods_receipt.settings
+  title: 'Settings'
+  base_route: se_goods_receipt.settings
+
+entity.se_goods_receipt.canonical:
+  route_name: entity.se_goods_receipt.canonical
+  base_route: entity.se_goods_receipt.canonical
+  title: 'View'
+
+entity.se_goods_receipt.edit_form:
+  route_name: entity.se_goods_receipt.edit_form
+  base_route: entity.se_goods_receipt.canonical
+  title: 'Edit'
+
+entity.se_goods_receipt.version_history:
+  route_name: entity.se_goods_receipt.version_history
+  base_route: entity.se_goods_receipt.canonical
+  title: 'Revisions'
+
+entity.se_goods_receipt.delete_form:
+  route_name:  entity.se_goods_receipt.delete_form
+  base_route:  entity.se_goods_receipt.canonical
+  title: Delete
+  weight: 10

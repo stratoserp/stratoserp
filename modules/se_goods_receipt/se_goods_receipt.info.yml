@@ -12,6 +12,23 @@ dependencies:
   - se_invoice
   - se_item_line
   - se_purchase_order
-  - serial
   - text
   - user
+
+config_devel:
+  install:
+    - core.entity_form_display.se_goods_receipt.se_goods_receipt.default
+    - core.entity_view_display.se_goods_receipt.se_goods_receipt.default
+    - field.field.se_goods_receipt.se_goods_receipt.se_bu_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_co_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_po_lines
+    - field.field.se_goods_receipt.se_goods_receipt.se_po_quote_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_po_total
+    - field.storage.se_goods_receipt.se_bu_ref
+    - field.storage.se_goods_receipt.se_co_ref
+    - field.storage.se_goods_receipt.se_po_lines
+    - field.storage.se_goods_receipt.se_po_quote_ref
+    - field.storage.se_goods_receipt.se_po_total
+  optional:
+    - views.view.se_goods_receipt_balances
+    - views.view.se_goods_receipt_list

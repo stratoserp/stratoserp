@@ -3,16 +3,15 @@ status: true
 dependencies:
   config:
     - comment.type.se_timekeeping
-    - field.storage.node.se_gr_lines
-    - node.type.se_goods_receipt
+    - field.storage.se_goods_receipt.se_gr_lines
     - se_item.se_item_type.se_recurring
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
   module:
     - se_item_line
-id: node.se_goods_receipt.se_gr_lines
+id: se_goods_receipt.se_goods_receipt.se_gr_lines
 field_name: se_gr_lines
-entity_type: node
+entity_type: se_goods_receipt
 bundle: se_goods_receipt
 label: Items
 description: ''

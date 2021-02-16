@@ -1,0 +1,28 @@
+add goods receipt entities:
+  title: 'Create new Goods Receipt entities'
+
+administer goods receipt entities:
+  title: 'Administer Goods Receipt entities'
+  description: 'Allow to access the administration form to configure Goods Receipt entities.'
+  restrict access: true
+
+delete goods receipt entities:
+  title: 'Delete Goods Receipt entities'
+
+edit goods receipt entities:
+  title: 'Edit Goods Receipt entities'
+
+view goods receipt entities:
+  title: 'View Goods Receipt entities'
+
+view all goods receipt revisions:
+  title: 'View all Goods Receipt revisions'
+
+revert all goods receipt revisions:
+  title: 'Revert all Goods Receipt revisions'
+  description: 'Role requires permission <em>view Goods Receipt revisions</em> and <em>edit rights</em> for goods receipt entities in question or <em>administer goods receipt entities</em>.'
+
+delete all goods receipt revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Goods Receipt revisions</em> and <em>delete rights</em> for goods receipt entities in question or <em>administer goods receipt entities</em>.'
+

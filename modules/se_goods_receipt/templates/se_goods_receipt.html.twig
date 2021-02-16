@@ -1,0 +1,22 @@
+{#
+/**
+ * @file se_goods_receipt.html.twig
+ * Default theme implementation to present Goods Receipt data.
+ *
+ * This template is used when viewing Goods Receipt pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_se_goods_receipt()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('se_goods_receipt') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

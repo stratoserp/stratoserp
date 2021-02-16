@@ -1,24 +1,14 @@
-se_goods_receipt.configure:
-  path: '/se/goods-receipt/settings'
-  defaults:
-    _form: '\Drupal\se_goods_receipt\Form\SettingsForm'
-    _title: 'Goods receipt settings'
-  requirements:
-    _permission: 'administer site configuration'
 
 se_goods_receipt.add:
   path: '/gr/add/{source}'
   defaults:
-    _entity_form: 'node.default'
-    _controller: '\Drupal\se_purchase_order\Controller\NodeController::add'
-    _title_callback: '\Drupal\node\Controller\NodeController::addPageTitle'
-    node_type: se_goods_receipt
+    _title: 'Receive goods'
+    _controller: '\Drupal\se_goods_receipt\Controller\GoodsReceiptController::add'
+    type: se_goods_receipt
   requirements:
-    _node_add_access: 'node:se_goods_receipt'
+    _permission: 'add goods receipt entities'
   options:
     _node_operation_route: TRUE
     parameters:
-      node_type:
-        with_config_overrides: TRUE
       source:
-        type: 'entity:node'
+        type: entity:se_goods_receipt
