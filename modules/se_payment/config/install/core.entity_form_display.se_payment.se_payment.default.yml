@@ -2,27 +2,22 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.se_payment.se_bu_ref
-    - field.field.node.se_payment.se_pa_id
-    - field.field.node.se_payment.se_pa_lines
-    - field.field.node.se_payment.se_pa_total
-    - field.field.node.se_payment.se_body
-    - field.field.node.se_payment.se_comments
-    - node.type.se_payment
+    - field.field.se_payment.se_payment.se_bu_ref
+    - field.field.se_payment.se_payment.se_pa_lines
+    - field.field.se_payment.se_payment.se_pa_total
   module:
     - comment
     - field_layout
     - layout_discovery
     - se_accounting
     - se_payment_line
-    - serial
     - text
 third_party_settings:
   field_layout:
     id: layout_twocol
     settings: {  }
-id: node.se_payment.default
-targetEntityType: node
+id: se_payment.se_payment.default
+targetEntityType: se_payment
 bundle: se_payment
 mode: default
 content:
@@ -35,12 +30,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  se_pa_id:
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
-    type: serial_default_widget
-    region: second
   se_pa_lines:
     weight: 3
     settings:
@@ -56,29 +45,6 @@ content:
     third_party_settings: {  }
     type: se_currency_widget
     region: bottom
-  se_body:
-    type: text_textarea
-    weight: 5
-    settings:
-      rows: 5
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: bottom
-  se_comments:
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
-    type: comment_default
-    region: bottom
-  title:
-    type: string_textfield
-    weight: 0
-    region: top
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
   created: true
   extra_field_actions_field: true

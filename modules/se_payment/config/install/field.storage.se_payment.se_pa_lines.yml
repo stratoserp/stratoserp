@@ -2,14 +2,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
     - se_payment_line
-id: node.se_pa_lines
+id: se_payment.se_pa_lines
 field_name: se_pa_lines
-entity_type: node
+entity_type: se_payment
 type: se_payment_line
 settings:
-  target_type: node
+  target_type: se_payment
 module: se_payment_line
 locked: false
 cardinality: -1

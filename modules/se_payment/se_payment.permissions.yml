@@ -1,0 +1,28 @@
+add payment entities:
+  title: 'Create new Payment entities'
+
+administer payment entities:
+  title: 'Administer Payment entities'
+  description: 'Allow to access the administration form to configure Payment entities.'
+  restrict access: true
+
+delete payment entities:
+  title: 'Delete Payment entities'
+
+edit payment entities:
+  title: 'Edit Payment entities'
+
+view payment entities:
+  title: 'View Payment entities'
+
+view all payment revisions:
+  title: 'View all Payment revisions'
+
+revert all payment revisions:
+  title: 'Revert all Payment revisions'
+  description: 'Role requires permission <em>view Payment revisions</em> and <em>edit rights</em> for payment entities in question or <em>administer payment entities</em>.'
+
+delete all payment revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Payment revisions</em> and <em>delete rights</em> for payment entities in question or <em>administer payment entities</em>.'
+

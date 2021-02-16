@@ -1,0 +1,26 @@
+# Payment routing definition
+se_payment.settings_tab:
+  route_name: se_payment.settings
+  title: 'Settings'
+  base_route: se_payment.settings
+
+entity.se_payment.canonical:
+  route_name: entity.se_payment.canonical
+  base_route: entity.se_payment.canonical
+  title: 'View'
+
+entity.se_payment.edit_form:
+  route_name: entity.se_payment.edit_form
+  base_route: entity.se_payment.canonical
+  title: 'Edit'
+
+entity.se_payment.version_history:
+  route_name: entity.se_payment.version_history
+  base_route: entity.se_payment.canonical
+  title: 'Revisions'
+
+entity.se_payment.delete_form:
+  route_name:  entity.se_payment.delete_form
+  base_route:  entity.se_payment.canonical
+  title: Delete
+  weight: 10

@@ -8,11 +8,23 @@ dependencies:
   - file
   - image
   - menu_ui
-  - node
   - path
   - se_contact
   - se_supplier
   - se_payment_line
-  - serial
   - text
   - user
+
+config_devel:
+  install:
+    - core.entity_form_display.se_payment.se_payment.default
+    - core.entity_view_display.se_payment.se_payment.default
+    - field.field.se_payment.se_payment.se_bu_ref
+    - field.field.se_payment.se_payment.se_pa_lines
+    - field.field.se_payment.se_payment.se_pa_total
+    - field.storage.se_payment.se_bu_ref
+    - field.storage.se_payment.se_pa_lines
+    - field.storage.se_payment.se_pa_total
+  optional:
+    - views.view.se_payment_balances
+    - views.view.se_payment_list

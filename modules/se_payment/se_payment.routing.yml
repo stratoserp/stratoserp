@@ -1,24 +1,13 @@
-se_payment.configure:
-  path: '/se/payment/settings'
-  defaults:
-    _form: '\Drupal\se_payment\Form\SettingsForm'
-    _title: 'Payment settings'
-  requirements:
-    _permission: 'administer site configuration'
 
 se_payment.add:
   path: '/payment/add/{source}'
   defaults:
-    _entity_form: 'node.default'
-    _controller: '\Drupal\se_payment\Controller\NodeController::add'
-    _title_callback: '\Drupal\node\Controller\NodeController::addPageTitle'
-    node_type: se_payment
+    _title: 'Add payment'
+    _controller: '\Drupal\se_payment\Controller\PaymentController::add'
+    type: se_payment
   requirements:
-    _node_add_access: 'node:se_payment'
+    _permission: 'add payment entities'
   options:
-    _node_operation_route: TRUE
     parameters:
-      node_type:
-        with_config_overrides: TRUE
       source:
-        type: 'entity:node'
+        type: entity:se_payment

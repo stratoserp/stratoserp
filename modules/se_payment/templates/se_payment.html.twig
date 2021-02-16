@@ -1,0 +1,22 @@
+{#
+/**
+ * @file se_payment.html.twig
+ * Default theme implementation to present Payment data.
+ *
+ * This template is used when viewing Payment pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_se_payment()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('se_payment') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

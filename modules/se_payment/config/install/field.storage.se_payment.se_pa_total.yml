@@ -2,11 +2,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
     - se_accounting
-id: node.se_pa_total
+id: se_payment.se_pa_total
 field_name: se_pa_total
-entity_type: node
+entity_type: se_payment
 type: se_currency
 settings: {  }
 module: se_accounting

@@ -1,14 +1,14 @@
-se_payment.add_se_payment:
-  title: 'Add payment'
-  menu_name: stratos-erp
-  route_name: node.add
-  parent: 'views_view:views.se_customer_list.page_1'
-  route_parameters:
-    node_type: 'se_payment'
 
-se_payment.configure_settings:
+# Payment menu items definition
+entity.se_payment.collection:
+  title: 'Payment list'
+  route_name: entity.se_payment.collection
+  description: 'List Payment entities'
+  parent: system.admin_structure
+  weight: 100
+
+se_payment.admin.structure.settings:
   title: 'Payment settings'
-  route_name: se_payment.configure
-  parent: stratoserp.admin_config_stratoserp
-  description: 'Configure payment.'
-  weight: 1
+  description: 'Configure Payment entities'
+  route_name: se_payment.settings
+  parent: system.admin_structure

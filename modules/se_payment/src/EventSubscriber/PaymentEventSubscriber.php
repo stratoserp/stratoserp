@@ -13,7 +13,6 @@ use Drupal\stratoserp\ErpCore;
 use Drupal\stratoserp\Traits\ErpEventTrait;
 use Drupal\se_payment\Traits\ErpPaymentTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\node\Entity\Node;
 
 /**
  * Class PaymentSaveEventSubscriber.

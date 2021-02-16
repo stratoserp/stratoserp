@@ -2,13 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.se_pa_total
-    - node.type.se_payment
+    - field.storage.se_payment.se_pa_total
   module:
     - se_accounting
-id: node.se_payment.se_pa_total
+id: se_payment.se_payment.se_pa_total
 field_name: se_pa_total
-entity_type: node
+entity_type: se_payment
 bundle: se_payment
 label: Total
 description: ''

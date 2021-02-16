@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @file
  */
@@ -7,8 +9,23 @@
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- *
+ * Implements hook_form_alter().
  */
 function se_payment_form_node_se_payment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   \Drupal::service('stratoserp.set_field')->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
+}
+
+/**
+ * Implements hook_theme().
+ */
+function se_payment_theme() {
+  $theme = [];
+
+  $theme['se_payment'] = [
+    'render element' => 'elements',
+    'file' => 'se_payment.page.inc',
+    'template' => 'se_payment',
+  ];
+
+  return $theme;
 }
