@@ -7,5 +7,4 @@ dependencies:
   - se_invoice
   - se_ticket
   - chartjs_api
-  - json_field
   - views_bulk_operations

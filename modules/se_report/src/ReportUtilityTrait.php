@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_report;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
-use Drupal\stratoserp\ErpCore;
 use Drupal\Core\Routing\RedirectDestinationTrait;
-use Drupal\se_item\Entity\Item;
 
 /**
  * Trait with common utility functions for building reports.
@@ -30,13 +27,6 @@ trait ReportUtilityTrait {
    * @var \Drupal\Core\TempStore\PrivateTempStore
    */
   protected $store;
-
-  /**
-   * Hold the node that the report is about.
-   *
-   * @var \Drupal\core\Entity\EntityInterface
-   */
-  protected EntityInterface $reportNode;
 
   /**
    * Get the batch id from the url.
@@ -133,89 +123,6 @@ trait ReportUtilityTrait {
   }
 
   /**
-   * Create/load the report node which will hold the results.
-   */
-  private function createLoadReportNode(): void {
-    if (($nid = $this->getBatchDataByKey('report_node')) && $node = Node::load($nid)) {
-      $this->reportNode = $node;
-      return;
-    }
-
-    // Setup new report node to store results in.
-    $this->reportNode = Node::create([
-      'type' => 'se_report',
-      'langcode' => 'en',
-      'uid' => \Drupal::currentUser()->id(),
-      'status' => 1,
-      'title' => $this->createReportTitle(),
-    ]);
-    if (!empty($this->configuration['business_ref'])
-      && $business_node = Node::load($this->configuration['business_ref'])) {
-      $this->reportNode->se_bu_ref->target_id = $business_node->id();
-    }
-    $this->reportNode->save();
-
-    $this->setBatchData('report_node', $this->reportNode->id());
-  }
-
-  /**
-   * Take an entity and convert that to an array.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity to be converted.
-   *
-   * @return array
-   *   The entity statistics.
-   */
-  private function convertItemLineToArray(EntityInterface $entity): array {
-    $data = [];
-
-    foreach ($entity->{'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()] . '_lines'} as $index => $item_line) {
-      if (isset($item_line->target_id)) {
-        $type = $item_line->target_type;
-
-        switch ($type) {
-          // Comment type.
-          case 'se_timekeeping':
-            /** @var \Drupal\se_item\Entity\Item $item */
-            if (!$item = Item::load($item_line->target_id)) {
-              continue 2;
-            }
-            $item->se_it_code->value;
-            $amount = $item_line->price->value * $item_line->quantity->value;
-            $this->setStatisticsArray($data, $item_line, $amount);
-            break;
-
-          // The item types should be basically the same.
-          case 'se_service':
-          case 'se_stock':
-          case 'se_recurring':
-            /** @var \Drupal\se_item\Entity\Item $item */
-            if (!$item = Item::load($item_line->target_id)) {
-              continue 2;
-            }
-            $item->se_it_code->value;
-            $amount = $item_line->price->value * $item_line->quantity->value;
-            $this->setStatisticsArray($data, $item_line, $amount);
-            break;
-
-          case 'se_assembly':
-            // TODO: Recursion required? See Recursion.
-            break;
-
-          default:
-            \Drupal::logger('item_breakdown_report_action')
-              ->error('Unhandled item type %type.', ['%type' => $type]);
-            continue 2;
-        }
-      }
-
-    }
-
-    return $data;
-  }
-
-  /**
    * Update the data array with information about the item and amount.
    *
    * @param array $data
@@ -262,33 +169,6 @@ trait ReportUtilityTrait {
   }
 
   /**
-   * Take the configuration and create a title from it.
-   *
-   * @return string
-   *   The formatted report title.
-   */
-  private function createReportTitle(): string {
-    $title_parts[] = $this->configuration['input_parameters']['action_label'];
-    if (empty($this->configuration['business_ref'])) {
-      if (!empty($this->configuration['input_parameters']['exposed_input']['business'])) {
-        $title_parts[] = $this->configuration['input_parameters']['exposed_input']['business'];
-      }
-    }
-    /** @var \Drupal\node\Entity\Node $business_node */
-    elseif ($business_node = Node::load($this->configuration['business_ref'])) {
-      $title_parts[] = $business_node->title->value;
-    }
-
-    if (!empty($this->configuration['input_parameters']['exposed_input']['created']['min'])) {
-      $title_parts[] = $this->configuration['input_parameters']['exposed_input']['created']['min'];
-    }
-    if (!empty($this->configuration['input_parameters']['exposed_input']['created']['max'])) {
-      $title_parts[] = $this->configuration['input_parameters']['exposed_input']['created']['max'];
-    }
-    return implode(' - ', $title_parts);
-  }
-
-  /**
    * Helper function to return the currently loaded entity from the controller.
    *
    * @return \Drupal\Core\Entity\EntityInterface
@@ -307,8 +187,8 @@ trait ReportUtilityTrait {
   /**
    * Return a list of months for the year with start and end timestamps.
    *
-   * TODO: Make more flexible
-   * TODO: Timezones, sigh.
+   * @todo Make more flexible.
+   * @todo Timezones, sigh.
    *
    * @param string $year
    *   The year to report on.
