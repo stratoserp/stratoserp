@@ -8,5 +8,4 @@ dependencies:
   - eva
   - field_group
   - geolocation
-  - serial
   - xero

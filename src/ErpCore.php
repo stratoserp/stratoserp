@@ -25,7 +25,7 @@ final class ErpCore {
     'se_purchase_order' => 'po',
   ];
 
-  public const PAYMENT_LINE_NODE_BUNDLE_MAP = [
+  public const PAYMENT_LINE_ENTITY_BUNDLE_MAP = [
     'se_payment' => 'pa',
   ];
 

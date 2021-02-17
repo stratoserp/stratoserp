@@ -291,10 +291,8 @@ class NavigationBlock extends BlockBase {
       ], $this->buttonClass);
     $items[] = Link::createFromRoute('Add quote', 'entity.se_quote.add_form',
       $routeParameters + [], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add ticket', 'node.add',
-      $routeParameters + [
-        'node_type' => 'se_ticket',
-      ], $this->buttonClass);
+    $items[] = Link::createFromRoute('Add ticket', 'entity.se_ticket.add_form',
+      $routeParameters + [], $this->buttonClass);
 
     return $items;
   }
@@ -386,10 +384,8 @@ class NavigationBlock extends BlockBase {
       $routeParameters + [
         'se_information_type' => 'se_document',
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add ticket', 'node.add',
-      $routeParameters + [
-        'node_type' => 'se_ticket',
-      ], $this->buttonClass);
+    $items[] = Link::createFromRoute('Add ticket', 'entity.se_ticket.add_form',
+      $routeParameters + [], $this->buttonClass);
 
     return $items;
   }

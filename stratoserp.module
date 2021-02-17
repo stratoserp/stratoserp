@@ -32,6 +32,8 @@ function stratoserp_help($route_name, RouteMatchInterface $route_match) {
  *
  * Implements hook_form_alter().
  *
+ * @todo Needs review since moving to Entities.
+ *
  * @param $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  * @param $form_id
