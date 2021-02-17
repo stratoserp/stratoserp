@@ -14,9 +14,6 @@ config_devel:
     - core.entity_view_display.comment.se_if_comments.default
     - field.field.comment.se_if_comments.comment_body
     - field.storage.se_information.se_bu_ref
-    - field.storage.se_information.se_if_active
     - field.storage.se_information.se_if_body
     - field.storage.se_information.se_if_comments
-    - field.storage.se_information.se_if_price
-    - field.storage.se_information.se_if_item_ref
   optional: {  }

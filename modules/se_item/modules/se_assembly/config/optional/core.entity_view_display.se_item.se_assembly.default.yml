@@ -2,111 +2,105 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_assembly.se_as_lines
     - field.field.se_item.se_assembly.se_it_code
     - field.field.se_item.se_assembly.se_it_cost_price
     - field.field.se_item.se_assembly.se_it_description
-    - field.field.se_item.se_assembly.se_it_images
     - field.field.se_item.se_assembly.se_it_manufacturer_ref
     - field.field.se_item.se_assembly.se_it_product_type_ref
     - field.field.se_item.se_assembly.se_it_sale_category_ref
     - field.field.se_item.se_assembly.se_it_sell_price
+    - field.field.se_item.se_assembly.se_it_serial
     - se_item.se_item_type.se_assembly
   module:
     - field_layout
-    - image
     - layout_discovery
     - se_accounting
-    - se_item_line
     - text
+    - user
 third_party_settings:
   field_layout:
-    id: layout_twocol
-    settings: {  }
+    id: layout_onecol
+    settings:
+      label: ''
 id: se_item.se_assembly.default
 targetEntityType: se_item
 bundle: se_assembly
 mode: default
 content:
-  se_as_lines:
-    weight: 6
+  name:
     label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: se_item_line_formatter
-    region: first
-  se_it_code:
-    weight: 4
-    label: inline
+    type: string
+    weight: 0
+    region: content
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  se_it_code:
     type: string
-    region: first
-  se_it_cost_price:
-    weight: 7
-    label: inline
-    settings: {  }
+    weight: 2
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
+  se_it_cost_price:
     type: se_currency_formatter
-    region: second
-  se_it_description:
-    weight: 8
+    weight: 3
+    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
+  se_it_description:
     type: text_default
-    region: bottom
-  se_it_images:
+    weight: 4
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  se_it_manufacturer_ref:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  se_it_product_type_ref:
+    type: entity_reference_label
+    weight: 6
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  se_it_sale_category_ref:
+    type: entity_reference_label
+    weight: 7
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  se_it_sell_price:
+    type: se_currency_formatter
+    weight: 8
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  se_it_serial:
     weight: 9
     label: above
     settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-    region: bottom
-  se_it_manufacturer_ref:
-    weight: 2
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: top
-  se_it_product_type_ref:
-    weight: 1
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: top
-  se_it_sale_category_ref:
-    weight: 3
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: top
-  se_it_sell_price:
-    weight: 5
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
-    type: se_currency_formatter
-    region: first
-  name:
-    label: inline
-    type: string
-    weight: 0
-    region: top
-    settings:
       link_to_entity: false
     third_party_settings: {  }
-hidden:
-  entity_print_view_epub: true
-  entity_print_view_pdf: true
-  entity_print_view_word_docx: true
-  user_id: true
+    type: string
+    region: content
+  user_id:
+    label: hidden
+    type: author
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

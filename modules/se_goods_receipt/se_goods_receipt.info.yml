@@ -28,6 +28,5 @@ config_devel:
     - field.storage.se_goods_receipt.se_gr_purchase_order_ref
     - field.storage.se_goods_receipt.se_gr_total
   optional:
-    - views.view.se_goods_receipt_balances
     - views.view.se_goods_receipt_eva
     - views.view.se_goods_receipt_list
