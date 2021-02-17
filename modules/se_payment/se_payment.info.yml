@@ -26,6 +26,5 @@ config_devel:
     - field.storage.se_payment.se_pa_lines
     - field.storage.se_payment.se_pa_total
   optional:
-    - views.view.se_payment_balances
     - views.view.se_payment_list
     - views.view.se_payment_eva

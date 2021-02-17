@@ -11,7 +11,7 @@ dependencies:
 
 config_devel:
   install:
-    - field.storage.se_subscrtition.se_bu_ref
+    - field.storage.se_subscription.se_bu_ref
     - field.storage.se_subscription.se_su_item
     - field.storage.se_subscription.se_su_management_link
     - field.storage.se_subscription.se_su_period

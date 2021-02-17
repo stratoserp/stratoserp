@@ -22,5 +22,5 @@ config_devel:
   optional:
     - core.entity_form_display.se_item.se_assembly.default
     - core.entity_view_display.se_item.se_assembly.default
-    - views.view.se_assembly_item_list
+    - views.view.se_item_assembly_list
 

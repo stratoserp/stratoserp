@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - se_business
     - se_subscription
 id: se_subscription.se_bu_ref
 field_name: se_bu_ref

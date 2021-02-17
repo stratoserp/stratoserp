@@ -13,13 +13,13 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the PurchaseOrder entity.
+ * Defines the Purchase Order entity.
  *
  * @ingroup se_purchase_order
  *
  * @ContentEntityType(
  *   id = "se_purchase_order",
- *   label = @Translation("PurchaseOrder"),
+ *   label = @Translation("Purchase Order"),
  *   handlers = {
  *     "storage" = "Drupal\se_purchase_order\PurchaseOrderStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",

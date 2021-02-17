@@ -7,6 +7,7 @@ dependencies:
     - field.storage.se_item.se_it_sell_price
     - se_item.se_item_type.se_assembly
     - system.menu.stratos-erp
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
@@ -17,7 +18,7 @@ id: se_item_assembly_list
 label: 'Assembly list'
 module: views
 description: ''
-tag: ''
+tag: 'StratosERP, Item, Assembly'
 base_table: se_item_field_data
 base_field: id
 display:
@@ -412,6 +413,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -456,6 +459,8 @@ display:
               staff: '0'
               developer: '0'
             placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -498,6 +503,8 @@ display:
               staff: '0'
               developer: '0'
             placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
