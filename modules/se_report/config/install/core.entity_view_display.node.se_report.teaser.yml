@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.se_report.se_bu_ref
+    - field.field.node.se_report.se_re_json_data
+    - field.field.node.se_report.se_re_parameters
+    - field.field.node.se_report.se_re_raw_data
+    - field.field.node.se_report.se_body
+    - node.type.se_report
+  module:
+    - field_layout
+    - layout_discovery
+    - text
+    - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: node.se_report.teaser
+targetEntityType: node
+bundle: se_report
+mode: teaser
+content:
+  se_body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  extra_field_customer_purchase_order_statistics: true
+  extra_field_invoice_statistics_monthly: true
+  extra_field_quote_statistics_monthly: true
+  extra_field_ticket_statistics_customer: true
+  se_bu_ref: true
+  se_re_json_data: true
+  se_re_parameters: true
+  se_re_raw_data: true

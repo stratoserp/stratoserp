@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_report
+id: se_report_item_breakdown_report_action
+label: 'Item breakdown report'
+type: node
+plugin: item_breakdown_report_action
+configuration: {  }
