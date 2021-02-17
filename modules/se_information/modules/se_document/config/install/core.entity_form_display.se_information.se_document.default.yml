@@ -14,12 +14,21 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_onecol
-    settings: {  }
+    settings:
+      label: ''
 id: se_information.se_document.default
 targetEntityType: se_information
 bundle: se_document
 mode: default
 content:
+  name:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   se_bu_ref:
     weight: 26
     settings:
@@ -43,14 +52,6 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: content
-  name:
-    type: string_textfield
-    weight: -4
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   user_id:
     type: options_select
     weight: 5

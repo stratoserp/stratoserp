@@ -18,12 +18,21 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: se_subscription.se_managed_service.default
 targetEntityType: se_subscription
 bundle: se_managed_service
 mode: default
 content:
+  name:
+    label: above
+    type: string
+    weight: 0
+    region: first
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   se_bu_ref:
     weight: 2
     label: above
@@ -68,14 +77,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  name:
-    label: above
-    type: string
-    weight: 0
-    region: first
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   user_id:
     label: hidden
     type: author

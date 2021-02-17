@@ -11,7 +11,8 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_onecol
-    settings: {  }
+    settings:
+      label: ''
 id: comment.se_if_comments.default
 targetEntityType: comment
 bundle: se_if_comments

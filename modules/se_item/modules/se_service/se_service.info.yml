@@ -6,3 +6,18 @@ core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
   - drupal:se_item
+
+config_devel:
+  install:
+    - core.entity_form_display.se_item.se_service.default
+    - core.entity_view_display.se_item.se_service.default
+    - field.field.se_item.se_service.se_it_code
+    - field.field.se_item.se_service.se_it_cost_price
+    - field.field.se_item.se_service.se_it_description
+    - field.field.se_item.se_service.se_it_manufacturer_ref
+    - field.field.se_item.se_service.se_it_product_type_ref
+    - field.field.se_item.se_service.se_it_sale_category_ref
+    - field.field.se_item.se_service.se_it_sell_price
+    - se_item.se_item_type.se_service
+  optional:
+    - views.view.se_item_service_list

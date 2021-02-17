@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.se_item.se_it_invoice_ref
+    - node.type.se_invoice
     - se_item.se_item_type.se_stock
 id: se_item.se_stock.se_it_invoice_ref
 field_name: se_it_invoice_ref

@@ -19,7 +19,8 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: se_subscription.se_email_account.default
 targetEntityType: se_subscription
 bundle: se_email_account

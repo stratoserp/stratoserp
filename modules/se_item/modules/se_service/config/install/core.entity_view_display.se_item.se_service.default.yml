@@ -18,12 +18,21 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: se_item.se_service.default
 targetEntityType: se_item
 bundle: se_service
 mode: default
 content:
+  name:
+    label: above
+    type: string
+    weight: 0
+    region: top
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   se_it_code:
     weight: 1
     label: above
@@ -77,14 +86,6 @@ content:
     third_party_settings: {  }
     type: se_currency_formatter
     region: first
-  name:
-    label: above
-    type: string
-    weight: 0
-    region: top
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true

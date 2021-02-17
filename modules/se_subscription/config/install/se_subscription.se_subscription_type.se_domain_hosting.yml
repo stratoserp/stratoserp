@@ -3,3 +3,5 @@ status: true
 dependencies: {  }
 id: se_domain_hosting
 label: 'Domain hosting'
+locked: null
+pattern: null

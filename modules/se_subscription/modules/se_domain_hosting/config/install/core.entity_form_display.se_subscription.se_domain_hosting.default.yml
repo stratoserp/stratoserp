@@ -18,7 +18,8 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: se_subscription.se_domain_hosting.default
 targetEntityType: se_subscription
 bundle: se_domain_hosting

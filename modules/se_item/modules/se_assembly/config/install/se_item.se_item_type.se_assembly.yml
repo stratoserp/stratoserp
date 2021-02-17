@@ -3,3 +3,5 @@ status: true
 dependencies: {  }
 id: se_assembly
 label: Assembly
+locked: null
+pattern: null

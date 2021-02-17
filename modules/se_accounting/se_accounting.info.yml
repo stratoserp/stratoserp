@@ -4,3 +4,7 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies: {  }
+
+config_devel:
+  install: {  }
+  optional: {  }

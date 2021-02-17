@@ -6,6 +6,7 @@ dependencies:
     - user.role.staff
   module:
     - eva
+    - se_bill
     - user
 id: se_bill_eva
 label: Bills
@@ -89,8 +90,8 @@ display:
           caption: ''
           summary: ''
           description: ''
-          columns: { }
-          info:
+          columns: {  }
+          info: null
           default: {  }
           empty_table: false
       row:
@@ -178,6 +179,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -204,6 +207,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -237,7 +242,7 @@ display:
             format: basic_html
           plugin_id: text
       relationships: {  }
-      arguments: { }
+      arguments: {  }
       display_extenders: {  }
       use_ajax: true
     cache_metadata:
@@ -248,7 +253,7 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags: { }
+      tags: {  }
   entity_view_1:
     display_plugin: entity_view
     id: entity_view_1
@@ -269,4 +274,4 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags: { }
+      tags: {  }

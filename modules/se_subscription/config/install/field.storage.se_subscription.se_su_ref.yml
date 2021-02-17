@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - se_subscription
+    - se_supplier
 id: se_subscription.se_su_ref
 field_name: se_su_ref
 entity_type: se_subscription

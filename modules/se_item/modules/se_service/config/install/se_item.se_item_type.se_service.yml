@@ -3,3 +3,5 @@ status: true
 dependencies: {  }
 id: se_service
 label: Service
+locked: null
+pattern: null

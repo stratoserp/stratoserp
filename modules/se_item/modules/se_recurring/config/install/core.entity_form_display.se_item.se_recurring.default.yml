@@ -21,12 +21,21 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_onecol
-    settings: {  }
+    settings:
+      label: ''
 id: se_item.se_recurring.default
 targetEntityType: se_item
 bundle: se_recurring
 mode: default
 content:
+  name:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   se_it_code:
     weight: 26
     settings:
@@ -79,14 +88,6 @@ content:
     third_party_settings: {  }
     type: se_currency_widget
     region: content
-  name:
-    type: string_textfield
-    weight: -4
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   user_id:
     type: options_select
     weight: 5

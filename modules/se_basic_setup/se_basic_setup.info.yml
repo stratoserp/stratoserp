@@ -10,3 +10,7 @@ dependencies:
  - drupal:se_service
  - drupal:se_stock
  - drupal:se_subscription
+
+config_devel:
+  install: {  }
+  optional: {  }

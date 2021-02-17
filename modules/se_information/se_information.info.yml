@@ -7,3 +7,17 @@ dependencies:
   - drupal:se_item
   - drupal:se_customer
   - drupal:se_supplier
+
+config_devel:
+  install:
+    - comment.type.se_if_comments
+    - core.entity_form_display.comment.se_if_comments.default
+    - core.entity_view_display.comment.se_if_comments.default
+    - field.field.comment.se_if_comments.comment_body
+    - field.storage.se_information.se_bu_ref
+    - field.storage.se_information.se_if_active
+    - field.storage.se_information.se_if_body
+    - field.storage.se_information.se_if_comments
+    - field.storage.se_information.se_if_price
+    - field.storage.se_information.se_if_item_ref
+  optional: {  }

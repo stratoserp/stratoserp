@@ -7,3 +7,20 @@ package: StratosERP
 dependencies:
   - drupal:se_item
   - drupal:se_item_line
+
+config_devel:
+  install:
+    - field.field.se_item.se_assembly.se_it_code
+    - field.field.se_item.se_assembly.se_it_cost_price
+    - field.field.se_item.se_assembly.se_it_description
+    - field.field.se_item.se_assembly.se_it_manufacturer_ref
+    - field.field.se_item.se_assembly.se_it_product_type_ref
+    - field.field.se_item.se_assembly.se_it_sale_category_ref
+    - field.field.se_item.se_assembly.se_it_sell_price
+    - field.field.se_item.se_assembly.se_it_serial
+    - se_item.se_item_type.se_assembly
+  optional:
+    - core.entity_form_display.se_item.se_assembly.default
+    - core.entity_view_display.se_item.se_assembly.default
+    - views.view.se_assembly_item_list
+

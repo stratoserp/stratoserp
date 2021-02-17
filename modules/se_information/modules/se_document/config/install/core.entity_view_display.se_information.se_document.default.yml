@@ -15,12 +15,21 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_onecol
-    settings: {  }
+    settings:
+      label: ''
 id: se_information.se_document.default
 targetEntityType: se_information
 bundle: se_document
 mode: default
 content:
+  name:
+    label: inline
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   se_bu_ref:
     weight: 1
     label: inline
@@ -45,14 +54,6 @@ content:
     third_party_settings: {  }
     type: comment_default
     region: content
-  name:
-    label: inline
-    type: string
-    weight: 0
-    region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true

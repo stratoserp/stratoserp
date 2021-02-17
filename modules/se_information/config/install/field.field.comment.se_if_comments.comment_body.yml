@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - comment.type.se_if_comments
+    - field.storage.comment.comment_body
   module:
     - text
 id: comment.se_if_comments.comment_body
