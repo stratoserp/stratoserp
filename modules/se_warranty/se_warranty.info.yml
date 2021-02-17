@@ -5,6 +5,6 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_goods_receipt
-  - se_item
-  - se_purchase_order
+  - drupal:se_goods_receipt
+  - drupal:se_item
+  - drupal:se_purchase_order

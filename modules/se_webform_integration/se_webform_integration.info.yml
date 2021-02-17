@@ -5,12 +5,12 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_ticket
-  - webform
-  - webform_access
-  - webform_node
-  - webform_views
-  - webform_templates
+  - drupal:se_ticket
+  - drupal:webform
+  - drupal:webform_access
+  - drupal:webform_node
+  - drupal:webform_views
+  - drupal:webform_templates
 
 config_devel:
   install:

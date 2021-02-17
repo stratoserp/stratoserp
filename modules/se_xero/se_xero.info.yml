@@ -5,11 +5,11 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_contact
-  - se_supplier
-  - se_invoice
-  - xero
-  - hook_event_dispatcher
+  - drupal:se_contact
+  - drupal:se_supplier
+  - drupal:se_invoice
+  - drupal:xero
+  - drupal:hook_event_dispatcher
 
 config_devel:
   install:

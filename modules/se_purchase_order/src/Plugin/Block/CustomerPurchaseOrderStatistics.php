@@ -30,13 +30,13 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
     $type = 'se_purchase_order';
     $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$node = $this->getCurrentControllerEntity()) {
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
+    if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 
     // This is designed to run only for monthly.
-    if ($node->bundle() !== 'se_customer') {
+    if ($entity->bundle() !== 'se_customer') {
       return [];
     }
 
@@ -47,24 +47,24 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
-        $query = \Drupal::entityQuery('node');
-        $query->condition('type', $bundleFieldType);
-        $query->condition('se_bu_ref', $node->id());
+        $query = \Drupal::entityQuery('se_purchase_order');
+        $query->condition('se_bu_ref', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
-        $nodes = \Drupal::entityTypeManager()
-          ->getStorage('node')
+
+        $entities = \Drupal::entityTypeManager()
+          ->getStorage('se_purchase_order')
           ->loadMultiple($entity_ids);
-        if ($nodes && count($nodes) > 0) {
+        if ($entities && count($entities) > 0) {
           $content = TRUE;
         }
 
         $total = 0;
         $bundle_field_total = 'se_' . $bundleFieldType . '_total';
         /** @var \Drupal\node\Entity\Node $node */
-        foreach ($nodes as $node) {
-          $total += $node->{$bundle_field_total}->value;
+        foreach ($entities as $entity) {
+          $total += $entity->{$bundle_field_total}->value;
         }
         $month_data[] = $total;
         $fg_colors[] = $fg_color;

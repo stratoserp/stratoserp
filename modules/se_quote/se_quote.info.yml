@@ -4,16 +4,16 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - field
-  - menu_ui
-  - path
-  - se_contact
-  - se_customer
-  - se_item
-  - se_item_line
-  - se_supplier
-  - text
-  - user
+  - drupal:field
+  - drupal:menu_ui
+  - drupal:path
+  - drupal:se_contact
+  - drupal:se_customer
+  - drupal:se_item
+  - drupal:se_item_line
+  - drupal:se_supplier
+  - drupal:text
+  - drupal:user
 
 config_devel:
   install:

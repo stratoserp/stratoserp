@@ -4,6 +4,6 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_item
-  - se_customer
-  - se_supplier
+  - drupal:se_item
+  - drupal:se_customer
+  - drupal:se_supplier

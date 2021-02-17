@@ -5,18 +5,18 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - datetime_range
-  - eva
-  - field
-  - menu_ui
-  - path
-  - se_contact
-  - se_customer
-  - se_supplier
-  - taxonomy
-  - text
-  - user
-  - views
+  - drupal:datetime_range
+  - drupal:eva
+  - drupal:field
+  - drupal:menu_ui
+  - drupal:path
+  - drupal:se_contact
+  - drupal:se_customer
+  - drupal:se_supplier
+  - drupal:taxonomy
+  - drupal:text
+  - drupal:user
+  - drupal:views
 
 config_devel:
   install:

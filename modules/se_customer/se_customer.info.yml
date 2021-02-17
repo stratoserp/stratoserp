@@ -4,19 +4,19 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - field
-  - field_layout
-  - geolocation
-  - layout_discovery
-  - link
-  - menu_ui
-  - options
-  - path
-  - se_accounting
-  - telephone
-  - text
-  - user
-  - views
+  - drupal:field
+  - drupal:field_layout
+  - drupal:geolocation
+  - drupal:layout_discovery
+  - drupal:link
+  - drupal:menu_ui
+  - drupal:options
+  - drupal:path
+  - drupal:se_accounting
+  - drupal:telephone
+  - drupal:text
+  - drupal:user
+  - drupal:views
 
 config_devel:
   install:

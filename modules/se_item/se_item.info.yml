@@ -4,7 +4,7 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - dynamic_entity_reference
+  - drupal:dynamic_entity_reference
 
 config_devel:
   install:

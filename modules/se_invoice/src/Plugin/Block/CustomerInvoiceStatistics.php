@@ -26,12 +26,12 @@ class CustomerInvoiceStatistics extends BlockBase {
     $content = FALSE;
     $datasets = [];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$node = $this->getCurrentControllerEntity()) {
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
+    if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 
-    if ($node->bundle() !== 'se_customer') {
+    if ($entity->bundle() !== 'se_customer') {
       return [];
     }
 
@@ -42,20 +42,20 @@ class CustomerInvoiceStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
-        $query = \Drupal::entityQuery('node');
-        $query->condition('type', 'se_invoice');
-        $query->condition('se_bu_ref', $node->id());
+        $query = \Drupal::entityQuery('se_invoice');
+        $query->condition('se_bu_ref', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
+
         $invoices = \Drupal::entityTypeManager()
-          ->getStorage('node')
+          ->getStorage('se_invoice')
           ->loadMultiple($entity_ids);
         $total = 0;
         if (count($invoices)) {
           $content = TRUE;
         }
-        /** @var \Drupal\node\Entity\Node $invoice */
+        /** @var \Drupal\Core\Entity\EntityInterface $invoice */
         foreach ($invoices as $invoice) {
           if (is_object($invoice) && $invoice->hasField('se_in_total')) {
             $total += $invoice->se_in_total->value;

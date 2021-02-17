@@ -5,8 +5,8 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_item
-  - hook_event_dispatcher
+  - drupal:se_item
+  - drupal:hook_event_dispatcher
 
 config_devel:
   install:
