@@ -1,0 +1,452 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_business.se_business.se_cu_address
+    - field.field.se_business.se_business.se_cu_balance
+    - field.field.se_business.se_business.se_cu_email
+    - field.field.se_business.se_business.se_cu_email_format
+    - field.field.se_business.se_business.se_cu_fax
+    - field.field.se_business.se_business.se_cu_homepage
+    - field.field.se_business.se_business.se_cu_location
+    - field.field.se_business.se_business.se_cu_mobile
+    - field.field.se_business.se_business.se_cu_phone
+    - field.field.se_business.se_business.se_cu_postal_address
+    - field.field.se_business.se_business.se_cu_postal_postcode
+    - field.field.se_business.se_business.se_cu_postal_state
+    - field.field.se_business.se_business.se_cu_postal_suburb
+    - field.field.se_business.se_business.se_cu_postcode
+    - field.field.se_business.se_business.se_cu_state
+    - field.field.se_business.se_business.se_cu_status
+    - field.field.se_business.se_business.se_cu_suburb
+  module:
+    - field_group
+    - field_layout
+    - geolocation
+    - layout_discovery
+    - link
+    - options
+    - se_accounting
+    - se_business
+    - telephone
+    - user
+third_party_settings:
+  field_group:
+    group_cu_tabs:
+      children:
+        - group_cu_tab_details
+        - group_cu_tab_location
+        - group_cu_tab_contacts
+        - group_cu_tab_information
+        - group_cu_tab_tickets
+        - group_cu_tab_invoices
+        - group_cu_tab_timekeeping
+        - group_cu_tab_payments
+        - group_cu_tab_purchase_orders
+        - group_cu_tab_quotes
+        - group_cu_tab_reports
+        - group_cu_tab_timekeeping
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+        required_fields: false
+      label: 'Business tabs'
+      region: content
+    group_cu_tab_tickets:
+      children:
+        - se_ticket_eva_entity_view_1_form
+        - se_ticket_eva_entity_view_1
+        - extra_field_business_ticket_statistics
+      parent_name: group_cu_tabs
+      weight: 9
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Tickets
+      region: content
+    group_cu_tab_contacts:
+      children:
+        - se_contact_eva_entity_view_1
+      parent_name: group_cu_tabs
+      weight: 7
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Contacts
+      region: content
+    group_cu_tab_details:
+      children:
+        - se_cu_address
+        - se_cu_suburb
+        - se_cu_state
+        - se_cu_postcode
+        - se_cu_email
+        - se_cu_email_format
+        - se_cu_homepage
+        - se_cu_id
+        - se_cu_mobile
+        - se_cu_phone
+        - se_cu_fax
+        - se_cu_postal_address
+        - se_cu_postal_suburb
+        - se_cu_postal_state
+        - se_cu_postal_postcode
+        - se_cu_balance
+        - se_cu_status
+      parent_name: group_cu_tabs
+      weight: 5
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Details
+      region: content
+    group_cu_tab_location:
+      children:
+        - se_cu_location
+      parent_name: group_cu_tabs
+      weight: 6
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Location
+      region: content
+    group_cu_tab_invoices:
+      children:
+        - se_invoice_eva_entity_view_1_form
+        - se_invoice_eva_entity_view_1
+        - extra_field_business_invoice_statistics
+      parent_name: group_cu_tabs
+      weight: 10
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Invoices
+      region: content
+    group_cu_tab_purchase_orders:
+      children:
+        - se_purchase_order_eva_entity_view_1_form
+        - se_purchase_order_eva_entity_view_1
+        - extra_field_business_purchase_order_statistics
+      parent_name: group_cu_tabs
+      weight: 13
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: 'Purchase orders'
+      region: content
+    group_cu_tab_quotes:
+      children: {  }
+      parent_name: group_cu_tabs
+      weight: 14
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Quotes
+      region: content
+    group_cu_tab_payments:
+      children:
+        - se_payment_eva_entity_view_1
+      parent_name: group_cu_tabs
+      weight: 12
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Payments
+      region: content
+    group_cu_tab_information:
+      children:
+        - se_information_eva_entity_view_1
+      parent_name: group_cu_tabs
+      weight: 8
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+      label: Information
+      region: content
+    group_cu_tab_timekeeping:
+      children:
+        - se_timekeeping_eva_entity_view_1
+      parent_name: group_cu_tabs
+      weight: 10
+      label: Timekeeping
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+      region: content
+    group_cu_tab_reports:
+      children:
+        - re_report_eva_entity_view_1
+      parent_name: group_cu_tabs
+      weight: 15
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+      label: Reports
+      region: content
+  field_layout:
+    id: layout_onecol
+    settings:
+      label: ''
+id: se_business.se_business.default
+targetEntityType: se_business
+bundle: se_business
+mode: default
+content:
+  extra_field_business_invoice_statistics:
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  extra_field_business_purchase_order_statistics:
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  extra_field_business_ticket_statistics:
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    label: above
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  re_report_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_contact_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_cu_address:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  se_cu_balance:
+    type: se_currency_formatter
+    weight: 16
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  se_cu_email:
+    type: basic_string
+    weight: 5
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  se_cu_email_format:
+    type: list_default
+    weight: 6
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  se_cu_fax:
+    type: telephone_link
+    weight: 11
+    region: content
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+  se_cu_homepage:
+    type: link
+    weight: 7
+    region: content
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+  se_cu_location:
+    type: geolocation_latlng
+    weight: 6
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  se_cu_mobile:
+    type: telephone_link
+    weight: 9
+    region: content
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+  se_cu_phone:
+    type: telephone_link
+    weight: 10
+    region: content
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+  se_cu_postal_address:
+    type: string
+    weight: 12
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_cu_postal_postcode:
+    type: string
+    weight: 15
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_cu_postal_state:
+    type: string
+    weight: 14
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_cu_postal_suburb:
+    type: string
+    weight: 13
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_cu_postcode:
+    type: string
+    weight: 4
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_cu_state:
+    type: string
+    weight: 3
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_cu_status:
+    type: list_default
+    weight: 17
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  se_cu_suburb:
+    type: string
+    weight: 2
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_information_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_invoice_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_invoice_eva_entity_view_1_form:
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_payment_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_purchase_order_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_purchase_order_eva_entity_view_1_form:
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_ticket_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_ticket_eva_entity_view_1_form:
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_timekeeping_eva_entity_view_1:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

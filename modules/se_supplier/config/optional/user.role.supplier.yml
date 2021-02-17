@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: supplier
-label: Supplier
-weight: 4
-is_admin: null
-permissions: {  }

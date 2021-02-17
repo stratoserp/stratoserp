@@ -30,13 +30,13 @@ class TicketSearchTest extends FunctionalTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $test_customer = $this->addCustomer();
+    $test_business = $this->addBusiness();
 
     $tickets = [];
     $count = 15;
     for ($i = 0; $i <= $count; $i++) {
       $this->ticketFakerSetup();
-      $tickets[] = $this->addTicket($test_customer);
+      $tickets[] = $this->addTicket($test_business);
     }
 
     $this->drupalGet('se/ticket-list');

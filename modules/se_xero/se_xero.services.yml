@@ -4,8 +4,8 @@ services:
     factory: logger.factory:get
     arguments: ['se_xero']
 
-  se_xero.customer_saved:
-    class: Drupal\se_xero\EventSubscriber\XeroCustomerEventSubscriber
+  se_xero.business_saved:
+    class: Drupal\se_xero\EventSubscriber\XeroBusinessEventSubscriber
     tags:
       - { name: event_subscriber }
 

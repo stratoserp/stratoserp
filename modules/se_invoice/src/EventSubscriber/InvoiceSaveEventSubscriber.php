@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Class InvoiceSaveEventSubscriber.
  *
- * When an invoice is saved, adjust the customer
+ * When an invoice is saved, adjust the business
  * balance by the amount of the invoice.
  *
  * @see \Drupal\se_payment\EventSubscriber\PaymentEventSubscriber
@@ -39,7 +39,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Add the total of this invoice to the amount the customer owes.
+   * Add the total of this invoice to the amount the business owes.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
@@ -56,11 +56,11 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $this->updateCustomerBalance($entity);
+    $this->updateBusinessBalance($entity);
   }
 
   /**
-   * Add the total of this invoice to the amount the customer owes.
+   * Add the total of this invoice to the amount the business owes.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
@@ -78,11 +78,11 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $this->updateCustomerBalance($entity);
+    $this->updateBusinessBalance($entity);
   }
 
   /**
-   * Reduce the customer balance by the amount of the old invoice.
+   * Reduce the business balance by the amount of the old invoice.
    *
    * This need to be done in case the amount changes on the saving
    * of this invoice.
@@ -104,11 +104,11 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
     }
 
     // Is this the right way?
-    $this->updateCustomerBalance($entity, TRUE);
+    $this->updateBusinessBalance($entity, TRUE);
   }
 
   /**
-   * On invoicing, update the customer balance.
+   * On invoicing, update the business balance.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The event we are working with.
@@ -118,9 +118,9 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
    * @return void|int
    *   The new balance is returned.
    */
-  private function updateCustomerBalance(EntityInterface $entity, $reduce_balance = FALSE): int {
-    if (!$customer = \Drupal::service('se_customer.service')->lookupCustomer($entity)) {
-      \Drupal::logger('se_customer_invoice_save')->error('No customer set for %node', ['%node' => $entity->id()]);
+  private function updateBusinessBalance(EntityInterface $entity, $reduce_balance = FALSE): int {
+    if (!$business = \Drupal::service('se_business.service')->lookupBusiness($entity)) {
+      \Drupal::logger('se_business_invoice_save')->error('No business set for %node', ['%node' => $entity->id()]);
       return 0;
     }
 
@@ -130,7 +130,7 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       $amount *= -1;
     }
 
-    return \Drupal::service('se_customer.service')->adjustBalance($customer, (int) $amount);
+    return \Drupal::service('se_business.service')->adjustBalance($business, (int) $amount);
   }
 
 }

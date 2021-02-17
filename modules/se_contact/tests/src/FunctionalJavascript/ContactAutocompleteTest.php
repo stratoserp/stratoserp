@@ -27,8 +27,8 @@ class ContactAutocompleteTest extends FunctionalJavascriptTestBase {
     $staff = $this->setupStaffUser();
 
     $this->drupalLogin($staff);
-    $testCustomer = $this->addCustomer();
-    $this->addContact($testCustomer);
+    $testBusiness = $this->addBusiness();
+    $this->addContact($testBusiness);
     $this->drupalLogout();
 
     // Make a new staff user and test they can find the contact.

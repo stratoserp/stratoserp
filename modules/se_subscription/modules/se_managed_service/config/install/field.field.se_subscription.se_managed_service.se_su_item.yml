@@ -65,9 +65,6 @@ settings:
   se_contact:
     handler: 'default:se_contact'
     handler_settings: {  }
-  se_customer:
-    handler: 'default:se_customer'
-    handler_settings: {  }
   se_goods_receipt:
     handler: 'default:se_goods_receipt'
     handler_settings: {  }
@@ -89,8 +86,8 @@ settings:
   social_auth:
     handler: 'default:social_auth'
     handler_settings: {  }
-  se_supplier:
-    handler: 'default:se_supplier'
+  se_business:
+    handler: 'default:se_business'
     handler_settings: {  }
   se_ticket:
     handler: 'default:se_ticket'

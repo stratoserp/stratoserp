@@ -186,16 +186,16 @@ class XeroContactService {
       'Name' => $node->title->value,
       'EmailAddress' => $node->se_cu_email->value,
       'Phones' => [],
-      'IsCustomer' => TRUE,
+      'IsBusiness' => TRUE,
       'DefaultCurrency' => $settings->get('system.currency'),
     ];
 
     $contacts->appendItem($values);
 
-    // TODO: Make nicer.
+    // @todo Make nicer.
     $name = str_replace(['-', '  '], ['', ' '], $node->title->value);
     $names = explode(' ', $name);
-    if ($main_contact = \Drupal::service('se_contact.service')->loadMainContactByCustomer($node)) {
+    if ($main_contact = \Drupal::service('se_contact.service')->loadMainContactByBusiness($node)) {
       if (isset($main_contact->se_cu_phone->value)) {
         $contacts->get(0)->get('Phones')->appendItem([
           'PhoneType' => 'DEFAULT',
@@ -211,7 +211,7 @@ class XeroContactService {
   }
 
   /**
-   * Create a Customer/Contact in Xero.
+   * Create a Business/Contact in Xero.
    *
    * @param \Drupal\node\Entity\Node $node
    *   Node to process.

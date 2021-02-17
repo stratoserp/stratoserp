@@ -499,8 +499,7 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-              customer: '0'
-              supplier: '0'
+              business: '0'
               staff: '0'
           is_grouped: false
           group_info:
@@ -578,7 +577,7 @@ display:
         title: 'Purchase orders'
         description: ''
         expanded: false
-        parent: 'views_view:views.se_supplier_list.page_1'
+        parent: 'views_view:views.se_business_list.page_1'
         weight: -48
         context: '0'
         menu_name: stratos-erp

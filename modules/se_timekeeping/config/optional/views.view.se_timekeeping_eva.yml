@@ -749,9 +749,9 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      entity_type: se_customer
+      entity_type: se_business
       bundles:
-        - se_customer
+        - se_business
       defaults:
         title: true
       argument_mode: id

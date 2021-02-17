@@ -57,7 +57,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
     }
 
     $amount = $this->updateInvoices($entity);
-    $this->updateCustomerBalance($entity, $amount);
+    $this->updateBusinessBalance($entity, $amount);
   }
 
   /**
@@ -78,7 +78,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
     }
 
     $amount = $this->updateInvoices($entity);
-    $this->updateCustomerBalance($entity, $amount);
+    $this->updateBusinessBalance($entity, $amount);
   }
 
   /**
@@ -103,7 +103,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
     }
 
     $amount = $this->updateInvoices($entity, FALSE);
-    $this->updateCustomerBalance($entity, $amount);
+    $this->updateBusinessBalance($entity, $amount);
   }
 
   /**
@@ -148,7 +148,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
         $this->setSkipInvoiceSaveEvents($invoice);
 
         // This event updates the total, avoid it in other triggered events.
-        $this->setSkipCustomerXeroEvents($invoice);
+        $this->setSkipBusinessXeroEvents($invoice);
 
         // @todo Make a service for this?
         if ($paymentLine->amount === $invoice->se_in_total->value
@@ -174,27 +174,27 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * On payment, update the customer balance.
+   * On payment, update the business balance.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The customer entity to update the balance of.
+   *   The business entity to update the balance of.
    * @param int $amount
    *   The amount to set the balance to in cents.
    *
    * @return void|int
    *   New balance.
    */
-  private function updateCustomerBalance(EntityInterface $entity, int $amount): int {
+  private function updateBusinessBalance(EntityInterface $entity, int $amount): int {
     if ($amount === 0) {
       return 0;
     }
 
-    if (!$customer = \Drupal::service('se_customer.service')->lookupCustomer($entity)) {
-      \Drupal::logger('se_customer_accounting_save')->error('No customer set for %node', ['%node' => $entity->id()]);
+    if (!$business = \Drupal::service('se_business.service')->lookupBusiness($entity)) {
+      \Drupal::logger('se_business_accounting_save')->error('No business set for %node', ['%node' => $entity->id()]);
       return 0;
     }
 
-    return \Drupal::service('se_customer.service')->adjustBalance($customer, $amount);
+    return \Drupal::service('se_business.service')->adjustBalance($business, $amount);
   }
 
 }

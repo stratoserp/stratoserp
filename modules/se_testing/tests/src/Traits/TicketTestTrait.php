@@ -40,24 +40,24 @@ trait TicketTestTrait {
   }
 
   /**
-   * Add a ticket and set the customer to the value passed in.
+   * Add a ticket and set the business to the value passed in.
    *
-   * @param \Drupal\node\Entity\Node $customer
-   *   The customer to associate the ticket with.
+   * @param \Drupal\node\Entity\Node $business
+   *   The business to associate the ticket with.
    *
    * @return \Drupal\node\Entity\Node
    *   The node to return.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addTicket(Node $customer = NULL): Node {
+  public function addTicket(Node $business = NULL): Node {
     $this->ticketFakerSetup();
 
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_ticket',
       'title' => $this->ticket->name,
-      'se_bu_ref' => $customer,
+      'se_bu_ref' => $business,
     ]);
     $this->assertNotEquals($node, FALSE);
     $this->drupalGet($node->toUrl());

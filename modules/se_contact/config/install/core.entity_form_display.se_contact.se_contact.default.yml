@@ -8,7 +8,6 @@ dependencies:
     - field.field.se_contact.se_contact.se_co_phone
     - field.field.se_contact.se_contact.se_co_type_ref
   module:
-    - dynamic_entity_reference
     - field_layout
     - layout_discovery
     - se_contact
@@ -25,21 +24,21 @@ mode: default
 content:
   name:
     type: string_textfield
-    weight: -4
+    weight: 0
     region: first
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   se_bu_ref:
-    weight: 26
+    weight: 1
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 40
       placeholder: ''
     third_party_settings: {  }
-    type: dynamic_entity_reference_default
+    type: entity_reference_autocomplete
     region: first
   se_co_email:
     weight: 6
@@ -50,31 +49,28 @@ content:
     type: email_default
     region: second
   se_co_mobile:
-    weight: 5
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: second
   se_co_phone:
-    weight: 3
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-    region: first
+    region: second
   se_co_type_ref:
     weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: options_select
     region: first
   user_id:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60

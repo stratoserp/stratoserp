@@ -1,0 +1,5 @@
+services:
+  se_business.service:
+    class: Drupal\se_business\Service\BusinessService
+    arguments: [ '@config.factory', '@entity_type.manager' ]
+

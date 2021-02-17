@@ -16,11 +16,11 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class InvoicePermissionsTest extends FunctionalTestBase {
 
   /**
-   * Faker factory for customer.
+   * Faker factory for business.
    *
    * @var \Faker\Factory
    */
-  protected $customer;
+  protected $business;
 
   /**
    * Faker factory for staff.
@@ -36,7 +36,7 @@ class InvoicePermissionsTest extends FunctionalTestBase {
    */
   private $pages = [
     '/invoice/add',
-    '/se/customers/invoice-list',
+    '/se/businesss/invoice-list',
   ];
 
   /**

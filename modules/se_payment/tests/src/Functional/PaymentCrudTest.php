@@ -42,10 +42,10 @@ class PaymentCrudTest extends FunctionalTestBase {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
-    $testCustomer = $this->addCustomer();
+    $testBusiness = $this->addBusiness();
 
     $items = $this->createItems();
-    $invoice = $this->addInvoice($testCustomer, $items);
+    $invoice = $this->addInvoice($testBusiness, $items);
     $payment = $this->addPayment($invoice);
     $this->assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
 

@@ -22,21 +22,21 @@ class ContactServiceTest extends FunctionalTestBase {
    * Test contact lookup service.
    *
    * Ensure that the contact lookup service will return
-   * the customer node if called with a customer node.
+   * the business node if called with a business node.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function testContactServiceWithCustomer(): void {
+  public function testContactServiceWithBusiness(): void {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $customer = $this->addCustomer();
-    $contact = $this->addMainContact($customer);
+    $business = $this->addBusiness();
+    $contact = $this->addMainContact($business);
 
-    $customerContacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($customer);
-    $loadedContact = reset($customerContacts);
+    $businessContacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($business);
+    $loadedContact = reset($businessContacts);
 
     self::assertSame(
       $loadedContact,
@@ -47,7 +47,7 @@ class ContactServiceTest extends FunctionalTestBase {
   }
 
   /**
-   * Test customer lookup service with an invoice node.
+   * Test business lookup service with an invoice node.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -57,11 +57,11 @@ class ContactServiceTest extends FunctionalTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $customer = $this->addCustomer();
-    $contact = $this->addMainContact($customer);
+    $business = $this->addBusiness();
+    $contact = $this->addMainContact($business);
 
     $items = $this->createItems();
-    $invoice = $this->addInvoice($customer, $items);
+    $invoice = $this->addInvoice($business, $items);
 
     $invoiceContacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($invoice);
     $invoiceContact = reset($invoiceContacts);

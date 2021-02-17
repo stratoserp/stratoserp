@@ -5,8 +5,7 @@ core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
   - drupal:se_item
-  - drupal:se_customer
-  - drupal:se_supplier
+  - drupal:se_business
 
 config_devel:
   install:

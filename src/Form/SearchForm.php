@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\node\Entity\Node;
-use Drupal\se_customer\Entity\Customer;
+use Drupal\se_business\Entity\Business;
 use Drupal\se_information\Entity\Information;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -64,7 +64,7 @@ class SearchForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $build['search'] = [
-      '#title' => t('Enter customer name, id of invoice or quote or simply search.'),
+      '#title' => t('Enter business name, id of invoice or quote or simply search.'),
       '#type' => 'textfield',
       '#autocomplete_route_name' => 'stratoserp.search',
       '#autocomplete_route_parameters' => [
@@ -94,7 +94,7 @@ class SearchForm extends FormBase {
       return $this->messenger->addError(t('No search string found'));
     }
 
-    if ($this->searchLoadCustomer($values['search'], $form_state)) {
+    if ($this->searchLoadBusiness($values['search'], $form_state)) {
       return NULL;
     }
 
@@ -125,7 +125,7 @@ class SearchForm extends FormBase {
    * @return \Drupal\Core\Messenger\MessengerInterface|false
    *   A message or false if it wasn't this type.
    */
-  protected function searchLoadCustomer($search, FormStateInterface $form_state) {
+  protected function searchLoadBusiness($search, FormStateInterface $form_state) {
     // If the user has chosen a node from the popup, load it.
     if (preg_match("/.+\s\(([^!#)[a-zA-Z]+)\)/", $search, $matches)) {
       $match = $matches[1];
@@ -133,11 +133,11 @@ class SearchForm extends FormBase {
         return $this->messenger->addMessage(t('No matches found'));
       }
 
-      if (!Customer::load($match)) {
+      if (!Business::load($match)) {
         return $this->messenger->addError(t('Invalid node'));
       }
 
-      $form_state->setRedirect('entity.se_customer.canonical', ['se_customer' => $match]);
+      $form_state->setRedirect('entity.se_business.canonical', ['se_business' => $match]);
       return TRUE;
     }
 

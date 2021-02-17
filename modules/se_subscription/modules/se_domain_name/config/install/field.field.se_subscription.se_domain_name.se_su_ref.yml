@@ -15,10 +15,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_supplier'
+  handler: 'default:se_business'
   handler_settings:
     target_bundles:
-      se_supplier: se_supplier
+      se_business: se_business
     sort:
       field: _none
     auto_create: false

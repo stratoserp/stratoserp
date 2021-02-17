@@ -68,9 +68,6 @@ settings:
   se_contact:
     handler: 'default:se_contact'
     handler_settings: {  }
-  se_customer:
-    handler: 'default:se_customer'
-    handler_settings: {  }
   se_invoice:
     handler: 'default:se_invoice'
     handler_settings: {  }
@@ -83,13 +80,13 @@ settings:
   social_auth:
     handler: 'default:social_auth'
     handler_settings: {  }
-  se_supplier:
-    handler: 'default:se_supplier'
-    handler_settings: {  }
   path_alias:
     handler: 'default:path_alias'
     handler_settings: {  }
   se_ticket:
     handler: 'default:se_ticket'
+    handler_settings: {  }
+  se_business:
+    handler: 'default:se_business'
     handler_settings: {  }
 field_type: se_item_line

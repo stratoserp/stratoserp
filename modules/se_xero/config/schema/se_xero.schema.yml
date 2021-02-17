@@ -22,10 +22,10 @@ se_xero.settings:
         account:
           type: integer
           label: 'Invoice account number in Xero.'
-    customer:
+    business:
       type: mapping
-      label: Customer settings
+      label: Business settings
       mapping:
         sync_timestamp:
           type: integer
-          label: 'Last customer sync time stamp.'
+          label: 'Last business sync time stamp.'

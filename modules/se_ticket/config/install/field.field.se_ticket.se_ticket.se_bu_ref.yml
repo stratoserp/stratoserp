@@ -17,16 +17,8 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  se_customer:
-    handler: 'default:se_customer'
-    handler_settings:
-      target_bundles: null
-      sort:
-        field: _none
-        direction: ASC
-      auto_create: false
-  se_supplier:
-    handler: 'default:se_supplier'
+  se_business:
+    handler: 'default:se_business'
     handler_settings:
       target_bundles: null
       sort:

@@ -1,7 +1,0 @@
-
-entity.se_supplier.add_form:
-  route_name: entity.se_supplier.add_form
-  title: 'Add Supplier'
-  appears_on:
-    - entity.se_supplier.collection
-    - 'view.se_supplier_list.page_1'

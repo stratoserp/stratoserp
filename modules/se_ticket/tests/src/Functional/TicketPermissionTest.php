@@ -16,11 +16,11 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class TicketPermissionTest extends FunctionalTestBase {
 
   /**
-   * Faker factory for ticket.
+   * Faker factory for business.
    *
    * @var \Faker\Factory
    */
-  protected $customer;
+  protected $business;
 
   /**
    * Faker factory for staff.

@@ -31,7 +31,7 @@ trait PaymentTestTrait {
   }
 
   /**
-   * Add a payment and set the customer to the value passed in.
+   * Add a payment and set the business to the value passed in.
    *
    * @param \Drupal\node\Entity\Node $invoice
    *   The invoice to associate the payment with.

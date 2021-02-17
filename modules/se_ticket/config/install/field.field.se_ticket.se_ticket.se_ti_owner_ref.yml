@@ -24,8 +24,7 @@ settings:
       role:
         staff: staff
         administrator: '0'
-        customer: '0'
-        supplier: '0'
+        business: '0'
         developer: '0'
     target_bundles: null
     sort:

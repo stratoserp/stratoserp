@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Implementation of the Customer settings form.
+ * Implementation of the Quote settings form.
  *
  * @ingroup se_quote
  */

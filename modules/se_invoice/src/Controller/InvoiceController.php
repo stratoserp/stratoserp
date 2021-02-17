@@ -289,11 +289,11 @@ class InvoiceController extends ControllerBase {
       'bundle' => 'se_invoice',
     ]);
 
-    // Retrieve a list of non billed timekeeping entries for this customer.
+    // Retrieve a list of non billed timekeeping entries for this business.
     $query = \Drupal::entityQuery('comment');
 
     // @todo something wrong here.
-    if ($source->getEntityTypeId() !== 'se_customer') {
+    if ($source->getEntityTypeId() !== 'se_business') {
       if (!$source->se_bu_ref->target_id) {
         return $this->entityFormBuilder()->getForm($destination);
       }

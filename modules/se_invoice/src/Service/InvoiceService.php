@@ -41,10 +41,10 @@ class InvoiceService {
   }
 
   /**
-   * Retrieve the outstnading invoices for a customer.
+   * Retrieve the outstnading invoices for a business.
    *
-   * @param \Drupal\node\Entity\Node $customer
-   *   The Customer node.
+   * @param \Drupal\node\Entity\Node $business
+   *   The Business node.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    *   The found entity.
@@ -52,12 +52,12 @@ class InvoiceService {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getOutstandingInvoices(Node $customer) {
+  public function getOutstandingInvoices(Node $business) {
     /** @var \Drupal\taxonomy\Entity\Term $open_term */
     $open_term = $this->getOpenTerm();
     $query = \Drupal::entityQuery('se_invoice');
     $query->condition('type', 'se_invoice');
-    $query->condition('se_bu_ref', $customer->id());
+    $query->condition('se_bu_ref', $business->id());
     $query->condition('se_status_ref', $open_term->id());
     $entity_ids = $query->execute();
 

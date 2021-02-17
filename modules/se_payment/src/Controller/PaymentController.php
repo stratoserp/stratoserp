@@ -238,7 +238,7 @@ class PaymentController extends ControllerBase {
     $paymentTerm = Term::load($paymentType);
 
     $query = \Drupal::request()->query;
-    if (!$customerId = $query->get('se_bu_ref')) {
+    if (!$businessId = $query->get('se_bu_ref')) {
       return $this->entityFormBuilder()->getForm($destination);
     }
 
@@ -249,7 +249,7 @@ class PaymentController extends ControllerBase {
       ->notExists('se_status_ref');
 
     $query->condition('type', 'se_invoice')
-      ->condition('se_bu_ref', $customerId)
+      ->condition('se_bu_ref', $businessId)
       ->condition($group);
 
     $entityIds = $query->execute();

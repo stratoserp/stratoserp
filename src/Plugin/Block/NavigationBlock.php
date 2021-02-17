@@ -86,13 +86,9 @@ class NavigationBlock extends BlockBase {
         $items = $this->contactLinks();
         $this->destination = Url::fromUri('internal:/contact/' . $this->entity->id())->toString();
       }
-      elseif ($this->entity = $parameterBag->get('se_customer')) {
-        $items = $this->customerLinks();
-        $this->destination = Url::fromUri('internal:/customer/' . $this->entity->id())->toString();
-      }
-      elseif ($this->entity = $parameterBag->get('se_supplier')) {
-        $items = $this->supplierLinks();
-        $this->destination = Url::fromUri('internal:/supplier/' . $this->entity->id())->toString();
+      elseif ($this->entity = $parameterBag->get('se_business')) {
+        $items = $this->businessLinks();
+        $this->destination = Url::fromUri('internal:/business/' . $this->entity->id())->toString();
       }
       elseif ($this->entity = $parameterBag->get('se_quote')) {
         $items = $this->quoteLinks();
@@ -183,10 +179,7 @@ class NavigationBlock extends BlockBase {
 
     $routeParameters = $this->setRouteParameters(FALSE);
 
-    $items[] = Link::createFromRoute('Add customer', 'entity.se_customer.add_form',
-      $routeParameters, $this->buttonClass);
-
-    $items[] = Link::createFromRoute('Add supplier', 'entity.se_supplier.add_form',
+    $items[] = Link::createFromRoute('Add business', 'entity.se_business.add_form',
       $routeParameters, $this->buttonClass);
 
     $items[] = Link::createFromRoute('Add assembly', 'entity.se_item.add_form',
@@ -223,7 +216,7 @@ class NavigationBlock extends BlockBase {
 
     $routeParameters = $this->setRouteParameters();
 
-    $items[] = Link::createFromRoute('Add customer', 'entity.se_customer.add_form',
+    $items[] = Link::createFromRoute('Add business', 'entity.se_business.add_form',
       $this->setRouteParameters(FALSE, []), $this->buttonClass);
     $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $routeParameters + [
@@ -240,28 +233,35 @@ class NavigationBlock extends BlockBase {
   }
 
   /**
-   * Build a list of customer links for display.
+   * Build a list of business links for display.
    *
    * @return array
    *   Output array.
    */
-  private function customerLinks(): array {
+  private function businessLinks(): array {
     $items = [];
 
     $routeParameters = $this->setRouteParameters(FALSE);
 
     $items[] = Link::createFromRoute('Add contact', 'entity.se_contact.add_form',
-      $routeParameters, $this->buttonClass);
+      $routeParameters + [
+        'se_bu_ref' => $this->entity->id(),
+      ], $this->buttonClass);
     $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $routeParameters + [
         'se_information_type' => 'se_document',
       ], $this->buttonClass);
     $items[] = Link::createFromRoute('Add invoice', 'entity.se_invoice.add_form',
-      $routeParameters, $this->buttonClass);
+      $routeParameters + [
+        'se_bu_ref' => $this->entity->id(),
+      ], $this->buttonClass);
     $items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page',
-      $routeParameters, $this->buttonClass);
+      $routeParameters + [
+        'se_bu_ref' => $this->entity->id(),
+      ], $this->buttonClass);
     $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
       $routeParameters + [
+        'se_bu_ref' => $this->entity->id(),
         'source' => $this->entity->id(),
       ], $this->buttonClass);
 
@@ -411,18 +411,15 @@ class NavigationBlock extends BlockBase {
       ];
     }
 
-    // If its a customer or supplier, load the main contact from the node.
-    if (isset($this->node)) {
-      if (in_array($this->node->bundle(), [
-        'se_customer',
-        'se_supplier',
-      ], TRUE)) {
-        $routeParameters['se_bu_ref'] = $this->node->id();
-        $contacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($this->node);
+    // If its a business or supplier, load the main contact from the node.
+    if (isset($this->entity)) {
+      if ($this->entity->getEntityTypeId() === 'se_business') {
+        $routeParameters['se_bu_ref'] = $this->entity->id();
+        $contacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($this->entity);
       }
       else {
         // Otherwise, load the main contact from the associated business.
-        $entities = $this->node->se_bu_ref->referencedEntities();
+        $entities = $this->entity->se_bu_ref->referencedEntities();
         if ($business = reset($entities)) {
           $routeParameters['se_bu_ref'] = $business->id();
           $contacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($business);

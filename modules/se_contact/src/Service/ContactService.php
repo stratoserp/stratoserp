@@ -41,7 +41,7 @@ class ContactService {
   }
 
   /**
-   * Given a customer node, return the main contact for that customer.
+   * Given a business entity, return the main contact for that business.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity to return the contact for.
@@ -50,11 +50,10 @@ class ContactService {
    *   The list of contacts set as main contacts.
    */
   public function loadMainContactsByBusiness(EntityInterface $entity): array {
-    // Ensure its really a customer or supplier passed.
-    $customer = \Drupal::service('se_customer.service')->lookupCustomer($entity);
-    $supplier = \Drupal::service('se_supplier.service')->lookupSupplier($entity);
+    // Ensure its really a business passed.
+    $business = \Drupal::service('se_business.service')->lookupBusiness($entity);
 
-    if (!($customer || $supplier)) {
+    if (!$business) {
       return [];
     }
 
@@ -65,27 +64,16 @@ class ContactService {
     }
 
     // Setup the query.
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'se_contact');
-
-    // Setup the or condition and add in the parameters.
-    $businessTypes = $query->orConditionGroup();
-    if ($customer) {
-      $businessTypes->condition('se_bu_ref', $customer->id());
-    }
-    if ($supplier) {
-      $businessTypes->condition('se_bu_ref', $supplier->id());
-    }
+    $query = \Drupal::entityQuery('se_contact')
+      ->condition('se_bu_ref', $business->id())
+      ->condition('se_co_type_ref', $termId);
 
     // Return the executed query.
-    return $query
-      ->condition($businessTypes)
-      ->condition('se_co_type_ref', $termId)
-      ->execute();
+    return $query->execute();
   }
 
   /**
-   * Given a customer node, return all contacts for the customer.
+   * Given a business entity, return all contacts for the business.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity to return the contacts for.
@@ -93,13 +81,12 @@ class ContactService {
    * @return array
    *   The list of contacts.
    */
-  public function loadContactsByCustomer(EntityInterface $entity): array {
-    // Ensure its really a customer node.
-    $customer = \Drupal::service('se_customer.service')->lookupCustomer($entity);
+  public function loadContactsByBusiness(EntityInterface $entity): array {
+    // Ensure its really a business entity.
+    $business = \Drupal::service('se_business.service')->lookupBusiness($entity);
 
-    return \Drupal::entityQuery('node')
-      ->condition('type', 'se_contact')
-      ->condition('se_bu_ref', $customer->id())
+    return \Drupal::entityQuery('se_contact')
+      ->condition('se_bu_ref', $business->id())
       ->execute();
   }
 

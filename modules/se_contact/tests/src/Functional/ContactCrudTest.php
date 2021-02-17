@@ -16,21 +16,21 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class ContactCrudTest extends FunctionalTestBase {
 
   /**
-   * Add a customer as staff.
+   * Add a contact as staff.
    */
   public function testContactAdd(): void {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $customer = $this->addCustomer();
-    $this->addContact($customer);
+    $business = $this->addBusiness();
+    $this->addContact($business);
 
     $this->drupalLogout();
   }
 
   /**
-   * Try and delete a contact as staff and customer.
+   * Try and delete a contact as staff and business.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -38,16 +38,16 @@ class ContactCrudTest extends FunctionalTestBase {
   public function testContactDelete(): void {
 
     $staff = $this->setupStaffUser();
-    $customer = $this->setupCustomerUser();
+    $business = $this->setupBusinessUser();
 
     // Create a contact for testing.
     $this->drupalLogin($staff);
-    $testCustomer = $this->addCustomer();
-    $testContact = $this->addContact($testCustomer);
+    $testBusiness = $this->addBusiness();
+    $testContact = $this->addContact($testBusiness);
     $this->drupalLogout();
 
-    // Ensure customer can't delete contacts.
-    $this->drupalLogin($customer);
+    // Ensure business can't delete contacts.
+    $this->drupalLogin($business);
     $this->deleteNode($testContact, FALSE);
     $this->drupalLogout();
 

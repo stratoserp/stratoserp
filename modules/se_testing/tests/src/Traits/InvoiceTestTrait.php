@@ -41,8 +41,8 @@ trait InvoiceTestTrait {
   /**
    * Add an invoice node.
    *
-   * @param \Drupal\node\Entity\Node $testCustomer
-   *   The customer to associate the node with.
+   * @param \Drupal\node\Entity\Node $testBusiness
+   *   The business to associate the node with.
    * @param array $items
    *   An array of items to use for invoice lines.
    *
@@ -52,7 +52,7 @@ trait InvoiceTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Behat\Mink\Exception\ExpectationException
    */
-  public function addInvoice(Node $testCustomer, array $items = []): Node {
+  public function addInvoice(Node $testBusiness, array $items = []): Node {
 
     $this->invoiceFakerSetup();
 
@@ -71,7 +71,7 @@ trait InvoiceTestTrait {
     $node = $this->createNode([
       'type' => 'se_invoice',
       'title' => $this->invoice->name,
-      'se_bu_ref' => ['target_id' => $testCustomer->id()],
+      'se_bu_ref' => ['target_id' => $testBusiness->id()],
       'se_in_phone' => $this->invoice->phoneNumber,
       'se_in_email' => $this->invoice->companyEmail,
       'se_in_lines' => $lines,

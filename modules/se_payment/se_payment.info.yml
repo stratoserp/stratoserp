@@ -10,7 +10,7 @@ dependencies:
   - drupal:menu_ui
   - drupal:path
   - drupal:se_contact
-  - drupal:se_supplier
+  - drupal:se_business
   - drupal:se_payment_line
   - drupal:text
   - drupal:user

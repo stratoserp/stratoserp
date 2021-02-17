@@ -68,9 +68,6 @@ settings:
   node:
     handler: 'default:node'
     handler_settings: {  }
-  se_customer:
-    handler: 'default:se_customer'
-    handler_settings: {  }
   preview_link:
     handler: 'default:preview_link'
     handler_settings: {  }
@@ -80,8 +77,8 @@ settings:
   social_auth:
     handler: 'default:social_auth'
     handler_settings: {  }
-  se_supplier:
-    handler: 'default:se_supplier'
+  se_business:
+    handler: 'default:se_business'
     handler_settings: {  }
   path_alias:
     handler: 'default:path_alias'

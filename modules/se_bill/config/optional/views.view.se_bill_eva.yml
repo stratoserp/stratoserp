@@ -263,9 +263,9 @@ display:
       display_extenders: {  }
       argument_mode: id
       default_argument: null
-      entity_type: se_supplier
+      entity_type: se_business
       bundles:
-        - se_supplier
+        - se_business
     cache_metadata:
       max-age: -1
       contexts:

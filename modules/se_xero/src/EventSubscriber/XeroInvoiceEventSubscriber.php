@@ -45,7 +45,7 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
     }
 
     // @todo Check for the xero uuid instead?
-    if ($entity->bundle() === 'se_customer' && !$entity->get('se_xero_uuid')) {
+    if ($entity->bundle() === 'se_business' && !$entity->get('se_xero_uuid')) {
       \Drupal::service('se_xero.invoice_service')->sync($entity);
     }
   }
@@ -63,7 +63,7 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if ($entity->bundle() === 'se_customer' && !$entity->get('se_xero_uuid')) {
+    if ($entity->bundle() === 'se_business' && !$entity->get('se_xero_uuid')) {
       \Drupal::service('se_xero.invoice_service')->sync($entity);
     }
 

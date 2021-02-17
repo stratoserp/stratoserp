@@ -134,5 +134,5 @@ hidden:
   entity_print_view_word_docx: true
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
-  extra_field_ticket_statistics_customer: true
+  extra_field_ticket_statistics_business: true
   se_in_outstanding: true

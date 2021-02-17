@@ -338,7 +338,7 @@ display:
         title: Bills
         description: ''
         expanded: false
-        parent: 'views_view:views.se_supplier_list.page_1'
+        parent: 'views_view:views.se_business_list.page_1'
         weight: -50
         context: '0'
         menu_name: stratos-erp

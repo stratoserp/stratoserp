@@ -16,11 +16,11 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class QuotePermissionsTest extends FunctionalTestBase {
 
   /**
-   * Faker factory for customer.
+   * Faker factory for business.
    *
    * @var \Faker\Factory
    */
-  protected $customer;
+  protected $business;
 
   /**
    * Faker factory for staff.
@@ -36,7 +36,7 @@ class QuotePermissionsTest extends FunctionalTestBase {
    */
   private $pages = [
     '/quote/add',
-    '/se/customers/quote-list',
+    '/se/businesss/quote-list',
   ];
 
   /**

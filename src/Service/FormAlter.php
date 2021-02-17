@@ -84,8 +84,14 @@ class FormAlter {
       return;
     }
 
-    // Try and load the referenced node.
-    if (!$node = $this->entityTypeManager->getStorage('node')->load($value)) {
+    // Try and load the referenced entity.
+    switch ($field) {
+      case 'se_bu_ref':
+        $entity = $this->entityTypeManager->getStorage('se_business')->load($value);
+        break;
+    }
+
+    if (!$entity) {
       return;
     }
 
@@ -95,7 +101,7 @@ class FormAlter {
     }
 
     // Really do the update now.
-    $form[$field]['widget'][0]['target_id']['#default_value'] = $node;
+    $form[$field]['widget'][0]['target_id']['#default_value'] = $entity;
   }
 
   /**

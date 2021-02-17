@@ -4,6 +4,6 @@ entity.se_contact.add_form:
   title: 'Add Contact'
   appears_on:
     - entity.se_contact.collection
-    - entity.se_customer.canonical
+    - entity.se_business.canonical
     - 'view.se_contact_list.page_1'
     - 'view.se_contact_eva.entity_view_1'

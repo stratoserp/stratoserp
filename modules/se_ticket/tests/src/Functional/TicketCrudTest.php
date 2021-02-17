@@ -7,24 +7,31 @@ namespace Drupal\Tests\se_ticket\Functional;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
+ * Ticket CRUD tests.
+ *
  * @coversDefault Drupal\se_ticket
  * @group se_ticket
  * @group stratoserp
  */
 class TicketCrudTest extends FunctionalTestBase {
+
+  /**
+   * Faker factory for staff.
+   *
+   * @var \Faker\Factory
+   */
   protected $staff;
 
   /**
    * Ensure that a ticket can be successfully added.
-   *
    */
   public function testTicketAdd(): void {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $customer = $this->addCustomer();
-    $ticket = $this->addTicket($customer);
+    $business = $this->addBusiness();
+    $ticket = $this->addTicket($business);
 
     $this->drupalLogout();
 
@@ -32,21 +39,20 @@ class TicketCrudTest extends FunctionalTestBase {
 
   /**
    * Ensure that ticket access levels are correct.
-   *
    */
   public function testTicketDelete(): void {
 
     $staff = $this->setupStaffUser();
-    $customer = $this->setupCustomerUser();
+    $business = $this->setupBusinessUser();
 
-    // Create a customer for testing.
+    // Create a business for testing.
     $this->drupalLogin($staff);
-    $test_customer = $this->addCustomer();
-    $test_ticket = $this->addTicket($test_customer);
+    $test_business = $this->addBusiness();
+    $test_ticket = $this->addTicket($test_business);
     $this->drupalLogout();
 
-    // Ensure customer can't delete tickets.
-    $this->drupalLogin($customer);
+    // Ensure business can't delete tickets.
+    $this->drupalLogin($business);
     $this->deleteNode($test_ticket, FALSE);
     $this->drupalLogout();
 

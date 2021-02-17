@@ -3,8 +3,7 @@ status: true
 dependencies:
   module:
     - dynamic_entity_reference
-    - se_customer
-    - se_supplier
+    - se_business
     - se_ticket
 id: se_ticket.se_bu_ref
 field_name: se_bu_ref
@@ -13,8 +12,7 @@ type: dynamic_entity_reference
 settings:
   exclude_entity_types: false
   entity_type_ids:
-    se_customer: se_customer
-    se_supplier: se_supplier
+    se_business: se_business
 module: dynamic_entity_reference
 locked: false
 cardinality: 1

@@ -23,12 +23,12 @@ class TimekeepingInvoiceTest extends FunctionalTestBase {
   public function testTimekeepingInvoice(): void {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
-    $testCustomer = $this->addCustomer();
-    $testTicket = $this->addTicket($testCustomer);
+    $testBusiness = $this->addBusiness();
+    $testTicket = $this->addTicket($testBusiness);
     $testTimekeeping = $this->addTimekeeping($testTicket);
     $hooks = \Drupal::classResolver(NodeController::class);
     $type = NodeType::load('se_invoice');
-    $node = $hooks->createNodeFromTimekeeping($type, $testCustomer);
+    $node = $hooks->createNodeFromTimekeeping($type, $testBusiness);
     $node->title = \Drupal::service('stratoserp.set_field')->generateTitle();
     $node->save();
 

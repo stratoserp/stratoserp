@@ -11,7 +11,7 @@ id: wi_window_cleaning_complete
 title: 'Window cleaning complete'
 description: ''
 category: ''
-elements: "wc_confirm_satisfaction_with_customer:\n  '#type': checkbox\n  '#title': 'Confirm satisfaction with customer'\nwc_customer_signature:\n  '#type': webform_signature\n  '#title': 'Customer signature'"
+elements: "wc_confirm_satisfaction_with_business:\n  '#type': checkbox\n  '#title': 'Confirm satisfaction with business'\nwc_business_signature:\n  '#type': webform_signature\n  '#title': 'Business signature'"
 css: '.webform-submission-information {display: none}'
 javascript: ''
 settings:

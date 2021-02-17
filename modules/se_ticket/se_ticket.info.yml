@@ -11,8 +11,7 @@ dependencies:
   - drupal:menu_ui
   - drupal:path
   - drupal:se_contact
-  - drupal:se_customer
-  - drupal:se_supplier
+  - drupal:se_business
   - drupal:taxonomy
   - drupal:text
   - drupal:user

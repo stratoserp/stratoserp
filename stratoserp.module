@@ -54,7 +54,7 @@ function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id)
 
     // Hide the title fields for some node types.
     if (!in_array($form_id, [
-      'se_customer_add_form', 'node_se_contact_form', 'node_se_supplier_form', 'node_se_ticket_form',
+      'se_business_add_form', 'se_contact_add_form', 'se_ticket_add_form',
     ])) {
       // Pre-fill the title field with sensible values.
       stratoserp_populate_title_field($form);
@@ -73,7 +73,7 @@ function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id)
 /**
  * Redirect delete submissions to the frontpage.
  *
- * @todo Make customisable/redirect back to customer?
+ * @todo Make customisable/redirect back to business?
  *
  * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state

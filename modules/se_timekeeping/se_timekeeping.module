@@ -22,7 +22,7 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
     if (empty($form['se_bu_ref']['widget'][0]['target_id']['#default_value'])
     && $node = $form_state->getFormObject()->getEntity()->getCommentedEntity()) {
       $form['se_bu_ref']['widget'][0]['target_id']['#default_value'] =
-        \Drupal::service('se_customer.service')->lookupCustomer($node);
+        \Drupal::service('se_business.service')->lookupBusiness($node);
     }
 
     // If the subject is not set, set one.

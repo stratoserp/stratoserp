@@ -16,23 +16,23 @@ class SearchTest extends FunctionalTestBase {
   /**
    * Tests summary list block admin.
    */
-  public function testSearchForCustomer() {
+  public function testSearchForBusiness() {
     $page = $this->getSession()->getPage();
     $assert = $this->assertSession();
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
-    $testCustomer = $this->addCustomer();
+    $testBusiness = $this->addBusiness();
 
     $this->drupalGet('<front>');
 
     $page->pressButton('Search');
     $assert->pageTextContains('No search string found');
 
-    $page->fillField('edit-search', $testCustomer->getTitle() . ' (' . $testCustomer->id() . ')');
+    $page->fillField('edit-search', $testBusiness->getTitle() . ' (' . $testBusiness->id() . ')');
     $page->pressButton('Search');
     $assert->pageTextNotContains('No search string found');
-    $assert->pageTextContains($testCustomer->getTitle());
+    $assert->pageTextContains($testBusiness->getTitle());
 
     $this->drupalLogout();
   }

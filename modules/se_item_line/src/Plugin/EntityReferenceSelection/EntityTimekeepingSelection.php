@@ -12,7 +12,7 @@ use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
  *
  * @EntityReferenceSelection(
  *   id = "se_timekeeping",
- *   label = @Translation("Timekeeping: Filter timekeeping entries by customer"),
+ *   label = @Translation("Timekeeping: Filter timekeeping entries by business"),
  *   group = "se_timekeeping",
  *   weight = 1
  * )

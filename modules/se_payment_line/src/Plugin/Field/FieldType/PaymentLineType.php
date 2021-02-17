@@ -14,7 +14,7 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "se_payment_line",
  *   label = @Translation("Payment line"),
- *   description = @Translation("A payment line recorded from a customer."),
+ *   description = @Translation("A payment line recorded from a business."),
  *   category = @Translation("StratosERP"),
  *   list_class = "\Drupal\se_payment_line\Plugin\Field\FieldType\PaymentLineFieldItemList",
  *   default_widget = "se_payment_line_widget",

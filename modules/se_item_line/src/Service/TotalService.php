@@ -10,7 +10,7 @@ use Drupal\se_item\Entity\Item;
 use Drupal\stratoserp\ErpCore;
 
 /**
- * Customer service class for common custom related manipulations.
+ * Business service class for common custom related manipulations.
  */
 class TotalService {
 

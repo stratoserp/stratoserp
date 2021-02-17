@@ -8,7 +8,7 @@ field_name: se_bu_ref
 entity_type: se_subscription
 type: entity_reference
 settings:
-  target_type: se_customer
+  target_type: se_business
 module: core
 locked: false
 cardinality: 1

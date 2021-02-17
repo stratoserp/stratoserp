@@ -37,10 +37,10 @@ class InvoiceCrudTest extends FunctionalTestBase {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
-    $testCustomer = $this->addCustomer();
+    $testBusiness = $this->addBusiness();
 
     $items = $this->createItems();
-    $this->addInvoice($testCustomer, $items);
+    $this->addInvoice($testBusiness, $items);
 
     $this->drupalLogout();
   }

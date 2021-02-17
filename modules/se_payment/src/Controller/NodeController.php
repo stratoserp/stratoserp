@@ -98,7 +98,7 @@ class NodeController extends ControllerBase {
     }
 
     $query = \Drupal::request()->query;
-    if (!$customerId = $query->get('se_bu_ref')) {
+    if (!$businessId = $query->get('se_bu_ref')) {
       return $this->entityFormBuilder()->getForm($node);
     }
 
@@ -109,7 +109,7 @@ class NodeController extends ControllerBase {
       ->notExists('se_status_ref');
 
     $query->condition('type', 'se_invoice')
-      ->condition('se_bu_ref', $customerId)
+      ->condition('se_bu_ref', $businessId)
       ->condition($group);
 
     $entityIds = $query->execute();

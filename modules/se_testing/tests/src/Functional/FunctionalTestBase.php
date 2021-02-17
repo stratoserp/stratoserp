@@ -11,7 +11,7 @@ use Drupal\Core\Url;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\se_testing\Traits\ContactTestTrait;
-use Drupal\Tests\se_testing\Traits\CustomerTestTrait;
+use Drupal\Tests\se_testing\Traits\BusinessTestTrait;
 use Drupal\Tests\se_testing\Traits\GoodsReceiptTestTrait;
 use Drupal\Tests\se_testing\Traits\InvoiceTestTrait;
 use Drupal\Tests\se_testing\Traits\PaymentTestTrait;
@@ -49,7 +49,7 @@ class FunctionalTestBase extends TestCase {
 
   // Include various StratoeERP traits.
   use ContactTestTrait;
-  use CustomerTestTrait;
+  use BusinessTestTrait;
   use GoodsReceiptTestTrait;
   use InvoiceTestTrait;
   use PaymentTestTrait;
@@ -199,17 +199,17 @@ class FunctionalTestBase extends TestCase {
       }
     }
 
-    $customer = $this->setupCustomerUser();
+    $business = $this->setupBusinessUser();
     $staff = $this->setupStaffUser();
 
     foreach ($pages as $page) {
-      $this->drupalLogin($customer);
+      $this->drupalLogin($business);
       $this->drupalGet($page);
       try {
         $this->assertSession()->statusCodeEquals(403);
       }
       catch (ExpectationException $e) {
-        $this->fail((string) t('Customer - @page - @message', [
+        $this->fail((string) t('Business - @page - @message', [
           '@page' => $page,
           '@message' => $e->getMessage(),
         ]));

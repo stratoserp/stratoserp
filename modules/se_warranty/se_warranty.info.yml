@@ -8,3 +8,7 @@ dependencies:
   - drupal:se_goods_receipt
   - drupal:se_item
   - drupal:se_purchase_order
+
+config_devel:
+  install: {  }
+  optional: {  }

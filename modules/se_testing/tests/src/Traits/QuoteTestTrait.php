@@ -41,8 +41,8 @@ trait QuoteTestTrait {
   /**
    * Add a quote node.
    *
-   * @param \Drupal\node\Entity\Node $test_customer
-   *   The customer to associate the node with.
+   * @param \Drupal\node\Entity\Node $test_business
+   *   The business to associate the node with.
    * @param array $items
    *   An array of items to use for invoice lines.
    *
@@ -51,7 +51,7 @@ trait QuoteTestTrait {
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addQuote(Node $test_customer, array $items = []): Node {
+  public function addQuote(Node $test_business, array $items = []): Node {
     $this->quoteFakerSetup();
 
     $lines = [];
@@ -68,7 +68,7 @@ trait QuoteTestTrait {
     $node = $this->createNode([
       'type' => 'se_quote',
       'title' => $this->quote->name,
-      'se_bu_ref' => ['target_id' => $test_customer->id()],
+      'se_bu_ref' => ['target_id' => $test_business->id()],
       'se_qu_phone' => $this->quote->phoneNumber,
       'se_qu_email' => $this->quote->companyEmail,
       'se_qu_lines' => $lines,

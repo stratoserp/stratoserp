@@ -1,7 +1,0 @@
-
-entity.se_customer.add_form:
-  route_name: entity.se_customer.add_form
-  title: 'Add Customer'
-  appears_on:
-    - entity.se_customer.collection
-    - 'view.se_customer_list.page_1'

@@ -9,7 +9,7 @@ use Drupal\Component\Utility\Tags;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\node\Entity\Node;
-use Drupal\se_customer\Entity\Customer;
+use Drupal\se_business\Entity\Business;
 use Drupal\se_information\Entity\Information;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -37,7 +37,7 @@ class AutocompleteController extends ControllerBase {
       $searchString = Tags::explode($input);
       $searchString = mb_strtolower(array_pop($searchString));
 
-      $customers = $this->findCustomers($searchString);
+      $businesss = $this->findBusinesses($searchString);
       $contacts = $this->findNodes('se_contact', 'Contact', 'title', $searchString);
       $invoices = $this->findNodes('se_invoice', 'Invoice', 'se_in_id', $searchString);
       $quotes = $this->findNodes('se_quote', 'Quote', 'se_qu_id', $searchString);
@@ -45,7 +45,7 @@ class AutocompleteController extends ControllerBase {
       $serials = $this->findItems('se_item', 'Item', 'se_it_serial', $searchString);
       $information = $this->findInformation('se_document', 'Document', 'name', $searchString);
 
-      $matches = array_merge($customers, $contacts, $invoices, $quotes, $items, $serials, $information);
+      $matches = array_merge($businesss, $contacts, $invoices, $quotes, $items, $serials, $information);
 
     }
 
@@ -84,7 +84,7 @@ class AutocompleteController extends ControllerBase {
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);
-      if ($type === 'se_customer') {
+      if ($type === 'se_business') {
         $output_description = implode(' - ', [
           $description,
           $node->getTitle(),
@@ -107,7 +107,7 @@ class AutocompleteController extends ControllerBase {
   }
 
   /**
-   * Return customers matching text.
+   * Return businesss matching text.
    *
    * @param string $text
    *   The text to search for.
@@ -115,10 +115,10 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
-  private function findCustomers($text): array {
+  private function findBusinesses($text): array {
     $matches = [];
 
-    $query = \Drupal::entityQuery('se_customer')
+    $query = \Drupal::entityQuery('se_business')
       ->condition('name', '%' .
         Database::getConnection()->escapeLike($text) . '%', 'LIKE')
       // ->condition('type', $type)
@@ -126,9 +126,9 @@ class AutocompleteController extends ControllerBase {
 
     $item_ids = $query->execute();
     /** @var \Drupal\node\Entity\Node $item */
-    foreach (Customer::loadMultiple($item_ids) as $entity_id => $customer) {
+    foreach (Business::loadMultiple($item_ids) as $entity_id => $business) {
       $fields = [
-        $customer->getName(),
+        $business->getName(),
       ];
       $fields = array_filter($fields);
       $key = implode(' - ', $fields);
@@ -136,14 +136,14 @@ class AutocompleteController extends ControllerBase {
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);
       $output_description = implode(' - ', [
-        $customer->getName(),
+        $business->getName(),
       ]);
 
       $key .= ' (' . $entity_id . ')';
-      $customerId = $customer->id();
+      $businessId = $business->id();
       $matches[] = [
         'value' => $key,
-        'label' => $output_description . "($customerId)",
+        'label' => $output_description . "($businessId)",
       ];
     }
 

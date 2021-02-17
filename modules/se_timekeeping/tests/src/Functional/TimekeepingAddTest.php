@@ -26,8 +26,8 @@ class TimekeepingAddTest extends FunctionalTestBase {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
-    $testCustomer = $this->addCustomer();
-    $testTicket = $this->addTicket($testCustomer);
+    $testBusiness = $this->addBusiness();
+    $testTicket = $this->addTicket($testBusiness);
     $this->addTimekeeping($testTicket);
     $this->drupalLogout();
   }

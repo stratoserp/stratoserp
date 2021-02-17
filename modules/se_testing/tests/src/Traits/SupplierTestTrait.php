@@ -17,7 +17,7 @@ trait SupplierTestTrait {
    *
    * @var \Faker\Factory
    */
-  protected $customer;
+  protected $business;
 
   /**
    * Setup basic faker fields for this test trait.
@@ -26,15 +26,15 @@ trait SupplierTestTrait {
     $this->faker = Factory::create();
 
     $original                      = error_reporting(0);
-    $this->customer->name          = $this->faker->realText(50);
-    $this->customer->phoneNumber   = $this->faker->phoneNumber;
-    $this->customer->mobileNumber  = $this->faker->phoneNumber;
-    $this->customer->streetAddress = $this->faker->streetAddress;
-    $this->customer->suburb        = $this->faker->city;
-    $this->customer->state         = $this->faker->stateAbbr;
-    $this->customer->postcode      = $this->faker->postcode;
-    $this->customer->url           = $this->faker->url;
-    $this->customer->companyEmail  = $this->faker->companyEmail;
+    $this->business->name          = $this->faker->realText(50);
+    $this->business->phoneNumber   = $this->faker->phoneNumber;
+    $this->business->mobileNumber  = $this->faker->phoneNumber;
+    $this->business->streetAddress = $this->faker->streetAddress;
+    $this->business->suburb        = $this->faker->city;
+    $this->business->state         = $this->faker->stateAbbr;
+    $this->business->postcode      = $this->faker->postcode;
+    $this->business->url           = $this->faker->url;
+    $this->business->companyEmail  = $this->faker->companyEmail;
     error_reporting($original);
   }
 
@@ -47,9 +47,9 @@ trait SupplierTestTrait {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createNode([
       'type' => 'se_supplier',
-      'title' => $this->customer->name,
-      'se_su_phone' => $this->customer->phoneNumber,
-      'se_su_email' => $this->customer->companyEmail,
+      'title' => $this->business->name,
+      'se_su_phone' => $this->business->phoneNumber,
+      'se_su_email' => $this->business->companyEmail,
     ]);
     $this->assertNotEquals($node, FALSE);
     $this->drupalGet($node->toUrl());
@@ -60,8 +60,8 @@ trait SupplierTestTrait {
     $this->assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertStringContainsString($this->customer->name, $content);
-    $this->assertStringContainsString($this->customer->phoneNumber, $content);
+    $this->assertStringContainsString($this->business->name, $content);
+    $this->assertStringContainsString($this->business->phoneNumber, $content);
 
     return $node;
   }
