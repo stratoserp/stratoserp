@@ -16,4 +16,5 @@ config_devel:
     - field.field.se_information.se_document.se_if_comments
     - se_information.se_information_type.se_document
   optional:
-    - views.view.se_information_document_list
+    - views.view.se_document_list
+    - views.view.se_document_eva

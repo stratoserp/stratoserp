@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_business.se_bu_address
+  module:
+    - se_business
+id: se_business.se_business.se_bu_address
+field_name: se_bu_address
+entity_type: se_business
+bundle: se_business
+label: Address
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

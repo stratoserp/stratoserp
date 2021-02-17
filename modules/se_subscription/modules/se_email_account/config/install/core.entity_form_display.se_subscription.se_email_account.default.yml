@@ -32,6 +32,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
@@ -57,6 +58,7 @@ content:
       match_operator: CONTAINS
       size: '40'
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: se_item_line_widget
     region: bottom
@@ -80,6 +82,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first

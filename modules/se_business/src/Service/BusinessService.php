@@ -74,7 +74,7 @@ class BusinessService {
    *   The balance for the business in cents.
    */
   public function getBalance(Business $entity): int {
-    return (int) $entity->se_cu_balance->value;
+    return (int) $entity->se_bu_balance->value;
   }
 
   /**
@@ -89,7 +89,7 @@ class BusinessService {
    *   The balance of the businesss account afterwards.
    */
   public function setBalance(Business $entity, int $value): int {
-    $entity->se_cu_balance->value = $value;
+    $entity->se_bu_balance->value = $value;
     try {
       $entity->save();
     }
@@ -111,7 +111,7 @@ class BusinessService {
    *   The balance of the businesss account afterwards.
    */
   public function adjustBalance(Business $entity, int $value): int {
-    $entity->se_cu_balance->value += $value;
+    $entity->se_bu_balance->value += $value;
     try {
       $entity->save();
     }

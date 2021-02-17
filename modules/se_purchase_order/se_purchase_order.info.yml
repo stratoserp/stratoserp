@@ -30,4 +30,5 @@ config_devel:
     - field.storage.se_purchase_order.se_po_total
   optional:
     - views.view.se_purchase_order_balances
+    - views.view.se_purchase_order_eva
     - views.view.se_purchase_order_list

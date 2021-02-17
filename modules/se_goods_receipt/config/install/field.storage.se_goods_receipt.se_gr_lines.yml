@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - comment
+    - se_goods_receipt
     - se_item
     - se_item_line
 id: se_goods_receipt.se_gr_lines

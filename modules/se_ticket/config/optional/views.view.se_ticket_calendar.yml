@@ -2,28 +2,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_ticket.se_ti_open_date
-    - field.storage.se_ticket.se_ti_owner_ref
     - field.storage.se_ticket.se_ti_scheduled
-    - field.storage.se_ticket.se_ti_type_ref
-    - se_ticket.type.se_ticket
     - system.menu.stratos-erp
-    - taxonomy.vocabulary.se_ticket_type
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
     - datetime_range
     - fullcalendar_view
     - se_ticket
-    - taxonomy
     - user
 id: se_ticket_calendar
-label: Calendar
+label: 'Ticket calendar'
 module: views
 description: ''
 tag: ''
 base_table: se_ticket_field_data
-base_field: nid
+base_field: id
 display:
   default:
     display_plugin: default
@@ -60,10 +55,26 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: some
+        type: full
         options:
-          items_per_page: 250
+          items_per_page: 20
           offset: 0
+          id: 0
+          total_pages: null
+          tags:
+            previous: ‹
+            next: ›
+            first: ‹‹
+            last: ››
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
       style:
         type: fullcalendar_view_display
         options:
@@ -71,62 +82,49 @@ display:
           defaultDate: ''
           start: se_ti_scheduled
           end: se_ti_scheduled
-          title: title
-          des:
-            body: body
-          use_entity_fields: 1
-          right_buttons:
-            agendaWeek: agendaWeek
-            agendaDay: agendaDay
-            listYear: listYear
+          title: name
+          left_buttons: 'prev,next today'
+          right_buttons: 'dayGridMonth,timeGridWeek,timeGridDay,listYear'
+          default_view: dayGridMonth
+          firstDay: '0'
           nav_links: 1
-          alloweventOverlap: 1
+          timeFormat: 'hh:mm a'
+          allowEventOverlap: 1
+          updateAllowed: 1
           updateConfirm: 1
           defaultLanguage: en
           languageSelector: 0
-          createEventLink: 1
-          tax_field: se_ti_type_ref
-          vocabularies: se_ticket_type
+          dialogWindow: 0
+          openEntityInNewTab: 1
+          createEventLink: 0
+          tax_field: ''
+          vocabularies: ''
           color_bundle:
-            se_bill: '#3a87ad'
-            se_contact: '#3a87ad'
-            se_goods_receipt: '#3a87ad'
-            se_invoice: '#3a87ad'
-            se_payment: '#3a87ad'
-            se_purchase_order: '#3a87ad'
-            se_quote: '#3a87ad'
-            se_report: '#3a87ad'
-            se_business: '#3a87ad'
             se_ticket: '#3a87ad'
-          bundle_type: se_ticket
+          rrule: ''
+          duration: ''
+          bundle_type: ''
           classes: ''
-          color_taxonomies:
-            37: '#ff0000'
-            496: '#613aad'
-            38: '#3aad55'
-            502: '#000000'
-            39: '#3aad69'
-            500: '#3a4f00'
-            40: '#3a87ad'
-            498: '#3a87ad'
-            41: '#3a87ad'
-            42: '#3a87ad'
-            43: '#3a87ad'
-            44: '#3a87ad'
-            501: '#3a87ad'
-            45: '#cc7500'
       row:
         type: fields
+        options:
+          inline: {  }
+          separator: ''
+          hide_empty: false
+          default_field_elements: true
       fields:
-        title:
-          id: title
+        name:
           table: se_ticket_field_data
-          field: title
+          field: name
+          id: name
+          entity_type: null
+          entity_field: name
+          plugin_id: field
           relationship: none
           group_type: group
           admin_label: ''
-          label: Title
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -145,8 +143,8 @@ display:
             target: ''
             nl2br: false
             max_length: 0
-            word_boundary: false
-            ellipsis: false
+            word_boundary: true
+            ellipsis: true
             more_link: false
             more_link_text: ''
             more_link_path: ''
@@ -158,7 +156,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -168,8 +166,7 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings:
-            link_to_entity: true
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -180,249 +177,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: se_ticket
-          entity_field: title
-          plugin_id: field
-        se_ti_type_ref:
-          id: se_ti_type_ref
-          table: se_ticket__se_ti_type_ref
-          field: se_ti_type_ref
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Type
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        se_ti_owner_ref:
-          id: se_ti_owner_ref
-          table: se_ticket__se_ti_owner_ref
-          field: se_ti_owner_ref
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Owner
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        nothing:
-          id: nothing
-          table: views
-          field: nothing
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Title
-          exclude: false
-          alter:
-            alter_text: true
-            text: '{{ title }} {{ se_ti_type_ref }} - {{ se_ti_owner_ref }}'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: false
-          plugin_id: custom
-        se_ti_open_date:
-          id: se_ti_open_date
-          table: se_ticket__se_ti_open_date
-          field: se_ti_open_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Open date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: medium
-            custom_date_format: ''
-            timezone: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
         se_ti_scheduled:
           id: se_ti_scheduled
           table: se_ticket__se_ti_scheduled
@@ -430,7 +184,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Scheduled
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -488,154 +242,8 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        body:
-          id: body
-          table: se_ticket__body
-          field: body
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Body
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: text_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-      filters:
-        status:
-          value: '1'
-          table: se_ticket_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: se_ticket
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-          group: 1
-        type:
-          id: type
-          table: se_ticket_field_data
-          field: type
-          value:
-            se_ticket: se_ticket
-          entity_type: se_ticket
-          entity_field: type
-          plugin_id: bundle
-        se_ti_type_ref_target_id:
-          id: se_ti_type_ref_target_id
-          table: se_ticket__se_ti_type_ref
-          field: se_ti_type_ref_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_ti_type_ref_target_id_op
-            label: 'Ticket type'
-            description: ''
-            use_operator: false
-            operator: se_ti_type_ref_target_id_op
-            identifier: ti_type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              business: '0'
-              staff: '0'
-              developer: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: se_ticket_type
-          hierarchy: false
-          error_message: true
-          plugin_id: taxonomy_index_tid
-      sorts:
-        created:
-          id: created
-          table: se_ticket_field_data
-          field: created
-          order: DESC
-          entity_type: se_ticket
-          entity_field: created
-          plugin_id: date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          exposed: false
-          expose:
-            label: ''
-          granularity: second
-      title: Calendar
+      filters: {  }
+      sorts: {  }
       header: {  }
       footer: {  }
       empty: {  }
@@ -647,15 +255,10 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - user
+        - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_ticket.body'
-        - 'config:field.storage.se_ticket.se_ti_open_date'
-        - 'config:field.storage.se_ticket.se_ti_owner_ref'
         - 'config:field.storage.se_ticket.se_ti_scheduled'
-        - 'config:field.storage.se_ticket.se_ti_type_ref'
   page_1:
     display_plugin: page
     id: page_1
@@ -663,10 +266,10 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/calendar
+      path: se/ticket-calendar
       menu:
         type: normal
-        title: Calendar
+        title: 'Ticket calendar'
         description: ''
         expanded: false
         parent: 'views_view:views.se_ticket_list.page_1'
@@ -678,12 +281,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - user
+        - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_ticket.body'
-        - 'config:field.storage.se_ticket.se_ti_open_date'
-        - 'config:field.storage.se_ticket.se_ti_owner_ref'
         - 'config:field.storage.se_ticket.se_ti_scheduled'
-        - 'config:field.storage.se_ticket.se_ti_type_ref'

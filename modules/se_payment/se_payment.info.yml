@@ -28,3 +28,4 @@ config_devel:
   optional:
     - views.view.se_payment_balances
     - views.view.se_payment_list
+    - views.view.se_payment_eva

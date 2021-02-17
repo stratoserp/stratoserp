@@ -6,23 +6,21 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_body
     - field.field.se_ticket.se_ticket.se_bu_ref
     - field.field.se_ticket.se_ticket.se_co_ref
+    - field.field.se_ticket.se_ticket.se_ti_lines
     - field.field.se_ticket.se_ticket.se_ti_open_date
     - field.field.se_ticket.se_ticket.se_ti_owner_ref
     - field.field.se_ticket.se_ticket.se_ti_priority_ref
     - field.field.se_ticket.se_ticket.se_ti_scheduled
     - field.field.se_ticket.se_ticket.se_ti_status_ref
     - field.field.se_ticket.se_ticket.se_ti_type_ref
-    - field.field.se_ticket.se_ticket.se_timekeeping
   module:
-    - comment
-    - datetime_range
     - field_layout
     - layout_discovery
+    - se_item_line
     - se_ticket
-    - text
 third_party_settings:
   field_layout:
-    id: layout_twocol
+    id: layout_onecol
     settings:
       label: ''
 id: se_ticket.se_ticket.default
@@ -33,80 +31,21 @@ content:
   name:
     type: string_textfield
     weight: -4
-    region: first
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  se_body:
-    type: text_textarea
-    weight: 10
-    settings:
-      rows: 5
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: bottom
-  se_bu_ref:
-    weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
-  se_co_ref:
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
-  se_ti_open_date:
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_timestamp
-    region: second
-  se_ti_owner_ref:
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: first
-  se_ti_priority_ref:
-    weight: 8
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: second
-  se_ti_scheduled:
-    weight: 9
-    settings: {  }
-    third_party_settings: {  }
-    type: daterange_default
-    region: second
-  se_ti_status_ref:
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: second
-  se_ti_type_ref:
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: first
-  se_timekeeping:
-    type: comment_default
     region: content
-    weight: 25
-    settings: {  }
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
+  se_ti_lines:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 40
+      placeholder: ''
+    third_party_settings: {  }
+    type: se_item_line_widget
+    region: content
   user_id:
     type: entity_reference_autocomplete
     weight: 5
@@ -115,14 +54,16 @@ content:
       size: 60
       placeholder: ''
       match_limit: 10
-    region: first
+    region: content
     third_party_settings: {  }
 hidden:
-  created: true
-  field_attachments: true
-  path: true
-  promote: true
   se_attachments: true
-  status: true
-  sticky: true
-  uid: true
+  se_body: true
+  se_bu_ref: true
+  se_co_ref: true
+  se_ti_open_date: true
+  se_ti_owner_ref: true
+  se_ti_priority_ref: true
+  se_ti_scheduled: true
+  se_ti_status_ref: true
+  se_ti_type_ref: true

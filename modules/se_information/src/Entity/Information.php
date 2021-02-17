@@ -66,7 +66,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/information/{se_information}/revisions/{se_information_revision}/revert",
  *     "revision_delete" = "/information/{se_information}/revisions/{se_information_revision}/delete",
  *     "translation_revert" = "/information/{se_information}/revisions/{se_information_revision}/revert/{langcode}",
- *     "collection" = "/admin/content/information",
+ *     "collection" = "/admin/se/information",
  *   },
  *   options = {
  *     "_admin_route" = "0",

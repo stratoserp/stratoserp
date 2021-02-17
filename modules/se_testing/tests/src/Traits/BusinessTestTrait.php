@@ -48,8 +48,8 @@ trait BusinessTestTrait {
     $node = $this->createNode([
       'type' => 'se_business',
       'title' => $this->supplier->name,
-      'se_cu_phone' => $this->supplier->phoneNumber,
-      'se_cu_email' => $this->supplier->companyEmail,
+      'se_bu_phone' => $this->supplier->phoneNumber,
+      'se_bu_email' => $this->supplier->companyEmail,
     ]);
     $this->assertNotEquals($node, FALSE);
     $this->drupalGet($node->toUrl());

@@ -19,4 +19,4 @@ config_devel:
     - field.field.se_subscription.se_domain_hosting.se_su_management_link
     - field.field.se_subscription.se_domain_hosting.se_su_period
     - field.field.se_subscription.se_domain_hosting.se_su_ref
-    - field.storage.se_subscrtition.se_dh_hosting_type
+    - field.storage.se_subscription.se_dh_hosting_type

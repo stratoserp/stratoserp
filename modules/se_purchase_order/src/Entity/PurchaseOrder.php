@@ -9,7 +9,6 @@ use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 
@@ -64,7 +63,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/purchase-order/{se_purchase_order}/revisions/{se_purchase_order_revision}/revert",
  *     "revision_delete" = "/purchase-order/{se_purchase_order}/revisions/{se_purchase_order_revision}/delete",
  *     "translation_revert" = "/purchase-order/{se_purchase_order}/revisions/{se_purchase_order_revision}/revert/{langcode}",
- *     "collection" = "/admin/se/purchase_order/se_purchase_order",
+ *     "collection" = "/admin/se/purchase-order",
  *   },
  *   field_ui_base_route = "se_purchase_order.settings",
  *   revision_metadata_keys = {
@@ -77,7 +76,6 @@ use Drupal\user\UserInterface;
 class PurchaseOrder extends RevisionableContentEntityBase implements PurchaseOrderInterface {
 
   use EntityChangedTrait;
-  use EntityPublishedTrait;
 
   /**
    * {@inheritdoc}

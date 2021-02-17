@@ -2,23 +2,24 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_business.se_business.se_cu_address
-    - field.field.se_business.se_business.se_cu_balance
-    - field.field.se_business.se_business.se_cu_email
-    - field.field.se_business.se_business.se_cu_email_format
-    - field.field.se_business.se_business.se_cu_fax
-    - field.field.se_business.se_business.se_cu_homepage
-    - field.field.se_business.se_business.se_cu_location
-    - field.field.se_business.se_business.se_cu_mobile
-    - field.field.se_business.se_business.se_cu_phone
-    - field.field.se_business.se_business.se_cu_postal_address
-    - field.field.se_business.se_business.se_cu_postal_postcode
-    - field.field.se_business.se_business.se_cu_postal_state
-    - field.field.se_business.se_business.se_cu_postal_suburb
-    - field.field.se_business.se_business.se_cu_postcode
-    - field.field.se_business.se_business.se_cu_state
-    - field.field.se_business.se_business.se_cu_status
-    - field.field.se_business.se_business.se_cu_suburb
+    - field.field.se_business.se_business.se_bu_address
+    - field.field.se_business.se_business.se_bu_balance
+    - field.field.se_business.se_business.se_bu_email
+    - field.field.se_business.se_business.se_bu_email_format
+    - field.field.se_business.se_business.se_bu_fax
+    - field.field.se_business.se_business.se_bu_homepage
+    - field.field.se_business.se_business.se_bu_location
+    - field.field.se_business.se_business.se_bu_mobile
+    - field.field.se_business.se_business.se_bu_phone
+    - field.field.se_business.se_business.se_bu_postal_address
+    - field.field.se_business.se_business.se_bu_postal_postcode
+    - field.field.se_business.se_business.se_bu_postal_state
+    - field.field.se_business.se_business.se_bu_postal_suburb
+    - field.field.se_business.se_business.se_bu_postcode
+    - field.field.se_business.se_business.se_bu_state
+    - field.field.se_business.se_business.se_bu_status
+    - field.field.se_business.se_business.se_bu_suburb
+    - field.field.se_business.se_business.se_bu_type
   module:
     - field_layout
     - layout_discovery
@@ -37,21 +38,21 @@ mode: default
 content:
   name:
     type: string_textfield
-    weight: -4
+    weight: 0
     region: first
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_cu_address:
+  se_bu_address:
     type: string_textfield
-    weight: 4
+    weight: 5
     region: first
     settings:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  se_cu_email:
+  se_bu_email:
     type: email_default
     weight: 10
     region: second
@@ -59,20 +60,20 @@ content:
       placeholder: ''
       size: 25
     third_party_settings: {  }
-  se_cu_email_format:
+  se_bu_email_format:
     type: options_select
     weight: 11
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_cu_fax:
+  se_bu_fax:
     type: telephone_default
-    weight: 3
+    weight: 4
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
-  se_cu_homepage:
+  se_bu_homepage:
     type: link_default
     weight: 9
     region: second
@@ -80,21 +81,21 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-  se_cu_mobile:
+  se_bu_mobile:
+    type: telephone_default
+    weight: 3
+    region: first
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  se_bu_phone:
     type: telephone_default
     weight: 2
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
-  se_cu_phone:
-    type: telephone_default
-    weight: 1
-    region: first
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  se_cu_postal_address:
+  se_bu_postal_address:
     type: string_textfield
     weight: 13
     region: second
@@ -102,7 +103,7 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  se_cu_postal_postcode:
+  se_bu_postal_postcode:
     type: string_textfield
     weight: 16
     region: second
@@ -110,7 +111,7 @@ content:
       size: 10
       placeholder: ''
     third_party_settings: {  }
-  se_cu_postal_state:
+  se_bu_postal_state:
     type: string_textfield
     weight: 15
     region: second
@@ -118,7 +119,7 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  se_cu_postal_suburb:
+  se_bu_postal_suburb:
     type: string_textfield
     weight: 14
     region: second
@@ -126,15 +127,29 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  se_cu_postcode:
+  se_bu_postcode:
     type: string_textfield
-    weight: 7
+    weight: 8
     region: first
     settings:
       size: 10
       placeholder: ''
     third_party_settings: {  }
-  se_cu_state:
+  se_bu_state:
+    type: string_textfield
+    weight: 7
+    region: first
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+  se_bu_status:
+    type: options_select
+    weight: 12
+    region: second
+    settings: {  }
+    third_party_settings: {  }
+  se_bu_suburb:
     type: string_textfield
     weight: 6
     region: first
@@ -142,30 +157,26 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-  se_cu_status:
-    type: options_select
-    weight: 12
-    region: second
-    settings: {  }
-    third_party_settings: {  }
-  se_cu_suburb:
-    type: string_textfield
-    weight: 5
-    region: first
-    settings:
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-  user_id:
-    type: entity_reference_autocomplete
-    weight: 5
+  se_bu_type:
+    weight: 1
     settings:
       match_operator: CONTAINS
-      size: '60'
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 17
+    settings:
+      match_operator: CONTAINS
+      size: 60
       placeholder: ''
       match_limit: 10
-    region: first
+    region: bottom
     third_party_settings: {  }
 hidden:
-  se_cu_balance: true
-  se_cu_location: true
+  se_bu_balance: true
+  se_bu_location: true

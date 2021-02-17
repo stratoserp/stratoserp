@@ -70,11 +70,11 @@ class XeroContactService {
       return $contact;
     }
 
-    if (isset($node->se_cu_id->value) && $contact = $this->lookupByContactNumber($node->se_cu_id->value)) {
+    if (isset($node->se_bu_id->value) && $contact = $this->lookupByContactNumber($node->se_bu_id->value)) {
       return $contact;
     }
 
-    if (isset($node->se_cu_email->value) && $contact = $this->lookupByContactEmailAddress($node->se_cu_email->value)) {
+    if (isset($node->se_bu_email->value) && $contact = $this->lookupByContactEmailAddress($node->se_bu_email->value)) {
       return $contact;
     }
 
@@ -182,9 +182,9 @@ class XeroContactService {
    */
   private function setContactValues(ImmutableConfig $settings, XeroItemList $contacts, Node $node) {
     $values = [
-      'ContactNumber' => $node->se_cu_id->value,
+      'ContactNumber' => $node->se_bu_id->value,
       'Name' => $node->title->value,
-      'EmailAddress' => $node->se_cu_email->value,
+      'EmailAddress' => $node->se_bu_email->value,
       'Phones' => [],
       'IsBusiness' => TRUE,
       'DefaultCurrency' => $settings->get('system.currency'),
@@ -196,10 +196,10 @@ class XeroContactService {
     $name = str_replace(['-', '  '], ['', ' '], $node->title->value);
     $names = explode(' ', $name);
     if ($main_contact = \Drupal::service('se_contact.service')->loadMainContactByBusiness($node)) {
-      if (isset($main_contact->se_cu_phone->value)) {
+      if (isset($main_contact->se_bu_phone->value)) {
         $contacts->get(0)->get('Phones')->appendItem([
           'PhoneType' => 'DEFAULT',
-          'PhoneNumber' => $node->se_cu_phone->value,
+          'PhoneNumber' => $node->se_bu_phone->value,
         ]);
       }
       $names = explode(' ', $main_contact->title);

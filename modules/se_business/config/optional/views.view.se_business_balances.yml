@@ -2,18 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_business.se_cu_balance
-    - field.storage.se_business.se_in_total
+    - field.storage.se_business.se_bu_balance
     - system.menu.stratos-erp
-    - taxonomy.vocabulary.se_status
+    - user.role.administrator
     - user.role.developer
     - user.role.staff
-  content:
-    - 'taxonomy_term:se_status:b73441fa-6f8d-4163-a45f-1ba9574245a3'
   module:
-    - se_business
     - se_accounting
-    - taxonomy
+    - se_business
     - user
 id: se_business_balances
 label: 'Business balances'
@@ -21,7 +17,7 @@ module: views
 description: ''
 tag: ''
 base_table: se_business_field_data
-base_field: nid
+base_field: id
 display:
   default:
     display_plugin: default
@@ -37,7 +33,7 @@ display:
             staff: staff
             developer: developer
       cache:
-        type: none
+        type: tag
         options: {  }
       query:
         type: views_query
@@ -77,7 +73,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 5
+          quantity: 9
       style:
         type: table
         options:
@@ -90,213 +86,85 @@ display:
           summary: ''
           description: ''
           columns:
-            nid: nid
-            title: title
-            se_in_total: se_in_total
-            se_cu_balance: se_cu_balance
+            name: name
+            se_bu_balance: se_bu_balance
           info:
-            nid:
+            name:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            title:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            se_in_total:
+            se_bu_balance:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_cu_balance:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: se_cu_balance
+          default: '-1'
           empty_table: false
       row:
         type: fields
+        options:
+          inline: {  }
+          separator: ''
+          hide_empty: false
+          default_field_elements: true
       fields:
-        nid:
-          id: nid
+        name:
+          id: name
           table: se_business_field_data
-          field: nid
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
-          label: ID
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: se_business
-          entity_field: nid
-          plugin_id: field
-        nid_1:
-          id: nid_1
-          table: se_business_field_data
-          field: nid
-          relationship: reverse__se_business__se_bu_ref
-          group_type: group
-          admin_label: ''
-          label: 'Invoice ID'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: se_business
-          entity_field: nid
-          plugin_id: field
-        title:
-          id: title
-          table: se_business_field_data
-          field: title
-          entity_type: se_business
-          entity_field: title
-          alter:
-            alter_text: false
-            make_link: false
-            absolute: false
-            trim: false
-            word_boundary: false
-            ellipsis: false
-            strip_tags: false
-            html: false
-          hide_empty: false
-          empty_zero: false
-          settings:
-            link_to_entity: true
-          plugin_id: field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Title
+          label: ''
           exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
           element_type: ''
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
           empty: ''
+          hide_empty: false
+          empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: string
+          settings:
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -307,82 +175,23 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_in_total:
-          id: se_in_total
-          table: se_business__se_in_total
-          field: se_in_total
-          relationship: reverse__se_business__se_bu_ref
-          group_type: group
-          admin_label: ''
-          label: Invoice
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: true
-            path: 'se_business/{{ nid_1}}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: se_currency_formatter
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
+          entity_type: null
+          entity_field: name
           plugin_id: field
-        se_cu_balance:
-          id: se_cu_balance
-          table: se_business__se_cu_balance
-          field: se_cu_balance
+        se_bu_balance:
+          id: se_bu_balance
+          table: se_business__se_bu_balance
+          field: se_bu_balance
           relationship: none
           group_type: group
           admin_label: ''
-          label: Balance
+          label: ''
           exclude: false
           alter:
             alter_text: false
             text: ''
-            make_link: true
-            path: 'business/{{ nid }}'
+            make_link: false
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
@@ -432,43 +241,25 @@ display:
           field_api_classes: false
           plugin_id: field
       filters:
-        status:
-          value: '1'
+        name:
+          id: name
           table: se_business_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: se_business
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-          group: 1
-        type:
-          id: type
-          table: se_business_field_data
-          field: type
-          value:
-            se_business: se_business
-          entity_type: se_business
-          entity_field: type
-          plugin_id: bundle
-        title:
-          id: title
-          table: se_business_field_data
-          field: title
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
-          operator: word
+          operator: contains
           value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: title_op
+            operator_id: name_op
             label: Name
             description: ''
             use_operator: false
-            operator: title_op
+            operator: name_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: name
             required: false
             remember: false
@@ -495,12 +286,12 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           entity_type: se_business
-          entity_field: title
+          entity_field: name
           plugin_id: string
-        se_cu_balance_value:
-          id: se_cu_balance_value
-          table: se_business__se_cu_balance
-          field: se_cu_balance_value
+        se_bu_balance_value:
+          id: se_bu_balance_value
+          table: se_business__se_bu_balance
+          field: se_bu_balance_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -517,6 +308,8 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
@@ -539,90 +332,13 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: numeric
-        se_status_ref_target_id:
-          id: se_status_ref_target_id
-          table: se_business__se_status_ref
-          field: se_status_ref_target_id
-          relationship: reverse__se_business__se_bu_ref
-          group_type: group
-          admin_label: ''
-          operator: or
-          value:
-            32: 32
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_status_ref_target_id_op
-            label: Status
-            description: ''
-            use_operator: false
-            operator: se_status_ref_target_id_op
-            identifier: status
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              business: '0'
-              supplier: '0'
-              staff: '0'
-              developer: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: se_status
-          hierarchy: false
-          error_message: true
-          plugin_id: taxonomy_index_tid
-      sorts:
-        created:
-          id: created
-          table: se_business_field_data
-          field: created
-          order: DESC
-          entity_type: se_business
-          entity_field: created
-          plugin_id: date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          exposed: false
-          expose:
-            label: ''
-          granularity: second
-      title: 'Business balances'
+      sorts: {  }
       header: {  }
       footer: {  }
       empty: {  }
-      relationships:
-        reverse__se_business__se_bu_ref:
-          id: reverse__se_business__se_bu_ref
-          table: se_business_field_data
-          field: reverse__se_business__se_bu_ref
-          relationship: none
-          group_type: group
-          admin_label: se_bu_ref
-          required: false
-          entity_type: se_business
-          plugin_id: entity_reverse
+      relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      group_by: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -630,14 +346,12 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - user.roles
       tags:
-        - 'config:field.storage.se_business.se_cu_balance'
-        - 'config:field.storage.se_business.se_in_total'
-  page_1:
+        - 'config:field.storage.se_business.se_bu_balance'
+  se_business_balances:
     display_plugin: page
-    id: page_1
+    id: se_business_balances
     display_title: Page
     position: 1
     display_options:
@@ -645,8 +359,8 @@ display:
       path: se/business-balances
       menu:
         type: normal
-        title: Balances
-        description: Balances
+        title: 'Business balances'
+        description: ''
         expanded: false
         parent: 'views_view:views.se_business_list.page_1'
         weight: 0
@@ -659,8 +373,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - user.roles
       tags:
-        - 'config:field.storage.se_business.se_cu_balance'
-        - 'config:field.storage.se_business.se_in_total'
+        - 'config:field.storage.se_business.se_bu_balance'

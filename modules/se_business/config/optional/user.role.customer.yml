@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-id: business
-label: Business
+id: customer
+label: Customer
 weight: 4
 is_admin: null
 permissions:

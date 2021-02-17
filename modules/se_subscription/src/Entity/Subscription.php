@@ -7,7 +7,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 
@@ -52,7 +51,7 @@ use Drupal\user\UserInterface;
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
- *     "published" = "status",
+ *     "status" = "status",
  *   },
  *   links = {
  *     "canonical" = "/subscription/{se_subscription}",
@@ -65,7 +64,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/subscription/{se_subscription}/revisions/{se_subscription_revision}/revert",
  *     "revision_delete" = "/subscription/{se_subscription}/revisions/{se_subscription_revision}/delete",
  *     "translation_revert" = "/subscription/{se_subscription}/revisions/{se_subscription_revision}/revert/{langcode}",
- *     "collection" = "/admin/structure/subscription",
+ *     "collection" = "/admin/se/subscription",
  *   },
  *   options = {
  *     "_admin_route" = "0",
@@ -82,7 +81,6 @@ use Drupal\user\UserInterface;
 class Subscription extends RevisionableContentEntityBase implements SubscriptionInterface {
 
   use EntityChangedTrait;
-  use EntityPublishedTrait;
 
   /**
    * {@inheritdoc}
@@ -198,9 +196,6 @@ class Subscription extends RevisionableContentEntityBase implements Subscription
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    // Add the published field.
-    $fields += static::publishedBaseFieldDefinitions($entity_type);
-
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
       ->setDescription(t('The user ID of author of the Subscription entity.'))
@@ -247,12 +242,6 @@ class Subscription extends RevisionableContentEntityBase implements Subscription
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
-
-    $fields['status']->setDescription(t('A boolean indicating whether the Subscription is published.'))
-      ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'weight' => -3,
-      ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))

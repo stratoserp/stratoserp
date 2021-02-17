@@ -5,7 +5,6 @@ namespace Drupal\se_subscription\Entity;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
-use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\user\EntityOwnerInterface;
 
 /**
@@ -13,7 +12,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup se_subscription
  */
-interface SubscriptionInterface extends ContentEntityInterface, RevisionLogInterface, EntityChangedInterface, EntityPublishedInterface, EntityOwnerInterface {
+interface SubscriptionInterface extends ContentEntityInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
   /**
    * Add get/set methods for your configuration properties here.

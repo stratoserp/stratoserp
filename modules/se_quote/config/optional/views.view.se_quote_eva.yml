@@ -212,7 +212,7 @@ display:
   entity_view_2:
     display_plugin: entity_view
     id: entity_view_2
-    display_title: 'Business contacts'
+    display_title: Quotes
     position: 2
     display_options:
       display_extenders: {  }

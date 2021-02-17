@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Business type'
+vid: se_business_type
+description: 'Business type taxonomy'
+weight: 0
