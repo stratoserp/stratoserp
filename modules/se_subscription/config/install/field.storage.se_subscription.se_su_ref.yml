@@ -2,14 +2,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
     - se_subscription
 id: se_subscription.se_su_ref
 field_name: se_su_ref
 entity_type: se_subscription
 type: entity_reference
 settings:
-  target_type: node
+  target_type: se_supplier
 module: core
 locked: false
 cardinality: 1

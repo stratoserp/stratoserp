@@ -3,13 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.node.se_bu_ref
-    - field.storage.node.se_po_id
     - field.storage.node.se_po_total
     - system.menu.stratos-erp
     - user.role.developer
     - user.role.staff
   module:
-    - node
     - se_accounting
     - user
 id: se_purchase_order_list
@@ -89,7 +87,6 @@ display:
           columns:
             nid: nid
             created: created
-            se_po_id: se_po_id
             title: title
             se_bu_ref: se_bu_ref
             se_po_total: se_po_total
@@ -104,13 +101,6 @@ display:
             created:
               sortable: true
               default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            se_po_id:
-              sortable: true
-              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -271,68 +261,6 @@ display:
           field_api_classes: false
           entity_type: node
           entity_field: created
-          plugin_id: field
-        se_po_id:
-          id: se_po_id
-          table: node__se_po_id
-          field: se_po_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Purchase_order
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: true
-            path: 'node/{{ nid }}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: serial_default_formatter
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
           plugin_id: field
         title:
           id: title
@@ -546,50 +474,6 @@ display:
           entity_field: type
           plugin_id: bundle
           group: 1
-        se_po_id_value:
-          id: se_po_id_value
-          table: node__se_po_id
-          field: se_po_id_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_po_id_value_op
-            label: 'Purchase order id'
-            description: ''
-            use_operator: false
-            operator: se_po_id_value_op
-            identifier: purchase_order_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              staff: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: numeric
         title:
           id: title
           table: node_field_data
@@ -677,11 +561,9 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.node.se_bu_ref'
-        - 'config:field.storage.node.se_po_id'
         - 'config:field.storage.node.se_po_total'
   page_1:
     display_plugin: page
@@ -707,9 +589,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.node.se_bu_ref'
-        - 'config:field.storage.node.se_po_id'
         - 'config:field.storage.node.se_po_total'

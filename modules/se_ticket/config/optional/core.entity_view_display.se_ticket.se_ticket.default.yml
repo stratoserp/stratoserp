@@ -12,6 +12,7 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_ti_scheduled
     - field.field.se_ticket.se_ticket.se_ti_status_ref
     - field.field.se_ticket.se_ticket.se_ti_type_ref
+    - field.field.se_ticket.se_ticket.se_timekeeping
   module:
     - comment
     - datetime_range

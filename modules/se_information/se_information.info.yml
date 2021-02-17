@@ -4,7 +4,6 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - stratoserp
   - se_item
   - se_customer
   - se_supplier

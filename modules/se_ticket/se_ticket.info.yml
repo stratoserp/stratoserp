@@ -9,9 +9,7 @@ dependencies:
   - eva
   - field
   - menu_ui
-  - node
   - path
-  - stratoserp
   - se_contact
   - se_customer
   - se_supplier

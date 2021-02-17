@@ -6,9 +6,7 @@ package: StratosERP
 dependencies:
   - field
   - menu_ui
-  - node
   - path
-  - stratoserp
   - se_invoice
   - se_item_line
   - se_purchase_order

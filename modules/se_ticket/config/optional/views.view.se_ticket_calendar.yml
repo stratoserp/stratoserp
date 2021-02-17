@@ -651,7 +651,6 @@ display:
         - 'languages:language_interface'
         - url
         - user
-        - 'user.se_ticket_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.se_ticket.body'

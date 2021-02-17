@@ -14,7 +14,6 @@ dependencies:
   module:
     - comment
     - datetime
-    - node
     - se_timekeeping
     - user
 id: se_timekeeping_list

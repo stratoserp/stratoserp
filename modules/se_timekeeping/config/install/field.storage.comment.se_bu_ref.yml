@@ -3,13 +3,11 @@ status: true
 dependencies:
   module:
     - comment
-    - node
 id: comment.se_bu_ref
 field_name: se_bu_ref
 entity_type: comment
 type: entity_reference
-settings:
-  target_type: node
+settings: { }
 module: core
 locked: false
 cardinality: 1

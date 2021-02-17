@@ -7,7 +7,6 @@ dependencies:
   - field
   - menu_ui
   - path
-  - stratoserp
   - se_contact
   - se_customer
   - se_item

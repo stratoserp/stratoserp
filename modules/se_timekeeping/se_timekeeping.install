@@ -19,7 +19,7 @@ use Drupal\field\Entity\FieldStorageConfig;
 function se_timekeeping_install() {
   $entity_type_manager = \Drupal::entityTypeManager();
 
-  se_timekeeping_install_attach($entity_type_manager, 'se_ticket');
+//  se_timekeeping_install_attach($entity_type_manager, 'se_ticket');
 
   $group = field_group_load_field_group('group_cu_tabs', 'se_customer', 'se_customer', 'view', 'default');
   create_field_group($group);

@@ -23,7 +23,7 @@ class PaymentLineEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentLineNodePresave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentLineEntityPresave',
     ];
   }
 
@@ -33,21 +33,21 @@ class PaymentLineEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
    */
-  public function paymentLineNodePresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
+  public function paymentLineEntityPresave(EntityPresaveEvent $event): void {
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'node') {
+    if ($entity->getEntityTypeId() !== 'se_payment') {
       return;
     }
 
     // Check that its a node type which has items.
-    if (!array_key_exists($entity->bundle(), ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP)) {
+    if (!array_key_exists($entity->bundle(), ErpCore::PAYMENT_LINE_ENTITY_BUNDLE_MAP)) {
       return;
     }
 
     $total = 0;
-    $bundleFieldType = 'se_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::PAYMENT_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
 
     // Loop through the payment lines to calculate total.
     foreach ($entity->{$bundleFieldType . '_lines'} as $paymentLine) {

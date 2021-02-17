@@ -131,7 +131,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
       $term = \Drupal::service('se_invoice.service')->getOpenTerm();
     }
 
-    $bundleFieldType = 'se_' . ErpCore::PAYMENT_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::PAYMENT_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
 
     $amount = 0;
     foreach ($entity->{$bundleFieldType . '_lines'} as $paymentLine) {

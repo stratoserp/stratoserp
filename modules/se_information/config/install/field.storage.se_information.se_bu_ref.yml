@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
     - se_information
 id: se_information.se_bu_ref
 field_name: se_bu_ref

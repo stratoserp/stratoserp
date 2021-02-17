@@ -9,7 +9,6 @@ dependencies:
   - field_group
   - link
   - menu_ui
-  - node
   - options
   - path
   - telephone

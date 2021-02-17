@@ -8,3 +8,17 @@ dependencies:
   - se_item
   - se_recurring
   - se_subscription
+
+config_devel:
+  install:
+    - core.entity_form_display.se_subscription.se_email_account.default
+    - core.entity_view_display.se_subscription.se_email_account.default
+    - field.field.se_subscription.se_domain_hosting.se_bu_ref
+    - field.field.se_subscription.se_domain_hosting.se_bu_email_address
+    - field.field.se_subscription.se_domain_hosting.se_ea_email_aliases
+    - field.field.se_subscription.se_domain_hosting.se_su_item
+    - field.field.se_subscription.se_domain_hosting.se_su_management_link
+    - field.field.se_subscription.se_domain_hosting.se_su_period
+    - field.field.se_subscription.se_domain_hosting.se_su_ref
+    - field.storage.se_subscrtition.se_ea_email_address
+    - field.storage.se_subscrtition.se_ea_email_aliases

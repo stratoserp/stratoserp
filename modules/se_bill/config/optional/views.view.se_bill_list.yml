@@ -101,14 +101,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_bi_id:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: se_bi_id
+          default: {  }
           empty_table: false
       row:
         type: fields
@@ -299,18 +292,6 @@ display:
             operator_limit_selection: false
             operator_list: {  }
           group: 1
-        type:
-          id: type
-          table: se_bill_field_data
-          field: type
-          value:
-            se_bill: se_bill
-          entity_type: se_bill
-          entity_field: type
-          plugin_id: bundle
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
       sorts:
         created:
           id: created
@@ -342,7 +323,6 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_bill.se_bi_id'
         - 'config:field.storage.se_bill.se_bi_total'
         - 'config:field.storage.se_bill.se_bu_ref'
   page_1:
@@ -370,6 +350,5 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_bill.se_bi_id'
         - 'config:field.storage.se_bill.se_bi_total'
         - 'config:field.storage.se_bill.se_bu_ref'

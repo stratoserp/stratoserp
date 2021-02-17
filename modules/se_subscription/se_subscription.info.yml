@@ -8,3 +8,15 @@ dependencies:
   - se_item
   - se_item_line
   - se_recurring
+
+config_devel:
+  install:
+    - field.storage.se_subscrtition.se_bu_ref
+    - field.storage.se_subscription.se_su_item
+    - field.storage.se_subscription.se_su_management_link
+    - field.storage.se_subscription.se_su_period
+    - field.storage.se_subscription.se_su_ref
+    - se_subscription.se_subscription_type.se_domain_hosting
+    - se_subscription.se_subscription_type.se_domain_name
+    - se_subscription.se_subscription_type.se_email_account
+    - se_subscription.se_subscription_type.se_managed_service

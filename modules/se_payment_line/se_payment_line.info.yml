@@ -9,3 +9,7 @@ dependencies:
   - text
   - se_invoice
   - core_event_dispatcher
+
+config_devel:
+  install: {  }
+  optional: {  }
