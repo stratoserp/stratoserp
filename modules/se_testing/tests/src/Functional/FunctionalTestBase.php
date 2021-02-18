@@ -11,16 +11,14 @@ use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Url;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\se_testing\Traits\ContactTestTrait;
 use Drupal\Tests\se_testing\Traits\GoodsReceiptTestTrait;
-use Drupal\Tests\se_testing\Traits\InvoiceTestTrait;
 use Drupal\Tests\se_testing\Traits\PaymentTestTrait;
-use Drupal\Tests\se_testing\Traits\QuoteTestTrait;
 use Drupal\Tests\se_testing\Traits\TicketTestTrait;
 use Drupal\Tests\se_testing\Traits\TimekeepingTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\Tests\UiHelperTrait;
+use Drupal\user\Entity\User;
 use PHPUnit\Framework\TestCase;
 use weitzman\DrupalTestTraits\DrupalTrait;
 use weitzman\DrupalTestTraits\Entity\NodeCreationTrait;
@@ -47,11 +45,8 @@ class FunctionalTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Include various StratosERP traits.
-  use ContactTestTrait;
   use GoodsReceiptTestTrait;
-  use InvoiceTestTrait;
   use PaymentTestTrait;
-  use QuoteTestTrait;
   use TicketTestTrait;
   use TimekeepingTestTrait;
   use UserCreateTrait;
@@ -66,16 +61,37 @@ class FunctionalTestBase extends TestCase {
   /**
    * Storage for faker factory.
    *
-   * @var FakerFactory
+   * @var \Faker\Factory
    */
   protected $fakerFactory;
 
   /**
    * Storage for faker.
    *
-   * @var FakerFactory
+   * @var \Faker\Factory
    */
   protected $faker;
+
+  /**
+   * Customer user.
+   *
+   * @var \Drupal\user\Entity\User
+   */
+  protected User $customer;
+
+  /**
+   * Staff user.
+   *
+   * @var \Drupal\user\Entity\User
+   */
+  protected User $staff;
+
+  /**
+   * Owner user.
+   *
+   * @var \Drupal\user\Entity\User
+   */
+  protected User $owner;
 
   /**
    * Setup for the class.
@@ -84,6 +100,10 @@ class FunctionalTestBase extends TestCase {
     parent::setUp();
     $this->setupMinkSession();
     $this->setupDrupal();
+
+    $this->customer = $this->setupCustomerUser();
+    $this->staff = $this->setupStaffUser();
+    $this->owner = $this->setupOwnerUser();
   }
 
   /**
@@ -246,11 +266,8 @@ class FunctionalTestBase extends TestCase {
       }
     }
 
-    $customer = $this->setupCustomerUser();
-    $staff = $this->setupStaffUser();
-
     foreach ($pages as $page) {
-      $this->drupalLogin($customer);
+      $this->drupalLogin($this->customer);
       $this->drupalGet($page);
       try {
         $this->assertSession()->statusCodeEquals(403);
@@ -265,7 +282,7 @@ class FunctionalTestBase extends TestCase {
     }
 
     foreach ($pages as $page) {
-      $this->drupalLogin($staff);
+      $this->drupalLogin($this->staff);
       $this->drupalGet($page);
       try {
         $this->assertSession()->statusCodeEquals(200);
@@ -278,6 +295,22 @@ class FunctionalTestBase extends TestCase {
       }
       $this->drupalLogout();
     }
+
+    foreach ($pages as $page) {
+      $this->drupalLogin($this->owner);
+      $this->drupalGet($page);
+      try {
+        $this->assertSession()->statusCodeEquals(200);
+      }
+      catch (ExpectationException $e) {
+        self::fail((string) t('Owner - @page - @message', [
+          '@page' => $page,
+          '@message' => $e->getMessage(),
+        ]));
+      }
+      $this->drupalLogout();
+    }
+
   }
 
   /**

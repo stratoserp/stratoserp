@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_business\Functional;
 
+use Drupal\Tests\se_invoice\Traits\InvoiceTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * Test Business Service.
  */
-class BusinessServiceTest extends FunctionalTestBase {
+class BusinessServiceTest extends BusinessTestBase {
 
   use ItemTestTrait;
+  use InvoiceTestTrait;
 
   /**
    * Test business lookup service.
@@ -41,7 +42,7 @@ class BusinessServiceTest extends FunctionalTestBase {
    * Test business lookup service with an invoice.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityMalformedException|\Behat\Mink\Exception\ExpectationException
    */
   public function testBusinessServiceWithInvoice(): void {
 
@@ -51,6 +52,8 @@ class BusinessServiceTest extends FunctionalTestBase {
     $business = $this->addBusiness();
 
     $items = $this->createItems();
+    $this->invoiceFakerSetup();
+
     $invoice = $this->addInvoice($business, $items);
 
     $invoiceBusiness = \Drupal::service('se_business.service')->lookupBusiness($invoice);

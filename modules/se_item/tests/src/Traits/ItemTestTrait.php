@@ -64,15 +64,15 @@ trait ItemTestTrait {
       'se_it_cost_price' => $this->currencyFormat->formatStorage($this->item->costPrice),
     ]);
 
-    $this->assertNotEquals($item, FALSE);
+    self::assertNotEquals($item, FALSE);
 
     // Ensure that the item is not its own original item.
-    $this->assertNotNull($item->se_it_item_ref);
-    $this->assertNotEquals($item->se_it_item_ref->entity->id(), $item->id());
-    $this->assertEquals($this->item->serial, $item->se_it_serial->value);
+    self::assertNotNull($item->se_it_item_ref);
+    self::assertNotEquals($item->se_it_item_ref->entity->id(), $item->id());
+    self::assertEquals($this->item->serial, $item->se_it_serial->value);
     // $this->assertNull($item->se_it_goods_receipt_ref);
     $content = $this->checkGeneralItemAttributes($item);
-    $this->assertStringContainsString($this->item->serial, $content);
+    self::assertStringContainsString($this->item->serial, $content);
 
     return $item;
   }
@@ -94,7 +94,7 @@ trait ItemTestTrait {
       'se_it_cost_price' => $this->currencyFormat->formatStorage($this->item->costPrice),
     ]);
 
-    $this->assertNotEquals($item, FALSE);
+    self::assertNotEquals($item, FALSE);
 
     $content = $this->checkGeneralItemAttributes($item);
 
@@ -119,7 +119,7 @@ trait ItemTestTrait {
       'se_it_cost_price' => $this->currencyFormat->formatStorage($this->item->costPrice),
     ]);
 
-    $this->assertNotEquals($item, FALSE);
+    self::assertNotEquals($item, FALSE);
 
     $content = $this->checkGeneralItemAttributes($item);
 
@@ -142,29 +142,29 @@ trait ItemTestTrait {
 
     // Ensure that there is no invoice associated with the brand new item.
     if (isset($item->se_it_invoice_ref->entity)) {
-      $this->assertNull($item->se_it_invoice_ref->entity);
+      self::assertNull($item->se_it_invoice_ref->entity);
     }
 
-    $this->assertNotNull($item->se_it_code->value);
-    $this->assertNotNull($item->se_it_cost_price->value);
-    $this->assertNotNull($item->se_it_sell_price->value);
+    self::assertNotNull($item->se_it_code->value);
+    self::assertNotNull($item->se_it_cost_price->value);
+    self::assertNotNull($item->se_it_sell_price->value);
 
-    $this->assertEquals($this->item->code, $item->se_it_code->value);
-    $this->assertEquals($this->item->costPrice, $this->currencyFormat->formatRaw((int) $item->se_it_cost_price->value));
-    $this->assertEquals($this->item->sellPrice, $this->currencyFormat->formatRaw((int) $item->se_it_sell_price->value));
+    self::assertEquals($this->item->code, $item->se_it_code->value);
+    self::assertEquals($this->item->costPrice, $this->currencyFormat->formatRaw((int) $item->se_it_cost_price->value));
+    self::assertEquals($this->item->sellPrice, $this->currencyFormat->formatRaw((int) $item->se_it_sell_price->value));
 
     $this->drupalGet($item->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
 
-    $this->assertStringNotContainsString('Please fill in this field', $content);
+    self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertStringContainsString($this->item->name, $content);
-    $this->assertStringContainsString($this->item->code, $content);
-    $this->assertStringContainsString((string) $this->item->costPrice, $content);
-    $this->assertStringContainsString((string) $this->item->sellPrice, $content);
+    self::assertStringContainsString($this->item->name, $content);
+    self::assertStringContainsString($this->item->code, $content);
+    self::assertStringContainsString((string) $this->item->costPrice, $content);
+    self::assertStringContainsString((string) $this->item->sellPrice, $content);
 
     return $content;
   }

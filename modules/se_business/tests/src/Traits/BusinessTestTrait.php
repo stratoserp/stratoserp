@@ -7,31 +7,11 @@ namespace Drupal\Tests\se_business\Traits;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_business\Entity\Business;
 use Drupal\user\Entity\User;
-use Faker\Factory;
 
 /**
  * Provides functions for creating content during functional tests.
  */
 trait BusinessTestTrait {
-
-  /**
-   * Setup basic faker fields for this test trait.
-   */
-  public function businessFakerSetup(): void {
-    $this->faker = Factory::create();
-
-    $original = error_reporting(0);
-    $this->business->name = $this->faker->realText(50);
-    $this->business->phoneNumber = $this->faker->phoneNumber;
-    $this->business->mobileNumber = $this->faker->phoneNumber;
-    $this->business->streetAddress = $this->faker->streetAddress;
-    $this->business->suburb = $this->faker->city;
-    $this->business->state = $this->faker->stateAbbr;
-    $this->business->postcode = $this->faker->postcode;
-    $this->business->url = $this->faker->url;
-    $this->business->companyEmail = $this->faker->companyEmail;
-    error_reporting($original);
-  }
 
   /**
    * Add a Business entity.

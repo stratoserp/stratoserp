@@ -33,8 +33,8 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
             staff: staff
+            owner: owner
             developer: developer
       cache:
         type: tag

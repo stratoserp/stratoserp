@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_business\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Test basic permissions.
  *
@@ -13,28 +11,14 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_business
  * @group stratoserp
  */
-class BusinessPermissionsTest extends FunctionalTestBase {
-
-  /**
-   * Faker factory for business.
-   *
-   * @var \Faker\Factory
-   */
-  protected $business;
-
-  /**
-   * Faker factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
+class BusinessPermissionsTest extends BusinessTestBase {
 
   /**
    * List of pages to test permissions on.
    *
    * @var string[]
    */
-  private $pages = [
+  private array $pages = [
     '/business/add',
     '/se/business-list',
   ];

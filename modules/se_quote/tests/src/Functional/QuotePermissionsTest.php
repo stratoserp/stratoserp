@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_quote\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Test quote permissions.
  *
@@ -13,7 +11,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_quote
  * @group stratoserp
  */
-class QuotePermissionsTest extends FunctionalTestBase {
+class QuotePermissionsTest extends QuoteTestBase {
 
   /**
    * Faker factory for business.
@@ -23,18 +21,11 @@ class QuotePermissionsTest extends FunctionalTestBase {
   protected $business;
 
   /**
-   * Faker factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
-
-  /**
    * List of pages to test permissions on.
    *
    * @var string[]
    */
-  private $pages = [
+  private array $pages = [
     '/quote/add',
     '/se/businesss/quote-list',
   ];

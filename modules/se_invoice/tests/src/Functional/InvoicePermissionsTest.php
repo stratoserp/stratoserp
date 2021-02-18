@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_invoice\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Test invoice permissions.
  *
@@ -13,7 +11,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_invoice
  * @group stratoserp
  */
-class InvoicePermissionsTest extends FunctionalTestBase {
+class InvoicePermissionsTest extends InvoiceTestBase {
 
   /**
    * Faker factory for business.
@@ -23,18 +21,11 @@ class InvoicePermissionsTest extends FunctionalTestBase {
   protected $business;
 
   /**
-   * Faker factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
-
-  /**
    * List of pages to test permissions on.
    *
    * @var string[]
    */
-  private $pages = [
+  private array $pages = [
     '/invoice/add',
     '/se/businesss/invoice-list',
   ];

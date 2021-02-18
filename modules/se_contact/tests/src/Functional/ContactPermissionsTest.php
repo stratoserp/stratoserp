@@ -23,18 +23,11 @@ class ContactPermissionsTest extends FunctionalTestBase {
   protected $business;
 
   /**
-   * Faker factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
-
-  /**
    * List of pages to check permissions on.
    *
    * @var string[]
    */
-  private $pages = [
+  private array $pages = [
     '/node/add/se_contact',
     '/se/contact-list',
   ];

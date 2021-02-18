@@ -23,18 +23,11 @@ class StockItemPermissionsTest extends FunctionalTestBase {
   protected $business;
 
   /**
-   * Faker factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
-
-  /**
    * List of pages to test permissions on.
    *
    * @var string[]
    */
-  private $pages = [
+  private array $pages = [
     '/item/add/se_stock',
     '/se/item-list',
   ];

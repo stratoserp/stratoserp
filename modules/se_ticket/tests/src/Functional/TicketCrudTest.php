@@ -16,13 +16,6 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class TicketCrudTest extends FunctionalTestBase {
 
   /**
-   * Faker factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
-
-  /**
    * Ensure that a ticket can be successfully added.
    */
   public function testTicketAdd(): void {

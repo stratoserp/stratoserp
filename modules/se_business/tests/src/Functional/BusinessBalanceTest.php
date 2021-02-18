@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_business\Functional;
 
-use Drupal\Tests\se_business\Traits\BusinessTestTrait;
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Test getting, setting and adjusting business outstanding balance.
  *
@@ -14,19 +11,14 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_business
  * @group stratoserp
  */
-class BusinessBalanceTest extends FunctionalTestBase {
-
-  use BusinessTestTrait;
+class BusinessBalanceTest extends BusinessTestBase {
 
   /**
    * Test getting, setting and adjusting business balance.
    */
   public function testBusinessBalance(): void {
 
-    $this->businessFakerSetup();
-
-    $staff = $this->setupStaffUser();
-    $this->drupalLogin($staff);
+    $this->drupalLogin($this->staff);
     $business = $this->addBusiness();
 
     \Drupal::service('se_business.service')->setBalance($business, 25);

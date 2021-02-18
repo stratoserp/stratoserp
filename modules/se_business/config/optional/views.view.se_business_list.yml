@@ -3,8 +3,11 @@ status: true
 dependencies:
   config:
     - system.menu.stratos-erp
+    - user.role.developer
+    - user.role.staff
   module:
     - se_business
+    - user
 id: se_business_list
 label: 'Business list'
 module: views
@@ -20,8 +23,12 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            staff: staff
+            owner: owner
+            developer: developer
       cache:
         type: tag
         options: {  }

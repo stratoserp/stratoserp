@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\se_quote\Functional;
 
+use Drupal\Tests\se_business\Traits\BusinessTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * Quote create/update/delete tests.
@@ -12,29 +12,15 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_quote
  * @group stratoserp
  */
-class QuoteCrudTest extends FunctionalTestBase {
+class QuoteCrudTest extends QuoteTestBase {
 
   use ItemTestTrait;
-
-  /**
-   * Quote holding var.
-   *
-   * @var \Drupal\node\Entity\Node
-   */
-  protected $quote;
-
-  /**
-   * Faker Factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
+  use BusinessTestTrait;
 
   /**
    * Test adding an quote.
    */
   public function testQuoteAdd() {
-
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
     $testBusiness = $this->addBusiness();

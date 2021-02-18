@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\se_invoice\Functional;
 
+use Drupal\Tests\se_business\Traits\BusinessTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * Invoice create/update/delete tests.
@@ -12,31 +12,16 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_invoice
  * @group stratoserp
  */
-class InvoiceCrudTest extends FunctionalTestBase {
+class InvoiceCrudTest extends InvoiceTestBase {
 
   use ItemTestTrait;
-
-  /**
-   * Invoice holding var.
-   *
-   * @var \Drupal\node\Entity\Node
-   */
-  protected $invoice;
-
-  /**
-   * Faker Factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
+  use BusinessTestTrait;
 
   /**
    * Test adding an invoice.
    */
-  public function testInvoiceStockAdd() {
-
-    $staff = $this->setupStaffUser();
-    $this->drupalLogin($staff);
+  public function testInvoiceStockAdd(): void {
+    $this->drupalLogin($this->staff);
     $testBusiness = $this->addBusiness();
 
     $items = $this->createItems();

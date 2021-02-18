@@ -23,18 +23,11 @@ class TicketPermissionTest extends FunctionalTestBase {
   protected $business;
 
   /**
-   * Faker factory for staff.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
-
-  /**
    * List of pages to test permissions on.
    *
    * @var string[]
    */
-  private $pages = [
+  private array $pages = [
     '/ticket/add',
     '/se/ticket-list',
   ];

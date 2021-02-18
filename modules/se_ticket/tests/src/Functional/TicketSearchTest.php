@@ -16,13 +16,6 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class TicketSearchTest extends FunctionalTestBase {
 
   /**
-   * Storage for the faker data for the user.
-   *
-   * @var \Faker\Factory
-   */
-  protected $staff;
-
-  /**
    * Test searching for tickets.
    */
   public function testTicketSearch(): void {
