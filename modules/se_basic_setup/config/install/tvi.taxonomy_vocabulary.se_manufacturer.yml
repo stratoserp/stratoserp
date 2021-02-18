@@ -1,5 +1,5 @@
 enable_override: 1
 view: item_by_manufacturer
-view_display: page_1
+view_display: item_by_manufacturer
 inherit_settings: 1
 pass_arguments: 0

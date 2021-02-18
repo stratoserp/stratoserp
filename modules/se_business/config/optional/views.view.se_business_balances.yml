@@ -361,7 +361,7 @@ display:
         title: 'Business balances'
         description: ''
         expanded: false
-        parent: 'views_view:views.se_business_list.page_1'
+        parent: 'views_view:views.se_business_list.se_business_list'
         weight: 0
         context: '0'
         menu_name: stratos-erp

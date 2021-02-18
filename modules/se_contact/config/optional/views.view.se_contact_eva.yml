@@ -175,9 +175,9 @@ display:
         - 'languages:language_interface'
         - url.query_args
       tags: {  }
-  entity_view_2:
+  se_contact_eva:
     display_plugin: entity_view
-    id: entity_view_2
+    id: se_contact_eva
     display_title: 'Business contacts'
     position: 2
     display_options:

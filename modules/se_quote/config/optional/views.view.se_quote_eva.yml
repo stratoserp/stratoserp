@@ -209,9 +209,9 @@ display:
         - url
         - url.query_args
       tags: {  }
-  entity_view_2:
+  se_quote_eva:
     display_plugin: entity_view
-    id: entity_view_2
+    id: se_quote_eva
     display_title: Quotes
     position: 2
     display_options:

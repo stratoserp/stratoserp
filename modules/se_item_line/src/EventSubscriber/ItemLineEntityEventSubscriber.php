@@ -7,8 +7,6 @@ namespace Drupal\se_item_line\EventSubscriber;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\stratoserp\ErpCore;
-use Drupal\se_item\Entity\Item;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class ItemLinePresaveEventSubscriber.
@@ -17,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_item_line\EventSubscriber
  */
-class ItemLineNodeEventSubscriber implements EventSubscriberInterface {
+class ItemLineNodeEventSubscriber implements ItemLineNodeEventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -29,20 +27,11 @@ class ItemLineNodeEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Process line items when a node with them is saved.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event we are working with.
+   * {@inheritdoc}
    */
   public function itemLineNodePresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'node') {
-      return;
-    }
-
-    // Check that its a node type which has items.
-    if (!array_key_exists($entity->bundle(), ErpCore::ITEM_LINE_NODE_BUNDLE_MAP)) {
+    if (!array_key_exists($entity->getEntityTypeId(), ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP)) {
       return;
     }
 

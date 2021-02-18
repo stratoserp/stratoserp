@@ -748,9 +748,9 @@ display:
         - 'config:field.storage.comment.se_tk_billed'
         - 'config:field.storage.comment.se_tk_date'
         - 'config:field.storage.comment.se_tk_review'
-  page_1:
+  se_timekeeping_list:
     display_plugin: page
-    id: page_1
+    id: se_timekeeping_list
     display_title: Page
     position: 1
     display_options:

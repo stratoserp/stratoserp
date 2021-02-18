@@ -4,4 +4,4 @@ entity.se_payment.add_form:
   title: 'Add Payment'
   appears_on:
     - entity.se_payment.collection
-    - 'view.se_payment_list.page_1'
+    - 'view.se_payment_list.se_payment_list'

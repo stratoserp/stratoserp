@@ -4,4 +4,4 @@ entity.se_goods_receipt.add_form:
   title: 'Add Goods Receipt'
   appears_on:
     - entity.se_goods_receipt.collection
-    - 'view.se_goods_receipt_list.page_1'
+    - 'view.se_goods_receipt_list.se_goods_receipt_list'

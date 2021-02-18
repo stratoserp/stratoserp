@@ -5,4 +5,4 @@ se_information.add_document_form:
     se_information_type: 'se_document'
   title: 'Add document'
   appears_on:
-    - 'view.se_information_list.page_1'
+    - 'view.se_information_list.se_information_list'

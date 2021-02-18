@@ -325,9 +325,9 @@ display:
       tags:
         - 'config:field.storage.se_bill.se_bi_total'
         - 'config:field.storage.se_bill.se_bu_ref'
-  page_1:
+  se_bill_list:
     display_plugin: page
-    id: page_1
+    id: se_bill_list
     display_title: Page
     position: 1
     display_options:
@@ -338,7 +338,7 @@ display:
         title: Bills
         description: ''
         expanded: false
-        parent: 'views_view:views.se_business_list.page_1'
+        parent: 'views_view:views.se_business_list.se_business_list'
         weight: -50
         context: '0'
         menu_name: stratos-erp

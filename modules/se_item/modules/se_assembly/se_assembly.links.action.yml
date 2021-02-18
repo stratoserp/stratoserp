@@ -5,4 +5,4 @@ se_item.add_assembly_form:
     se_item_type: 'se_assembly'
   title: 'Add assembly'
   appears_on:
-    - 'view.se_item_list.page_1'
+    - 'view.se_item_list.se_item_list'

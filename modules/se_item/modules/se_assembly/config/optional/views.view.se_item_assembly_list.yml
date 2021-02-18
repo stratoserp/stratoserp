@@ -540,9 +540,9 @@ display:
         - 'config:field.storage.se_item.se_it_code'
         - 'config:field.storage.se_item.se_it_cost_price'
         - 'config:field.storage.se_item.se_it_sell_price'
-  page_1:
+  se_item_assembly_list:
     display_plugin: page
-    id: page_1
+    id: se_item_assembly_list
     display_title: Page
     position: 1
     display_options:
@@ -553,7 +553,7 @@ display:
         title: 'Assembly items'
         description: ''
         expanded: false
-        parent: 'views_view:views.se_item_list.page_1'
+        parent: 'views_view:views.se_item_list.se_item_list'
         weight: 0
         context: '0'
         menu_name: stratos-erp

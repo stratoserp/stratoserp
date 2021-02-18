@@ -173,9 +173,9 @@ display:
         - 'languages:language_interface'
         - url.query_args
       tags: {  }
-  entity_view_1:
+  se_ticket_eva:
     display_plugin: entity_view
-    id: entity_view_1
+    id: se_ticket_eva
     display_title: EVA
     position: 1
     display_options:

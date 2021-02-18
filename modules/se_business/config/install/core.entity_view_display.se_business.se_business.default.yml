@@ -72,7 +72,7 @@ third_party_settings:
       region: content
     group_bu_tab_contacts:
       children:
-        - se_contact_eva_entity_view_2
+        - se_contact_eva_se_contact_eva
       parent_name: group_bu_tabs
       weight: 8
       format_type: tab
@@ -126,7 +126,7 @@ third_party_settings:
       region: content
     group_bu_tab_invoices:
       children:
-        - se_invoice_eva_entity_view_2
+        - se_invoice_eva_se_invoice_eva
         - extra_field_business_invoice_statistics
       parent_name: group_bu_tabs
       weight: 11
@@ -153,7 +153,7 @@ third_party_settings:
       region: content
     group_bu_tab_quotes:
       children:
-        - se_quote_eva_entity_view_2
+        - se_quote_eva_se_quote_eva
       parent_name: group_bu_tabs
       weight: 15
       format_type: tab
@@ -190,7 +190,7 @@ third_party_settings:
       region: content
     group_bu_tab_timekeeping:
       children:
-        - se_timekeeping_eva_entity_view_1
+        - se_timekeeping_eva_se_timekeeping_eva
       parent_name: group_bu_tabs
       weight: 12
       label: Timekeeping
@@ -215,7 +215,7 @@ third_party_settings:
       region: content
     group_bu_bills:
       children:
-        - se_bill_eva_entity_view_1
+        - se_bill_eva_se_bill_eva
       parent_name: group_bu_tabs
       weight: 17
       format_type: tab
@@ -258,12 +258,12 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  re_report_eva_entity_view_1:
+  re_report_eva_re_report_eva:
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_bill_eva_entity_view_1:
+  se_bill_eva_se_bill_eva:
     weight: 10
     region: content
     settings: {  }
@@ -693,67 +693,57 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  se_contact_eva_entity_view_1:
+  se_contact_eva_se_contact_eva:
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_contact_eva_entity_view_2:
+  se_information_eva_se_information_eva:
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_information_eva_entity_view_1:
+  se_invoice_eva_se_invoice_eva:
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_invoice_eva_entity_view_1:
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  se_invoice_eva_entity_view_1_form:
+  se_invoice_eva_se_invoice_eva_form:
     weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_invoice_eva_entity_view_2:
+  se_payment_eva_se_payment_eva:
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_payment_eva_entity_view_1:
+  se_purchase_order_eva_se_purchase_order_eva:
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_purchase_order_eva_entity_view_1:
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  se_purchase_order_eva_entity_view_1_form:
+  se_purchase_order_eva_se_purchase_order_eva_form:
     weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_quote_eva_entity_view_2:
+  se_quote_eva_se_quote_eva:
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_ticket_eva_entity_view_1:
+  se_ticket_eva_se_ticket_eva:
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_ticket_eva_entity_view_1_form:
+  se_ticket_eva_se_ticket_eva_form:
     weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
-  se_timekeeping_eva_entity_view_1:
+  se_timekeeping_eva_se_timekeeping_eva:
     weight: 10
     region: content
     settings: {  }

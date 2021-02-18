@@ -349,9 +349,9 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_information.se_bu_ref'
-  page_1:
+  se_document_list:
     display_plugin: page
-    id: page_1
+    id: se_document_list
     display_title: Page
     position: 1
     display_options:
@@ -362,7 +362,7 @@ display:
         title: Documents
         description: ''
         expanded: false
-        parent: ''
+        parent: 'views.view.se_business_list.se_business_list'
         weight: 0
         context: '0'
         menu_name: stratos-erp

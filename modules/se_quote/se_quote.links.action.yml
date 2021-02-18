@@ -4,4 +4,4 @@ entity.se_quote.add_form:
   title: 'Add Quote'
   appears_on:
     - entity.se_quote.collection
-    - 'view.se_quote_list.page_1'
+    - 'view.se_quote_list.se_quote_list'

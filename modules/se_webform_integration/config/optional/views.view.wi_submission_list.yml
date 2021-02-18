@@ -419,9 +419,9 @@ display:
         - user
         - user.roles
       tags: {  }
-  entity_view_1:
+  wi_submission_list:
     display_plugin: entity_view
-    id: entity_view_1
+    id: wi_submission_list
     display_title: EVA
     position: 1
     display_options:

@@ -5,4 +5,4 @@ se_item.add_service_form:
     se_item_type: 'se_service'
   title: 'Add service'
   appears_on:
-    - 'view.se_item_list.page_1'
+    - 'view.se_item_list.se_item_list'

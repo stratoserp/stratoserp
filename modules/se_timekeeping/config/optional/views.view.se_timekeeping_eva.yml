@@ -742,9 +742,9 @@ display:
         - 'config:field.storage.comment.se_tk_billable'
         - 'config:field.storage.comment.se_tk_billed'
         - 'config:field.storage.comment.se_tk_review'
-  entity_view_1:
+  se_timekeeping_eva:
     display_plugin: entity_view
-    id: entity_view_1
+    id: se_timekeeping_eva
     display_title: EVA
     position: 1
     display_options:

@@ -211,9 +211,9 @@ display:
         - url
         - url.query_args
       tags: {  }
-  page_1:
+  se_business_list:
     display_plugin: page
-    id: page_1
+    id: se_business_list
     display_title: Page
     position: 1
     display_options:

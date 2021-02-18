@@ -4,4 +4,4 @@ entity.se_purchase_order.add_form:
   title: 'Add Purchase Order'
   appears_on:
     - entity.se_purchase_order.collection
-    - 'view.se_purchase_order_list.page_1'
+    - 'view.se_purchase_order_list.se_purchase_order_list'

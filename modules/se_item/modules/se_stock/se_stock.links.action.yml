@@ -5,4 +5,4 @@ se_item.add_stock_form:
     se_item_type: 'se_stock'
   title: 'Add stock'
   appears_on:
-    - 'view.se_item_list.page_1'
+    - 'view.se_item_list.se_item_list'

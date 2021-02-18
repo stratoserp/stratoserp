@@ -10,7 +10,7 @@ use Drupal\node\Entity\Node;
 /**
  * Trait to provide drupal payment utilities.
  */
-trait ErpPaymentTrait {
+trait PaymentTrait {
 
   /**
    * Retrieve payments for passed invoice.

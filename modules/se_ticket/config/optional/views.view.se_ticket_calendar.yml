@@ -258,9 +258,9 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_ticket.se_ti_scheduled'
-  page_1:
+  se_ticket_calendar:
     display_plugin: page
-    id: page_1
+    id: se_ticket_calendar
     display_title: Page
     position: 1
     display_options:
@@ -271,7 +271,7 @@ display:
         title: 'Ticket calendar'
         description: ''
         expanded: false
-        parent: 'views_view:views.se_ticket_list.page_1'
+        parent: 'views_view:views.se_ticket_list.se_ticket_list'
         weight: 0
         context: '0'
         menu_name: stratos-erp

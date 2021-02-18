@@ -172,7 +172,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  se_stock_item_by_code_eva_entity_view_1:
+  se_stock_item_by_code_eva_se_stock_item_by_code_eva:
     weight: 17
     region: bottom
     settings: {  }

@@ -639,9 +639,9 @@ display:
         - 'config:field.storage.se_item.se_it_purchase_order_ref'
         - 'config:field.storage.se_item.se_it_sale_price'
         - 'config:field.storage.se_item.se_it_serial'
-  entity_view_1:
+  se_stock_item_by_code_eva:
     display_plugin: entity_view
-    id: entity_view_1
+    id: se_stock_item_by_code_eva
     display_title: EVA
     position: 2
     display_options:

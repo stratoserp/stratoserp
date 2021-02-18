@@ -4,4 +4,4 @@ entity.se_ticket.add_form:
   title: 'Add Ticket'
   appears_on:
     - entity.se_ticket.collection
-    - 'view.se_ticket_list.page_1'
+    - 'view.se_ticket_list.se_ticket_list'
