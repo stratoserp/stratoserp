@@ -1,10 +1,10 @@
 name: Payments
 description: 'Provides a payment line item.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - drupal:stratoserp
   - drupal:field
   - drupal:text
   - drupal:se_invoice

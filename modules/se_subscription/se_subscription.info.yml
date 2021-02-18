@@ -1,13 +1,13 @@
 name: 'Subscription'
 description: 'Provides a subscription entity type.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_item
-  - se_item_line
-  - se_recurring
+  - drupal:stratoserp
+  - drupal:se_item
+  - drupal:se_item_line
+  - drupal:se_recurring
 
 config_devel:
   install:

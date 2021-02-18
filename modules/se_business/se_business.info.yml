@@ -4,6 +4,7 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - drupal:stratoserp
   - drupal:field
   - drupal:field_layout
   - drupal:geolocation
@@ -60,6 +61,5 @@ config_devel:
     - field.storage.se_business.se_bu_type
     - taxonomy.vocabulary.se_business_type
   optional:
-    - user.role.customer
     - views.view.se_business_balances
     - views.view.se_business_list

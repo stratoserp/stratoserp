@@ -1,10 +1,10 @@
 name: Webform integration
 description: 'Provides the ability to attach forms to tickets.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - drupal:stratoserp
   - drupal:se_ticket
   - drupal:webform
   - drupal:webform_access

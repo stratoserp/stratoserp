@@ -1,10 +1,10 @@
 name: 'Recurring line item'
 description: 'Provides a selectable line item for Recurring items.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - drupal:stratoserp
   - drupal:se_item
 
 config_devel:

@@ -1,13 +1,13 @@
 name: 'Managed service'
 description: 'Provides a managed service subscription entity type.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_item
-  - se_recurring
-  - se_subscription
+  - drupal:stratoserp
+  - drupal:se_item
+  - drupal:se_recurring
+  - drupal:se_subscription
 
 config_devel:
   install:

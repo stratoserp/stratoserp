@@ -1,10 +1,10 @@
 name: Timekeeping
 description: 'Provides Timekeeping components and related configuration.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - drupal:stratoserp
   - drupal:comment
   - drupal:duration_field
   - drupal:views

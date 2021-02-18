@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-id: staff
-label: Staff
+id: owner
+label: 'Owner/CEO/CFO'
 weight: 7
 is_admin: false
 permissions:
@@ -25,6 +25,19 @@ permissions:
   - 'add quote entities'
   - 'add subscription entities'
   - 'add ticket entities'
+  - 'delete bill entities'
+  - 'delete business entities'
+  - 'delete contact entities'
+  - 'delete goods receipt entities'
+  - 'delete information entities'
+  - 'delete invoice entities'
+  - 'delete item entities'
+  - 'delete own comments'
+  - 'delete payment entities'
+  - 'delete purchase order entities'
+  - 'delete quote entities'
+  - 'delete subscription entities'
+  - 'delete ticket entities'
   - 'edit bill entities'
   - 'edit business entities'
   - 'edit contact entities'

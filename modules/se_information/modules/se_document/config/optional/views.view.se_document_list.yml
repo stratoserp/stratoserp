@@ -5,7 +5,6 @@ dependencies:
     - field.storage.se_information.se_bu_ref
     - se_information.se_information_type.se_document
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:

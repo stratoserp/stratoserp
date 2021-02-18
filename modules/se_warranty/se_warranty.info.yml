@@ -1,10 +1,10 @@
 name: Warranty
 description: 'Provides warranty processing for stock items related configuration.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - drupal:stratoserp
   - drupal:se_goods_receipt
   - drupal:se_item
   - drupal:se_purchase_order

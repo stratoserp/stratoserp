@@ -1,11 +1,26 @@
 name: StratosERP
 description: 'StratosERP module set.'
-package: StratosERP
 type: module
 core_version_requirement: ^8 || ^9
+package: StratosERP
 dependencies:
-  - duration_field
-  - eva
-  - field_group
-  - geolocation
-  - xero
+  - drupal:duration_field
+  - drupal:eva
+  - drupal:field_group
+  - drupal:geolocation
+  - drupal:xero
+
+config_devel:
+  install:
+    - system.menu.stratos-erp
+    - taxonomy.vocabulary.se_business_type
+    - taxonomy.vocabulary.se_manufacturer
+    - taxonomy.vocabulary.se_payment_type
+    - taxonomy.vocabulary.se_product_type
+    - taxonomy.vocabulary.se_sale_category
+    - taxonomy.vocabulary.se_status
+    - user.role.customer
+    - user.role.developer
+    - user.role.staff
+    - user.role.supplier
+  optional: {  }

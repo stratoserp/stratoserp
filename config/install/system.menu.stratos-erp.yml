@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: stratos-erp
-label: 'StratosERP'
+label: StratosERP
 description: ''
 locked: false

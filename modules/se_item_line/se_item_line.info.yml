@@ -1,10 +1,10 @@
 name: Items
 description: 'Provides a stock/service item line field.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - drupal:stratoserp
   - drupal:dynamic_entity_reference
   - drupal:field
   - drupal:core_event_dispatcher

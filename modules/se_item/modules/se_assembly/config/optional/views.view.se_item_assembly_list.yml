@@ -7,7 +7,6 @@ dependencies:
     - field.storage.se_item.se_it_sell_price
     - se_item.se_item_type.se_assembly
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.developer
     - user.role.staff
   module:
