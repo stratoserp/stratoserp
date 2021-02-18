@@ -19,7 +19,7 @@ trait InformationTestTrait {
   /**
    * Setup basic faker fields for this test trait.
    */
-  public function informationFakerSetup() {
+  public function informationFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                = error_reporting(0);
@@ -37,16 +37,16 @@ trait InformationTestTrait {
       'name' => $this->information->name,
       'se_it_code' => $this->information->code,
     ]);
-    $this->assertNotEquals($information, FALSE);
+    self::assertNotEquals($information, FALSE);
     $this->drupalGet($information->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
 
-    $this->assertStringNotContainsString('Please fill in this field', $content);
+    self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    $this->assertStringContainsString($this->information->name, $content);
+    self::assertStringContainsString($this->information->name, $content);
 
     return $information;
   }

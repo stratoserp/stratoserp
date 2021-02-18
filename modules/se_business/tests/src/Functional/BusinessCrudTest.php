@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_business\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Test various Business crud operations.
  *
@@ -13,7 +11,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_business
  * @group stratoserp
  */
-class BusinessCrudTest extends FunctionalTestBase {
+class BusinessCrudTest extends BusinessTestBase {
 
   /**
    * Faker factory for staff.
@@ -26,41 +24,79 @@ class BusinessCrudTest extends FunctionalTestBase {
    * Add a Business.
    */
   public function testBusinessAdd(): void {
-
+    $customer = $this->setupCustomerUser();
     $staff = $this->setupStaffUser();
+    $owner = $this->setupOwnerUser();
+
+    $this->drupalLogin($customer);
+    $this->addBusiness(FALSE);
+    $this->drupalLogout();
+
     $this->drupalLogin($staff);
-
     $this->addBusiness();
+    $this->drupalLogout();
 
+    $this->drupalLogin($owner);
+    $this->addBusiness();
     $this->drupalLogout();
   }
 
   /**
-   * Delete a business.
-   *
-   * @throws \Behat\Mink\Exception\ExpectationException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * Edit a business.
    */
-  public function testBusinessDelete(): void {
+  public function testBusinessEdit(): void {
+    $customer = $this->setupCustomerUser();
     $staff = $this->setupStaffUser();
-    $business = $this->setupBusinessUser();
+    $owner = $this->setupOwnerUser();
 
     // Create a business for testing.
     $this->drupalLogin($staff);
     $testBusiness = $this->addBusiness();
     $this->drupalLogout();
 
-    // Ensure business can't delete businesss.
-    $this->drupalLogin($business);
-    $this->deleteBusiness($testBusiness, FALSE);
+    // Ensure customers can't edit a business.
+    $this->drupalLogin($customer);
+    $this->editEntity($testBusiness, FALSE);
     $this->drupalLogout();
 
-    // Ensure staff can delete businesss.
+    // Ensure staff can't delete a business.
     $this->drupalLogin($staff);
-    $this->deleteBusiness($testBusiness, TRUE);
+    $this->editEntity($testBusiness, TRUE);
     $this->drupalLogout();
 
+    // Ensure administrator can delete a business.
+    $this->drupalLogin($owner);
+    $this->editEntity($testBusiness, TRUE);
+    $this->drupalLogout();
+  }
+
+  /**
+   * Delete a business.
+   */
+  public function testBusinessDelete(): void {
+    $customer = $this->setupCustomerUser();
+    $staff = $this->setupStaffUser();
+    $owner = $this->setupOwnerUser();
+
+    // Create a business for testing.
+    $this->drupalLogin($staff);
+    $testBusiness = $this->addBusiness();
+    $this->drupalLogout();
+
+    // Ensure customers can't edit a business.
+    $this->drupalLogin($customer);
+    $this->deleteEntity($testBusiness, FALSE);
+    $this->drupalLogout();
+
+    // Ensure staff can't delete a business.
+    $this->drupalLogin($staff);
+    $this->deleteEntity($testBusiness, FALSE);
+    $this->drupalLogout();
+
+    // Ensure administrator can delete a business.
+    $this->drupalLogin($owner);
+    $this->deleteEntity($testBusiness, TRUE);
+    $this->drupalLogout();
   }
 
 }

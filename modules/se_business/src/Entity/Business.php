@@ -56,7 +56,7 @@ use Drupal\user\UserInterface;
  *   links = {
  *     "canonical" = "/business/{se_business}",
  *     "add-form" = "/business/add",
- *     "edit-form" = "/business/add/{se_business}/edit",
+ *     "edit-form" = "/business/{se_business}/edit",
  *     "delete-form" = "/business/{se_business}/delete",
  *     "version-history" = "/business/{se_business}/revisions",
  *     "revision" = "/business/{se_business}/revisions/{se_business_revision}/view",

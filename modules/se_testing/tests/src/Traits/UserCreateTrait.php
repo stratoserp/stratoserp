@@ -31,16 +31,16 @@ trait UserCreateTrait {
   }
 
   /**
-   * Setup a business, with appropriate role.
+   * Setup a customer, with appropriate role.
    *
    * @return \Drupal\user\Entity\User
    *   The created user.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function setupBusinessUser(): User {
+  public function setupCustomerUser(): User {
     $this->userFakerSetup();
-    return $this->createUserAndCleanup(['business']);
+    return $this->createUserAndCleanup(['customer']);
   }
 
   /**
@@ -54,6 +54,19 @@ trait UserCreateTrait {
   public function setupStaffUser(): User {
     $this->userFakerSetup();
     return $this->createUserAndCleanup(['staff']);
+  }
+
+  /**
+   * Setup an higher level user, with appropriate role.
+   *
+   * @return \Drupal\user\Entity\User
+   *   The created user.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function setupOwnerUser(): User {
+    $this->userFakerSetup();
+    return $this->createUserAndCleanup(['owner']);
   }
 
   /**

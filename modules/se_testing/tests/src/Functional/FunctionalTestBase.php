@@ -6,17 +6,16 @@ namespace Drupal\Tests\se_testing\Functional;
 
 use Behat\Mink\Exception\ExpectationException;
 use Drupal\comment\Entity\Comment;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Url;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\se_testing\Traits\ContactTestTrait;
-use Drupal\Tests\se_testing\Traits\BusinessTestTrait;
 use Drupal\Tests\se_testing\Traits\GoodsReceiptTestTrait;
 use Drupal\Tests\se_testing\Traits\InvoiceTestTrait;
 use Drupal\Tests\se_testing\Traits\PaymentTestTrait;
 use Drupal\Tests\se_testing\Traits\QuoteTestTrait;
-use Drupal\Tests\se_testing\Traits\SupplierTestTrait;
 use Drupal\Tests\se_testing\Traits\TicketTestTrait;
 use Drupal\Tests\se_testing\Traits\TimekeepingTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
@@ -47,16 +46,14 @@ class FunctionalTestBase extends TestCase {
   // using the UserCreationTrait.
   use AssertLegacyTrait;
 
-  // Include various StratoeERP traits.
+  // Include various StratosERP traits.
   use ContactTestTrait;
-  use BusinessTestTrait;
   use GoodsReceiptTestTrait;
   use InvoiceTestTrait;
   use PaymentTestTrait;
   use QuoteTestTrait;
   use TicketTestTrait;
   use TimekeepingTestTrait;
-  use SupplierTestTrait;
   use UserCreateTrait;
 
   /**
@@ -131,7 +128,7 @@ class FunctionalTestBase extends TestCase {
     $link = $page->find('xpath', '//nav/ul/li/a[contains(text(), \'Delete\')]');
 
     if (!$allowed) {
-      $this->assertNull($link);
+      self::assertNull($link);
       return;
     }
 
@@ -163,12 +160,62 @@ class FunctionalTestBase extends TestCase {
     $link = $page->find('xpath', '//*[@id="comment-' . $comment->id() . '"]//ul/li/a[contains(text(), \'Delete\')]');
 
     if (!$allowed) {
-      $this->assertNull($link);
+      self::assertNull($link);
       return;
     }
 
     $link->click();
     $this->assertSession()->statusCodeEquals(200);
+    $page = $this->getCurrentPage();
+    $button = $page->findButton('Delete');
+    $button->press();
+    $this->assertSession()->statusCodeEquals(200);
+  }
+
+  /**
+   * Confirm whether user can edit an entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The comment to delete.
+   * @param bool $allowed
+   *   Whether it should be allowed or not.
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function editEntity(EntityInterface $entity, bool $allowed): void {
+    $this->drupalGet($entity->toUrl('edit-form'));
+    if (!$allowed && ($this->getSession()->getStatusCode() === 403)) {
+      return;
+    }
+
+    $this->assertSession()->statusCodeEquals(200);
+
+    $page = $this->getCurrentPage();
+    $button = $page->findButton('Save');
+    $button->press();
+    $this->assertSession()->statusCodeEquals(200);
+  }
+
+  /**
+   * Confirm whether user can delete an entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The comment to delete.
+   * @param bool $allowed
+   *   Whether it should be allowed or not.
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function deleteEntity(EntityInterface $entity, bool $allowed): void {
+    $this->drupalGet($entity->toUrl('delete-form'));
+    if (!$allowed && ($this->getSession()->getStatusCode() === 403)) {
+      return;
+    }
+
+    $this->assertSession()->statusCodeEquals(200);
+
     $page = $this->getCurrentPage();
     $button = $page->findButton('Delete');
     $button->press();
@@ -188,28 +235,28 @@ class FunctionalTestBase extends TestCase {
       $this->drupalGet($page);
       try {
         $content = $this->getTextContent();
-        $this->assertStringContainsString('Login is required.', $content);
+        self::assertStringContainsString('Login is required.', $content);
         // $this->assertSession()->statusCodeEquals(403);
       }
       catch (ExpectationException $e) {
-        $this->fail((string) t('Anon - @page - @message', [
+        self::fail((string) t('Anon - @page - @message', [
           '@page' => $page,
           '@message' => $e->getMessage(),
         ]));
       }
     }
 
-    $business = $this->setupBusinessUser();
+    $customer = $this->setupCustomerUser();
     $staff = $this->setupStaffUser();
 
     foreach ($pages as $page) {
-      $this->drupalLogin($business);
+      $this->drupalLogin($customer);
       $this->drupalGet($page);
       try {
         $this->assertSession()->statusCodeEquals(403);
       }
       catch (ExpectationException $e) {
-        $this->fail((string) t('Business - @page - @message', [
+        self::fail((string) t('Business - @page - @message', [
           '@page' => $page,
           '@message' => $e->getMessage(),
         ]));
@@ -224,7 +271,7 @@ class FunctionalTestBase extends TestCase {
         $this->assertSession()->statusCodeEquals(200);
       }
       catch (ExpectationException $e) {
-        $this->fail((string) t('Staff - @page - @message', [
+        self::fail((string) t('Staff - @page - @message', [
           '@page' => $page,
           '@message' => $e->getMessage(),
         ]));
@@ -247,7 +294,7 @@ class FunctionalTestBase extends TestCase {
     $this->drupalGet(Url::fromRoute('user.logout', [], ['query' => ['destination' => $destination]]));
 
     $content = $this->getTextContent();
-    $this->assertStringContainsString('Login is required.', $content);
+    self::assertStringContainsString('Login is required.', $content);
 
     // @see BrowserTestBase::drupalUserIsLoggedIn()
     unset($this->loggedInUser->sessionId);
