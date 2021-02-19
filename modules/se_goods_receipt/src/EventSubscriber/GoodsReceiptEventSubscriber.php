@@ -9,7 +9,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\stratoserp\ErpCore;
 use Drupal\se_item\Entity\Item;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class GoodsReceiptInsertEventSubscriber.
@@ -18,44 +17,28 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_goods_receipt\EventSubscriber
  */
-class GoodsReceiptEventSubscriber implements EventSubscriberInterface {
+class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineNodePresave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
       HookEventDispatcherInterface::ENTITY_INSERT => 'goodsReceiptItemsInsert',
     ];
   }
 
   /**
-   * Process items on goods receipt saving.
-   *
-   * For goods receipts, We need to make new stock items for everything that
-   * has a serial number, and then update the list of items with the new
-   * stock item ids.
-   *
-   * @todo Config option to generate serial numbers if blank?
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event we are working with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
-  public function itemLineNodePresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
+  public function itemLineEntityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'node') {
+    if ($entity->getEntityTypeId() !== 'se_goods_receipt') {
       return;
     }
 
-    if ($entity->bundle() !== 'se_goods_receipt') {
-      return;
-    }
-
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
     foreach ($entity->{$bundleFieldType . '_lines'} as $index => $itemLine) {
       if (!empty($itemLine->serial)) {
         /** @var \Drupal\se_item\Entity\Item $item */
@@ -75,28 +58,15 @@ class GoodsReceiptEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Update item details.
-   *
-   * For goods receipts, we can update the items with the goods receipt number
-   * After the goods receipt has been saved.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
-   *   The event we are working with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function goodsReceiptItemsInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'node') {
+    if ($entity->getEntityTypeId() !== 'se_goods_receipt') {
       return;
     }
 
-    if ($entity->bundle() !== 'se_goods_receipt') {
-      return;
-    }
-
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
     foreach ($entity->{$bundleFieldType . '_lines'} as $itemLine) {
       /** @var \Drupal\se_item\Entity\Item $item */
       if ($item = Item::load($itemLine->target_id)) {

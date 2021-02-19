@@ -6,6 +6,7 @@ dependencies:
     - field.storage.se_bill.se_bu_ref
     - system.menu.stratos-erp
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - dynamic_entity_reference

@@ -14,20 +14,13 @@ namespace Drupal\Tests\se_quote\Functional;
 class QuotePermissionsTest extends QuoteTestBase {
 
   /**
-   * Faker factory for business.
-   *
-   * @var \Faker\Factory
-   */
-  protected $business;
-
-  /**
    * List of pages to test permissions on.
    *
    * @var string[]
    */
   private array $pages = [
     '/quote/add',
-    '/se/businesss/quote-list',
+    '/se/quote-list',
   ];
 
   /**

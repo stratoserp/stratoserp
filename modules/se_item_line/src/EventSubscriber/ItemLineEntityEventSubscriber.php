@@ -15,21 +15,21 @@ use Drupal\stratoserp\ErpCore;
  *
  * @package Drupal\se_item_line\EventSubscriber
  */
-class ItemLineNodeEventSubscriber implements ItemLineNodeEventSubscriberInterface {
+class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineNodePresave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
     ];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function itemLineNodePresave(EntityPresaveEvent $event): void {
+  public function itemLineEntityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     if (!array_key_exists($entity->getEntityTypeId(), ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP)) {
       return;

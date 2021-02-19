@@ -11,7 +11,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\stratoserp\ErpCore;
 use Drupal\stratoserp\Traits\ErpEventTrait;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class InvoiceSaveEventSubscriber.
@@ -23,7 +22,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_invoice\EventSubscriber
  */
-class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
+class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface {
 
   use ErpEventTrait;
 
@@ -39,16 +38,12 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Add the total of this invoice to the amount the business owes.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
-   *   The event we are working with.
+   * {@inheritdoc}
    */
   public function invoiceInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_invoice') {
+    if ($entity->getEntityTypeId() !== 'se_invoice') {
       return;
     }
 
@@ -56,21 +51,17 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $this->updateBusinessBalance($entity);
+    $this->increaseBusinessBalance($entity);
   }
 
   /**
-   * Add the total of this invoice to the amount the business owes.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
-   *   The event we are working with.
+   * {@inheritdoc}
    */
   public function invoiceUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_invoice') {
+    if ($entity->getEntityTypeId() !== 'se_invoice') {
       return;
     }
 
@@ -78,24 +69,17 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $this->updateBusinessBalance($entity);
+    $this->increaseBusinessBalance($entity);
   }
 
   /**
-   * Reduce the business balance by the amount of the old invoice.
-   *
-   * This need to be done in case the amount changes on the saving
-   * of this invoice.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event we are working with.
+   * {@inheritdoc}
    */
   public function invoiceAdjust(EntityPresaveEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'node'
-      || $entity->isNew()
-      || $entity->bundle() !== 'se_invoice') {
+    if ($entity->getEntityTypeId() !== 'se_invoice'
+      || $entity->isNew()) {
       return;
     }
 
@@ -104,31 +88,48 @@ class InvoiceSaveEventSubscriber implements EventSubscriberInterface {
     }
 
     // Is this the right way?
-    $this->updateBusinessBalance($entity, TRUE);
+    $this->reduceBusinessBalance($entity);
   }
 
   /**
-   * On invoicing, update the business balance.
+   * On invoicing, increase the business balance.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The event we are working with.
-   * @param bool $reduce_balance
-   *   Whether we are increasing or reducing the balance.
    *
    * @return void|int
    *   The new balance is returned.
    */
-  private function updateBusinessBalance(EntityInterface $entity, $reduce_balance = FALSE): int {
+  private function increaseBusinessBalance(EntityInterface $entity): int {
     if (!$business = \Drupal::service('se_business.service')->lookupBusiness($entity)) {
-      \Drupal::logger('se_business_invoice_save')->error('No business set for %node', ['%node' => $entity->id()]);
+      \Drupal::logger('se_business_invoice_save')->error('No business set for %entity', ['%entity' => $entity->id()]);
       return 0;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
     $amount = $entity->{$bundleFieldType . '_total'}->value;
-    if ($reduce_balance) {
-      $amount *= -1;
+
+    return \Drupal::service('se_business.service')->adjustBalance($business, (int) $amount);
+  }
+
+  /**
+   * On invoicing, reduce the business balance.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The event we are working with.
+   *
+   * @return void|int
+   *   The new balance is returned.
+   */
+  private function reduceBusinessBalance(EntityInterface $entity): int {
+    if (!$business = \Drupal::service('se_business.service')->lookupBusiness($entity)) {
+      \Drupal::logger('se_business_invoice_save')->error('No business set for %entity', ['%entity' => $entity->id()]);
+      return 0;
     }
+
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
+    $amount = $entity->{$bundleFieldType . '_total'}->value;
+    $amount *= -1;
 
     return \Drupal::service('se_business.service')->adjustBalance($business, (int) $amount);
   }

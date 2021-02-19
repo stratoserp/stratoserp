@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\se_payment\Entity\Payment;
 use Drupal\se_payment\Entity\PaymentInterface;
+use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -19,6 +20,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *  Returns responses for Payment routes.
  */
 class PaymentController extends ControllerBase {
+
+  use PaymentTrait;
 
   /**
    * The date formatter.
@@ -227,7 +230,8 @@ class PaymentController extends ControllerBase {
    */
   public function add(EntityInterface $source): array {
 
-    $destination = Payment::create([
+    /** @var \Drupal\se_payment\Entity\Payment $payment */
+    $payment = Payment::create([
       'bundle' => 'se_payment',
     ]);
 
@@ -238,9 +242,7 @@ class PaymentController extends ControllerBase {
     $paymentTerm = Term::load($paymentType);
 
     $query = \Drupal::request()->query;
-    if (!$businessId = $query->get('se_bu_ref')) {
-      return $this->entityFormBuilder()->getForm($destination);
-    }
+    $businessId = $source->id();
 
     $total = 0;
     $query = \Drupal::entityQuery('se_invoice');
@@ -270,10 +272,10 @@ class PaymentController extends ControllerBase {
       }
     }
 
-    $destination->se_pa_lines = $lines;
-    $destination->se_pa_total = $total;
+    $payment->se_pa_lines = $lines;
+    $payment->se_pa_total = $total;
 
-    return $this->entityFormBuilder()->getForm($destination);
+    return $this->entityFormBuilder()->getForm($payment);
   }
 
 }

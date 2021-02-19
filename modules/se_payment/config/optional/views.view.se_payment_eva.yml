@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - eva

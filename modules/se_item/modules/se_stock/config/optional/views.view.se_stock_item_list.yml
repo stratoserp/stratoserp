@@ -9,6 +9,7 @@ dependencies:
     - se_item.se_item_type.se_stock
     - system.menu.stratos-erp
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - datetime

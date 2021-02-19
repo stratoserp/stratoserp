@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\se_timekeeping\Functional;
 
 use Drupal\node\Entity\NodeType;
-use Drupal\se_invoice\Controller\NodeController;
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
+use Drupal\se_invoice\Controller\InvoiceController;
 
 /**
  * Test invoicing timekeeping.
@@ -15,7 +14,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_timekeeping
  * @group stratoserp
  */
-class TimekeepingInvoiceTest extends FunctionalTestBase {
+class TimekeepingInvoiceTest extends TimekeepingTestBase {
 
   /**
    * Test timekeeping invoicing.
@@ -26,7 +25,7 @@ class TimekeepingInvoiceTest extends FunctionalTestBase {
     $testBusiness = $this->addBusiness();
     $testTicket = $this->addTicket($testBusiness);
     $testTimekeeping = $this->addTimekeeping($testTicket);
-    $hooks = \Drupal::classResolver(NodeController::class);
+    $hooks = \Drupal::classResolver(InvoiceController::class);
     $type = NodeType::load('se_invoice');
     $node = $hooks->createNodeFromTimekeeping($type, $testBusiness);
     $node->title = \Drupal::service('stratoserp.set_field')->generateTitle();

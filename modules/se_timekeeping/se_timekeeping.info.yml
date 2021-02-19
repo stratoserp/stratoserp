@@ -31,6 +31,7 @@ config_devel:
     - field.storage.comment.se_tk_date
     - field.storage.comment.se_tk_item
     - field.storage.comment.se_tk_review
+    - field.storage.se_ticket.se_timekeeping
   optional:
     - core.entity_form_display.comment.se_timekeeping.default
     - core.entity_view_display.comment.se_timekeeping.default

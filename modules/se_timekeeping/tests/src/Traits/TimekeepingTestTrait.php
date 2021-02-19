@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\se_testing\Traits;
+namespace Drupal\Tests\se_timekeeping\Traits;
 
 use Drupal\comment\CommentInterface;
 use Drupal\comment\Entity\Comment;
-use Drupal\node\Entity\Node;
+use Drupal\se_ticket\Entity\Ticket;
 use Faker\Factory;
 
 /**
@@ -15,20 +15,13 @@ use Faker\Factory;
 trait TimekeepingTestTrait {
 
   /**
-   * Storage for the faker data for timekeeping.
-   *
-   * @var \Faker\Factory
-   */
-  protected $timekeeping;
-
-  /**
    * Setup basic faker fields for this test trait.
    */
   public function timekeepingFakerSetup(): void {
     $this->faker = Factory::create();
 
     $original                         = error_reporting(0);
-    $this->timekeeping->name          = $this->faker->realText(50);
+    $this->timekeeping->name          = $this->faker->realText(45);
     $this->timekeeping->phoneNumber   = $this->faker->phoneNumber;
     $this->timekeeping->mobileNumber  = $this->faker->phoneNumber;
     $this->timekeeping->streetAddress = $this->faker->streetAddress;
@@ -43,25 +36,26 @@ trait TimekeepingTestTrait {
   /**
    * Add timekeeping to a ticket.
    *
-   * @param \Drupal\node\Entity\Node $ticket
-   *   The ticket node to attache the timekeeping to.
-   *
-   * @return \Drupal\comment\Entity\Comment
-   *   The returned comment.
+   * @param \Drupal\se_ticket\Entity\Ticket $ticket
+   *   The business to associate the ticket with.
+   * @param bool $allowed
+   *   Whether it should be allowed or not.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Behat\Mink\Exception\ExpectationException
    */
-  public function addTimekeeping(Node $ticket): Comment {
-    $this->timekeepingFakerSetup();
+  public function addTimekeeping(Ticket $ticket, bool $allowed = TRUE) {
+    if (!isset($this->timekeeping->name)) {
+      $this->timekeepingFakerSetup();
+    }
 
     $item = \Drupal::service('se_item.service')->findByCode('TECHSERVICE');
 
     /** @var \Drupal\comment\Entity\Comment $comment */
     $comment = Comment::create([
       'entity_id' => $ticket->id(),
-      'entity_type' => 'node',
+      'entity_type' => 'se_ticket',
       'field_name' => 'se_timekeeping',
       'comment_type' => 'se_timekeeping',
       'se_bu_ref' => $ticket->se_bu_ref,
@@ -73,8 +67,17 @@ trait TimekeepingTestTrait {
       'status' => CommentInterface::PUBLISHED,
     ]);
     $comment->save();
-    $this->assertNotEquals($comment, FALSE);
+    self::assertNotEquals($comment, FALSE);
+
     $this->drupalGet($comment->toUrl());
+
+    sleep(1);
+
+    if (!$allowed) {
+      $this->assertSession()->statusCodeEquals(403);
+      return NULL;
+    }
+
     $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();

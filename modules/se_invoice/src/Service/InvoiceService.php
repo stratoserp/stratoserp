@@ -6,7 +6,7 @@ namespace Drupal\se_invoice\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\node\Entity\Node;
+use Drupal\se_business\Entity\Business;
 
 /**
  * Service for various invoice related functions.
@@ -43,7 +43,7 @@ class InvoiceService {
   /**
    * Retrieve the outstnading invoices for a business.
    *
-   * @param \Drupal\node\Entity\Node $business
+   * @param \Drupal\se_business\Entity\Business $business
    *   The Business node.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
@@ -52,11 +52,10 @@ class InvoiceService {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getOutstandingInvoices(Node $business) {
+  public function getOutstandingInvoices(Business $business) {
     /** @var \Drupal\taxonomy\Entity\Term $open_term */
     $open_term = $this->getOpenTerm();
     $query = \Drupal::entityQuery('se_invoice');
-    $query->condition('type', 'se_invoice');
     $query->condition('se_bu_ref', $business->id());
     $query->condition('se_status_ref', $open_term->id());
     $entity_ids = $query->execute();

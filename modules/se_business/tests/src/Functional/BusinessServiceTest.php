@@ -6,14 +6,20 @@ namespace Drupal\Tests\se_business\Functional;
 
 use Drupal\Tests\se_invoice\Traits\InvoiceTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
+use Drupal\Tests\se_quote\Traits\QuoteTestTrait;
 
 /**
  * Test Business Service.
+ *
+ * @coversDefault Drupal\se_business
+ * @group se_business
+ * @group stratoserp
  */
 class BusinessServiceTest extends BusinessTestBase {
 
   use ItemTestTrait;
   use InvoiceTestTrait;
+  use QuoteTestTrait;
 
   /**
    * Test business lookup service.
@@ -42,7 +48,8 @@ class BusinessServiceTest extends BusinessTestBase {
    * Test business lookup service with an invoice.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException|\Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function testBusinessServiceWithInvoice(): void {
 
@@ -52,7 +59,6 @@ class BusinessServiceTest extends BusinessTestBase {
     $business = $this->addBusiness();
 
     $items = $this->createItems();
-    $this->invoiceFakerSetup();
 
     $invoice = $this->addInvoice($business, $items);
 
@@ -70,6 +76,7 @@ class BusinessServiceTest extends BusinessTestBase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function testBusinessServiceWithQuote(): void {
 
@@ -79,6 +86,7 @@ class BusinessServiceTest extends BusinessTestBase {
     $business = $this->addBusiness();
 
     $items = $this->createItems();
+
     $quote = $this->addQuote($business, $items);
 
     $quoteBusiness = \Drupal::service('se_business.service')->lookupBusiness($quote);

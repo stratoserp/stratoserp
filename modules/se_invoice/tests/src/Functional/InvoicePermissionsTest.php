@@ -18,7 +18,7 @@ class InvoicePermissionsTest extends InvoiceTestBase {
    *
    * @var \Faker\Factory
    */
-  protected $business;
+  protected $invoice;
 
   /**
    * List of pages to test permissions on.
@@ -27,7 +27,7 @@ class InvoicePermissionsTest extends InvoiceTestBase {
    */
   private array $pages = [
     '/invoice/add',
-    '/se/businesss/invoice-list',
+    '/se/invoice-list',
   ];
 
   /**

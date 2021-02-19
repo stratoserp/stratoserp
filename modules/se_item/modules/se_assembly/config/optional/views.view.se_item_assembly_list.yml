@@ -8,6 +8,7 @@ dependencies:
     - se_item.se_item_type.se_assembly
     - system.menu.stratos-erp
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - se_accounting

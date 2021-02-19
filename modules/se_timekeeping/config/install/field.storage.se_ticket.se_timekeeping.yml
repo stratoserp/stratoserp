@@ -4,7 +4,7 @@ dependencies:
   module:
     - comment
     - se_ticket
-id: node.se_timekeeping
+id: se_ticket.se_timekeeping
 field_name: se_timekeeping
 entity_type: se_ticket
 type: comment

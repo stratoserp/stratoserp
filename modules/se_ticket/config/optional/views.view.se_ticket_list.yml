@@ -4,9 +4,13 @@ dependencies:
   config:
     - field.storage.se_ticket.se_bu_ref
     - system.menu.stratos-erp
+    - user.role.developer
+    - user.role.owner
+    - user.role.staff
   module:
     - dynamic_entity_reference
     - se_ticket
+    - user
 id: se_ticket_list
 label: 'Ticket list'
 module: views
@@ -22,8 +26,12 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            owner: owner
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -199,7 +207,55 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-      filters: {  }
+      filters:
+        name:
+          id: name
+          table: se_ticket_field_data
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: name_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: se_ticket
+          entity_field: name
+          plugin_id: string
       sorts: {  }
       title: 'Ticket list'
       header: {  }
@@ -213,7 +269,9 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.se_ticket.se_bu_ref'
   se_ticket_list:
@@ -223,7 +281,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: ticket-list
+      path: se/ticket-list
       menu:
         type: normal
         title: 'Ticket list'
@@ -233,6 +291,8 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.se_ticket.se_bu_ref'

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_payment\Traits;
 
 use Drupal\Core\Database\Database;
-use Drupal\node\Entity\Node;
+use Drupal\se_invoice\Entity\Invoice;
 
 /**
  * Trait to provide drupal payment utilities.
@@ -15,13 +15,13 @@ trait PaymentTrait {
   /**
    * Retrieve payments for passed invoice.
    *
-   * @param \Drupal\node\Entity\Node $invoice
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The invoice to retrieve information for.
    *
    * @return mixed
    *   Return an array of payment nodes.
    */
-  public function getInvoicePayments(Node $invoice): array {
+  public function getInvoicePayments(Invoice $invoice): array {
     // @todo Is there a nicer way to do this?
     $query = Database::getConnection()->select('node__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['entity_id']);
@@ -36,13 +36,13 @@ trait PaymentTrait {
   /**
    * Retrieve payment amounts.
    *
-   * @param \Drupal\node\Entity\Node $invoice
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The invoice to retrieve information for.
    *
    * @return mixed
    *   Return an array of payment amounts.
    */
-  private function getInvoicePaymentAmounts(Node $invoice): array {
+  private function getInvoicePaymentAmounts(Invoice $invoice): array {
     // @todo Is there a nicer way to do this?
     $query = Database::getConnection()->select('node__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['se_pa_lines_amount']);
@@ -57,13 +57,13 @@ trait PaymentTrait {
   /**
    * Retrieve the outstanding balance for an invoice.
    *
-   * @param \Drupal\node\Entity\Node $invoice
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The invoice to retrieve information for.
    *
    * @return \Drupal\Core\Field\FieldItemListInterface|int|mixed
    *   Return the outstanding amount.
    */
-  public function getInvoiceBalance(Node $invoice) {
+  public function getInvoiceBalance(Invoice $invoice) {
     $paidAmount = 0;
 
     foreach ($this->getInvoicePaymentAmounts($invoice) as $payment) {

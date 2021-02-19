@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_contact\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Test Contact Add/Delete.
  *
@@ -13,19 +11,27 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_contact
  * @group stratoserp
  */
-class ContactCrudTest extends FunctionalTestBase {
+class ContactCrudTest extends ContactTestBase {
 
   /**
    * Add a contact as staff.
    */
   public function testContactAdd(): void {
-
-    $staff = $this->setupStaffUser();
-    $this->drupalLogin($staff);
-
+    // First setup a business to add the contact to.
+    $this->drupalLogin($this->staff);
     $business = $this->addBusiness();
-    $this->addContact($business);
+    $this->drupalLogout();
 
+    $this->drupalLogin($this->customer);
+    $this->addContact($business, FALSE);
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->staff);
+    $this->addContact($business);
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->owner);
+    $this->addContact($business);
     $this->drupalLogout();
   }
 
@@ -34,26 +40,29 @@ class ContactCrudTest extends FunctionalTestBase {
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testContactDelete(): void {
-
-    $staff = $this->setupStaffUser();
-    $business = $this->setupBusinessUser();
-
     // Create a contact for testing.
-    $this->drupalLogin($staff);
+    $this->drupalLogin($this->staff);
+    $this->businessFakerSetup();
     $testBusiness = $this->addBusiness();
     $testContact = $this->addContact($testBusiness);
     $this->drupalLogout();
 
-    // Ensure business can't delete contacts.
-    $this->drupalLogin($business);
-    $this->deleteNode($testContact, FALSE);
+    // Ensure customers can't delete contacts.
+    $this->drupalLogin($this->customer);
+    $this->deleteEntity($testContact, FALSE);
+    $this->drupalLogout();
+
+    // Ensure staff can't delete contacts.
+    $this->drupalLogin($this->customer);
+    $this->deleteEntity($testContact, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can delete contacts.
-    $this->drupalLogin($staff);
-    $this->deleteNode($testContact, TRUE);
+    $this->drupalLogin($this->owner);
+    $this->deleteEntity($testContact, TRUE);
     $this->drupalLogout();
   }
 

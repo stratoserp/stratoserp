@@ -28,9 +28,9 @@ class UserPurchaseOrderStatistics extends BlockBase {
     $datasets = [];
     // @todo Move this to a service and pass in this.
     $type = 'se_purchase_order';
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$type];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
@@ -47,23 +47,22 @@ class UserPurchaseOrderStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
-        $query = \Drupal::entityQuery('node');
-        $query->condition('type', $type);
+        $query = \Drupal::entityQuery('se_purchase_order');
         $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
-        $nodes = \Drupal::entityTypeManager()
-          ->getStorage('node')
+
+        $entities = \Drupal::entityTypeManager()
+          ->getStorage('se_purchase_order')
           ->loadMultiple($entity_ids);
-        if ($nodes && count($nodes) > 0) {
+        if ($entities && count($entities) > 0) {
           $content = TRUE;
         }
 
         $month = 0;
-        /** @var \Drupal\node\Entity\Node $node */
-        foreach ($nodes as $node) {
-          $month += $node->{$bundleFieldType . '_total'}->value;
+        foreach ($entities as $entity) {
+          $month += $entity->{$bundleFieldType . '_total'}->value;
         }
         $month_data[] = $month;
         $fg_colors[] = $fg_color;

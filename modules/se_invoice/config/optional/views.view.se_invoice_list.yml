@@ -3,8 +3,12 @@ status: true
 dependencies:
   config:
     - system.menu.stratos-erp
+    - user.role.developer
+    - user.role.owner
+    - user.role.staff
   module:
     - se_invoice
+    - user
 id: se_invoice_list
 label: 'Invoice list'
 module: views
@@ -20,8 +24,12 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            owner: owner
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -44,12 +52,17 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: mini
+        type: full
         options:
-          items_per_page: 10
+          items_per_page: 20
           offset: 0
           id: 0
           total_pages: null
+          tags:
+            previous: ‹
+            next: ›
+            first: ‹‹
+            last: ››
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -58,9 +71,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          tags:
-            previous: ‹‹
-            next: ››
+          quantity: 9
       style:
         type: table
         options:
@@ -93,12 +104,9 @@ display:
           default_field_elements: true
       fields:
         name:
+          id: name
           table: se_invoice_field_data
           field: name
-          id: name
-          entity_type: null
-          entity_field: name
-          plugin_id: field
           relationship: none
           group_type: group
           admin_label: ''
@@ -135,7 +143,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -145,7 +153,8 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings: {  }
+          settings:
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -156,6 +165,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: null
+          entity_field: name
+          plugin_id: field
       filters:
         name:
           id: name
@@ -217,6 +229,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags: {  }
   se_invoice_list:
     display_plugin: page
@@ -228,10 +241,10 @@ display:
       path: se/invoice-list
       menu:
         type: normal
-        title: Invoices
-        description: 'views.view.se_business_list.se_business_list'
+        title: 'Invoice list'
+        description: views.view.se_business_list.se_business_list
         expanded: false
-        parent: ''
+        parent: 'views_view:views.se_business_list.se_business_list'
         weight: 0
         context: '0'
         menu_name: stratos-erp
@@ -242,4 +255,5 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags: {  }

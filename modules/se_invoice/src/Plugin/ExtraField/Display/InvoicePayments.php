@@ -8,8 +8,8 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
-use Drupal\node\Entity\Node;
-use Drupal\se_payment\Traits\ErpPaymentTrait;
+use Drupal\se_payment\Entity\Payment;
+use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\taxonomy\Entity\Term;
 
 /**
@@ -26,7 +26,7 @@ use Drupal\taxonomy\Entity\Term;
 class InvoicePayments extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
-  use ErpPaymentTrait;
+  use PaymentTrait;
 
   /**
    * {@inheritdoc}
@@ -45,21 +45,21 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
   /**
    * {@inheritdoc}
    *
-   * @var \Drupal\node\Entity\Node $entity
+   * @var \Drupal\se_invoice\Entity\Invoice $invoice
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function viewElements(ContentEntityInterface $entity) {
+  public function viewElements(ContentEntityInterface $invoice) {
 
     $rows = [];
 
-    $payments = $this->getInvoicePayments($entity);
+    $payments = $this->getInvoicePayments($invoice);
 
     foreach ($payments as $payment_line) {
       $row = [];
 
-      /** @var \Drupal\node\Entity\Node $payment */
-      $payment = Node::load($payment_line->entity_id);
+      /** @var \Drupal\se_payment\Entity\Payment $payment */
+      $payment = Payment::load($payment_line->entity_id);
       $uri = $payment->toUrl();
 
       foreach ($payment->se_pa_lines as $line) {

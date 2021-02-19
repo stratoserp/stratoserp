@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_item\Traits;
 
-use Drupal\se_accounting\Service\CurrencyFormat;
 use Drupal\se_item\Entity\Item;
 use Drupal\user\Entity\User;
 use Faker\Factory;
@@ -14,20 +13,6 @@ use Drupal\Core\Entity\EntityInterface;
  * Provides functions for creating content during functional tests.
  */
 trait ItemTestTrait {
-
-  /**
-   * Storage for the faker data for an item.
-   *
-   * @var \Faker\Factory
-   */
-  protected $item;
-
-  /**
-   * Storage for the currency formatter.
-   *
-   * @var \Drupal\se_accounting\Service\CurrencyFormat
-   */
-  protected CurrencyFormat $currencyFormat;
 
   /**
    * Setup basic faker fields for this test trait.
@@ -66,7 +51,7 @@ trait ItemTestTrait {
 
     self::assertNotEquals($item, FALSE);
 
-    // Ensure that the item is not its own original item.
+    // Ensure that the item is not its own original/parent item.
     self::assertNotNull($item->se_it_item_ref);
     self::assertNotEquals($item->se_it_item_ref->entity->id(), $item->id());
     self::assertEquals($this->item->serial, $item->se_it_serial->value);
@@ -96,7 +81,7 @@ trait ItemTestTrait {
 
     self::assertNotEquals($item, FALSE);
 
-    $content = $this->checkGeneralItemAttributes($item);
+    $this->checkGeneralItemAttributes($item);
 
     return $item;
   }
@@ -121,7 +106,7 @@ trait ItemTestTrait {
 
     self::assertNotEquals($item, FALSE);
 
-    $content = $this->checkGeneralItemAttributes($item);
+    $this->checkGeneralItemAttributes($item);
 
     return $item;
   }
@@ -190,7 +175,7 @@ trait ItemTestTrait {
   }
 
   /**
-   * Create and item entity.
+   * Create an item entity.
    *
    * @param array $settings
    *   Content settings to use.

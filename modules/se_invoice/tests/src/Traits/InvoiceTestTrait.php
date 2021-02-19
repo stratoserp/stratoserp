@@ -22,7 +22,7 @@ trait InvoiceTestTrait {
     $this->faker = Factory::create();
 
     $original                     = error_reporting(0);
-    $this->invoice->name          = $this->faker->text;
+    $this->invoice->name          = $this->faker->text(45);
     $this->invoice->phoneNumber   = $this->faker->phoneNumber;
     $this->invoice->mobileNumber  = $this->faker->phoneNumber;
     $this->invoice->streetAddress = $this->faker->streetAddress;
@@ -41,14 +41,20 @@ trait InvoiceTestTrait {
    *   The Business to associate the Invoice with.
    * @param array $items
    *   An array of items to use for invoice lines.
+   * @param bool $allowed
+   *   Whether it should be allowed or not.
    *
-   * @return \Drupal\se_invoice\Entity\Invoice
+   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_invoice\Entity\Invoice|null
    *   The Invoice to return.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Behat\Mink\Exception\ExpectationException|\Drupal\Core\Entity\EntityStorageException
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addInvoice(Business $testBusiness, array $items = []): Invoice {
+  public function addInvoice(Business $testBusiness, array $items = [], bool $allowed = TRUE) {
+    if (!isset($this->invoice->name)) {
+      $this->invoiceFakerSetup();
+    }
 
     $lines = [];
     foreach ($items as $item) {
@@ -63,13 +69,16 @@ trait InvoiceTestTrait {
 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $this->createInvoice([
+      'type' => 'se_invoice',
       'name' => $this->invoice->name,
-      'se_bu_ref' => ['target_id' => $testBusiness->id()],
+      'se_bu_ref' => [
+        'target_id' => $testBusiness->id(),
+        'target_type' => 'se_business',
+      ],
       'se_in_phone' => $this->invoice->phoneNumber,
       'se_in_email' => $this->invoice->companyEmail,
       'se_in_lines' => $lines,
     ]);
-
     self::assertNotEquals($invoice, FALSE);
     self::assertNotNull($invoice->se_in_total->value);
 
@@ -79,6 +88,14 @@ trait InvoiceTestTrait {
     }
 
     $this->drupalGet($invoice->toUrl());
+
+    sleep(1);
+
+    if (!$allowed) {
+      $this->assertSession()->statusCodeEquals(403);
+      return NULL;
+    }
+
     $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
@@ -109,13 +126,13 @@ trait InvoiceTestTrait {
   }
 
   /**
-   * Create and save a Business entity.
+   * Create and save an Invoice entity.
    *
    * @param array $settings
-   *   Array of settings to apply to the Business entity.
+   *   Array of settings to apply to the Invoice entity.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface
-   *   The created Business entity.
+   *   The created Invoice entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -128,13 +145,13 @@ trait InvoiceTestTrait {
   }
 
   /**
-   * Create but dont save a Business entity.
+   * Create but dont save a Invoice entity.
    *
    * @param array $settings
-   *   Array of settings to apply to the Business entity.
+   *   Array of settings to apply to the Invoice entity.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface
-   *   The created but not yet saved Business entity.
+   *   The created but not yet saved Invoice entity.
    */
   public function createInvoiceContent(array $settings = []) {
     $settings += [
@@ -142,14 +159,14 @@ trait InvoiceTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->business->user = User::load(\Drupal::currentUser()->id());
-      if ($this->business->user) {
-        $settings['uid'] = $this->business->user->id();
+      $this->invoice->user = User::load(\Drupal::currentUser()->id());
+      if ($this->invoice->user) {
+        $settings['uid'] = $this->invoice->user->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->business->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->business->user->id();
+        $this->invoice->user = $this->setUpCurrentUser();
+        $settings['uid'] = $this->invoice->user->id();
       }
       else {
         $settings['uid'] = 0;

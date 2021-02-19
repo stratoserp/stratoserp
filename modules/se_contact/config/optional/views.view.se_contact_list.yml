@@ -3,8 +3,12 @@ status: true
 dependencies:
   config:
     - system.menu.stratos-erp
+    - user.role.developer
+    - user.role.owner
+    - user.role.staff
   module:
     - se_contact
+    - user
 id: se_contact_list
 label: 'Contact list'
 module: views
@@ -20,8 +24,12 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            owner: owner
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -44,12 +52,17 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: mini
+        type: full
         options:
-          items_per_page: 10
+          items_per_page: 20
           offset: 0
           id: 0
           total_pages: null
+          tags:
+            previous: ‹
+            next: ›
+            first: ‹‹
+            last: ››
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -58,9 +71,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          tags:
-            previous: ‹‹
-            next: ››
+          quantity: 9
       style:
         type: table
         options:
@@ -217,6 +228,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags: {  }
   se_contact_list:
     display_plugin: page
@@ -231,7 +243,7 @@ display:
         title: Contacts
         description: ''
         expanded: false
-        parent: 'views.view.se_business_list.se_business_list'
+        parent: 'views_view:views.se_business_list.se_business_list'
         weight: 0
         context: '0'
         menu_name: stratos-erp
@@ -242,4 +254,5 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags: {  }

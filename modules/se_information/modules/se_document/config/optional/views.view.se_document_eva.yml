@@ -3,8 +3,8 @@ status: true
 dependencies:
   config:
     - se_information.se_information_type.se_document
-    - system.menu.stratos-erp
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - eva

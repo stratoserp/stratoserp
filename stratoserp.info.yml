@@ -13,9 +13,7 @@ dependencies:
 config_devel:
   install:
     - system.menu.stratos-erp
-    - taxonomy.vocabulary.se_business_type
     - taxonomy.vocabulary.se_manufacturer
-    - taxonomy.vocabulary.se_payment_type
     - taxonomy.vocabulary.se_product_type
     - taxonomy.vocabulary.se_sale_category
     - taxonomy.vocabulary.se_status

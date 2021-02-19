@@ -9,9 +9,8 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\node\Entity\Node;
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\stratoserp\ErpCore;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class TimekeepingSaveEventSubscriber.
@@ -20,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_timekeeping\EventSubscriber
  */
-class TimekeepingInvoiceEventSubscriber implements EventSubscriberInterface {
+class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -34,91 +33,84 @@ class TimekeepingInvoiceEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * When an invoice is saved, check if there are any timekeeping entries.
-   *
-   * When there are, mark them as billed.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
-   *   The Event to handle.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function timekeepingInvoiceInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
-    $entity = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
 
-    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
-      $this->timekeepingMarkItemsBilled($entity);
+    if ($invoice->getEntityTypeId() === 'se_invoice') {
+      $this->timekeepingMarkItemsBilled($invoice);
     }
   }
 
   /**
-   * When an invoice is updated, check if there are any timekeeping entries.
-   *
-   * When there are, mark them as billed.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
-   *   The Event to handle.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function timekeepingInvoiceUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
-    $entity = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
 
-    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
-      $this->timekeepingMarkItemsBilled($entity);
+    if ($invoice->getEntityTypeId() === 'se_invoice') {
+      $this->timekeepingMarkItemsBilled($invoice);
     }
   }
 
   /**
-   * Mark timekeeping entries as unbilled before saving.
-   *
-   * This needs to be done in case they have been removed from the invoice,
-   * and will need to be available to be billed again.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The Event to handle.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function timekeepingInvoicePresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
-    $entity = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
 
-    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'se_invoice') {
-      $this->timekeepingMarkItemsBilled($entity, FALSE);
+    if ($invoice->getEntityTypeId() === 'se_invoice') {
+      $this->timekeepingMarkItemsUnBilled($invoice);
     }
   }
 
   /**
    * Loop through the invoice entries and mark the originals as required.
    *
-   * @param \Drupal\node\Entity\Node $entity
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The entity to update timekeeping items.
-   * @param bool $billed
-   *   Marking billed or not billed?
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function timekeepingMarkItemsBilled(Node $entity, $billed = TRUE): void {
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$entity->bundle()];
+  private function timekeepingMarkItemsBilled(Invoice $invoice): void {
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$invoice->bundle()];
 
-    foreach ($entity->{$bundleFieldType . '_lines'} as $itemLine) {
+    foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
       if ($itemLine->target_type === 'comment') {
         /** @var \Drupal\comment\Entity\Comment $comment */
         if ($comment = Comment::load($itemLine->target_id)) {
           // @todo Make a service for this?
-          if ($comment->se_tk_billed !== $billed) {
-            $comment->set('se_tk_billed', $billed);
-            if ($billed) {
-              $comment->set('se_tk_invoice_ref', $entity->id());
-            }
-            else {
-              $comment->set('se_tk_invoice_ref', NULL);
-            }
-            $comment->save();
-          }
+          $comment->set('se_tk_billed', TRUE);
+          $comment->set('se_tk_invoice_ref', $invoice->id());
+          $comment->save();
+        }
+      }
+    }
+  }
+
+  /**
+   * Loop through the invoice entries and mark the originals as required.
+   *
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   The entity to update timekeeping items.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  private function timekeepingMarkItemsUnBilled(Invoice $invoice): void {
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$invoice->bundle()];
+
+    foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
+      if ($itemLine->target_type === 'comment') {
+        /** @var \Drupal\comment\Entity\Comment $comment */
+        if ($comment = Comment::load($itemLine->target_id)) {
+          // @todo Make a service for this?
+          $comment->set('se_tk_billed', FALSE);
+          $comment->set('se_tk_invoice_ref', NULL);
+          $comment->save();
         }
       }
     }

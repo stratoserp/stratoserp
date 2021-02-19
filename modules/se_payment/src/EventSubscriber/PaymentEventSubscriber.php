@@ -11,7 +11,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\stratoserp\ErpCore;
 use Drupal\stratoserp\Traits\ErpEventTrait;
-use Drupal\se_payment\Traits\ErpPaymentTrait;
+use Drupal\se_payment\Traits\PaymentTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -26,7 +26,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PaymentEventSubscriber implements EventSubscriberInterface {
 
   use ErpEventTrait;
-  use ErpPaymentTrait;
+  use PaymentTrait;
 
   /**
    * {@inheritdoc}

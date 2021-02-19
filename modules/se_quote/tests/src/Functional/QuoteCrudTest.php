@@ -21,13 +21,21 @@ class QuoteCrudTest extends QuoteTestBase {
    * Test adding an quote.
    */
   public function testQuoteAdd() {
-    $staff = $this->setupStaffUser();
-    $this->drupalLogin($staff);
+    $this->drupalLogin($this->staff);
     $testBusiness = $this->addBusiness();
-
     $items = $this->createItems();
-    $this->addQuote($testBusiness, $items);
+    $this->drupalLogout();
 
+    $this->drupalLogin($this->customer);
+    $this->addQuote($testBusiness, $items, FALSE);
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->staff);
+    $this->addQuote($testBusiness, $items);
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->owner);
+    $this->addQuote($testBusiness, $items);
     $this->drupalLogout();
   }
 

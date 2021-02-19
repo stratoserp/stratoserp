@@ -7,6 +7,7 @@ namespace Drupal\Tests\se_quote\Traits;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_quote\Entity\Quote;
 use Drupal\user\Entity\User;
+use Faker\Factory;
 
 /**
  * Provides functions for creating content during functional tests.
@@ -14,21 +15,45 @@ use Drupal\user\Entity\User;
 trait QuoteTestTrait {
 
   /**
-   * Add a quote node.
+   * Setup basic faker fields for this test trait.
+   */
+  public function quoteFakerSetup(): void {
+    $this->faker = Factory::create();
+
+    $original                   = error_reporting(0);
+    $this->quote->name          = $this->faker->text(45);
+    $this->quote->phoneNumber   = $this->faker->phoneNumber;
+    $this->quote->mobileNumber  = $this->faker->phoneNumber;
+    $this->quote->streetAddress = $this->faker->streetAddress;
+    $this->quote->suburb        = $this->faker->city;
+    $this->quote->state         = $this->faker->stateAbbr;
+    $this->quote->postcode      = $this->faker->postcode;
+    $this->quote->url           = $this->faker->url;
+    $this->quote->companyEmail  = $this->faker->companyEmail;
+    error_reporting($original);
+  }
+
+  /**
+   * Add a quote entity.
    *
    * @param \Drupal\se_business\Entity\Business $testBusiness
    *   The Business to associate the Invoice with.
    * @param array $items
    *   An array of items to use for invoice lines.
+   * @param bool $allowed
+   *   Whether it should be allowed or not.
    *
-   * @return \Drupal\se_quote\Entity\Quote
+   * @return \Drupal\se_quote\Entity\Quote|null
    *   The Invoice to return.
    *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Drupal\Core\Entity\EntityStorageException|\Behat\Mink\Exception\ExpectationException
    */
-  public function addQuote(Business $testBusiness, array $items = []): Quote {
-    $this->quoteFakerSetup();
+  public function addQuote(Business $testBusiness, array $items = [], bool $allowed = TRUE) {
+    if (!isset($this->quote->name)) {
+      $this->quoteFakerSetup();
+    }
 
     $lines = [];
     foreach ($items as $item) {
@@ -43,16 +68,27 @@ trait QuoteTestTrait {
     /** @var \Drupal\se_quote\Entity\Quote $quote */
     $quote = $this->createQuote([
       'name' => $this->quote->name,
-      'se_bu_ref' => ['target_id' => $testBusiness->id()],
+      'se_bu_ref' => [
+        'target_id' => $testBusiness->id(),
+        'target_type' => 'se_business',
+      ],
       'se_qu_phone' => $this->quote->phoneNumber,
       'se_qu_email' => $this->quote->companyEmail,
       'se_qu_lines' => $lines,
     ]);
 
     self::assertNotEquals($quote, FALSE);
-    self::assertNotNull($quote->se_in_total->value);
+    self::assertNotNull($quote->se_qu_total->value);
 
     $this->drupalGet($quote->toUrl());
+
+    sleep(1);
+
+    if (!$allowed) {
+      $this->assertSession()->statusCodeEquals(403);
+      return NULL;
+    }
+
     $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
@@ -99,14 +135,14 @@ trait QuoteTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->business->user = User::load(\Drupal::currentUser()->id());
-      if ($this->business->user) {
-        $settings['uid'] = $this->business->user->id();
+      $this->quote->user = User::load(\Drupal::currentUser()->id());
+      if ($this->quote->user) {
+        $settings['uid'] = $this->quote->user->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->business->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->business->user->id();
+        $this->quote->user = $this->setUpCurrentUser();
+        $settings['uid'] = $this->quote->user->id();
       }
       else {
         $settings['uid'] = 0;

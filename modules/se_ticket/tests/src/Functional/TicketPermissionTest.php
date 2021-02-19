@@ -4,23 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_ticket\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Ticket permission tests.
  *
  * @coversDefault Drupal\se_ticket
- * @group se_ticket
+ * @group se_timekeeping
  * @group stratoserp
  */
-class TicketPermissionTest extends FunctionalTestBase {
-
-  /**
-   * Faker factory for business.
-   *
-   * @var \Faker\Factory
-   */
-  protected $business;
+class TicketPermissionTest extends TicketTestBase {
 
   /**
    * List of pages to test permissions on.
@@ -28,8 +19,8 @@ class TicketPermissionTest extends FunctionalTestBase {
    * @var string[]
    */
   private array $pages = [
-    '/ticket/add',
-    '/se/ticket-list',
+    // '/ticket/add',
+    '/se/timekeeping-list',
   ];
 
   /**

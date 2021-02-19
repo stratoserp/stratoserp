@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_contact\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Test Contact Permiossions.
  *
@@ -13,7 +11,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_contact
  * @group stratoserp
  */
-class ContactPermissionsTest extends FunctionalTestBase {
+class ContactPermissionsTest extends ContactTestBase {
 
   /**
    * Faker factory for business.
@@ -28,7 +26,7 @@ class ContactPermissionsTest extends FunctionalTestBase {
    * @var string[]
    */
   private array $pages = [
-    '/node/add/se_contact',
+    '/contact/add',
     '/se/contact-list',
   ];
 

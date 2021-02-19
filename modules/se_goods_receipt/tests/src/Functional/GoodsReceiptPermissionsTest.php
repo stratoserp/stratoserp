@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_goods_receipt\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Goods receipt permission tests.
  *
@@ -13,14 +11,14 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_goods_receipt
  * @group stratoserp
  */
-class GoodsReceiptPermissionsTest extends FunctionalTestBase {
+class GoodsReceiptPermissionsTest extends GoodsReceiptTestBase {
 
   /**
-   * Faker factory for business.
+   * Faker factory for Goods reeipt.
    *
    * @var \Faker\Factory
    */
-  protected $business;
+  protected $goodsReceipt;
 
   /**
    * List of pages to test permissions on.
@@ -28,7 +26,7 @@ class GoodsReceiptPermissionsTest extends FunctionalTestBase {
    * @var string[]
    */
   private array $pages = [
-    '/node/add/se_goods_receipt',
+    '/goods-receipt/add',
     '/se/goods-receipt-list',
   ];
 
@@ -36,7 +34,6 @@ class GoodsReceiptPermissionsTest extends FunctionalTestBase {
    * Test the goods receipt permissions.
    */
   public function testGoodsReceiptPermissions(): void {
-
     $this->basicPermissionCheck($this->pages);
   }
 

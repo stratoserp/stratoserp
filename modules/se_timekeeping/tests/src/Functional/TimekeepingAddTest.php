@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_timekeeping\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
+use Drupal\Tests\se_ticket\Traits\TicketTestTrait;
 
 /**
  * Test adding a timekeeping entry.
@@ -13,7 +13,9 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_timekeeping
  * @group stratoserp
  */
-class TimekeepingAddTest extends FunctionalTestBase {
+class TimekeepingAddTest extends TimekeepingTestBase {
+
+  use TicketTestTrait;
 
   /**
    * Ensure that timekeeping can be successfully added.
@@ -23,9 +25,7 @@ class TimekeepingAddTest extends FunctionalTestBase {
    * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function testTimekeepingAdd(): void {
-
-    $staff = $this->setupStaffUser();
-    $this->drupalLogin($staff);
+    $this->drupalLogin($this->staff);
     $testBusiness = $this->addBusiness();
     $testTicket = $this->addTicket($testBusiness);
     $this->addTimekeeping($testTicket);

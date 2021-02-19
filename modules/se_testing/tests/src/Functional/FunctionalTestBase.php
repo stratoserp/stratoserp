@@ -11,10 +11,6 @@ use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Url;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\se_testing\Traits\GoodsReceiptTestTrait;
-use Drupal\Tests\se_testing\Traits\PaymentTestTrait;
-use Drupal\Tests\se_testing\Traits\TicketTestTrait;
-use Drupal\Tests\se_testing\Traits\TimekeepingTestTrait;
 use Drupal\Tests\se_testing\Traits\UserCreateTrait;
 use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\Tests\UiHelperTrait;
@@ -45,10 +41,6 @@ class FunctionalTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Include various StratosERP traits.
-  use GoodsReceiptTestTrait;
-  use PaymentTestTrait;
-  use TicketTestTrait;
-  use TimekeepingTestTrait;
   use UserCreateTrait;
 
   /**
@@ -228,7 +220,7 @@ class FunctionalTestBase extends TestCase {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function deleteEntity(EntityInterface $entity, bool $allowed): void {
+  public function deleteEntity(EntityInterface $entity, bool $allowed = TRUE): void {
     $this->drupalGet($entity->toUrl('delete-form'));
     if (!$allowed && ($this->getSession()->getStatusCode() === 403)) {
       return;

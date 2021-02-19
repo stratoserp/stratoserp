@@ -153,7 +153,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
 
     $host_type = $form_state->getFormObject()->getEntity()->bundle();
 
-    if (!array_key_exists($host_type, ErpCore::ITEM_LINE_NODE_BUNDLE_MAP)) {
+    if (!array_key_exists($host_type, ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP)) {
       return $new_values;
     }
 

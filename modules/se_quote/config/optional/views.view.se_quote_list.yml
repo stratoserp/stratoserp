@@ -3,8 +3,12 @@ status: true
 dependencies:
   config:
     - system.menu.stratos-erp
+    - user.role.developer
+    - user.role.owner
+    - user.role.staff
   module:
     - se_quote
+    - user
 id: se_quote_list
 label: 'Quote list'
 module: views
@@ -20,8 +24,12 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            owner: owner
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -217,6 +225,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags: {  }
   se_quote_list:
     display_plugin: page
@@ -231,7 +240,7 @@ display:
         title: Quotes
         description: ''
         expanded: false
-        parent: 'views.view.se_business_list.se_business_list'
+        parent: views.view.se_business_list.se_business_list
         weight: 0
         context: '0'
         menu_name: stratos-erp
@@ -242,4 +251,5 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags: {  }

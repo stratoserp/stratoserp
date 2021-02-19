@@ -26,6 +26,7 @@ config_devel:
     - field.storage.se_payment.se_bu_ref
     - field.storage.se_payment.se_pa_lines
     - field.storage.se_payment.se_pa_total
+    - taxonomy.vocabulary.se_payment_type
   optional:
     - views.view.se_payment_list
     - views.view.se_payment_eva

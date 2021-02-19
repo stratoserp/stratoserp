@@ -6,6 +6,7 @@ dependencies:
     - se_information.se_information_type.se_document
     - system.menu.stratos-erp
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - se_information
@@ -362,7 +363,7 @@ display:
         title: Documents
         description: ''
         expanded: false
-        parent: 'views.view.se_business_list.se_business_list'
+        parent: views.view.se_business_list.se_business_list
         weight: 0
         context: '0'
         menu_name: stratos-erp

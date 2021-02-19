@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_contact\Functional;
 
+use Drupal\Tests\se_invoice\Traits\InvoiceTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
  * Test Contact Service.
@@ -14,9 +14,10 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_contact
  * @group stratoserp
  */
-class ContactServiceTest extends FunctionalTestBase {
+class ContactServiceTest extends ContactTestBase {
 
   use ItemTestTrait;
+  use InvoiceTestTrait;
 
   /**
    * Test contact lookup service.

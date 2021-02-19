@@ -76,7 +76,7 @@ function se_webform_integration_install_attach(EntityTypeManagerInterface $entit
       'dialog' => 'normal',
     ],
   ]);
-  $display->setComponent('wi_submissions_entity_view_1', [
+  $display->setComponent('wi_submission_list_wi_submission_list', [
     'region' => 'bottom',
     'weight' => 21,
   ]);

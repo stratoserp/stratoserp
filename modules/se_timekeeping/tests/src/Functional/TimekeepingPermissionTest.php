@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_timekeeping\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Timekeeping permission tests.
  *
  * @coversDefault Drupal\se_ticket
- * @group se_ticket
+ * @group se_timekeeping
  * @group stratoserp
  */
-class TimekeepingPermissionTest extends FunctionalTestBase {
+class TimekeepingPermissionTest extends TimekeepingTestBase {
 
   /**
    * Faker factory for business.

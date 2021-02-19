@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_timekeeping\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Test deleting a timekeeping entry.
  *
@@ -13,7 +11,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_timekeeping
  * @group stratoserp
  */
-class TimekeepingDeleteTest extends FunctionalTestBase {
+class TimekeepingDeleteTest extends TimekeepingTestBase {
 
   /**
    * Test timekeeping delete.

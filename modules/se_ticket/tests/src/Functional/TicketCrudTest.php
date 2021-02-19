@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_ticket\Functional;
 
-use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
-
 /**
  * Ticket CRUD tests.
  *
@@ -13,47 +11,52 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_ticket
  * @group stratoserp
  */
-class TicketCrudTest extends FunctionalTestBase {
+class TicketCrudTest extends TicketTestBase {
 
   /**
    * Ensure that a ticket can be successfully added.
    */
   public function testTicketAdd(): void {
-
-    $staff = $this->setupStaffUser();
-    $this->drupalLogin($staff);
-
-    $business = $this->addBusiness();
-    $ticket = $this->addTicket($business);
-
+    $this->drupalLogin($this->staff);
+    $testBusiness = $this->addBusiness();
     $this->drupalLogout();
 
+    $this->drupalLogin($this->customer);
+    $this->addTicket($testBusiness, FALSE);
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->staff);
+    $this->addTicket($testBusiness);
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->owner);
+    $this->addTicket($testBusiness);
+    $this->drupalLogout();
   }
 
   /**
    * Ensure that ticket access levels are correct.
    */
   public function testTicketDelete(): void {
-
-    $staff = $this->setupStaffUser();
-    $business = $this->setupBusinessUser();
-
-    // Create a business for testing.
-    $this->drupalLogin($staff);
-    $test_business = $this->addBusiness();
-    $test_ticket = $this->addTicket($test_business);
+    $this->drupalLogin($this->staff);
+    $testBusiness = $this->addBusiness();
+    $testTicket = $this->addTicket($testBusiness);
     $this->drupalLogout();
 
-    // Ensure business can't delete tickets.
-    $this->drupalLogin($business);
-    $this->deleteNode($test_ticket, FALSE);
+    // Ensure customers can't delete tickets.
+    $this->drupalLogin($this->customer);
+    $this->deleteEntity($testTicket, FALSE);
+    $this->drupalLogout();
+
+    // Ensure staff can't delete tickets.
+    $this->drupalLogin($this->staff);
+    $this->deleteEntity($testTicket, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can't delete tickets either!
-    $this->drupalLogin($staff);
-    $this->deleteNode($test_ticket, FALSE);
+    $this->drupalLogin($this->owner);
+    $this->deleteEntity($testTicket);
     $this->drupalLogout();
-
   }
 
 }

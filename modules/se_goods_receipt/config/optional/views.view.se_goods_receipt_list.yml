@@ -4,6 +4,7 @@ dependencies:
   config:
     - system.menu.stratos-erp
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - se_goods_receipt
@@ -195,7 +196,7 @@ display:
         title: 'Goods receipt list'
         description: ''
         expanded: false
-        parent: ''
+        parent: 'views_view:views.se_business_list.se_business_list'
         weight: 0
         context: '0'
         menu_name: stratos-erp

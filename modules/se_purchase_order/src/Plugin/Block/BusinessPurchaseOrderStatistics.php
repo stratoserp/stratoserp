@@ -28,7 +28,7 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
     $datasets = [];
     // @todo Move this to a service and pass in this.
     $type = 'se_purchase_order';
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_NODE_BUNDLE_MAP[$type];
+    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$type];
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
@@ -62,7 +62,6 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
 
         $total = 0;
         $bundle_field_total = 'se_' . $bundleFieldType . '_total';
-        /** @var \Drupal\node\Entity\Node $node */
         foreach ($entities as $entity) {
           $total += $entity->{$bundle_field_total}->value;
         }

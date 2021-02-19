@@ -12,7 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_item_line\EventSubscriber
  */
-interface ItemLineNodeEventSubscriberInterface extends EventSubscriberInterface {
+interface ItemLineEntityEventSubscriberInterface extends EventSubscriberInterface {
 
   /**
    * Process line items when a node with them is saved.
@@ -20,6 +20,6 @@ interface ItemLineNodeEventSubscriberInterface extends EventSubscriberInterface 
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
    */
-  public function itemLineNodePresave(EntityPresaveEvent $event);
+  public function itemLineEntityPresave(EntityPresaveEvent $event);
 
 }
