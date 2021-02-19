@@ -26,7 +26,7 @@ class UserInvoiceStatistics extends BlockBase {
     $content = FALSE;
     $datasets = [];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
@@ -43,11 +43,12 @@ class UserInvoiceStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
-        $query = \Drupal::entityQuery('se_invoice');
-        $query->condition('uid', $entity->id());
-        $query->condition('created', $timestamps['start'], '>=');
-        $query->condition('created', $timestamps['end'], '<');
-        $entity_ids = $query->execute();
+        $entity_ids = \Drupal::entityQuery('se_invoice')
+          ->condition('user_id', $entity->id())
+          ->condition('created', $timestamps['start'], '>=')
+          ->condition('created', $timestamps['end'], '<')
+          ->execute();
+
         $invoices = \Drupal::entityTypeManager()
           ->getStorage('se_invoice')
           ->loadMultiple($entity_ids);

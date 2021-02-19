@@ -40,7 +40,7 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
   public function xeroBusinessInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'node') {
+    if ($entity->getEntityTypeId() !== 'se_business') {
       return;
     }
 
@@ -48,7 +48,7 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if ($entity->bundle() === 'se_business' && !$entity->get('se_xero_uuid')) {
+    if (!$entity->get('se_xero_uuid')) {
       \Drupal::service('se_xero.contact_service')->sync($entity);
     }
   }
@@ -62,7 +62,7 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
   public function xeroBusinessUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'node') {
+    if ($entity->getEntityTypeId() !== 'se_business') {
       return;
     }
 
@@ -70,7 +70,7 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if ($entity->bundle() === 'se_business' && !$entity->get('se_xero_uuid')) {
+    if (!$entity->get('se_xero_uuid')) {
       \Drupal::service('se_xero.contact_service')->sync($entity);
     }
   }

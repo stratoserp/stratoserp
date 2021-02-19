@@ -53,6 +53,7 @@ class BusinessService {
    *   Business entity.
    */
   public function lookupBusiness(EntityInterface $entity) {
+    /** @var \Drupal\se_business\Entity\Business $entity */
     if ($entity instanceof BusinessInterface) {
       return $entity;
     }

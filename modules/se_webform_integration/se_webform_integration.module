@@ -11,25 +11,6 @@ use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 
 /**
- * Implements hook_field_widget_form_alter().
- */
-function se_webform_integration_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
-  /** @var \Drupal\Core\Field\FieldItemListInterface $items */
-  $items = $context['items'];
-  $field_definition = $items->getFieldDefinition();
-  if ($field_definition->getType() !== 'webform') {
-    return;
-  }
-  if ($items->getEntity()->getEntityTypeId() !== 'node') {
-    return;
-  }
-
-  // The webform node module adds in the access group setting,
-  // but we don't want that.
-  unset($element['settings']['webform_access_group']);
-}
-
-/**
  * Implements hook_module_implements_alter().
  *
  * Make sure that our form alter is called AFTER the same hook provided in xxx.

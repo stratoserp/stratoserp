@@ -41,14 +41,13 @@ class UserQuoteStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
-        $query = \Drupal::entityQuery('node');
-        $query->condition('type', 'se_quote');
+        $query = \Drupal::entityQuery('se_quote');
         $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
         $quotes = \Drupal::entityTypeManager()
-          ->getStorage('node')
+          ->getStorage('se_quote')
           ->loadMultiple($entity_ids);
 
         $month = 0;

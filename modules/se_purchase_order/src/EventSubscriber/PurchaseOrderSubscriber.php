@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\se_purchase_order\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -22,7 +21,8 @@ class PurchaseOrderSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_CREATE => 'purchaseOrderInsert',
+      // Disabled atm.
+      // HookEventDispatcherInterface::ENTITY_CREATE => 'purchaseOrderInsert',.
     ];
   }
 
@@ -35,7 +35,7 @@ class PurchaseOrderSubscriber implements EventSubscriberInterface {
   public function purchaseOrderInsert(EntityCreateEvent $event): void {
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'node') {
+    if ($entity->getEntityTypeId() !== 'se_purchase_order') {
       return;
     }
 

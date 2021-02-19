@@ -23,8 +23,7 @@ class XeroCommands extends DrushCommands {
     $timestamp = ($settings->get('business.sync_timestamp') ?: 0);
 
     // Retrieve list of nodes changed since last sync.
-    $ids = \Drupal::entityQuery('node')
-      ->condition('type', 'se_business')
+    $ids = \Drupal::entityQuery('se_business')
       ->condition('changed', $timestamp, '>')
       ->sort('created')
       ->range(0, 20)
@@ -32,11 +31,11 @@ class XeroCommands extends DrushCommands {
 
     // Loop through list of nodes, loading and syncing.
     $service = \Drupal::service('se_xero.contact_service');
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $storage = \Drupal::entityTypeManager()->getStorage('se_business');
     foreach ($ids as $id) {
-      /** @var \Drupal\node\Entity\Node $node */
-      $node = $node_storage->load($id);
-      $service->sync($node);
+      /** @var \Drupal\se_business\Entity\Business $business */
+      $business = $storage->load($id);
+      $service->sync($business);
       // $settings->set('business.sync_timestamp', $node->changed);
     }
   }
@@ -55,8 +54,7 @@ class XeroCommands extends DrushCommands {
     $timestamp = ($settings->get('invoice.sync_timestamp') ?: 0);
 
     // Retrieve list of nodes changed since last sync.
-    $ids = \Drupal::entityQuery('node')
-      ->condition('type', 'se_invoice')
+    $ids = \Drupal::entityQuery('se_invoice')
       ->condition('changed', $timestamp, '>')
       ->sort('created')
       ->range(0, 20)
@@ -64,11 +62,11 @@ class XeroCommands extends DrushCommands {
 
     // Loop through list of nodes, loading and syncing.
     $service = \Drupal::service('se_xero.invoice_service');
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $storage = \Drupal::entityTypeManager()->getStorage('se_invoice');
     foreach ($ids as $id) {
-      /** @var \Drupal\node\Entity\Node $node */
-      $node = $node_storage->load($id);
-      if (!$service->sync($node)) {
+      /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+      $invoice = $storage->load($id);
+      if (!$service->sync($invoice)) {
         // Log error message.
       }
       // $settings->set('business.sync_timestamp', $node->changed);

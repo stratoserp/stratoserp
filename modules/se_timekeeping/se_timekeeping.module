@@ -18,21 +18,21 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
 
     // If the business ref is not set, try and Retrieve the entity
     // the comment is being attached to.
-    /** @var \Drupal\node\Entity\Node $node */
+    /** @var \Drupal\se_ticket\Entity\Ticket $ticket */
     if (empty($form['se_bu_ref']['widget'][0]['target_id']['#default_value'])
-    && $node = $form_state->getFormObject()->getEntity()->getCommentedEntity()) {
+    && $ticket = $form_state->getFormObject()->getEntity()->getCommentedEntity()) {
       $form['se_bu_ref']['widget'][0]['target_id']['#default_value'] =
-        \Drupal::service('se_business.service')->lookupBusiness($node);
+        \Drupal::service('se_business.service')->lookupBusiness($ticket);
     }
 
     // If the subject is not set, set one.
     // TODO this truncate is icky.
-    if (isset($node) && empty($form['subject']['widget'][0]['value']['#default_value'])) {
+    if (isset($ticket) && empty($form['subject']['widget'][0]['value']['#default_value'])) {
       // Set the default subject to the title of the node.
       $date = new DrupalDateTime();
       $form['subject']['widget'][0]['value']['#default_value'] =
         t('@title - @user - @now', [
-          '@title' => mb_strimwidth($node->getTitle(), 0, 20) . '...',
+          '@title' => mb_strimwidth($ticket->name->value, 0, 20) . '...',
           '@user' => mb_strimwidth(\Drupal::currentUser()->getAccountName(), 0, 20) . '...',
           '@now' => \Drupal::service('date.formatter')->format($date->getTimestamp(), 'short', '', NULL),
         ]);
@@ -78,4 +78,19 @@ function se_timekeeping_comment_links_alter(array &$links, CommentInterface $ent
   }
 
   unset($links['comment']['#links']['comment-reply']);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function se_timekeeping_theme() {
+  $theme = [];
+
+  $theme['se_timekeeping'] = [
+    'render element' => 'elements',
+    'file' => 'se_timekeeping.page.inc',
+    'template' => 'se_timekeeping',
+  ];
+
+  return $theme;
 }

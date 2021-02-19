@@ -42,8 +42,7 @@ class UserTicketStatistics extends BlockBase {
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('se_ticket');
-        $query->condition('type', 'se_ticket');
-        $query->condition('uid', $entity->id());
+        $query->condition('user_id', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();

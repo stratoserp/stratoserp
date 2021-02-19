@@ -9,6 +9,8 @@ use Drupal\Core\Routing\RedirectDestinationTrait;
 
 /**
  * Trait with common utility functions for building reports.
+ *
+ * @todo Lots of stuff in here no longer used.
  */
 trait ReportUtilityTrait {
 

@@ -13,10 +13,11 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_ti_scheduled
     - field.field.se_ticket.se_ticket.se_ti_status_ref
     - field.field.se_ticket.se_ticket.se_ti_type_ref
+    - field.field.se_ticket.se_ticket.se_timekeeping
   module:
+    - comment
     - field_layout
     - layout_discovery
-    - se_item_line
     - se_ticket
     - user
 third_party_settings:
@@ -37,12 +38,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  se_ti_lines:
+  se_timekeeping:
     weight: 1
     label: above
-    settings: {  }
+    settings:
+      view_mode: default
+      pager_id: 0
     third_party_settings: {  }
-    type: se_item_line_formatter
+    type: comment_default
     region: content
   user_id:
     label: hidden
@@ -56,6 +59,7 @@ hidden:
   se_body: true
   se_bu_ref: true
   se_co_ref: true
+  se_ti_lines: true
   se_ti_open_date: true
   se_ti_owner_ref: true
   se_ti_priority_ref: true

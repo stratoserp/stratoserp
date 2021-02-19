@@ -9,6 +9,8 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\se_invoice\Entity\Invoice;
+use Drupal\se_payment\Entity\Payment;
 use Drupal\stratoserp\ErpCore;
 use Drupal\stratoserp\Traits\ErpEventTrait;
 use Drupal\se_payment\Traits\PaymentTrait;
@@ -48,11 +50,9 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function paymentInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_payment') {
+    if ($entity->getEntityTypeId() !== 'se_payment') {
       return;
     }
 
@@ -69,11 +69,9 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function paymentUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'node'
-      || $entity->bundle() !== 'se_payment') {
+    if ($entity->getEntityTypeId() !== 'se_payment') {
       return;
     }
 
@@ -93,12 +91,10 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function paymentPresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'node'
-      || $entity->isNew()
-      || $entity->bundle() !== 'se_payment') {
+    if ($entity->getEntityTypeId() !== 'se_payment'
+      || $entity->isNew()) {
       return;
     }
 
@@ -112,7 +108,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
    * Loop through the payment entries and mark the invoices as
    * paid/unpaid as dictated by the parameter.
    *
-   * @param \Drupal\node\Entity\Node $entity
+   * @param \Drupal\se_payment\Entity\Payment $payment
    *   The payment node to work through.
    * @param bool $paid
    *   Whether the invoices should be marked paid, ot not.
@@ -122,7 +118,7 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function updateInvoices(Node $entity, bool $paid = TRUE): int {
+  private function updateInvoices(Payment $payment, bool $paid = TRUE): int {
     // @todo Make configurable?
     if ($paid) {
       $term = \Drupal::service('se_invoice.service')->getPaidTerm();
@@ -131,14 +127,14 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
       $term = \Drupal::service('se_invoice.service')->getOpenTerm();
     }
 
-    $bundleFieldType = 'se_' . ErpCore::PAYMENT_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::PAYMENT_LINE_ENTITY_BUNDLE_MAP[$payment->bundle()];
 
     $amount = 0;
-    foreach ($entity->{$bundleFieldType . '_lines'} as $paymentLine) {
+    foreach ($payment->{$bundleFieldType . '_lines'} as $paymentLine) {
       // Don't try on operate on invoices with no payment.
-      /** @var \Drupal\node\Entity\Node $invoice */
+      /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
       if (!empty($paymentLine->amount)
-      && $invoice = Node::load($paymentLine->target_id)) {
+      && $invoice = Invoice::load($paymentLine->target_id)) {
         // Set a dynamic field on the node so that other events dont try and
         // do things that we will take care of once save things multiple times
         // for no reason.
@@ -148,7 +144,8 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
         $this->setSkipInvoiceSaveEvents($invoice);
 
         // This event updates the total, avoid it in other triggered events.
-        $this->setSkipBusinessXeroEvents($invoice);
+        $business = \Drupal::service('se_business.service')->lookupBusiness($invoice);
+        $this->setSkipBusinessXeroEvents($business);
 
         // @todo Make a service for this?
         if ($paymentLine->amount === $invoice->se_in_total->value

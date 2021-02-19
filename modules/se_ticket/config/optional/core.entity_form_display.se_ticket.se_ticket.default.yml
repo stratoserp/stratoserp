@@ -13,10 +13,11 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_ti_scheduled
     - field.field.se_ticket.se_ticket.se_ti_status_ref
     - field.field.se_ticket.se_ticket.se_ti_type_ref
+    - field.field.se_ticket.se_ticket.se_timekeeping
   module:
+    - comment
     - field_layout
     - layout_discovery
-    - se_item_line
     - se_ticket
 third_party_settings:
   field_layout:
@@ -36,15 +37,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_ti_lines:
+  se_timekeeping:
     weight: 26
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 40
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: se_item_line_widget
+    type: comment_default
     region: content
   user_id:
     type: entity_reference_autocomplete
@@ -61,6 +58,7 @@ hidden:
   se_body: true
   se_bu_ref: true
   se_co_ref: true
+  se_ti_lines: true
   se_ti_open_date: true
   se_ti_owner_ref: true
   se_ti_priority_ref: true
