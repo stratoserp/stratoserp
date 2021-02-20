@@ -6,19 +6,18 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_body
     - field.field.se_ticket.se_ticket.se_bu_ref
     - field.field.se_ticket.se_ticket.se_co_ref
-    - field.field.se_ticket.se_ticket.se_ti_lines
     - field.field.se_ticket.se_ticket.se_ti_open_date
     - field.field.se_ticket.se_ticket.se_ti_owner_ref
     - field.field.se_ticket.se_ticket.se_ti_priority_ref
     - field.field.se_ticket.se_ticket.se_ti_scheduled
     - field.field.se_ticket.se_ticket.se_ti_status_ref
     - field.field.se_ticket.se_ticket.se_ti_type_ref
-    - field.field.se_ticket.se_ticket.se_timekeeping
   module:
     - comment
     - field_layout
     - layout_discovery
     - se_ticket
+    - user
 third_party_settings:
   field_layout:
     id: layout_onecol
@@ -30,35 +29,25 @@ bundle: se_ticket
 mode: default
 content:
   name:
-    type: string_textfield
+    label: above
+    type: string
     weight: -4
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      link_to_entity: false
     third_party_settings: {  }
-  se_timekeeping:
-    weight: 26
-    settings: {  }
-    third_party_settings: {  }
-    type: comment_default
-    region: content
   user_id:
-    type: entity_reference_autocomplete
-    weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
+    label: hidden
+    type: author
+    weight: 0
     region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   se_attachments: true
   se_body: true
   se_bu_ref: true
   se_co_ref: true
-  se_ti_lines: true
   se_ti_open_date: true
   se_ti_owner_ref: true
   se_ti_priority_ref: true

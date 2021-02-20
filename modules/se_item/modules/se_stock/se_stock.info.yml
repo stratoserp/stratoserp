@@ -10,6 +10,8 @@ dependencies:
 
 config_devel:
   install:
+    - core.entity_form_display.se_item.se_stock.default
+    - core.entity_view_display.se_item.se_stock.default
     - field.field.se_item.se_stock.se_it_code
     - field.field.se_item.se_stock.se_it_cost_price
     - field.field.se_item.se_stock.se_it_description
@@ -25,8 +27,6 @@ config_devel:
     - field.field.se_item.se_stock.se_it_serial
     - se_item.se_item_type.se_stock
   optional:
-    - core.entity_form_display.se_item.se_stock.default
-    - core.entity_view_display.se_item.se_stock.default
     - field.field.se_item.se_stock.se_it_goods_receipt_ref
     - field.field.se_item.se_stock.se_it_invoice_ref
     - field.field.se_item.se_stock.se_it_purchase_order_ref

@@ -9,7 +9,6 @@ dependencies:
     - field.field.comment.se_timekeeping.se_tk_billed
     - field.field.comment.se_timekeeping.se_tk_comment
     - field.field.comment.se_timekeeping.se_tk_date
-    - field.field.comment.se_timekeeping.se_tk_invoice_ref
     - field.field.comment.se_timekeeping.se_tk_item
     - field.field.comment.se_timekeeping.se_tk_review
   module:
@@ -21,86 +20,80 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings:
-      label: ''
+    settings: {  }
 id: comment.se_timekeeping.default
 targetEntityType: comment
 bundle: se_timekeeping
 mode: default
 content:
-  author:
-    weight: 3
-    region: second
-    settings: {  }
-    third_party_settings: {  }
-  se_bu_ref:
-    type: entity_reference_autocomplete
-    weight: 4
-    region: second
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    third_party_settings: {  }
   se_tk_amount:
-    weight: 2
+    weight: 8
+    label: above
     settings: {  }
     third_party_settings: {  }
-    type: TimeWidget
+    type: TimeFormater
     region: first
   se_tk_billable:
-    weight: 7
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
+    type: boolean
+    weight: 4
     region: second
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
   se_tk_billed:
-    weight: 8
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
+    type: boolean
+    weight: 5
     region: second
-  se_tk_comment:
-    weight: 1
+    label: inline
     settings:
-      rows: 6
-      placeholder: ''
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
-    type: text_textarea
+  se_tk_comment:
+    type: text_default
+    weight: 0
     region: first
-  se_tk_date:
-    weight: 6
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+  se_tk_date:
     type: datetime_default
+    weight: 3
     region: second
+    label: inline
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
   se_tk_item:
-    weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 25
-      placeholder: ''
-      match_limit: 10
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: entity_reference_label
+    weight: 2
     region: second
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
   se_tk_review:
-    weight: 9
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
+    type: boolean
+    weight: 6
     region: second
-  subject:
-    type: string_textfield
-    weight: 0
-    region: top
+    label: inline
     settings:
-      size: 60
-      placeholder: ''
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+  links:
+    weight: 7
+    region: bottom
+    settings: {  }
     third_party_settings: {  }
 hidden:
-  se_tk_invoice_ref: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  se_bu_ref: true
