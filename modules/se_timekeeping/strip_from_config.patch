@@ -1,0 +1,61 @@
+diff --git a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
+index f1a2d058..0c60ebcd 100644
+--- a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
++++ b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
+@@ -12,6 +12,7 @@ dependencies:
+     - field.field.se_ticket.se_ticket.se_ti_scheduled
+     - field.field.se_ticket.se_ticket.se_ti_status_ref
+     - field.field.se_ticket.se_ticket.se_ti_type_ref
++    - field.field.se_ticket.se_ticket.se_timekeeping
+   module:
+     - comment
+     - field_layout
+@@ -35,6 +36,12 @@ content:
+       size: 60
+       placeholder: ''
+     third_party_settings: {  }
++  se_timekeeping:
++    type: comment_default
++    region: content
++    weight: 25
++    settings: {  }
++    third_party_settings: {  }
+   user_id:
+     type: entity_reference_autocomplete
+     weight: 5
+diff --git a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
+index 912184bb..6ea7a544 100644
+--- a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
++++ b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
+@@ -2,6 +2,7 @@ langcode: en
+ status: true
+ dependencies:
+   config:
++    - core.entity_view_display.comment.se_timekeeping.default
+     - field.field.se_ticket.se_ticket.se_attachments
+     - field.field.se_ticket.se_ticket.se_body
+     - field.field.se_ticket.se_ticket.se_bu_ref
+@@ -12,6 +13,7 @@ dependencies:
+     - field.field.se_ticket.se_ticket.se_ti_scheduled
+     - field.field.se_ticket.se_ticket.se_ti_status_ref
+     - field.field.se_ticket.se_ticket.se_ti_type_ref
++    - field.field.se_ticket.se_ticket.se_timekeeping
+   module:
+     - comment
+     - field_layout
+@@ -36,6 +38,15 @@ content:
+     settings:
+       link_to_entity: false
+     third_party_settings: {  }
++  se_timekeeping:
++    type: comment_default
++    region: bottom
++    label: hidden
++    weight: 25
++    settings:
++      view_mode: default
++      pager_id: 1
++    third_party_settings: {  }
+   user_id:
+     label: hidden
+     type: author
