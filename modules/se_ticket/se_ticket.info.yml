@@ -45,8 +45,6 @@ config_devel:
     - taxonomy.vocabulary.se_ticket_status
     - taxonomy.vocabulary.se_ticket_type
   optional:
-    - field.field.se_ticket.se_ticket.se_ti_lines
-    - field.storage.se_ticket.se_ti_lines
     - views.view.se_ticket_calendar
     - views.view.se_ticket_eva
     - views.view.se_ticket_list
