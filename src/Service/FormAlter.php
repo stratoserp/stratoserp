@@ -61,21 +61,21 @@ class FormAlter {
   }
 
   /**
-   * Alter reference field on node form.
+   * Set the business reference field on an entity form.
+   *
+   * @todo Move to business?
    *
    * @param array $form
    *   Form render array.
    * @param string $field
    *   The reference field to update.
-   * @param string $var
-   *   The GET variable to retrieve.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function setReferenceField(array &$form, string $field, string $var): void {
+  public function setBusinessField(array &$form, string $field): void {
     // Try and retrieve the named variable from the request.
-    if (!$value = $this->currentRequest->get($var)) {
+    if (!$value = $this->currentRequest->get('se_bu_ref')) {
       return;
     }
 
@@ -84,14 +84,44 @@ class FormAlter {
       return;
     }
 
-    // Try and load the referenced entity.
-    switch ($field) {
-      case 'se_bu_ref':
-        $entity = $this->entityTypeManager->getStorage('se_business')->load($value);
-        break;
+    if (!$entity = $this->entityTypeManager->getStorage('se_business')->load($value)) {
+      return;
     }
 
-    if (!$entity) {
+    // Only update if the field is empty.
+    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+      return;
+    }
+
+    // Really do the update now.
+    $form[$field]['widget'][0]['target_id']['#default_value'] = $entity;
+  }
+
+  /**
+   * Set the contact reference field on an entity form.
+   *
+   * @todo Move to contact?
+   *
+   * @param array $form
+   *   Form render array.
+   * @param string $field
+   *   The reference field to update.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function setContactField(array &$form, string $field): void {
+    // Try and retrieve the named variable from the request.
+    if (!$value = $this->currentRequest->get('se_co_ref')) {
+      return;
+    }
+
+    // If its not a numeric value, return.
+    if (!is_numeric($value)) {
+      return;
+    }
+
+    if (!$entity = $this->entityTypeManager->getStorage('se_contact')->load($value)) {
       return;
     }
 

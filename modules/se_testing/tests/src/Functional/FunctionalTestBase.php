@@ -195,7 +195,7 @@ class FunctionalTestBase extends TestCase {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function editEntity(EntityInterface $entity, bool $allowed): void {
+  public function editEntity(EntityInterface $entity, bool $allowed = TRUE): void {
     $this->drupalGet($entity->toUrl('edit-form'));
     if (!$allowed && ($this->getSession()->getStatusCode() === 403)) {
       return;

@@ -37,6 +37,15 @@ class PurchaseOrderForm extends ContentEntityForm {
     /** @var \Drupal\se_purchase_order\Entity\PurchaseOrder $entity */
     $form = parent::buildForm($form, $form_state);
 
+    $service = \Drupal::service('stratoserp.set_field');
+    $service->setBusinessField($form, 'se_bu_ref');
+    $service->setContactField($form, 'se_co_ref');
+
+    $config = \Drupal::configFactory()->get('se_purchase_order.settings');
+    if ($po_status = $config->get('main_purchase_order_term')) {
+      $service->setTaxonomyField($form, 'se_status_ref', $po_status);
+    }
+
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [
         '#type' => 'checkbox',

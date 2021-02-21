@@ -34,7 +34,7 @@ trait PaymentTestTrait {
    *   Whether it should be allowed or not.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_payment\Entity\Payment|null
-   *   The node to return.
+   *   The Payment to return.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -52,7 +52,7 @@ trait PaymentTestTrait {
     ];
     $lines[] = $line;
 
-    /** @var \Drupal\node\Entity\Node $payment */
+    /** @var \Drupal\se_payment\Entity\Payment $payment */
     $payment = $this->createPayment([
       'type' => 'se_payment',
       'name' => $this->payment->name,

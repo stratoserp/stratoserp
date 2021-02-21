@@ -18,8 +18,10 @@ class InformationForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\se_information\Entity\Information */
+    /** @var \Drupal\se_information\Entity\Information $entity */
     $form = parent::buildForm($form, $form_state);
+
+    \Drupal::service('stratoserp.set_field')->setBusinessField($form, 'se_bu_ref');
 
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [

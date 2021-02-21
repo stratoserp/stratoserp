@@ -39,6 +39,8 @@ class BusinessForm extends ContentEntityForm {
     /** @var \Drupal\se_business\Entity\Business $entity */
     $form = parent::buildForm($form, $form_state);
 
+    \Drupal::service('stratoserp.set_field')->setBusinessField($form, 'se_bu_ref');
+
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [
         '#type' => 'checkbox',

@@ -23,7 +23,7 @@ trait PaymentTrait {
    */
   public function getInvoicePayments(Invoice $invoice): array {
     // @todo Is there a nicer way to do this?
-    $query = Database::getConnection()->select('node__se_pa_lines', 'nfpl');
+    $query = Database::getConnection()->select('se_payment__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['entity_id']);
     $query->condition('nfpl.se_pa_lines_target_id', $invoice->id());
     $result = $query->execute();
@@ -44,7 +44,7 @@ trait PaymentTrait {
    */
   private function getInvoicePaymentAmounts(Invoice $invoice): array {
     // @todo Is there a nicer way to do this?
-    $query = Database::getConnection()->select('node__se_pa_lines', 'nfpl');
+    $query = Database::getConnection()->select('se_payment__se_pa_lines', 'nfpl');
     $query->fields('nfpl', ['se_pa_lines_amount']);
     $query->condition('nfpl.se_pa_lines_target_id', $invoice->id());
     $result = $query->execute();

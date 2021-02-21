@@ -6,23 +6,6 @@ declare(strict_types=1);
  * @file
  */
 
-use Drupal\Core\Form\FormStateInterface;
-
-/**
- * Implements hook_form_alter().
- */
-function se_purchase_order_form_node_se_purchase_order_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $service = \Drupal::service('stratoserp.set_field');
-  $service->setReferenceField($form, 'se_bu_ref', 'se_bu_ref');
-  $service->setReferenceField($form, 'se_co_ref', 'se_co_ref');
-
-  $config = \Drupal::configFactory()->get('se_purchase_order.settings');
-  if ($purchase_order_status = $config->get('main_purchase_order_term')) {
-    \Drupal::service('stratoserp.set_field')
-      ->setTaxonomyField($form, 'se_status_ref', $purchase_order_status);
-  }
-}
-
 /**
  * Implements hook_theme().
  */

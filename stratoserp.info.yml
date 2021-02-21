@@ -4,11 +4,11 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:duration_field
-  - drupal:eva
-  - drupal:field_group
-  - drupal:geolocation
-  - drupal:xero
+  - duration_field:duration_field
+  - eva:eva
+  - field_group:field_group
+  - geolocation:geolocation
+  - xero:xero
 
 config_devel:
   install:

@@ -24,7 +24,7 @@ class ItemValidationTest extends ItemTestBase {
       'se_it_code' => $this->item->code,
     ]);
     $violations = $item->validate();
-    self::assertGreaterThanOrEqual($violations->count(), 1);
+    self::assertGreaterThanOrEqual(1, $violations->count());
     self::assertEquals($violations[0]->getPropertyPath(), 'name');
     self::assertEquals($violations[0]->getMessage(),
       t('This value should not be null.',

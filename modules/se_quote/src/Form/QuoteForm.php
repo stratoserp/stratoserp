@@ -39,6 +39,15 @@ class QuoteForm extends ContentEntityForm {
     /** @var \Drupal\se_quote\Entity\Quote $entity */
     $form = parent::buildForm($form, $form_state);
 
+    $service = \Drupal::service('stratoserp.set_field');
+    $service->setBusinessField($form, 'se_bu_ref');
+    $service->setContactField($form, 'se_co_ref');
+
+    $config = \Drupal::configFactory()->get('se_quote.settings');
+    if ($quote_status = $config->get('quote_status_term')) {
+      $service->setTaxonomyField($form, 'se_status_ref', (int) $quote_status);
+    }
+
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [
         '#type' => 'checkbox',

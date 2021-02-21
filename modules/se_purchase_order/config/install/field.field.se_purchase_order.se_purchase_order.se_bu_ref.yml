@@ -67,7 +67,4 @@ settings:
   se_purchase_order:
     handler: 'default:se_purchase_order'
     handler_settings: {  }
-  node:
-    handler: 'default:node'
-    handler_settings: {  }
 field_type: dynamic_entity_reference

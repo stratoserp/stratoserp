@@ -41,12 +41,8 @@ function stratoserp_help($route_name, RouteMatchInterface $route_match) {
 function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Make a list of forms from the core types.
   $se_forms = array_map(static function ($value) {
-    return 'node_' . $value . '_form';
-  }, ErpCore::STRATOS_NODE_TYPES);
-
-  $se_forms = array_merge($se_forms, array_map(static function ($value) {
     return $value . '_add_form';
-  }, ErpCore::STRATOS_ENTITY_TYPES));
+  }, ErpCore::SE_ENTITY_TYPES);
 
   if (in_array($form_id, $se_forms, TRUE)) {
     // We don't need the publish button, anywhere.

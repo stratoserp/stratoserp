@@ -26,12 +26,12 @@ class BusinessQuoteStatistics extends BlockBase {
     $content = FALSE;
     $datasets = [];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
-    if (!$node = $this->getCurrentControllerEntity()) {
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
+    if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 
-    if ($node->bundle() !== 'se_business') {
+    if ($entity->bundle() !== 'se_business') {
       return [];
     }
 
@@ -43,7 +43,7 @@ class BusinessQuoteStatistics extends BlockBase {
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('se_quote');
-        $query->condition('se_bu_ref', $node->id());
+        $query->condition('se_bu_ref', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();

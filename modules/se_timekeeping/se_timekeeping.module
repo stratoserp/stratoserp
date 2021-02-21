@@ -12,6 +12,8 @@ use Drupal\Core\Datetime\DrupalDateTime;
  * Implements hook_form_alter().
  *
  * Perform alterations so that the form is nicer.
+ *
+ * @todo This is doing things weirdly.
  */
 function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id === 'comment_se_timekeeping_form') {
@@ -26,7 +28,7 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
     }
 
     // If the subject is not set, set one.
-    // TODO this truncate is icky.
+    // @todo this truncate is icky.
     if (isset($ticket) && empty($form['subject']['widget'][0]['value']['#default_value'])) {
       // Set the default subject to the title of the node.
       $date = new DrupalDateTime();

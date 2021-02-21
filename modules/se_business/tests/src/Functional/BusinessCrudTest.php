@@ -22,10 +22,12 @@ class BusinessCrudTest extends BusinessTestBase {
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
+    $this->businessFakerSetup();
     $this->addBusiness();
     $this->drupalLogout();
 
     $this->drupalLogin($this->owner);
+    $this->businessFakerSetup();
     $this->addBusiness();
     $this->drupalLogout();
   }
@@ -46,12 +48,12 @@ class BusinessCrudTest extends BusinessTestBase {
 
     // Ensure staff can't delete a business.
     $this->drupalLogin($this->staff);
-    $this->editEntity($testBusiness, TRUE);
+    $this->editEntity($testBusiness);
     $this->drupalLogout();
 
     // Ensure administrator can delete a business.
     $this->drupalLogin($this->owner);
-    $this->editEntity($testBusiness, TRUE);
+    $this->editEntity($testBusiness);
     $this->drupalLogout();
   }
 
@@ -76,7 +78,7 @@ class BusinessCrudTest extends BusinessTestBase {
 
     // Ensure administrator can delete a business.
     $this->drupalLogin($this->owner);
-    $this->deleteEntity($testBusiness, TRUE);
+    $this->deleteEntity($testBusiness);
     $this->drupalLogout();
   }
 

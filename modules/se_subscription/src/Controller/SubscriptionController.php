@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_subscription\Controller;
 
 use Drupal\Core\Entity\Controller\EntityController;
 use Drupal\Core\Link;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Datetime\DateFormatter;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Render\Renderer;
 use Drupal\Core\Url;
-use Drupal\node\Entity\Node;
+use Drupal\se_business\Entity\Business;
+use Drupal\se_contact\Entity\Contact;
 use Drupal\se_subscription\Entity\SubscriptionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  *  Returns responses for Subscription routes.
  */
-class SubscriptionController extends ControllerBase implements ContainerInjectionInterface {
+class SubscriptionController extends ControllerBase {
 
   /**
    * The date formatter.
@@ -36,61 +36,13 @@ class SubscriptionController extends ControllerBase implements ContainerInjectio
   protected $renderer;
 
   /**
-   * Constructs a new SubscriptionController.
-   *
-   * @param \Drupal\Core\Datetime\DateFormatter $date_formatter
-   *   The date formatter.
-   * @param \Drupal\Core\Render\Renderer $renderer
-   *   The renderer.
-   */
-  public function __construct(DateFormatter $date_formatter, Renderer $renderer) {
-    $this->dateFormatter = $date_formatter;
-    $this->renderer = $renderer;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function add() {
-
-    // Let entityController do all the work, we just want to adjust links.
-    $entityController = \Drupal::classResolver()->getInstanceFromDefinition(EntityController::class);
-
-    $build = $entityController->addPage('se_subscription');
-
-    // Now add in the things we want.
-    if ($businessRef = \Drupal::request()->get('se_bu_ref')) {
-      $business = Node::load($businessRef);
-    }
-
-    if ($contactRef = \Drupal::request()->get('se_co_ref')) {
-      $contact = Node::load($contactRef);
-    }
-
-    foreach ($build['#bundles'] as $details) {
-      $link = $details['add_link'];
-      $url = $link->getUrl();
-      if ($business !== NULL) {
-        $url->setRouteParameter('se_bu_ref', $business->id());
-      }
-      if ($contact !== NULL) {
-        $url->setRouteParameter('se_co_ref', $contact->id());
-      }
-      $link->setUrl($url);
-      $details['add_link'] = $link;
-    }
-
-    return $build;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('date.formatter'),
-      $container->get('renderer')
-    );
+    $instance = parent::create($container);
+    $instance->dateFormatter = $container->get('date.formatter');
+    $instance->renderer = $container->get('renderer');
+    return $instance;
   }
 
   /**
@@ -265,6 +217,41 @@ class SubscriptionController extends ControllerBase implements ContainerInjectio
       '#rows' => $rows,
       '#header' => $header,
     ];
+
+    return $build;
+  }
+
+  /**
+   * Provides the entity submission form for subscription from a customer.
+   */
+  public function add() {
+
+    // Let entityController do all the work, we just want to adjust links.
+    $entityController = \Drupal::classResolver()->getInstanceFromDefinition(EntityController::class);
+
+    $build = $entityController->addPage('se_subscription');
+
+    // Now add in the things we want.
+    if ($businessRef = \Drupal::request()->get('se_bu_ref')) {
+      $business = Business::load($businessRef);
+    }
+
+    if ($contactRef = \Drupal::request()->get('se_co_ref')) {
+      $contact = Contact::load($contactRef);
+    }
+
+    foreach ($build['#bundles'] as $details) {
+      $link = $details['add_link'];
+      $url = $link->getUrl();
+      if (isset($business)) {
+        $url->setRouteParameter('se_bu_ref', $business->id());
+      }
+      if (isset($contact)) {
+        $url->setRouteParameter('se_co_ref', $contact->id());
+      }
+      $link->setUrl($url);
+      $details['add_link'] = $link;
+    }
 
     return $build;
   }

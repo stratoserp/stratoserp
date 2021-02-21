@@ -147,6 +147,8 @@ class SearchForm extends FormBase {
   /**
    * Extract node information from a search string and try to load it.
    *
+   * @todo refactor to entity.
+   *
    * @param string $search
    *   The string the user entered.
    * @param \Drupal\Core\Form\FormStateInterface $form_state

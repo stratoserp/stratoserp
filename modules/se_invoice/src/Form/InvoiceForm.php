@@ -39,6 +39,10 @@ class InvoiceForm extends ContentEntityForm {
     /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $form = parent::buildForm($form, $form_state);
 
+    $service = \Drupal::service('stratoserp.set_field');
+    $service->setBusinessField($form, 'se_bu_ref');
+    $service->setContactField($form, 'se_co_ref');
+
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [
         '#type' => 'checkbox',

@@ -1,7 +1,7 @@
 
 entity.se_contact.add_form:
   route_name: entity.se_contact.add_form
-  title: 'Add Contact'
+  title: 'Add contact'
   appears_on:
     - entity.se_contact.collection
     - entity.se_business.canonical

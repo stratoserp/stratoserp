@@ -96,10 +96,17 @@ class InvoiceController extends ControllerBase {
     $langname = $se_invoice->language()->getName();
     $languages = $se_invoice->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_invoice->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_invoice->label()]);
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_invoice->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_invoice->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all invoice revisions") || $account->hasPermission('administer invoice entities')));

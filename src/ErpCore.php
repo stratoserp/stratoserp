@@ -9,42 +9,29 @@ namespace Drupal\stratoserp;
  */
 final class ErpCore {
 
-  public const ITEM_LINE_NODE_BUNDLE_MAP = [
+  public const SE_ITEM_LINE_BUNDLES = [
     'se_bill'           => 'bi',
     'se_goods_receipt'  => 'gr',
     'se_invoice'        => 'in',
-    'se_quote'          => 'qu',
     'se_purchase_order' => 'po',
+    'se_quote'          => 'qu',
   ];
 
-  public const ITEM_LINE_ENTITY_BUNDLE_MAP = [
-    'se_bill'           => 'bi',
-    'se_goods_receipt'  => 'gr',
-    'se_invoice'        => 'in',
-    'se_quote'          => 'qu',
-    'se_purchase_order' => 'po',
-  ];
-
-  public const PAYMENT_LINE_ENTITY_BUNDLE_MAP = [
+  public const SE_PAYMENT_LINE_BUNDLES = [
     'se_payment' => 'pa',
   ];
 
-  public const STRATOS_NODE_TYPES = [
+  public const SE_ENTITY_TYPES = [
     'se_bill', 'se_business', 'se_contact', 'se_goods_receipt',
-    'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',
+    'se_information', 'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',
     'se_ticket', 'se_timekeeping',
   ];
 
-  public const STRATOS_ENTITY_TYPES = [
-    'se_business',
-    'se_information', 'se_item',
-  ];
-
-  public const STRATOS_ITEM_BUNDLES = [
+  public const SE_ITEM_BUNDLES = [
     'se_assembly', 'se_recurring', 'se_service', 'se_stock',
   ];
 
-  public const STRATOS_INFORMATION_BUNDLES = [
+  public const SE_INFORMATION_BUNDLES = [
     'se_document', 'se_subscription',
   ];
 

@@ -4,6 +4,8 @@
  * @file
  */
 
+use Drupal\taxonomy\Entity\Term;
+
 /**
  * Implements hook_install().
  *
@@ -32,4 +34,48 @@ function stratoserp_install() {
   }
   catch (Exception $e) {
   }
+
+  // Status for quotes, purchase orders, invoices.
+  $terms = [
+    'Ordered',
+    'Closed',
+    'Open',
+  ];
+
+  $term = stratoserp_create_terms('se_status',$terms);
+
+}
+
+/**
+ * Helper function for checking/adding taxonomy terms during setup.
+ *
+ * @param string $taxonomy
+ *   Taxonomy vocabulary to check/add.
+ * @param array $terms
+ *   Array of terms to check/add.
+ *
+ * @return \Drupal\taxonomy\Entity\Term|bool
+ *   The last created term, or false if none were created.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function stratoserp_create_terms(string $taxonomy, array $terms) {
+  $term = FALSE;
+
+  // The last one will be used as the default.
+  foreach ($terms as $new_term) {
+    $find_term = taxonomy_term_load_multiple_by_name($new_term, 'se_contact_type');
+    if (empty($find_term)) {
+      /** @var \Drupal\taxonomy\Entity\Term $term */
+      $term = Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => $taxonomy,
+      ]);
+      $term->save();
+    }
+  }
+
+  // Return the last term created.
+  return $term;
 }

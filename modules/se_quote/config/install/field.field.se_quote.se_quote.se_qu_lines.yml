@@ -71,9 +71,6 @@ settings:
   comment:
     handler: 'default:comment'
     handler_settings: {  }
-  node:
-    handler: 'default:node'
-    handler_settings: {  }
   se_goods_receipt:
     handler: 'default:se_goods_receipt'
     handler_settings: {  }

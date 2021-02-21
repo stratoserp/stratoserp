@@ -72,7 +72,4 @@ settings:
   comment:
     handler: 'default:comment'
     handler_settings: {  }
-  node:
-    handler: 'default:node'
-    handler_settings: {  }
 field_type: se_item_line

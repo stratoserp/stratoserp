@@ -37,6 +37,23 @@ class TicketForm extends ContentEntityForm {
     /** @var \Drupal\se_ticket\Entity\Ticket $entity */
     $form = parent::buildForm($form, $form_state);
 
+    $service = \Drupal::service('stratoserp.set_field');
+    $service->setBusinessField($form, 'se_bu_ref');
+    $service->setContactField($form, 'se_co_ref');
+
+    $config = \Drupal::configFactory()->get('se_ticket.settings');
+    if ($ticket_status = $config->get('status_default_term')) {
+      $service->setTaxonomyField($form, 'se_ti_status_ref', $ticket_status);
+    }
+
+    if ($ticket_priority = $config->get('priority_default_term')) {
+      $service->setTaxonomyField($form, 'se_ti_priority_ref', $ticket_priority);
+    }
+
+    if ($ticket_type = $config->get('type_default_term')) {
+      $service->setTaxonomyField($form, 'se_ti_type_ref', $ticket_type);
+    }
+
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [
         '#type' => 'checkbox',

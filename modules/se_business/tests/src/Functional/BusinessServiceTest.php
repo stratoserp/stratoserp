@@ -34,6 +34,7 @@ class BusinessServiceTest extends BusinessTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
+    $this->businessFakerSetup();
     $business = $this->addBusiness();
 
     self::assertSame(
@@ -56,6 +57,7 @@ class BusinessServiceTest extends BusinessTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
+    $this->businessFakerSetup();
     $business = $this->addBusiness();
 
     $items = $this->createItems();
@@ -83,6 +85,7 @@ class BusinessServiceTest extends BusinessTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
+    $this->businessFakerSetup();
     $business = $this->addBusiness();
 
     $items = $this->createItems();
