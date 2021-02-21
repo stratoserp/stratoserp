@@ -5,6 +5,7 @@ dependencies:
     - field.storage.se_purchase_order.se_po_lines
     - se_item.se_item_type.se_service
   module:
+    - se_item_line
     - se_purchase_order
 id: se_purchase_order.se_purchase_order.se_po_lines
 field_name: se_po_lines
@@ -44,17 +45,11 @@ settings:
   menu_link_content:
     handler: 'default:menu_link_content'
     handler_settings: {  }
-  se_subscription:
-    handler: 'default:se_subscription'
-    handler_settings: {  }
   se_bill:
     handler: 'default:se_bill'
     handler_settings: {  }
   se_contact:
     handler: 'default:se_contact'
-    handler_settings: {  }
-  se_invoice:
-    handler: 'default:se_invoice'
     handler_settings: {  }
   preview_link:
     handler: 'default:preview_link'
@@ -62,19 +57,19 @@ settings:
   se_purchase_order:
     handler: 'default:se_purchase_order'
     handler_settings: {  }
-  se_quote:
-    handler: 'default:se_quote'
-    handler_settings: {  }
   social_auth:
     handler: 'default:social_auth'
     handler_settings: {  }
   se_business:
     handler: 'default:se_business'
     handler_settings: {  }
-  se_ticket:
-    handler: 'default:se_ticket'
-    handler_settings: {  }
   path_alias:
     handler: 'default:path_alias'
+    handler_settings: {  }
+  comment:
+    handler: 'default:comment'
+    handler_settings: {  }
+  node:
+    handler: 'default:node'
     handler_settings: {  }
 field_type: se_item_line

@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ */
+
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
+
+/**
+ * Implements hook_install().
+ */
+function se_ticket_install() {
+  stratoserp_create_terms('se_ticket_priority', [
+    'High',
+    'Low',
+    'Urgent',
+    'Whenever',
+    'Normal',
+  ]);
+
+  stratoserp_create_terms('se_ticket_type', [
+    'Appointment',
+    'Call',
+    'Follow up',
+    'In store',
+    'Onsite',
+    'Quote',
+    'Todo',
+    'Warranty',
+    'Remote',
+  ]);
+
+  $term = stratoserp_create_terms('se_ticket_status', [
+    'In progress',
+    'Wait customer',
+    'Closed',
+    'Open',
+  ]);
+
+}

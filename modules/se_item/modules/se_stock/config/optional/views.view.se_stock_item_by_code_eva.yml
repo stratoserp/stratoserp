@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.se_item.se_it_cost_price
     - field.storage.se_item.se_it_goods_receipt_ref
+    - field.storage.se_item.se_it_invoice_ref
     - field.storage.se_item.se_it_purchase_order_ref
     - field.storage.se_item.se_it_sale_price
     - field.storage.se_item.se_it_serial

@@ -4,11 +4,11 @@ entity.se_bill.collection:
   title: 'Bill list'
   route_name: entity.se_bill.collection
   description: 'List Bill entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
 
 se_bill.admin.structure.settings:
   title: 'Bill settings'
   description: 'Configure Bill entities'
   route_name: se_bill.settings
-  parent: system.admin_structure
+  parent: stratoserp.admin_config_stratoserp

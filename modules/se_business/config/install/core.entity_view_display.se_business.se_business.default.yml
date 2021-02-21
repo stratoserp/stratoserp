@@ -19,7 +19,7 @@ dependencies:
     - field.field.se_business.se_business.se_bu_state
     - field.field.se_business.se_business.se_bu_status
     - field.field.se_business.se_business.se_bu_suburb
-    - field.field.se_business.se_business.se_bu_type
+    - field.field.se_business.se_business.se_bu_type_ref
     - filter.format.plain_text
   module:
     - field_group
@@ -685,7 +685,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  se_bu_type:
+  se_bu_type_ref:
     weight: 1
     label: inline
     settings:

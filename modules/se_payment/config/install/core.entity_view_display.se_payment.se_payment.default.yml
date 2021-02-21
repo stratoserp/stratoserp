@@ -5,6 +5,7 @@ dependencies:
     - field.field.se_payment.se_payment.se_bu_ref
     - field.field.se_payment.se_payment.se_pa_lines
     - field.field.se_payment.se_payment.se_pa_total
+    - field.field.se_payment.se_payment.se_pa_type_ref
   module:
     - field_layout
     - layout_discovery
@@ -52,6 +53,14 @@ content:
     third_party_settings: {  }
     type: se_currency_formatter
     region: bottom
+  se_pa_type_ref:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
   user_id:
     label: hidden
     type: author

@@ -38,7 +38,7 @@ config_devel:
     - field.field.se_business.se_business.se_bu_state
     - field.field.se_business.se_business.se_bu_status
     - field.field.se_business.se_business.se_bu_suburb
-    - field.field.se_business.se_business.se_bu_type
+    - field.field.se_business.se_business.se_bu_type_ref
     - field.storage.se_business.se_bu_address
     - field.storage.se_business.se_bu_balance
     - field.storage.se_business.se_bu_email
@@ -56,7 +56,7 @@ config_devel:
     - field.storage.se_business.se_bu_state
     - field.storage.se_business.se_bu_status
     - field.storage.se_business.se_bu_suburb
-    - field.storage.se_business.se_bu_type
+    - field.storage.se_business.se_bu_type_ref
     - taxonomy.vocabulary.se_business_type
   optional:
     - views.view.se_business_balances

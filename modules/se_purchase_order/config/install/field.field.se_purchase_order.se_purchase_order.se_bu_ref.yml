@@ -28,9 +28,6 @@ settings:
   comment:
     handler: 'default:comment'
     handler_settings: {  }
-  se_invoice:
-    handler: 'default:se_invoice'
-    handler_settings: {  }
   block_content:
     handler: 'default:block_content'
     handler_settings: {  }
@@ -49,9 +46,6 @@ settings:
   social_auth:
     handler: 'default:social_auth'
     handler_settings: {  }
-  se_subscription:
-    handler: 'default:se_subscription'
-    handler_settings: {  }
   taxonomy_term:
     handler: 'default:taxonomy_term'
     handler_settings: {  }
@@ -67,16 +61,13 @@ settings:
   se_contact:
     handler: 'default:se_contact'
     handler_settings: {  }
-  se_quote:
-    handler: 'default:se_quote'
-    handler_settings: {  }
-  se_ticket:
-    handler: 'default:se_ticket'
-    handler_settings: {  }
   se_bill:
     handler: 'default:se_bill'
     handler_settings: {  }
   se_purchase_order:
     handler: 'default:se_purchase_order'
+    handler_settings: {  }
+  node:
+    handler: 'default:node'
     handler_settings: {  }
 field_type: dynamic_entity_reference

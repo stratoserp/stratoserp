@@ -4,7 +4,8 @@
  * @file
  */
 
-use Drupal\taxonomy\Entity\Term;
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
 
 /**
  * Implements hook_install().
@@ -17,18 +18,8 @@ function se_contact_install() {
     'Main contact',
   ];
 
-  // The last one will be used as the default.
-  foreach ($terms as $new_term) {
-    $find_term = taxonomy_term_load_multiple_by_name($new_term, 'se_contact_type');
-    if (empty($find_term)) {
-      /** @var \Drupal\taxonomy\Entity\Term $term */
-      $term = Term::create([
-        'parent' => [],
-        'name'   => $new_term,
-        'vid'    => 'se_contact_type',
-      ]);
-      $term->save();
-    }
+  if (!$term = stratoserp_create_terms('se_contact_type', $terms)) {
+    return;
   }
 
   // Now set the last one as the default for the field.

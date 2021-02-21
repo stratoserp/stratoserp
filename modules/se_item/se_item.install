@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
+
+/**
+ * Implements hook_install().
+ */
+function se_item_install() {
+  stratoserp_create_terms('se_sale_category', [
+    'Consumables',
+    'Contracting',
+    'Hardware',
+    'Hosting service',
+    'Managed service',
+    'Service',
+    'Software',
+  ]);
+
+  stratoserp_create_terms('se_product_type', [
+    'CPU',
+    'Domain name',
+    'Ink cartridge',
+    'Keyboard',
+    'Memory',
+    'Notebook',
+    'Onsite service',
+    'Video card',
+  ]);
+
+  stratoserp_create_terms('se_manufacturer', [
+    'Acer',
+    'ASUS',
+    'Canon',
+    'Dell',
+    'HP',
+    'Intel',
+    'Internal',
+    'Kingston',
+    'Microsoft',
+    'Lenovo',
+    'Seagate',
+    'System76',
+    'Western digital',
+  ]);
+}

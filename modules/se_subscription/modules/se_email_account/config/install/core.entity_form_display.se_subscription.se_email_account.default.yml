@@ -26,6 +26,14 @@ targetEntityType: se_subscription
 bundle: se_email_account
 mode: default
 content:
+  revision_log_message:
+    type: string_textarea
+    weight: 25
+    settings:
+      rows: 4
+      placeholder: ''
+    region: first
+    third_party_settings: {  }
   se_bu_ref:
     weight: 0
     settings:

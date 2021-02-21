@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - se_item
+    - se_item_line
     - se_quote
 id: se_quote.se_qu_lines
 field_name: se_qu_lines

@@ -4,11 +4,11 @@ entity.se_purchase_order.collection:
   title: 'Purchase Order list'
   route_name: entity.se_purchase_order.collection
   description: 'List Purchase Order entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
 
 se_purchase_order.admin.structure.settings:
   title: 'Purchase Order settings'
   description: 'Configure Purchase Order entities'
   route_name: se_purchase_order.settings
-  parent: system.admin_structure
+  parent: stratoserp.admin_config_stratoserp

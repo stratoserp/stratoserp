@@ -4,11 +4,11 @@ entity.se_payment.collection:
   title: 'Payment list'
   route_name: entity.se_payment.collection
   description: 'List Payment entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
 
 se_payment.admin.structure.settings:
   title: 'Payment settings'
   description: 'Configure Payment entities'
   route_name: se_payment.settings
-  parent: system.admin_structure
+  parent: stratoserp.admin_config_stratoserp

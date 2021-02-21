@@ -4,11 +4,11 @@ entity.se_ticket.collection:
   title: 'Ticket list'
   route_name: entity.se_ticket.collection
   description: 'List Ticket entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
 
 se_ticket.admin.structure.settings:
   title: 'Ticket settings'
   description: 'Configure Ticket entities'
   route_name: se_ticket.settings
-  parent: system.admin_structure
+  parent: stratoserp.admin_config_stratoserp

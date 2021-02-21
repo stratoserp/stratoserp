@@ -6,6 +6,7 @@ dependencies:
     - se_item.se_item_type.se_service
   module:
     - se_goods_receipt
+    - se_item_line
 id: se_goods_receipt.se_goods_receipt.se_gr_lines
 field_name: se_gr_lines
 entity_type: se_goods_receipt
@@ -44,9 +45,6 @@ settings:
   menu_link_content:
     handler: 'default:menu_link_content'
     handler_settings: {  }
-  se_subscription:
-    handler: 'default:se_subscription'
-    handler_settings: {  }
   se_bill:
     handler: 'default:se_bill'
     handler_settings: {  }
@@ -59,25 +57,22 @@ settings:
   se_goods_receipt:
     handler: 'default:se_goods_receipt'
     handler_settings: {  }
-  se_invoice:
-    handler: 'default:se_invoice'
-    handler_settings: {  }
   preview_link:
     handler: 'default:preview_link'
     handler_settings: {  }
   se_purchase_order:
     handler: 'default:se_purchase_order'
     handler_settings: {  }
-  se_quote:
-    handler: 'default:se_quote'
-    handler_settings: {  }
   social_auth:
     handler: 'default:social_auth'
     handler_settings: {  }
-  se_ticket:
-    handler: 'default:se_ticket'
-    handler_settings: {  }
   path_alias:
     handler: 'default:path_alias'
+    handler_settings: {  }
+  comment:
+    handler: 'default:comment'
+    handler_settings: {  }
+  node:
+    handler: 'default:node'
     handler_settings: {  }
 field_type: se_item_line

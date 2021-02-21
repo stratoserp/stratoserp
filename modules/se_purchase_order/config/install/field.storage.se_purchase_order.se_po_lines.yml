@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - comment
     - se_item
     - se_item_line
     - se_purchase_order

@@ -4,8 +4,8 @@ dependencies:
   module:
     - se_business
     - taxonomy
-id: se_business.se_bu_type
-field_name: se_bu_type
+id: se_business.se_bu_type_ref
+field_name: se_bu_type_ref
 entity_type: se_business
 type: entity_reference
 settings:

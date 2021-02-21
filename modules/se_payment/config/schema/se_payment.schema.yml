@@ -2,9 +2,6 @@ se_payment.settings:
   type: mapping
   label: 'Payment settings'
   mapping:
-    vocabulary:
-      type: string
-      label: 'Taxonomy vocab for default payment types.'
     default_payment_term:
       type: string
       label: 'Taxonomy term for the default payment type.'

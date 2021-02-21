@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_business.se_bu_type
-    - taxonomy.vocabulary.se_business_type
+    - field.storage.se_payment.se_pa_type_ref
+    - taxonomy.vocabulary.se_payment_type
   module:
-    - se_business
-id: se_business.se_business.se_bu_type
-field_name: se_bu_type
-entity_type: se_business
-bundle: se_business
-label: 'Business type'
+    - se_payment
+id: se_payment.se_payment.se_pa_type_ref
+field_name: se_pa_type_ref
+entity_type: se_payment
+bundle: se_payment
+label: 'Payment type'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -20,10 +20,10 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      se_business_type: se_business_type
+      se_payment_type: se_payment_type
     sort:
       field: name
       direction: asc
-    auto_create: true
+    auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

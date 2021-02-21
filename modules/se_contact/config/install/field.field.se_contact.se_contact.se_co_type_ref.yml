@@ -14,7 +14,9 @@ label: Type
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_id: ac544112-16b4-4adb-951a-b92f2a0f3fe2
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

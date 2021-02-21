@@ -7,7 +7,9 @@ declare(strict_types=1);
  */
 
 use Drupal\se_item\Entity\Item;
-use Drupal\taxonomy\Entity\Term;
+
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
 
 /**
  * Implements hook_install().
@@ -15,125 +17,10 @@ use Drupal\taxonomy\Entity\Term;
  * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_install() {
-  se_basic_setup_taxonomy_terms();
   se_basic_setup_example_service_items();
   se_basic_setup_example_recurring_items();
   se_basic_setup_example_stock_items();
   se_basic_setup_config_defaults();
-}
-
-/**
- * Create some taxonomy terms.
- *
- * @throws \Drupal\Core\Entity\EntityStorageException
- */
-function se_basic_setup_taxonomy_terms() {
-  se_basic_setup_create_terms('se_sale_category', [
-    'Consumables',
-    'Contracting',
-    'Hardware',
-    'Hosting service',
-    'Managed service',
-    'Service',
-    'Software',
-  ]);
-
-  se_basic_setup_create_terms('se_product_type', [
-    'CPU',
-    'Domain name',
-    'Ink cartridge',
-    'Keyboard',
-    'Memory',
-    'Notebook',
-    'Onsite service',
-    'Video card',
-  ]);
-
-  se_basic_setup_create_terms('se_manufacturer', [
-    'Acer',
-    'ASUS',
-    'Canon',
-    'Dell',
-    'HP',
-    'Intel',
-    'Internal',
-    'Kingston',
-    'Microsoft',
-    'Lenovo',
-    'Seagate',
-    'System76',
-    'Western digital',
-  ]);
-
-  // Status for quotes, purchase orders, invoices.
-  se_basic_setup_create_terms('se_status', [
-    'Open',
-    'Ordered',
-    'Closed',
-  ]);
-
-  se_basic_setup_create_terms('se_ticket_priority', [
-    'Normal',
-    'High',
-    'Low',
-    'Urgent',
-    'Whenever',
-  ]);
-
-  se_basic_setup_create_terms('se_ticket_type', [
-    'Appointment',
-    'Call',
-    'Follow up',
-    'In store',
-    'Onsite',
-    'Quote',
-    'Remote',
-    'Todo',
-    'Warranty',
-  ]);
-
-  se_basic_setup_create_terms('se_ticket_status', [
-    'Open',
-    'In progress',
-    'Wait customer',
-    'Closed',
-  ]);
-
-  se_basic_setup_create_terms('se_payment_type', [
-    'Cash',
-    'Credit/Debit card',
-    'Cheque',
-    'Direct deposit',
-    'Paypal',
-  ]);
-
-  se_basic_setup_create_terms('se_business_type', [
-    'Customer',
-    'Supplier',
-  ]);
-}
-
-/**
- * Helper function for modules to install their own terms.
- *
- * @param $taxonomy
- *   Taxonomy vocabulary to add terms to.
- * @param $terms
- *   Text terms to create.
- *
- * @throws \Drupal\Core\Entity\EntityStorageException
- */
-function se_basic_setup_create_terms($taxonomy, $terms) {
-  foreach ($terms as $new_term) {
-    $term = taxonomy_term_load_multiple_by_name($new_term, $taxonomy);
-    if (empty($term)) {
-      Term::create([
-        'parent' => [],
-        'name'   => $new_term,
-        'vid'    => $taxonomy,
-      ])->save();
-    }
-  }
 }
 
 /**

@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ */
+
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
+
+/**
+ * Implements hook_install().
+ */
+function se_payment_install() {
+  $terms = [
+    'Cash',
+    'Credit/Debit card',
+    'Cheque',
+    'Paypal',
+    'Direct deposit',
+  ];
+
+  if (!$term = stratoserp_create_terms('se_payment_type', $terms)) {
+    return;
+  }
+
+//  // Now set the last one as the default for the field.
+//  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_payment.se_payment.se_pa_type_ref');
+//  $field->setDefaultValue($term->uuid());
+//  $field->save();
+//
+//  // Also set the last one as the 'main' contact term.
+//  $config = \Drupal::configFactory()->getEditable('se_contact.settings');
+//  $config->set('default_payment_term', $term->id());
+//  $config->save();
+}
