@@ -4,11 +4,9 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:stratoserp
+  - core_event_dispatcher:core_event_dispatcher
   - drupal:field
   - drupal:text
-  - drupal:se_invoice
-  - drupal:hook_event_dispatcher
 
 config_devel:
   install: {  }

@@ -8,7 +8,6 @@ se_goods_receipt.add:
   requirements:
     _permission: 'add goods receipt entities'
   options:
-    _node_operation_route: TRUE
     parameters:
       source:
         type: entity:se_goods_receipt

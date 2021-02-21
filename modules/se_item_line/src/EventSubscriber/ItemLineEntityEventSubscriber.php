@@ -31,7 +31,7 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
    */
   public function itemLineEntityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
-    if (!array_key_exists($entity->getEntityTypeId(), ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP)) {
+    if (!array_key_exists($entity->getEntityTypeId(), ErpCore::SE_ITEM_LINE_BUNDLES)) {
       return;
     }
 

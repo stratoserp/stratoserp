@@ -253,6 +253,10 @@ class Quote extends RevisionableContentEntityBase implements QuoteInterface {
       ->setRevisionable(TRUE)
       ->setTranslatable(TRUE);
 
+    // Make the revision field configurable.
+    // https://www.drupal.org/project/drupal/issues/2696555 will solve.
+    $fields[$entity_type->getRevisionMetadataKey('revision_log_message')]->setDisplayConfigurable('form', TRUE);
+
     return $fields;
   }
 

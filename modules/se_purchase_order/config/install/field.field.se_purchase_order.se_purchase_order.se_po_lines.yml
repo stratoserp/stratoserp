@@ -2,13 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - comment.type.se_timekeeping
     - field.storage.se_purchase_order.se_po_lines
-    - se_item.se_item_type.se_recurring
     - se_item.se_item_type.se_service
-    - se_item.se_item_type.se_stock
   module:
-    - se_item_line
     - se_purchase_order
 id: se_purchase_order.se_purchase_order.se_po_lines
 field_name: se_po_lines
@@ -21,34 +17,20 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  comment:
-    handler: 'default:comment'
-    handler_settings:
-      target_bundles:
-        se_timekeeping: se_timekeeping
-      sort:
-        field: _none
-      auto_create: 0
-      auto_create_bundle: ''
   se_item:
     handler: 'default:se_item'
     handler_settings:
       target_bundles:
-        se_recurring: se_recurring
         se_service: se_service
-        se_stock: se_stock
       sort:
         field: _none
       auto_create: 0
-      auto_create_bundle: se_service
+      auto_create_bundle: ''
   block_content:
     handler: 'default:block_content'
     handler_settings: {  }
   file:
     handler: 'default:file'
-    handler_settings: {  }
-  node:
-    handler: 'default:node'
     handler_settings: {  }
   taxonomy_term:
     handler: 'default:taxonomy_term'

@@ -59,7 +59,7 @@ content:
     type: text_default
     region: bottom
   se_it_manufacturer_ref:
-    weight: 7
+    weight: 6
     label: inline
     settings:
       link: true
@@ -67,7 +67,7 @@ content:
     type: entity_reference_label
     region: second
   se_it_product_type_ref:
-    weight: 6
+    weight: 5
     label: inline
     settings:
       link: true
@@ -84,13 +84,13 @@ content:
     type: duration_human_display
     region: first
   se_it_sale_category_ref:
-    weight: 5
+    weight: 7
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: second
+    region: top
   se_it_sell_price:
     weight: 2
     label: inline

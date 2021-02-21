@@ -106,7 +106,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return 0;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
     $amount = $entity->{$bundleFieldType . '_total'}->value;
 
     return \Drupal::service('se_business.service')->adjustBalance($business, (int) $amount);
@@ -127,7 +127,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return 0;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
     $amount = $entity->{$bundleFieldType . '_total'}->value;
     $amount *= -1;
 

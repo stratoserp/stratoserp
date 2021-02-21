@@ -4,8 +4,6 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:stratoserp
-  - drupal:se_invoice
-  - drupal:se_ticket
-  - drupal:chartjs_api
-  - drupal:views_bulk_operations
+  - stratoserp:stratoserp
+  - chartjs_api:chartjs_api
+  - views_bulk_operations:views_bulk_operations

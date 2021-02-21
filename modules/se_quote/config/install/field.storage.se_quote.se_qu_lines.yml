@@ -2,9 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - comment
     - se_item
-    - se_item_line
     - se_quote
 id: se_quote.se_qu_lines
 field_name: se_qu_lines
@@ -13,7 +11,6 @@ type: se_item_line
 settings:
   exclude_entity_types: 0
   entity_type_ids:
-    comment: comment
     se_item: se_item
 module: se_item_line
 locked: false

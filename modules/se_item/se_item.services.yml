@@ -4,7 +4,7 @@ services:
     tags:
       - { name: event_subscriber }
 
-  se_item.node_save:
+  se_item.entity_save:
     class: Drupal\se_item\EventSubscriber\ItemInvoiceEventSubscriber
     tags:
       - { name: event_subscriber }

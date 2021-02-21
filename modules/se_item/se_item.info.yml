@@ -4,15 +4,15 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:stratoserp
-  - drupal:dynamic_entity_reference
+  - core_event_dispatcher:core_event_dispatcher
+  - dynamic_entity_reference:dynamic_entity_reference
+  - stratoserp:stratoserp
 
 config_devel:
   install:
     - field.storage.se_item.se_it_code
     - field.storage.se_item.se_it_cost_price
     - field.storage.se_item.se_it_description
-    - field.storage.se_item.se_it_goods_receipt
     - field.storage.se_item.se_it_goods_receipt_ref
     - field.storage.se_item.se_it_images
     - field.storage.se_item.se_it_invoice_ref

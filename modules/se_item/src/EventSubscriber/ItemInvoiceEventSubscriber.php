@@ -78,7 +78,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function markItemsSold(Invoice $invoice): void {
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$invoice->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
     $date = new DateTimePlus(NULL, date_default_timezone_get());
 
     foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
@@ -112,7 +112,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function markItemsAvailable(Invoice $invoice): void {
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$invoice->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
 
     foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
       // Only operate on items.

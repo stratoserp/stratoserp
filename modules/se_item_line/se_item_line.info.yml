@@ -4,17 +4,11 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:stratoserp
-  - drupal:dynamic_entity_reference
+  - core_event_dispatcher:core_event_dispatcher
   - drupal:field
-  - drupal:core_event_dispatcher
   - drupal:image
-  - drupal:se_item
-  - drupal:se_service
-  - drupal:se_stock
-  - drupal:se_ticket
-  - drupal:se_timekeeping
   - drupal:text
+  - dynamic_entity_reference:dynamic_entity_reference
 
 config_devel:
   install: {  }

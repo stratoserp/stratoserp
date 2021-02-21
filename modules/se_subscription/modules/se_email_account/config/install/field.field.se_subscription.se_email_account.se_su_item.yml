@@ -38,9 +38,6 @@ settings:
   file:
     handler: 'default:file'
     handler_settings: {  }
-  node:
-    handler: 'default:node'
-    handler_settings: {  }
   se_information:
     handler: 'default:se_information'
     handler_settings: {  }

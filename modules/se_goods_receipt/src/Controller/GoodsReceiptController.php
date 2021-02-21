@@ -231,8 +231,8 @@ class GoodsReceiptController extends ControllerBase {
       'bundle' => 'se_goods_receipt',
     ]);
 
-    $sourceFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$source->getEntityTypeId()];
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$destination->getEntityTypeId()];
+    $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
 
     // For each item in the purchase order, create the qty
     // number of fields for serial number entry.

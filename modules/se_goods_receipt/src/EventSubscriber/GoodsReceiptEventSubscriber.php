@@ -38,7 +38,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
       return;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
     foreach ($entity->{$bundleFieldType . '_lines'} as $index => $itemLine) {
       if (!empty($itemLine->serial)) {
         /** @var \Drupal\se_item\Entity\Item $item */
@@ -66,7 +66,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
       return;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
     foreach ($entity->{$bundleFieldType . '_lines'} as $itemLine) {
       /** @var \Drupal\se_item\Entity\Item $item */
       if ($item = Item::load($itemLine->target_id)) {

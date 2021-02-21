@@ -5,12 +5,8 @@
  * Custom functions for item manipulation.
  */
 
+use Drupal\stratoserp\ErpCore;
 use Drupal\Core\Form\FormStateInterface;
-
-// @todo Convert Node to Entity.
-define('SE_ITEM_NODE_TYPES', [
-  'se_bill', 'se_goods_receipt', 'se_invoice', 'se_purchase_order', 'se_quote',
-]);
 
 /**
  * Wherever the se_item_lines are used, replace the drupal autocomplete
@@ -24,7 +20,7 @@ function se_item_line_form_alter(&$form, FormStateInterface $form_state, $form_i
   // Make a list of forms from the core types.
   $se_item_forms = array_map(function ($value) {
     return 'node_' . $value . '_form';
-  }, SE_ITEM_NODE_TYPES);
+  }, array_keys(ErpCore::SE_ITEM_LINE_BUNDLES));
 
   if (in_array($form_id, $se_item_forms, TRUE)) {
     $form['#attached']['library'][] = 'core/drupal.ajax';

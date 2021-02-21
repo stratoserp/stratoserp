@@ -4,13 +4,13 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:stratoserp
-  - drupal:se_ticket
-  - drupal:webform
-  - drupal:webform_access
-  - drupal:webform_node
-  - drupal:webform_views
-  - drupal:webform_templates
+  - se_ticket:se_ticket
+  - stratoserp:stratoserp
+  - webform:webform
+  - webform_access:webform_access
+  - webform_node:webform_node
+  - webform_views:webform_views
+  - webform_templates:webform_templates
 
 config_devel:
   install:

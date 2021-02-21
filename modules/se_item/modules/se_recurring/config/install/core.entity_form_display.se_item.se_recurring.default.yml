@@ -14,15 +14,32 @@ dependencies:
     - se_item.se_item_type.se_recurring
   module:
     - duration_field
+    - field_group
     - field_layout
     - layout_discovery
     - se_accounting
     - text
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_it_extra:
+      children:
+        - user_id
+        - revision_log_message
+      parent_name: ''
+      weight: 9
+      format_type: details
+      region: bottom
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Extra
 id: se_item.se_recurring.default
 targetEntityType: se_item
 bundle: se_recurring
@@ -30,69 +47,77 @@ mode: default
 content:
   name:
     type: string_textfield
-    weight: -4
-    region: content
+    weight: 0
+    region: top
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  revision_log_message:
+    type: string_textarea
+    weight: 2
+    settings:
+      rows: 4
+      placeholder: ''
+    region: bottom
+    third_party_settings: {  }
   se_it_code:
-    weight: 26
+    weight: 1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-    region: content
+    region: first
   se_it_cost_price:
-    weight: 32
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: se_currency_widget
-    region: content
+    region: second
   se_it_description:
-    weight: 33
+    weight: 8
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-    region: content
+    region: bottom
   se_it_manufacturer_ref:
-    weight: 30
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
+    region: second
   se_it_product_type_ref:
-    weight: 31
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
+    region: second
   se_it_recurring_period:
-    weight: 28
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: duration_widget
-    region: content
+    region: first
   se_it_sale_category_ref:
-    weight: 29
+    weight: 7
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
+    region: second
   se_it_sell_price:
-    weight: 27
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: se_currency_widget
-    region: content
+    region: first
   user_id:
     type: options_select
-    weight: 5
+    weight: 1
     settings: {  }
-    region: content
+    region: bottom
     third_party_settings: {  }
 hidden:
   se_it_item_ref: true

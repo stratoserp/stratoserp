@@ -12,8 +12,14 @@ use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Implements hook_entity_base_field_info().
+ *
+ * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+ *   The entity type being updated.
+ *
+ * @return array
+ *   The fields to add the to entity type.
  */
-function se_xero_entity_base_field_info(EntityTypeInterface $entity_type) {
+function se_xero_entity_base_field_info(EntityTypeInterface $entity_type): array {
   $fields = [];
 
   // Add the xero uuid field to all node types.

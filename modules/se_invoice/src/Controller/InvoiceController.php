@@ -232,8 +232,8 @@ class InvoiceController extends ControllerBase {
     ]);
 
     $total = 0;
-    $sourceFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$source->getEntityTypeId()];
-    $destFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$destination->getEntityTypeId()];
+    $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
+    $destFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
 
     // @todo Make this a service.
     /**
@@ -308,7 +308,7 @@ class InvoiceController extends ControllerBase {
 
     $total = 0;
     $lines = [];
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$source->getEntityTypeId()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
 
     // Loop through the timekeeping entries and setup invoice lines.
     foreach ($entityIds as $entityId) {

@@ -4,18 +4,16 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:stratoserp
+  - core_event_dispatcher:core_event_dispatcher
   - drupal:field
   - drupal:menu_ui
   - drupal:path
-  - drupal:se_contact
-  - drupal:se_item
-  - drupal:se_item_line
-  - drupal:se_quote
-  - drupal:se_business
   - drupal:text
   - drupal:user
-  - drupal:views_data_export
+  - se_item_line:se_item_line
+  - se_service:se_service
+  - stratoserp:stratoserp
+  - views_data_export:views_data_export
 
 config_devel:
   install:

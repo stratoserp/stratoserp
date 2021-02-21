@@ -4,12 +4,12 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:stratoserp
-  - drupal:se_contact
-  - drupal:se_business
-  - drupal:se_invoice
-  - drupal:xero
-  - drupal:hook_event_dispatcher
+  - core_event_dispatcher:core_event_dispatcher
+  - se_contact:se_contact
+  - se_business:se_business
+  - se_invoice:se_invoice
+  - stratoserp:stratoserp
+  - xero:xero
 
 config_devel:
   install:

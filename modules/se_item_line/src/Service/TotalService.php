@@ -25,7 +25,7 @@ class TotalService {
    */
   public function calculateTotal(EntityInterface $entity): EntityInterface {
     $total = 0;
-    $bundleFieldType = 'se_' . ErpCore::ITEM_LINE_ENTITY_BUNDLE_MAP[$entity->bundle()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
 
     // Loop through the item lines to calculate total.
     foreach ($entity->{$bundleFieldType . '_lines'} as $index => $itemLine) {

@@ -31,9 +31,6 @@ settings:
   se_quote:
     handler: 'default:se_quote'
     handler_settings: {  }
-  node:
-    handler: 'default:node'
-    handler_settings: {  }
   block_content:
     handler: 'default:block_content'
     handler_settings: {  }

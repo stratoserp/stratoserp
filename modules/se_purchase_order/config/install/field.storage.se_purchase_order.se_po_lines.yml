@@ -13,7 +13,6 @@ type: se_item_line
 settings:
   exclude_entity_types: 0
   entity_type_ids:
-    comment: comment
     se_item: se_item
 module: se_item_line
 locked: false
