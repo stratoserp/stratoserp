@@ -17,37 +17,9 @@ module_load_include('install', 'stratoserp');
  * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_install() {
-  se_basic_setup_example_service_items();
   se_basic_setup_example_recurring_items();
   se_basic_setup_example_stock_items();
   se_basic_setup_config_defaults();
-}
-
-/**
- * Setup basic service items.
- *
- * @throws \Drupal\Core\Entity\EntityStorageException
- */
-function se_basic_setup_example_service_items() {
-  $defaults = se_basic_setup_item_defaults('Service', 'Domain name', 'Internal', 'se_service');
-
-  $item = Item::create($defaults + [
-    'name' => 'Technical service',
-    'body' => 'Technical service by one of our qualified technicians.',
-    'se_it_code'  => [['value' => 'TECHSERVICE']],
-    'se_it_sell_price' => [['value' => 16000]],
-    'se_it_cost_price' => [['value' => 5500]],
-  ]);
-  $item->save();
-
-  $item = Item::create($defaults + [
-    'name' => 'Workshop service',
-    'body' => 'Workshop service by one of our qualified technicians.',
-    'se_it_code'  => [['value' => 'WORKSHOP']],
-    'se_it_sell_price' => [['value' => 12000]],
-    'se_it_cost_price' => [['value' => 5500]],
-  ]);
-  $item->save();
 }
 
 /**
@@ -56,7 +28,7 @@ function se_basic_setup_example_service_items() {
  * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_example_recurring_items() {
-  $defaults = se_basic_setup_item_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
+  $defaults = se_item_load_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
 
   // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
   $item = Item::create($defaults + [
@@ -79,7 +51,7 @@ function se_basic_setup_example_recurring_items() {
   ]);
   $item->save();
 
-  $defaults = se_basic_setup_item_defaults('Hosting service', 'Domain name', 'Internal', 'se_recurring');
+  $defaults = se_item_load_defaults('Hosting service', 'Domain name', 'Internal', 'se_recurring');
 
   $item = Item::create($defaults + [
     'name' => 'Domain hosting',
@@ -98,7 +70,7 @@ function se_basic_setup_example_recurring_items() {
  * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function se_basic_setup_example_stock_items() {
-  $defaults = se_basic_setup_item_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
+  $defaults = se_item_load_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
 
   $item = Item::create($defaults + [
     'name' => 'Microsoft KB600',
@@ -120,7 +92,7 @@ function se_basic_setup_example_stock_items() {
   ]);
   $item->save();
 
-  $defaults = se_basic_setup_item_defaults('Hardware', 'Notebook', 'Lenovo', 'se_stock');
+  $defaults = se_item_load_defaults('Hardware', 'Notebook', 'Lenovo', 'se_stock');
 
   $item = Item::create($defaults + [
     'name' => 'Lenovo 11e',
@@ -142,7 +114,7 @@ function se_basic_setup_example_stock_items() {
   ]);
   $item->save();
 
-  $defaults = se_basic_setup_item_defaults('Consumables', 'Ink cartridge', 'Canon', 'se_stock');
+  $defaults = se_item_load_defaults('Consumables', 'Ink cartridge', 'Canon', 'se_stock');
 
   $item = Item::create($defaults + [
     'name' => 'Canon PIXMA - Cyan',
@@ -176,40 +148,7 @@ function se_basic_setup_example_stock_items() {
 
 }
 
-/**
- * Helper function for adding items.
- *
- * @param $category
- *   Taxonomy category.
- * @param $product_type
- *   Taxonomy product type.
- * @param $manufacturer
- *   Taxonomy manufacturer.
- * @param $type
- *   Item type.
- *
- * @return array
- */
-function se_basic_setup_item_defaults($category, $product_type, $manufacturer, $type) {
-  $term = taxonomy_term_load_multiple_by_name($category, 'se_sale_category');
-  $sale_category = reset($term);
 
-  $term = taxonomy_term_load_multiple_by_name($product_type, 'se_product_type');
-  $product_type = reset($term);
-
-  $term = taxonomy_term_load_multiple_by_name($manufacturer, 'se_manufacturer');
-  $manufacturer = reset($term);
-
-  return [
-    'type' => $type,
-    'langcode' => 'en',
-    'uid' => '1',
-    'status' => 1,
-    'se_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
-    'se_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
-    'se_it_product_type_ref'  => [['target_id' => $product_type->id()]],
-  ];
-}
 
 /**
  * Setup some

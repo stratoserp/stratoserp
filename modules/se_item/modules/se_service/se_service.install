@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+use Drupal\se_item\Entity\Item;
+
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
+module_load_include('install', 'se_item');
+
+function se_service_install() {
+  $defaults = se_item_load_defaults('Service', 'Onsite service', 'Internal', 'se_service');
+
+  $item = Item::create($defaults + [
+    'name' => 'Technical service',
+    'body' => 'Technical service by one of our qualified technicians.',
+    'se_it_code'  => [['value' => 'TECHSERVICE']],
+    'se_it_sell_price' => [['value' => 16000]],
+    'se_it_cost_price' => [['value' => 5500]],
+  ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+    'name' => 'Workshop service',
+    'body' => 'Workshop service by one of our qualified technicians.',
+    'se_it_code'  => [['value' => 'WORKSHOP']],
+    'se_it_sell_price' => [['value' => 12000]],
+    'se_it_cost_price' => [['value' => 5500]],
+  ]);
+  $item->save();
+}

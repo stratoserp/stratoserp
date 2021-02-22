@@ -2,7 +2,8 @@ langcode: en
 status: true
 dependencies:
   module:
-    - se_timekeeping
+    - comment
+    - se_invoice
 id: comment.se_tk_invoice_ref
 field_name: se_tk_invoice_ref
 entity_type: comment

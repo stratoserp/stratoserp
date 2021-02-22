@@ -165,6 +165,10 @@ class FunctionalTestBase extends TestCase {
    */
   public function deleteComment(Comment $comment, bool $allowed): void {
     $this->drupalGet($comment->toUrl());
+    if (!$allowed && ($this->getSession()->getStatusCode() === 403)) {
+      return;
+    }
+
     $this->assertSession()->statusCodeEquals(200);
 
     /** @var \Behat\Mink\Element\DocumentElement $page */

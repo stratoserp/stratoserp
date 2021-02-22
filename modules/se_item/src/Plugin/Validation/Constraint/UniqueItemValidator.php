@@ -19,13 +19,16 @@ class UniqueItemValidator extends ConstraintValidator {
       $result = \Drupal::service('se_item.service')->findByCode($item->value);
 
       if ($result) {
-        /** @var \Drupal\se_item\Entity\Item $item */
-        $host_item = $item->getEntity();
-        if ($host_item->id()) {
+        /** @var \Drupal\se_item\Entity\Item $foundItem */
+        $foundItem = $item->getEntity();
+        if ($foundItem->id()) {
           return NULL;
         }
-        $id = array_pop($result);
-        $this->context->addViolation($constraint->notUnique, ['%id' => $id, '%value' => $item->value]);
+        $foundItem = array_pop($result);
+        $this->context->addViolation($constraint->notUnique, [
+          '%id' => $foundItem,
+          '%value' => $item->value,
+        ]);
       }
     }
   }

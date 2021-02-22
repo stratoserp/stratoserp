@@ -27,14 +27,6 @@ diff --git a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core
 index 912184bb..6ea7a544 100644
 --- a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
 +++ b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
-@@ -2,6 +2,7 @@ langcode: en
- status: true
- dependencies:
-   config:
-+    - core.entity_view_display.comment.se_timekeeping.default
-     - field.field.se_ticket.se_ticket.se_attachments
-     - field.field.se_ticket.se_ticket.se_body
-     - field.field.se_ticket.se_ticket.se_bu_ref
 @@ -12,6 +13,7 @@ dependencies:
      - field.field.se_ticket.se_ticket.se_ti_scheduled
      - field.field.se_ticket.se_ticket.se_ti_status_ref

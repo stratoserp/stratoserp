@@ -9,6 +9,7 @@ dependencies:
     - field.field.comment.se_timekeeping.se_tk_billed
     - field.field.comment.se_timekeeping.se_tk_comment
     - field.field.comment.se_timekeeping.se_tk_date
+    - field.field.comment.se_timekeeping.se_tk_invoice_ref
     - field.field.comment.se_timekeeping.se_tk_item
     - field.field.comment.se_timekeeping.se_tk_review
   module:
@@ -76,6 +77,16 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: second
+  se_tk_invoice_ref:
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
   se_tk_item:
     weight: 5
     settings:

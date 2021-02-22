@@ -9,6 +9,7 @@ dependencies:
     - field.field.comment.se_timekeeping.se_tk_billed
     - field.field.comment.se_timekeeping.se_tk_comment
     - field.field.comment.se_timekeeping.se_tk_date
+    - field.field.comment.se_timekeeping.se_tk_invoice_ref
     - field.field.comment.se_timekeeping.se_tk_item
     - field.field.comment.se_timekeeping.se_tk_review
   module:
@@ -20,12 +21,18 @@ dependencies:
 third_party_settings:
   field_layout:
     id: layout_twocol
-    settings: {  }
+    settings:
+      label: ''
 id: comment.se_timekeeping.default
 targetEntityType: comment
 bundle: se_timekeeping
 mode: default
 content:
+  links:
+    weight: 7
+    region: bottom
+    settings: {  }
+    third_party_settings: {  }
   se_tk_amount:
     weight: 8
     label: above
@@ -69,6 +76,14 @@ content:
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
+  se_tk_invoice_ref:
+    weight: 9
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
   se_tk_item:
     type: entity_reference_label
     weight: 2
@@ -86,11 +101,6 @@ content:
       format: default
       format_custom_false: ''
       format_custom_true: ''
-    third_party_settings: {  }
-  links:
-    weight: 7
-    region: bottom
-    settings: {  }
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true

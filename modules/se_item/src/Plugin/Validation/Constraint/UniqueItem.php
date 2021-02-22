@@ -16,6 +16,12 @@ use Symfony\Component\Validator\Constraint;
  * )
  */
 class UniqueItem extends Constraint {
-  public $notUnique = 'Item with code %value already exists.';
+
+  /**
+   * Custom value for the notUnique error.
+   *
+   * @var string
+   */
+  public $notUnique = "Item %id with code %value already exists.";
 
 }

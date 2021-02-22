@@ -285,12 +285,12 @@ class InvoiceController extends ControllerBase {
    *   The source entity.
    *
    * @return \Drupal\Core\Entity\EntityInterface
-   *   A build entity ready to display in a form.
+   *   A built entity ready to display in a form.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function createInvoiceFromTimekeeping(EntityInterface $source): array {
+  public function createInvoiceFromTimekeeping(EntityInterface $source) {
 
     $destination = Invoice::create([
       'bundle' => 'se_invoice',
@@ -299,15 +299,19 @@ class InvoiceController extends ControllerBase {
     // Retrieve a list of non billed timekeeping entries for this business.
     $query = \Drupal::entityQuery('comment');
 
-    // @todo something wrong here.
+    // If its not a business, and not business in the passed entity, bail.
     if ($source->getEntityTypeId() !== 'se_business') {
       if (!$source->se_bu_ref->target_id) {
         return $this->entityFormBuilder()->getForm($destination);
       }
+      $business_ref = $source->se_bu_ref->target_id;
+    }
+    else {
+      $business_ref = $source->id();
     }
 
     $query->condition('comment_type', 'se_timekeeping')
-      ->condition('se_bu_ref', $source->id())
+      ->condition('se_bu_ref', $business_ref)
       ->condition('se_tk_billed', TRUE, '<>')
       ->condition('se_tk_billable', TRUE)
       ->condition('se_tk_amount', 0, '>');
@@ -315,7 +319,7 @@ class InvoiceController extends ControllerBase {
 
     $total = 0;
     $lines = [];
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES['se_invoice'];
 
     // Loop through the timekeeping entries and setup invoice lines.
     foreach ($entityIds as $entityId) {

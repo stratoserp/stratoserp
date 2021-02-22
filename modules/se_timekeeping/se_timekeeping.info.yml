@@ -9,13 +9,11 @@ dependencies:
   - drupal:comment
   - drupal:views
   - stratoserp:stratoserp
+  - se_invoice:se_invoice
 
 config_devel:
   install:
     - comment.type.se_timekeeping
-    - core.entity_form_display.comment.se_timekeeping.default
-    - core.entity_view_display.comment.se_timekeeping.default
-    - core.entity_view_display.comment.se_timekeeping.hide_comments
     - core.entity_view_mode.comment.hide_comments
     - field.field.comment.se_timekeeping.se_bu_ref
     - field.field.comment.se_timekeeping.se_tk_amount
@@ -35,7 +33,10 @@ config_devel:
     - field.storage.comment.se_tk_review
     - field.storage.se_ticket.se_timekeeping
   optional:
+    - core.entity_form_display.comment.se_timekeeping.default
+    - core.entity_view_display.comment.se_timekeeping.default
+    - core.entity_view_display.comment.se_timekeeping.hide_comments
     - field.field.comment.se_timekeeping.se_tk_invoice_ref
-    - field.storage.comment.se_timekeeping.se_tk_invoice_ref
+    - field.storage.comment.se_tk_invoice_ref
     - views.view.se_timekeeping_eva
     - views.view.se_timekeeping_list

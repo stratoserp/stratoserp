@@ -8,6 +8,7 @@ dependencies:
     - field.storage.comment.se_tk_billed
     - field.storage.comment.se_tk_review
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - comment
@@ -163,7 +164,7 @@ display:
           separator: ''
           hide_empty: false
           default_field_elements: true
-      relationships: { }
+      relationships: {  }
       fields:
         view_comment:
           id: view_comment
@@ -683,6 +684,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         comment_type:
           id: comment_type
@@ -693,6 +696,9 @@ display:
           entity_type: comment
           entity_field: comment_type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
       sorts:
         created:
           id: created
@@ -725,7 +731,7 @@ display:
             value: 'No timekeeping'
             format: basic_html
           plugin_id: text
-      arguments: { }
+      arguments: {  }
       display_extenders: {  }
       use_ajax: true
       title: 'Timekeeping list'

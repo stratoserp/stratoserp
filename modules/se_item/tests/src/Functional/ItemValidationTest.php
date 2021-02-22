@@ -35,23 +35,30 @@ class ItemValidationTest extends ItemTestBase {
 
     $this->itemFakerSetup();
 
+    // Ensure the new code is unique (Faker fail?)
+    do {
+      $code = $this->item->name;
+    } while (\Drupal::service('se_item.service')->findByCode($code));
+
+    // Now create it.
     $item = $this->createItemContent([
       'name' => $this->item->name,
-      'se_it_code' => $this->item->code,
+      'se_it_code' => $code,
     ]);
     $violations = $item->validate();
-    self::assertEquals($violations->count(), 0);
+    self::assertEquals(0, $violations->count());
     $item->save();
 
+    // Now this should create a duplicate violation.
     $newItem = $this->createItemContent([
       'name' => $this->item->name,
-      'se_it_code' => $this->item->code,
+      'se_it_code' => $code,
     ]);
     $violations = $newItem->validate();
-    self::assertEquals($violations->count(), 1);
+    self::assertEquals(1, $violations->count());
     self::assertEquals($violations[0]->getPropertyPath(), 'se_it_code');
-    self::assertEquals($violations[0]->getMessage(), t('Item with code %value already exists.',
-      ['%id' => $item->id(), '%value' => $this->item->code],
+    self::assertEquals($violations[0]->getMessage(), t('Item %id with code %value already exists.',
+      ['%id' => $item->id(), '%value' => $code],
       ['langcode' => NULL]
     ));
   }

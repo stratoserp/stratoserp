@@ -21,8 +21,8 @@ trait ItemTestTrait {
     $this->faker = Factory::create();
 
     $original              = error_reporting(0);
-    $this->item->name      = $this->faker->realText(20);
-    $this->item->code      = $this->faker->word();
+    $this->item->name      = $this->faker->unique()->realText(20);
+    $this->item->code      = $this->faker->unique()->text(10);
     $this->item->serial    = (string) $this->faker->randomNumber(5);
     $this->item->costPrice = $this->faker->numberBetween(5, 10);
     $this->item->sellPrice = $this->item->costPrice * 1.2;

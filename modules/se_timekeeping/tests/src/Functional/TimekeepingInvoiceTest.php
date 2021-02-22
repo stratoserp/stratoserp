@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_timekeeping\Functional;
 
-use Drupal\node\Entity\NodeType;
 use Drupal\se_invoice\Controller\InvoiceController;
 
 /**
@@ -20,25 +19,31 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
    * Test timekeeping invoicing.
    */
   public function testTimekeepingInvoice(): void {
-    $staff = $this->setupStaffUser();
-    $this->drupalLogin($staff);
+    $this->drupalLogin($this->staff);
     $testBusiness = $this->addBusiness();
     $testTicket = $this->addTicket($testBusiness);
-    $testTimekeeping = $this->addTimekeeping($testTicket);
-    $hooks = \Drupal::classResolver(InvoiceController::class);
-    $type = NodeType::load('se_invoice');
-    $node = $hooks->createNodeFromTimekeeping($type, $testBusiness);
-    $node->title = \Drupal::service('stratoserp.set_field')->generateTitle();
-    $node->save();
 
-    $this->drupalGet($node->toUrl());
+    $testTimekeeping = [];
+    for ($i = 0; $i < random_int(5, 10); $i++) {
+      $testTimekeeping[] = $this->addTimekeeping($testTicket);
+    }
+
+    // Now lets create an invoice from the Timekeeping.
+    $invoice = \Drupal::classResolver(InvoiceController::class)->createInvoiceFromTimekeeping($testTicket);
+    $invoice->title = \Drupal::service('stratoserp.set_field')->generateTitle();
+    $invoice->save();
+
+    $this->drupalGet($invoice->toUrl());
     $this->assertSession()->statusCodeEquals(200);
     $page = $this->getTextContent();
 
     // Calculate expected value.
-    $price = (int) $testTimekeeping->se_tk_item->entity->se_it_sell_price->value;
-    $quantity = (int) round($testTimekeeping->se_tk_amount->value / 60, 2);
-    $amount = $quantity * $price;
+    $amount = 0;
+    foreach ($testTimekeeping as $timekeeping) {
+      $price = (int) $timekeeping->se_tk_item->entity->se_it_sell_price->value;
+      $quantity = (int) round($timekeeping->se_tk_amount->value / 60, 2);
+      $amount += $quantity * $price;
+    }
     $amount = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $amount);
 
     self::assertStringContainsString((string) "Total $amount", $page);

@@ -10,10 +10,12 @@ dependencies:
     - field.storage.comment.se_tk_review
     - system.menu.stratos-erp
     - user.role.developer
+    - user.role.owner
     - user.role.staff
   module:
     - comment
     - datetime
+    - node
     - se_timekeeping
     - user
 id: se_timekeeping_list
@@ -691,6 +693,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         status_node:
           value: '1'
@@ -703,6 +707,8 @@ display:
           id: status_node
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         comment_type:
           id: comment_type
@@ -713,6 +719,9 @@ display:
           entity_type: comment
           entity_field: comment_type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
       sorts:
         created:
           id: created
