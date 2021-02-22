@@ -12,6 +12,7 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_ti_scheduled
     - field.field.se_ticket.se_ticket.se_ti_status_ref
     - field.field.se_ticket.se_ticket.se_ti_type_ref
+    - field.field.se_ticket.se_ticket.se_timekeeping
   module:
     - comment
     - field_layout
@@ -35,6 +36,15 @@ content:
     region: content
     settings:
       link_to_entity: false
+    third_party_settings: {  }
+  se_timekeeping:
+    type: comment_default
+    region: bottom
+    label: hidden
+    weight: 25
+    settings:
+      view_mode: default
+      pager_id: 1
     third_party_settings: {  }
   user_id:
     label: hidden

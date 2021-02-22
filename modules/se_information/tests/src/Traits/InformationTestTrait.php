@@ -39,10 +39,11 @@ trait InformationTestTrait {
     ]);
     self::assertNotEquals($information, FALSE);
     $this->drupalGet($information->toUrl());
-    $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
 
+    // Equivalent to 200 status.
+    self::assertStringContainsString('Skip to main content', $content);
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.

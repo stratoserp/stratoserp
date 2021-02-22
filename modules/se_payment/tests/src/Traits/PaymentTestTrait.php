@@ -63,16 +63,16 @@ trait PaymentTestTrait {
 
     $this->drupalGet($payment->toUrl());
 
-    sleep(1);
+    $content = $this->getTextContent();
+
     if (!$allowed) {
-      $this->assertSession()->statusCodeEquals(403);
+      // Equivalent to 403 status.
+      self::assertStringContainsString('Access denied', $content);
       return NULL;
     }
 
-    $this->assertSession()->statusCodeEquals(200);
-
-    $content = $this->getTextContent();
-
+    // Equivalent to 200 status.
+    self::assertStringContainsString('Skip to main content', $content);
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.

@@ -63,22 +63,22 @@ trait ContactTestTrait {
     self::assertNotEquals($contact, FALSE);
     $this->drupalGet($contact->toUrl());
 
-    sleep(1);
-
-    if (!$allowed) {
-      $this->assertSession()->statusCodeEquals(403);
-      return NULL;
-    }
-    $this->assertSession()->statusCodeEquals(200);
-
     $content = $this->getTextContent();
 
+    if (!$allowed) {
+      // Equivalent to 403 status.
+      self::assertStringContainsString('Access denied', $content);
+      return NULL;
+    }
+
+    // Equivalent to 200 status.
+    self::assertStringContainsString('Skip to main content', $content);
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
     self::assertStringContainsString($this->contact->name, $content);
     self::assertStringContainsString($this->contact->phoneNumber, $content);
-    self::assertStringContainsString($this->business->name, $content);
+    self::assertStringContainsString($business->getName(), $content);
 
     return $contact;
   }

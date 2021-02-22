@@ -139,10 +139,11 @@ trait ItemTestTrait {
     self::assertEquals($this->item->sellPrice, $this->currencyFormat->formatRaw((int) $item->se_it_sell_price->value));
 
     $this->drupalGet($item->toUrl());
-    $this->assertSession()->statusCodeEquals(200);
 
     $content = $this->getTextContent();
 
+    // Equivalent to 200 status.
+    self::assertStringContainsString('Skip to main content', $content);
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
