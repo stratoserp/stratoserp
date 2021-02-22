@@ -220,10 +220,7 @@ class Contact extends RevisionableContentEntityBase implements ContactInterface 
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Contact entity.'))
       ->setRevisionable(TRUE)
-      ->setSettings([
-        'max_length' => 50,
-        'text_processing' => 0,
-      ])
+      ->setSetting('max_length', 128)
       ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'above',
