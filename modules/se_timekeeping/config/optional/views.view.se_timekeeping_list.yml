@@ -217,7 +217,7 @@ display:
           type: datetime_default
           settings:
             timezone_override: ''
-            format_type: medium
+            format_type: se_iso_like_format
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -345,7 +345,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: false
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -561,7 +561,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Author uid'
+          label: Author
           exclude: false
           alter:
             alter_text: false

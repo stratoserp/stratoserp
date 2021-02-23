@@ -12,6 +12,7 @@ dependencies:
 
 config_devel:
   install:
+    - core.date_format.se_iso_like_format
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_manufacturer
     - taxonomy.vocabulary.se_product_type

@@ -73,7 +73,7 @@ content:
     region: second
     label: inline
     settings:
-      format_type: medium
+      format_type: se_iso_like_format
       timezone_override: ''
     third_party_settings: {  }
   se_tk_invoice_ref:

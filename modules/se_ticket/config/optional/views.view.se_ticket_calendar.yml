@@ -229,7 +229,7 @@ display:
           type: daterange_default
           settings:
             timezone_override: ''
-            format_type: medium
+            format_type: se_iso_like_format
             separator: '-'
           group_column: value
           group_columns: {  }

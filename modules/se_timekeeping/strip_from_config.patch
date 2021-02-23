@@ -2,15 +2,15 @@ diff --git a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core
 index f1a2d058..0c60ebcd 100644
 --- a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
 +++ b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
-@@ -12,6 +12,7 @@ dependencies:
+@@ -11,6 +12,7 @@ dependencies:
      - field.field.se_ticket.se_ticket.se_ti_scheduled
      - field.field.se_ticket.se_ticket.se_ti_status_ref
      - field.field.se_ticket.se_ticket.se_ti_type_ref
 +    - field.field.se_ticket.se_ticket.se_timekeeping
    module:
      - comment
-     - field_layout
-@@ -35,6 +36,12 @@ content:
+     - datetime_range
+@@ -150,6 +151,12 @@ content:
        size: 60
        placeholder: ''
      third_party_settings: {  }
@@ -22,22 +22,22 @@ index f1a2d058..0c60ebcd 100644
 +    third_party_settings: {  }
    user_id:
      type: entity_reference_autocomplete
-     weight: 5
+     weight: 1
 diff --git a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
 index 912184bb..6ea7a544 100644
 --- a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
 +++ b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
-@@ -12,6 +13,7 @@ dependencies:
+@@ -11,6 +12,7 @@ dependencies:
      - field.field.se_ticket.se_ticket.se_ti_scheduled
      - field.field.se_ticket.se_ticket.se_ti_status_ref
      - field.field.se_ticket.se_ticket.se_ti_type_ref
 +    - field.field.se_ticket.se_ticket.se_timekeeping
    module:
      - comment
-     - field_layout
-@@ -36,6 +38,15 @@ content:
+     - datetime_range
+@@ -121,6 +122,15 @@ content:
      settings:
-       link_to_entity: false
+       link: true
      third_party_settings: {  }
 +  se_timekeeping:
 +    type: comment_default
@@ -48,6 +48,6 @@ index 912184bb..6ea7a544 100644
 +      view_mode: default
 +      pager_id: 1
 +    third_party_settings: {  }
-   user_id:
-     label: hidden
-     type: author
+ hidden:
+   user_id: true
+

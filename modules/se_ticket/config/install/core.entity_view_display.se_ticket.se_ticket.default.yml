@@ -102,7 +102,7 @@ content:
     label: above
     settings:
       separator: '-'
-      format_type: medium
+      format_type: se_iso_like_format
       timezone_override: ''
     third_party_settings: {  }
   se_ti_status_ref:
