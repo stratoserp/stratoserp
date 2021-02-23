@@ -27,7 +27,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   name:
-    label: above
+    label: inline
     type: string
     weight: 0
     region: top
@@ -36,7 +36,7 @@ content:
     third_party_settings: {  }
   se_bu_ref:
     weight: 4
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -67,7 +67,7 @@ content:
     region: first
   se_co_type_ref:
     weight: 5
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }

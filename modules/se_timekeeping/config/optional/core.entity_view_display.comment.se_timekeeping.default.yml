@@ -35,7 +35,7 @@ content:
     third_party_settings: {  }
   se_tk_amount:
     weight: 8
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     type: TimeFormater
@@ -73,12 +73,12 @@ content:
     region: second
     label: inline
     settings:
-      format_type: se_iso_like_format
+      format_type: medium
       timezone_override: ''
     third_party_settings: {  }
   se_tk_invoice_ref:
     weight: 9
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }

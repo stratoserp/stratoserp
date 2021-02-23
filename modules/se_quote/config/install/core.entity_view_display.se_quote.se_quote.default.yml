@@ -29,7 +29,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   name:
-    label: above
+    label: inline
     type: string
     weight: 0
     region: top

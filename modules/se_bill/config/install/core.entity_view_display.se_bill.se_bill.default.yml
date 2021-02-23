@@ -29,7 +29,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   name:
-    label: above
+    label: inline
     type: string
     weight: 0
     region: top
@@ -38,7 +38,7 @@ content:
     third_party_settings: {  }
   se_bi_total:
     weight: 5
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
@@ -68,7 +68,7 @@ content:
     region: first
   se_status_ref:
     weight: 3
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }

@@ -26,7 +26,7 @@ bundle: se_service
 mode: default
 content:
   name:
-    label: above
+    label: inline
     type: string
     weight: 0
     region: top
@@ -35,7 +35,7 @@ content:
     third_party_settings: {  }
   se_it_code:
     weight: 1
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -43,7 +43,7 @@ content:
     region: top
   se_it_cost_price:
     weight: 3
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
@@ -57,7 +57,7 @@ content:
     region: bottom
   se_it_manufacturer_ref:
     weight: 5
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -65,7 +65,7 @@ content:
     region: top
   se_it_product_type_ref:
     weight: 4
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -73,7 +73,7 @@ content:
     region: top
   se_it_sale_category_ref:
     weight: 6
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -81,7 +81,7 @@ content:
     region: top
   se_it_sell_price:
     weight: 2
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter

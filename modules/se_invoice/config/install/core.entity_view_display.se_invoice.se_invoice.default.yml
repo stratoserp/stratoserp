@@ -39,7 +39,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   name:
-    label: above
+    label: inline
     type: string
     weight: 0
     region: top
@@ -81,7 +81,7 @@ content:
     type: se_currency_formatter
     weight: 9
     region: bottom
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
   se_in_quote_ref:
@@ -111,7 +111,7 @@ content:
     region: bottom
   se_in_transaction_type:
     weight: 3
-    label: above
+    label: inline
     settings:
       format: default
       format_custom_false: ''

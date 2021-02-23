@@ -25,7 +25,7 @@ bundle: se_domain_name
 mode: default
 content:
   name:
-    label: above
+    label: inline
     type: string
     weight: 0
     region: top
@@ -34,7 +34,7 @@ content:
     third_party_settings: {  }
   se_bu_ref:
     weight: 1
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -42,14 +42,14 @@ content:
     region: first
   se_su_item:
     weight: 5
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
   se_su_management_link:
     weight: 4
-    label: above
+    label: inline
     settings:
       trim_length: 80
       url_only: false
@@ -61,7 +61,7 @@ content:
     region: second
   se_su_period:
     weight: 3
-    label: above
+    label: inline
     settings:
       text_length: full
       separator: space
@@ -70,7 +70,7 @@ content:
     region: second
   se_su_ref:
     weight: 2
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }

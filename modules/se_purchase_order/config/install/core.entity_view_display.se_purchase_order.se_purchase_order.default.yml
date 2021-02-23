@@ -30,7 +30,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   name:
-    label: above
+    label: inline
     type: string
     weight: 0
     region: top
@@ -86,14 +86,14 @@ content:
     region: second
   se_po_total:
     weight: 6
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     type: se_currency_formatter
     region: bottom
   se_status_ref:
     weight: 4
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
