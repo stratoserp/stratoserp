@@ -61,7 +61,7 @@ function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id)
 
   // If this is something being deleted, redirect back to the frontpage.
   if (preg_match('/(.*?)_delete_form/', $form_id)) {
-    $form['actions']['submit']['#submit'][] = 'stratoserp_node_delete_redirect_submit';
+    $form['actions']['submit']['#submit'][] = 'stratoserp_entity_delete_redirect_submit';
   }
 
 }
@@ -74,7 +74,7 @@ function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id)
  * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
-function stratoserp_node_delete_redirect_submit(array &$form, FormStateInterface $form_state) {
+function stratoserp_entity_delete_redirect_submit(array &$form, FormStateInterface $form_state) {
   $form_state->setRedirectUrl(Url::fromRoute('<front>'));
 }
 

@@ -26,7 +26,7 @@ class SubscriptionListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var \Drupal\se_subscription\Entity\Subscription $entity */
+    /** @var \Drupal\se_subscription\Entity\Subscription $entity */
     $row['id'] = $entity->id();
     $row['name'] = Link::createFromRoute(
       $entity->label(),

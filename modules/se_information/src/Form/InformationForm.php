@@ -24,11 +24,11 @@ class InformationForm extends ContentEntityForm {
     \Drupal::service('stratoserp.set_field')->setBusinessField($form, 'se_bu_ref');
 
     if (!$this->entity->isNew()) {
-      $form['new_revision'] = [
+      $form['group_in_extra']['new_revision'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Create new revision'),
         '#default_value' => FALSE,
-        '#weight' => 10,
+        '#weight' => -20,
       ];
     }
 

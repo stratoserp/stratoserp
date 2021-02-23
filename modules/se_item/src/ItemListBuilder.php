@@ -28,7 +28,7 @@ class ItemListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\se_item\Entity\Item */
+    /** @var \Drupal\se_item\Entity\Item $entity */
     $row['id'] = $entity->id();
     $row['name'] = Link::createFromRoute(
       $entity->label(),

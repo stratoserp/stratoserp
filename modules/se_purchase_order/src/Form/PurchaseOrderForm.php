@@ -47,11 +47,11 @@ class PurchaseOrderForm extends ContentEntityForm {
     }
 
     if (!$this->entity->isNew()) {
-      $form['new_revision'] = [
+      $form['group_po_extra']['new_revision'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Create new revision'),
         '#default_value' => FALSE,
-        '#weight' => 10,
+        '#weight' => -20,
       ];
     }
 

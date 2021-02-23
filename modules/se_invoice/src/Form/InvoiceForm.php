@@ -44,11 +44,11 @@ class InvoiceForm extends ContentEntityForm {
     $service->setContactField($form, 'se_co_ref');
 
     if (!$this->entity->isNew()) {
-      $form['new_revision'] = [
+      $form['group_in_extra']['new_revision'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Create new revision'),
         '#default_value' => FALSE,
-        '#weight' => 10,
+        '#weight' => -20,
       ];
     }
 

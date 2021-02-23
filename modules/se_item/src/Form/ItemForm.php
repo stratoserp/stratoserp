@@ -16,15 +16,15 @@ class ItemForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\se_item\Entity\Item */
+    /** @var \Drupal\se_item\Entity\Item $entity */
     $form = parent::buildForm($form, $form_state);
 
     if (!$this->entity->isNew()) {
-      $form['new_revision'] = [
+      $form['group_it_extra']['new_revision'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Create new revision'),
         '#default_value' => FALSE,
-        '#weight' => 10,
+        '#weight' => -20,
       ];
     }
 

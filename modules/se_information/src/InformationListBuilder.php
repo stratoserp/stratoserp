@@ -28,7 +28,7 @@ class InformationListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\se_information\Entity\Information */
+    /** @var \Drupal\se_information\Entity\Information $entity */
     $row['id'] = $entity->id();
     $row['name'] = Link::createFromRoute(
       $entity->label(),
