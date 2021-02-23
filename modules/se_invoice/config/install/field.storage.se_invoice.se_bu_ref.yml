@@ -2,18 +2,15 @@ langcode: en
 status: true
 dependencies:
   module:
-    - dynamic_entity_reference
     - se_business
     - se_invoice
 id: se_invoice.se_bu_ref
 field_name: se_bu_ref
 entity_type: se_invoice
-type: dynamic_entity_reference
+type: entity_reference
 settings:
-  exclude_entity_types: false
-  entity_type_ids:
-    se_business: se_business
-module: dynamic_entity_reference
+  target_type: se_business
+module: core
 locked: false
 cardinality: 1
 translatable: true

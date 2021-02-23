@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.se_ticket.se_bu_ref
   module:
-    - dynamic_entity_reference
     - se_ticket
 id: se_ticket.se_ticket.se_bu_ref
 field_name: se_bu_ref
@@ -17,78 +16,11 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  se_business:
-    handler: 'default:se_business'
-    handler_settings:
-      target_bundles: null
-      sort:
-        field: _none
-        direction: ASC
-      auto_create: false
-  comment:
-    handler: 'default:comment'
-    handler_settings: {  }
-  block_content:
-    handler: 'default:block_content'
-    handler_settings: {  }
-  menu_link_content:
-    handler: 'default:menu_link_content'
-    handler_settings: {  }
-  file:
-    handler: 'default:file'
-    handler_settings: {  }
-  se_item:
-    handler: 'default:se_item'
-    handler_settings: {  }
-  preview_link:
-    handler: 'default:preview_link'
-    handler_settings: {  }
-  social_auth:
-    handler: 'default:social_auth'
-    handler_settings: {  }
-  taxonomy_term:
-    handler: 'default:taxonomy_term'
-    handler_settings: {  }
-  path_alias:
-    handler: 'default:path_alias'
-    handler_settings: {  }
-  user:
-    handler: 'default:user'
-    handler_settings: {  }
-  webform_submission:
-    handler: 'default:webform_submission'
-    handler_settings: {  }
-  se_contact:
-    handler: 'default:se_contact'
-    handler_settings: {  }
-  se_ticket:
-    handler: 'default:se_ticket'
-    handler_settings: {  }
-  se_bill:
-    handler: 'default:se_bill'
-    handler_settings: {  }
-  se_goods_receipt:
-    handler: 'default:se_goods_receipt'
-    handler_settings: {  }
-  se_information:
-    handler: 'default:se_information'
-    handler_settings: {  }
-  se_invoice:
-    handler: 'default:se_invoice'
-    handler_settings: {  }
-  se_payment:
-    handler: 'default:se_payment'
-    handler_settings: {  }
-  se_purchase_order:
-    handler: 'default:se_purchase_order'
-    handler_settings: {  }
-  se_quote:
-    handler: 'default:se_quote'
-    handler_settings: {  }
-  se_subscription:
-    handler: 'default:se_subscription'
-    handler_settings: {  }
-  node:
-    handler: 'default:node'
-    handler_settings: {  }
-field_type: dynamic_entity_reference
+  handler: 'default:se_business'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

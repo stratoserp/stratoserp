@@ -1,0 +1,91 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+use Drupal\se_item\Entity\Item;
+
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
+module_load_include('install', 'se_item');
+
+function se_stock_install() {
+  $defaults = se_item_load_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
+
+  $item = Item::create($defaults + [
+      'name' => 'Microsoft KB600',
+      'body' => 'Microsoft KB600',
+      'se_it_code' => [['value' => 'MS-KB-600']],
+      'se_it_serial' => [['value' => '111111']],
+      'se_it_sell_price' => [['value' => 4500]],
+      'se_it_cost_price' => [['value' => 2500]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Microsoft KB800',
+      'body' => 'Microsoft KB800',
+      'se_it_code' => [['value' => 'MS-KB-800']],
+      'se_it_serial' => [['value' => '222222']],
+      'se_it_sell_price' => [['value' => 5500]],
+      'se_it_cost_price' => [['value' => 3000]],
+    ]);
+  $item->save();
+
+  $defaults = se_item_load_defaults('Hardware', 'Notebook', 'Lenovo', 'se_stock');
+
+  $item = Item::create($defaults + [
+      'name' => 'Lenovo 11e',
+      'body' => 'Lenovo 11e',
+      'se_it_code' => [['value' => 'LN-11E']],
+      'se_it_serial' => [['value' => '333333']],
+      'se_it_sell_price' => [['value' => 89900]],
+      'se_it_cost_price' => [['value' => 67900]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Lenovo x280',
+      'body' => 'Lenovo x280',
+      'se_it_code' => [['value' => 'LN-X280']],
+      'se_it_serial' => [['value' => '444444']],
+      'se_it_sell_price' => [['value' => 129900]],
+      'se_it_cost_price' => [['value' => 100100]],
+    ]);
+  $item->save();
+
+  $defaults = se_item_load_defaults('Consumables', 'Ink cartridge', 'Canon', 'se_stock');
+
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Cyan',
+      'body' => 'Canon PIXMA - Cyan',
+      'se_it_code' => [['value' => 'CN-PIXMA-CYAN']],
+      'se_it_serial' => [['value' => '555555']],
+      'se_it_sell_price' => [['value' => 1499]],
+      'se_it_cost_price' => [['value' => 1000]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Yellow',
+      'body' => 'Canon PIXMA - Yellow',
+      'se_it_code' => [['value' => 'CN-PIXMA-YELLOW']],
+      'se_it_serial' => [['value' => '666666']],
+      'se_it_sell_price' => [['value' => 1499]],
+      'se_it_cost_price' => [['value' => 1000]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Magenta',
+      'body' => 'Canon PIXMA - Magenta',
+      'se_it_code' => [['value' => 'CN-PIXMA-MAGENTA']],
+      'se_it_serial' => [['value' => '777777']],
+      'se_it_sell_price' => [['value' => 1499]],
+      'se_it_cost_price' => [['value' => 1000]],
+    ]);
+  $item->save();
+}

@@ -18,7 +18,7 @@ function se_service_install() {
   $item = Item::create($defaults + [
     'name' => 'Technical service',
     'body' => 'Technical service by one of our qualified technicians.',
-    'se_it_code'  => [['value' => 'TECHSERVICE']],
+    'se_it_code' => [['value' => 'TECHSERVICE']],
     'se_it_sell_price' => [['value' => 16000]],
     'se_it_cost_price' => [['value' => 5500]],
   ]);
@@ -27,7 +27,7 @@ function se_service_install() {
   $item = Item::create($defaults + [
     'name' => 'Workshop service',
     'body' => 'Workshop service by one of our qualified technicians.',
-    'se_it_code'  => [['value' => 'WORKSHOP']],
+    'se_it_code' => [['value' => 'WORKSHOP']],
     'se_it_sell_price' => [['value' => 12000]],
     'se_it_cost_price' => [['value' => 5500]],
   ]);

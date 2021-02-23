@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+use Drupal\se_item\Entity\Item;
+
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
+module_load_include('install', 'se_item');
+
+function se_recurring_install() {
+  $defaults = se_item_load_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
+
+  // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
+  $item = Item::create($defaults + [
+      'name' => 'Domain name registration',
+      'body' => 'Domain name registration - yearly.',
+      'se_it_code' => [['value' => 'DOMAINNAME-YEARLY']],
+      'se_it_sell_price' => [['value' => 6000]],
+      'se_it_recurring_period' => [['duration' => 'P1Y']],
+      'se_it_cost_price' => [['value' => 2000]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Domain name - biennually',
+      'body' => 'Domain name - biennually.',
+      'se_it_code' => [['value' => 'DOMAINNAME-BIENNUALLY']],
+      'se_it_sell_price' => [['value' => 12000]],
+      'se_it_recurring_period' => [['duration' => 'P2Y']],
+      'se_it_cost_price' => [['value' => 4000]],
+    ]);
+  $item->save();
+
+  $defaults = se_item_load_defaults('Hosting service', 'Domain name', 'Internal', 'se_recurring');
+
+  $item = Item::create($defaults + [
+      'name' => 'Domain hosting',
+      'body' => 'Domain hosting - yearly.',
+      'se_it_code' => [['value' => 'DOMAINHOSTING-YEARLY']],
+      'se_it_sell_price' => [['value' => 24000]],
+      'se_it_recurring_period' => [['duration' => 'P1Y']],
+      'se_it_cost_price' => [['value' => 12000]],
+    ]);
+  $item->save();
+}
