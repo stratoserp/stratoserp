@@ -26,15 +26,15 @@ mode: default
 content:
   name:
     type: string_textfield
-    weight: -4
-    region: first
+    weight: 0
+    region: top
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   revision_log_message:
     type: string_textarea
-    weight: 25
+    weight: 5
     settings:
       rows: 4
       placeholder: ''
@@ -55,6 +55,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
@@ -64,6 +65,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
@@ -74,11 +76,12 @@ content:
     type: comment_default
     region: bottom
   se_gr_lines:
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: '40'
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: se_item_line_widget
     region: bottom
@@ -88,18 +91,19 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
   se_gr_total:
     type: se_currency_widget
-    weight: 7
+    weight: 8
     region: bottom
     settings: {  }
     third_party_settings: {  }
   se_status_ref:
     type: options_select
-    weight: 5
+    weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -113,10 +117,10 @@ content:
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 4
     settings:
       match_operator: CONTAINS
-      size: '60'
+      size: 60
       placeholder: ''
       match_limit: 10
     region: first

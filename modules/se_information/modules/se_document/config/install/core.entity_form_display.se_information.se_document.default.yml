@@ -8,14 +8,31 @@ dependencies:
     - se_information.se_information_type.se_document
   module:
     - comment
+    - field_group
     - field_layout
     - layout_discovery
     - text
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_in_extra:
+      children:
+        - user_id
+        - revision_log_message
+      parent_name: ''
+      weight: 4
+      format_type: details
+      region: bottom
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Extra
 id: se_information.se_document.default
 targetEntityType: se_information
 bundle: se_document
@@ -23,47 +40,48 @@ mode: default
 content:
   name:
     type: string_textfield
-    weight: -4
-    region: content
+    weight: 0
+    region: top
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   revision_log_message:
     type: string_textarea
-    weight: 25
+    weight: 2
     settings:
       rows: 4
       placeholder: ''
-    region: content
+    region: bottom
     third_party_settings: {  }
   se_bu_ref:
-    weight: 26
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
+    region: first
   se_if_body:
-    weight: 27
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-    region: content
+    region: bottom
   se_if_comments:
-    weight: 28
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: comment_default
-    region: content
+    region: bottom
   user_id:
     type: options_select
-    weight: 5
+    weight: 1
     settings: {  }
-    region: content
+    region: bottom
     third_party_settings: {  }
 hidden: {  }

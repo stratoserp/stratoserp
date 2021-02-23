@@ -8,7 +8,7 @@ dependencies:
     - field.field.se_quote.se_quote.se_qu_total
     - field.field.se_quote.se_quote.se_status_ref
   module:
-    - dynamic_entity_reference
+    - field_group
     - field_layout
     - layout_discovery
     - se_accounting
@@ -19,6 +19,22 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_qu_extra:
+      children:
+        - user_id
+        - revision_log_message
+      parent_name: ''
+      weight: 6
+      format_type: details
+      region: bottom
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Extra
 id: se_quote.se_quote.default
 targetEntityType: se_quote
 bundle: se_quote
@@ -26,19 +42,19 @@ mode: default
 content:
   name:
     type: string_textfield
-    weight: -4
-    region: first
+    weight: 0
+    region: top
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   revision_log_message:
     type: string_textarea
-    weight: 25
+    weight: 4
     settings:
       rows: 4
       placeholder: ''
-    region: first
+    region: bottom
     third_party_settings: {  }
   se_body:
     type: text_textarea
@@ -53,11 +69,11 @@ content:
     weight: 1
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: dynamic_entity_reference_bundle
+    type: entity_reference_autocomplete
     region: first
   se_co_ref:
     weight: 2
@@ -70,7 +86,7 @@ content:
     type: entity_reference_autocomplete
     region: first
   se_qu_lines:
-    weight: 5
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: '40'
@@ -81,12 +97,12 @@ content:
     region: bottom
   se_qu_total:
     type: se_currency_widget
-    weight: 6
+    weight: 5
     region: bottom
     settings: {  }
     third_party_settings: {  }
   se_status_ref:
-    weight: 4
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -101,13 +117,13 @@ content:
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
       match_limit: 10
-    region: first
+    region: bottom
     third_party_settings: {  }
 hidden:
   created: true

@@ -9,7 +9,6 @@ dependencies:
     - user.role.owner
     - user.role.staff
   module:
-    - dynamic_entity_reference
     - se_accounting
     - se_bill
     - user

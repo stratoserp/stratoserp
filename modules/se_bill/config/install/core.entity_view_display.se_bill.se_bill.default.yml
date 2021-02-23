@@ -13,7 +13,6 @@ dependencies:
     - se_accounting
     - se_bill
     - text
-    - user
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -32,13 +31,13 @@ content:
   name:
     label: above
     type: string
-    weight: -4
-    region: first
+    weight: 0
+    region: top
     settings:
       link_to_entity: false
     third_party_settings: {  }
   se_bi_total:
-    weight: 6
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -47,10 +46,10 @@ content:
   se_body:
     label: hidden
     type: text_default
-    weight: 7
+    weight: 4
     settings: {  }
     third_party_settings: {  }
-    region: bottom
+    region: top
   se_bu_ref:
     weight: 1
     label: inline
@@ -68,20 +67,13 @@ content:
     type: entity_reference_label
     region: first
   se_status_ref:
-    weight: 4
+    weight: 3
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  user_id:
-    label: hidden
-    type: author
-    weight: 0
-    region: first
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
@@ -89,3 +81,4 @@ hidden:
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics_business: true
+  user_id: true

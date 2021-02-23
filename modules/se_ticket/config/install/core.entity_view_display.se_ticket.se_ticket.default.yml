@@ -14,13 +14,15 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_ti_type_ref
   module:
     - comment
+    - datetime_range
     - field_layout
+    - file
     - layout_discovery
     - se_ticket
-    - user
+    - text
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings:
       label: ''
 id: se_ticket.se_ticket.default
@@ -31,26 +33,93 @@ content:
   name:
     label: above
     type: string
-    weight: -4
-    region: content
+    weight: 0
+    region: top
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  user_id:
-    label: hidden
-    type: author
-    weight: 0
-    region: content
+  se_attachments:
+    type: file_default
+    weight: 11
+    region: bottom
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+  se_body:
+    type: text_default
+    weight: 9
+    region: bottom
+    label: above
     settings: {  }
     third_party_settings: {  }
+  se_bu_ref:
+    type: entity_reference_label
+    weight: 1
+    region: first
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  se_co_ref:
+    type: entity_reference_label
+    weight: 2
+    region: first
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  se_ti_open_date:
+    type: timestamp
+    weight: 5
+    region: second
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  se_ti_owner_ref:
+    type: entity_reference_label
+    weight: 3
+    region: first
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  se_ti_priority_ref:
+    type: entity_reference_label
+    weight: 7
+    region: second
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  se_ti_scheduled:
+    type: daterange_default
+    weight: 6
+    region: second
+    label: above
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+  se_ti_status_ref:
+    type: entity_reference_label
+    weight: 8
+    region: second
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  se_ti_type_ref:
+    type: entity_reference_label
+    weight: 4
+    region: first
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
 hidden:
-  se_attachments: true
-  se_body: true
-  se_bu_ref: true
-  se_co_ref: true
-  se_ti_open_date: true
-  se_ti_owner_ref: true
-  se_ti_priority_ref: true
-  se_ti_scheduled: true
-  se_ti_status_ref: true
-  se_ti_type_ref: true
+  user_id: true

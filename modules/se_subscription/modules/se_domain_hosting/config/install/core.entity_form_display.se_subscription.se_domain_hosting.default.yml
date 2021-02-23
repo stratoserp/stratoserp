@@ -11,6 +11,7 @@ dependencies:
     - se_subscription.se_subscription_type.se_domain_hosting
   module:
     - duration_field
+    - field_group
     - field_layout
     - layout_discovery
     - link
@@ -20,45 +21,71 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_su_extra:
+      children:
+        - user_id
+        - revision_log_message
+      parent_name: ''
+      weight: 8
+      format_type: details
+      region: bottom
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Extra
 id: se_subscription.se_domain_hosting.default
 targetEntityType: se_subscription
 bundle: se_domain_hosting
 mode: default
 content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: top
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   revision_log_message:
     type: string_textarea
-    weight: 25
+    weight: 9
     settings:
       rows: 4
       placeholder: ''
-    region: first
+    region: bottom
     third_party_settings: {  }
   se_bu_ref:
-    weight: 0
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
   se_dh_hosting_type:
-    weight: 4
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: second
   se_su_item:
-    weight: 5
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: '40'
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: se_item_line_widget
     region: bottom
   se_su_management_link:
-    weight: 3
+    weight: 5
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -66,20 +93,29 @@ content:
     type: link_default
     region: second
   se_su_period:
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: duration_widget
     region: first
   se_su_ref:
-    weight: 1
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-hidden:
-  name: true
-  user_id: true
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 8
+    region: bottom
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

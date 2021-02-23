@@ -16,7 +16,7 @@ required: false
 translatable: false
 default_value:
   -
-    target_id: a1090b2e-895d-443c-a134-4866cab1f4f3
+    target_id: 0644addc-7918-431f-bafc-7888091164d5
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

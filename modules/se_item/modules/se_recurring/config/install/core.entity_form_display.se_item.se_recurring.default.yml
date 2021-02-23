@@ -30,7 +30,7 @@ third_party_settings:
         - user_id
         - revision_log_message
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details
       region: bottom
       format_settings:
@@ -76,13 +76,23 @@ content:
     type: se_currency_widget
     region: second
   se_it_description:
-    weight: 8
+    weight: 9
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
     region: bottom
+  se_it_item_ref:
+    type: entity_reference_autocomplete
+    weight: 8
+    region: second
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   se_it_manufacturer_ref:
     weight: 6
     settings: {  }
@@ -119,5 +129,4 @@ content:
     settings: {  }
     region: bottom
     third_party_settings: {  }
-hidden:
-  se_it_item_ref: true
+hidden: {  }

@@ -25,14 +25,14 @@ content:
   name:
     type: string_textfield
     weight: 0
-    region: first
+    region: top
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   revision_log_message:
     type: string_textarea
-    weight: 25
+    weight: 4
     settings:
       rows: 4
       placeholder: ''
@@ -49,7 +49,7 @@ content:
     type: entity_reference_autocomplete
     region: first
   se_co_email:
-    weight: 6
+    weight: 7
     settings:
       size: 25
       placeholder: ''
@@ -57,14 +57,14 @@ content:
     type: email_default
     region: second
   se_co_mobile:
-    weight: 4
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: second
   se_co_phone:
-    weight: 5
+    weight: 6
     settings:
       placeholder: ''
     third_party_settings: {  }

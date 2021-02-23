@@ -18,7 +18,6 @@ dependencies:
     - se_accounting
     - se_invoice
     - se_item_line
-    - user
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -42,8 +41,8 @@ content:
   name:
     label: above
     type: string
-    weight: -4
-    region: first
+    weight: 0
+    region: top
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -64,7 +63,7 @@ content:
     type: entity_reference_label
     region: first
   se_in_customer_order:
-    weight: 6
+    weight: 5
     label: inline
     settings:
       link_to_entity: false
@@ -72,14 +71,21 @@ content:
     type: string
     region: second
   se_in_lines:
-    weight: 9
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
+  se_in_outstanding:
+    type: se_currency_formatter
+    weight: 9
+    region: bottom
+    label: above
+    settings: {  }
+    third_party_settings: {  }
   se_in_quote_ref:
-    weight: 7
+    weight: 6
     label: inline
     settings:
       link: true
@@ -87,7 +93,7 @@ content:
     type: entity_reference_label
     region: second
   se_in_sent:
-    weight: 8
+    weight: 7
     label: inline
     settings:
       format: default
@@ -104,7 +110,7 @@ content:
     type: se_currency_formatter
     region: bottom
   se_in_transaction_type:
-    weight: 13
+    weight: 3
     label: above
     settings:
       format: default
@@ -114,20 +120,13 @@ content:
     type: boolean
     region: first
   se_status_ref:
-    weight: 5
+    weight: 4
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  user_id:
-    label: hidden
-    type: author
-    weight: 0
-    region: first
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
@@ -135,4 +134,4 @@ hidden:
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics_business: true
-  se_in_outstanding: true
+  user_id: true

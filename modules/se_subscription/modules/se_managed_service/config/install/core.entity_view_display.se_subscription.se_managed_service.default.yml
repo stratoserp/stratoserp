@@ -14,7 +14,6 @@ dependencies:
     - layout_discovery
     - link
     - se_item_line
-    - user
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -29,12 +28,12 @@ content:
     label: above
     type: string
     weight: 0
-    region: first
+    region: top
     settings:
       link_to_entity: false
     third_party_settings: {  }
   se_bu_ref:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link: true
@@ -42,14 +41,14 @@ content:
     type: entity_reference_label
     region: first
   se_su_item:
-    weight: 6
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
   se_su_management_link:
-    weight: 5
+    weight: 4
     label: above
     settings:
       trim_length: 80
@@ -61,7 +60,7 @@ content:
     type: link
     region: second
   se_su_period:
-    weight: 4
+    weight: 3
     label: above
     settings:
       text_length: full
@@ -70,18 +69,12 @@ content:
     type: duration_human_display
     region: second
   se_su_ref:
-    weight: 3
+    weight: 2
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  user_id:
-    label: hidden
-    type: author
-    weight: 1
-    region: first
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  user_id: true

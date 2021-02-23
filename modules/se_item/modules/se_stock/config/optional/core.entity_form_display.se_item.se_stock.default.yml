@@ -22,6 +22,7 @@ dependencies:
     - se_item.se_item_type.se_stock
   module:
     - datetime
+    - field_group
     - field_layout
     - image
     - layout_discovery
@@ -32,6 +33,22 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_it_extra:
+      children:
+        - user_id
+        - revision_log_message
+      parent_name: ''
+      weight: 17
+      format_type: details
+      region: bottom
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Extra
 id: se_item.se_stock.default
 targetEntityType: se_item
 bundle: se_stock
@@ -47,11 +64,11 @@ content:
     third_party_settings: {  }
   revision_log_message:
     type: string_textarea
-    weight: 25
+    weight: 1
     settings:
       rows: 4
       placeholder: ''
-    region: first
+    region: bottom
     third_party_settings: {  }
   se_it_code:
     type: string_textfield
@@ -81,6 +98,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second
@@ -100,6 +118,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   se_it_item_ref:
     weight: 8
@@ -107,6 +126,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
@@ -137,6 +157,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   se_it_sale_category_ref:
     type: options_select
@@ -170,5 +191,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  user_id: true
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: bottom
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

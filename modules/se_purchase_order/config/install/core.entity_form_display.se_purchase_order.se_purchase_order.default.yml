@@ -9,6 +9,7 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_po_total
     - field.field.se_purchase_order.se_purchase_order.se_status_ref
   module:
+    - field_group
     - field_layout
     - layout_discovery
     - se_accounting
@@ -19,6 +20,22 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_po_extra:
+      children:
+        - user_id
+        - revision_log_message
+      parent_name: ''
+      weight: 7
+      format_type: details
+      region: bottom
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Extra
 id: se_purchase_order.se_purchase_order.default
 targetEntityType: se_purchase_order
 bundle: se_purchase_order
@@ -26,19 +43,19 @@ mode: default
 content:
   name:
     type: string_textfield
-    weight: -4
-    region: first
+    weight: 0
+    region: top
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   revision_log_message:
     type: string_textarea
-    weight: 25
+    weight: 9
     settings:
       rows: 4
       placeholder: ''
-    region: first
+    region: bottom
     third_party_settings: {  }
   se_body:
     type: text_textarea
@@ -55,6 +72,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
@@ -64,6 +82,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
@@ -74,31 +93,33 @@ content:
     type: comment_default
     region: bottom
   se_po_lines:
-    weight: 6
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: '40'
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: se_item_line_widget
     region: bottom
   se_po_quote_ref:
-    weight: 5
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second
   se_po_total:
-    weight: 7
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: se_currency_widget
     region: bottom
   se_status_ref:
-    weight: 4
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -113,13 +134,13 @@ content:
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 8
     settings:
       match_operator: CONTAINS
-      size: '60'
+      size: 60
       placeholder: ''
       match_limit: 10
-    region: first
+    region: bottom
     third_party_settings: {  }
 hidden:
   created: true
