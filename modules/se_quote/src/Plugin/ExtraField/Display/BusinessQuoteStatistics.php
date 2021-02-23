@@ -15,7 +15,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *   id = "business_quote_statistics",
  *   label = @Translation("Quote statistics"),
  *   bundles = {
- *     "se_businessse_business",
+ *     "se_business",
  *   }
  * )
  */

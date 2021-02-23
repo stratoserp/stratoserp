@@ -58,8 +58,8 @@ class BusinessService {
       return $entity;
     }
 
-    if (isset($entity->se_bu_ref) && $businesss = $entity->se_bu_ref->referencedEntities()) {
-      return reset($businesss);
+    if (isset($entity->se_bu_ref) && $business = $entity->se_bu_ref->referencedEntities()) {
+      return reset($business);
     }
 
     return FALSE;
@@ -79,7 +79,7 @@ class BusinessService {
   }
 
   /**
-   * Set the businesss balance to a specific value.
+   * Set the business balance to a specific value.
    *
    * @param \Drupal\se_business\Entity\Business $entity
    *   Business to set the balance for.
@@ -87,7 +87,7 @@ class BusinessService {
    *   Amount to set as the business balance in cents.
    *
    * @return int
-   *   The balance of the businesss account afterwards.
+   *   The balance of the business account afterwards.
    */
   public function setBalance(Business $entity, int $value): int {
     $entity->se_bu_balance->value = $value;
@@ -101,7 +101,7 @@ class BusinessService {
   }
 
   /**
-   * Add a value to the businesss existing balance.
+   * Add a value to the business existing balance.
    *
    * @param \Drupal\se_business\Entity\Business $entity
    *   Business to adjust the balance for.
@@ -109,7 +109,7 @@ class BusinessService {
    *   The value to be added to the business, positives and negatives will work.
    *
    * @return int
-   *   The balance of the businesss account afterwards.
+   *   The balance of the business account afterwards.
    */
   public function adjustBalance(Business $entity, int $value): int {
     $entity->se_bu_balance->value += $value;

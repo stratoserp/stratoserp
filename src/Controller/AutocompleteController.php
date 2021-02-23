@@ -37,7 +37,7 @@ class AutocompleteController extends ControllerBase {
       $searchString = Tags::explode($input);
       $searchString = mb_strtolower(array_pop($searchString));
 
-      $businesss = $this->findBusinesses($searchString);
+      $business = $this->findBusinesses($searchString);
       $contacts = $this->findNodes('se_contact', 'Contact', 'title', $searchString);
       $invoices = $this->findNodes('se_invoice', 'Invoice', 'se_in_id', $searchString);
       $quotes = $this->findNodes('se_quote', 'Quote', 'se_qu_id', $searchString);
@@ -45,7 +45,7 @@ class AutocompleteController extends ControllerBase {
       $serials = $this->findItems('se_item', 'Item', 'se_it_serial', $searchString);
       $information = $this->findInformation('se_document', 'Document', 'name', $searchString);
 
-      $matches = array_merge($businesss, $contacts, $invoices, $quotes, $items, $serials, $information);
+      $matches = array_merge($business, $contacts, $invoices, $quotes, $items, $serials, $information);
 
     }
 
@@ -107,7 +107,7 @@ class AutocompleteController extends ControllerBase {
   }
 
   /**
-   * Return businesss matching text.
+   * Return business matching text.
    *
    * @param string $text
    *   The text to search for.
