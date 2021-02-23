@@ -54,9 +54,10 @@ function se_timekeeping_form_alter(&$form, FormStateInterface $form_state, $form
  * Implementation of hook_comment_presave().
  */
 function se_timekeeping_comment_presave(CommentInterface $comment) {
-  $entity = \Drupal::entityTypeManager()
-    ->getStorage($comment->getCommentedEntityTypeId())
-    ->load($comment->getCommentedEntityId());
+  // Make sure the comment is real.
+  if (!$entity = $comment->getCommentedEntity()) {
+    return;
+  }
 
   // Only alter comments on tickets.
   if (!isset($entity) || $entity->bundle() !== 'se_ticket') {
