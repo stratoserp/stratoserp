@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: se_iso_like_format
+label: 'ISO like format'
+locked: false
+pattern: 'Y-m-d - H:i:s'
