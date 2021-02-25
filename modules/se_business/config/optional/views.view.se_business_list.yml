@@ -8,13 +8,17 @@ dependencies:
     - field.storage.se_business.se_bu_mobile
     - field.storage.se_business.se_bu_phone
     - system.menu.stratos-erp
+    - taxonomy.vocabulary.se_business_type
     - user.role.developer
     - user.role.owner
     - user.role.staff
+  content:
+    - 'taxonomy_term:se_business_type:ddff7fda-b34f-4d1e-84ba-891d2523e078'
   module:
     - link
     - se_accounting
     - se_business
+    - taxonomy
     - telephone
     - user
 id: se_business_list
@@ -39,7 +43,7 @@ display:
             owner: owner
             developer: developer
       cache:
-        type: tag
+        type: none
         options: {  }
       query:
         type: views_query
@@ -53,7 +57,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -93,9 +97,47 @@ display:
           description: ''
           columns:
             name: name
+            se_bu_email: se_bu_email
+            se_bu_mobile: se_bu_mobile
+            se_bu_phone: se_bu_phone
+            se_bu_homepage: se_bu_homepage
+            se_bu_balance: se_bu_balance
           info:
             name:
-              sortable: false
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_bu_email:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_bu_mobile:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_bu_phone:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_bu_homepage:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_bu_balance:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -521,8 +563,9 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-              business: '0'
+              customer: '0'
               supplier: '0'
+              owner: '0'
               staff: '0'
               developer: '0'
             placeholder: ''
@@ -541,6 +584,197 @@ display:
           entity_type: se_business
           entity_field: name
           plugin_id: string
+        se_bu_email_value:
+          id: se_bu_email_value
+          table: se_business__se_bu_email
+          field: se_bu_email_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: se_bu_email_value_op
+            label: Email
+            description: ''
+            use_operator: false
+            operator: se_bu_email_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: email
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        se_bu_mobile_value:
+          id: se_bu_mobile_value
+          table: se_business__se_bu_mobile
+          field: se_bu_mobile_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: se_bu_mobile_value_op
+            label: Mobile
+            description: ''
+            use_operator: false
+            operator: se_bu_mobile_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: mobile
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        se_bu_phone_value:
+          id: se_bu_phone_value
+          table: se_business__se_bu_phone
+          field: se_bu_phone_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: se_bu_phone_value_op
+            label: Phone
+            description: ''
+            use_operator: false
+            operator: se_bu_phone_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: phone
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        se_bu_type_ref_target_id:
+          id: se_bu_type_ref_target_id
+          table: se_business__se_bu_type_ref
+          field: se_bu_type_ref_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value:
+            32: 32
+          group: 1
+          exposed: true
+          expose:
+            operator_id: se_bu_type_ref_target_id_op
+            label: 'Business type'
+            description: ''
+            use_operator: false
+            operator: se_bu_type_ref_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: bu_type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: se_business_type
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
       sorts: {  }
       header: {  }
       footer: {  }
@@ -548,6 +782,7 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -555,6 +790,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.roles
       tags:
         - 'config:field.storage.se_business.se_bu_balance'
@@ -586,6 +822,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.roles
       tags:
         - 'config:field.storage.se_business.se_bu_balance'

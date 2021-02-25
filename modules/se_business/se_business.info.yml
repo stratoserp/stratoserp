@@ -59,5 +59,4 @@ config_devel:
     - field.storage.se_business.se_bu_type_ref
     - taxonomy.vocabulary.se_business_type
   optional:
-    - views.view.se_business_balances
     - views.view.se_business_list

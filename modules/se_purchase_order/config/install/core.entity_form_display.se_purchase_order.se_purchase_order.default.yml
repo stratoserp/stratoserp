@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_po_quote_ref
     - field.field.se_purchase_order.se_purchase_order.se_po_total
     - field.field.se_purchase_order.se_purchase_order.se_status_ref
+    - field.field.se_purchase_order.se_purchase_order.se_su_ref
   module:
     - field_group
     - field_layout
@@ -124,6 +125,16 @@ content:
     third_party_settings: {  }
     type: options_select
     region: second
+  se_su_ref:
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
   title:
     type: string_textfield
     weight: 0

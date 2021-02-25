@@ -60,6 +60,7 @@ third_party_settings:
       region: content
     group_bu_tab_tickets:
       children:
+        - se_ticket_eva_se_ticket_eva_form
         - se_ticket_eva_se_ticket_eva
         - extra_field_business_ticket_statistics
       parent_name: group_bu_tabs
@@ -74,6 +75,7 @@ third_party_settings:
       region: content
     group_bu_tab_contacts:
       children:
+        - se_contact_eva_se_contact_eva_form
         - se_contact_eva_se_contact_eva
       parent_name: group_bu_tabs
       weight: 7
@@ -128,10 +130,11 @@ third_party_settings:
       region: content
     group_bu_tab_invoices:
       children:
+        - se_invoice_eva_se_invoice_eva_form
         - se_invoice_eva_se_invoice_eva
         - extra_field_business_invoice_statistics
       parent_name: group_bu_tabs
-      weight: 12
+      weight: 13
       format_type: tab
       format_settings:
         id: ''
@@ -145,7 +148,7 @@ third_party_settings:
         - se_purchase_order_eva_se_purchase_order_eva
         - extra_field_business_purchase_order_statistics
       parent_name: group_bu_tabs
-      weight: 15
+      weight: 16
       format_type: tab
       format_settings:
         id: ''
@@ -158,7 +161,7 @@ third_party_settings:
       children:
         - se_quote_eva_se_quote_eva
       parent_name: group_bu_tabs
-      weight: 11
+      weight: 12
       format_type: tab
       format_settings:
         id: ''
@@ -171,7 +174,7 @@ third_party_settings:
       children:
         - se_payment_eva_se_payment_eva
       parent_name: group_bu_tabs
-      weight: 13
+      weight: 14
       format_type: tab
       format_settings:
         id: ''
@@ -210,7 +213,7 @@ third_party_settings:
     group_bu_tab_reports:
       children: {  }
       parent_name: group_bu_tabs
-      weight: 14
+      weight: 15
       format_type: tab
       format_settings:
         id: ''
@@ -223,7 +226,7 @@ third_party_settings:
       children:
         - se_bill_eva_se_bill_eva
       parent_name: group_bu_tabs
-      weight: 17
+      weight: 18
       format_type: tab
       region: content
       format_settings:
@@ -236,7 +239,7 @@ third_party_settings:
       children:
         - se_goods_receipt_eva_se_goods_receipt_eva
       parent_name: group_bu_tabs
-      weight: 16
+      weight: 17
       format_type: tab
       region: content
       format_settings:
@@ -265,7 +268,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   extra_field_business_ticket_statistics:
-    weight: 7
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -713,7 +716,12 @@ content:
     type: entity_reference_label
     region: content
   se_contact_eva_se_contact_eva:
-    weight: 10
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_contact_eva_se_contact_eva_form:
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -768,7 +776,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_ticket_eva_se_ticket_eva:
-    weight: 6
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

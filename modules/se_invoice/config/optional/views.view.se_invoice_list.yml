@@ -2,12 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.se_invoice.se_in_total
+    - field.storage.se_invoice.se_status_ref
     - system.menu.stratos-erp
+    - taxonomy.vocabulary.se_status
     - user.role.developer
     - user.role.owner
     - user.role.staff
   module:
+    - se_accounting
+    - se_business
     - se_invoice
+    - taxonomy
     - user
 id: se_invoice_list
 label: 'Invoice list'
@@ -45,7 +51,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -84,16 +90,48 @@ display:
           summary: ''
           description: ''
           columns:
+            id: id
+            created: created
             name: name
+            se_status_ref: se_status_ref
+            se_in_total: se_in_total
           info:
-            name:
-              sortable: false
+            id:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            created:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          default: '-1'
+            name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_status_ref:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_in_total:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: id
           empty_table: false
       row:
         type: fields
@@ -103,6 +141,139 @@ display:
           hide_empty: false
           default_field_elements: true
       fields:
+        id:
+          id: id
+          table: se_invoice_field_data
+          field: id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ID
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: se_invoice
+          entity_field: id
+          plugin_id: field
+        created:
+          id: created
+          table: se_invoice_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Created
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: se_iso_like_format
+            custom_date_format: ''
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: se_invoice
+          entity_field: created
+          plugin_id: field
         name:
           id: name
           table: se_invoice_field_data
@@ -110,7 +281,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: ''
+          label: Name
           exclude: false
           alter:
             alter_text: false
@@ -168,12 +339,242 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
+        se_status_ref:
+          id: se_status_ref
+          table: se_invoice__se_status_ref
+          field: se_status_ref
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Status
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        se_in_total:
+          id: se_in_total
+          table: se_invoice__se_in_total
+          field: se_in_total
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Total
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: se_currency_formatter
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
       filters:
+        id:
+          id: id
+          table: se_invoice_field_data
+          field: id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: id_op
+            label: ID
+            description: ''
+            use_operator: false
+            operator: id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: se_invoice
+          entity_field: id
+          plugin_id: numeric
+        se_status_ref_target_id:
+          id: se_status_ref_target_id
+          table: se_invoice__se_status_ref
+          field: se_status_ref_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: se_status_ref_target_id_op
+            label: Status
+            description: ''
+            use_operator: false
+            operator: se_status_ref_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: status
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: se_status
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
         name:
           id: name
-          table: se_invoice_field_data
+          table: se_business_field_data
           field: name
-          relationship: none
+          relationship: se_bu_ref
           group_type: group
           admin_label: ''
           operator: contains
@@ -182,13 +583,13 @@ display:
           exposed: true
           expose:
             operator_id: name_op
-            label: Name
+            label: Business
             description: ''
             use_operator: false
             operator: name_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: name
+            identifier: business
             required: false
             remember: false
             multiple: false
@@ -196,7 +597,9 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-              business: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
               staff: '0'
               developer: '0'
             placeholder: ''
@@ -212,16 +615,30 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: se_invoice
+          entity_type: se_business
           entity_field: name
           plugin_id: string
       sorts: {  }
       header: {  }
       footer: {  }
       empty: {  }
-      relationships: {  }
+      relationships:
+        se_bu_ref:
+          id: se_bu_ref
+          table: se_invoice__se_bu_ref
+          field: se_bu_ref
+          relationship: none
+          group_type: group
+          admin_label: 'se_bu_ref: Business'
+          required: false
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -229,8 +646,11 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.se_invoice.se_in_total'
+        - 'config:field.storage.se_invoice.se_status_ref'
   se_invoice_list:
     display_plugin: page
     id: se_invoice_list
@@ -255,5 +675,8 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.se_invoice.se_in_total'
+        - 'config:field.storage.se_invoice.se_status_ref'

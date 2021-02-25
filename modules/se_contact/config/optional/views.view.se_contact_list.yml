@@ -2,12 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.se_contact.se_co_email
+    - field.storage.se_contact.se_co_mobile
+    - field.storage.se_contact.se_co_phone
     - system.menu.stratos-erp
     - user.role.developer
     - user.role.owner
     - user.role.staff
   module:
+    - se_business
     - se_contact
+    - telephone
     - user
 id: se_contact_list
 label: 'Contact list'
@@ -45,7 +50,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -84,16 +89,50 @@ display:
           summary: ''
           description: ''
           columns:
+            id: id
+            created: created
             name: name
+            se_co_email: se_co_email
+            se_co_mobile: se_co_mobile
+            se_co_phone: se_co_phone
           info:
+            id:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-medium
+            created:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-low
             name:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          default: '-1'
+            se_co_email:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_co_mobile:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_co_phone:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-medium
+          default: id
           empty_table: false
       row:
         type: fields
@@ -103,6 +142,139 @@ display:
           hide_empty: false
           default_field_elements: true
       fields:
+        id:
+          id: id
+          table: se_contact_field_data
+          field: id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ID
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: se_contact
+          entity_field: id
+          plugin_id: field
+        created:
+          id: created
+          table: se_contact_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Created
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: se_iso_like_format
+            custom_date_format: ''
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: se_contact
+          entity_field: created
+          plugin_id: field
         name:
           id: name
           table: se_contact_field_data
@@ -110,7 +282,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: ''
+          label: Name
           exclude: false
           alter:
             alter_text: false
@@ -168,6 +340,194 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
+        se_co_email:
+          id: se_co_email
+          table: se_contact__se_co_email
+          field: se_co_email
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Email
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: email_mailto
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        se_co_mobile:
+          id: se_co_mobile
+          table: se_contact__se_co_mobile
+          field: se_co_mobile
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Mobile
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: telephone_link
+          settings:
+            title: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        se_co_phone:
+          id: se_co_phone
+          table: se_contact__se_co_phone
+          field: se_co_phone
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Phone
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: telephone_link
+          settings:
+            title: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
       filters:
         name:
           id: name
@@ -196,7 +556,9 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-              business: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
               staff: '0'
               developer: '0'
             placeholder: ''
@@ -215,13 +577,71 @@ display:
           entity_type: se_contact
           entity_field: name
           plugin_id: string
+        name_1:
+          id: name_1
+          table: se_business_field_data
+          field: name
+          relationship: se_bu_ref
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_1_op
+            label: Business
+            description: ''
+            use_operator: false
+            operator: name_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: business
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: se_business
+          entity_field: name
+          plugin_id: string
       sorts: {  }
       header: {  }
       footer: {  }
       empty: {  }
-      relationships: {  }
+      relationships:
+        se_bu_ref:
+          id: se_bu_ref
+          table: se_contact__se_bu_ref
+          field: se_bu_ref
+          relationship: none
+          group_type: group
+          admin_label: 'se_bu_ref: Business'
+          required: false
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -230,7 +650,10 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.se_contact.se_co_email'
+        - 'config:field.storage.se_contact.se_co_mobile'
+        - 'config:field.storage.se_contact.se_co_phone'
   se_contact_list:
     display_plugin: page
     id: se_contact_list
@@ -256,4 +679,7 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.se_contact.se_co_email'
+        - 'config:field.storage.se_contact.se_co_mobile'
+        - 'config:field.storage.se_contact.se_co_phone'
