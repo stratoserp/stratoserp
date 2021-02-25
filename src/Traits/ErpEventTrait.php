@@ -7,6 +7,9 @@ use Drupal\se_invoice\Entity\Invoice;
 
 /**
  * Trait to provide drupal event utilities.
+ *
+ * When saving an invoice of business, there are times when it makes sense
+ * to skip further events.
  */
 trait ErpEventTrait {
 
@@ -30,11 +33,11 @@ trait ErpEventTrait {
    *   Return the current setting.
    */
   public function isSkipInvoiceSaveEvents(Invoice $invoice): bool {
-    return $invoice->skipInvoiceSaveEvents ?: TRUE;
+    return $invoice->skipInvoiceSaveEvents ?: FALSE;
   }
 
   /**
-   * Add a flag to an invoice so that future events are not processed on it.
+   * Add a flag to a business so that future events are not processed on it.
    *
    * @param \Drupal\se_business\Entity\Business $business
    *   The invoice to adjust.
@@ -53,7 +56,7 @@ trait ErpEventTrait {
    *   Return the current setting.
    */
   public function isSkipBusinessXeroEvents(Business $business): bool {
-    return $business->skipBusinessXeroEvents ?: TRUE;
+    return $business->skipBusinessXeroEvents ?: FALSE;
   }
 
 }

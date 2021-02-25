@@ -28,14 +28,14 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
     $datasets = [];
     // @todo Move this to a service and pass in this.
     $type = 'se_purchase_order';
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$type];
+    $bundleFieldType = ErpCore::SE_ITEM_LINE_BUNDLES[$type];
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
 
-    // This is designed to run only for monthly.
+    // This is designed to run only for businesses.
     if ($entity->bundle() !== 'se_business') {
       return [];
     }
@@ -88,7 +88,7 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
       return [];
     }
 
-    $build['business_' . $type . '_statistics'] = [
+    $build['business_' . $bundleFieldType . '_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -102,7 +102,7 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
           'mode' => 'dataset',
         ],
       ],
-      '#id' => 'business_' . $type . '_statistics',
+      '#id' => 'business_' . $bundleFieldType . '_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

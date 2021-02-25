@@ -14,7 +14,6 @@ use Drupal\se_payment\Entity\Payment;
 use Drupal\stratoserp\ErpCore;
 use Drupal\stratoserp\Traits\ErpEventTrait;
 use Drupal\se_payment\Traits\PaymentTrait;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class PaymentSaveEventSubscriber.
@@ -25,7 +24,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package Drupal\se_payment\EventSubscriber
  */
-class PaymentEventSubscriber implements EventSubscriberInterface {
+class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface {
 
   use ErpEventTrait;
   use PaymentTrait;
@@ -42,14 +41,10 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * When a payment is saved, mark all invoices listed as paid.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
-   *   The event we are working with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function paymentInsert(EntityInsertEvent $event): void {
+    /** @var \Drupal\se_payment\Entity\Payment $entity */
     $entity = $event->getEntity();
 
     if ($entity->getEntityTypeId() !== 'se_payment') {
@@ -61,14 +56,10 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Whn a payment is updated, make all invoices as paid.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
-   *   The event we are working with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function paymentUpdate(EntityUpdateEvent $event): void {
+    /** @var \Drupal\se_payment\Entity\Payment $entity */
     $entity = $event->getEntity();
 
     if ($entity->getEntityTypeId() !== 'se_payment') {
@@ -80,17 +71,10 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * When a payment is about to be saved, change existing payment lines.
-   *
-   * This is in case the payment is saved and has had some lines removed.
-   * Without this, those invoices would then still show as paid.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event we are working with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function paymentPresave(EntityPresaveEvent $event): void {
+    /** @var \Drupal\se_payment\Entity\Payment $entity */
     $entity = $event->getEntity();
 
     if ($entity->getEntityTypeId() !== 'se_payment'
@@ -135,12 +119,15 @@ class PaymentEventSubscriber implements EventSubscriberInterface {
       /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
       if (!empty($paymentLine->amount)
       && $invoice = Invoice::load($paymentLine->target_id)) {
-        // Set a dynamic field on the node so that other events dont try and
-        // do things that we will take care of once save things multiple times
-        // for no reason.
+        // Set a dynamic field on the entity so that other events dont try and
+        // do things that we will take care of once the save is complete.
+        // This avoids re-calculating the total outstanding for a customer, for
+        // example.
+        //
         // $event->stopPropagation() didn't appear to work for this.
         //
-        // This event saves the invoice, avoid it in other triggered events.
+        // This event will save the invoice, avoid an invoice save in any other
+        // triggered events.
         $this->setSkipInvoiceSaveEvents($invoice);
 
         // This event updates the total, avoid it in other triggered events.

@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_purchase_order.se_su_ref
+  module:
+    - se_purchase_order
+id: se_purchase_order.se_purchase_order.se_su_ref
+field_name: se_su_ref
+entity_type: se_purchase_order
+bundle: se_purchase_order
+label: Supplier
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:se_business'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

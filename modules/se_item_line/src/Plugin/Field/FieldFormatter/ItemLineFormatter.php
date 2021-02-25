@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\Plugin\Field\FieldFormatter;
 
+use Drupal\comment\Entity\Comment;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -78,11 +79,13 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       unset($item);
       switch ($entity->bundle()) {
         case 'se_timekeeping':
-          $item = $entity->se_tk_item->entity->se_it_code->value;
-          if ($commented_entity = $entity->getCommentedEntity()) {
+          $item = $items[$delta]->target_id;
+          if ($commented_entity = Comment::load($item)) {
             $cache_tags = Cache::mergeTags($cache_tags, $commented_entity->getCacheTags());
           }
-          $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
+          else {
+            $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
+          }
           break;
 
         case 'se_service':

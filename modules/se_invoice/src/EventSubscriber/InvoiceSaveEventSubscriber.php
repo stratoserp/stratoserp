@@ -18,7 +18,7 @@ use Drupal\stratoserp\Traits\ErpEventTrait;
  * When an invoice is saved, adjust the business
  * balance by the amount of the invoice.
  *
- * @see \Drupal\se_payment\EventSubscriber\PaymentEventSubscriber
+ * @see \Drupal\se_payment\EventSubscriber\PaymentSaveEventSubscriber
  *
  * @package Drupal\se_invoice\EventSubscriber
  */

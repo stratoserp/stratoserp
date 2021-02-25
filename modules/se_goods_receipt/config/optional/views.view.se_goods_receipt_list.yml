@@ -3,18 +3,15 @@ status: true
 dependencies:
   config:
     - field.storage.se_goods_receipt.se_gr_purchase_order_ref
-    - field.storage.se_goods_receipt.se_status_ref
+    - field.storage.se_goods_receipt.se_gr_total
     - system.menu.stratos-erp
-    - taxonomy.vocabulary.se_status
     - user.role.developer
     - user.role.owner
     - user.role.staff
-  content:
-    - 'taxonomy_term:se_status:b07c9a78-46ac-4bed-a7b3-8d709095a40a'
   module:
+    - se_accounting
     - se_business
     - se_goods_receipt
-    - taxonomy
     - user
 id: se_goods_receipt_list
 label: 'Goods receipts'
@@ -340,14 +337,14 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
-        se_status_ref:
-          id: se_status_ref
-          table: se_goods_receipt__se_status_ref
-          field: se_status_ref
+        se_gr_purchase_order_ref:
+          id: se_gr_purchase_order_ref
+          table: se_goods_receipt__se_gr_purchase_order_ref
+          field: se_gr_purchase_order_ref
           relationship: none
           group_type: group
           admin_label: ''
-          label: Status
+          label: 'Purchase order'
           exclude: false
           alter:
             alter_text: false
@@ -403,14 +400,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        se_gr_purchase_order_ref:
-          id: se_gr_purchase_order_ref
-          table: se_goods_receipt__se_gr_purchase_order_ref
-          field: se_gr_purchase_order_ref
+        se_gr_total:
+          id: se_gr_total
+          table: se_goods_receipt__se_gr_total
+          field: se_gr_total
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Purchase order'
+          label: Total
           exclude: false
           alter:
             alter_text: false
@@ -451,11 +448,10 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
+          click_sort_column: value
+          type: se_currency_formatter
+          settings: {  }
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -568,59 +564,6 @@ display:
           entity_type: se_business
           entity_field: name
           plugin_id: string
-        se_status_ref_target_id:
-          id: se_status_ref_target_id
-          table: se_goods_receipt__se_status_ref
-          field: se_status_ref_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value:
-            3: 3
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_status_ref_target_id_op
-            label: Status
-            description: ''
-            use_operator: false
-            operator: se_status_ref_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: status
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              owner: '0'
-              staff: '0'
-              developer: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: se_status
-          hierarchy: false
-          error_message: true
-          plugin_id: taxonomy_index_tid
       sorts: {  }
       header: {  }
       footer: {  }
@@ -648,11 +591,10 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - user.roles
       tags:
         - 'config:field.storage.se_goods_receipt.se_gr_purchase_order_ref'
-        - 'config:field.storage.se_goods_receipt.se_status_ref'
+        - 'config:field.storage.se_goods_receipt.se_gr_total'
   se_goods_receipt_list:
     display_plugin: page
     id: se_goods_receipt_list
@@ -677,8 +619,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - user.roles
       tags:
         - 'config:field.storage.se_goods_receipt.se_gr_purchase_order_ref'
-        - 'config:field.storage.se_goods_receipt.se_status_ref'
+        - 'config:field.storage.se_goods_receipt.se_gr_total'

@@ -58,6 +58,7 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
     ];
 
     // Provide list of payment options.
+    // @todo This needs to be changed.
     $config = \Drupal::service('config.factory')->get('se_payment.settings');
     $vocabulary = $config->get('vocabulary');
     $term_options = [];

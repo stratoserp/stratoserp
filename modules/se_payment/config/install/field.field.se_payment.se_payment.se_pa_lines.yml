@@ -17,6 +17,6 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_payment'
+  handler: 'default:se_invoice'
   handler_settings: {  }
 field_type: se_payment_line

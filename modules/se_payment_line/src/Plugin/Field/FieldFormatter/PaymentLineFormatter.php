@@ -6,10 +6,11 @@ namespace Drupal\se_payment_line\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceLabelFormatter;
+use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceEntityFormatter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Plugin implementation of the 'dynamic entity reference label' formatter.
@@ -23,26 +24,26 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
  *   }
  * )
  */
-class PaymentLineFormatter extends EntityReferenceLabelFormatter {
+class PaymentLineFormatter extends EntityReferenceEntityFormatter {
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings(): array {
+  public static function defaultSettings() {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state): array {
+  public function settingsForm(array $form, FormStateInterface $form_state) {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary(): array {
+  public function settingsSummary() {
     return [];
   }
 
@@ -51,7 +52,7 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
    *
    * Re-implementation of viewElements from EntityReferenceLabelFormatter.
    */
-  public function viewElements(FieldItemListInterface $items, $langcode): array {
+  public function viewElements(FieldItemListInterface $items, $langcode) {
     $row = [];
     $rows = [];
 
@@ -60,6 +61,7 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
       t('Invoice'),
       t('Amount'),
       t('Payment date'),
+      t('Payment type'),
     ];
 
     /**
@@ -74,10 +76,11 @@ class PaymentLineFormatter extends EntityReferenceLabelFormatter {
       $displayDate = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
 
       $row = [
-        Link::fromTextAndUrl($entity->se_in_id->value, $uri),
-        Link::fromTextAndUrl($entity->title->value, $uri),
+        Link::fromTextAndUrl($entity->id(), $entity->toUrl()),
+        Link::fromTextAndUrl($entity->getName(), $uri),
         \Drupal::service('se_accounting.currency_format')->formatDisplay((int) ($items[$delta]->amount ?? 0)),
         $displayDate,
+        Term::load($items[$delta]->payment_type)->label(),
       ];
 
       $rows[] = $row;

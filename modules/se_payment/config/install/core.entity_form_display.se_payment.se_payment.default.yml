@@ -5,7 +5,6 @@ dependencies:
     - field.field.se_payment.se_payment.se_bu_ref
     - field.field.se_payment.se_payment.se_pa_lines
     - field.field.se_payment.se_payment.se_pa_total
-    - field.field.se_payment.se_payment.se_pa_type_ref
   module:
     - field_group
     - field_layout
@@ -81,16 +80,6 @@ content:
     third_party_settings: {  }
     type: se_currency_widget
     region: bottom
-  se_pa_type_ref:
-    weight: 2
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   user_id:
     type: entity_reference_autocomplete
     weight: 6
