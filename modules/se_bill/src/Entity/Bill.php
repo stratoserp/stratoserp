@@ -220,10 +220,7 @@ class Bill extends RevisionableContentEntityBase implements BillInterface {
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Bill entity.'))
       ->setRevisionable(TRUE)
-      ->setSettings([
-        'max_length' => 50,
-        'text_processing' => 0,
-      ])
+      ->setSetting('max_length', 128)
       ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'above',

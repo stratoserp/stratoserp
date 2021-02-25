@@ -220,10 +220,7 @@ class Payment extends RevisionableContentEntityBase implements PaymentInterface 
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Payment entity.'))
       ->setRevisionable(TRUE)
-      ->setSettings([
-        'max_length' => 50,
-        'text_processing' => 0,
-      ])
+      ->setSetting('max_length', 128)
       ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'above',

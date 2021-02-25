@@ -220,10 +220,7 @@ class Invoice extends RevisionableContentEntityBase implements InvoiceInterface 
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Invoice entity.'))
       ->setRevisionable(TRUE)
-      ->setSettings([
-        'max_length' => 50,
-        'text_processing' => 0,
-      ])
+      ->setSetting('max_length', 128)
       ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'above',

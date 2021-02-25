@@ -227,10 +227,7 @@ class Item extends RevisionableContentEntityBase implements ItemInterface {
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Item entity.'))
       ->setRevisionable(TRUE)
-      ->setSettings([
-        'max_length' => 128,
-        'text_processing' => 0,
-      ])
+      ->setSetting('max_length', 128)
       ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'above',
