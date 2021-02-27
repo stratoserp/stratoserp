@@ -6,11 +6,15 @@ dependencies:
     - field.storage.se_invoice.se_in_total
     - field.storage.se_invoice.se_status_ref
     - taxonomy.vocabulary.se_status
+    - user.role.developer
+    - user.role.owner
+    - user.role.staff
   module:
     - eva
     - se_accounting
     - se_invoice
     - taxonomy
+    - user
 id: se_invoice_eva
 label: Invoices
 module: views
@@ -26,8 +30,12 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            owner: owner
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -627,7 +635,20 @@ display:
       sorts: {  }
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No invoices'
+            format: basic_html
+          plugin_id: text
       relationships: {  }
       arguments:
         se_bu_ref_target_id:
@@ -669,6 +690,7 @@ display:
       filter_groups:
         operator: AND
         groups: {  }
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -677,6 +699,7 @@ display:
         - url
         - url.query_args
         - user
+        - user.roles
       tags:
         - 'config:field.storage.se_invoice.se_in_outstanding'
         - 'config:field.storage.se_invoice.se_in_total'
@@ -684,7 +707,7 @@ display:
   se_invoice_eva:
     display_plugin: entity_view
     id: se_invoice_eva
-    display_title: Invoices
+    display_title: 'Invoices EVA'
     position: 2
     display_options:
       display_extenders: {  }
@@ -700,6 +723,7 @@ display:
         - url
         - url.query_args
         - user
+        - user.roles
       tags:
         - 'config:field.storage.se_invoice.se_in_outstanding'
         - 'config:field.storage.se_invoice.se_in_total'

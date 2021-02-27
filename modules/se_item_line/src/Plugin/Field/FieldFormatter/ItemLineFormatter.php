@@ -82,6 +82,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
           $item = $items[$delta]->target_id;
           if ($commented_entity = Comment::load($item)) {
             $cache_tags = Cache::mergeTags($cache_tags, $commented_entity->getCacheTags());
+            $item = $commented_entity->se_tk_item->entity->se_it_code->value;
           }
           else {
             $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());

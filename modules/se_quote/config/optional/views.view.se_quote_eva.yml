@@ -4,10 +4,14 @@ dependencies:
   config:
     - field.storage.se_quote.se_qu_total
     - field.storage.se_quote.se_status_ref
+    - user.role.developer
+    - user.role.owner
+    - user.role.staff
   module:
     - eva
     - se_accounting
     - se_quote
+    - user
 id: se_quote_eva
 label: Quotes
 module: views
@@ -23,8 +27,12 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            owner: owner
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -457,7 +465,20 @@ display:
       sorts: {  }
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No quotes'
+            format: basic_html
+          plugin_id: text
       relationships: {  }
       arguments:
         se_bu_ref_target_id:
@@ -499,6 +520,7 @@ display:
       filter_groups:
         operator: AND
         groups: {  }
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -506,13 +528,14 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.se_quote.se_qu_total'
         - 'config:field.storage.se_quote.se_status_ref'
   se_quote_eva:
     display_plugin: entity_view
     id: se_quote_eva
-    display_title: Quotes
+    display_title: 'Quotes EVA'
     position: 2
     display_options:
       display_extenders: {  }
@@ -527,6 +550,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.se_quote.se_qu_total'
         - 'config:field.storage.se_quote.se_status_ref'

@@ -5,10 +5,14 @@ dependencies:
     - field.storage.se_contact.se_co_email
     - field.storage.se_contact.se_co_mobile
     - field.storage.se_contact.se_co_phone
+    - user.role.developer
+    - user.role.owner
+    - user.role.staff
   module:
     - eva
     - se_contact
     - telephone
+    - user
 id: se_contact_eva
 label: Contacts
 module: views
@@ -24,8 +28,12 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            owner: owner
+            staff: staff
+            developer: developer
       cache:
         type: tag
         options: {  }
@@ -422,7 +430,20 @@ display:
       sorts: {  }
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No contacts'
+            format: basic_html
+          plugin_id: text
       relationships: {  }
       arguments:
         se_bu_ref_target_id:
@@ -464,6 +485,7 @@ display:
       filter_groups:
         operator: AND
         groups: {  }
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -471,6 +493,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.se_contact.se_co_email'
         - 'config:field.storage.se_contact.se_co_mobile'
@@ -478,7 +501,7 @@ display:
   se_contact_eva:
     display_plugin: entity_view
     id: se_contact_eva
-    display_title: 'Business contacts EVA'
+    display_title: 'Contacts EVA'
     position: 2
     display_options:
       display_extenders: {  }
@@ -493,6 +516,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.se_contact.se_co_email'
         - 'config:field.storage.se_contact.se_co_mobile'

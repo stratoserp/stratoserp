@@ -13,7 +13,7 @@ dependencies:
     - user.role.owner
     - user.role.staff
   content:
-    - 'taxonomy_term:se_business_type:ddff7fda-b34f-4d1e-84ba-891d2523e078'
+    - 'taxonomy_term:se_business_type:4a0343bc-e49d-4ec6-96c0-bc0754f833a3'
   module:
     - link
     - se_accounting

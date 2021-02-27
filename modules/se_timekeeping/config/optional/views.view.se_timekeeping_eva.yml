@@ -785,7 +785,7 @@ display:
   se_timekeeping_eva:
     display_plugin: entity_view
     id: se_timekeeping_eva
-    display_title: EVA
+    display_title: 'Timekeeping EVA'
     position: 1
     display_options:
       display_extenders: {  }
@@ -796,6 +796,7 @@ display:
         title: true
       argument_mode: id
       default_argument: null
+      display_description: ''
     cache_metadata:
       max-age: -1
       contexts:

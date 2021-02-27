@@ -443,7 +443,20 @@ display:
       sorts: {  }
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No tickets'
+            format: basic_html
+          plugin_id: text
       relationships: {  }
       arguments:
         se_bu_ref_target_id:
@@ -496,13 +509,14 @@ display:
   se_ticket_eva:
     display_plugin: entity_view
     id: se_ticket_eva
-    display_title: EVA
+    display_title: 'Tickets EVA'
     position: 1
     display_options:
       display_extenders: {  }
       entity_type: se_business
       bundles:
         - se_business
+      display_description: ''
     cache_metadata:
       max-age: -1
       contexts:
