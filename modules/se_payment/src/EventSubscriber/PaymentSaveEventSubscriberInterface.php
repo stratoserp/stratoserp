@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment\EventSubscriber;
 
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -52,5 +53,17 @@ interface PaymentSaveEventSubscriberInterface extends EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function paymentPresave(EntityPresaveEvent $event);
+
+  /**
+   * When a payment is about to be deleted, change existing payment lines.
+   *
+   * Without this, those invoices would then still show as paid.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
+   *   The event we are working with.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function paymentDelete(EntityDeleteEvent $event);
 
 }

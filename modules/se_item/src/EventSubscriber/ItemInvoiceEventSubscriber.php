@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_item\EventSubscriber;
 
 use Drupal\Component\Datetime\DateTimePlus;
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -30,6 +31,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
       HookEventDispatcherInterface::ENTITY_INSERT => 'itemInvoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'itemInvoiceUpdate',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemInvoicePresave',
+      HookEventDispatcherInterface::ENTITY_DELETE => 'itemInvoiceDelete',
     ];
   }
 
@@ -61,6 +63,18 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
    * {@inheritdoc}
    */
   public function itemInvoicePresave(EntityPresaveEvent $event): void {
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
+
+    if ($entity->getEntityTypeId() === 'se_invoice') {
+      $this->markItemsAvailable($entity);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function itemInvoiceDelete(EntityDeleteEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
 

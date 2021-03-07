@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_invoice\EventSubscriber;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -34,6 +35,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceAdjust',
+      HookEventDispatcherInterface::ENTITY_DELETE => 'invoiceDelete',
     ];
   }
 
@@ -76,6 +78,25 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
    * {@inheritdoc}
    */
   public function invoiceAdjust(EntityPresaveEvent $event): void {
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
+    if ($entity->getEntityTypeId() !== 'se_invoice'
+      || $entity->isNew()) {
+      return;
+    }
+
+    if ($this->isSkipInvoiceSaveEvents($entity)) {
+      return;
+    }
+
+    // Is this the right way?
+    $this->reduceBusinessBalance($entity);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function invoiceDelete(EntityDeleteEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() !== 'se_invoice'

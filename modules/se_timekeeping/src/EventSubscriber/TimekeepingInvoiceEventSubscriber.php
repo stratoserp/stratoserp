@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_timekeeping\EventSubscriber;
 
 use Drupal\comment\Entity\Comment;
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -29,6 +30,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
       HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInvoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
+      HookEventDispatcherInterface::ENTITY_DELETE => 'timekeepingInvoiceDelete',
     ];
   }
 
@@ -60,6 +62,18 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * {@inheritdoc}
    */
   public function timekeepingInvoicePresave(EntityPresaveEvent $event): void {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+
+    if ($invoice->getEntityTypeId() === 'se_invoice') {
+      $this->timekeepingMarkItemsUnBilled($invoice);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function timekeepingInvoiceDelete(EntityDeleteEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
 

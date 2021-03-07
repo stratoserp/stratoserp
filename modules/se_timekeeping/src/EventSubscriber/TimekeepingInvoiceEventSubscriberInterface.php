@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_timekeeping\EventSubscriber;
 
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -52,5 +53,18 @@ interface TimekeepingInvoiceEventSubscriberInterface extends EventSubscriberInte
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function timekeepingInvoicePresave(EntityPresaveEvent $event);
+
+  /**
+   * Mark timekeeping entries as unbilled before saving.
+   *
+   * This needs to be done when an invoice is deleted so they
+   * will need to be available to be billed again.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
+   *   The Event to handle.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function timekeepingInvoiceDelete(EntityDeleteEvent $event);
 
 }

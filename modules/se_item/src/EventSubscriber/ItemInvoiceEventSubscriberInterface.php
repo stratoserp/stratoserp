@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_item\EventSubscriber;
 
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -17,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 interface ItemInvoiceEventSubscriberInterface extends EventSubscriberInterface {
 
   /**
-   * When an invoice is inserted, mark all items as sold.
+   * When an invoice is inserted, mark all stock items as sold.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
@@ -27,7 +28,7 @@ interface ItemInvoiceEventSubscriberInterface extends EventSubscriberInterface {
   public function itemInvoiceInsert(EntityInsertEvent $event);
 
   /**
-   * When an invoice is inserted, mark all items as sold.
+   * When an invoice is inserted, mark all stock items as sold.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
@@ -37,7 +38,7 @@ interface ItemInvoiceEventSubscriberInterface extends EventSubscriberInterface {
   public function itemInvoiceUpdate(EntityUpdateEvent $event);
 
   /**
-   * When an invoice is inserted, mark all items as back in stock.
+   * When an invoice is inserted, mark all stock items as back in stock.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
@@ -45,5 +46,15 @@ interface ItemInvoiceEventSubscriberInterface extends EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function itemInvoicePresave(EntityPresaveEvent $event);
+
+  /**
+   * When an invoice is inserted, mark all stock items as back in stock.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
+   *   The event we are working with.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function itemInvoiceDelete(EntityDeleteEvent $event);
 
 }

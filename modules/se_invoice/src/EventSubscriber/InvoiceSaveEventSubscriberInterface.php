@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\se_invoice\EventSubscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Our extensions to the event subscriber for Invoice saving.
@@ -35,12 +36,22 @@ interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
   /**
    * Reduce the business balance by the amount of the old invoice.
    *
-   * This need to be done in case the amount changes on the saving
+   * This needs to be done in case the amount changes on the saving
    * of this invoice.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
    */
   public function invoiceAdjust(EntityPresaveEvent $event);
+
+  /**
+   * Reduce the business balance by the amount of the invoice.
+   *
+   * This needs to be done or the amount owed by the business will be wrong.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
+   *   The event we are working with.
+   */
+  public function invoiceDelete(EntityDeleteEvent $event);
 
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_payment\EventSubscriber;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -37,6 +38,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
       HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentPresave',
+      HookEventDispatcherInterface::ENTITY_DELETE => 'paymentDelete',
     ];
   }
 
@@ -74,6 +76,22 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    * {@inheritdoc}
    */
   public function paymentPresave(EntityPresaveEvent $event): void {
+    /** @var \Drupal\se_payment\Entity\Payment $entity */
+    $entity = $event->getEntity();
+
+    if ($entity->getEntityTypeId() !== 'se_payment'
+      || $entity->isNew()) {
+      return;
+    }
+
+    $amount = $this->updateInvoices($entity, FALSE);
+    $this->updateBusinessBalance($entity, $amount);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function paymentDelete(EntityDeleteEvent $event): void {
     /** @var \Drupal\se_payment\Entity\Payment $entity */
     $entity = $event->getEntity();
 

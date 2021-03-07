@@ -26,6 +26,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
       HookEventDispatcherInterface::ENTITY_INSERT => 'goodsReceiptItemsInsert',
+      // HookEventDispatcherInterface::ENTITY_DELETE => '', // @todo delete.
     ];
   }
 
