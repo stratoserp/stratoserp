@@ -89,6 +89,7 @@ display:
           summary: ''
           description: ''
           columns:
+            id: id
             created: created
             se_it_code: se_it_code
             name: name
@@ -97,6 +98,13 @@ display:
             se_it_sell_price: se_it_sell_price
             se_it_serial: se_it_serial
           info:
+            id:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             created:
               sortable: true
               default_sort_order: desc
@@ -146,7 +154,7 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-medium
-          default: created
+          default: id
           empty_table: false
       row:
         type: fields
@@ -874,7 +882,7 @@ display:
   se_item_list:
     display_plugin: page
     id: se_item_list
-    display_title: Page
+    display_title: 'Item list'
     position: 1
     display_options:
       display_extenders: {  }
@@ -888,6 +896,7 @@ display:
         weight: 0
         context: '0'
         menu_name: stratos-erp
+      display_description: ''
     cache_metadata:
       max-age: -1
       contexts:

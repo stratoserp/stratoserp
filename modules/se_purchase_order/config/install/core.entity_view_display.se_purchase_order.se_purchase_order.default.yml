@@ -102,7 +102,7 @@ content:
     region: second
   se_su_ref:
     weight: 10
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }

@@ -13,7 +13,7 @@ dependencies:
     - user.role.owner
     - user.role.staff
   content:
-    - 'taxonomy_term:se_business_type:4a0343bc-e49d-4ec6-96c0-bc0754f833a3'
+    - 'taxonomy_term:se_business_type:e5da9c1f-c775-45ed-bd57-387e661cc8c7'
   module:
     - link
     - se_accounting
@@ -160,7 +160,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: ''
+          label: Name
           exclude: false
           alter:
             alter_text: false
