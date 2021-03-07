@@ -57,7 +57,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['target_id']['#weight'] = 6;
     $build['target_id']['#ajax'] = [
       'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
-      'event' => 'autocompleteclose change',
+      'event' => 'autocompleteclose change onclick',
       'progress' => FALSE,
     ];
 

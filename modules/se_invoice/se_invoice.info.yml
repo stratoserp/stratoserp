@@ -10,6 +10,8 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
+  - se_item:se_item
+  - se_stock:se_stock
   - se_item_line:se_item_line
   - se_service:se_service
   - stratoserp:stratoserp
@@ -27,7 +29,6 @@ config_devel:
     - field.field.se_invoice.se_invoice.se_in_quote_ref
     - field.field.se_invoice.se_invoice.se_in_sent
     - field.field.se_invoice.se_invoice.se_in_total
-    - field.field.se_invoice.se_invoice.se_in_transaction_type
     - field.field.se_invoice.se_invoice.se_status_ref
     - field.storage.se_invoice.se_bu_ref
     - field.storage.se_invoice.se_co_ref
@@ -37,7 +38,6 @@ config_devel:
     - field.storage.se_invoice.se_in_quote_ref
     - field.storage.se_invoice.se_in_sent
     - field.storage.se_invoice.se_in_total
-    - field.storage.se_invoice.se_in_transaction_type
     - field.storage.se_invoice.se_status_ref
   optional:
     - views.view.se_invoice_eva

@@ -10,6 +10,7 @@ dependencies:
   - drupal:views
   - stratoserp:stratoserp
   - se_invoice:se_invoice
+  - se_ticket:se_ticket
 
 config_devel:
   install:
