@@ -7,11 +7,15 @@ namespace Drupal\se_invoice\Service;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\se_business\Entity\Business;
+use Drupal\se_invoice\Entity\Invoice;
+use Drupal\se_payment\Traits\PaymentTrait;
 
 /**
  * Service for various invoice related functions.
  */
 class InvoiceService {
+
+  use PaymentTrait;
 
   /**
    * The config factory.
@@ -41,7 +45,7 @@ class InvoiceService {
   }
 
   /**
-   * Retrieve the outstnading invoices for a business.
+   * Retrieve the outstanding invoices for a business.
    *
    * @param \Drupal\se_business\Entity\Business $business
    *   The Business node.
@@ -52,28 +56,38 @@ class InvoiceService {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getOutstandingInvoices(Business $business) {
-    /** @var \Drupal\taxonomy\Entity\Term $open_term */
-    $open_term = $this->getOpenTerm();
+  public function getOutstandingInvoices(Business $business): array {
     $query = \Drupal::entityQuery('se_invoice');
     $query->condition('se_bu_ref', $business->id());
-    $query->condition('se_status_ref', $open_term->id());
-    $entity_ids = $query->execute();
+    $query->condition('se_status_ref', $this->getOpenTerm()->id());
+    $entityIds = $query->execute();
 
     return \Drupal::entityTypeManager()
       ->getStorage('se_invoice')
-      ->loadMultiple($entity_ids);
+      ->loadMultiple($entityIds);
   }
 
   /**
-   * Retrieve the term user for paid status.
+   * Check if an invoice should be marked as paid.
    *
-   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\taxonomy\Entity\Term|null
-   *   The term for paid status.
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   The Invoice node.
+   * @param string $payment
+   *   The payment amount.
    */
-  public function getPaidTerm() {
-    $term = taxonomy_term_load_multiple_by_name('closed', 'se_status');
-    return reset($term);
+  public function checkCloseInvoice(Invoice $invoice, $payment = NULL): Invoice {
+    if ($payment === $invoice->se_in_total->value
+      || $payment === $invoice->se_in_outstanding->value
+      || $invoice->se_in_outstanding->value === 0) {
+      $invoice->set('se_status_ref', $this->getClosedTerm());
+    }
+    else {
+      $invoice->set('se_status_ref', $this->getOpenTerm());
+    }
+
+    $invoice->se_in_outstanding->value = $this->getInvoiceBalance($invoice);
+
+    return $invoice;
   }
 
   /**
@@ -83,7 +97,18 @@ class InvoiceService {
    *   The term for open status.
    */
   public function getOpenTerm() {
-    $term = taxonomy_term_load_multiple_by_name('open', 'se_status');
+    $term = \Drupal::configFactory()->get('se_invoice.settings')->get('open_term');
+    return reset($term);
+  }
+
+  /**
+   * Retrieve the term user for paid status.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\taxonomy\Entity\Term|null
+   *   The term for paid status.
+   */
+  public function getClosedTerm() {
+    $term = \Drupal::configFactory()->get('se_invoice.settings')->get('closed_term');
     return reset($term);
   }
 

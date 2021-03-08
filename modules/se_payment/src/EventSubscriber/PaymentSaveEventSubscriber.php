@@ -121,14 +121,6 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function updateInvoices(Payment $payment, bool $paid = TRUE): int {
-    // @todo Make configurable?
-    if ($paid) {
-      $term = \Drupal::service('se_invoice.service')->getPaidTerm();
-    }
-    else {
-      $term = \Drupal::service('se_invoice.service')->getOpenTerm();
-    }
-
     $bundleFieldType = 'se_' . ErpCore::SE_PAYMENT_LINE_BUNDLES[$payment->bundle()];
 
     $amount = 0;
@@ -152,16 +144,9 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
         $business = \Drupal::service('se_business.service')->lookupBusiness($invoice);
         $this->setSkipBusinessXeroEvents($business);
 
-        // @todo Make a service for this?
-        if ($paymentLine->amount === $invoice->se_in_total->value
-        || $paymentLine->amount === $invoice->se_in_outstanding->value) {
-          $invoice->set('se_status_ref', $term);
-        }
-        else {
-          // Update the outstanding amount if required.
-          $invoice->se_in_outstanding->value =
-            $this->getInvoiceBalance($invoice);
-        }
+        $invoice = \Drupal::service('se_invoice.service')->checkCloseInvoice($invoice, $paymentLine->amount);
+
+        $invoice->se_in_outstanding->value = $this->getInvoiceBalance($invoice);
 
         $invoice->save();
         $amount += $paymentLine->amount;

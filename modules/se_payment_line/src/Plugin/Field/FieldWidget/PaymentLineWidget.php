@@ -90,24 +90,19 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
    * @todo There should be a way to do this in PaymentLineType setValue().
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    $new_values = parent::massageFormValues($values, $form, $form_state);
 
-    if ($form['#form_id'] !== 'node_se_payment_edit_form'
-      && $form['#form_id'] !== 'node_se_payment_form') {
-      return $new_values;
-    }
-
-    foreach ($new_values as $index => $line) {
+    foreach ($values as $index => $line) {
       $date = $line['payment_date'];
       $storage_date = '';
       if (!empty($date)) {
-        $storage_date = \Drupal::service('date.formatter')->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
+        $storage_date = \Drupal::service('date.formatter')
+          ->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
       }
-      $new_values[$index]['payment_date'] = $storage_date;
-      $new_values[$index]['amount'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['amount']);
+      $values[$index]['payment_date'] = $storage_date;
+      $values[$index]['amount'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['amount']);
     }
 
-    return $new_values;
+    return $values;
   }
 
 }

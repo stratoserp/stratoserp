@@ -57,6 +57,7 @@ class ContactSettingsForm extends FormBase {
     && ($values['main_contact_term'] !== $config->get('main_contact_term'))) {
       if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($values['main_contact_term'])) {
         $this->messenger()->addError('Invalid term for contact, unable to update.');
+        return;
       }
 
       $config->set('main_contact_term', $values['main_contact_term']);
@@ -78,7 +79,7 @@ class ContactSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['contact_settings']['#markup'] = 'Settings form for Contact entities. Manage field settings here.';
+    $form['contact_settings']['#markup'] = 'Default settings form for Contact entities. Manage field settings here.';
 
     $config = $this->config('se_contact.settings');
     $termOptions = [];

@@ -38,4 +38,15 @@ function se_ticket_install() {
     'Open',
   ]);
 
+  $priority_term = stratoserp_set_term_field_config('Normal', 'se_ticket_priority', 'se_ticket.se_ticket.se_ti_priority_ref');
+  $ticket_type_term = stratoserp_set_term_field_config('Onsite', 'se_ticket_type', 'se_ticket.se_ticket.se_ti_type_ref');
+  $ticket_status_term = stratoserp_set_term_field_config('Open', 'se_ticket_status', 'se_ticket.se_ticket.se_ti_status_ref');
+
+  // Also set the term defaults in config.
+  $config = \Drupal::configFactory()->getEditable('se_ticket.settings');
+  $config->set('se_ticket_priority', $priority_term->id());
+  $config->set('se_ticket_type', $ticket_type_term->id());
+  $config->set('se_ticket_status', $ticket_status_term->id());
+  $config->save();
+
 }

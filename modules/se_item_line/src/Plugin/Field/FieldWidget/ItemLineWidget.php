@@ -30,8 +30,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $build = parent::formElement($items, $delta, $element, $form, $form_state);
 
-    $host_entity = $items->getEntity();
-    $host_type = $host_entity->bundle();
+    $host_type = $items->getEntity()->bundle();
 
     // Put a new quantity field first.
     $build['quantity'] = [
@@ -149,15 +148,13 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
    * @todo There should be a way to do this in ItemLineType setValue().
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    $new_values = parent::massageFormValues($values, $form, $form_state);
-
     $host_type = $form_state->getFormObject()->getEntity()->bundle();
 
     if (!array_key_exists($host_type, ErpCore::SE_ITEM_LINE_BUNDLES)) {
-      return $new_values;
+      return $values;
     }
 
-    foreach ($new_values as $index => $line) {
+    foreach ($values as $index => $line) {
 
       // Only invoices have a completed date.
       if ($host_type === 'se_invoice') {
@@ -167,15 +164,15 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
           $storage_date = \Drupal::service('date.formatter')
             ->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
         }
-        $new_values[$index]['completed_date'] = $storage_date;
+        $values[$index]['completed_date'] = $storage_date;
       }
 
-      $new_values[$index]['note'] = $line['note']['value'];
-      $new_values[$index]['format'] = $line['note']['format'];
-      $new_values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
+      $values[$index]['note'] = $line['note']['value'];
+      $values[$index]['format'] = $line['note']['format'];
+      $values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
     }
 
-    return $new_values;
+    return $values;
   }
 
 }

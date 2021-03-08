@@ -43,92 +43,101 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
    * {@inheritdoc}
    */
   public function invoiceInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_invoice') {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+
+    if ($invoice->getEntityTypeId() !== 'se_invoice') {
       return;
     }
 
-    if ($this->isSkipInvoiceSaveEvents($entity)) {
+    // This is set by payments as they re-save the invoice.
+    if ($this->isSkipInvoiceSaveEvents($invoice)) {
       return;
     }
 
-    $this->increaseBusinessBalance($entity);
+    $invoice = \Drupal::service('se_invoice.service')->checkCloseInvoice($invoice);
+
+    $this->increaseBusinessBalance($invoice);
   }
 
   /**
    * {@inheritdoc}
    */
   public function invoiceUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'se_invoice') {
+    if ($invoice->getEntityTypeId() !== 'se_invoice') {
       return;
     }
 
-    if ($this->isSkipInvoiceSaveEvents($entity)) {
+    // This is set by payments as they re-save the invoice.
+    if ($this->isSkipInvoiceSaveEvents($invoice)) {
       return;
     }
 
-    $this->increaseBusinessBalance($entity);
+    $invoice = \Drupal::service('se_invoice.service')->checkCloseInvoice($invoice);
+
+    $this->increaseBusinessBalance($invoice);
   }
 
   /**
    * {@inheritdoc}
    */
   public function invoiceAdjust(EntityPresaveEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_invoice'
-      || $entity->isNew()) {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+
+    if ($invoice->getEntityTypeId() !== 'se_invoice' || $invoice->isNew()) {
       return;
     }
 
-    if ($this->isSkipInvoiceSaveEvents($entity)) {
+    // This is set by payments as they re-save the invoice.
+    if ($this->isSkipInvoiceSaveEvents($invoice)) {
       return;
     }
 
-    // Is this the right way?
-    $this->reduceBusinessBalance($entity);
+    $invoice = \Drupal::service('se_invoice.service')->checkCloseInvoice($invoice);
+
+    $this->reduceBusinessBalance($invoice);
   }
 
   /**
    * {@inheritdoc}
    */
   public function invoiceDelete(EntityDeleteEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_invoice'
-      || $entity->isNew()) {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+    if ($invoice->getEntityTypeId() !== 'se_invoice'
+      || $invoice->isNew()) {
       return;
     }
 
-    if ($this->isSkipInvoiceSaveEvents($entity)) {
+    // This is set by payments as they re-save the invoice.
+    if ($this->isSkipInvoiceSaveEvents($invoice)) {
       return;
     }
 
-    // Is this the right way?
-    $this->reduceBusinessBalance($entity);
+    $this->reduceBusinessBalance($invoice);
   }
 
   /**
    * On invoicing, increase the business balance.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\Core\Entity\EntityInterface $invoice
    *   The event we are working with.
    *
    * @return void|int
    *   The new balance is returned.
    */
-  private function increaseBusinessBalance(EntityInterface $entity): int {
-    if (!$business = \Drupal::service('se_business.service')->lookupBusiness($entity)) {
-      \Drupal::logger('se_business_invoice_save')->error('No business set for %entity', ['%entity' => $entity->id()]);
+  private function increaseBusinessBalance(EntityInterface $invoice): int {
+    if (!$business = \Drupal::service('se_business.service')->lookupBusiness($invoice)) {
+      \Drupal::logger('se_business_invoice_save')->error('No business set for %entity', ['%entity' => $invoice->id()]);
       return 0;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
-    $amount = $entity->{$bundleFieldType . '_total'}->value;
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
+    $amount = $invoice->{$bundleFieldType . '_total'}->value;
 
     return \Drupal::service('se_business.service')->adjustBalance($business, (int) $amount);
   }
@@ -136,20 +145,20 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   /**
    * On invoicing, reduce the business balance.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\Core\Entity\EntityInterface $invoice
    *   The event we are working with.
    *
    * @return void|int
    *   The new balance is returned.
    */
-  private function reduceBusinessBalance(EntityInterface $entity): int {
-    if (!$business = \Drupal::service('se_business.service')->lookupBusiness($entity)) {
-      \Drupal::logger('se_business_invoice_save')->error('No business set for %entity', ['%entity' => $entity->id()]);
+  private function reduceBusinessBalance(EntityInterface $invoice): int {
+    if (!$business = \Drupal::service('se_business.service')->lookupBusiness($invoice)) {
+      \Drupal::logger('se_business_invoice_save')->error('No business set for %entity', ['%entity' => $invoice->id()]);
       return 0;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
-    $amount = $entity->{$bundleFieldType . '_total'}->value;
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
+    $amount = $invoice->{$bundleFieldType . '_total'}->value;
     $amount *= -1;
 
     return \Drupal::service('se_business.service')->adjustBalance($business, (int) $amount);
