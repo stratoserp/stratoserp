@@ -23,13 +23,10 @@ function se_payment_install() {
     return;
   }
 
-//  // Now set the last one as the default for the field.
-//  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_payment.se_payment.se_pa_type_ref');
-//  $field->setDefaultValue($term->uuid());
-//  $field->save();
-//
-//  // Also set the last one as the 'main' contact term.
-//  $config = \Drupal::configFactory()->getEditable('se_contact.settings');
-//  $config->set('default_payment_term', $term->id());
-//  $config->save();
+  $term = stratoserp_set_term_field_config('Direct deposit', 'se_payment_type', 'se_payment.se_payment.se_pa_type_ref');
+
+  // Also set the last one as the 'main' contact term.
+  $config = \Drupal::configFactory()->getEditable('se_payment.settings');
+  $config->set('default_payment_term', $term->id());
+  $config->save();
 }

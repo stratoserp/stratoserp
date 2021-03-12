@@ -10,4 +10,4 @@ se_payment.add:
   options:
     parameters:
       source:
-        type: entity:se_payment
+        type: entity:se_invoice

@@ -75,12 +75,20 @@ class PaymentLineFormatter extends EntityReferenceEntityFormatter {
       $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
       $displayDate = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
 
+      // @todo This should just be temporary.
+      if ($payment_type_id = $items[$delta]->payment_type) {
+        $paymentLabel = Term::load($payment_type_id)->label();
+      }
+      else {
+        $paymentLabel = "Unknown";
+      }
+
       $row = [
         Link::fromTextAndUrl($entity->id(), $entity->toUrl()),
         Link::fromTextAndUrl($entity->getName(), $uri),
         \Drupal::service('se_accounting.currency_format')->formatDisplay((int) ($items[$delta]->amount ?? 0)),
         $displayDate,
-        Term::load($items[$delta]->payment_type)->label(),
+        $paymentLabel,
       ];
 
       $rows[] = $row;

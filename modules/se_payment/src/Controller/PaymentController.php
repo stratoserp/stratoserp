@@ -230,7 +230,6 @@ class PaymentController extends ControllerBase {
    */
   public function add(EntityInterface $source): array {
 
-    /** @var \Drupal\se_payment\Entity\Payment $payment */
     $payment = Payment::create([
       'bundle' => 'se_payment',
     ]);
@@ -238,11 +237,10 @@ class PaymentController extends ControllerBase {
     $invoiceStatus = \Drupal::config('se_invoice.settings')->get('invoice_status_term');
     $open = Term::load($invoiceStatus);
 
-    $paymentType = \Drupal::config('se_payment.settings')->get('default_payment_term');
+    $paymentType = \Drupal::service('config.factory')->get('se_payment.settings')->get('default_payment_term');
     $paymentTerm = Term::load($paymentType);
 
-    $query = \Drupal::request()->query;
-    $businessId = $source->id();
+    $business = \Drupal::service('se_business.service')->lookupBusiness($source);
 
     $total = 0;
     $query = \Drupal::entityQuery('se_invoice');
@@ -250,8 +248,7 @@ class PaymentController extends ControllerBase {
       ->condition('se_status_ref', $open->id())
       ->notExists('se_status_ref');
 
-    $query->condition('type', 'se_invoice')
-      ->condition('se_bu_ref', $businessId)
+    $query->condition('se_bu_ref', $business->id())
       ->condition($group);
 
     $entityIds = $query->execute();

@@ -97,8 +97,7 @@ class InvoiceService {
    *   The term for open status.
    */
   public function getOpenTerm() {
-    $term = \Drupal::configFactory()->get('se_invoice.settings')->get('open_term');
-    return reset($term);
+    return \Drupal::configFactory()->get('se_invoice.settings')->get('open_term');
   }
 
   /**
@@ -108,8 +107,7 @@ class InvoiceService {
    *   The term for paid status.
    */
   public function getClosedTerm() {
-    $term = \Drupal::configFactory()->get('se_invoice.settings')->get('closed_term');
-    return reset($term);
+    return \Drupal::configFactory()->get('se_invoice.settings')->get('closed_term');
   }
 
 }

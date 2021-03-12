@@ -119,7 +119,7 @@ class QuoteSettingsForm extends FormBase {
     }
 
     $form['open_term'] = [
-      '#title' => $this->t('Select quote open term.'),
+      '#title' => $this->t('Select quote open term (default status).'),
       '#type' => 'select',
       '#options' => $termOptions,
       '#default_value' => $config->get('open_term'),

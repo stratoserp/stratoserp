@@ -44,11 +44,14 @@ trait PaymentTestTrait {
       $this->paymentFakerSetup();
     }
 
+    $config = \Drupal::configFactory()->getEditable('se_payment.settings');
+
     $lines = [];
     $line = [
       'target_id' => $invoice->id(),
       'target_type' => 'se_invoice',
       'amount' => $invoice->se_in_total->value,
+      'payment_type' => $config->get('default_payment_term'),
     ];
     $lines[] = $line;
 

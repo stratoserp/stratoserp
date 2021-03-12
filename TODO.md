@@ -78,6 +78,7 @@
 
 
 # Polish
+- Use https://github.com/commerceguys/intl
 - Information pages publishing status, authored by can be hidden
 - Why does document have a status field?
 - Revision log messages in an accordion

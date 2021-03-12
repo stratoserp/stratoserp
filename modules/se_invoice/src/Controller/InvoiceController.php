@@ -228,9 +228,6 @@ class InvoiceController extends ControllerBase {
    *
    * @return array
    *   An entity submission form.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function add(EntityInterface $source) {
 
