@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.se_quote.se_status_ref
     - taxonomy.vocabulary.se_status
+  content:
+    - 'taxonomy_term:se_status:d6cacbcf-4911-424c-af3c-e90199cb2bef'
   module:
     - se_quote
 id: se_quote.se_quote.se_status_ref
@@ -14,7 +16,9 @@ label: Status
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: d6cacbcf-4911-424c-af3c-e90199cb2bef
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

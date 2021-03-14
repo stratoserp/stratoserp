@@ -3,12 +3,13 @@ status: true
 dependencies:
   module:
     - se_invoice
+    - se_quote
 id: se_invoice.se_in_quote_ref
 field_name: se_in_quote_ref
 entity_type: se_invoice
 type: entity_reference
 settings:
-  target_type: se_invoice
+  target_type: se_quote
 module: core
 locked: false
 cardinality: 1

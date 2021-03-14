@@ -39,7 +39,7 @@ class BusinessForm extends ContentEntityForm {
     /** @var \Drupal\se_business\Entity\Business $entity */
     $form = parent::buildForm($form, $form_state);
 
-    \Drupal::service('stratoserp.set_field')->setBusinessField($form, 'se_bu_ref');
+    \Drupal::service('se.form_alter')->setBusinessField($form, 'se_bu_ref');
 
     if (!$this->entity->isNew()) {
       $form['group_bu_extra']['new_revision'] = [

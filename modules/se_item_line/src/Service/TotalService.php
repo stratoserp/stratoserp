@@ -15,7 +15,7 @@ use Drupal\stratoserp\ErpCore;
 class TotalService {
 
   /**
-   * Calculate the total and more of a node with item lines.
+   * Calculate the total and more of an entity with item lines.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity to update the totals for..

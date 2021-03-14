@@ -30,7 +30,7 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
 
     // Now lets create an invoice from the Timekeeping.
     $invoice = \Drupal::classResolver(InvoiceController::class)->createInvoiceFromTimekeeping($testTicket);
-    $invoice->title = \Drupal::service('stratoserp.set_field')->generateTitle();
+    $invoice->title = \Drupal::service('se.form_alter')->generateTitle();
     $invoice->save();
 
     $this->drupalGet($invoice->toUrl());

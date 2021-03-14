@@ -39,8 +39,8 @@ class GoodsReceiptForm extends ContentEntityForm {
     /** @var \Drupal\se_goods_receipt\Entity\GoodsReceipt $entity */
     $form = parent::buildForm($form, $form_state);
 
-    \Drupal::service('stratoserp.set_field')->setBusinessField($form, 'se_bu_ref');
-    \Drupal::service('se_purchase_order.set_field')->setPurchaseOrderField($form, 'se_po_ref');
+    \Drupal::service('se.form_alter')->setBusinessField($form, 'se_bu_ref');
+    \Drupal::service('se_purchase_order.form_alter')->setPurchaseOrderField($form, 'se_po_ref');
 
     // Perform some goods receipt specific tweaks.
     foreach ($form['se_gr_lines']['widget'] as $index => $value) {

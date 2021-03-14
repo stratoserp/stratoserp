@@ -12,8 +12,6 @@ dependencies:
     - user.role.developer
     - user.role.owner
     - user.role.staff
-  content:
-    - 'taxonomy_term:se_business_type:e5da9c1f-c775-45ed-bd57-387e661cc8c7'
   module:
     - link
     - se_accounting
@@ -730,8 +728,7 @@ display:
           group_type: group
           admin_label: ''
           operator: or
-          value:
-            32: 32
+          value: {  }
           group: 1
           exposed: true
           expose:

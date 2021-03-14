@@ -19,7 +19,7 @@ trait PaymentTrait {
    *   The invoice to retrieve information for.
    *
    * @return mixed
-   *   Return an array of payment nodes.
+   *   Return an array of payment entities.
    */
   public function getInvoicePayments(Invoice $invoice): array {
     // @todo Is there a nicer way to do this?

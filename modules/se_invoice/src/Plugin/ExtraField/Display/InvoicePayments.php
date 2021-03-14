@@ -19,7 +19,7 @@ use Drupal\taxonomy\Entity\Term;
  *   id = "invoice_payments",
  *   label = @Translation("Invoice payments"),
  *   bundles = {
- *     "node.se_invoice",
+ *     "se_invoice.se_invoice",
  *   }
  * )
  */
@@ -49,17 +49,15 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function viewElements(ContentEntityInterface $invoice) {
+  public function viewElements(ContentEntityInterface $invoice): array {
 
     $rows = [];
 
-    $payments = $this->getInvoicePayments($invoice);
-
-    foreach ($payments as $payment_line) {
+    foreach ($this->getInvoicePayments($invoice) as $paymentLine) {
       $row = [];
 
       /** @var \Drupal\se_payment\Entity\Payment $payment */
-      $payment = Payment::load($payment_line->entity_id);
+      $payment = Payment::load($paymentLine->entity_id);
       $uri = $payment->toUrl();
 
       foreach ($payment->se_pa_lines as $line) {
@@ -67,7 +65,7 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
         /** @var \Drupal\taxonomy\Entity\Term $type */
         $type = Term::load($line->payment_type);
         $row = [
-          'payment' => Link::fromTextAndUrl($payment->se_pa_id->value, $uri),
+          'payment' => Link::fromTextAndUrl($payment->id(), $uri),
           'date' => Link::fromTextAndUrl($line->payment_date, $uri),
           'type' => $type->name->value,
           'amount' => \Drupal::service('se_accounting.currency_format')

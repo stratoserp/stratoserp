@@ -54,7 +54,7 @@ class BusinessQuoteStatistics extends BlockBase {
         if (count($quotes)) {
           $content = TRUE;
         }
-        /** @var \Drupal\node\Entity\Node $quote */
+        /** @var \Drupal\se_quote\Entity\Quote $quote */
         foreach ($quotes as $quote) {
           if (is_object($quote) && $quote->hasField('se_qu_total')) {
             $total += $quote->se_qu_total->value;

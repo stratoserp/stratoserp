@@ -11,7 +11,7 @@ use Drupal\stratoserp\ErpCore;
 /**
  * Class ItemLinePresaveEventSubscriber.
  *
- * When a node with item lines is saved, recalculate the total of the node.
+ * When an entity with item lines is saved, recalculate the total.
  *
  * @package Drupal\se_item_line\EventSubscriber
  */

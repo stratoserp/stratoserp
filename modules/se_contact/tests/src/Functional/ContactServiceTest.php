@@ -23,10 +23,9 @@ class ContactServiceTest extends ContactTestBase {
    * Test contact lookup service.
    *
    * Ensure that the contact lookup service will return
-   * the business node if called with a business node.
+   * the business entity if called with a business entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function testContactServiceWithBusiness(): void {
 
@@ -48,7 +47,7 @@ class ContactServiceTest extends ContactTestBase {
   }
 
   /**
-   * Test business lookup service with an invoice node.
+   * Test business lookup service with an invoice.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException

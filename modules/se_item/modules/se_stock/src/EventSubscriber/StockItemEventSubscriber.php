@@ -30,7 +30,6 @@ class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
    * {@inheritdoc}
    */
   public function stockItemPresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
 
     if ($entity->getEntityTypeId() !== 'se_item') {

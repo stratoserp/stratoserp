@@ -135,7 +135,7 @@ class FormAlter {
   }
 
   /**
-   * Alter taxonomy field on node form.
+   * Alter taxonomy field on entity form.
    *
    * @param array $form
    *   Form render array.
@@ -163,12 +163,12 @@ class FormAlter {
   }
 
   /**
-   * Return a basic title for new nodes.
+   * Return a basic title for new entities.
    *
    * @return string
    *   The rendered output.
    */
-  public function generateTitle() {
+  public function generateTitle(): string {
     return t('@user - @date', [
       '@user' => \Drupal::currentUser()->getAccountName(),
       '@date' => date('j-m-Y'),

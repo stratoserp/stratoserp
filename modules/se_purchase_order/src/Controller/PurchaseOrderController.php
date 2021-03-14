@@ -215,7 +215,7 @@ class PurchaseOrderController extends ControllerBase {
    * Entity submission form for purchase order creation from a quote.
    *
    * @paeram \Drupal\Core\Entity\EntityInterface $source
-   *   Source node to copy data from.
+   *   Source entity to copy data from.
    *
    * @return array
    *   An entity submission form.

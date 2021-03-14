@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.se_ticket.se_ti_status_ref
     - taxonomy.vocabulary.se_ticket_status
+  content:
+    - 'taxonomy_term:se_ticket_status:5255c7b0-342d-4e45-8bdd-f6f69c39cada'
   module:
     - se_ticket
 id: se_ticket.se_ticket.se_ti_status_ref
@@ -14,7 +16,9 @@ label: 'Ticket status'
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: 5255c7b0-342d-4e45-8bdd-f6f69c39cada
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

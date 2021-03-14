@@ -16,7 +16,7 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_invoice'
+  handler: 'default:se_quote'
   handler_settings:
     target_bundles:
       se_quote: se_quote

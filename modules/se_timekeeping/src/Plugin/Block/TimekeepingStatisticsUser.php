@@ -25,7 +25,7 @@ class TimekeepingStatisticsUser extends BlockBase {
   public function build() {
     $datasets = [];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
@@ -52,7 +52,7 @@ class TimekeepingStatisticsUser extends BlockBase {
           ->getStorage('comment')
           ->loadMultiple($entity_ids);
         $total = 0;
-        /** @var \Drupal\node\Entity\Node $comment */
+        /** @var \Drupal\comment\Entity\Comment $comment */
         foreach ($comments as $comment) {
           $total += $comment->se_tk_amount->value;
         }

@@ -87,7 +87,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
    * Mark the items as sold/in stock as dictated by the parameter.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The node that is being processed.
+   *   The invoice that is being processed.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -97,21 +97,19 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
 
     foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
       // Only operate on items.
-      if ($itemLine->target_type === 'se_item') {
-        // Only operate on stock items.
-        /** @var \Drupal\se_item\Entity\Item $item */
-        if (($item = Item::load($itemLine->target_id))
+      // Only operate on stock items.
+      /** @var \Drupal\se_item\Entity\Item $item */
+      if (($itemLine->target_type === 'se_item') && ($item = Item::load($itemLine->target_id))
         && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
-          // @todo Make a service for this?
-          // Only operate on things that have a 'parent', not the parents
-          // themselves, they are never sold.
-          if (!empty($item->se_it_item_ref->target_id)) {
-            $item
-              ->set('se_it_sale_date', $date->format('Y-m-d'))
-              ->set('se_it_sale_price', $itemLine->price)
-              ->set('se_it_invoice_ref', $invoice->id());
-            $item->save();
-          }
+        // @todo Make a service for this?
+        // Only operate on things that have a 'parent', not the parents
+        // themselves, they are never sold.
+        if (!empty($item->se_it_item_ref->target_id)) {
+          $item
+            ->set('se_it_sale_date', $date->format('Y-m-d'))
+            ->set('se_it_sale_price', $itemLine->price)
+            ->set('se_it_invoice_ref', $invoice->id());
+          $item->save();
         }
       }
     }
@@ -121,7 +119,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
    * Mark the items as sold/in stock as dictated by the parameter.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The node that is being processed.
+   *   The invoice that is being processed.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -130,21 +128,19 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
 
     foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
       // Only operate on items.
-      if ($itemLine->target_type === 'se_item') {
-        // Only operator on stock items.
-        /** @var \Drupal\se_item\Entity\Item $item */
-        if (($item = Item::load($itemLine->target_id))
+      // Only operator on stock items.
+      /** @var \Drupal\se_item\Entity\Item $item */
+      if (($itemLine->target_type === 'se_item') && ($item = Item::load($itemLine->target_id))
         && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
-          // @todo Make a service for this?
-          // Only operate on things that have a 'parent', not the parents
-          // themselves, they are never sold.
-          if (!empty($item->se_it_item_ref->target_id)) {
-            $item
-              ->set('se_it_sale_date', NULL)
-              ->set('se_it_sale_price', NULL)
-              ->set('se_it_invoice_ref', NULL);
-            $item->save();
-          }
+        // @todo Make a service for this?
+        // Only operate on things that have a 'parent', not the parents
+        // themselves, they are never sold.
+        if (!empty($item->se_it_item_ref->target_id)) {
+          $item
+            ->set('se_it_sale_date', NULL)
+            ->set('se_it_sale_price', NULL)
+            ->set('se_it_invoice_ref', NULL);
+          $item->save();
         }
       }
     }

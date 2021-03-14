@@ -64,9 +64,6 @@ class PaymentLineFormatter extends EntityReferenceEntityFormatter {
       t('Payment type'),
     ];
 
-    /**
-     * @var \Drupal\node\Entity\Node $entity
-     */
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
       $row = [];
 

@@ -23,9 +23,10 @@ function se_payment_install() {
     return;
   }
 
-  $term = stratoserp_set_term_field_config('Direct deposit', 'se_payment_type', 'se_payment.se_payment.se_pa_type_ref');
+  $find_term = taxonomy_term_load_multiple_by_name('Direct deposit', 'se_payment_type');
+  $term = reset($find_term);
 
-  // Also set the last one as the 'main' contact term.
+  // Set the variable.
   $config = \Drupal::configFactory()->getEditable('se_payment.settings');
   $config->set('default_payment_term', $term->id());
   $config->save();

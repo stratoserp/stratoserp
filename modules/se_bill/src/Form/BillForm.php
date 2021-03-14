@@ -37,13 +37,8 @@ class BillForm extends ContentEntityForm {
     /** @var \Drupal\se_bill\Entity\Bill $entity */
     $form = parent::buildForm($form, $form_state);
 
-    $service = \Drupal::service('stratoserp.set_field');
+    $service = \Drupal::service('se.form_alter');
     $service->setBusinessField($form, 'se_bu_ref');
-
-    $config = \Drupal::configFactory()->get('se_bill.settings');
-    if ($bill_status = $config->get('bill_status_term')) {
-      $service->setTaxonomyField($form, 'se_status_ref', (int) $bill_status);
-    }
 
     if (!$this->entity->isNew()) {
       $form['group_bi_extra']['new_revision'] = [

@@ -10,6 +10,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\stratoserp\ErpCore;
 use Drupal\stratoserp\Traits\ErpEventTrait;
 
@@ -26,6 +27,7 @@ use Drupal\stratoserp\Traits\ErpEventTrait;
 class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface {
 
   use ErpEventTrait;
+  use PaymentTrait;
 
   /**
    * {@inheritdoc}
@@ -34,7 +36,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
     return [
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoiceAdjust',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoicePresave',
       HookEventDispatcherInterface::ENTITY_DELETE => 'invoiceDelete',
     ];
   }
@@ -43,82 +45,84 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
    * {@inheritdoc}
    */
   public function invoiceInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
 
-    if ($invoice->getEntityTypeId() !== 'se_invoice') {
+    if ($entity->getEntityTypeId() !== 'se_invoice') {
       return;
     }
 
     // This is set by payments as they re-save the invoice.
-    if ($this->isSkipInvoiceSaveEvents($invoice)) {
+    if ($this->isSkipInvoiceSaveEvents($entity)) {
       return;
     }
 
-    $invoice = \Drupal::service('se_invoice.service')->checkCloseInvoice($invoice);
+    $entity->set('se_status_ref', \Drupal::service('se_invoice.service')->checkInvoiceStatus($entity));
+    $entity->set('se_in_outstanding', $this->getInvoiceBalance($entity));
 
-    $this->increaseBusinessBalance($invoice);
+    $this->increaseBusinessBalance($entity);
   }
 
   /**
    * {@inheritdoc}
    */
   public function invoiceUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
 
-    if ($invoice->getEntityTypeId() !== 'se_invoice') {
+    if ($entity->getEntityTypeId() !== 'se_invoice') {
       return;
     }
 
     // This is set by payments as they re-save the invoice.
-    if ($this->isSkipInvoiceSaveEvents($invoice)) {
+    if ($this->isSkipInvoiceSaveEvents($entity)) {
       return;
     }
 
-    $invoice = \Drupal::service('se_invoice.service')->checkCloseInvoice($invoice);
+    $entity->set('se_status_ref', \Drupal::service('se_invoice.service')->checkInvoiceStatus($entity));
+    $entity->set('se_in_outstanding', $this->getInvoiceBalance($entity));
 
-    $this->increaseBusinessBalance($invoice);
+    $this->increaseBusinessBalance($entity);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function invoiceAdjust(EntityPresaveEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
+  public function invoicePresave(EntityPresaveEvent $event): void {
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
 
-    if ($invoice->getEntityTypeId() !== 'se_invoice' || $invoice->isNew()) {
+    if ($entity->getEntityTypeId() !== 'se_invoice' || $entity->isNew()) {
       return;
     }
 
     // This is set by payments as they re-save the invoice.
-    if ($this->isSkipInvoiceSaveEvents($invoice)) {
+    if ($this->isSkipInvoiceSaveEvents($entity)) {
       return;
     }
 
-    $invoice = \Drupal::service('se_invoice.service')->checkCloseInvoice($invoice);
+    $entity->set('se_status_ref', \Drupal::service('se_invoice.service')->checkInvoiceStatus($entity));
+    $entity->set('se_in_outstanding', $this->getInvoiceBalance($entity));
 
-    $this->reduceBusinessBalance($invoice);
+    $this->reduceBusinessBalance($entity);
   }
 
   /**
    * {@inheritdoc}
    */
   public function invoiceDelete(EntityDeleteEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
-    if ($invoice->getEntityTypeId() !== 'se_invoice'
-      || $invoice->isNew()) {
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
+    if ($entity->getEntityTypeId() !== 'se_invoice' || $entity->isNew()) {
       return;
     }
 
     // This is set by payments as they re-save the invoice.
-    if ($this->isSkipInvoiceSaveEvents($invoice)) {
+    if ($this->isSkipInvoiceSaveEvents($entity)) {
       return;
     }
 
-    $this->reduceBusinessBalance($invoice);
+    $this->reduceBusinessBalance($entity);
   }
 
   /**

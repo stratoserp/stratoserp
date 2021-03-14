@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 interface ItemLineEntityEventSubscriberInterface extends EventSubscriberInterface {
 
   /**
-   * Process line items when a node with them is saved.
+   * Process line items when an entity with them is saved.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.

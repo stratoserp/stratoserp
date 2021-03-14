@@ -111,7 +111,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    * paid/unpaid as dictated by the parameter.
    *
    * @param \Drupal\se_payment\Entity\Payment $payment
-   *   The payment node to work through.
+   *   The payment to work through.
    * @param bool $paid
    *   Whether the invoices should be marked paid, ot not.
    *
@@ -144,11 +144,10 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
         $business = \Drupal::service('se_business.service')->lookupBusiness($invoice);
         $this->setSkipBusinessXeroEvents($business);
 
-        $invoice = \Drupal::service('se_invoice.service')->checkCloseInvoice($invoice, $paymentLine->amount);
-
-        $invoice->se_in_outstanding->value = $this->getInvoiceBalance($invoice);
-
+        $invoice->set('se_status_ref', \Drupal::service('se_invoice.service')->checkInvoiceStatus($invoice, $paymentLine->amount));
+        $invoice->set('se_in_outstanding', $this->getInvoiceBalance($invoice));
         $invoice->save();
+
         $amount += $paymentLine->amount;
       }
     }
@@ -177,7 +176,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
     }
 
     if (!$business = \Drupal::service('se_business.service')->lookupBusiness($entity)) {
-      \Drupal::logger('se_business_accounting_save')->error('No business set for %node', ['%node' => $entity->id()]);
+      \Drupal::logger('se_business_accounting_save')->error('No business set for %entity', ['%entity' => $entity->id()]);
       return 0;
     }
 

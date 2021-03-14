@@ -37,7 +37,7 @@ class TicketForm extends ContentEntityForm {
     /** @var \Drupal\se_ticket\Entity\Ticket $entity */
     $form = parent::buildForm($form, $form_state);
 
-    $service = \Drupal::service('stratoserp.set_field');
+    $service = \Drupal::service('se.form_alter');
     $service->setBusinessField($form, 'se_bu_ref');
     $service->setContactField($form, 'se_co_ref');
 

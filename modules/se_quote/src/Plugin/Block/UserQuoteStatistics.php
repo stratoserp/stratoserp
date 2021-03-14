@@ -25,7 +25,7 @@ class UserQuoteStatistics extends BlockBase {
   public function build() {
     $datasets = [];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $node */
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
     }
@@ -51,7 +51,7 @@ class UserQuoteStatistics extends BlockBase {
           ->loadMultiple($entity_ids);
 
         $month = 0;
-        /** @var \Drupal\node\Entity\Node $quote */
+        /** @var \Drupal\se_quote\Entity\Quote $quote */
         foreach ($quotes as $quote) {
           $month += $quote->se_qu_total->value;
         }

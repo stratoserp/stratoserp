@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.se_ticket.se_ti_priority_ref
     - taxonomy.vocabulary.se_ticket_priority
+  content:
+    - 'taxonomy_term:se_ticket_priority:0a6b4a67-ddae-4746-8b04-768307a8cfb5'
   module:
     - se_ticket
 id: se_ticket.se_ticket.se_ti_priority_ref
@@ -14,7 +16,9 @@ label: 'Ticket priority'
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: 0a6b4a67-ddae-4746-8b04-768307a8cfb5
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

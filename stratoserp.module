@@ -104,7 +104,7 @@ function stratoserp_hide_publish_buttons(array &$form) {
  */
 function stratoserp_populate_title_field(array &$form) {
   // $form['title']['#hidden'] = TRUE;
-  $form['title']['widget'][0]['value']['#default_value'] = \Drupal::service('stratoserp.set_field')->generateTitle();
+  $form['title']['widget'][0]['value']['#default_value'] = \Drupal::service('se.form_alter')->generateTitle();
 }
 
 /**

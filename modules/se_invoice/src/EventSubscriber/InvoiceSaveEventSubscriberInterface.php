@@ -42,7 +42,7 @@ interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
    */
-  public function invoiceAdjust(EntityPresaveEvent $event);
+  public function invoicePresave(EntityPresaveEvent $event);
 
   /**
    * Reduce the business balance by the amount of the invoice.

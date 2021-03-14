@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Traits\PaymentTrait;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Service for various invoice related functions.
@@ -48,7 +49,7 @@ class InvoiceService {
    * Retrieve the outstanding invoices for a business.
    *
    * @param \Drupal\se_business\Entity\Business $business
-   *   The Business node.
+   *   The Business entity.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    *   The found entity.
@@ -71,23 +72,21 @@ class InvoiceService {
    * Check if an invoice should be marked as paid.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The Invoice node.
+   *   The Invoice entity.
    * @param string $payment
    *   The payment amount.
+   *
+   * @return \Drupal\taxonomy\Entity\Term
+   *   The invoice status
    */
-  public function checkCloseInvoice(Invoice $invoice, $payment = NULL): Invoice {
+  public function checkInvoiceStatus(Invoice $invoice, $payment = NULL): Term {
     if ($payment === $invoice->se_in_total->value
       || $payment === $invoice->se_in_outstanding->value
-      || $invoice->se_in_outstanding->value === 0) {
-      $invoice->set('se_status_ref', $this->getClosedTerm());
-    }
-    else {
-      $invoice->set('se_status_ref', $this->getOpenTerm());
+      || (int) $invoice->se_in_outstanding->value === 0) {
+      return $this->getClosedTerm();
     }
 
-    $invoice->se_in_outstanding->value = $this->getInvoiceBalance($invoice);
-
-    return $invoice;
+    return $this->getOpenTerm();
   }
 
   /**
@@ -97,7 +96,10 @@ class InvoiceService {
    *   The term for open status.
    */
   public function getOpenTerm() {
-    return \Drupal::configFactory()->get('se_invoice.settings')->get('open_term');
+    if ($term = \Drupal::configFactory()->get('se_invoice.settings')->get('open_term')) {
+      return Term::load($term);
+    }
+    return NULL;
   }
 
   /**
@@ -107,7 +109,10 @@ class InvoiceService {
    *   The term for paid status.
    */
   public function getClosedTerm() {
-    return \Drupal::configFactory()->get('se_invoice.settings')->get('closed_term');
+    if ($term = \Drupal::configFactory()->get('se_invoice.settings')->get('closed_term')) {
+      return Term::load($term);
+    }
+    return NULL;
   }
 
 }

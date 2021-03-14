@@ -217,7 +217,7 @@ class GoodsReceiptController extends ControllerBase {
    * Provide entity submission form for receiving goods for a purchase order.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
-   *   Source node to copy data from.
+   *   Source entity to copy data from.
    *
    * @return array
    *   An entity submission form.

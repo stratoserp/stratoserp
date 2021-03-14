@@ -32,7 +32,7 @@ trait GoodsReceiptTestTrait {
   }
 
   /**
-   * Add a goods receipt node.
+   * Add a goods receipt entity.
    *
    * @param bool $allowed
    *   Whether it should be allowed or not.
@@ -49,7 +49,7 @@ trait GoodsReceiptTestTrait {
       $this->goodsReceiptFakerSetup();
     }
 
-    /** @var \Drupal\node\Entity\Node $goodsReceipt */
+    /** @var \Drupal\se_goods_receipt\Entity\GoodsReceipt $goodsReceipt */
     $goodsReceipt = $this->createGoodsReceipt([
       'type' => 'se_goods_receipt',
       'name' => $this->goodsReceipt->name,

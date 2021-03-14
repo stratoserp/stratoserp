@@ -258,13 +258,13 @@ class InvoiceController extends ControllerBase {
   }
 
   /**
-   * Provides the node submission form for creation from timekeeping entries.
+   * Provides the entity submission form for creation from timekeeping entries.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   The source entity.
    *
    * @return array
-   *   A node submission form.
+   *   An entity submission form.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
@@ -276,7 +276,7 @@ class InvoiceController extends ControllerBase {
   }
 
   /**
-   * Provides the node submission form for creation from timekeeping entries.
+   * Provides the entity submission form for creation from timekeeping entries.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   The source entity.

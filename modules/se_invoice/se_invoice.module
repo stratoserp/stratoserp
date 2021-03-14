@@ -9,7 +9,7 @@ declare(strict_types=1);
 /**
  * Implements hook_theme().
  */
-function se_invoice_theme() {
+function se_invoice_theme(): array {
   $theme = [];
 
   $theme['se_invoice'] = [
