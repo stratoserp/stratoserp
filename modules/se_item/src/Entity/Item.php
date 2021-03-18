@@ -165,6 +165,13 @@ class Item extends RevisionableContentEntityBase implements ItemInterface {
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'it';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

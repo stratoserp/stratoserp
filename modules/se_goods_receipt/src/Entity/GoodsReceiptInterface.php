@@ -59,6 +59,11 @@ interface GoodsReceiptInterface extends ContentEntityInterface, RevisionLogInter
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Goods Receipt revision creation timestamp.
    *
    * @return int

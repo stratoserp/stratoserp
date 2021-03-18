@@ -158,6 +158,13 @@ class Quote extends RevisionableContentEntityBase implements QuoteInterface {
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'qu';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

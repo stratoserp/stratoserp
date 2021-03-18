@@ -158,6 +158,13 @@ class PurchaseOrder extends RevisionableContentEntityBase implements PurchaseOrd
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'po';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

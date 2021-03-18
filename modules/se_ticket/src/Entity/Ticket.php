@@ -158,6 +158,13 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'ti';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

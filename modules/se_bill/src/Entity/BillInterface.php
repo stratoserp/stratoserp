@@ -59,6 +59,11 @@ interface BillInterface extends ContentEntityInterface, RevisionLogInterface, En
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Bill revision creation timestamp.
    *
    * @return int

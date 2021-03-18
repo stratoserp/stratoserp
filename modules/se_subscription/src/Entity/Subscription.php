@@ -163,6 +163,13 @@ class Subscription extends RevisionableContentEntityBase implements Subscription
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'su';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

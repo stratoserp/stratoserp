@@ -57,6 +57,11 @@ interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, En
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Item revision creation timestamp.
    *
    * @return int

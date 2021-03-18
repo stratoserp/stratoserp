@@ -59,6 +59,11 @@ interface InvoiceInterface extends ContentEntityInterface, RevisionLogInterface,
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Invoice revision creation timestamp.
    *
    * @return int

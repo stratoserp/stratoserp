@@ -57,6 +57,11 @@ interface PurchaseOrderInterface extends ContentEntityInterface, RevisionLogInte
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the PurchaseOrder revision creation timestamp.
    *
    * @return int

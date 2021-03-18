@@ -59,6 +59,11 @@ interface TicketInterface extends ContentEntityInterface, RevisionLogInterface, 
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Ticket revision creation timestamp.
    *
    * @return int

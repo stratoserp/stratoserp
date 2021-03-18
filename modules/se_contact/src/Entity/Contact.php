@@ -158,6 +158,13 @@ class Contact extends RevisionableContentEntityBase implements ContactInterface 
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'co';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

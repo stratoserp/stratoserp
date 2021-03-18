@@ -158,6 +158,13 @@ class Payment extends RevisionableContentEntityBase implements PaymentInterface 
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'pa';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

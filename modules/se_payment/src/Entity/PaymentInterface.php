@@ -59,6 +59,11 @@ interface PaymentInterface extends ContentEntityInterface, RevisionLogInterface,
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Payment revision creation timestamp.
    *
    * @return int

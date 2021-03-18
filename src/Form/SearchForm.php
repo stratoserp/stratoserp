@@ -7,10 +7,10 @@ namespace Drupal\stratoserp\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\node\Entity\Node;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_information\Entity\Information;
 use Drupal\se_item\Entity\Item;
+use Drupal\stratoserp\ErpCore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -98,7 +98,7 @@ class SearchForm extends FormBase {
       return NULL;
     }
 
-    if ($this->searchLoadNode($values['search'], $form_state)) {
+    if ($this->searchLoadEntity($values['search'], $form_state)) {
       return NULL;
     }
 
@@ -115,7 +115,7 @@ class SearchForm extends FormBase {
   }
 
   /**
-   * Extract node information from a search string and try to load it.
+   * Extract entity information from a search string and try to load it.
    *
    * @param string $search
    *   The string the user entered.
@@ -145,7 +145,7 @@ class SearchForm extends FormBase {
   }
 
   /**
-   * Extract node information from a search string and try to load it.
+   * Extract entity information from a search string and try to load it.
    *
    * @todo refactor to entity.
    *
@@ -157,19 +157,21 @@ class SearchForm extends FormBase {
    * @return \Drupal\Core\Messenger\MessengerInterface|false
    *   A message or false if it wasn't this type.
    */
-  protected function searchLoadNode($search, FormStateInterface $form_state) {
+  protected function searchLoadEntity($search, FormStateInterface $form_state) {
     // If the user has chosen a node from the popup, load it.
-    if (preg_match("/.+\s\(([^!#)[a-zA-Z]+)\)/", $search, $matches)) {
-      $match = $matches[1];
-      if (empty($match)) {
+    if (preg_match("/\((..)\-([0-9]+)\)/", $search, $matches)) {
+      [, $type, $code] = $matches;
+      if (empty($type) || empty($code)) {
         return $this->messenger->addMessage(t('No matches found'));
       }
 
-      if (!Node::load($match)) {
-        return $this->messenger->addError(t('Invalid node'));
+      $fullType = ErpCore::SE_ENTITY_LOOKUP[$type];
+      $entity = \Drupal::entityTypeManager()->getStorage($fullType)->load($code);
+      if (!$entity) {
+        return $this->messenger->addError(t('Invalid entity'));
       }
 
-      $form_state->setRedirect('entity.node.canonical', ['node' => $match]);
+      $form_state->setRedirect('entity.' . $fullType . '.canonical', [$fullType => $code]);
       return TRUE;
     }
 

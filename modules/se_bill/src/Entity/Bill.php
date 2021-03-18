@@ -158,6 +158,13 @@ class Bill extends RevisionableContentEntityBase implements BillInterface {
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'bi';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

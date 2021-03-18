@@ -57,6 +57,11 @@ interface SubscriptionInterface extends ContentEntityInterface, RevisionLogInter
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Subscription revision creation timestamp.
    *
    * @return int

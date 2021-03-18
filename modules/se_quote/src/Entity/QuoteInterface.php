@@ -59,6 +59,11 @@ interface QuoteInterface extends ContentEntityInterface, RevisionLogInterface, E
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Quote revision creation timestamp.
    *
    * @return int

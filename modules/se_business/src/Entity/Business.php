@@ -158,6 +158,13 @@ class Business extends RevisionableContentEntityBase implements BusinessInterfac
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'bu';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }

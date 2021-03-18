@@ -57,6 +57,11 @@ interface InformationInterface extends ContentEntityInterface, RevisionLogInterf
   public function setCreatedTime($timestamp);
 
   /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix();
+
+  /**
    * Gets the Information revision creation timestamp.
    *
    * @return int

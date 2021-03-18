@@ -21,6 +21,21 @@ final class ErpCore {
     'se_payment' => 'pa',
   ];
 
+  // See the various getSearchPrefix() functions for the counterparts.
+  // @todo Better way?
+  public const SE_ENTITY_LOOKUP = [
+    'bi' => 'se_bill',
+    'bu' => 'se_business',
+    'co' => 'se_contact',
+    'gr' => 'se_goods_receipt',
+    'if' => 'se_information',
+    'in' => 'se_invoice',
+    'pa' => 'se_payment',
+    'po' => 'se_purchase_order',
+    'qu' => 'se_quote',
+    'ti' => 'se_ticket',
+  ];
+
   public const SE_ENTITY_TYPES = [
     'se_bill', 'se_business', 'se_contact', 'se_goods_receipt',
     'se_information', 'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',

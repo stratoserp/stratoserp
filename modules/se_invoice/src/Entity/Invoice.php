@@ -158,6 +158,13 @@ class Invoice extends RevisionableContentEntityBase implements InvoiceInterface 
   /**
    * {@inheritdoc}
    */
+  public function getSearchPrefix() {
+    return 'in';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getOwner() {
     return $this->get('user_id')->entity;
   }
