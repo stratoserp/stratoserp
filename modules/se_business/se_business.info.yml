@@ -16,6 +16,7 @@ dependencies:
   - drupal:user
   - drupal:views
   - stratoserp:stratoserp
+  - stratoserp:se_accounting
 
 config_devel:
   install:
