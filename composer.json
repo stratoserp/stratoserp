@@ -19,7 +19,6 @@
     "drupal/eva": "^2.1",
     "drupal/field_group": "dev-3.x",
     "drupal/geolocation": "^3.2",
-    "drupal/serial": "dev-1.x",
     "drupal/xero": "dev-2.x"
   },
   "minimum-stability": "dev"
