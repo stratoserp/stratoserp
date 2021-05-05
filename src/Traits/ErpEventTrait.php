@@ -10,6 +10,8 @@ use Drupal\se_invoice\Entity\Invoice;
  *
  * When saving an invoice of business, there are times when it makes sense
  * to skip further events.
+ *
+ * @package Drupal\stratoserp\Traits
  */
 trait ErpEventTrait {
 

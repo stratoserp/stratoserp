@@ -56,9 +56,10 @@ class AnonymousRedirectSubscriber implements EventSubscriberInterface {
     // If the requested path is not one of these, force login.
     if ($this->account->isAnonymous()
     && !in_array($currentPath, [
-      '/user/password',
-      '/register',
       '/403',
+      '/o365/login',
+      '/register',
+      '/user/password',
     ])) {
       $event->setResponse(new RedirectResponse('/403', 301));
     }
