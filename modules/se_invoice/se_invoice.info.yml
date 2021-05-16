@@ -13,6 +13,7 @@ dependencies:
   - se_item:se_item
   - se_stock:se_stock
   - se_item_line:se_item_line
+  - se_payment:se_payment
   - se_service:se_service
   - stratoserp:stratoserp
   - views_data_export:views_data_export
