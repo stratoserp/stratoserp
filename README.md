@@ -20,11 +20,9 @@ docker run --rm -p 80:8080 \
   --name stratoserp \
   --mount type=bind,source=${temp_dir},target=/shared \
   --mount type=bind,source=${temp_dir}/public,target=/code/web/sites/default/files \
-  singularo/stratoserp
+  stratoserp/stratoserp
 ```
 
-Retrieve the docker image and start it. Afterwards, you can access the system using 
-http://localhost and performing a standard Drupal install, choosing the 
+Retrieve the docker image and start it. Afterwards, you can access the system using
+http://localhost and performing a standard Drupal install, choosing the
 StratosERP install profile.
-
- 
