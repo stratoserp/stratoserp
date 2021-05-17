@@ -1,5 +1,5 @@
 {
-  "name": "drupal/stratoserp",
+  "name": "stratoserp/stratoserp",
   "description": "StratosERP.",
   "type": "drupal-module",
   "authors": [
@@ -10,7 +10,7 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/singularo/stratoserp/issues"
+    "issues": "https://github.com/stratoserp/stratoserp/issues"
   },
   "license": "GPL-2.0+",
   "require": {
