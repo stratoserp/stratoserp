@@ -4,16 +4,13 @@
 ## Global non blockers
 - Change comments so they appear in the right spot for all content types.
 - Ensure consistent display on all content types.
-- End of day processing.
+- End of day processing?
 - Faceted search.
 - Add more types to front page search.
 - Audit & Fix up permissions.
 - Convert to use phpmoney class?
 
 # Bugs
-- Migration issues
-  - Tickets have no type
-  - Customers have no balance
 
 # Beta - Database/fields stable
 
@@ -43,7 +40,7 @@
 - Relate to purchase orders.
 
 ## Invoices
-- Add recurring invoice functionality.
+- Add subscription based invoices.
 - Auto emailed statements.
 
 ## Payments
@@ -78,7 +75,7 @@
 
 
 # Polish
-- Use https://github.com/commerceguys/intl
+- Use https://github.com/commerceguys/intl ?
 - Information pages publishing status, authored by can be hidden
 - Why does document have a status field?
 - Revision log messages in an accordion
