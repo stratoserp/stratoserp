@@ -1,7 +1,7 @@
-diff --git a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
+diff --git a/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml b/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
 index f1a2d058..0c60ebcd 100644
---- a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
-+++ b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
+--- a/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
++++ b/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
 @@ -11,6 +12,7 @@ dependencies:
      - field.field.se_ticket.se_ticket.se_ti_scheduled
      - field.field.se_ticket.se_ticket.se_ti_status_ref
@@ -23,10 +23,10 @@ index f1a2d058..0c60ebcd 100644
    user_id:
      type: entity_reference_autocomplete
      weight: 1
-diff --git a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
+diff --git a/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml b/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
 index 912184bb..6ea7a544 100644
---- a/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
-+++ b/web/modules/custom/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
+--- a/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
++++ b/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
 @@ -11,6 +12,7 @@ dependencies:
      - field.field.se_ticket.se_ticket.se_ti_scheduled
      - field.field.se_ticket.se_ticket.se_ti_status_ref
