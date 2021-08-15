@@ -14,23 +14,31 @@ use Faker\Factory;
  */
 trait BusinessTestTrait {
 
+  protected $businessName;
+  protected $businessPhoneNumber;
+  protected $businessMobileNumber;
+  protected $businessStreetAddress;
+  protected $businessSuburb;
+  protected $businessState;
+  protected $businessPostcode;
+  protected $businessUrl;
+  protected $businessCompanyEmail;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function businessFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
-    $this->business->name = $this->faker->realText(50);
-    $this->business->phoneNumber = $this->faker->phoneNumber;
-    $this->business->mobileNumber = $this->faker->phoneNumber;
-    $this->business->streetAddress = $this->faker->streetAddress;
-    $this->business->suburb = $this->faker->city;
-    $this->business->state = $this->faker->stateAbbr;
-    $this->business->postcode = $this->faker->postcode;
-    $this->business->url = $this->faker->url;
-    $this->business->companyEmail = $this->faker->companyEmail;
-    error_reporting($original);
+    $this->businessName = $this->faker->realText(50);
+    $this->businessPhoneNumber = $this->faker->phoneNumber;
+    $this->businessMobileNumber = $this->faker->phoneNumber;
+    $this->businessStreetAddress = $this->faker->streetAddress;
+    $this->businessSuburb = $this->faker->city;
+    $this->businessState = $this->faker->stateAbbr;
+    $this->businessPostcode = $this->faker->postcode;
+    $this->businessUrl = $this->faker->url;
+    $this->businessCompanyEmail = $this->faker->companyEmail;
   }
 
   /**
@@ -49,14 +57,14 @@ trait BusinessTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addBusiness(bool $allowed = TRUE): ?Business {
-    if (!isset($this->business->name)) {
+    if (!isset($this->businessName)) {
       $this->businessFakerSetup();
     }
 
     /** @var \Drupal\se_business\Entity\Business $business */
     $business = $this->createBusiness([
       'type' => 'se_business',
-      'name' => $this->business->name,
+      'name' => $this->businessName,
     ]);
     self::assertNotEquals($business, FALSE);
     $this->drupalGet($business->toUrl());
@@ -74,7 +82,7 @@ trait BusinessTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->business->name, $content);
+    self::assertStringContainsString($this->businessName, $content);
 
     return $business;
   }
@@ -136,14 +144,14 @@ trait BusinessTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->business->user = User::load(\Drupal::currentUser()->id());
-      if ($this->business->user) {
-        $settings['uid'] = $this->business->user->id();
+      $this->businessUser = User::load(\Drupal::currentUser()->id());
+      if ($this->businessUser) {
+        $settings['uid'] = $this->businessUser->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->business->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->business->user->id();
+        $this->businessUser = $this->setUpCurrentUser();
+        $settings['uid'] = $this->businessUser->id();
       }
       else {
         $settings['uid'] = 0;

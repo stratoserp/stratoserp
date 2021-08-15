@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_goods_receipt\Traits;
 
+use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\user\Entity\User;
 use Faker\Factory;
 
@@ -12,23 +13,32 @@ use Faker\Factory;
  */
 trait GoodsReceiptTestTrait {
 
+  protected $goodsReceiptName;
+  protected $goodsReceiptUser;
+  protected $goodsReceiptPhoneNumber;
+  protected $goodsReceiptMobileNumber;
+  protected $goodsReceiptStreetAddress;
+  protected $goodsReceiptSuburb;
+  protected $goodsReceiptState;
+  protected $goodsReceiptPostcode;
+  protected $goodsReceiptUrl;
+  protected $goodsReceiptCompanyEmail;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function goodsReceiptFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original                          = error_reporting(0);
-    $this->goodsReceipt->name          = $this->faker->text;
-    $this->goodsReceipt->phoneNumber   = $this->faker->phoneNumber;
-    $this->goodsReceipt->mobileNumber  = $this->faker->phoneNumber;
-    $this->goodsReceipt->streetAddress = $this->faker->streetAddress;
-    $this->goodsReceipt->suburb        = $this->faker->city;
-    $this->goodsReceipt->state         = $this->faker->stateAbbr;
-    $this->goodsReceipt->postcode      = $this->faker->postcode;
-    $this->goodsReceipt->url           = $this->faker->url;
-    $this->goodsReceipt->companyEmail  = $this->faker->companyEmail;
-    error_reporting($original);
+    $this->goodsReceiptName          = $this->faker->text;
+    $this->goodsReceiptPhoneNumber   = $this->faker->phoneNumber;
+    $this->goodsReceiptMobileNumber  = $this->faker->phoneNumber;
+    $this->goodsReceiptStreetAddress = $this->faker->streetAddress;
+    $this->goodsReceiptSuburb        = $this->faker->city;
+    $this->goodsReceiptState         = $this->faker->stateAbbr;
+    $this->goodsReceiptPostcode      = $this->faker->postcode;
+    $this->goodsReceiptUrl           = $this->faker->url;
+    $this->goodsReceiptCompanyEmail  = $this->faker->companyEmail;
   }
 
   /**
@@ -45,16 +55,16 @@ trait GoodsReceiptTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addGoodsReceipt(bool $allowed = TRUE) {
-    if (!isset($this->goodsReceipt->name)) {
+    if (!isset($this->goodsReceiptName)) {
       $this->goodsReceiptFakerSetup();
     }
 
     /** @var \Drupal\se_goods_receipt\Entity\GoodsReceipt $goodsReceipt */
     $goodsReceipt = $this->createGoodsReceipt([
       'type' => 'se_goods_receipt',
-      'name' => $this->goodsReceipt->name,
-      'se_ti_phone' => $this->goodsReceipt->phoneNumber,
-      'se_ti_email' => $this->goodsReceipt->companyEmail,
+      'name' => $this->goodsReceiptName,
+      'se_ti_phone' => $this->goodsReceiptPhoneNumber,
+      'se_ti_email' => $this->goodsReceiptCompanyEmail,
     ]);
     self::assertNotEquals($goodsReceipt, FALSE);
     $this->drupalGet($goodsReceipt->toUrl());
@@ -72,8 +82,8 @@ trait GoodsReceiptTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->goodsReceipt->name, $content);
-    self::assertStringContainsString($this->goodsReceipt->phoneNumber, $content);
+    self::assertStringContainsString($this->goodsReceiptName, $content);
+    self::assertStringContainsString($this->goodsReceiptPhoneNumber, $content);
 
     return $goodsReceipt;
   }
@@ -112,14 +122,14 @@ trait GoodsReceiptTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->goodsReceipt->user = User::load(\Drupal::currentUser()->id());
-      if ($this->goodsReceipt->user) {
-        $settings['uid'] = $this->goodsReceipt->user->id();
+      $this->goodsReceiptUser = User::load(\Drupal::currentUser()->id());
+      if ($this->goodsReceiptUser) {
+        $settings['uid'] = $this->goodsReceiptUser->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->goodsReceipt->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->goodsReceipt->user->id();
+        $this->goodsReceiptUser = $this->setUpCurrentUser();
+        $settings['uid'] = $this->goodsReceiptUser->id();
       }
       else {
         $settings['uid'] = 0;

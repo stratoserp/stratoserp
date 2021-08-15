@@ -21,7 +21,7 @@ class ItemValidationTest extends ItemTestBase {
     $this->itemFakerSetup();
 
     $item = $this->createItemContent([
-      'se_it_code' => $this->item->code,
+      'se_it_code' => $this->itemCode,
     ]);
     $violations = $item->validate();
     self::assertGreaterThanOrEqual(1, $violations->count());
@@ -37,12 +37,12 @@ class ItemValidationTest extends ItemTestBase {
 
     // Ensure the new code is unique (Faker fail?)
     do {
-      $code = $this->item->name;
+      $code = $this->itemName;
     } while (\Drupal::service('se_item.service')->findByCode($code));
 
     // Now create it.
     $item = $this->createItemContent([
-      'name' => $this->item->name,
+      'name' => $this->itemName,
       'se_it_code' => $code,
     ]);
     $violations = $item->validate();
@@ -51,7 +51,7 @@ class ItemValidationTest extends ItemTestBase {
 
     // Now this should create a duplicate violation.
     $newItem = $this->createItemContent([
-      'name' => $this->item->name,
+      'name' => $this->itemName,
       'se_it_code' => $code,
     ]);
     $violations = $newItem->validate();

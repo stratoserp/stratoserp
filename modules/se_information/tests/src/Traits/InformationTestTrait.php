@@ -16,15 +16,15 @@ trait InformationTestTrait {
     createInformationContent as stratosCreateInformationContent;
   }
 
+  protected $informationName;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function informationFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original                = error_reporting(0);
-    $this->information->name = $this->faker->realText(20);
-    error_reporting($original);
+    $this->informationName = $this->faker->realText(20);
   }
 
   /**
@@ -34,8 +34,7 @@ trait InformationTestTrait {
     /** @var \Drupal\se_information\Entity\Information $information */
     $information = $this->createInformation([
       'type' => $type,
-      'name' => $this->information->name,
-      'se_it_code' => $this->information->code,
+      'name' => $this->informationName,
     ]);
     self::assertNotEquals($information, FALSE);
     $this->drupalGet($information->toUrl());
@@ -47,7 +46,7 @@ trait InformationTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->information->name, $content);
+    self::assertStringContainsString($this->informationName, $content);
 
     return $information;
   }

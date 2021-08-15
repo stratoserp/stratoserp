@@ -14,23 +14,32 @@ use Faker\Factory;
  */
 trait QuoteTestTrait {
 
+  protected $quoteName;
+  protected $quoteUser;
+  protected $quotePhoneNumber;
+  protected $quoteMobileNumber;
+  protected $quoteStreetAddress;
+  protected $quoteSuburb;
+  protected $quoteState;
+  protected $quotePostcode;
+  protected $quoteUrl;
+  protected $quoteCompanyEmail;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function quoteFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original                   = error_reporting(0);
-    $this->quote->name          = $this->faker->text(45);
-    $this->quote->phoneNumber   = $this->faker->phoneNumber;
-    $this->quote->mobileNumber  = $this->faker->phoneNumber;
-    $this->quote->streetAddress = $this->faker->streetAddress;
-    $this->quote->suburb        = $this->faker->city;
-    $this->quote->state         = $this->faker->stateAbbr;
-    $this->quote->postcode      = $this->faker->postcode;
-    $this->quote->url           = $this->faker->url;
-    $this->quote->companyEmail  = $this->faker->companyEmail;
-    error_reporting($original);
+    $this->quoteName          = $this->faker->text(45);
+    $this->quotePhoneNumber   = $this->faker->phoneNumber;
+    $this->quoteMobileNumber  = $this->faker->phoneNumber;
+    $this->quoteStreetAddress = $this->faker->streetAddress;
+    $this->quoteSuburb        = $this->faker->city;
+    $this->quoteState         = $this->faker->stateAbbr;
+    $this->quotePostcode      = $this->faker->postcode;
+    $this->quoteUrl           = $this->faker->url;
+    $this->quoteCompanyEmail  = $this->faker->companyEmail;
   }
 
   /**
@@ -51,7 +60,7 @@ trait QuoteTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addQuote(Business $testBusiness, array $items = [], bool $allowed = TRUE) {
-    if (!isset($this->quote->name)) {
+    if (!isset($this->quoteName)) {
       $this->quoteFakerSetup();
     }
 
@@ -67,13 +76,13 @@ trait QuoteTestTrait {
 
     /** @var \Drupal\se_quote\Entity\Quote $quote */
     $quote = $this->createQuote([
-      'name' => $this->quote->name,
+      'name' => $this->quoteName,
       'se_bu_ref' => [
         'target_id' => $testBusiness->id(),
         'target_type' => 'se_business',
       ],
-      'se_qu_phone' => $this->quote->phoneNumber,
-      'se_qu_email' => $this->quote->companyEmail,
+      'se_qu_phone' => $this->quotePhoneNumber,
+      'se_qu_email' => $this->quoteCompanyEmail,
       'se_qu_lines' => $lines,
     ]);
 
@@ -95,7 +104,7 @@ trait QuoteTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->quote->name, $content);
+    self::assertStringContainsString($this->quoteName, $content);
 
     return $quote;
   }
@@ -134,14 +143,14 @@ trait QuoteTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->quote->user = User::load(\Drupal::currentUser()->id());
-      if ($this->quote->user) {
-        $settings['uid'] = $this->quote->user->id();
+      $this->quoteUser = User::load(\Drupal::currentUser()->id());
+      if ($this->quoteUser) {
+        $settings['uid'] = $this->quoteUser->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->quote->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->quote->user->id();
+        $this->quoteUser = $this->setUpCurrentUser();
+        $settings['uid'] = $this->quoteUser->id();
       }
       else {
         $settings['uid'] = 0;

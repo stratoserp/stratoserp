@@ -14,15 +14,15 @@ use Faker\Factory;
  */
 trait PaymentTestTrait {
 
+  protected $paymentName;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function paymentFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original            = error_reporting(0);
-    $this->payment->name = $this->faker->text(45);
-    error_reporting($original);
+    $this->paymentName = $this->faker->text(45);
   }
 
   /**
@@ -40,7 +40,7 @@ trait PaymentTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addPayment(Invoice $invoice = NULL, bool $allowed = TRUE) {
-    if (!isset($this->payment->name)) {
+    if (!isset($this->paymentName)) {
       $this->paymentFakerSetup();
     }
 
@@ -58,7 +58,7 @@ trait PaymentTestTrait {
     /** @var \Drupal\se_payment\Entity\Payment $payment */
     $payment = $this->createPayment([
       'type' => 'se_payment',
-      'name' => $this->payment->name,
+      'name' => $this->paymentName,
       'se_pa_lines' => $lines,
     ]);
     self::assertNotEquals($payment, FALSE);
@@ -79,7 +79,7 @@ trait PaymentTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->payment->name, $content);
+    self::assertStringContainsString($this->paymentName, $content);
 
     return $payment;
   }
@@ -118,14 +118,14 @@ trait PaymentTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->payment->user = User::load(\Drupal::currentUser()->id());
-      if ($this->payment->user) {
-        $settings['uid'] = $this->payment->user->id();
+      $this->paymentUser = User::load(\Drupal::currentUser()->id());
+      if ($this->paymentUser) {
+        $settings['uid'] = $this->paymentUser->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->payment->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->payment->user->id();
+        $this->paymentUser = $this->setUpCurrentUser();
+        $settings['uid'] = $this->paymentUser->id();
       }
       else {
         $settings['uid'] = 0;

@@ -14,24 +14,33 @@ use Faker\Factory;
  */
 trait ContactTestTrait {
 
+  protected $contactName;
+  protected $contactUser;
+  protected $contactPhoneNumber;
+  protected $contactMobileNumber;
+  protected $contactStreetAddress;
+  protected $contactSuburb;
+  protected $contactState;
+  protected $contactPostcode;
+  protected $contactUrl;
+  protected $contactCompanyEmail;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function contactFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original                     = error_reporting(0);
-    $this->contact->name          = $this->faker->realText(50);
-    $this->contact->phoneNumber   = $this->faker->phoneNumber;
-    $this->contact->mobileNumber  = $this->faker->phoneNumber;
-    $this->contact->streetAddress = $this->faker->streetAddress;
-    $this->contact->suburb        = $this->faker->city;
-    $this->contact->state         = $this->faker->stateAbbr;
-    $this->contact->postcode      = $this->faker->postcode;
-    $this->contact->url           = $this->faker->url;
-    $this->contact->email         = $this->faker->email;
-    $this->contact->companyEmail  = $this->faker->companyEmail;
-    error_reporting($original);
+    $this->contactName          = $this->faker->realText(50);
+    $this->contactPhoneNumber   = $this->faker->phoneNumber;
+    $this->contactMobileNumber  = $this->faker->phoneNumber;
+    $this->contactStreetAddress = $this->faker->streetAddress;
+    $this->contactSuburb        = $this->faker->city;
+    $this->contactState         = $this->faker->stateAbbr;
+    $this->contactPostcode      = $this->faker->postcode;
+    $this->contactUrl           = $this->faker->url;
+    $this->contactEmail         = $this->faker->email;
+    $this->contactCompanyEmail  = $this->faker->companyEmail;
   }
 
   /**
@@ -50,14 +59,14 @@ trait ContactTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addContact(Business $business, bool $allowed = TRUE) {
-    if (!isset($this->contact->name)) {
+    if (!isset($this->contactName)) {
       $this->contactFakerSetup();
     }
 
     $contact = $this->createContact([
       'type' => 'se_contact',
-      'name' => $this->contact->name,
-      'se_co_phone' => $this->contact->phoneNumber,
+      'name' => $this->contactName,
+      'se_co_phone' => $this->contactPhoneNumber,
       'se_bu_ref' => $business,
     ]);
     self::assertNotEquals($contact, FALSE);
@@ -76,8 +85,8 @@ trait ContactTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->contact->name, $content);
-    self::assertStringContainsString($this->contact->phoneNumber, $content);
+    self::assertStringContainsString($this->contactName, $content);
+    self::assertStringContainsString($this->contactPhoneNumber, $content);
     self::assertStringContainsString($business->getName(), $content);
 
     return $contact;
@@ -141,14 +150,14 @@ trait ContactTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->contact->user = User::load(\Drupal::currentUser()->id());
-      if ($this->contact->user) {
-        $settings['uid'] = $this->contact->user->id();
+      $this->contactUser = User::load(\Drupal::currentUser()->id());
+      if ($this->contactUser) {
+        $settings['uid'] = $this->contactUser->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->contact->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->contact->user->id();
+        $this->contactUser = $this->setUpCurrentUser();
+        $settings['uid'] = $this->contactUser->id();
       }
       else {
         $settings['uid'] = 0;

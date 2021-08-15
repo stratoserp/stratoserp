@@ -17,7 +17,7 @@ trait UserCreateTrait {
    *
    * @var \Faker\Factory
    */
-  protected $user;
+  protected $userName;
 
   /**
    * Create a fake user.
@@ -25,9 +25,7 @@ trait UserCreateTrait {
   public function userFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original = error_reporting(0);
-    $this->user->name = $this->faker->realText(50);
-    error_reporting($original);
+    $this->userName = $this->faker->realText(50);
   }
 
   /**
@@ -86,8 +84,8 @@ trait UserCreateTrait {
     $password = user_password();
 
     $values += [
-      'name' => $this->user->name,
-      'username' => $this->user->name,
+      'name' => $this->userName,
+      'username' => $this->userName,
       'status' => TRUE,
       'pass' => $password,
     ];

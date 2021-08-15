@@ -14,23 +14,15 @@ use Faker\Factory;
  */
 trait TimekeepingTestTrait {
 
+  protected $timekeepingName;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function timekeepingFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original                         = error_reporting(0);
-    $this->timekeeping->name          = $this->faker->realText(45);
-    $this->timekeeping->phoneNumber   = $this->faker->phoneNumber;
-    $this->timekeeping->mobileNumber  = $this->faker->phoneNumber;
-    $this->timekeeping->streetAddress = $this->faker->streetAddress;
-    $this->timekeeping->suburb        = $this->faker->city;
-    $this->timekeeping->state         = $this->faker->stateAbbr;
-    $this->timekeeping->postcode      = $this->faker->postcode;
-    $this->timekeeping->url           = $this->faker->url;
-    $this->timekeeping->companyEmail  = $this->faker->companyEmail;
-    error_reporting($original);
+    $this->timekeepingName          = $this->faker->realText(45);
   }
 
   /**
@@ -46,7 +38,7 @@ trait TimekeepingTestTrait {
    * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function addTimekeeping(Ticket $ticket, bool $allowed = TRUE) {
-    if (!isset($this->timekeeping->name)) {
+    if (!isset($this->timekeepingName)) {
       $this->timekeepingFakerSetup();
     }
 
@@ -59,7 +51,7 @@ trait TimekeepingTestTrait {
       'field_name' => 'se_timekeeping',
       'comment_type' => 'se_timekeeping',
       'se_bu_ref' => $ticket->se_bu_ref,
-      'se_tk_comment' => $this->timekeeping->name,
+      'se_tk_comment' => $this->timekeepingName,
       'se_tk_billable' => TRUE,
       'se_tk_billed' => FALSE,
       'se_tk_amount' => 60,
@@ -84,7 +76,7 @@ trait TimekeepingTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->timekeeping->name, $content);
+    self::assertStringContainsString($this->timekeepingName, $content);
 
     return $comment;
   }

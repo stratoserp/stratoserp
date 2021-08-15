@@ -15,23 +15,31 @@ use Faker\Factory;
  */
 trait InvoiceTestTrait {
 
+  protected $invoiceName;
+  protected $invoicePhoneNumber;
+  protected $invoiceMobileNumber;
+  protected $invoiceStreetAddress;
+  protected $invoiceSuburb;
+  protected $invoiceState;
+  protected $invoicePostcode;
+  protected $invoiceUrl;
+  protected $invoiceCompanyEmail;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function invoiceFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original                     = error_reporting(0);
-    $this->invoice->name          = $this->faker->text(45);
-    $this->invoice->phoneNumber   = $this->faker->phoneNumber;
-    $this->invoice->mobileNumber  = $this->faker->phoneNumber;
-    $this->invoice->streetAddress = $this->faker->streetAddress;
-    $this->invoice->suburb        = $this->faker->city;
-    $this->invoice->state         = $this->faker->stateAbbr;
-    $this->invoice->postcode      = $this->faker->postcode;
-    $this->invoice->url           = $this->faker->url;
-    $this->invoice->companyEmail  = $this->faker->companyEmail;
-    error_reporting($original);
+    $this->invoiceName          = $this->faker->text(45);
+    $this->invoicePhoneNumber   = $this->faker->phoneNumber;
+    $this->invoiceMobileNumber  = $this->faker->phoneNumber;
+    $this->invoiceStreetAddress = $this->faker->streetAddress;
+    $this->invoiceSuburb        = $this->faker->city;
+    $this->invoiceState         = $this->faker->stateAbbr;
+    $this->invoicePostcode      = $this->faker->postcode;
+    $this->invoiceUrl           = $this->faker->url;
+    $this->invoiceCompanyEmail  = $this->faker->companyEmail;
   }
 
   /**
@@ -52,7 +60,7 @@ trait InvoiceTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addInvoice(Business $testBusiness, array $items = [], bool $allowed = TRUE) {
-    if (!isset($this->invoice->name)) {
+    if (!isset($this->invoiceName)) {
       $this->invoiceFakerSetup();
     }
 
@@ -70,13 +78,13 @@ trait InvoiceTestTrait {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $this->createInvoice([
       'type' => 'se_invoice',
-      'name' => $this->invoice->name,
+      'name' => $this->invoiceName,
       'se_bu_ref' => [
         'target_id' => $testBusiness->id(),
         'target_type' => 'se_business',
       ],
-      'se_in_phone' => $this->invoice->phoneNumber,
-      'se_in_email' => $this->invoice->companyEmail,
+      'se_in_phone' => $this->invoicePhoneNumber,
+      'se_in_email' => $this->invoiceCompanyEmail,
       'se_in_lines' => $lines,
     ]);
     self::assertNotEquals($invoice, FALSE);
@@ -102,7 +110,7 @@ trait InvoiceTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->invoice->name, $content);
+    self::assertStringContainsString($this->invoiceName, $content);
 
     return $invoice;
   }
@@ -158,14 +166,14 @@ trait InvoiceTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->invoice->user = User::load(\Drupal::currentUser()->id());
-      if ($this->invoice->user) {
-        $settings['uid'] = $this->invoice->user->id();
+      $this->invoiceUser = User::load(\Drupal::currentUser()->id());
+      if ($this->invoiceUser) {
+        $settings['uid'] = $this->invoiceUser->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->invoice->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->invoice->user->id();
+        $this->invoiceUser = $this->setUpCurrentUser();
+        $settings['uid'] = $this->user->id();
       }
       else {
         $settings['uid'] = 0;

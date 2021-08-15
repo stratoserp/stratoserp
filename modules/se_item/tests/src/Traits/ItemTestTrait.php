@@ -14,19 +14,23 @@ use Drupal\Core\Entity\EntityInterface;
  */
 trait ItemTestTrait {
 
+  protected $itemName;
+  protected $itemCode;
+  protected $itemSerial;
+  protected $itemCostPrice;
+  protected $itemSellPrice;
+
   /**
    * Setup basic faker fields for this test trait.
    */
   public function itemFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $original              = error_reporting(0);
-    $this->item->name      = $this->faker->unique()->realText(20);
-    $this->item->code      = $this->faker->unique()->text(10);
-    $this->item->serial    = (string) $this->faker->randomNumber(5);
-    $this->item->costPrice = $this->faker->numberBetween(5, 10);
-    $this->item->sellPrice = $this->item->costPrice * 1.2;
-    error_reporting($original);
+    $this->itemName      = $this->faker->unique()->realText(20);
+    $this->itemCode      = $this->faker->unique()->text(10);
+    $this->itemSerial    = (string) $this->faker->randomNumber(5);
+    $this->itemCostPrice = $this->faker->numberBetween(5, 10);
+    $this->itemSellPrice = $this->itemCostPrice * 1.2;
 
     $this->currencyFormat = \Drupal::service('se_accounting.currency_format');
   }
@@ -42,11 +46,11 @@ trait ItemTestTrait {
   public function addStockItem(): Item {
     $item = $this->createItem([
       'type' => 'se_stock',
-      'name' => $this->item->name,
-      'se_it_code' => $this->item->code,
-      'se_it_serial' => $this->item->serial,
-      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->item->sellPrice),
-      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->item->costPrice),
+      'name' => $this->itemName,
+      'se_it_code' => $this->itemCode,
+      'se_it_serial' => $this->itemSerial,
+      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
     ]);
 
     self::assertNotEquals($item, FALSE);
@@ -54,10 +58,10 @@ trait ItemTestTrait {
     // Ensure that the item is not its own original/parent item.
     self::assertNotNull($item->se_it_item_ref);
     self::assertNotEquals($item->se_it_item_ref->entity->id(), $item->id());
-    self::assertEquals($this->item->serial, $item->se_it_serial->value);
+    self::assertEquals($this->itemSerial, $item->se_it_serial->value);
     // $this->assertNull($item->se_it_goods_receipt_ref);
     $content = $this->checkGeneralItemAttributes($item);
-    self::assertStringContainsString($this->item->serial, $content);
+    self::assertStringContainsString($this->itemSerial, $content);
 
     return $item;
   }
@@ -73,10 +77,10 @@ trait ItemTestTrait {
   public function addServiceItem(): Item {
     $item = $this->createItem([
       'type' => 'se_service',
-      'name' => $this->item->name,
-      'se_it_code' => $this->item->code,
-      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->item->sellPrice),
-      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->item->costPrice),
+      'name' => $this->itemName,
+      'se_it_code' => $this->itemCode,
+      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
     ]);
 
     self::assertNotEquals($item, FALSE);
@@ -97,11 +101,11 @@ trait ItemTestTrait {
   public function addAssemblyItem(): Item {
     $item = $this->createItem([
       'type' => 'se_assembly',
-      'name' => $this->item->name,
-      'se_it_code' => $this->item->code,
-      'se_it_serial' => $this->item->serial,
-      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->item->sellPrice),
-      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->item->costPrice),
+      'name' => $this->itemName,
+      'se_it_code' => $this->itemCode,
+      'se_it_serial' => $this->itemSerial,
+      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
     ]);
 
     self::assertNotEquals($item, FALSE);
@@ -134,9 +138,9 @@ trait ItemTestTrait {
     self::assertNotNull($item->se_it_cost_price->value);
     self::assertNotNull($item->se_it_sell_price->value);
 
-    self::assertEquals($this->item->code, $item->se_it_code->value);
-    self::assertEquals($this->item->costPrice, $this->currencyFormat->formatRaw((int) $item->se_it_cost_price->value));
-    self::assertEquals($this->item->sellPrice, $this->currencyFormat->formatRaw((int) $item->se_it_sell_price->value));
+    self::assertEquals($this->itemCode, $item->se_it_code->value);
+    self::assertEquals($this->itemCostPrice, $this->currencyFormat->formatRaw((int) $item->se_it_cost_price->value));
+    self::assertEquals($this->itemSellPrice, $this->currencyFormat->formatRaw((int) $item->se_it_sell_price->value));
 
     $this->drupalGet($item->toUrl());
 
@@ -147,10 +151,10 @@ trait ItemTestTrait {
     self::assertStringNotContainsString('Please fill in this field', $content);
 
     // Check that what we entered is shown.
-    self::assertStringContainsString($this->item->name, $content);
-    self::assertStringContainsString($this->item->code, $content);
-    self::assertStringContainsString((string) $this->item->costPrice, $content);
-    self::assertStringContainsString((string) $this->item->sellPrice, $content);
+    self::assertStringContainsString($this->itemName, $content);
+    self::assertStringContainsString($this->itemCode, $content);
+    self::assertStringContainsString((string) $this->itemCostPrice, $content);
+    self::assertStringContainsString((string) $this->itemSellPrice, $content);
 
     return $content;
   }
@@ -190,14 +194,14 @@ trait ItemTestTrait {
     ];
 
     if (!array_key_exists('uid', $settings)) {
-      $this->item->user = User::load(\Drupal::currentUser()->id());
-      if ($this->item->user) {
-        $settings['uid'] = $this->item->user->id();
+      $this->itemUser = User::load(\Drupal::currentUser()->id());
+      if ($this->itemUser) {
+        $settings['uid'] = $this->itemUser->id();
       }
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
-        $this->item->user = $this->setUpCurrentUser();
-        $settings['uid'] = $this->item->user->id();
+        $this->itemUser = $this->setUpCurrentUser();
+        $settings['uid'] = $this->itemUser->id();
       }
       else {
         $settings['uid'] = 0;
