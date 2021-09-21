@@ -20,6 +20,7 @@
     "prettier": "prettier --write \"./**/*.es6.js\" \"./tests/Drupal/Nightwatch/**/*.js\""
   },
   "devDependencies": {
+    "ansi-regex": ">=6.0.1",
     "babel-core": "^6.26.0",
     "babel-plugin-add-header-comment": "^1.0.3",
     "babel-preset-env": "^1.4.0",
