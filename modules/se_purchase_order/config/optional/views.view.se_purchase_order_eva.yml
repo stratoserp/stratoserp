@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.se_purchase_order.se_status_ref
     - user.role.developer
     - user.role.owner
     - user.role.staff
@@ -333,7 +334,7 @@ display:
           relationship: reverse__se_goods_receipt__se_gr_purchase_order_ref
           group_type: group
           admin_label: ''
-          label: Name
+          label: 'Goods receipt'
           exclude: false
           alter:
             alter_text: false
@@ -391,6 +392,69 @@ display:
           entity_type: se_goods_receipt
           entity_field: name
           plugin_id: field
+        se_status_ref:
+          id: se_status_ref
+          table: se_purchase_order__se_status_ref
+          field: se_status_ref
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Status
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
       filters: {  }
       sorts: {  }
       header: {  }
@@ -441,7 +505,7 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
+            items_per_page: 10
             override: false
           summary:
             sort_order: asc
@@ -465,7 +529,8 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.se_purchase_order.se_status_ref'
   se_purchase_order_eva:
     display_plugin: entity_view
     id: se_purchase_order_eva
@@ -485,4 +550,5 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.se_purchase_order.se_status_ref'
