@@ -1,0 +1,102 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_payment.se_payment.se_bu_ref
+    - field.field.se_payment.se_payment.se_pa_lines
+    - field.field.se_payment.se_payment.se_pa_total
+  module:
+    - field_group
+    - field_layout
+    - layout_discovery
+    - se_accounting
+    - se_payment
+    - se_payment_line
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings:
+      label: ''
+  field_group:
+    group_pa_extra:
+      children:
+        - user_id
+        - revision_log_message
+      parent_name: ''
+      weight: 5
+      format_type: details
+      region: bottom
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Extra
+id: se_payment.se_payment.default
+targetEntityType: se_payment
+bundle: se_payment
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: top
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  revision_log_message:
+    type: string_textarea
+    weight: 7
+    settings:
+      rows: 4
+      placeholder: ''
+    region: bottom
+    third_party_settings: {  }
+  se_bu_ref:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
+  se_pa_lines:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: '60'
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    type: se_payment_line_widget
+    region: bottom
+  se_pa_total:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: se_currency_widget
+    region: bottom
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: bottom
+    third_party_settings: {  }
+hidden:
+  created: true
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

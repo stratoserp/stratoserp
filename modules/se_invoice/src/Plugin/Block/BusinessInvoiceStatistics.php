@@ -61,7 +61,7 @@ class BusinessInvoiceStatistics extends BlockBase {
             $total += $invoice->se_in_total->value;
           }
         }
-        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw((int) ($total ?? 0));
+        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($total ?? 0);
         $fg_colors[] = $fg_color;
       }
 

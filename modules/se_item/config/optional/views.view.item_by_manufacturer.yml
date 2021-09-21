@@ -58,7 +58,7 @@ display:
       pager:
         type: full
         options:
-          items_per_page: 20
+          items_per_page: 15
           offset: 0
           id: 0
           total_pages: null
@@ -820,7 +820,7 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
+            items_per_page: 15
             override: false
           summary:
             sort_order: asc

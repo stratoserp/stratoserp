@@ -26,17 +26,17 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
   public function build() {
     $content = FALSE;
     $datasets = [];
-    // @todo Move this to a service and pass in this.
+    // @todo Move this to a service and pass in the entity type and business.
     $type = 'se_purchase_order';
     $bundleFieldType = ErpCore::SE_ITEM_LINE_BUNDLES[$type];
 
-    /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    if (!$entity = $this->getCurrentControllerEntity()) {
+    /** @var \Drupal\Core\Entity\EntityInterface $business */
+    if (!$business = $this->getCurrentControllerEntity()) {
       return [];
     }
 
     // This is designed to run only for businesses.
-    if ($entity->bundle() !== 'se_business') {
+    if ($business->bundle() !== 'se_business') {
       return [];
     }
 
@@ -48,13 +48,13 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
         $query = \Drupal::entityQuery('se_purchase_order');
-        $query->condition('se_bu_ref', $entity->id());
+        $query->condition('se_bu_ref', $business->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
 
         $entities = \Drupal::entityTypeManager()
-          ->getStorage('se_purchase_order')
+          ->getStorage($type)
           ->loadMultiple($entity_ids);
         if ($entities && count($entities) > 0) {
           $content = TRUE;
@@ -65,7 +65,7 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
         foreach ($entities as $entity) {
           $total += $entity->{$bundle_field_total}->value;
         }
-        $month_data[] = $total;
+        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($total ?? 0);
         $fg_colors[] = $fg_color;
       }
 

@@ -76,9 +76,6 @@ settings:
   se_purchase_order:
     handler: 'default:se_purchase_order'
     handler_settings: {  }
-  social_auth:
-    handler: 'default:social_auth'
-    handler_settings: {  }
   taxonomy_term:
     handler: 'default:taxonomy_term'
     handler_settings: {  }
@@ -90,5 +87,8 @@ settings:
     handler_settings: {  }
   webform_submission:
     handler: 'default:webform_submission'
+    handler_settings: {  }
+  se_payment:
+    handler: 'default:se_payment'
     handler_settings: {  }
 field_type: se_item_line

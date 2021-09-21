@@ -57,9 +57,6 @@ settings:
   se_purchase_order:
     handler: 'default:se_purchase_order'
     handler_settings: {  }
-  social_auth:
-    handler: 'default:social_auth'
-    handler_settings: {  }
   se_business:
     handler: 'default:se_business'
     handler_settings: {  }
@@ -71,5 +68,26 @@ settings:
     handler_settings: {  }
   node:
     handler: 'default:node'
+    handler_settings: {  }
+  se_goods_receipt:
+    handler: 'default:se_goods_receipt'
+    handler_settings: {  }
+  se_information:
+    handler: 'default:se_information'
+    handler_settings: {  }
+  se_invoice:
+    handler: 'default:se_invoice'
+    handler_settings: {  }
+  se_payment:
+    handler: 'default:se_payment'
+    handler_settings: {  }
+  se_quote:
+    handler: 'default:se_quote'
+    handler_settings: {  }
+  se_subscription:
+    handler: 'default:se_subscription'
+    handler_settings: {  }
+  se_ticket:
+    handler: 'default:se_ticket'
     handler_settings: {  }
 field_type: se_item_line

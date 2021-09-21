@@ -5,7 +5,7 @@ dependencies:
     - field.storage.se_contact.se_co_type_ref
     - taxonomy.vocabulary.se_contact_type
   content:
-    - 'taxonomy_term:se_contact_type:7cac87aa-52a8-42a1-8f2f-7fdb58933eed'
+    - 'taxonomy_term:se_contact_type:f3b7bfaa-e877-44ff-b7a1-7099f0744baa'
   module:
     - se_contact
 id: se_contact.se_contact.se_co_type_ref
@@ -18,7 +18,7 @@ required: false
 translatable: false
 default_value:
   -
-    target_uuid: 7cac87aa-52a8-42a1-8f2f-7fdb58933eed
+    target_uuid: f3b7bfaa-e877-44ff-b7a1-7099f0744baa
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

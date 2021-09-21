@@ -132,6 +132,7 @@ hidden:
   extra_field_revision_field: true
   path: true
   promote: true
+  se_su_ref: true
   status: true
   sticky: true
   uid: true

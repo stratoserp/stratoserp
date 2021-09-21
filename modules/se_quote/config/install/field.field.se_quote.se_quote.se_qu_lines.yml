@@ -56,9 +56,6 @@ settings:
   se_quote:
     handler: 'default:se_quote'
     handler_settings: {  }
-  social_auth:
-    handler: 'default:social_auth'
-    handler_settings: {  }
   se_business:
     handler: 'default:se_business'
     handler_settings: {  }
