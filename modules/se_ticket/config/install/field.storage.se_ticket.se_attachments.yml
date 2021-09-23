@@ -11,7 +11,7 @@ type: file
 settings:
   display_field: true
   display_default: true
-  uri_scheme: public
+  uri_scheme: private
   target_type: file
 module: file
 locked: false
