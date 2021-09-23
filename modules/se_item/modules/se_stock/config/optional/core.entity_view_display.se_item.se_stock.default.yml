@@ -18,6 +18,7 @@ dependencies:
     - field.field.se_item.se_stock.se_it_sale_price
     - field.field.se_item.se_stock.se_it_sell_price
     - field.field.se_item.se_stock.se_it_serial
+    - image.style.thumbnail
     - se_item.se_item_type.se_stock
   module:
     - datetime
@@ -80,7 +81,7 @@ content:
     region: bottom
     label: above
     settings:
-      image_style: ''
+      image_style: thumbnail
       image_link: ''
     third_party_settings: {  }
   se_it_invoice_ref:

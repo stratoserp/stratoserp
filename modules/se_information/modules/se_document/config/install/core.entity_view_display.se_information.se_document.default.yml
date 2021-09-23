@@ -41,22 +41,22 @@ content:
     type: entity_reference_label
     region: content
   se_if_attachments:
-    weight: 4
-    label: above
+    weight: 2
+    label: inline
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
     type: file_default
     region: content
   se_if_body:
-    weight: 2
+    weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   se_if_comments:
-    weight: 3
+    weight: 4
     label: above
     settings:
       view_mode: default
