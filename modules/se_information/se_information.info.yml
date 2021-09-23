@@ -16,4 +16,5 @@ config_devel:
     - field.storage.se_information.se_if_attachments
     - field.storage.se_information.se_if_body
     - field.storage.se_information.se_if_comments
+    - field.storage.se_information.se_if_images
   optional: {  }

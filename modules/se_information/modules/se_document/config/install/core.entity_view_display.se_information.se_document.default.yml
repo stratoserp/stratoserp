@@ -7,11 +7,14 @@ dependencies:
     - field.field.se_information.se_document.se_if_attachments
     - field.field.se_information.se_document.se_if_body
     - field.field.se_information.se_document.se_if_comments
+    - field.field.se_information.se_document.se_if_images
+    - image.style.thumbnail
     - se_information.se_information_type.se_document
   module:
     - comment
     - field_layout
     - file
+    - image
     - layout_discovery
     - text
 third_party_settings:
@@ -49,20 +52,29 @@ content:
     type: file_default
     region: content
   se_if_body:
-    weight: 3
+    weight: 4
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   se_if_comments:
-    weight: 4
+    weight: 5
     label: above
     settings:
       view_mode: default
       pager_id: 0
     third_party_settings: {  }
     type: comment_default
+    region: content
+  se_if_images:
+    weight: 3
+    label: above
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    third_party_settings: {  }
+    type: image
     region: content
 hidden:
   entity_print_view_epub: true

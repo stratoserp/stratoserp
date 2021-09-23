@@ -15,6 +15,7 @@ config_devel:
     - field.field.se_information.se_document.se_if_attachments
     - field.field.se_information.se_document.se_if_body
     - field.field.se_information.se_document.se_if_comments
+    - field.field.se_information.se_document.se_if_images
     - se_information.se_information_type.se_document
   optional:
     - views.view.se_document_list
