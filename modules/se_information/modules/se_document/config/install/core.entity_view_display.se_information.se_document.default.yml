@@ -4,12 +4,14 @@ dependencies:
   config:
     - core.entity_view_display.comment.se_if_comments.default
     - field.field.se_information.se_document.se_bu_ref
+    - field.field.se_information.se_document.se_if_attachments
     - field.field.se_information.se_document.se_if_body
     - field.field.se_information.se_document.se_if_comments
     - se_information.se_information_type.se_document
   module:
     - comment
     - field_layout
+    - file
     - layout_discovery
     - text
 third_party_settings:
@@ -37,6 +39,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  se_if_attachments:
+    weight: 4
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
     region: content
   se_if_body:
     weight: 2

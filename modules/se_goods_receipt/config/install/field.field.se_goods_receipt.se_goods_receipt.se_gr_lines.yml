@@ -72,22 +72,4 @@ settings:
   node:
     handler: 'default:node'
     handler_settings: {  }
-  se_information:
-    handler: 'default:se_information'
-    handler_settings: {  }
-  se_invoice:
-    handler: 'default:se_invoice'
-    handler_settings: {  }
-  se_payment:
-    handler: 'default:se_payment'
-    handler_settings: {  }
-  se_quote:
-    handler: 'default:se_quote'
-    handler_settings: {  }
-  se_subscription:
-    handler: 'default:se_subscription'
-    handler_settings: {  }
-  se_ticket:
-    handler: 'default:se_ticket'
-    handler_settings: {  }
 field_type: se_item_line

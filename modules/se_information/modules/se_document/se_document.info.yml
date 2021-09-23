@@ -12,6 +12,7 @@ config_devel:
     - core.entity_form_display.se_information.se_document.default
     - core.entity_view_display.se_information.se_document.default
     - field.field.se_information.se_document.se_bu_ref
+    - field.field.se_information.se_document.se_if_attachments
     - field.field.se_information.se_document.se_if_body
     - field.field.se_information.se_document.se_if_comments
     - se_information.se_information_type.se_document

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.se_information.se_document.se_bu_ref
+    - field.field.se_information.se_document.se_if_attachments
     - field.field.se_information.se_document.se_if_body
     - field.field.se_information.se_document.se_if_comments
     - se_information.se_information_type.se_document
@@ -10,6 +11,7 @@ dependencies:
     - comment
     - field_group
     - field_layout
+    - file
     - layout_discovery
     - text
 third_party_settings:
@@ -63,6 +65,13 @@ content:
       match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: first
+  se_if_attachments:
+    weight: 5
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
     region: first
   se_if_body:
     weight: 2

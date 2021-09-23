@@ -5,7 +5,7 @@ dependencies:
     - field.storage.se_ticket.se_ti_type_ref
     - taxonomy.vocabulary.se_ticket_type
   content:
-    - 'taxonomy_term:se_ticket_type:82a0f38a-a116-47e3-825f-481a74fc8b70'
+    - 'taxonomy_term:se_ticket_type:775f372e-9cd0-4670-8a14-fb701cc3684e'
   module:
     - se_ticket
 id: se_ticket.se_ticket.se_ti_type_ref
@@ -18,7 +18,7 @@ required: false
 translatable: false
 default_value:
   -
-    target_uuid: 82a0f38a-a116-47e3-825f-481a74fc8b70
+    target_uuid: 775f372e-9cd0-4670-8a14-fb701cc3684e
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
