@@ -53,12 +53,14 @@ class AnonymousRedirectSubscriber implements EventSubscriberInterface {
       return;
     }
 
+    // @todo Make configurable.
     // If the requested path is not one of these, force login.
     if ($this->account->isAnonymous()
     && !in_array($currentPath, [
       '/403',
       '/o365/login',
       '/o365/callback',
+      '/o365_sso/login',
       '/register',
       '/user/password',
     ])) {
