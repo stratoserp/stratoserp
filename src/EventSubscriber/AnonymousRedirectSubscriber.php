@@ -58,6 +58,7 @@ class AnonymousRedirectSubscriber implements EventSubscriberInterface {
     && !in_array($currentPath, [
       '/403',
       '/o365/login',
+      '/o365/callback',
       '/register',
       '/user/password',
     ])) {
