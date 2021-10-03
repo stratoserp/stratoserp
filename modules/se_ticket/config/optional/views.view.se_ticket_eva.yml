@@ -98,7 +98,7 @@ display:
               align: ''
               separator: ''
               empty_column: false
-              responsive: ''
+              responsive: priority-medium
             se_ti_scheduled:
               sortable: true
               default_sort_order: desc
@@ -112,15 +112,15 @@ display:
               align: ''
               separator: ''
               empty_column: false
-              responsive: ''
+              responsive: priority-low
             se_ti_open_date:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          default: id
+          default: se_ti_open_date
           empty_table: false
       row:
         type: fields

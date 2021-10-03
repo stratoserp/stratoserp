@@ -3,11 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.se_ticket.se_ti_scheduled
+    - field.storage.se_ticket.se_ti_type_ref
     - system.menu.stratos-erp
     - user.role.developer
     - user.role.owner
     - user.role.staff
   module:
+    - datetime
     - datetime_range
     - fullcalendar_view
     - se_ticket
@@ -55,17 +57,15 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: full
+        type: mini
         options:
-          items_per_page: 20
+          items_per_page: 100
           offset: 0
           id: 0
           total_pages: null
           tags:
-            previous: ‹
-            next: ›
-            first: ‹‹
-            last: ››
+            previous: ‹‹
+            next: ››
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -74,7 +74,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 9
       style:
         type: fullcalendar_view_display
         options:
@@ -85,8 +84,8 @@ display:
           title: name
           left_buttons: 'prev,next today'
           right_buttons: 'dayGridMonth,timeGridWeek,timeGridDay,listYear'
-          default_view: dayGridMonth
-          firstDay: '0'
+          default_view: timeGridWeek
+          firstDay: '1'
           nav_links: 1
           timeFormat: 'hh:mm a'
           allowEventOverlap: 1
@@ -96,15 +95,31 @@ display:
           languageSelector: 0
           dialogWindow: 0
           openEntityInNewTab: 1
-          createEventLink: 0
-          tax_field: ''
-          vocabularies: ''
+          createEventLink: 1
+          eventLimit: '2'
+          tax_field: se_ti_type_ref
+          vocabularies: se_ticket_type
           color_bundle:
             se_ticket: '#3a87ad'
           rrule: ''
           duration: ''
-          bundle_type: ''
+          bundle_type: se_ticket
           classes: ''
+          color_taxonomies:
+            47: '#00a7fa'
+            48: '#b05454'
+            512: '#ff0000'
+            49: '#3a87ad'
+            510: '#a3eff5'
+            50: '#00ff4c'
+            508: '#4c00ff'
+            51: '#ff0000'
+            52: '#49d100'
+            55: '#646e73'
+            513: '#3a87ad'
+            53: '#94dbff'
+            511: '#3a87ad'
+            54: '#cccccc'
       row:
         type: fields
         options:
@@ -114,12 +129,9 @@ display:
           default_field_elements: true
       fields:
         name:
+          id: name
           table: se_ticket_field_data
           field: name
-          id: name
-          entity_type: null
-          entity_field: name
-          plugin_id: field
           relationship: none
           group_type: group
           admin_label: ''
@@ -156,7 +168,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -166,7 +178,8 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings: {  }
+          settings:
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -177,6 +190,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: null
+          entity_field: name
+          plugin_id: field
         se_ti_scheduled:
           id: se_ti_scheduled
           table: se_ticket__se_ti_scheduled
@@ -242,8 +258,84 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
+        se_ti_type_ref:
+          id: se_ti_type_ref
+          table: se_ticket__se_ti_type_ref
+          field: se_ti_type_ref
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Ticket Type'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
       filters: {  }
-      sorts: {  }
+      sorts:
+        se_ti_scheduled_value:
+          id: se_ti_scheduled_value
+          table: se_ticket__se_ti_scheduled
+          field: se_ti_scheduled_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          granularity: minute
+          plugin_id: datetime
       header: {  }
       footer: {  }
       empty: {  }
@@ -259,6 +351,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_ticket.se_ti_scheduled'
+        - 'config:field.storage.se_ticket.se_ti_type_ref'
   se_ticket_calendar:
     display_plugin: page
     id: se_ticket_calendar
@@ -285,3 +378,4 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_ticket.se_ti_scheduled'
+        - 'config:field.storage.se_ticket.se_ti_type_ref'

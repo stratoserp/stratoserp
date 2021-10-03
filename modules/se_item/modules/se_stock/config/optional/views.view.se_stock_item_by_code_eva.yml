@@ -598,7 +598,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'No stock items'
+            value: 'No stock sub-items'
             format: basic_html
           plugin_id: text
       relationships: {  }
