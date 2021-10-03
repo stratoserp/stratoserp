@@ -22,6 +22,8 @@ trait TicketTrait {
     if (is_array($closedList) && !in_array($ticket->se_ti_status_ref->value, $closedList, TRUE)) {
       return TRUE;
     }
+
+    return FALSE;
   }
 
   /**
@@ -30,11 +32,11 @@ trait TicketTrait {
    * @todo Provide a selection form for conditions.
    */
   public function isCalenderWorthy(Ticket $ticket) {
-    if (!$this->isOpen($ticket)) {
+    if (!(isset($ticket->se_ti_scheduled->value) && isset($ticket->se_ti_scheduled->end_value))) {
       return FALSE;
     }
 
-    if (!isset($ticket->se_ti_scheduled->value)) {
+    if (!$this->isOpen($ticket)) {
       return FALSE;
     }
 
@@ -43,6 +45,8 @@ trait TicketTrait {
     if (!in_array($ticket->se_ti_type_ref->value, $calendarList, TRUE)) {
       return TRUE;
     }
+
+    return FALSE;
   }
 
 }

@@ -170,17 +170,21 @@ class TicketSettingsForm extends FormBase {
     $config = $this->config('se_ticket.settings');
     $fieldStorage = $this->entityTypeManager->getStorage('field_config');
     $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $messenger = $this->messenger();
     $priorityOptions = $typeOptions = $statusOptions = [];
 
     // Retrieve the field and then the vocab.
     if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_priority_ref')) {
       $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
       $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
-      /**
-       * @var \Drupal\taxonomy\Entity\Term $term
-       */
+
+      /** @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($terms as $tid => $term) {
         $priorityOptions[$tid] = $term->getName();
+      }
+
+      if (!count($priorityOptions)) {
+        $messenger->addWarning(t('Ticket priority: No terms found in the %vocabulary vocabulary', ['%vocabulary' => $vocabulary]));
       }
 
       $form['se_ticket_priority'] = [
@@ -188,7 +192,7 @@ class TicketSettingsForm extends FormBase {
         '#type' => 'select',
         '#options' => $priorityOptions,
         '#default_value' => $config->get('se_ticket_priority'),
-        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Ticket priority'"),
       ];
     }
 
@@ -196,11 +200,14 @@ class TicketSettingsForm extends FormBase {
     if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_type_ref')) {
       $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
       $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
-      /**
-       * @var \Drupal\taxonomy\Entity\Term $term
-       */
+
+      /** @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($terms as $tid => $term) {
         $typeOptions[$tid] = $term->getName();
+      }
+
+      if (!count($typeOptions)) {
+        $messenger->addWarning(t('Ticket type: No terms found in the %vocabulary vocabulary', ['%vocabulary' => $vocabulary]));
       }
 
       $form['se_ticket_type'] = [
@@ -208,7 +215,7 @@ class TicketSettingsForm extends FormBase {
         '#type' => 'select',
         '#options' => $typeOptions,
         '#default_value' => $config->get('se_ticket_type'),
-        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Ticket type'"),
       ];
 
       $form['se_ticket_calendar_type_list'] = [
@@ -217,7 +224,7 @@ class TicketSettingsForm extends FormBase {
         '#multiple' => TRUE,
         '#options' => $typeOptions,
         '#default_value' => $config->get('se_ticket_calendar_type_list'),
-        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Ticket type'"),
       ];
     }
 
@@ -225,11 +232,13 @@ class TicketSettingsForm extends FormBase {
     if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_status_ref')) {
       $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
       $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
-      /**
-       * @var \Drupal\taxonomy\Entity\Term $term
-       */
+
+      /** @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($terms as $tid => $term) {
         $statusOptions[$tid] = $term->getName();
+      }
+      if (!count($statusOptions)) {
+        $messenger->addWarning(t('Ticket status: No terms found in the %vocabulary vocabulary', ['%vocabulary' => $vocabulary]));
       }
 
       $form['se_ticket_status'] = [
@@ -237,7 +246,7 @@ class TicketSettingsForm extends FormBase {
         '#type' => 'select',
         '#options' => $statusOptions,
         '#default_value' => $config->get('se_ticket_status'),
-        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Ticket status'"),
       ];
 
       $form['se_ticket_calendar_status_list'] = [
@@ -246,7 +255,7 @@ class TicketSettingsForm extends FormBase {
         '#multiple' => TRUE,
         '#options' => $statusOptions,
         '#default_value' => $config->get('se_ticket_calendar_status_list'),
-        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Ticket status'"),
       ];
 
       $form['actions']['#type'] = 'actions';
