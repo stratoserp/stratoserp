@@ -17,12 +17,9 @@ trait TicketTrait {
    * @todo Provide a selection form for closed status values.
    */
   public function isOpen(Ticket $ticket) {
-    /** @var \Drupal\taxonomy\Entity\Term $closed */
+    $closedList = \Drupal::configFactory()->getEditable('se_ticket.settings')->get('se_ticket_calendar_status_list');
 
-    $closedList[] = stratoserp_get_term_id_by_name('Closed', 'se_ticket_status');
-    $closedList[] = stratoserp_get_term_id_by_name('Cancelled', 'se_ticket_status');
-
-    if (!in_array($ticket->se_ti_status_ref->value, $closedList, TRUE)) {
+    if (is_array($closedList) && !in_array($ticket->se_ti_status_ref->value, $closedList, TRUE)) {
       return TRUE;
     }
   }
@@ -37,10 +34,13 @@ trait TicketTrait {
       return FALSE;
     }
 
-    $nonCalendarList[] = stratoserp_get_term_id_by_name('In store', 'se_ticket_type');
-    $nonCalendarList[] = stratoserp_get_term_id_by_name('Warranty', 'se_ticket_type');
+    if (!isset($ticket->se_ti_scheduled->value)) {
+      return FALSE;
+    }
 
-    if (!in_array($ticket->se_ti_type_ref->value, $nonCalendarList, TRUE)) {
+    $calendarList = \Drupal::configFactory()->getEditable('se_ticket.settings')->get('se_ticket_calendar_type_list');
+
+    if (!in_array($ticket->se_ti_type_ref->value, $calendarList, TRUE)) {
       return TRUE;
     }
   }

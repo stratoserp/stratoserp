@@ -167,23 +167,3 @@ function stratoserp_toolbar_alter(&$items) {
     unset($items['administration']);
   }
 }
-
-/**
- * Return a taxonomy term id after finding it by name.
- *
- * @deprecated Don't do things this way.
- *
- * @param string $name
- *   The term name to load.
- * @param string $vocabulary
- *   The vocabulary to search.
- *
- * @return int|string|null
- *   The term id.
- */
-function stratoserp_get_term_id_by_name(string $name, string $vocabulary = NULL) {
-  $termList = taxonomy_term_load_multiple_by_name($name, $vocabulary);
-  return reset($termList)->id();
-}
-
-

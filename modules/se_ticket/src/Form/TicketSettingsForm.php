@@ -48,6 +48,9 @@ class TicketSettingsForm extends FormBase {
 
     // Create an editable config.
     $config = \Drupal::configFactory()->getEditable('se_ticket.settings');
+    $fieldStorage = $this->entityTypeManager->getStorage('field_config');
+    $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $messenger = $this->messenger();
 
     // Retrieve the submitted values.
     $values = $form_state->getValues();
@@ -55,59 +58,99 @@ class TicketSettingsForm extends FormBase {
     // Update the value if its changed.
     if (isset($values['se_ticket_priority'])
       && ($values['se_ticket_priority'] !== $config->get('se_ticket_priority'))) {
-      if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($values['se_ticket_priority'])) {
-        $this->messenger()->addError('Invalid term for ticket priority, unable to update.');
+      if (!$term = $termStorage->load($values['se_ticket_priority'])) {
+        $messenger->addError('Invalid term for ticket priority, unable to update.');
         return;
       }
 
       // Now set the last one as the default for the field.
-      $field = $this->entityTypeManager->getStorage('field_config')->load('se_ticket.se_ticket.se_ti_priority_ref');
-      $field->setDefaultValue(['target_uuid' => $term->uuid()]);
-      $field->save();
+      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_priority_ref')) {
+        $field->setDefaultValue(['target_uuid' => $term->uuid()]);
+        $field->save();
 
-      $config->set('se_ticket_priority', $values['se_ticket_priority']);
-      $config->save();
+        $config->set('se_ticket_priority', $values['se_ticket_priority']);
+        $config->save();
+      }
 
-      $this->messenger()->addMessage(t('Ticket priority term updated to %priority_term', ['%priority_term' => $term->label()]));
+      $messenger->addMessage(t('Ticket priority term updated to %priority_term', ['%priority_term' => $term->label()]));
     }
 
     // Update the value if its changed.
     if (isset($values['se_ticket_type'])
       && ($values['se_ticket_type'] !== $config->get('se_ticket_type'))) {
-      if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($values['se_ticket_type'])) {
-        $this->messenger()->addError('Invalid term for ticket type, unable to update.');
+      if (!$term = $termStorage->load($values['se_ticket_type'])) {
+        $messenger->addError('Invalid term for ticket type, unable to update.');
         return;
       }
 
       // Now set the last one as the default for the field.
-      $field = $this->entityTypeManager->getStorage('field_config')->load('se_ticket.se_ticket.se_ti_type_ref');
-      $field->setDefaultValue(['target_uuid' => $term->uuid()]);
-      $field->save();
+      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_type_ref')) {
+        $field->setDefaultValue(['target_uuid' => $term->uuid()]);
+        $field->save();
 
-      $config->set('se_ticket_type', $values['se_ticket_type']);
+        $config->set('se_ticket_type', $values['se_ticket_type']);
+        $config->save();
+      }
+
+      $messenger->addMessage(t('Ticket type term updated to %type_term', ['%type_term' => $term->label()]));
+    }
+
+    // Update config data if its changed.
+    if (isset($values['se_ticket_calendar_type_list'])
+      && ($values['se_ticket_calendar_type_list'] !== $config->get('se_ticket_calendar_type_list'))) {
+
+      // Validate the terms.
+      foreach ($values['se_ticket_calendar_type_list'] as $tid) {
+        if (!$term = $termStorage->load($tid)) {
+          $messenger->addError('Invalid term for ticket status, unable to update.');
+          return;
+        }
+      }
+
+      $config->set('se_ticket_calendar_type_list', $values['se_ticket_calendar_type_list']);
       $config->save();
 
-      $this->messenger()->addMessage(t('Ticket type term updated to %type_term', ['%type_term' => $term->label()]));
+      $messenger->addMessage(t('Ticket type term updated to %status_term', ['%status_term' => $term->label()]));
     }
 
     // Update the value if its changed.
     if (isset($values['se_ticket_status'])
       && ($values['se_ticket_status'] !== $config->get('se_ticket_status'))) {
-      if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($values['se_ticket_status'])) {
-        $this->messenger()->addError('Invalid term for ticket status, unable to update.');
+      if (!$term = $termStorage->load($values['se_ticket_status'])) {
+        $messenger->addError('Invalid term for ticket status, unable to update.');
         return;
       }
 
       // Now set the last one as the default for the field.
-      $field = $this->entityTypeManager->getStorage('field_config')->load('se_ticket.se_ticket.se_ti_status_ref');
-      $field->setDefaultValue(['target_uuid' => $term->uuid()]);
-      $field->save();
+      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_status_ref')) {
+        $field->setDefaultValue(['target_uuid' => $term->uuid()]);
+        $field->save();
 
-      $config->set('se_ticket_status', $values['se_ticket_status']);
+        $config->set('se_ticket_status', $values['se_ticket_status']);
+        $config->save();
+      }
+
+      $messenger->addMessage(t('Ticket type term updated to %status_term', ['%status_term' => $term->label()]));
+    }
+
+    // Update config data if its changed.
+    if (isset($values['se_ticket_calendar_status_list'])
+      && ($values['se_ticket_calendar_status_list'] !== $config->get('se_ticket_calendar_status_list'))) {
+
+      // Validate the terms.
+      foreach ($values['se_ticket_calendar_status_list'] as $tid) {
+        if (!$term = $termStorage->load($tid)) {
+          $messenger->addError('Invalid term for ticket status, unable to update.');
+          return;
+        }
+      }
+
+      $config->set('se_ticket_calendar_status_list', $values['se_ticket_calendar_status_list']);
       $config->save();
 
-      $this->messenger()->addMessage(t('Ticket type term updated to %status_term', ['%status_term' => $term->label()]));
+      $messenger->addMessage(t('Ticket type term updated to %status_term', ['%status_term' => $term->label()]));
     }
+
   }
 
   /**
@@ -125,71 +168,94 @@ class TicketSettingsForm extends FormBase {
     $form['ticket_settings']['#markup'] = 'Settings form for Ticket entities. Manage field settings here.';
 
     $config = $this->config('se_ticket.settings');
+    $fieldStorage = $this->entityTypeManager->getStorage('field_config');
+    $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
     $priorityOptions = $typeOptions = $statusOptions = [];
 
     // Retrieve the field and then the vocab.
-    $field = $this->entityTypeManager->getStorage('field_config')->load('se_ticket.se_ticket.se_ti_priority_ref');
-    $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
-    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['vid' => $vocabulary]);
-    /**
-     * @var \Drupal\taxonomy\Entity\Term $term
-     */
-    foreach ($terms as $tid => $term) {
-      $priorityOptions[$tid] = $term->getName();
-    }
+    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_priority_ref')) {
+      $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
+      $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
+      /**
+       * @var \Drupal\taxonomy\Entity\Term $term
+       */
+      foreach ($terms as $tid => $term) {
+        $priorityOptions[$tid] = $term->getName();
+      }
 
-    $form['se_ticket_priority'] = [
-      '#title' => $this->t('Select default ticket priority.'),
-      '#type' => 'select',
-      '#options' => $priorityOptions,
-      '#default_value' => $config->get('se_ticket_priority'),
-      '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
-    ];
+      $form['se_ticket_priority'] = [
+        '#title' => $this->t('Select default ticket priority.'),
+        '#type' => 'select',
+        '#options' => $priorityOptions,
+        '#default_value' => $config->get('se_ticket_priority'),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+      ];
+    }
 
     // Retrieve the field and then the vocab.
-    $field = $this->entityTypeManager->getStorage('field_config')->load('se_ticket.se_ticket.se_ti_type_ref');
-    $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
-    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['vid' => $vocabulary]);
-    /**
-     * @var \Drupal\taxonomy\Entity\Term $term
-     */
-    foreach ($terms as $tid => $term) {
-      $typeOptions[$tid] = $term->getName();
-    }
+    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_type_ref')) {
+      $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
+      $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
+      /**
+       * @var \Drupal\taxonomy\Entity\Term $term
+       */
+      foreach ($terms as $tid => $term) {
+        $typeOptions[$tid] = $term->getName();
+      }
 
-    $form['se_ticket_type'] = [
-      '#title' => $this->t('Select default ticket type.'),
-      '#type' => 'select',
-      '#options' => $typeOptions,
-      '#default_value' => $config->get('se_ticket_type'),
-      '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
-    ];
+      $form['se_ticket_type'] = [
+        '#title' => $this->t('Select default ticket type.'),
+        '#type' => 'select',
+        '#options' => $typeOptions,
+        '#default_value' => $config->get('se_ticket_type'),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+      ];
+
+      $form['se_ticket_calendar_type_list'] = [
+        '#title' => $this->t('Select valid ticket types for calender.'),
+        '#type' => 'select',
+        '#multiple' => TRUE,
+        '#options' => $typeOptions,
+        '#default_value' => $config->get('se_ticket_calendar_type_list'),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+      ];
+    }
 
     // Retrieve the field and then the vocab.
-    $field = $this->entityTypeManager->getStorage('field_config')->load('se_ticket.se_ticket.se_ti_status_ref');
-    $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
-    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['vid' => $vocabulary]);
-    /**
-     * @var \Drupal\taxonomy\Entity\Term $term
-     */
-    foreach ($terms as $tid => $term) {
-      $statusOptions[$tid] = $term->getName();
+    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_status_ref')) {
+      $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
+      $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
+      /**
+       * @var \Drupal\taxonomy\Entity\Term $term
+       */
+      foreach ($terms as $tid => $term) {
+        $statusOptions[$tid] = $term->getName();
+      }
+
+      $form['se_ticket_status'] = [
+        '#title' => $this->t('Select default ticket status.'),
+        '#type' => 'select',
+        '#options' => $statusOptions,
+        '#default_value' => $config->get('se_ticket_status'),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+      ];
+
+      $form['se_ticket_calendar_status_list'] = [
+        '#title' => $this->t('Select valid ticket status for calendar.'),
+        '#type' => 'select',
+        '#multiple' => TRUE,
+        '#options' => $statusOptions,
+        '#default_value' => $config->get('se_ticket_calendar_status_list'),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+      ];
+
+      $form['actions']['#type'] = 'actions';
+      $form['actions']['submit'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Save configuration'),
+        '#button_type' => 'primary',
+      ];
     }
-
-    $form['se_ticket_status'] = [
-      '#title' => $this->t('Select default ticket status.'),
-      '#type' => 'select',
-      '#options' => $statusOptions,
-      '#default_value' => $config->get('se_ticket_status'),
-      '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
-    ];
-
-    $form['actions']['#type'] = 'actions';
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Save configuration'),
-      '#button_type' => 'primary',
-    ];
 
     return $form;
   }
