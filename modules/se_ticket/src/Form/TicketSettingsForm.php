@@ -96,6 +96,7 @@ class TicketSettingsForm extends FormBase {
     }
 
     // Update config data if its changed.
+    $typeTermLabels = [];
     if (isset($values['se_ticket_calendar_type_list'])
       && ($values['se_ticket_calendar_type_list'] !== $config->get('se_ticket_calendar_type_list'))) {
 
@@ -105,12 +106,20 @@ class TicketSettingsForm extends FormBase {
           $messenger->addError('Invalid term for ticket status, unable to update.');
           return;
         }
+        $typeTermLabels[] = $term->label();
       }
 
       $config->set('se_ticket_calendar_type_list', $values['se_ticket_calendar_type_list']);
       $config->save();
 
-      $messenger->addMessage(t('Ticket type term updated to %status_term', ['%status_term' => $term->label()]));
+      if (count($typeTermLabels)) {
+        $typeTermCombined = implode(', ', $typeTermLabels);
+      }
+      else {
+        $typeTermCombined = t('None');
+      }
+
+      $messenger->addMessage(t('Ticket calendar type list updated to %type_terms', ['%type_terms' => $typeTermCombined]));
     }
 
     // Update the value if its changed.
@@ -134,6 +143,7 @@ class TicketSettingsForm extends FormBase {
     }
 
     // Update config data if its changed.
+    $statusTermLabels = [];
     if (isset($values['se_ticket_calendar_status_list'])
       && ($values['se_ticket_calendar_status_list'] !== $config->get('se_ticket_calendar_status_list'))) {
 
@@ -143,12 +153,20 @@ class TicketSettingsForm extends FormBase {
           $messenger->addError('Invalid term for ticket status, unable to update.');
           return;
         }
+        $statusTermLabels[] = $term->label();
+      }
+
+      if (count($statusTermLabels)) {
+        $statusTermCombined = implode(', ', $statusTermLabels);
+      }
+      else {
+        $statusTermCombined = t('None');
       }
 
       $config->set('se_ticket_calendar_status_list', $values['se_ticket_calendar_status_list']);
       $config->save();
 
-      $messenger->addMessage(t('Ticket type term updated to %status_term', ['%status_term' => $term->label()]));
+      $messenger->addMessage(t('Ticket calendar status list updated to %status_terms', ['%status_terms' => $statusTermCombined]));
     }
 
   }

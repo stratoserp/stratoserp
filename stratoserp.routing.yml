@@ -37,13 +37,3 @@ stratoserp.admin_config_stratoserp:
   requirements:
     _permission: 'access administration pages'
 
-stratoserp.403:
-  path: '/403'
-  defaults:
-    _controller: '\Drupal\stratoserp\Controller\AccessDeniedController::provideAccessDeniedPage'
-    _title: 'Login required'
-  options:
-    no_cache: TRUE
-  requirements:
-    _access: 'TRUE'
-

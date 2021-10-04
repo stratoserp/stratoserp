@@ -195,6 +195,63 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
   /**
    * {@inheritdoc}
    */
+  public function isOpen() {
+    $closedList = \Drupal::configFactory()
+      ->getEditable('se_ticket.settings')
+      ->get('se_ticket_calendar_status_list') ?? [];
+
+    if (empty($closedList) || !in_array($this->se_ti_status_ref->value, $closedList, TRUE)) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isScheduled(): bool {
+    if (isset($this->se_ti_scheduled->value) || isset($this->se_ti_scheduled->end_value)) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isCalenderType(): bool {
+    $calendarList = \Drupal::configFactory()
+      ->getEditable('se_ticket.settings')
+      ->get('se_ticket_calendar_type_list') ?? [];
+
+    if (empty($calendarList) || in_array($this->se_ti_type_ref->value, $calendarList, TRUE)) {
+      return TRUE;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isCalenderWorthy(): bool {
+    if (!$this->isScheduled()) {
+      return FALSE;
+    }
+
+    if (!$this->isOpen()) {
+      return FALSE;
+    }
+
+    if (!$this->isCalenderType()) {
+      return FALSE;
+    }
+
+    return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
