@@ -119,13 +119,15 @@ trait InvoiceTestTrait {
   }
 
   /**
-   * Load and ajust an invoice.
+   * Adjust an existing invoice.
    *
-   * @param $invoice
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   The Invoice we're testing with.
    *
    * @return \Drupal\se_invoice\Entity\Invoice
+   *   The Adjusted invoice.
    */
-  public function adjustInvoice($invoice): Invoice {
+  public function adjustInvoiceIncrease(Invoice $invoice): Invoice {
     /** @var \Drupal\se_business\Entity\Business $business */
     $business = $invoice->se_bu_ref->entity;
     $businessOldBalance = \Drupal::service('se_business.service')->getBalance($business);
@@ -138,6 +140,46 @@ trait InvoiceTestTrait {
     $newTotal = 0;
     foreach ($invoice->se_in_lines as $line) {
       $line->price += rand(10, 20);
+      $newTotal += $line->quantity * $line->price;
+    }
+
+    $invoice->save();
+    /** @var \Drupal\se_business\Entity\Business $business */
+    $business = $invoice->se_bu_ref->entity;
+
+    self::assertNotEquals($invoice->se_in_total->value, $oldTotal);
+    self::assertNotEquals($invoice->se_in_outstanding->value, $oldOutstanding);
+    self::assertEquals($invoice->se_in_total->value, $newTotal);
+    self::assertEquals($invoice->se_in_outstanding->value, $newTotal);
+
+    $businessNewBalance = \Drupal::service('se_business.service')->getBalance($business);
+    self::assertEquals($invoice->se_in_total->value, $businessNewBalance);
+
+    return $invoice;
+  }
+
+  /**
+   * Adjust an existing invoice.
+   *
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   The Invoice we're testing with.
+   *
+   * @return \Drupal\se_invoice\Entity\Invoice
+   *   The Adjusted invoice.
+   */
+  public function adjustInvoiceDecrease(Invoice $invoice): Invoice {
+    /** @var \Drupal\se_business\Entity\Business $business */
+    $business = $invoice->se_bu_ref->entity;
+    $businessOldBalance = \Drupal::service('se_business.service')->getBalance($business);
+
+    $oldTotal = $invoice->se_in_total->value;
+    $oldOutstanding = $invoice->se_in_outstanding->value;
+
+    self::assertEquals($invoice->se_in_total->value, $businessOldBalance);
+
+    $newTotal = 0;
+    foreach ($invoice->se_in_lines as $line) {
+      $line->price -= rand(10, 20);
       $newTotal += $line->quantity * $line->price;
     }
 

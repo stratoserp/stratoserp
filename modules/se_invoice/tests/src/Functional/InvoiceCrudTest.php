@@ -54,7 +54,8 @@ class InvoiceCrudTest extends InvoiceTestBase {
     // Add an invoice as staff.
     $this->drupalLogin($this->staff);
     $invoice = $this->addInvoice($testBusiness, $items);
-    $this->adjustInvoice($invoice);
+    $this->adjustInvoiceIncrease($invoice);
+    $this->adjustInvoiceDecrease($invoice);
 
     $this->drupalLogout();
   }
