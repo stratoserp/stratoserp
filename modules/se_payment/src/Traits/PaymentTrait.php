@@ -54,23 +54,4 @@ trait PaymentTrait {
     return [];
   }
 
-  /**
-   * Retrieve the outstanding balance for an invoice.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The invoice to retrieve information for.
-   *
-   * @return \Drupal\Core\Field\FieldItemListInterface|int|mixed
-   *   Return the outstanding amount.
-   */
-  public function getInvoiceBalance(Invoice $invoice) {
-    $paidAmount = 0;
-
-    foreach ($this->getInvoicePaymentAmounts($invoice) as $payment) {
-      $paidAmount += $payment->se_pa_lines_amount;
-    }
-
-    return $invoice->se_in_total->value - $paidAmount;
-  }
-
 }

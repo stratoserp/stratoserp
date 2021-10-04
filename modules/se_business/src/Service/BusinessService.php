@@ -75,7 +75,7 @@ class BusinessService {
    *   The balance for the business in cents.
    */
   public function getBalance(Business $entity): int {
-    return (int) $entity->se_bu_balance->value;
+    return $entity->getBalance();
   }
 
   /**
@@ -90,14 +90,7 @@ class BusinessService {
    *   The balance of the business account afterwards.
    */
   public function setBalance(Business $entity, int $value): int {
-    $entity->se_bu_balance->value = $value;
-    try {
-      $entity->save();
-    }
-    catch (EntityStorageException $e) {
-      \Drupal::logger('se_business')->error('Error updating business balance, this is very bad.');
-    }
-    return $this->getBalance($entity);
+    return $entity->setBalance($value);
   }
 
   /**
@@ -112,14 +105,7 @@ class BusinessService {
    *   The balance of the business account afterwards.
    */
   public function adjustBalance(Business $entity, int $value): int {
-    $entity->se_bu_balance->value += $value;
-    try {
-      $entity->save();
-    }
-    catch (EntityStorageException $e) {
-      \Drupal::logger('se_business')->error('Error updating business balance, this is very bad.');
-    }
-    return $this->getBalance($entity);
+    return $entity->adjustBalance($value);
   }
 
 }

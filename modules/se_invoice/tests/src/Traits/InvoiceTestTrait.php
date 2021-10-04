@@ -59,20 +59,22 @@ trait InvoiceTestTrait {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addInvoice(Business $testBusiness, array $items = [], bool $allowed = TRUE) {
+  public function addInvoice(Business $testBusiness, array $items = [], bool $allowed = TRUE): ?Invoice {
     if (!isset($this->invoiceName)) {
       $this->invoiceFakerSetup();
     }
 
     $lines = [];
+    $total = 0;
     foreach ($items as $item) {
       $line = [
         'target_type' => 'se_item',
         'target_id' => $item['item']->id(),
         'quantity' => $item['quantity'],
-        'price' => $item['item']->se_it_cost_price->value,
+        'price' => $item['item']->se_it_sell_price->value,
       ];
       $lines[] = $line;
+      $total += $item['quantity'] * $item['item']->se_it_sell_price->value;
     }
 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
@@ -89,6 +91,7 @@ trait InvoiceTestTrait {
     ]);
     self::assertNotEquals($invoice, FALSE);
     self::assertNotNull($invoice->se_in_total->value);
+    self::assertEquals($total, $invoice->se_in_total->value);
 
     // Ensure that the items are present and valid.
     foreach ($invoice->se_in_lines as $line) {
@@ -111,6 +114,44 @@ trait InvoiceTestTrait {
 
     // Check that what we entered is shown.
     self::assertStringContainsString($this->invoiceName, $content);
+
+    return $invoice;
+  }
+
+  /**
+   * Load and ajust an invoice.
+   *
+   * @param $invoice
+   *
+   * @return \Drupal\se_invoice\Entity\Invoice
+   */
+  public function adjustInvoice($invoice): Invoice {
+    /** @var \Drupal\se_business\Entity\Business $business */
+    $business = $invoice->se_bu_ref->entity;
+    $businessOldBalance = \Drupal::service('se_business.service')->getBalance($business);
+
+    $oldTotal = $invoice->se_in_total->value;
+    $oldOutstanding = $invoice->se_in_outstanding->value;
+
+    self::assertEquals($invoice->se_in_total->value, $businessOldBalance);
+
+    $newTotal = 0;
+    foreach ($invoice->se_in_lines as $line) {
+      $line->price += rand(10, 20);
+      $newTotal += $line->quantity * $line->price;
+    }
+
+    $invoice->save();
+    /** @var \Drupal\se_business\Entity\Business $business */
+    $business = $invoice->se_bu_ref->entity;
+
+    self::assertNotEquals($invoice->se_in_total->value, $oldTotal);
+    self::assertNotEquals($invoice->se_in_outstanding->value, $oldOutstanding);
+    self::assertEquals($invoice->se_in_total->value, $newTotal);
+    self::assertEquals($invoice->se_in_outstanding->value, $newTotal);
+
+    $businessNewBalance = \Drupal::service('se_business.service')->getBalance($business);
+    self::assertEquals($invoice->se_in_total->value, $businessNewBalance);
 
     return $invoice;
   }

@@ -7,6 +7,7 @@ namespace Drupal\se_invoice\Entity;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
+use Drupal\se_business\Entity\Business;
 use Drupal\user\EntityOwnerInterface;
 
 /**
@@ -100,5 +101,25 @@ interface InvoiceInterface extends ContentEntityInterface, RevisionLogInterface,
    *   The called Invoice entity.
    */
   public function setRevisionUserId($uid);
+
+  /**
+   * Return the total invoice value.
+   */
+  public function getTotal(): int;
+
+  /**
+   * Return the unpaid invoice value.
+   */
+  public function getOutstanding(): int;
+
+  /**
+   * Retrieve the outstanding balance for an invoice.
+   */
+  public function getInvoiceBalance(): int;
+
+  /**
+   * Return the business associated with the invoice.
+   */
+  public function getBusiness(): Business;
 
 }

@@ -255,7 +255,7 @@ class PaymentController extends ControllerBase {
     foreach ($entityIds as $id) {
       /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
       if ($invoice = $this->entityTypeManager()->getStorage('se_invoice')->load($id)) {
-        $outstandingAmount = $this->getInvoiceBalance($invoice);
+        $outstandingAmount = $invoice->getInvoiceBalance();
         $line = [
           'target_id' => $invoice->id(),
           'target_type' => 'se_invoice',

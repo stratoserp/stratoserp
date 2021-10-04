@@ -10,6 +10,8 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\se_business\Entity\Business;
+use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\user\UserInterface;
 
 /**
@@ -76,6 +78,7 @@ use Drupal\user\UserInterface;
 class Invoice extends RevisionableContentEntityBase implements InvoiceInterface {
 
   use EntityChangedTrait;
+  use PaymentTrait;
 
   /**
    * {@inheritdoc}
@@ -190,6 +193,40 @@ class Invoice extends RevisionableContentEntityBase implements InvoiceInterface 
   public function setOwner(UserInterface $account) {
     $this->set('user_id', $account->id());
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTotal(): int {
+    return (int) $this->se_in_total->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOutstanding(): int {
+    return (int) $this->se_in_outstanding->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInvoiceBalance(): int {
+    $paidAmount = 0;
+
+    foreach ($this->getInvoicePaymentAmounts($this) as $payment) {
+      $paidAmount += $payment->se_pa_lines_amount;
+    }
+
+    return (int) $this->getTotal() - $paidAmount;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBusiness(): Business {
+    return $this->se_bu_ref->entity;
   }
 
   /**

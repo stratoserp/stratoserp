@@ -101,4 +101,34 @@ interface BusinessInterface extends ContentEntityInterface, RevisionLogInterface
    */
   public function setRevisionUserId($uid);
 
+  /**
+   * Retrieve the current Business balance.
+   *
+   * @return int
+   *   The current balance.
+   */
+  public function getBalance(): int;
+
+  /**
+   * Set the current Business balance.
+   *
+   * @param int $value
+   *   The amount to set the balance to.
+   *
+   * @return int
+   *   The current balance.
+   */
+  public function setBalance(int $value): int;
+
+  /**
+   * Adjust the Business balance.
+   *
+   * @param int $value
+   *   The amount to set the balance to.
+   *
+   * @return int
+   *   The current balance.
+   */
+  public function adjustBalance(int $value): int;
+
 }

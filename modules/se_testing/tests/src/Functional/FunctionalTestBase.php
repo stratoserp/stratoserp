@@ -246,13 +246,11 @@ class FunctionalTestBase extends TestCase {
    */
   public function basicPermissionCheck(array $pages): void {
 
-    // Can't test anon 403 if r4032login is present.
+    // Test as anonymous user.
     foreach ($pages as $page) {
       $this->drupalGet($page);
       try {
-        $content = $this->getTextContent();
-        self::assertStringContainsString('Login is required.', $content);
-        // $this->assertSession()->statusCodeEquals(403);
+        $this->assertSession()->statusCodeEquals(403);
       }
       catch (ExpectationException $e) {
         self::fail((string) t('Anon - @page - @message', [
@@ -262,6 +260,7 @@ class FunctionalTestBase extends TestCase {
       }
     }
 
+    // Test as customer user.
     foreach ($pages as $page) {
       $this->drupalLogin($this->customer);
       $this->drupalGet($page);
@@ -277,6 +276,7 @@ class FunctionalTestBase extends TestCase {
       $this->drupalLogout();
     }
 
+    // Test as staff.
     foreach ($pages as $page) {
       $this->drupalLogin($this->staff);
       $this->drupalGet($page);
@@ -292,6 +292,7 @@ class FunctionalTestBase extends TestCase {
       $this->drupalLogout();
     }
 
+    // Test as owner.
     foreach ($pages as $page) {
       $this->drupalLogin($this->owner);
       $this->drupalGet($page);
@@ -318,12 +319,11 @@ class FunctionalTestBase extends TestCase {
     // Make a request to the logout page, and redirect to the user page, the
     // idea being if you were properly logged out you should be seeing a login
     // screen.
-    $assert_session = $this->assertSession();
     $destination = Url::fromRoute('user.page')->toString();
     $this->drupalGet(Url::fromRoute('user.logout', [], ['query' => ['destination' => $destination]]));
 
     $content = $this->getTextContent();
-    self::assertStringContainsString('Login is required.', $content);
+    self::assertStringContainsString('Log in', $content);
 
     // @see BrowserTestBase::drupalUserIsLoggedIn()
     unset($this->loggedInUser->sessionId);

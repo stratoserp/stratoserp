@@ -7,6 +7,7 @@ namespace Drupal\se_quote\Entity;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
+use Drupal\se_business\Entity\Business;
 use Drupal\user\EntityOwnerInterface;
 
 /**
@@ -100,5 +101,15 @@ interface QuoteInterface extends ContentEntityInterface, RevisionLogInterface, E
    *   The called Quote entity.
    */
   public function setRevisionUserId($uid);
+
+  /**
+   * Return the total quote value.
+   */
+  public function getTotal(): int;
+
+  /**
+   * Return the business associated with the quote.
+   */
+  public function getBusiness(): Business;
 
 }

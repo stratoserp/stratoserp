@@ -7,6 +7,7 @@ namespace Drupal\se_ticket\Entity;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
+use Drupal\se_business\Entity\Business;
 use Drupal\user\EntityOwnerInterface;
 
 /**
@@ -132,5 +133,10 @@ interface TicketInterface extends ContentEntityInterface, RevisionLogInterface, 
    *   Whether the ticket fields mean it should be in the calendar.
    */
   public function isCalenderWorthy(): bool;
+
+  /**
+   * Return the business associated with the invoice.
+   */
+  public function getBusiness(): Business;
 
 }

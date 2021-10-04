@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_business\Entity;
 
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -190,6 +191,41 @@ class Business extends RevisionableContentEntityBase implements BusinessInterfac
   public function setOwner(UserInterface $account) {
     $this->set('user_id', $account->id());
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBalance(): int {
+    return (int) $this->se_bu_balance->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setBalance(int $value): int {
+    $this->set('se_bu_balance', $value);
+    try {
+      $this->save();
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::logger('se_business')->error('Error updating business balance, this is very bad.');
+    }
+    return $this->getBalance();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function adjustBalance(int $value): int {
+    $this->set('se_bu_balance', (int) $this->se_bu_balance->value + $value);
+    try {
+      $this->save();
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::logger('se_business')->error('Error updating business balance, this is very bad.');
+    }
+    return $this->getBalance();
   }
 
   /**

@@ -28,9 +28,10 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
       $testTimekeeping[] = $this->addTimekeeping($testTicket);
     }
 
-    // Now lets create an invoice from the Timekeeping.
+    // Now create an invoice from the Timekeeping entries.
     $invoice = \Drupal::classResolver(InvoiceController::class)->createInvoiceFromTimekeeping($testTicket);
     $invoice->title = \Drupal::service('se.form_alter')->generateTitle();
+    $invoice->set('se_bu_ref', $testBusiness);
     $invoice->save();
 
     $this->drupalGet($invoice->toUrl());

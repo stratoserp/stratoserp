@@ -145,7 +145,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
         $this->setSkipBusinessXeroEvents($business);
 
         $invoice->set('se_status_ref', \Drupal::service('se_invoice.service')->checkInvoiceStatus($invoice, $paymentLine->amount));
-        $invoice->set('se_in_outstanding', $this->getInvoiceBalance($invoice));
+        $invoice->set('se_in_outstanding', $invoice->getInvoiceBalance());
         $invoice->save();
 
         $amount += $paymentLine->amount;

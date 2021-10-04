@@ -124,7 +124,6 @@ trait ItemTestTrait {
    * @return string
    *   The content when viewing the item for further checks.
    *
-   * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   private function checkGeneralItemAttributes(Item $item): string {
