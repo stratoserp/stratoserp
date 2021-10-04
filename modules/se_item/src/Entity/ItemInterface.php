@@ -99,4 +99,23 @@ interface ItemInterface extends ContentEntityInterface, RevisionLogInterface, En
    */
   public function setRevisionUserId($uid);
 
+  /**
+   * Returns if the item is a stock item.
+   *
+   * @return bool
+   *   Whether the item is a stock item or not.
+   */
+  public function isStock(): bool;
+
+  /**
+   * Returns whether the item has a parent.
+   *
+   * Stock items with no parent are used for quoting and for items that
+   * do not need to be serial number tracked.
+   *
+   * @return bool
+   *   Whether the item has a parent.
+   */
+  public function hasParent(): bool;
+
 }

@@ -202,6 +202,20 @@ class Item extends RevisionableContentEntityBase implements ItemInterface {
   /**
    * {@inheritdoc}
    */
+  public function isStock(): bool {
+    return in_array($this->bundle(), ['se_stock', 'se_assembly']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function hasParent(): bool {
+    return !empty($this->se_item_ref->target_id);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
