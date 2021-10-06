@@ -1,7 +1,10 @@
-drupal.autocomplete:
+se_item_line:
   version: 1.0
   js:
     js/se_item_line_autocomplete.js: {}
+  css:
+    theme:
+      css/se_item_line.css: {}
   dependencies:
     - core/jquery
     - core/drupal
