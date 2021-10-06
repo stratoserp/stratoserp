@@ -1,14 +1,19 @@
 /**
  * Some basic css tweaks for the item line widget.
  */
+
+/** Make the whole thing use flex. */
 .field--widget-se-item-line-widget table tr td div.container-inline {
   display: flex;
 }
 
-.field--widget-se-item-line-widget table tr td div.container-inline label:after {
+/** Remove the colon after field labels. */
+.field--widget-se-item-line-widget table tr td div.container-inline label:after,
+.field--widget-se-item-line-widget table tr td div.container-inline h4.label:after {
   content: '';
 }
 
+/** Set the relative column sizes. */
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left,
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right {
   width: 50%;
@@ -17,31 +22,34 @@
   justify-content: center;
 }
 
-/** Left column format tweaks */
+/** Left column format tweaks. */
+/** Quantity field. */
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-quantity"] label,
+
+/** Target type field. */
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-target-type"] {
+  margin-bottom: 0;
+}
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-target-type"] label {
+  display: block;
+}
+
+/** Price field. */
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-price"] {
   display: flex;
   flex-direction: column;
   align-items: end;
   justify-content: end;
-  margin-right: 20px;
 }
-
-.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-quantity"] label,
-.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-target-type"] label {
-  display: block;
-}
-
-.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-target-type"] {
-  margin-bottom: 0;
-}
-
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-price"] label,
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-price"] input {
   display: block;
   max-width: fit-content;
+  margin-right: 20px;
 }
 
-/** Right column format tweaks */
+/** Right column format tweaks. */
+/** Notes field. */
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right [class*="-note-value"] label {
   display: block;
 }

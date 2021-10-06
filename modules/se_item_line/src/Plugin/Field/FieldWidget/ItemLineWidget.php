@@ -49,8 +49,8 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
 
     // Changes to the target type field.
     $build['target_id']['#prefix'] = '<span class="se-item">';
-    $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
     $build['target_type']['#title'] = t('Item type');
+    $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
     $build['target_type']['#weight'] = 5;
 
     // Changes to the target_id field.
@@ -84,12 +84,12 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       // When the service/item was completed/delivered/done.
       $date = new DrupalDateTime($items[$delta]->completed_date);
       $build['completed_date'] = [
+        '#title' => t('Completed date'),
         '#type' => 'datetime',
         '#date_time_element' => 'none',
         '#default_value' => $date,
         '#weight' => 30,
         '#date_timezone' => date_default_timezone_get(),
-        '#title' => t('Completed date'),
       ];
     }
 
