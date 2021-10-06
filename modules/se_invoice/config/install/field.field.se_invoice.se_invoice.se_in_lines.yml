@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - comment.type.se_timekeeping
     - field.storage.se_invoice.se_in_lines
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
@@ -20,7 +21,7 @@ default_value: {  }
 default_value_callback: ''
 settings:
   comment:
-    handler: 'default:comment'
+    handler: se_timekeeping
     handler_settings:
       target_bundles:
         se_timekeeping: se_timekeeping
@@ -30,7 +31,7 @@ settings:
       auto_create: 0
       auto_create_bundle: ''
   se_item:
-    handler: 'default:se_item'
+    handler: se_item
     handler_settings:
       target_bundles:
         se_service: se_service
@@ -70,14 +71,26 @@ settings:
   se_invoice:
     handler: 'default:se_invoice'
     handler_settings: {  }
+  se_payment:
+    handler: 'default:se_payment'
+    handler_settings: {  }
   preview_link:
     handler: 'default:preview_link'
     handler_settings: {  }
   se_purchase_order:
     handler: 'default:se_purchase_order'
     handler_settings: {  }
+  se_quote:
+    handler: 'default:se_quote'
+    handler_settings: {  }
+  se_subscription:
+    handler: 'default:se_subscription'
+    handler_settings: {  }
   taxonomy_term:
     handler: 'default:taxonomy_term'
+    handler_settings: {  }
+  se_ticket:
+    handler: 'default:se_ticket'
     handler_settings: {  }
   path_alias:
     handler: 'default:path_alias'
@@ -87,8 +100,5 @@ settings:
     handler_settings: {  }
   webform_submission:
     handler: 'default:webform_submission'
-    handler_settings: {  }
-  se_payment:
-    handler: 'default:se_payment'
     handler_settings: {  }
 field_type: se_item_line
