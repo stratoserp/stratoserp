@@ -90,8 +90,8 @@ class ItemsController extends ControllerBase {
       return $response;
     }
 
-    // If the price field was the change, dont update the price.
-    if ($trigger !== 'price') {
+    // If the price field was the change, don't update the price.
+    if ($trigger !== 'price' && empty($values[$field][$index]['price'])) {
       $item_price = $item->se_it_sell_price->value;
 
       // Create a new ajax response to set the price.

@@ -31,7 +31,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
    *
    * @var array
    */
-  protected array $configuration;
+  protected $configuration;
 
   /**
    * The business reference id.
@@ -44,22 +44,21 @@ class EntityTimekeepingSelection extends DefaultSelection {
    * {@inheritdoc}
    */
   public function getReferenceableEntities($match = NULL, $matchOperator = 'CONTAINS', $limit = 0) {
-    $configuration = $this->getConfiguration();
-    $this->targetType = $configuration['target_type'];
+    $this->targetType = $this->getConfiguration()['target_type'];
 
     // Extract the business ref from the query.
     $parameters = \Drupal::request()->query;
     if ($parameters->has('se_bu_ref')) {
-      $this->business = $parameters->get('se_bu_ref');
+      $this->business = (int) $parameters->get('se_bu_ref');
     }
 
     // Extract the business ref from the ajax request?
     $parameters = \Drupal::request()->request;
-    if (empty($this->business) && $parameters->has('se_bu_ref')) {
+    if (empty($this->business) && (int) $parameters->has('se_bu_ref')) {
       $matches = [];
       $business = $parameters->get('se_bu_ref');
       if (preg_match("/.+\s\(([^\)]+)\)/", $business[0]['target_id'], $matches)) {
-        $this->business = $matches[1];
+        $this->business = (int) $matches[1];
       }
     }
 
@@ -77,7 +76,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
     }
 
     $options = [];
-    $entities = $this->entityManager->getStorage($this->targetType)->loadMultiple($result);
+    $entities = $this->entityTypeManager->getStorage($this->targetType)->loadMultiple($result);
     foreach ($entities as $entityId => $comment) {
       $output = [];
       $bundle = $comment->bundle();
@@ -98,7 +97,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
   }
 
   /**
-   * Builds an EntityQuery to get referenceable entities.
+   * Builds an EntityQuery to get referencable entities.
    *
    * @param string|null $match
    *   Text to match the label against. Defaults to NULL.
@@ -119,7 +118,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
     /** @var \Drupal\Core\Entity\Query\Sql\Query $query */
     $query = parent::buildEntityQuery(NULL, $matchOperator);
 
-    $entityType = $this->entityManager->getDefinition($this->targetType);
+    $entityType = $this->entityTypeManager->getDefinition($this->targetType);
 
     if (isset($match) && $labelKey = $entityType->getKey('label')) {
       foreach (explode(' ', $match) as $partial) {
@@ -139,8 +138,8 @@ class EntityTimekeepingSelection extends DefaultSelection {
   public function validateReferenceableEntities(array $ids) {
     $result = [];
     if ($ids) {
-      $this->targetType = $this->configuration['target_type'];
-      $entityType = $this->entityManager->getDefinition($this->targetType);
+      $this->targetType = $this->getConfiguration()['target_type'];
+      $entityType = $this->entityTypeManager->getDefinition($this->targetType);
       $result = parent::buildEntityQuery()
         ->condition($entityType->getKey('id'), $ids, 'IN')
         ->execute();

@@ -7,7 +7,6 @@ namespace Drupal\se_item_line\Plugin\EntityReferenceSelection;
 use Drupal\Component\Utility\Tags;
 use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'selection' entity_reference.
@@ -59,23 +58,8 @@ class EntityItemSelection extends DefaultSelection {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('entity.manager'),
-      $container->get('module_handler'),
-      $container->get('current_user')
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getReferenceableEntities($match = NULL, $match_operator = 'CONTAINS', $limit = 0) {
-    $configuration = $this->getConfiguration();
-    $this->targetType = $configuration['target_type'];
+    $this->targetType = $this->getConfiguration()['target_type'];
 
     $filters = [];
 
@@ -96,7 +80,7 @@ class EntityItemSelection extends DefaultSelection {
     }
 
     $options = [];
-    $entities = $this->entityManager->getStorage($this->targetType)->loadMultiple($result);
+    $entities = $this->entityTypeManager->getStorage($this->targetType)->loadMultiple($result);
     foreach ($entities as $entity_id => $item) {
       $output = [];
       $bundle = $item->bundle();
@@ -117,7 +101,7 @@ class EntityItemSelection extends DefaultSelection {
   }
 
   /**
-   * Builds an EntityQuery to get referenceable entities.
+   * Builds an EntityQuery to get referencable entities.
    *
    * @param string|null $match
    *   Text to match the label against. Defaults to NULL.
@@ -143,11 +127,10 @@ class EntityItemSelection extends DefaultSelection {
       $query->notExists('se_it_serial');
     }
 
-    $entity_type = $this->entityManager->getDefinition($this->targetType);
+    $entity_type = $this->entityTypeManager->getDefinition($this->targetType);
 
     if (isset($match) && $label_key = $entity_type->getKey('label')) {
-      $matches = explode(' ', $match);
-      foreach ($matches as $partial) {
+      foreach (explode(' ', $match) as $partial) {
         $key = Tags::encode($partial);
         $conditionGroup = $query->orConditionGroup()
           ->condition($label_key, $key, $match_operator)
@@ -173,12 +156,10 @@ class EntityItemSelection extends DefaultSelection {
    */
   protected function extractFilters($match = NULL) {
     $filters = [];
-    $matches = explode(' ', $match);
-
-    foreach ($matches as $partial) {
+    foreach (explode(' ', $match) as $partial) {
       $first_char = substr($partial, 0, 1);
       switch ($first_char) {
-        case EntityItemSelection::FILTER_VIRTUAL:
+        case self::FILTER_VIRTUAL:
           $filters['virtual'][0] = substr($partial, 1);
           $this->virtualOnly = TRUE;
           break;
@@ -193,7 +174,7 @@ class EntityItemSelection extends DefaultSelection {
    *
    * @param array $filters
    *   The filters found in the query, that sould be removed.
-   * @param array $filter_characters
+   * @param array $filterCharacters
    *   The filter character mapping.
    * @param string|null $match
    *   The query that we want to find matches for.
@@ -201,11 +182,11 @@ class EntityItemSelection extends DefaultSelection {
    * @return string|null
    *   The cleaned query string, all filters removed.
    */
-  protected function removeFiltersFromMatch(array $filters, array $filter_characters, $match = NULL) {
-    if ($match != NULL) {
-      foreach ($filters as $filter_type => $type_filters) {
-        foreach ($type_filters as $type_filter) {
-          $replace = $filter_characters[$filter_type] . $type_filter;
+  protected function removeFiltersFromMatch(array $filters, array $filterCharacters, $match = NULL) {
+    if ($match !== NULL) {
+      foreach ($filters as $filterType => $typeFilters) {
+        foreach ($typeFilters as $type_filter) {
+          $replace = $filterCharacters[$filterType] . $type_filter;
           $match = str_replace($replace, '', $match);
         }
       }
@@ -221,16 +202,16 @@ class EntityItemSelection extends DefaultSelection {
    *   The query object to add the filters to.
    * @param array $filters
    *   The array of filters to apply.
-   * @param string $label_key
+   * @param string $labelKey
    *   The field we apply the filters on.
    *
    * @return \Drupal\Core\Entity\Query\QueryInterface
    *   The altered query object, filters applied.
    */
-  protected function applyFilters(QueryInterface $query, array $filters, $label_key) {
+  protected function applyFilters(QueryInterface $query, array $filters, string $labelKey): QueryInterface {
     if (isset($filters['virtual'])) {
       foreach ($filters['virtual'] as $filter) {
-        $query->condition($label_key, $filter, 'CONTAINS');
+        $query->condition($labelKey, $filter, 'CONTAINS');
       }
     }
 
@@ -243,11 +224,10 @@ class EntityItemSelection extends DefaultSelection {
   public function validateReferenceableEntities(array $ids) {
     $result = [];
     if ($ids) {
-      $this->targetType = $this->configuration['target_type'];
-      $entity_type = $this->entityManager->getDefinition($this->targetType);
-      $query = parent::buildEntityQuery();
-      $result = $query
-        ->condition($entity_type->getKey('id'), $ids, 'IN')
+      $this->targetType = $this->getConfiguration()['target_type'];
+      $entityType = $this->entityTypeManager->getDefinition($this->targetType);
+      $result = parent::buildEntityQuery()
+        ->condition($entityType->getKey('id'), $ids, 'IN')
         ->execute();
     }
 

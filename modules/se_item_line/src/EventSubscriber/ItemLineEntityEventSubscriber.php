@@ -36,7 +36,6 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
     }
 
     \Drupal::service('se_item_line.total_update')->calculateTotal($entity);
-
   }
 
 }
