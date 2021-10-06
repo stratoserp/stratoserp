@@ -41,6 +41,7 @@ permissions:
   - 'post comments'
   - 'skip comment approval'
   - 'use inline mentions'
+  - 'use text format basic_html'
   - 'view all bill revisions'
   - 'view all business revisions'
   - 'view all contact revisions'
