@@ -1,0 +1,47 @@
+/**
+ * Some basic css tweaks for the item line widget.
+ */
+.field--widget-se-item-line-widget table tr td div.container-inline {
+  display: flex;
+}
+
+.field--widget-se-item-line-widget table tr td div.container-inline label:after {
+  content: '';
+}
+
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left,
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/** Left column format tweaks */
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-price"] {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: end;
+  margin-right: 20px;
+}
+
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-quantity"] label,
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-target-type"] label {
+  display: block;
+}
+
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-target-type"] {
+  margin-bottom: 0;
+}
+
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-price"] label,
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-price"] input {
+  display: block;
+  max-width: fit-content;
+}
+
+/** Right column format tweaks */
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right [class*="-note-value"] label {
+  display: block;
+}

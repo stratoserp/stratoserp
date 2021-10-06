@@ -34,7 +34,8 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
 
     // Put a new quantity field first.
     $build['quantity'] = [
-      '#type' => 'textfield',
+      '#title' => t('Quantity'),
+      '#tyarraype' => 'textfield',
       '#default_value' => $items[$delta]->quantity ?: 1,
       '#size' => 8,
       '#maxlength' => 8,
@@ -47,16 +48,17 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     ];
 
     // Changes to the target type field.
+    $build['target_id']['#prefix'] = '<span class="se-item">';
     $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
-    unset($build['target_type']['#title']);
-    $build['target_type']['#weight'] = 2;
+    $build['target_type']['#title'] = t('Item type');
+    $build['target_type']['#weight'] = 5;
 
     // Changes to the target_id field.
     $build['target_id']['#attributes']['placeholder'] = t('Item');
     $build['target_id']['#weight'] = 6;
     $build['target_id']['#ajax'] = [
       'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
-      'event' => 'autocompleteclose change onclick',
+      'event' => 'autocompleteclose change click',
       'progress' => FALSE,
     ];
 
@@ -74,7 +76,9 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     if ($host_type !== 'se_goods_receipt') {
       // Disable serial field unless its a good receipt.
       $build['serial']['#disabled'] = TRUE;
+      $build['serial']['#alt'] = t('Auto populated.');
     }
+    $build['serial']['#suffix'] = '</span>';
 
     if ($host_type === 'se_invoice') {
       // When the service/item was completed/delivered/done.
@@ -85,12 +89,13 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
         '#default_value' => $date,
         '#weight' => 30,
         '#date_timezone' => date_default_timezone_get(),
-        '#description' => t('Completed date'),
+        '#title' => t('Completed date'),
       ];
     }
 
     // Add a new price field.
     $build['price'] = [
+      '#title' => t('Unit price'),
       '#type' => 'textfield',
       '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->price ?: 0),
       '#size' => 10,
@@ -107,13 +112,13 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       ],
     ];
 
-    // Add a textarea for notes.
+    // Add a textarea for notes, hide text format selection in after build.
     $build['note'] = [
+      '#title' => t('Notes'),
       '#type' => 'text_format',
       '#default_value' => $items[$delta]->note ?? '',
-      '#rows' => 2,
-      '#cols' => 30,
       '#weight' => 60,
+      '#after_build' => ['se_item_line_hide_text_format'],
     ];
 
     // @todo This is a bit icky, how to do better.
@@ -136,6 +141,13 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#weight' => 99,
       '#suffix' => '</div>',
     ];
+
+    if (!isset($form['#attached']['library'])
+    || (is_array($form['#attached']['library'])
+      && !in_array('core/drupal.ajax', $form['#attached']['library'], TRUE))) {
+      $form['#attached']['library'][] = 'core/drupal.ajax';
+      $form['#attached']['library'][] = 'se_item_line/se_item_line';
+    }
 
     return $build;
   }

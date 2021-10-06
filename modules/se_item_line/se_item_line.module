@@ -9,26 +9,6 @@ use Drupal\stratoserp\ErpCore;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Wherever the se_item_lines are used, replace the drupal autocomplete
- * with our own that does price field updates.
- *
- * TODO - put this in the widget.
- *
- * Implements hook_form_alter().
- */
-function se_item_line_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Make a list of forms from the core types.
-  $se_item_forms = array_map(function ($value) {
-    return 'node_' . $value . '_form';
-  }, array_keys(ErpCore::SE_ITEM_LINE_BUNDLES));
-
-  if (in_array($form_id, $se_item_forms, TRUE)) {
-    $form['#attached']['library'][] = 'core/drupal.ajax';
-    $form['#attached']['library'][] = 'se_item_line/drupal.autocomplete';
-  }
-}
-
-/**
  * Implements hook_theme().
  */
 function se_item_line_theme(): array {
@@ -46,4 +26,20 @@ function se_item_line_theme(): array {
     ],
 
   ];
+}
+
+/**
+ * Hide a text_format part in an element.
+ *
+ * @param array $element
+ *   The element to hide.
+ *
+ * @return array
+ *   The hidden element.
+ */
+function se_item_line_hide_text_format(array $element): array {
+  if (!empty($element['format'])) {
+    $element['format']['#attributes']['class'][] = 'hidden';
+  }
+  return $element;
 }
