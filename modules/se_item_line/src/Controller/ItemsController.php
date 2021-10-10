@@ -31,9 +31,10 @@ class ItemsController extends ControllerBase {
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   The ajax response with appropriate details.
    */
-  public static function updatePrice(array &$form, FormStateInterface $form_state, Request $request): AjaxResponse {
+  public static function updateFields(array &$form, FormStateInterface $form_state, Request $request): AjaxResponse {
     $values = $form_state->getValues();
     $response = new AjaxResponse();
+    $currencyService = \Drupal::service('se_accounting.currency_format');
 
     // Use the triggering element to determine the line index;.
     $trigger = $request->request->get('_triggering_element_name');
@@ -47,7 +48,33 @@ class ItemsController extends ControllerBase {
     // To extract the fields we need.
     [$field, $type, $index, $trigger] = array_slice($matches, 1);
 
-    // Load the chosen item.
+    // Changing target type is a special case, just empty some fields.
+    if ($trigger === 'target_type') {
+      $response->addCommand(
+        new InvokeCommand(
+          "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-quantity']",
+          'val',
+          [1]
+        ),
+      );
+      $response->addCommand(
+        new InvokeCommand(
+          "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-target_id']",
+          'val',
+          ['']
+        )
+      );
+      $response->addCommand(
+        new InvokeCommand(
+          "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
+          'val',
+          ['']
+        ),
+      );
+      return $response;
+    }
+
+    // If there is no item code to load, bail.
     /** @var \Drupal\se_item\Entity\Item $item */
     if ($values[$field][$index]['target_id'] === NULL) {
       return $response;
@@ -58,29 +85,33 @@ class ItemsController extends ControllerBase {
     switch ($targetType) {
       case 'comment':
         /** @var \Drupal\comment\Entity\Comment $comment */
-        if ($comment = Comment::load($values[$field][$index]['target_id'])) {
-          if ($item = $comment->se_tk_item->entity) {
-            $date = new DateTimePlus($comment->se_tk_date->value, date_default_timezone_get());
-            $response->addCommand(new InvokeCommand(
+        if (($comment = Comment::load($values[$field][$index]['target_id'])) && $item = $comment->se_tk_item->entity) {
+          $date = new DateTimePlus($comment->se_tk_date->value, date_default_timezone_get());
+          $response->addCommand(
+            new InvokeCommand(
               "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-completed-date-date']",
               'val',
               [$date->format('Y-m-d')]
-            ));
-          }
+            )
+          );
+          $response->addCommand(
+            new InvokeCommand(
+              "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-quantity']",
+              'val',
+              [$comment->se_tk_amount]
+            ),
+          );
         }
         break;
 
       case 'se_item':
         /** @var \Drupal\se_item\Entity\Item $item */
-        if ($item = Item::load($values[$field][$index]['target_id'])) {
-          if (!empty($item->se_it_serial->value)) {
-            $response->addCommand(new InvokeCommand(
-              "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
-              'val',
-              [$item->se_it_serial->value]
-            ));
-          }
-
+        if (($item = Item::load($values[$field][$index]['target_id'])) && !empty($item->se_it_serial->value)) {
+          $response->addCommand(new InvokeCommand(
+            "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
+            'val',
+            [$item->se_it_serial->value]
+          ));
         }
 
         break;
@@ -90,28 +121,13 @@ class ItemsController extends ControllerBase {
       return $response;
     }
 
-    // If the price field was the change, don't update the price.
-    if ($trigger !== 'price' && empty($values[$field][$index]['price'])) {
-      $item_price = $item->se_it_sell_price->value;
-
-      // Create a new ajax response to set the price.
-      $response->addCommand(new InvokeCommand(
-        "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-price']",
-        'val',
-        [\Drupal::service('se_accounting.currency_format')->formatDisplay((int) $item_price)]
-      ));
-    }
-
     // Update the total.
     $total = 0;
     foreach ($values[$field] as $index => $value) {
       if (is_int($index) && !empty($value['target_id'])) {
-        $price = \Drupal::service('se_accounting.currency_format')->formatStorage($value['price']);
+        $price = $currencyService->formatStorage($value['price']);
         if (!empty($price)) {
           $total += $value['quantity'] * $price;
-        }
-        else {
-          $total += $value['quantity'] * ($item_price ?? 0);
         }
       }
     }
@@ -119,7 +135,7 @@ class ItemsController extends ControllerBase {
     $response->addCommand(new InvokeCommand(
       "form input[data-drupal-selector='edit-se-{$type}-total-0-value']",
       'val',
-      [\Drupal::service('se_accounting.currency_format')->formatDisplay((int) $total)]
+      [$currencyService->formatDisplay((int) $total)]
     ));
 
     return $response;

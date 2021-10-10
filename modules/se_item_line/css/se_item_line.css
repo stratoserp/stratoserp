@@ -24,14 +24,22 @@
 
 /** Left column format tweaks. */
 /** Quantity field. */
-.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-quantity"] label,
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-quantity"] label {
+  display: block;
+  margin-bottom: 0;
+}
 
 /** Target type field. */
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-target-type"] {
-  margin-bottom: 0;
+  margin: 0;
 }
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left [class*="-target-type"] label {
   display: block;
+}
+
+/** Fix weird space at top of Completed Date field. */
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-left div[class*="-completed-date"] {
+  margin-top: 0;
 }
 
 /** Price field. */

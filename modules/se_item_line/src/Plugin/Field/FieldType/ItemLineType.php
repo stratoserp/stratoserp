@@ -31,7 +31,7 @@ class ItemLineType extends DynamicEntityReferenceItem {
 
     $schema['columns']['quantity'] = [
       'type' => 'float',
-      'not null' => FALSE,
+      'not null' => TRUE,
     ];
 
     $schema['columns']['price'] = [
@@ -45,24 +45,28 @@ class ItemLineType extends DynamicEntityReferenceItem {
     $schema['columns']['serial'] = [
       'description' => 'Serial number for the item.',
       'type' => 'varchar_ascii',
+      'not null' => FALSE,
       'length' => 255,
     ];
 
     $schema['columns']['completed_date'] = [
       'description' => 'Date work was completed.',
       'type' => 'varchar',
+      'not null' => FALSE,
       'length' => 20,
     ];
 
     $schema['columns']['note'] = [
       'description' => 'Notes storage.',
       'type' => 'text',
+      'not null' => FALSE,
       'size' => 'big',
     ];
 
     $schema['columns']['format'] = [
       'description' => 'Format storage for notes.',
       'type' => 'varchar_ascii',
+      'not null' => FALSE,
       'length' => 255,
     ];
 
@@ -96,14 +100,16 @@ class ItemLineType extends DynamicEntityReferenceItem {
       ->setDescription(t('The computed DateTime object.'))
       ->setComputed(TRUE)
       ->setClass('\Drupal\datetime\DateTimeComputed')
-      ->setSetting('date source', 'completed_date');
+      ->setSetting('date source', 'completed_date')
+      ->setRequired(FALSE);
 
     $properties['note'] = DataDefinition::create('string')
       ->setLabel(t('Note'))
       ->setRequired(FALSE);
 
     $properties['format'] = DataDefinition::create('filter_format')
-      ->setLabel(t('Text format'));
+      ->setLabel(t('Text format'))
+      ->setRequired(FALSE);
 
     $properties['processed'] = DataDefinition::create('string')
       ->setLabel(t('Processed text'))
@@ -111,7 +117,8 @@ class ItemLineType extends DynamicEntityReferenceItem {
       ->setComputed(TRUE)
       ->setClass('\Drupal\text\TextProcessed')
       ->setSetting('text source', 'note')
-      ->setInternal(FALSE);
+      ->setInternal(FALSE)
+      ->setRequired(FALSE);
 
     return $properties;
   }

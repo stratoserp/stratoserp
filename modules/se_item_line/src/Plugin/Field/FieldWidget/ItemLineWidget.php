@@ -31,38 +31,61 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build = parent::formElement($items, $delta, $element, $form, $form_state);
 
     $host_type = $items->getEntity()->bundle();
+    $line_type = ErpCore::SE_ITEM_LINE_BUNDLES[$host_type];
 
-    // Put a new quantity field first.
+    // Put quantity field first.
+    // Disable qty if serial is set, there can be only one.
+    // Disable qty if its timekeeping, ajax will set it.
     $build['quantity'] = [
       '#title' => t('Quantity'),
-      '#tyarraype' => 'textfield',
+      '#type' => 'textfield',
       '#default_value' => $items[$delta]->quantity ?: 1,
       '#size' => 8,
       '#maxlength' => 8,
-      '#weight' => 4,
-      '#ajax' => [
-        'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
-        'event' => 'change',
-        'progress' => FALSE,
+      '#weight' => 5,
+      '#states' => [
+        'enabled' => [
+          [
+            ':input[' . $this->lineSelector($line_type, $delta, 'serial') . ']' => [
+              ['value' => 'Serial'],
+              'or',
+              ['value' => ''],
+            ],
+          ],
+          'or',
+          [
+            ':input[' . $this->lineSelector($line_type, $delta, 'target_type') . ']' => [
+              ['value' => 'comment'],
+              'or',
+              ['value' => ''],
+            ],
+          ],
+        ],
       ],
     ];
 
     // Changes to the target type field.
-    $build['target_id']['#prefix'] = '<span class="se-item">';
-    $build['target_type']['#title'] = t('Item type');
+    $build['target_type']['#prefix'] = '<span class="se-item">';
+    $build['target_type']['#title'] = t('Item');
     $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
-    $build['target_type']['#weight'] = 5;
+    $build['target_type']['#weight'] = 10;
+    $build['target_type']['#ajax'] = [
+      'callback' => 'Drupal\se_item_line\Controller\ItemsController::updateFields',
+      'event' => 'change',
+      'progress' => FALSE,
+    ];
 
     // Changes to the target_id field.
     $build['target_id']['#attributes']['placeholder'] = t('Item');
-    $build['target_id']['#weight'] = 6;
+    $build['target_id']['#weight'] = 15;
     $build['target_id']['#ajax'] = [
-      'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
+      'callback' => 'Drupal\se_item_line\Controller\ItemsController::updateFields',
       'event' => 'autocompleteclose change click',
       'progress' => FALSE,
     ];
 
     // Display the serial field.
+    // Hide the serial if it is not an item.
     $build['serial'] = [
       '#type' => 'textfield',
       '#default_value' => $items[$delta]->serial,
@@ -71,6 +94,13 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#weight' => 20,
       '#attributes' => [
         'placeholder' => t('Serial'),
+      ],
+      '#states' => [
+        'visible' => [
+          ':input[' . $this->lineSelector($line_type, $delta, 'target_type') . ']' => [
+            'value' => 'se_item',
+          ],
+        ],
       ],
     ];
     if ($host_type !== 'se_goods_receipt') {
@@ -104,11 +134,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#required' => TRUE,
       '#attributes' => [
         'placeholder' => t('Price'),
-      ],
-      '#ajax' => [
-        'callback' => 'Drupal\se_item_line\Controller\ItemsController::updatePrice',
-        'event' => 'change',
-        'progress' => FALSE,
       ],
     ];
 
@@ -153,6 +178,23 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   }
 
   /**
+   * Helper function to construct the state selectors.
+   *
+   * @param string $lineType
+   *   The two letter content type code.
+   * @param int $delta
+   *   The line number.
+   * @param string $field
+   *   The particular field to target.
+   *
+   * @return string
+   *   Constructed state target.
+   */
+  private function lineSelector(string $lineType, int $delta, string $field): string {
+    return "name=\"se_{$lineType}_lines[{$delta}][{$field}]\"";
+  }
+
+  /**
    * Massage the form values on submit.
    *
    * {@inheritdoc}
@@ -179,9 +221,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
         $values[$index]['completed_date'] = $storage_date;
       }
 
+      $values[$index]['quantity'] = $line['quantity'];
+      $values[$index]['serial'] = $line['serial'];
+      $values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
       $values[$index]['note'] = $line['note']['value'];
       $values[$index]['format'] = $line['note']['format'];
-      $values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
     }
 
     return $values;
