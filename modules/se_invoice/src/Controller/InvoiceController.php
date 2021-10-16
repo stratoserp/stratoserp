@@ -123,7 +123,8 @@ class InvoiceController extends ControllerBase {
       $revision = $se_invoice_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
-      if ($revision->hasTranslation($langcode) && $revision->getTranslation($langcode)->isRevisionTranslationAffected()) {
+      if ($revision->hasTranslation($langcode) && $revision->getTranslation($langcode)
+          ->isRevisionTranslationAffected()) {
         $username = [
           '#theme' => 'username',
           '#account' => $revision->getRevisionUser(),
@@ -177,15 +178,15 @@ class InvoiceController extends ControllerBase {
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.se_invoice.translation_revert', [
-                'se_invoice' => $se_invoice->id(),
-                'se_invoice_revision' => $vid,
-                'langcode' => $langcode,
-              ]) :
-              Url::fromRoute('entity.se_invoice.revision_revert', [
-                'se_invoice' => $se_invoice->id(),
-                'se_invoice_revision' => $vid,
-              ]),
+                Url::fromRoute('entity.se_invoice.translation_revert', [
+                  'se_invoice' => $se_invoice->id(),
+                  'se_invoice_revision' => $vid,
+                  'langcode' => $langcode,
+                ]) :
+                Url::fromRoute('entity.se_invoice.revision_revert', [
+                  'se_invoice' => $se_invoice->id(),
+                  'se_invoice_revision' => $vid,
+                ]),
             ];
           }
 
@@ -229,32 +230,10 @@ class InvoiceController extends ControllerBase {
    * @return array
    *   An entity submission form.
    */
-  public function add(EntityInterface $source) {
+  public function quote(EntityInterface $source) {
+    $entity = $this->createInvoiceFromQuote($source);
 
-    $destination = Invoice::create([
-      'bundle' => 'se_invoice',
-    ]);
-
-    $total = 0;
-    $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $destFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
-
-    // @todo Make this a service.
-    /**
-     * @var int $index
-     * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
-     */
-    foreach ($source->{$sourceFieldType . '_lines'} as $item) {
-      $destination->{$destFieldType . '_lines'}->appendItem($item->getValue());
-    }
-
-    $destination->se_bu_ref->target_id = $source->se_bu_ref->target_id;
-    $destination->se_bu_ref->target_type = $source->se_bu_ref->target_type;
-    $destination->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $destination->{$destFieldType . '_quote_ref'}->target_id = $source->id();
-    $destination->{$destFieldType . '_total'} = $total;
-
-    return $this->entityFormBuilder()->getForm($destination);
+    return $this->entityFormBuilder()->getForm($entity);
   }
 
   /**
@@ -321,7 +300,9 @@ class InvoiceController extends ControllerBase {
     // Loop through the timekeeping entries and setup invoice lines.
     foreach ($entityIds as $entityId) {
       /** @var \Drupal\comment\Entity\Comment $comment */
-      if ($comment = $this->entityTypeManager()->getStorage('comment')->load($entityId)) {
+      if ($comment = $this->entityTypeManager()
+        ->getStorage('comment')
+        ->load($entityId)) {
         /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = $comment->se_tk_item->entity) {
           $price = (int) $item->se_it_sell_price->value;
@@ -337,13 +318,50 @@ class InvoiceController extends ControllerBase {
           $total += $line['quantity'] * $line['price'];
         }
         else {
-          \Drupal::logger('se_timekeeping')->error('No matching item for entry @cid', ['@cid' => $comment->id()]);
+          \Drupal::logger('se_timekeeping')
+            ->error('No matching item for entry @cid', ['@cid' => $comment->id()]);
         }
       }
     }
 
     $destination->{$bundleFieldType . '_lines'} = $lines;
     $destination->{$bundleFieldType . '_total'} = $total;
+
+    return $destination;
+  }
+
+  /**
+   * Provides the entity submission form for creating and invoice from a quote.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   The source entity.
+   *
+   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_invoice\Entity\Invoice
+   *   An entity submission form.
+   */
+  public function createInvoiceFromQuote(EntityInterface $source) {
+    $destination = Invoice::create([
+      'bundle' => 'se_invoice',
+    ]);
+
+    $total = 0;
+    $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
+    $destFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
+
+    // @todo Make this a service.
+    /**
+     * @var int $index
+     * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
+     */
+    foreach ($source->{$sourceFieldType . '_lines'} as $item) {
+      $destination->{$destFieldType . '_lines'}->appendItem($item->getValue());
+    }
+
+    $destination->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    $destination->se_bu_ref->target_type = $source->se_bu_ref->target_type;
+    $destination->se_co_ref->target_id = $source->se_co_ref->target_id;
+    $destination->{$destFieldType . '_quote_ref'}->target_id = $source->id();
+    $destination->{$destFieldType . '_total'} = $total;
 
     return $destination;
   }

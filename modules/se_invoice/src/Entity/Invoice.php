@@ -219,7 +219,7 @@ class Invoice extends RevisionableContentEntityBase implements InvoiceInterface 
       $paidAmount += $payment->se_pa_lines_amount;
     }
 
-    return (int) $this->getTotal() - $paidAmount;
+    return $this->getTotal() - $paidAmount;
   }
 
   /**

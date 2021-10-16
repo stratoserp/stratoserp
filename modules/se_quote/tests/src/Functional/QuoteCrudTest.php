@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\se_quote\Functional;
 
+use Drupal\se_invoice\Controller\InvoiceController;
 use Drupal\Tests\se_business\Traits\BusinessTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 
@@ -18,7 +19,7 @@ class QuoteCrudTest extends QuoteTestBase {
   use BusinessTestTrait;
 
   /**
-   * Test adding an quote.
+   * Test adding a quote.
    */
   public function testQuoteAdd() {
     $this->drupalLogin($this->staff);
@@ -36,6 +37,22 @@ class QuoteCrudTest extends QuoteTestBase {
 
     $this->drupalLogin($this->owner);
     $this->addQuote($testBusiness, $items);
+    $this->drupalLogout();
+  }
+
+  /**
+   * Test adding a quote and a subsequent invoice.
+   */
+  public function testQuoteToInvoice() {
+    $this->drupalLogin($this->staff);
+    $testBusiness = $this->addBusiness();
+    $items = $this->createItems();
+    $quote = $this->addQuote($testBusiness, $items);
+
+    // Now create an invoice from the Timekeeping entries.
+    $invoice = \Drupal::classResolver(InvoiceController::class)->createInvoiceFromQuote($quote);
+    $invoice->save();
+
     $this->drupalLogout();
   }
 

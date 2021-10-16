@@ -54,20 +54,11 @@ class PaymentSettingsForm extends FormBase {
     // Retrieve the submitted values.
     $values = $form_state->getValues();
 
-    // Update the value if its changed.
-    if (isset($values['default_payment_term'])
-      && ($values['default_payment_term'] !== $config->get('default_payment_term'))) {
-      if (!$term = $this->entityTypeManager->getStorage('taxonomy_term')->load($values['default_payment_term'])) {
-        $this->messenger()->addError('Invalid term for payment status, unable to update.');
-        return;
-      }
+    $config->set('default_payment_vocabulary', $values['default_payment_vocabulary']);
+    $config->set('default_payment_term', $values['default_payment_term']);
+    $config->save();
 
-      $config->set('default_payment_term', $values['default_payment_term']);
-      $config->save();
-
-      $this->messenger()->addMessage(t('Payment open term updated to %default_payment_term', ['%default_payment_term' => $term->label()]));
-    }
-
+    $this->messenger()->addMessage(t('Payment settings updated'));
   }
 
   /**
@@ -85,28 +76,53 @@ class PaymentSettingsForm extends FormBase {
     $form['payment_settings']['#markup'] = 'Settings form for Payment entities. Manage field settings here.';
 
     $config = $this->config('se_payment.settings');
-    $termOptions = [];
+    $termOptions = $vocabOptions = [];
 
     // Retrieve the field and then the vocab.
     $config = \Drupal::service('config.factory')->get('se_payment.settings');
-    $vocabulary = $config->get('vocabulary');
+    $vocabulary = $config->get('default_payment_vocabulary');
 
-    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['vid' => $vocabulary]);
-
-    /**
-     * @var \Drupal\taxonomy\Entity\Term $term
-     */
-    foreach ($terms as $tid => $term) {
-      $termOptions[$tid] = $term->getName();
+    // Build a list of vocbulary options.
+    $vocabs = $this->entityTypeManager->getStorage('taxonomy_vocabulary')->loadByProperties([]);
+    foreach ($vocabs as $vid => $vocab) {
+      $vocabOptions[$vid] = $vocab->label();
     }
 
-    $form['default_payment_term'] = [
-      '#title' => $this->t('Select payment default term (default type).'),
+    $form['default_payment_vocabulary'] = [
+      '#title' => $this->t('Select payment vocabulary.'),
       '#type' => 'select',
-      '#options' => $termOptions,
-      '#default_value' => $config->get('default_payment_term'),
+      '#options' => $vocabOptions,
+      '#default_value' => $config->get('default_payment_vocabulary'),
       '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
     ];
+
+    if (!empty($vocabulary)) {
+      $terms = $this->entityTypeManager->getStorage('taxonomy_term')
+        ->loadByProperties(['vid' => $vocabulary]);
+
+      /**
+       * @var \Drupal\taxonomy\Entity\Term $term
+       */
+      foreach ($terms as $tid => $term) {
+        $termOptions[$tid] = $term->getName();
+      }
+
+      $form['default_payment_term'] = [
+        '#title' => $this->t('Select payment default term (default type).'),
+        '#type' => 'select',
+        '#options' => $termOptions,
+        '#default_value' => $config->get('default_payment_term'),
+        '#description' => t("The vocabulary can be changed in the field configuration for 'Type'"),
+      ];
+    }
+    else {
+      // Provide a dummy form value.
+      $form['default_payment_term'] = [
+        '#type' => 'value',
+        '#value' => FALSE,
+      ];
+      $this->messenger()->addWarning(t('Choose a vocabulary to get a list of terms.'));
+    }
 
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [

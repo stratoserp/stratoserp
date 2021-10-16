@@ -18,8 +18,7 @@ default_value_callback: ''
 settings:
   handler: 'default:se_quote'
   handler_settings:
-    target_bundles:
-      se_quote: se_quote
+    target_bundles: null
     sort:
       field: _none
     auto_create: false
