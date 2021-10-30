@@ -1,4 +1,4 @@
-name: Contact
+name: 'StratosERP - Contact'
 description: 'Provides Contact content type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

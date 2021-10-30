@@ -1,4 +1,4 @@
-name: Warranty
+name: 'StratosERP - Warranty'
 description: 'Provides warranty processing for stock items related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

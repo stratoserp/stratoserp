@@ -1,4 +1,4 @@
-name: Timekeeping
+name: 'StratosERP - Timekeeping'
 description: 'Provides Timekeeping components and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

@@ -1,4 +1,4 @@
-name: Information
+name: 'StratosERP - Information'
 description: 'Provides Information entity type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

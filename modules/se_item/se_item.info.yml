@@ -1,4 +1,4 @@
-name: Item
+name: 'StratosERP - Item'
 description: 'Provides Item content type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

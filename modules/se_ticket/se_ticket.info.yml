@@ -1,4 +1,4 @@
-name: Ticket
+name: 'StratosERP - Ticket'
 description: 'Provides Ticket content type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

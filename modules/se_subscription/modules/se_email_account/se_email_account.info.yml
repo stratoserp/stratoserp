@@ -1,4 +1,4 @@
-name: 'Email account'
+name: 'StratosERP - Email account'
 description: 'Provides an email account subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9

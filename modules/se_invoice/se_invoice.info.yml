@@ -1,4 +1,4 @@
-name: Invoice
+name: 'StratosERP - Invoice'
 description: 'Provides Invoice content type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9
@@ -23,7 +23,6 @@ config_devel:
     - field.field.se_invoice.se_invoice.se_bu_ref
     - field.field.se_invoice.se_invoice.se_co_ref
     - field.field.se_invoice.se_invoice.se_in_customer_order
-    - field.field.se_invoice.se_invoice.se_in_lines
     - field.field.se_invoice.se_invoice.se_in_outstanding
     - field.field.se_invoice.se_invoice.se_in_sent
     - field.field.se_invoice.se_invoice.se_in_total
@@ -31,7 +30,6 @@ config_devel:
     - field.storage.se_invoice.se_bu_ref
     - field.storage.se_invoice.se_co_ref
     - field.storage.se_invoice.se_in_customer_order
-    - field.storage.se_invoice.se_in_lines
     - field.storage.se_invoice.se_in_outstanding
     - field.storage.se_invoice.se_in_sent
     - field.storage.se_invoice.se_in_total
@@ -39,7 +37,9 @@ config_devel:
   optional:
     - core.entity_form_display.se_invoice.se_invoice.default
     - core.entity_view_display.se_invoice.se_invoice.default
+    - field.field.se_invoice.se_invoice.se_in_lines
     - field.field.se_invoice.se_invoice.se_in_quote_ref
+    - field.storage.se_invoice.se_in_lines
     - field.storage.se_invoice.se_in_quote_ref
     - views.view.se_invoice_eva
     - views.view.se_invoice_list

@@ -1,4 +1,4 @@
-name: Quote
+name: 'StratosERP - Quote'
 description: 'Provides Quote content type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

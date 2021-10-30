@@ -1,4 +1,4 @@
-name: 'Domain name'
+name: 'StratosERP - Domain name'
 description: 'Provides a name name subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9

@@ -1,4 +1,4 @@
-name: 'Assembly line item'
+name: 'StratosERP - Assembly line item'
 description: 'Provides a selectable line item for assemblies.'
 type: module
 core_version_requirement: ^8 || ^9

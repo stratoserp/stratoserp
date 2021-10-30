@@ -1,4 +1,4 @@
-name: Purchase order
+name: 'StratosERP - Purchase order'
 description: 'Provides Purchase order content type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

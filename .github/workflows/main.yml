@@ -1,0 +1,45 @@
+#
+# Github workflow for stratoserp.
+#
+name: Run test suite.
+
+on: push
+
+jobs:
+  stratoserp_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-progress -vvv
+
+      - name: Perform a build
+        run: |
+          # Set standard vars.
+          export SHEPHERD_INSTALL_PROFILE=shop
+          export PROJECT=shop
+          export SITE_ADMIN_EMAIL=admin@example.com
+          export SITE_ADMIN_USERNAME=admin
+          export SITE_ADMIN_PASSWORD=password
+          export SITE_MAIL=site@example.com
+          export SITE_TITLE="Drupal site"
+          export PRIVATE_DIR=./shared/private
+          export TMP_DIR=./shared/tmp
+          export PATH=${PATH}:vendor/bin
+          export MEMCACHE_ENABLED=0
+          export REDIS_ENABLED=0
+
+          # Set shared files prefix.
+          export SHARED_PREFIX="."
+          export SQLITE_DATABASE=./shared/database
+
+          # Phpunit vars.
+          export BROWSERTEST_OUTPUT_DIRECTORY=./shared/browser_output
+          export SIMPLETEST_DB=sqlite://localhost/./shared/database
+
+          robo build:test

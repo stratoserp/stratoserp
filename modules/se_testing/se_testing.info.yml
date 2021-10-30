@@ -1,6 +1,5 @@
-name: Testing
+name: 'StratosERP - Testing'
 description: 'Provides a set of traits for testing StratosERP.'
 type: module
-core: 8.x
 core_version_requirement: ^8 || ^9
 package: StratosERP

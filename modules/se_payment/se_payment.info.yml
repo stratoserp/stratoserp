@@ -1,4 +1,4 @@
-name: Payment
+name: 'StratosERP - Payment'
 description: 'Provides payment content type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

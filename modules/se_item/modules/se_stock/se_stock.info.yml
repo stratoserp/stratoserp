@@ -1,4 +1,4 @@
-name: 'Stock line item'
+name: 'StratosERP - Stock line item'
 description: 'Provides a selectable line item for stock.'
 type: module
 core_version_requirement: ^8 || ^9

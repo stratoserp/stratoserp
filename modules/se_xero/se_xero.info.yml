@@ -1,4 +1,4 @@
-name: Xero integration
+name: 'StratosERP - Xero integration'
 description: 'Provides an integration layer between StratosERP and Xero.'
 type: module
 core_version_requirement: ^8 || ^9

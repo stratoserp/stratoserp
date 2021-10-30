@@ -1,4 +1,4 @@
-name: 'Subscription'
+name: 'StratosERP - Subscription'
 description: 'Provides a subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9

@@ -1,4 +1,4 @@
-name: Business
+name: 'StratosERP - Business'
 description: 'Provides Business content type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

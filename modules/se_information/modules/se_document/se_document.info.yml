@@ -1,4 +1,4 @@
-name: 'Basic document'
+name: 'StratosERP - Basic document'
 description: 'Provides a basic document entity type and related configuration.'
 type: module
 core_version_requirement: ^8 || ^9

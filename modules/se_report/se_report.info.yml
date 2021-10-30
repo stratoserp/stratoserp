@@ -1,4 +1,4 @@
-name: Report
+name: 'StratosERP - Report'
 description: 'Provides reporting content and functionality.'
 type: module
 core_version_requirement: ^8 || ^9
