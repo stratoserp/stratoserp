@@ -3,15 +3,14 @@
 namespace Drupal\se_subscription;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 
 /**
  * Provides routes for Subscription type entities.
  *
- * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class SubscriptionTypeHtmlRouteProvider extends AdminHtmlRouteProvider {
+class SubscriptionTypeHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}

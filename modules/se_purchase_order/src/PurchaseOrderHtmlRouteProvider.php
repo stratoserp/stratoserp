@@ -3,16 +3,15 @@
 namespace Drupal\se_purchase_order;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for PurchaseOrder entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class PurchaseOrderHtmlRouteProvider extends AdminHtmlRouteProvider {
+class PurchaseOrderHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -66,8 +65,7 @@ class PurchaseOrderHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_purchase_order\Controller\PurchaseOrderController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all purchase order revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all purchase order revisions');
 
       return $route;
     }
@@ -90,8 +88,7 @@ class PurchaseOrderHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_purchase_order\Controller\PurchaseOrderController::revisionShow',
           '_title_callback' => '\Drupal\se_purchase_order\Controller\PurchaseOrderController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all purchase order revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all purchase order revisions');
 
       return $route;
     }
@@ -114,8 +111,7 @@ class PurchaseOrderHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_purchase_order\Form\PurchaseOrderRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all purchase order revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all purchase order revisions');
 
       return $route;
     }
@@ -138,8 +134,7 @@ class PurchaseOrderHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_purchase_order\Form\PurchaseOrderRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all purchase order revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all purchase order revisions');
 
       return $route;
     }
@@ -162,8 +157,7 @@ class PurchaseOrderHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_purchase_order\Form\PurchaseOrderRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all purchase order revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all purchase order revisions');
 
       return $route;
     }
@@ -186,8 +180,7 @@ class PurchaseOrderHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_purchase_order\Form\PurchaseOrderSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

@@ -3,16 +3,15 @@
 namespace Drupal\se_ticket;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Ticket entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
+class TicketHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -66,8 +65,7 @@ class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_ticket\Controller\TicketController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all ticket revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all ticket revisions');
 
       return $route;
     }
@@ -90,8 +88,7 @@ class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_ticket\Controller\TicketController::revisionShow',
           '_title_callback' => '\Drupal\se_ticket\Controller\TicketController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all ticket revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all ticket revisions');
 
       return $route;
     }
@@ -114,8 +111,7 @@ class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_ticket\Form\TicketRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all ticket revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all ticket revisions');
 
       return $route;
     }
@@ -138,8 +134,7 @@ class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_ticket\Form\TicketRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all ticket revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all ticket revisions');
 
       return $route;
     }
@@ -162,8 +157,7 @@ class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_ticket\Form\TicketRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all ticket revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all ticket revisions');
 
       return $route;
     }
@@ -186,8 +180,7 @@ class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_ticket\Form\TicketSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

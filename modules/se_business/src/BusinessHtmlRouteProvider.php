@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Drupal\se_business;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Business entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
- */
-class BusinessHtmlRouteProvider extends AdminHtmlRouteProvider {
+  */
+class BusinessHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -68,8 +67,7 @@ class BusinessHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_business\Controller\BusinessController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all business revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all business revisions');
 
       return $route;
     }
@@ -92,8 +90,7 @@ class BusinessHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_business\Controller\BusinessController::revisionShow',
           '_title_callback' => '\Drupal\se_business\Controller\BusinessController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all business revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all business revisions');
 
       return $route;
     }
@@ -116,8 +113,7 @@ class BusinessHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_business\Form\BusinessRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all business revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all business revisions');
 
       return $route;
     }
@@ -140,8 +136,7 @@ class BusinessHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_business\Form\BusinessRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all business revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all business revisions');
 
       return $route;
     }
@@ -164,8 +159,7 @@ class BusinessHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_business\Form\BusinessRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all business revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all business revisions');
 
       return $route;
     }
@@ -188,8 +182,7 @@ class BusinessHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_business\Form\BusinessSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

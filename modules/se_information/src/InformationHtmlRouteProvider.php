@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Drupal\se_information;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Information entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class InformationHtmlRouteProvider extends AdminHtmlRouteProvider {
+class InformationHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -68,8 +67,7 @@ class InformationHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_information\Controller\InformationController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'access information revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'access information revisions');
 
       return $route;
     }
@@ -92,8 +90,7 @@ class InformationHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_information\Controller\InformationController::revisionShow',
           '_title_callback' => '\Drupal\se_information\Controller\InformationController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'access information revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'access information revisions');
 
       return $route;
     }
@@ -116,8 +113,7 @@ class InformationHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_information\Form\InformationRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all information revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all information revisions');
 
       return $route;
     }
@@ -140,8 +136,7 @@ class InformationHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_information\Form\InformationRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all information revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all information revisions');
 
       return $route;
     }
@@ -164,8 +159,7 @@ class InformationHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_information\Form\InformationRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all information revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all information revisions');
 
       return $route;
     }
@@ -188,8 +182,7 @@ class InformationHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_information\Form\InformationSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

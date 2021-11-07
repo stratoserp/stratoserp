@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Drupal\se_goods_receipt;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Goods Receipt entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class GoodsReceiptHtmlRouteProvider extends AdminHtmlRouteProvider {
+class GoodsReceiptHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -68,8 +67,7 @@ class GoodsReceiptHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_goods_receipt\Controller\GoodsReceiptController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all goods receipt revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all goods receipt revisions');
 
       return $route;
     }
@@ -92,8 +90,7 @@ class GoodsReceiptHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_goods_receipt\Controller\GoodsReceiptController::revisionShow',
           '_title_callback' => '\Drupal\se_goods_receipt\Controller\GoodsReceiptController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all goods receipt revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all goods receipt revisions');
 
       return $route;
     }
@@ -116,8 +113,7 @@ class GoodsReceiptHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_goods_receipt\Form\GoodsReceiptRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all goods receipt revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all goods receipt revisions');
 
       return $route;
     }
@@ -140,8 +136,7 @@ class GoodsReceiptHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_goods_receipt\Form\GoodsReceiptRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all goods receipt revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all goods receipt revisions');
 
       return $route;
     }
@@ -164,8 +159,7 @@ class GoodsReceiptHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_goods_receipt\Form\GoodsReceiptRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all goods receipt revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all goods receipt revisions');
 
       return $route;
     }
@@ -188,8 +182,7 @@ class GoodsReceiptHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_goods_receipt\Form\GoodsReceiptSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Drupal\se_payment;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Payment entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class PaymentHtmlRouteProvider extends AdminHtmlRouteProvider {
+class PaymentHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -68,8 +67,7 @@ class PaymentHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_payment\Controller\PaymentController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all payment revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all payment revisions');
 
       return $route;
     }
@@ -92,8 +90,7 @@ class PaymentHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_payment\Controller\PaymentController::revisionShow',
           '_title_callback' => '\Drupal\se_payment\Controller\PaymentController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all payment revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all payment revisions');
 
       return $route;
     }
@@ -116,8 +113,7 @@ class PaymentHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_payment\Form\PaymentRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all payment revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all payment revisions');
 
       return $route;
     }
@@ -140,8 +136,7 @@ class PaymentHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_payment\Form\PaymentRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all payment revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all payment revisions');
 
       return $route;
     }
@@ -164,8 +159,7 @@ class PaymentHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_payment\Form\PaymentRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all payment revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all payment revisions');
 
       return $route;
     }
@@ -188,8 +182,7 @@ class PaymentHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_payment\Form\PaymentSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

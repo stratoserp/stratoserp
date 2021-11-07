@@ -3,16 +3,15 @@
 namespace Drupal\se_quote;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Quote entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class QuoteHtmlRouteProvider extends AdminHtmlRouteProvider {
+class QuoteHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -66,8 +65,7 @@ class QuoteHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_quote\Controller\QuoteController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all quote revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all quote revisions');
 
       return $route;
     }
@@ -90,8 +88,7 @@ class QuoteHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_quote\Controller\QuoteController::revisionShow',
           '_title_callback' => '\Drupal\se_quote\Controller\QuoteController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all quote revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all quote revisions');
 
       return $route;
     }
@@ -114,8 +111,7 @@ class QuoteHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_quote\Form\QuoteRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all quote revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all quote revisions');
 
       return $route;
     }
@@ -138,8 +134,7 @@ class QuoteHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_quote\Form\QuoteRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all quote revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all quote revisions');
 
       return $route;
     }
@@ -162,8 +157,7 @@ class QuoteHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_quote\Form\QuoteRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all quote revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all quote revisions');
 
       return $route;
     }
@@ -186,8 +180,7 @@ class QuoteHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_quote\Form\QuoteSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

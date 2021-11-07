@@ -3,16 +3,15 @@
 namespace Drupal\se_contact;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Contact entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class ContactHtmlRouteProvider extends AdminHtmlRouteProvider {
+class ContactHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -66,8 +65,7 @@ class ContactHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_contact\Controller\ContactController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all contact revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all contact revisions');
 
       return $route;
     }
@@ -90,8 +88,7 @@ class ContactHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_contact\Controller\ContactController::revisionShow',
           '_title_callback' => '\Drupal\se_contact\Controller\ContactController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all contact revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all contact revisions');
 
       return $route;
     }
@@ -114,8 +111,7 @@ class ContactHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_contact\Form\ContactRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all contact revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all contact revisions');
 
       return $route;
     }
@@ -138,8 +134,7 @@ class ContactHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_contact\Form\ContactRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all contact revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all contact revisions');
 
       return $route;
     }
@@ -162,8 +157,7 @@ class ContactHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_contact\Form\ContactRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all contact revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all contact revisions');
 
       return $route;
     }
@@ -186,8 +180,7 @@ class ContactHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_contact\Form\ContactSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

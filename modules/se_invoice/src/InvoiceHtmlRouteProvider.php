@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Drupal\se_invoice;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Invoice entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class InvoiceHtmlRouteProvider extends AdminHtmlRouteProvider {
+class InvoiceHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -68,8 +67,7 @@ class InvoiceHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_invoice\Controller\InvoiceController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all invoice revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all invoice revisions');
 
       return $route;
     }
@@ -92,8 +90,7 @@ class InvoiceHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_invoice\Controller\InvoiceController::revisionShow',
           '_title_callback' => '\Drupal\se_invoice\Controller\InvoiceController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all invoice revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all invoice revisions');
 
       return $route;
     }
@@ -116,8 +113,7 @@ class InvoiceHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_invoice\Form\InvoiceRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all invoice revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all invoice revisions');
 
       return $route;
     }
@@ -140,8 +136,7 @@ class InvoiceHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_invoice\Form\InvoiceRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all invoice revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all invoice revisions');
 
       return $route;
     }
@@ -164,8 +159,7 @@ class InvoiceHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_invoice\Form\InvoiceRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all invoice revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all invoice revisions');
 
       return $route;
     }
@@ -188,8 +182,7 @@ class InvoiceHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_invoice\Form\InvoiceSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

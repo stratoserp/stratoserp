@@ -3,17 +3,16 @@
 namespace Drupal\se_subscription;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Drupal\se_subscription\Controller\SubscriptionController;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Subscription entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class SubscriptionHtmlRouteProvider extends AdminHtmlRouteProvider {
+class SubscriptionHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -73,8 +72,7 @@ class SubscriptionHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_subscription\Controller\SubscriptionController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all subscription revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all subscription revisions');
 
       return $route;
     }
@@ -97,8 +95,7 @@ class SubscriptionHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_subscription\Controller\SubscriptionController::revisionShow',
           '_title_callback' => '\Drupal\se_subscription\Controller\SubscriptionController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all subscription revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all subscription revisions');
 
       return $route;
     }
@@ -121,8 +118,7 @@ class SubscriptionHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_subscription\Form\SubscriptionRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all subscription revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all subscription revisions');
 
       return $route;
     }
@@ -145,8 +141,7 @@ class SubscriptionHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_subscription\Form\SubscriptionRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all subscription revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all subscription revisions');
 
       return $route;
     }
@@ -169,8 +164,7 @@ class SubscriptionHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_subscription\Form\SubscriptionRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all subscription revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all subscription revisions');
 
       return $route;
     }
@@ -193,8 +187,7 @@ class SubscriptionHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_subscription\Form\SubscriptionSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

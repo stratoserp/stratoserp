@@ -3,16 +3,15 @@
 namespace Drupal\se_bill;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Bill entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
- */
-class BillHtmlRouteProvider extends AdminHtmlRouteProvider {
+  */
+class BillHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -66,8 +65,7 @@ class BillHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_bill\Controller\BillController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all bill revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all bill revisions');
 
       return $route;
     }
@@ -90,8 +88,7 @@ class BillHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => '\Drupal\se_bill\Controller\BillController::revisionShow',
           '_title_callback' => '\Drupal\se_bill\Controller\BillController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all bill revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view all bill revisions');
 
       return $route;
     }
@@ -114,8 +111,7 @@ class BillHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_bill\Form\BillRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all bill revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all bill revisions');
 
       return $route;
     }
@@ -138,8 +134,7 @@ class BillHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_bill\Form\BillRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all bill revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'delete all bill revisions');
 
       return $route;
     }
@@ -162,8 +157,7 @@ class BillHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => '\Drupal\se_bill\Form\BillRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all bill revisions')
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'revert all bill revisions');
 
       return $route;
     }
@@ -186,8 +180,7 @@ class BillHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\se_bill\Form\BillSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission());
 
       return $route;
     }

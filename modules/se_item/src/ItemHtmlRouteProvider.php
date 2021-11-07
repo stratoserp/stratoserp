@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Drupal\se_item;
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for Item entities.
  *
- * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
+class ItemHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -68,8 +67,7 @@ class ItemHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_title' => "{$entity_type->getLabel()} revisions",
           '_controller' => '\Drupal\se_item\Controller\ItemController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'access item revisions')
-        ->setOption('_admin_route', FALSE);
+        ->setRequirement('_permission', 'access item revisions');
 
       return $route;
     }
