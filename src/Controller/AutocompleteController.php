@@ -81,10 +81,11 @@ class AutocompleteController extends ControllerBase {
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);
-      $output_description = implode(' - ', [
+      $fields = array_filter([
         $description,
         $key,
       ]);
+      $output_description = implode(' - ', $fields);
       $matches[] = [
         'value' => $key,
         'label' => $output_description,
@@ -114,10 +115,9 @@ class AutocompleteController extends ControllerBase {
     $item_ids = $query->execute();
     /** @var \Drupal\node\Entity\Node $item */
     foreach (Business::loadMultiple($item_ids) as $entity_id => $business) {
-      $fields = [
+      $fields = array_filter([
         $business->getName(),
-      ];
-      $fields = array_filter($fields);
+      ]);
       $key = implode(' - ', $fields);
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
@@ -162,13 +162,12 @@ class AutocompleteController extends ControllerBase {
     $item_ids = $query->execute();
     /** @var \Drupal\node\Entity\Node $item */
     foreach (Item::loadMultiple($item_ids) as $entity_id => $item) {
-      $fields = [
+      $fields = array_filter([
         $description,
         $item->getName(),
         $item->se_it_serial->value ?: NULL,
         \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $item->se_it_sell_price->value),
-      ];
-      $fields = array_filter($fields);
+      ]);
       $key = implode(' - ', $fields);
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
@@ -214,16 +213,16 @@ class AutocompleteController extends ControllerBase {
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);
-      $output_description = implode(' - ', [
+      $fields = array_filter([
         $description,
-        $information->se_bu_ref->entity->name->value,
+        $information->se_bu_ref->entity->name->value ?? NULL,
         $information->getName(),
       ]);
-
+      $output = implode(' - ', $fields);
       $informationId = $information->id();
       $matches[] = [
         'value' => $key,
-        'label' => $output_description . " (#$informationId)",
+        'label' => $output . " (#$informationId)",
       ];
     }
 
