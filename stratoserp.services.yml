@@ -3,3 +3,7 @@ services:
     class: Drupal\stratoserp\Service\FormAlter
     arguments: ['@request_stack', '@entity_type.manager', '@current_user']
 
+  # Setup our own logger channel.
+  logger.channel.stratoserp:
+    parent: logger.channel_base
+    arguments: ['stratoserp']

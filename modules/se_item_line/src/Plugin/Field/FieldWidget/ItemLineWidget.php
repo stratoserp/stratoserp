@@ -144,6 +144,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#default_value' => $items[$delta]->note ?? '',
       '#weight' => 60,
       '#after_build' => ['se_item_line_hide_text_format'],
+      '#resizable' => 'both',
+      '#attributes' => [
+        'class' => ['item-line-node'],
+      ],
+      '#theme_wrappers' => ['container'],
     ];
 
     // @todo This is a bit icky, how to do better.

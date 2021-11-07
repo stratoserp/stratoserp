@@ -57,7 +57,16 @@
 }
 
 /** Right column format tweaks. */
-/** Notes field. */
+/** Notes field label. */
 .field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right [class*="-note-value"] label {
   display: block;
+}
+
+/** Notes field text area. */
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right .item-line-node,
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right .item-line-node [class*="-note-value"],
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right .item-line-node .form-textarea-wrapper,
+.field--widget-se-item-line-widget table tr td div.container-inline .se-item-line-right .item-line-node .form-textarea-wrapper div {
+  display: block;
+  width: auto;
 }

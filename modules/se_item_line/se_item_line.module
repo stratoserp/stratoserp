@@ -39,7 +39,7 @@ function se_item_line_theme(): array {
  */
 function se_item_line_hide_text_format(array $element): array {
   if (!empty($element['format'])) {
-    $element['format']['#attributes']['class'][] = 'hidden';
+    $element['format']['#attributes']['class'][] = 'invisible';
   }
   return $element;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\stratoserp\Functional;
 
 use Drupal\Tests\se_business\Traits\BusinessTestTrait;

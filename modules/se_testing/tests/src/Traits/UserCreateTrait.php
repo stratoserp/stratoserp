@@ -55,7 +55,7 @@ trait UserCreateTrait {
   }
 
   /**
-   * Setup an higher level user, with appropriate role.
+   * Setup a higher level user, with appropriate role.
    *
    * @return \Drupal\user\Entity\User
    *   The created user.
@@ -65,6 +65,19 @@ trait UserCreateTrait {
   public function setupOwnerUser(): User {
     $this->userFakerSetup();
     return $this->createUserAndCleanup(['owner']);
+  }
+
+  /**
+   * Setup a developer level user, with appropriate role.
+   *
+   * @return \Drupal\user\Entity\User
+   *   The created user.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function setupAdministratorUser(): User {
+    $this->userFakerSetup();
+    return $this->createUserAndCleanup(['administrator']);
   }
 
   /**
