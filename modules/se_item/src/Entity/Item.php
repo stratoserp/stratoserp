@@ -68,9 +68,6 @@ use Drupal\user\UserInterface;
  *     "translation_revert" = "/item/{se_item}/revisions/{se_item_revision}/revert/{langcode}",
  *     "collection" = "/admin/content/item",
  *   },
- *   options = {
- *     "_admin_route" = "0",
- *   },
  *   bundle_entity_type = "se_item_type",
  *   field_ui_base_route = "entity.se_item_type.edit_form",
  *   revision_metadata_keys = {
