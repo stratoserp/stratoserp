@@ -221,18 +221,29 @@ class GoodsReceiptController extends ControllerBase {
    *
    * @return array
    *   An entity submission form.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function add(EntityInterface $source) {
+  public function fromPurchaseOrder(EntityInterface $source): array {
+    $entity = $this->createGoodsReceiptFromPurchaseOrder($source);
 
-    $destination = GoodsReceipt::create([
+    return $this->entityFormBuilder()->getForm($entity);
+  }
+
+  /**
+   * Provides the entity for goods receipt creation from a purchase order.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   The source entity.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   An entity ready for the submission form.
+   */
+  public function createGoodsReceiptFromPurchaseOrder($source): EntityInterface {
+    $goodsReceipt = GoodsReceipt::create([
       'bundle' => 'se_goods_receipt',
     ]);
 
     $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
+    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$goodsReceipt->getEntityTypeId()];
 
     // For each item in the purchase order, create the qty
     // number of fields for serial number entry.
@@ -240,15 +251,15 @@ class GoodsReceiptController extends ControllerBase {
       // @todo ensure we're using the non-serialised item here?
       $itemCount = $itemLine->quantity;
       for ($count = 0; $count < $itemCount; $count++) {
-        $destination->{$bundleFieldType . '_lines'}->appendItem($itemLine->getValue());
+        $goodsReceipt->{$bundleFieldType . '_lines'}->appendItem($itemLine->getValue());
       }
     }
 
-    $destination->se_bu_ref->target_id = $source->se_bu_ref->target_id;
-    $destination->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $destination->{$bundleFieldType . '_purchase_order_ref'}->target_id = $source->id();
+    $goodsReceipt->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    $goodsReceipt->se_co_ref->target_id = $source->se_co_ref->target_id;
+    $goodsReceipt->{$bundleFieldType . '_purchase_order_ref'}->target_id = $source->id();
 
-    return $this->entityFormBuilder()->getForm($destination);
+    return $goodsReceipt;
   }
 
 }

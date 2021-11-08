@@ -3,7 +3,7 @@ se_purchase_order.add:
   path: '/po/add/{source}'
   defaults:
     _title: 'Add purchase order'
-    _controller: '\Drupal\se_purchase_order\Controller\PurchaseOrderController::add'
+    _controller: '\Drupal\se_purchase_order\Controller\PurchaseOrderController::fromQuote'
     type: se_purchase_order
   requirements:
     _permission: 'add purchase order entities'

@@ -212,7 +212,7 @@ class PurchaseOrderController extends ControllerBase {
   }
 
   /**
-   * Entity submission form for purchase order creation from a quote.
+   * Provides the entity form for purchase order creation from a quote.
    *
    * @paeram \Drupal\Core\Entity\EntityInterface $source
    *   Source entity to copy data from.
@@ -220,10 +220,23 @@ class PurchaseOrderController extends ControllerBase {
    * @return array
    *   An entity submission form.
    *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function add(EntityInterface $source) {
+  public function fromQuote(EntityInterface $source) {
+    $entity = $this->createPurchaseOrderFromQuote($source);
+
+    return $this->entityFormBuilder()->getForm($entity);
+  }
+
+  /**
+   * Provide the entity for creating a purchase order from a quote.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   The source entity.
+   *
+   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_purchase_order\Entity\PurchaseOrder
+   *   An entity submission form.
+   */
+  public function createPurchaseOrderFromQuote(EntityInterface $source) {
 
     $destination = PurchaseOrder::create([
       'bundle' => 'se_purchase_order',
@@ -248,7 +261,7 @@ class PurchaseOrderController extends ControllerBase {
     $destination->{$bundleFieldType . '_quote_ref'}->target_id = $source->id();
     $destination->{$bundleFieldType . '_total'} = $total;
 
-    return $this->entityFormBuilder()->getForm($destination);
+    return $destination;
   }
 
 }

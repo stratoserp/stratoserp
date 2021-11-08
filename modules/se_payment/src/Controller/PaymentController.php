@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment\Controller;
 
+use Beta\Microsoft\Graph\Model\Entity;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
@@ -228,7 +229,25 @@ class PaymentController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function add(EntityInterface $source): array {
+  public function fromInvoice(EntityInterface $source): array {
+    $entity = $this->createPaymentFromInvoice($source);
+
+    return $this->entityFormBuilder()->getForm($entity);
+  }
+
+  /**
+   * Provides the entity for creating a payment from an invoice.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   The source invoice entity.
+   *
+   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_payment\Entity\Payment
+   *   An entity ready for the submission form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function createPaymentFromInvoice(EntityInterface $source) {
 
     $payment = Payment::create([
       'bundle' => 'se_payment',
@@ -269,7 +288,7 @@ class PaymentController extends ControllerBase {
     $payment->se_pa_lines = $lines;
     $payment->se_pa_total = $total;
 
-    return $this->entityFormBuilder()->getForm($payment);
+    return $payment;
   }
 
 }

@@ -178,15 +178,15 @@ class InvoiceController extends ControllerBase {
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-                Url::fromRoute('entity.se_invoice.translation_revert', [
-                  'se_invoice' => $se_invoice->id(),
-                  'se_invoice_revision' => $vid,
-                  'langcode' => $langcode,
-                ]) :
-                Url::fromRoute('entity.se_invoice.revision_revert', [
-                  'se_invoice' => $se_invoice->id(),
-                  'se_invoice_revision' => $vid,
-                ]),
+              Url::fromRoute('entity.se_invoice.translation_revert', [
+                'se_invoice' => $se_invoice->id(),
+                'se_invoice_revision' => $vid,
+                'langcode' => $langcode,
+              ]) :
+              Url::fromRoute('entity.se_invoice.revision_revert', [
+                'se_invoice' => $se_invoice->id(),
+                'se_invoice_revision' => $vid,
+              ]),
             ];
           }
 
@@ -222,7 +222,7 @@ class InvoiceController extends ControllerBase {
   }
 
   /**
-   * Provides the entity submission form for invoice creation from a quote.
+   * Provides the entity form for invoice creation from a quote.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   Source entity to copy data from.
@@ -230,14 +230,14 @@ class InvoiceController extends ControllerBase {
    * @return array
    *   An entity submission form.
    */
-  public function quote(EntityInterface $source) {
+  public function fromQuote(EntityInterface $source) {
     $entity = $this->createInvoiceFromQuote($source);
 
     return $this->entityFormBuilder()->getForm($entity);
   }
 
   /**
-   * Provides the entity submission form for creation from timekeeping entries.
+   * Provides the entity form for creation from timekeeping entries.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   The source entity.
@@ -248,46 +248,46 @@ class InvoiceController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function timekeeping(EntityInterface $source): array {
+  public function fromTimekeeping(EntityInterface $source): array {
     $entity = $this->createInvoiceFromTimekeeping($source);
 
     return $this->entityFormBuilder()->getForm($entity);
   }
 
   /**
-   * Provides the entity submission form for creation from timekeeping entries.
+   * Provides the entity for invoice creation from timekeeping entries.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   The source entity.
    *
    * @return \Drupal\Core\Entity\EntityInterface
-   *   A built entity ready to display in a form.
+   *   An entity ready for the submission form.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function createInvoiceFromTimekeeping(EntityInterface $source) {
+  public function createInvoiceFromTimekeeping(EntityInterface $source): EntityInterface {
 
-    $destination = Invoice::create([
+    $invoice = Invoice::create([
       'bundle' => 'se_invoice',
     ]);
 
     // Retrieve a list of non billed timekeeping entries for this business.
     $query = \Drupal::entityQuery('comment');
 
-    // If its not a business, and not business in the passed entity, bail.
+    // If it is not a business, and no business set in the source entity, bail.
     if ($source->getEntityTypeId() !== 'se_business') {
       if (!$source->se_bu_ref->target_id) {
-        return $this->entityFormBuilder()->getForm($destination);
+        return $invoice;
       }
-      $business_ref = $source->se_bu_ref->target_id;
+      $businessRef = $source->se_bu_ref->target_id;
     }
     else {
-      $business_ref = $source->id();
+      $businessRef = $source->id();
     }
 
     $query->condition('comment_type', 'se_timekeeping')
-      ->condition('se_bu_ref', $business_ref)
+      ->condition('se_bu_ref', $businessRef)
       ->condition('se_tk_billed', TRUE, '<>')
       ->condition('se_tk_billable', TRUE)
       ->condition('se_tk_amount', 0, '>');
@@ -324,29 +324,29 @@ class InvoiceController extends ControllerBase {
       }
     }
 
-    $destination->{$bundleFieldType . '_lines'} = $lines;
-    $destination->{$bundleFieldType . '_total'} = $total;
+    $invoice->{$bundleFieldType . '_lines'} = $lines;
+    $invoice->{$bundleFieldType . '_total'} = $total;
 
-    return $destination;
+    return $invoice;
   }
 
   /**
-   * Provides the entity submission form for creating and invoice from a quote.
+   * Provides the entity for creating an invoice from a quote.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   The source entity.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_invoice\Entity\Invoice
-   *   An entity submission form.
+   *   An entity ready for the submission form.
    */
   public function createInvoiceFromQuote(EntityInterface $source) {
-    $destination = Invoice::create([
+    $invoice = Invoice::create([
       'bundle' => 'se_invoice',
     ]);
 
     $total = 0;
     $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $destFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
+    $destFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$invoice->getEntityTypeId()];
 
     // @todo Make this a service.
     /**
@@ -354,16 +354,16 @@ class InvoiceController extends ControllerBase {
      * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
      */
     foreach ($source->{$sourceFieldType . '_lines'} as $item) {
-      $destination->{$destFieldType . '_lines'}->appendItem($item->getValue());
+      $invoice->{$destFieldType . '_lines'}->appendItem($item->getValue());
     }
 
-    $destination->se_bu_ref->target_id = $source->se_bu_ref->target_id;
-    $destination->se_bu_ref->target_type = $source->se_bu_ref->target_type;
-    $destination->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $destination->{$destFieldType . '_quote_ref'}->target_id = $source->id();
-    $destination->{$destFieldType . '_total'} = $total;
+    $invoice->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    $invoice->se_bu_ref->target_type = $source->se_bu_ref->target_type;
+    $invoice->se_co_ref->target_id = $source->se_co_ref->target_id;
+    $invoice->{$destFieldType . '_quote_ref'}->target_id = $source->id();
+    $invoice->{$destFieldType . '_total'} = $total;
 
-    return $destination;
+    return $invoice;
   }
 
 }

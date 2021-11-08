@@ -3,7 +3,7 @@ se_invoice.add:
   path: '/invoice/quote/{source}'
   defaults:
     _title: 'Add invoice'
-    _controller: '\Drupal\se_invoice\Controller\InvoiceController::quote'
+    _controller: '\Drupal\se_invoice\Controller\InvoiceController::fromQuote'
     type: se_invoice
   requirements:
     _permission: 'add invoice entities'
@@ -16,7 +16,7 @@ se_invoice.timekeeping:
   path: '/invoice/timekeeping/{source}'
   defaults:
     _title: 'Add invoice'
-    _controller: '\Drupal\se_invoice\Controller\InvoiceController::timekeeping'
+    _controller: '\Drupal\se_invoice\Controller\InvoiceController::fromTimekeeping'
     type: se_invoice
   requirements:
     _permission: 'add invoice entities'
