@@ -106,8 +106,10 @@ class InvoiceSettingsForm extends FormBase {
     $termOptions = [];
 
     // Retrieve the field and then the vocab.
-    $field = $this->entityTypeManager->getStorage('field_config')->load('se_invoice.se_invoice.se_status_ref');
-    $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
+    $vocabulary = '';
+    if ($field = $this->entityTypeManager->getStorage('field_config')->load('se_invoice.se_invoice.se_status_ref')) {
+      $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
+    }
 
     $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['vid' => $vocabulary]);
 

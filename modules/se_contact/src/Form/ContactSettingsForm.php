@@ -85,8 +85,10 @@ class ContactSettingsForm extends FormBase {
     $termOptions = [];
 
     // Retrieve the field and then the vocab.
-    $field = $this->entityTypeManager->getStorage('field_config')->load('se_contact.se_contact.se_co_type_ref');
-    $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
+    $vocabulary = '';
+    if ($field = $this->entityTypeManager->getStorage('field_config')->load('se_contact.se_contact.se_co_type_ref')) {
+      $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
+    }
 
     $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['vid' => $vocabulary]);
 
