@@ -31,17 +31,17 @@ third_party_settings:
       children:
         - user_id
         - revision_log_message
+      label: Extra
+      region: bottom
       parent_name: ''
       weight: 12
       format_type: details
-      region: bottom
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
-      label: Extra
 id: se_ticket.se_ticket.default
 targetEntityType: se_ticket
 bundle: se_ticket
@@ -58,10 +58,10 @@ content:
   revision_log_message:
     type: string_textarea
     weight: 2
+    region: bottom
     settings:
       rows: 4
       placeholder: ''
-    region: bottom
     third_party_settings: {  }
   se_attachments:
     type: file_generic
@@ -153,11 +153,11 @@ content:
   user_id:
     type: entity_reference_autocomplete
     weight: 1
+    region: bottom
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: bottom
     third_party_settings: {  }
 hidden: {  }

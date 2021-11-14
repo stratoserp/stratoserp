@@ -18,8 +18,9 @@ config_devel:
     - taxonomy.vocabulary.se_product_type
     - taxonomy.vocabulary.se_sale_category
     - taxonomy.vocabulary.se_status
+  optional:
     - user.role.customer
     - user.role.developer
     - user.role.staff
     - user.role.supplier
-  optional: {  }
+

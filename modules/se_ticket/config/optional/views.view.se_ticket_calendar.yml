@@ -334,6 +334,7 @@ display:
           exposed: false
           expose:
             label: ''
+            field_identifier: se_ti_scheduled_value
           granularity: minute
           plugin_id: datetime
       header: {  }

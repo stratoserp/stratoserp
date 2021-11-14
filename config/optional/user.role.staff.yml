@@ -1,6 +1,25 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - comment
+    - contextual
+    - se_bill
+    - se_business
+    - se_contact
+    - se_goods_receipt
+    - se_information
+    - se_invoice
+    - se_item
+    - se_payment
+    - se_purchase_order
+    - se_quote
+    - se_subscription
+    - se_ticket
+    - stratoserp
+    - system
+    - toolbar
+    - toolbar_menu
 id: staff
 label: Staff
 weight: 7
@@ -41,7 +60,6 @@ permissions:
   - 'post comments'
   - 'skip comment approval'
   - 'use inline mentions'
-  - 'use text format basic_html'
   - 'view all bill revisions'
   - 'view all business revisions'
   - 'view all contact revisions'

@@ -31,95 +31,95 @@ bundle: se_ticket
 mode: default
 content:
   name:
-    label: inline
     type: string
-    weight: 0
-    region: top
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: top
   se_attachments:
     type: file_default
-    weight: 11
-    region: bottom
     label: above
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
+    weight: 11
+    region: bottom
   se_body:
     type: text_default
-    weight: 9
-    region: bottom
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 9
+    region: bottom
   se_bu_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 1
     region: first
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_co_ref:
     type: entity_reference_label
-    weight: 2
-    region: first
     label: inline
     settings:
       link: true
     third_party_settings: {  }
+    weight: 2
+    region: first
   se_ti_open_date:
     type: timestamp
-    weight: 5
-    region: second
     label: inline
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+    weight: 5
+    region: second
   se_ti_owner_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 3
     region: first
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_ti_priority_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 7
     region: second
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_ti_scheduled:
     type: daterange_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+      separator: '-'
+    third_party_settings: {  }
     weight: 6
     region: second
-    label: inline
-    settings:
-      separator: '-'
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
   se_ti_status_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 8
     region: second
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_ti_type_ref:
     type: entity_reference_label
-    weight: 4
-    region: first
     label: inline
     settings:
       link: true
     third_party_settings: {  }
+    weight: 4
+    region: first
 hidden:
   user_id: true

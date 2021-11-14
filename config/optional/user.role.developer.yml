@@ -1,6 +1,51 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - taxonomy.vocabulary.se_contact_type
+    - taxonomy.vocabulary.se_manufacturer
+    - taxonomy.vocabulary.se_payment_type
+    - taxonomy.vocabulary.se_product_type
+    - taxonomy.vocabulary.se_sale_category
+    - taxonomy.vocabulary.se_status
+    - taxonomy.vocabulary.se_ticket_priority
+    - taxonomy.vocabulary.se_ticket_status
+    - taxonomy.vocabulary.se_ticket_type
+  module:
+    - block
+    - block_content
+    - comment
+    - config
+    - contextual
+    - field_ui
+    - file
+    - filter
+    - geolocation
+    - image
+    - linkit
+    - migrate_tools
+    - node
+    - path
+    - rest
+    - se_bill
+    - se_business
+    - se_contact
+    - se_goods_receipt
+    - se_information
+    - se_invoice
+    - se_item
+    - se_payment
+    - se_purchase_order
+    - se_quote
+    - se_subscription
+    - se_ticket
+    - stratoserp
+    - system
+    - taxonomy
+    - toolbar
+    - tour
+    - views_ui
+    - webform
 id: developer
 label: Developer
 weight: 8

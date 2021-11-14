@@ -1,6 +1,10 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - comment
+    - stratoserp
+    - system
 id: customer
 label: Customer
 weight: 4
