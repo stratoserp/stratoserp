@@ -9,19 +9,23 @@ namespace Drupal\stratoserp;
  */
 final class ErpCore {
 
+  // @todo Need to make this something modules can add to.
   public const SE_ITEM_LINE_BUNDLES = [
-    'se_bill'           => 'bi',
-    'se_goods_receipt'  => 'gr',
-    'se_invoice'        => 'in',
-    'se_purchase_order' => 'po',
-    'se_quote'          => 'qu',
+    'se_bill'            => 'bi',
+    'se_goods_receipt'   => 'gr',
+    'se_invoice'         => 'in',
+    'se_purchase_order'  => 'po',
+    'se_quote'           => 'qu',
+    'se_domain_hosting'  => 'su',
+    'se_domain_name'     => 'su',
+    'se_email_account'   => 'su',
+    'se_managed_service' => 'su',
   ];
 
   public const SE_PAYMENT_LINE_BUNDLES = [
     'se_payment' => 'pa',
   ];
 
-  // See the various getSearchPrefix() functions for the counterparts.
   // @todo Better way?
   public const SE_ENTITY_LOOKUP = [
     'bi' => 'se_bill',
@@ -43,11 +47,15 @@ final class ErpCore {
   ];
 
   public const SE_ITEM_BUNDLES = [
-    'se_assembly', 'se_recurring', 'se_service', 'se_stock',
+    'se_assembly',
+    'se_recurring',
+    'se_service',
+    'se_stock',
   ];
 
   public const SE_INFORMATION_BUNDLES = [
-    'se_document', 'se_subscription',
+    'se_document',
+    'se_subscription',
   ];
 
 }
