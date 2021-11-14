@@ -15,13 +15,19 @@
     "license": "GPL-2.0+",
     "require": {
         "drupal/core": "^9.2",
-        "drupal/duration_field": "^2.0@rc",
+        "drupal/duration_field": "^2.0",
         "drupal/dynamic_entity_reference": "^1.10",
         "drupal/eva": "^2.1",
-        "drupal/extra_field": "^1.2",
-        "drupal/field_group": "dev-3.x",
+        "drupal/extra_field": "^2.1",
+        "drupal/field_group": "^3.2",
         "drupal/geolocation": "^3.2",
-        "drupal/preview_link": "dev-1.x",
+        "drupal/preview_link": "dev-1.x"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "suggest": {
+        "drupal/o365": "dev-2.0.x",
         "drupal/xero": "dev-2.x"
     },
     "minimum-stability": "dev"
