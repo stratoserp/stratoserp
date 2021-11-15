@@ -10,6 +10,7 @@ dependencies:
 
 config_devel:
   install:
+    - field.storage.se_item.se_it_active
     - field.storage.se_item.se_it_code
     - field.storage.se_item.se_it_cost_price
     - field.storage.se_item.se_it_description

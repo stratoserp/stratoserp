@@ -8,6 +8,7 @@ dependencies:
 
 config_devel:
   install:
+    - field.field.se_item.se_service.se_it_active
     - core.entity_form_display.se_item.se_service.default
     - core.entity_view_display.se_item.se_service.default
     - field.field.se_item.se_service.se_it_code

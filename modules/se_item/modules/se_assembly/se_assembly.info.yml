@@ -8,6 +8,7 @@ dependencies:
 
 config_devel:
   install:
+    - field.field.se_item.se_assembly.se_it_active
     - field.field.se_item.se_assembly.se_it_code
     - field.field.se_item.se_assembly.se_it_cost_price
     - field.field.se_item.se_assembly.se_it_description
