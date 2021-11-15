@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.se_item.se_stock.se_it_active
     - field.field.se_item.se_stock.se_it_code
     - field.field.se_item.se_stock.se_it_cost_price
     - field.field.se_item.se_stock.se_it_description
@@ -38,146 +39,156 @@ bundle: se_stock
 mode: default
 content:
   name:
-    label: inline
     type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 0
     region: top
+  se_it_active:
+    type: boolean
+    label: above
     settings:
-      link_to_entity: false
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
+    weight: 18
+    region: first
   se_it_code:
     type: string
-    weight: 4
-    region: first
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 4
+    region: first
   se_it_cost_price:
     type: se_currency_formatter
-    weight: 13
-    region: second
     label: inline
     settings: {  }
     third_party_settings: {  }
+    weight: 13
+    region: second
   se_it_description:
-    weight: 15
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 15
     region: bottom
   se_it_goods_receipt_ref:
-    weight: 12
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 12
     region: second
   se_it_images:
     type: image
-    weight: 16
-    region: bottom
     label: above
     settings:
-      image_style: thumbnail
       image_link: ''
+      image_style: thumbnail
     third_party_settings: {  }
+    weight: 16
+    region: bottom
   se_it_invoice_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 14
     region: second
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_it_item_ref:
-    weight: 10
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 10
     region: first
   se_it_lost:
     type: boolean
-    weight: 6
-    region: first
     label: inline
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
+    weight: 6
+    region: first
   se_it_manufacturer_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 2
     region: top
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_it_product_type_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 1
     region: top
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_it_purchase_order_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 11
     region: second
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_it_sale_category_ref:
     type: entity_reference_label
-    weight: 3
-    region: top
     label: inline
     settings:
       link: true
     third_party_settings: {  }
+    weight: 3
+    region: top
   se_it_sale_date:
     type: datetime_default
-    weight: 9
-    region: first
     label: inline
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
+    weight: 9
+    region: first
   se_it_sale_price:
     type: se_currency_formatter
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
     weight: 8
     region: first
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
   se_it_sell_price:
     type: se_currency_formatter
-    weight: 7
-    region: first
     label: inline
     settings: {  }
     third_party_settings: {  }
+    weight: 7
+    region: first
   se_it_serial:
     type: string
-    weight: 5
-    region: first
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 5
+    region: first
   se_stock_item_by_code_eva_se_stock_item_by_code_eva:
-    weight: 17
-    region: bottom
     settings: {  }
     third_party_settings: {  }
+    weight: 17
+    region: bottom
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true

@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.se_item.se_assembly.se_it_active
     - field.field.se_item.se_assembly.se_it_code
     - field.field.se_item.se_assembly.se_it_cost_price
     - field.field.se_item.se_assembly.se_it_description
@@ -27,17 +28,17 @@ third_party_settings:
       children:
         - user_id
         - revision_log_message
+      label: Extra
+      region: bottom
       parent_name: ''
       weight: 9
       format_type: details
-      region: bottom
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
-      label: Extra
 id: se_item.se_assembly.default
 targetEntityType: se_item
 bundle: se_assembly
@@ -54,10 +55,17 @@ content:
   revision_log_message:
     type: string_textarea
     weight: 2
+    region: bottom
     settings:
       rows: 4
       placeholder: ''
-    region: bottom
+    third_party_settings: {  }
+  se_it_active:
+    type: boolean_checkbox
+    weight: 10
+    region: first
+    settings:
+      display_label: true
     third_party_settings: {  }
   se_it_code:
     type: string_textfield
@@ -118,21 +126,21 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_it_serial:
+    type: string_textfield
     weight: 4
+    region: first
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: first
   user_id:
     type: entity_reference_autocomplete
     weight: 1
+    region: bottom
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: bottom
     third_party_settings: {  }
 hidden: {  }

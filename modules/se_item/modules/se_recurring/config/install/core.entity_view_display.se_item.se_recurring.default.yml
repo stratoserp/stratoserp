@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.se_item.se_recurring.se_it_active
     - field.field.se_item.se_recurring.se_it_code
     - field.field.se_item.se_recurring.se_it_cost_price
     - field.field.se_item.se_recurring.se_it_description
@@ -29,82 +30,92 @@ bundle: se_recurring
 mode: default
 content:
   name:
-    label: inline
     type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 0
     region: top
+  se_it_active:
+    type: boolean
+    label: above
     settings:
-      link_to_entity: false
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
+    weight: 10
+    region: first
   se_it_code:
-    weight: 1
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: first
   se_it_cost_price:
-    weight: 5
+    type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: se_currency_formatter
+    weight: 5
     region: second
   se_it_description:
-    weight: 9
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 9
     region: bottom
   se_it_item_ref:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
     weight: 8
     region: second
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
   se_it_manufacturer_ref:
-    weight: 7
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 7
     region: second
   se_it_product_type_ref:
-    weight: 6
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 6
     region: second
   se_it_recurring_period:
-    weight: 3
+    type: duration_human_display
     label: inline
     settings:
       text_length: full
       separator: space
     third_party_settings: {  }
-    type: duration_human_display
+    weight: 3
     region: first
   se_it_sale_category_ref:
-    weight: 4
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 4
     region: second
   se_it_sell_price:
-    weight: 2
+    type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: se_currency_formatter
+    weight: 2
     region: first
 hidden:
   entity_print_view_epub: true

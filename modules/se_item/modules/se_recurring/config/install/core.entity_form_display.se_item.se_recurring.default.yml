@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.se_item.se_recurring.se_it_active
     - field.field.se_item.se_recurring.se_it_code
     - field.field.se_item.se_recurring.se_it_cost_price
     - field.field.se_item.se_recurring.se_it_description
@@ -29,17 +30,17 @@ third_party_settings:
       children:
         - user_id
         - revision_log_message
+      label: Extra
+      region: bottom
       parent_name: ''
       weight: 10
       format_type: details
-      region: bottom
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
-      label: Extra
 id: se_item.se_recurring.default
 targetEntityType: se_item
 bundle: se_recurring
@@ -56,33 +57,40 @@ content:
   revision_log_message:
     type: string_textarea
     weight: 2
+    region: bottom
     settings:
       rows: 4
       placeholder: ''
-    region: bottom
+    third_party_settings: {  }
+  se_it_active:
+    type: boolean_checkbox
+    weight: 11
+    region: first
+    settings:
+      display_label: true
     third_party_settings: {  }
   se_it_code:
+    type: string_textfield
     weight: 1
+    region: first
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: first
   se_it_cost_price:
+    type: se_currency_widget
     weight: 4
+    region: second
     settings: {  }
     third_party_settings: {  }
-    type: se_currency_widget
-    region: second
   se_it_description:
+    type: text_textarea
     weight: 9
+    region: bottom
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: bottom
   se_it_item_ref:
     type: entity_reference_autocomplete
     weight: 8
@@ -94,39 +102,39 @@ content:
       placeholder: ''
     third_party_settings: {  }
   se_it_manufacturer_ref:
+    type: options_select
     weight: 6
+    region: second
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: second
   se_it_product_type_ref:
+    type: options_select
     weight: 5
+    region: second
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: second
   se_it_recurring_period:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
     type: duration_widget
+    weight: 3
     region: first
+    settings: {  }
+    third_party_settings: {  }
   se_it_sale_category_ref:
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
     type: options_select
+    weight: 7
     region: second
-  se_it_sell_price:
-    weight: 2
     settings: {  }
     third_party_settings: {  }
+  se_it_sell_price:
     type: se_currency_widget
+    weight: 2
     region: first
+    settings: {  }
+    third_party_settings: {  }
   user_id:
     type: options_select
     weight: 1
-    settings: {  }
     region: bottom
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }
