@@ -16,10 +16,17 @@ final class ErpCore {
     'se_invoice'         => 'in',
     'se_purchase_order'  => 'po',
     'se_quote'           => 'qu',
+
+    // This is why, need to add here atm if adding a subscription type.
+    'se_anti_virus'      => 'su',
+    'se_backup'          => 'su',
     'se_domain_hosting'  => 'su',
     'se_domain_name'     => 'su',
     'se_email_account'   => 'su',
+    'se_firewall'        => 'su',
     'se_managed_service' => 'su',
+    'se_office_365'      => 'su',
+    'se_phone_system'    => 'su',
   ];
 
   public const SE_PAYMENT_LINE_BUNDLES = [

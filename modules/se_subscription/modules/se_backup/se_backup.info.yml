@@ -1,0 +1,17 @@
+name: 'StratosERP - Backup'
+description: 'Provides a backup subscription entity type.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - stratoserp:stratoserp
+  - se_subscription:se_subscription
+
+config_devel:
+  install:
+    - core.entity_form_display.se_subscription.se_backup.default
+    - core.entity_view_display.se_subscription.se_backup.default
+    - field.field.se_subscription.se_backup.se_bu_ref
+    - field.field.se_subscription.se_backup.se_su_item
+    - field.field.se_subscription.se_backup.se_su_period
+    - field.field.se_subscription.se_backup.se_su_ref

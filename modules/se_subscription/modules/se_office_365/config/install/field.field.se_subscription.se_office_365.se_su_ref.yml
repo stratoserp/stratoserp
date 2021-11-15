@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_su_ref
+    - se_subscription.se_subscription_type.se_office_365
+id: se_subscription.se_office_365.se_su_ref
+field_name: se_su_ref
+entity_type: se_subscription
+bundle: se_office_365
+label: Supplier
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: se_business
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: 0
+    business_type: '5'
+field_type: entity_reference

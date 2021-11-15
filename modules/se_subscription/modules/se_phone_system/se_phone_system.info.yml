@@ -1,0 +1,17 @@
+name: 'StratosERP - Phone system'
+description: 'Provides an phone system subscription entity type.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - stratoserp:stratoserp
+  - se_subscription:se_subscription
+
+config_devel:
+  install:
+    - core.entity_form_display.se_subscription.se_phone_system.default
+    - core.entity_view_display.se_subscription.se_phone_system.default
+    - field.field.se_subscription.se_phone_system.se_bu_ref
+    - field.field.se_subscription.se_phone_system.se_su_item
+    - field.field.se_subscription.se_phone_system.se_su_period
+    - field.field.se_subscription.se_phone_system.se_su_ref

@@ -1,0 +1,87 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_subscription.se_anti_virus.se_bu_ref
+    - field.field.se_subscription.se_anti_virus.se_su_item
+    - field.field.se_subscription.se_anti_virus.se_su_period
+    - field.field.se_subscription.se_anti_virus.se_su_ref
+    - se_subscription.se_subscription_type.se_anti_virus
+  module:
+    - duration_field
+    - field_layout
+    - layout_discovery
+    - se_item_line
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings:
+      label: ''
+id: se_subscription.se_anti_virus.default
+targetEntityType: se_subscription
+bundle: se_anti_virus
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  revision_log_message:
+    type: string_textarea
+    weight: 25
+    region: content
+    settings:
+      rows: 4
+      placeholder: ''
+    third_party_settings: {  }
+  se_bu_ref:
+    type: entity_reference_autocomplete
+    weight: 28
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  se_su_item:
+    type: se_item_line_widget
+    weight: 27
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 40
+      placeholder: ''
+    third_party_settings: {  }
+  se_su_period:
+    type: duration_widget
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  se_su_ref:
+    type: entity_reference_autocomplete
+    weight: 29
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

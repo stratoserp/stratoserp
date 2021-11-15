@@ -1,0 +1,73 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_subscription.se_backup.se_bu_ref
+    - field.field.se_subscription.se_backup.se_su_item
+    - field.field.se_subscription.se_backup.se_su_period
+    - field.field.se_subscription.se_backup.se_su_ref
+    - se_subscription.se_subscription_type.se_backup
+  module:
+    - duration_field
+    - field_layout
+    - layout_discovery
+    - se_item_line
+    - user
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings:
+      label: ''
+id: se_subscription.se_backup.default
+targetEntityType: se_subscription
+bundle: se_backup
+mode: default
+content:
+  name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: -4
+    region: content
+  se_bu_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  se_su_item:
+    type: se_item_line_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  se_su_period:
+    type: duration_human_display
+    label: above
+    settings:
+      text_length: full
+      separator: space
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  se_su_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  user_id:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }
