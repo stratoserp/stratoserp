@@ -1,3 +1,12 @@
+
+administer item types:
+  title: 'Administer Item types'
+  description: 'Allow to define the existing Item types and their Fields'
+
+administer item settings:
+  title: 'Administer Item settings'
+  description: 'Administer Item settings'
+
 add item entities:
   title: 'Create new Item entities'
 

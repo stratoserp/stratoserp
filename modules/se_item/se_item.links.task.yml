@@ -20,3 +20,9 @@ entity.se_item.delete_form:
   base_route:  entity.se_item.canonical
   title: Delete
   weight: 10
+
+entity.se_item_type.edit_form:
+  title: 'Edit'
+  route_name: entity.se_item_type.edit_form
+  base_route: entity.se_item_type.edit_form
+

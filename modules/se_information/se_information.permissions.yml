@@ -1,3 +1,12 @@
+
+administer information types:
+  title: 'Administer Information types'
+  description: 'Allow to define the existing Information types and their Fields'
+
+administer information settings:
+  title: 'Administer Information settings'
+  description: 'Administer Information settings'
+
 add information entities:
   title: 'Create new Information entities'
 

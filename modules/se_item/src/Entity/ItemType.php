@@ -25,7 +25,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     },
  *   },
  *   config_prefix = "se_item_type",
- *   admin_permission = "administer site configuration",
+ *   admin_permission = "administer item types",
  *   bundle_of = "se_item",
  *   entity_keys = {
  *     "id" = "id",
@@ -33,11 +33,11 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/item_type/{se_item_type}",
- *     "add-form" = "/admin/item_type/add",
- *     "edit-form" = "/admin/item_type/{se_item_type}/edit",
- *     "delete-form" = "/admin/item_type/{se_item_type}/delete",
- *     "collection" = "/admin/item_type"
+ *     "canonical" = "/admin/structure/se_item_type/{se_item_type}",
+ *     "add-form" = "/admin/structure/se_item_type/add",
+ *     "edit-form" = "/admin/structure/se_item_type/{se_item_type}/edit",
+ *     "delete-form" = "/admin/structure/se_item_type/{se_item_type}/delete",
+ *     "collection" = "/admin/structure/se_item_type"
  *   },
  *   config_export = {
  *     "id",

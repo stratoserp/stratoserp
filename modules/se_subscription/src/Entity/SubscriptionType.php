@@ -23,7 +23,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     },
  *   },
  *   config_prefix = "se_subscription_type",
- *   admin_permission = "administer site configuration",
+ *   admin_permission = "administer subscription types",
  *   bundle_of = "se_subscription",
  *   entity_keys = {
  *     "id" = "id",

@@ -25,7 +25,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     },
  *   },
  *   config_prefix = "se_information_type",
- *   admin_permission = "administer site configuration",
+ *   admin_permission = "administer information types",
  *   bundle_of = "se_information",
  *   entity_keys = {
  *     "id" = "id",
@@ -33,11 +33,11 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/information_type/{se_information_type}",
- *     "add-form" = "/admin/information_type/add",
- *     "edit-form" = "/admin/information_type/{se_information_type}/edit",
- *     "delete-form" = "/admin/information_type/{se_information_type}/delete",
- *     "collection" = "/admin/information_type"
+ *     "canonical" = "/admin/structure/se_information_type/{se_information_type}",
+ *     "add-form" = "/admin/structure/se_information_type/add",
+ *     "edit-form" = "/admin/structure/se_information_type/{se_information_type}/edit",
+ *     "delete-form" = "/admin/structure/se_information_type/{se_information_type}/delete",
+ *     "collection" = "/admin/structure/se_information_type"
  *   },
  *   config_export = {
  *     "id",
