@@ -30,7 +30,10 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $build = parent::formElement($items, $delta, $element, $form, $form_state);
 
-    $host_type = $items->getEntity()->bundle();
+    // Reverse some settings from the parent, we always want same style.
+    $build['#type'] = 'container';
+
+    $host_type = $items->getEntity()->getEntityTypeId();
     $line_type = ErpCore::SE_ITEM_LINE_BUNDLES[$host_type];
 
     // Put quantity field first.

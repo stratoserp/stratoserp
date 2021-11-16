@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class SubscriptionTypeForm.
+ * Form for adding/editing Subscription types.
  */
 class SubscriptionTypeForm extends EntityForm {
 
