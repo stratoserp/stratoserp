@@ -9,11 +9,16 @@ dependencies:
 config_devel:
   install:
     - field.storage.se_subscription.se_bu_ref
-    - field.storage.se_subscription.se_su_item
+    - field.storage.se_subscription.se_su_lines
     - field.storage.se_subscription.se_su_management_link
     - field.storage.se_subscription.se_su_period
     - field.storage.se_subscription.se_su_ref
+    - se_subscription.se_subscription_type.se_antivirus
+    - se_subscription.se_subscription_type.se_backup
     - se_subscription.se_subscription_type.se_domain_hosting
     - se_subscription.se_subscription_type.se_domain_name
     - se_subscription.se_subscription_type.se_email_account
+    - se_subscription.se_subscription_type.se_firewall
     - se_subscription.se_subscription_type.se_managed_service
+    - se_subscription.se_subscription_type.se_office_365
+    - se_subscription.se_subscription_type.se_phone_system

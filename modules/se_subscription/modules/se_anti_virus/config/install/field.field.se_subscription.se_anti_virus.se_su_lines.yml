@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.se_su_item
+    - field.storage.se_subscription.se_su_lines
     - se_item.se_item_type.se_recurring
-    - se_subscription.se_subscription_type.se_firewall
+    - se_subscription.se_subscription_type.se_anti_virus
   module:
     - se_item_line
-id: se_subscription.se_firewall.se_su_item
-field_name: se_su_item
+id: se_subscription.se_anti_virus.se_su_lines
+field_name: se_su_lines
 entity_type: se_subscription
-bundle: se_firewall
-label: Item
+bundle: se_anti_virus
+label: Lines
 description: ''
 required: false
 translatable: true

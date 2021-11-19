@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: se_backup
-label: 'Backup'
+label: Backup
 locked: null
 pattern: null

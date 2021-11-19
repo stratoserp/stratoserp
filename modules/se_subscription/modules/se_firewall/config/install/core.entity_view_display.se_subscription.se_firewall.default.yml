@@ -3,7 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.se_subscription.se_firewall.se_bu_ref
-    - field.field.se_subscription.se_firewall.se_su_item
+    - field.field.se_subscription.se_firewall.se_su_lines
+    - field.field.se_subscription.se_firewall.se_su_management_link
     - field.field.se_subscription.se_firewall.se_su_period
     - field.field.se_subscription.se_firewall.se_su_ref
     - se_subscription.se_subscription_type.se_firewall
@@ -11,6 +12,7 @@ dependencies:
     - duration_field
     - field_layout
     - layout_discovery
+    - link
     - se_item_line
     - user
 third_party_settings:
@@ -39,12 +41,24 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  se_su_item:
+  se_su_lines:
     type: se_item_line_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 5
+    region: content
+  se_su_management_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 6
     region: content
   se_su_period:
     type: duration_human_display

@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.se_su_item
+    - field.storage.se_subscription.se_su_lines
     - se_item.se_item_type.se_recurring
-    - se_subscription.se_subscription_type.se_anti_virus
+    - se_subscription.se_subscription_type.se_managed_service
   module:
     - se_item_line
-id: se_subscription.se_anti_virus.se_su_item
-field_name: se_su_item
+id: se_subscription.se_managed_service.se_su_lines
+field_name: se_su_lines
 entity_type: se_subscription
-bundle: se_anti_virus
-label: Item
+bundle: se_managed_service
+label: Lines
 description: ''
 required: false
 translatable: true
@@ -19,12 +19,12 @@ default_value: {  }
 default_value_callback: ''
 settings:
   se_item:
-    handler: 'default:se_item'
+    handler: se_item
     handler_settings:
       target_bundles:
         se_recurring: se_recurring
       sort:
-        field: se_it_code
+        field: _none
         direction: ASC
       auto_create: 0
       auto_create_bundle: ''

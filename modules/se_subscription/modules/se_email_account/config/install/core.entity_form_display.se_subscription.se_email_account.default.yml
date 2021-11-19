@@ -5,7 +5,7 @@ dependencies:
     - field.field.se_subscription.se_email_account.se_bu_ref
     - field.field.se_subscription.se_email_account.se_ea_email_address
     - field.field.se_subscription.se_email_account.se_ea_email_aliases
-    - field.field.se_subscription.se_email_account.se_su_item
+    - field.field.se_subscription.se_email_account.se_su_lines
     - field.field.se_subscription.se_email_account.se_su_management_link
     - field.field.se_subscription.se_email_account.se_su_period
     - field.field.se_subscription.se_email_account.se_su_ref
@@ -27,17 +27,17 @@ third_party_settings:
       children:
         - user_id
         - revision_log_message
+      label: Extra
+      region: bottom
       parent_name: ''
       weight: 9
       format_type: details
-      region: bottom
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
-      label: Extra
 id: se_subscription.se_email_account.default
 targetEntityType: se_subscription
 bundle: se_email_account
@@ -54,71 +54,71 @@ content:
   revision_log_message:
     type: string_textarea
     weight: 11
+    region: bottom
     settings:
       rows: 4
       placeholder: ''
-    region: bottom
     third_party_settings: {  }
   se_bu_ref:
-    weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    third_party_settings: {  }
     type: entity_reference_autocomplete
+    weight: 1
     region: first
-  se_ea_email_address:
-    weight: 5
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: email_default
-    region: second
-  se_ea_email_aliases:
-    weight: 6
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: email_default
-    region: second
-  se_su_item:
-    weight: 8
     settings:
       match_operator: CONTAINS
-      size: '40'
-      placeholder: ''
       match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
+  se_ea_email_address:
+    type: email_default
+    weight: 5
+    region: second
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  se_ea_email_aliases:
+    type: email_default
+    weight: 6
+    region: second
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  se_su_lines:
     type: se_item_line_widget
-    region: bottom
+    weight: 12
+    region: first
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 40
+      placeholder: ''
+    third_party_settings: {  }
   se_su_management_link:
+    type: link_default
     weight: 7
+    region: second
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
-    region: second
   se_su_period:
+    type: duration_widget
     weight: 3
+    region: first
     settings: {  }
     third_party_settings: {  }
-    type: duration_widget
-    region: first
   se_su_ref:
+    type: entity_reference_autocomplete
     weight: 2
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   user_id:
     type: entity_reference_autocomplete
     weight: 10

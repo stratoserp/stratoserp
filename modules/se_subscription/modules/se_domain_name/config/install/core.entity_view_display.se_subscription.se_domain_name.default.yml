@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.se_subscription.se_domain_name.se_bu_ref
-    - field.field.se_subscription.se_domain_name.se_su_item
+    - field.field.se_subscription.se_domain_name.se_su_lines
     - field.field.se_subscription.se_domain_name.se_su_management_link
     - field.field.se_subscription.se_domain_name.se_su_period
     - field.field.se_subscription.se_domain_name.se_su_ref
@@ -25,30 +25,30 @@ bundle: se_domain_name
 mode: default
 content:
   name:
-    label: inline
     type: string
-    weight: 0
-    region: top
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: top
   se_bu_ref:
-    weight: 1
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 1
     region: first
-  se_su_item:
-    weight: 5
-    label: inline
+  se_su_lines:
+    type: se_item_line_formatter
+    label: above
     settings: {  }
     third_party_settings: {  }
-    type: se_item_line_formatter
-    region: bottom
+    weight: 6
+    region: first
   se_su_management_link:
-    weight: 4
+    type: link
     label: inline
     settings:
       trim_length: 80
@@ -57,24 +57,24 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 4
     region: second
   se_su_period:
-    weight: 3
+    type: duration_human_display
     label: inline
     settings:
       text_length: full
       separator: space
     third_party_settings: {  }
-    type: duration_human_display
+    weight: 3
     region: second
   se_su_ref:
-    weight: 2
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 2
     region: first
 hidden:
   user_id: true

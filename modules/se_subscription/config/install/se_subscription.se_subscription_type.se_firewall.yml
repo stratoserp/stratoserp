@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: se_firewall
-label: 'Firewall'
+label: Firewall
 locked: null
 pattern: null
