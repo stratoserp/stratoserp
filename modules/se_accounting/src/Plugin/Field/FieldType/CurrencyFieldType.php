@@ -34,7 +34,7 @@ class CurrencyFieldType extends NumericItemBase {
   }
 
   /**
-   *
+   * {@inheritdoc}
    */
   public function getConstraints() {
     return [];

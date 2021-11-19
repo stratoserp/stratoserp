@@ -9,6 +9,7 @@ dependencies:
     - field.field.se_subscription.se_email_account.se_su_management_link
     - field.field.se_subscription.se_email_account.se_su_period
     - field.field.se_subscription.se_email_account.se_su_ref
+    - field.field.se_subscription.se_email_account.se_su_total
     - se_subscription.se_subscription_type.se_email_account
   module:
     - duration_field
@@ -16,6 +17,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - link
+    - se_accounting
     - se_item_line
 third_party_settings:
   field_layout:
@@ -71,7 +73,7 @@ content:
     third_party_settings: {  }
   se_ea_email_address:
     type: email_default
-    weight: 5
+    weight: 4
     region: second
     settings:
       placeholder: ''
@@ -79,7 +81,7 @@ content:
     third_party_settings: {  }
   se_ea_email_aliases:
     type: email_default
-    weight: 6
+    weight: 5
     region: second
     settings:
       placeholder: ''
@@ -87,8 +89,8 @@ content:
     third_party_settings: {  }
   se_su_lines:
     type: se_item_line_widget
-    weight: 12
-    region: first
+    weight: 7
+    region: bottom
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -97,7 +99,7 @@ content:
     third_party_settings: {  }
   se_su_management_link:
     type: link_default
-    weight: 7
+    weight: 6
     region: second
     settings:
       placeholder_url: ''
@@ -106,7 +108,7 @@ content:
   se_su_period:
     type: duration_widget
     weight: 3
-    region: first
+    region: second
     settings: {  }
     third_party_settings: {  }
   se_su_ref:
@@ -118,6 +120,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  se_su_total:
+    type: se_currency_widget
+    weight: 8
+    region: bottom
+    settings: {  }
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete

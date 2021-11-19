@@ -79,9 +79,6 @@ settings:
   taxonomy_term:
     handler: 'default:taxonomy_term'
     handler_settings: {  }
-  se_ticket:
-    handler: 'default:se_ticket'
-    handler_settings: {  }
   path_alias:
     handler: 'default:path_alias'
     handler_settings: {  }
@@ -90,8 +87,5 @@ settings:
     handler_settings: {  }
   webform_submission:
     handler: 'default:webform_submission'
-    handler_settings: {  }
-  se_o365_ticket_sync:
-    handler: 'default:se_o365_ticket_sync'
     handler_settings: {  }
 field_type: se_item_line

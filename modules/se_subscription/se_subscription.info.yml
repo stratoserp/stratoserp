@@ -13,6 +13,7 @@ config_devel:
     - field.storage.se_subscription.se_su_management_link
     - field.storage.se_subscription.se_su_period
     - field.storage.se_subscription.se_su_ref
+    - field.storage.se_subscription.se_su_total
     - se_subscription.se_subscription_type.se_antivirus
     - se_subscription.se_subscription_type.se_backup
     - se_subscription.se_subscription_type.se_domain_hosting

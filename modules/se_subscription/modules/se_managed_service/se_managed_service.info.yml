@@ -16,3 +16,4 @@ config_devel:
     - field.field.se_subscription.se_managed_service.se_su_management_link
     - field.field.se_subscription.se_managed_service.se_su_period
     - field.field.se_subscription.se_managed_service.se_su_ref
+    - field.field.se_subscription.se_managed_service.se_su_total

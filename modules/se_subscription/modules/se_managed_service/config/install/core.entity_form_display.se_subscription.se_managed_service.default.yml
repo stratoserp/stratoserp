@@ -7,6 +7,7 @@ dependencies:
     - field.field.se_subscription.se_managed_service.se_su_management_link
     - field.field.se_subscription.se_managed_service.se_su_period
     - field.field.se_subscription.se_managed_service.se_su_ref
+    - field.field.se_subscription.se_managed_service.se_su_total
     - se_subscription.se_subscription_type.se_managed_service
   module:
     - duration_field
@@ -14,6 +15,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - link
+    - se_accounting
     - se_item_line
 third_party_settings:
   field_layout:
@@ -28,7 +30,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -100,6 +102,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  se_su_total:
+    type: se_currency_widget
+    weight: 6
+    region: bottom
+    settings: {  }
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete

@@ -28,7 +28,7 @@ stratoserp.search:
     _permission: 'access all businesses'
 
 stratoserp.admin_config_stratoserp:
-  path: '/se/config/stratoserp'
+  path: '/admin/structure/stratoserp'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'StratosERP'

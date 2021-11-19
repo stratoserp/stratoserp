@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_subscription.se_domain_hosting.se_su_management_link
     - field.field.se_subscription.se_domain_hosting.se_su_period
     - field.field.se_subscription.se_domain_hosting.se_su_ref
+    - field.field.se_subscription.se_domain_hosting.se_su_total
     - se_subscription.se_subscription_type.se_domain_hosting
   module:
     - duration_field
@@ -15,6 +16,7 @@ dependencies:
     - layout_discovery
     - link
     - options
+    - se_accounting
     - se_item_line
 third_party_settings:
   field_layout:
@@ -84,6 +86,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 2
+    region: first
+  se_su_total:
+    type: se_currency_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
     region: first
 hidden:
   user_id: true

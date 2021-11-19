@@ -6,12 +6,14 @@ dependencies:
     - field.field.se_subscription.se_office_365.se_su_lines
     - field.field.se_subscription.se_office_365.se_su_period
     - field.field.se_subscription.se_office_365.se_su_ref
+    - field.field.se_subscription.se_office_365.se_su_total
     - se_subscription.se_subscription_type.se_office_365
   module:
     - duration_field
     - field_group
     - field_layout
     - layout_discovery
+    - se_accounting
     - se_item_line
 third_party_settings:
   field_layout:
@@ -26,7 +28,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -91,6 +93,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  se_su_total:
+    type: se_currency_widget
+    weight: 5
+    region: bottom
+    settings: {  }
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete

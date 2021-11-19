@@ -7,6 +7,7 @@ dependencies:
     - field.field.se_subscription.se_firewall.se_su_management_link
     - field.field.se_subscription.se_firewall.se_su_period
     - field.field.se_subscription.se_firewall.se_su_ref
+    - field.field.se_subscription.se_firewall.se_su_total
     - se_subscription.se_subscription_type.se_firewall
   module:
     - duration_field
@@ -14,6 +15,7 @@ dependencies:
     - field_layout
     - layout_discovery
     - link
+    - se_accounting
     - se_item_line
 third_party_settings:
   field_layout:
@@ -28,7 +30,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 5
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -70,7 +72,7 @@ content:
     third_party_settings: {  }
   se_su_lines:
     type: se_item_line_widget
-    weight: 4
+    weight: 5
     region: bottom
     settings:
       match_operator: CONTAINS
@@ -80,7 +82,7 @@ content:
     third_party_settings: {  }
   se_su_management_link:
     type: link_default
-    weight: 7
+    weight: 3
     region: first
     settings:
       placeholder_url: ''
@@ -88,7 +90,7 @@ content:
     third_party_settings: {  }
   se_su_period:
     type: duration_widget
-    weight: 3
+    weight: 4
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -101,6 +103,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  se_su_total:
+    type: se_currency_widget
+    weight: 6
+    region: bottom
+    settings: {  }
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete

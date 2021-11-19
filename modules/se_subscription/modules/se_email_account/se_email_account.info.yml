@@ -18,5 +18,6 @@ config_devel:
     - field.field.se_subscription.se_email_account.se_su_management_link
     - field.field.se_subscription.se_email_account.se_su_period
     - field.field.se_subscription.se_email_account.se_su_ref
+    - field.field.se_subscription.se_email_account.se_su_total
     - field.storage.se_subscription.se_ea_email_address
     - field.storage.se_subscription.se_ea_email_aliases

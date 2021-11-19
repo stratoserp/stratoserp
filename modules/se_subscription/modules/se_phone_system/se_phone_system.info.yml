@@ -15,3 +15,4 @@ config_devel:
     - field.field.se_subscription.se_phone_system.se_su_lines
     - field.field.se_subscription.se_phone_system.se_su_period
     - field.field.se_subscription.se_phone_system.se_su_ref
+    - field.field.se_subscription.se_phone_system.se_su_total

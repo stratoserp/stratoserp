@@ -210,7 +210,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
    * @todo There should be a way to do this in ItemLineType setValue().
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    $host_type = $form_state->getFormObject()->getEntity()->bundle();
+    $host_type = $form_state->getFormObject()->getEntity()->getEntityTypeId();
 
     if (!array_key_exists($host_type, ErpCore::SE_ITEM_LINE_BUNDLES)) {
       return $values;
