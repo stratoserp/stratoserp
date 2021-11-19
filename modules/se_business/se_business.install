@@ -14,8 +14,8 @@ module_load_include('install', 'stratoserp');
  */
 function se_business_install() {
   $terms = [
-    'Customer',
     'Supplier',
+    'Customer',
   ];
 
   if (!$term = stratoserp_create_terms('se_business_type', $terms)) {
@@ -24,7 +24,7 @@ function se_business_install() {
 
   // Now set the last one as the default for the field.
   $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_business.se_business.se_bu_type_ref');
-  $field->setDefaultValue($term->uuid());
+  $field->setDefaultValue(['target_uuid' => $term->uuid()]);
   $field->save();
 
   // Also set the last one as the 'main' contact term.

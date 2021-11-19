@@ -130,7 +130,7 @@ trait BusinessTestTrait {
   }
 
   /**
-   * Create but dont save a Business entity.
+   * Create but don't save a Business entity.
    *
    * @param array $settings
    *   Array of settings to apply to the Business entity.
