@@ -49,39 +49,79 @@ class ItemsController extends ControllerBase {
     [$field, $type, $index, $trigger] = array_slice($matches, 1);
 
     // Changing target type is a special case, just empty some fields.
-    if ($trigger === 'target_type') {
-      $response->addCommand(
-        new InvokeCommand(
-          "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-quantity']",
-          'val',
-          [1]
-        ),
-      );
-      $response->addCommand(
-        new InvokeCommand(
-          "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-target_id']",
-          'val',
-          ['']
-        )
-      );
-      $response->addCommand(
-        new InvokeCommand(
-          "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
-          'val',
-          ['']
-        ),
-      );
-      return $response;
+    switch ($trigger) {
+      case 'target_type':
+        self::targetTypeChange($response, $type, $index);
+        break;
+
+      case 'target_id':
+        self::targetIdChange($response, $currencyService, $values, $field, $type, $index);
+        break;
+
+      case 'price':
+        // On price updates, nothing needs doing except total calc.
+        break;
+
     }
 
-    // If there is no item code to load, bail.
+    // Always Update the total.
+    self::reCalculateTotal($response, $currencyService, $values, $field, $type);
+
+    return $response;
+  }
+
+  /**
+   * Setup the fields if the target type was changed.
+   *
+   * @param string $type
+   *   The new target type.
+   * @param string $index
+   *   The line index to update.
+   */
+  private static function targetTypeChange(AjaxResponse $response, string $type, string $index): void {
+    $response->addCommand(
+      new InvokeCommand(
+        "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-quantity']",
+        'val',
+        [1]
+      ),
+    );
+    $response->addCommand(
+      new InvokeCommand(
+        "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-target_id']",
+        'val',
+        ['']
+      )
+    );
+    $response->addCommand(
+      new InvokeCommand(
+        "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
+        'val',
+        ['']
+      ),
+    );
+  }
+
+  /**
+   * Setup the fields if the target id was changed.
+   *
+   * @param array $values
+   *   Form values to work with.
+   * @param string $field
+   *   Field from the triggering element.
+   * @param string $type
+   *   The new target type.
+   * @param string $index
+   *   The line index to update.
+   */
+  private static function targetIdChange(AjaxResponse $response, $currencyService, array &$values, string $field, string $type, string $index): void {
+    // If there is no item code to load we can return now.
     /** @var \Drupal\se_item\Entity\Item $item */
     if ($values[$field][$index]['target_id'] === NULL) {
-      return $response;
+      return;
     }
 
     $targetType = $values[$field][$index]['target_type'];
-
     switch ($targetType) {
       case 'comment':
         /** @var \Drupal\comment\Entity\Comment $comment */
@@ -106,7 +146,7 @@ class ItemsController extends ControllerBase {
 
       case 'se_item':
         /** @var \Drupal\se_item\Entity\Item $item */
-        if (($item = Item::load($values[$field][$index]['target_id'])) && !empty($item->se_it_serial->value)) {
+        if ($item = Item::load($values[$field][$index]['target_id'])) {
           $response->addCommand(new InvokeCommand(
             "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
             'val',
@@ -118,10 +158,34 @@ class ItemsController extends ControllerBase {
     }
 
     if (!isset($item)) {
-      return $response;
+      return;
     }
 
-    // Update the total.
+    $item_price = $item->se_it_sell_price->value;
+    $displayPrice = $currencyService->formatDisplay((int) $item_price);
+
+    // Update the values so that the total gets updated as well.
+    $values[$field][$index]['price'] = $displayPrice;
+
+    // Create a new ajax response to set the price.
+    $response->addCommand(new InvokeCommand(
+      "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-price']",
+      'val',
+      [$displayPrice]
+    ));
+  }
+
+  /**
+   * Re calculate the total field.
+   *
+   * @param array $values
+   *   Form values to work with.
+   * @param string $field
+   *   Field from the triggering element.
+   * @param string $type
+   *   The new target type.
+   */
+  private static function reCalculateTotal(AjaxResponse $response, $currencyService, array $values, string $field, string $type): void {
     $total = 0;
     foreach ($values[$field] as $index => $value) {
       if (is_int($index) && !empty($value['target_id'])) {
@@ -138,7 +202,6 @@ class ItemsController extends ControllerBase {
       [$currencyService->formatDisplay((int) $total)]
     ));
 
-    return $response;
   }
 
 }

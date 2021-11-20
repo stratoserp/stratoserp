@@ -23,11 +23,9 @@ function se_payment_install() {
     return;
   }
 
-  $find_term = taxonomy_term_load_multiple_by_name('Direct deposit', 'se_payment_type');
-  $term = reset($find_term);
-
   // Set the variable.
   $config = \Drupal::configFactory()->getEditable('se_payment.settings');
+  $config->set('default_payment_vocabulary', 'se_payment_type');
   $config->set('default_payment_term', $term->id());
   $config->save();
 }

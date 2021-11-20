@@ -55,15 +55,12 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
               ['value' => ''],
             ],
           ],
-          'or',
-          [
-            ':input[' . $this->lineSelector($line_type, $delta, 'target_type') . ']' => [
-              ['value' => 'comment'],
-              'or',
-              ['value' => ''],
-            ],
-          ],
         ],
+      ],
+      '#ajax' => [
+        'callback' => 'Drupal\se_item_line\Controller\ItemsController::updateFields',
+        'event' => 'change',
+        'progress' => FALSE,
       ],
     ];
 
@@ -83,7 +80,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['target_id']['#weight'] = 15;
     $build['target_id']['#ajax'] = [
       'callback' => 'Drupal\se_item_line\Controller\ItemsController::updateFields',
-      'event' => 'autocompleteclose change click',
+      'event' => 'autocompleteclose change',
       'progress' => FALSE,
     ];
 

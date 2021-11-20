@@ -282,6 +282,7 @@ class PaymentController extends ControllerBase {
           'payment_type' => $paymentTerm->id(),
         ];
         $lines[] = $line;
+        $total += $outstandingAmount;
       }
     }
 
