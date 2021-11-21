@@ -1,0 +1,496 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\se_item\Entity\Item;
+use Drupal\taxonomy\Entity\Term;
+
+// Include the main include file for some functions.
+module_load_include('install', 'stratoserp');
+
+/**
+ * Implements hook_install().
+ */
+function se_example_data_install() {
+  se_example_data_base_setup();
+  se_example_data_business_setup();
+  se_example_data_contact_setup();
+  se_example_data_invoice_setup();
+  se_example_data_item_setup();
+  // se_example_data_assembly_setup();
+  se_example_data_service_setup();
+  se_example_data_recurring_setup();
+  se_example_data_stock_setup();
+  se_example_data_payment_setup();
+  se_example_data_purchase_order_setup();
+  se_example_data_quote_setup();
+  se_example_data_ticket_setup();
+}
+
+function se_example_data_base_setup() {
+
+  try {
+    // If the toolbar_menu module exists, enable it.
+    if (\Drupal::service('extension.list.module')
+      ->getName('toolbar_menu')) {
+      \Drupal::service('module_installer')
+        ->install(['toolbar_menu'], FALSE);
+    }
+
+    // If its now enabled, create a toolbar menu item.
+    if (\Drupal::moduleHandler()->moduleExists('toolbar_menu')) {
+      $entity_manager = \Drupal::service('entity_type.manager');
+      $entity_manager->getStorage('toolbar_menu_element')->create([
+        'id' => 'stratoserp',
+        'label' => 'StratosERP',
+        'menu' => 'stratos-erp',
+        'weight' => NULL,
+        'rewrite_label' => TRUE,
+      ])->save();
+    }
+  }
+  catch (Exception $e) {
+  }
+
+  // Status for quotes, purchase orders, invoices.
+  $terms = [
+    'Ordered',
+    'Closed',
+    'Open',
+  ];
+
+  $term = stratoserp_create_terms('se_status', $terms);
+}
+
+function se_example_data_business_setup() {
+  $terms = [
+    'Supplier',
+    'Customer',
+  ];
+
+  if (!$term = stratoserp_create_terms('se_business_type', $terms)) {
+    return;
+  }
+
+  // Now set the last one as the default for the field.
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_business.se_business.se_bu_type_ref');
+  $field->setDefaultValue(['target_uuid' => $term->uuid()]);
+  $field->save();
+
+  // Also set the last one as the 'main' contact term.
+  $config = \Drupal::configFactory()->getEditable('se_contact.settings');
+  $config->set('main_contact_term', $term->id());
+  $config->save();
+}
+
+function se_example_data_contact_setup() {
+  // Install some basic contact types.
+  $terms = [
+    'General contact',
+    'Accounts contact',
+    'Main contact',
+  ];
+
+  if (!$term = stratoserp_create_terms('se_contact_type', $terms)) {
+    return;
+  }
+
+  // Now set the last one as the default for the field.
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_contact.se_contact.se_co_type_ref');
+  $field->setDefaultValue(['target_uuid' => $term->uuid()]);
+  $field->save();
+
+  // Also set the last one as the 'main' contact term.
+  $config = \Drupal::configFactory()->getEditable('se_contact.settings');
+  $config->set('main_contact_term', $term->id());
+  $config->save();
+}
+
+/**
+ * Implements hook_install().
+ */
+function se_example_data_invoice_setup() {
+
+  // Load the already created default status terms.
+  $open_term = stratoserp_set_term_field_config('Open', 'se_status', 'se_invoice.se_invoice.se_status_ref');
+
+  $find_term = taxonomy_term_load_multiple_by_name('Closed', 'se_status');
+  $closed_term = reset($find_term);
+
+  // Also set the term defaults in config.
+  $config = \Drupal::configFactory()->getEditable('se_invoice.settings');
+  $config->set('open_term', $open_term->id());
+  $config->set('closed_term', $closed_term->id());
+  $config->save();
+}
+
+/**
+ * Implements hook_install().
+ */
+function se_example_data_item_setup() {
+  stratoserp_create_terms('se_sale_category', [
+    'Consumables',
+    'Contracting',
+    'Hardware',
+    'Hosting service',
+    'Managed service',
+    'Service',
+    'Software',
+  ]);
+
+  stratoserp_create_terms('se_product_type', [
+    'CPU',
+    'Domain name',
+    'Ink cartridge',
+    'Keyboard',
+    'Memory',
+    'Notebook',
+    'Onsite service',
+    'Video card',
+  ]);
+
+  stratoserp_create_terms('se_manufacturer', [
+    'Acer',
+    'ASUS',
+    'Canon',
+    'Dell',
+    'HP',
+    'Intel',
+    'Internal',
+    'Kingston',
+    'Microsoft',
+    'Lenovo',
+    'Seagate',
+    'System76',
+    'Western digital',
+  ]);
+}
+
+function se_example_data_recurring_setup() {
+  $defaults = se_item_load_defaults('Hosting Service', 'Domain name', 'Internal', 'se_recurring');
+
+  // P1Y = 1 year - Refer http://php.net/manual/en/dateinterval.createfromdatestring.php
+  $item = Item::create($defaults + [
+      'name' => 'Domain name registration',
+      'body' => 'Domain name registration - yearly.',
+      'se_it_code' => [['value' => 'DOMAINNAME-YEARLY']],
+      'se_it_sell_price' => [['value' => 6000]],
+      'se_it_recurring_period' => [['duration' => 'P1Y']],
+      'se_it_cost_price' => [['value' => 2000]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Domain name - biennually',
+      'body' => 'Domain name - biennually.',
+      'se_it_code' => [['value' => 'DOMAINNAME-BIENNUALLY']],
+      'se_it_sell_price' => [['value' => 12000]],
+      'se_it_recurring_period' => [['duration' => 'P2Y']],
+      'se_it_cost_price' => [['value' => 4000]],
+    ]);
+  $item->save();
+
+  $defaults = se_item_load_defaults('Hosting service', 'Domain name', 'Internal', 'se_recurring');
+
+  $item = Item::create($defaults + [
+      'name' => 'Domain hosting',
+      'body' => 'Domain hosting - yearly.',
+      'se_it_code' => [['value' => 'DOMAINHOSTING-YEARLY']],
+      'se_it_sell_price' => [['value' => 24000]],
+      'se_it_recurring_period' => [['duration' => 'P1Y']],
+      'se_it_cost_price' => [['value' => 12000]],
+    ]);
+  $item->save();
+}
+
+function se_example_data_service_setup() {
+  $defaults = se_item_load_defaults('Service', 'Onsite service', 'Internal', 'se_service');
+
+  $item = Item::create($defaults + [
+      'name' => 'Technical service',
+      'body' => 'Technical service by one of our qualified technicians.',
+      'se_it_code' => [['value' => 'TECHSERVICE']],
+      'se_it_sell_price' => [['value' => 16000]],
+      'se_it_cost_price' => [['value' => 5500]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Workshop service',
+      'body' => 'Workshop service by one of our qualified technicians.',
+      'se_it_code' => [['value' => 'WORKSHOP']],
+      'se_it_sell_price' => [['value' => 12000]],
+      'se_it_cost_price' => [['value' => 5500]],
+    ]);
+  $item->save();
+}
+
+function se_example_data_stock_setup() {
+  $defaults = se_item_load_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_stock');
+
+  $item = Item::create($defaults + [
+      'name' => 'Microsoft KB600',
+      'body' => 'Microsoft KB600',
+      'se_it_code' => [['value' => 'MS-KB-600']],
+      'se_it_serial' => [['value' => '111111']],
+      'se_it_sell_price' => [['value' => 4500]],
+      'se_it_cost_price' => [['value' => 2500]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Microsoft KB800',
+      'body' => 'Microsoft KB800',
+      'se_it_code' => [['value' => 'MS-KB-800']],
+      'se_it_serial' => [['value' => '222222']],
+      'se_it_sell_price' => [['value' => 5500]],
+      'se_it_cost_price' => [['value' => 3000]],
+    ]);
+  $item->save();
+
+  $defaults = se_item_load_defaults('Hardware', 'Notebook', 'Lenovo', 'se_stock');
+
+  $item = Item::create($defaults + [
+      'name' => 'Lenovo 11e',
+      'body' => 'Lenovo 11e',
+      'se_it_code' => [['value' => 'LN-11E']],
+      'se_it_serial' => [['value' => '333333']],
+      'se_it_sell_price' => [['value' => 89900]],
+      'se_it_cost_price' => [['value' => 67900]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Lenovo x280',
+      'body' => 'Lenovo x280',
+      'se_it_code' => [['value' => 'LN-X280']],
+      'se_it_serial' => [['value' => '444444']],
+      'se_it_sell_price' => [['value' => 129900]],
+      'se_it_cost_price' => [['value' => 100100]],
+    ]);
+  $item->save();
+
+  $defaults = se_item_load_defaults('Consumables', 'Ink cartridge', 'Canon', 'se_stock');
+
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Cyan',
+      'body' => 'Canon PIXMA - Cyan',
+      'se_it_code' => [['value' => 'CN-PIXMA-CYAN']],
+      'se_it_serial' => [['value' => '555555']],
+      'se_it_sell_price' => [['value' => 1499]],
+      'se_it_cost_price' => [['value' => 1000]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Yellow',
+      'body' => 'Canon PIXMA - Yellow',
+      'se_it_code' => [['value' => 'CN-PIXMA-YELLOW']],
+      'se_it_serial' => [['value' => '666666']],
+      'se_it_sell_price' => [['value' => 1499]],
+      'se_it_cost_price' => [['value' => 1000]],
+    ]);
+  $item->save();
+
+  $item = Item::create($defaults + [
+      'name' => 'Canon PIXMA - Magenta',
+      'body' => 'Canon PIXMA - Magenta',
+      'se_it_code' => [['value' => 'CN-PIXMA-MAGENTA']],
+      'se_it_serial' => [['value' => '777777']],
+      'se_it_sell_price' => [['value' => 1499]],
+      'se_it_cost_price' => [['value' => 1000]],
+    ]);
+  $item->save();
+}
+
+/**
+ * Implements hook_install().
+ */
+function se_example_data_payment_setup() {
+  $terms = [
+    'Cash',
+    'Credit/Debit card',
+    'Cheque',
+    'Paypal',
+    'Direct deposit',
+  ];
+
+  if (!$term = stratoserp_create_terms('se_payment_type', $terms)) {
+    return;
+  }
+
+  // Set the variable.
+  $config = \Drupal::configFactory()->getEditable('se_payment.settings');
+  $config->set('default_payment_vocabulary', 'se_payment_type');
+  $config->set('default_payment_term', $term->id());
+  $config->save();
+}
+
+/**
+ * Implements hook_install().
+ */
+function se_example_data_purchase_order_setup() {
+
+  // Load the already created default status terms.
+  $open_term = stratoserp_set_term_field_config('Open', 'se_status', 'se_purchase_order.se_purchase_order.se_status_ref');
+
+  $find_term = taxonomy_term_load_multiple_by_name('Closed', 'se_status');
+  $closed_term = reset($find_term);
+
+  // Also set the term defaults.
+  $config = \Drupal::configFactory()->getEditable('se_purchase_order.settings');
+  $config->set('open_term', $open_term->id());
+  $config->set('closed_term', $closed_term->id());
+  $config->save();
+}
+
+/**
+ * Implements hook_install().
+ */
+function se_example_data_quote_setup() {
+
+  // Load the already created default status terms.
+  $open_term = stratoserp_set_term_field_config('Open', 'se_status', 'se_quote.se_quote.se_status_ref');
+
+  $find_term = taxonomy_term_load_multiple_by_name('Closed', 'se_status');
+  $closed_term = reset($find_term);
+
+  // Also set the term defaults in config.
+  $config = \Drupal::configFactory()->getEditable('se_quote.settings');
+  $config->set('open_term', $open_term->id());
+  $config->set('closed_term', $closed_term->id());
+  $config->save();
+}
+
+/**
+ * Implements hook_install().
+ */
+function se_example_data_ticket_setup() {
+  stratoserp_create_terms('se_ticket_priority', [
+    'High',
+    'Low',
+    'Urgent',
+    'Whenever',
+    'Normal',
+  ]);
+
+  stratoserp_create_terms('se_ticket_type', [
+    'Appointment',
+    'Call',
+    'Follow up',
+    'In store',
+    'Onsite',
+    'Quote',
+    'Todo',
+    'Warranty',
+    'Remote',
+  ]);
+
+  $term = stratoserp_create_terms('se_ticket_status', [
+    'In progress',
+    'Wait customer',
+    'Closed',
+    'Open',
+  ]);
+
+  $priority_term = stratoserp_set_term_field_config('Normal', 'se_ticket_priority', 'se_ticket.se_ticket.se_ti_priority_ref');
+  $ticket_type_term = stratoserp_set_term_field_config('Onsite', 'se_ticket_type', 'se_ticket.se_ticket.se_ti_type_ref');
+  $ticket_status_term = stratoserp_set_term_field_config('Open', 'se_ticket_status', 'se_ticket.se_ticket.se_ti_status_ref');
+
+  // Also set the term defaults in config.
+  $config = \Drupal::configFactory()->getEditable('se_ticket.settings');
+  $config->set('se_ticket_priority', $priority_term->id());
+  $config->set('se_ticket_type', $ticket_type_term->id());
+  $config->set('se_ticket_status', $ticket_status_term->id());
+  $config->save();
+
+}
+
+
+/**
+ * Helper function for adding items.
+ *
+ * @param $category
+ *   Taxonomy category.
+ * @param $product_type
+ *   Taxonomy product type.
+ * @param $manufacturer
+ *   Taxonomy manufacturer.
+ * @param $type
+ *   Item type.
+ *
+ * @return array
+ */
+function se_item_load_defaults($category, $product_type, $manufacturer, $type) {
+  $term = taxonomy_term_load_multiple_by_name($category, 'se_sale_category');
+  $sale_category = reset($term);
+
+  $term = taxonomy_term_load_multiple_by_name($product_type, 'se_product_type');
+  $product_type = reset($term);
+
+  $term = taxonomy_term_load_multiple_by_name($manufacturer, 'se_manufacturer');
+  $manufacturer = reset($term);
+
+  return [
+    'type' => $type,
+    'langcode' => 'en',
+    'uid' => '1',
+    'status' => 1,
+    'se_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
+    'se_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
+    'se_it_product_type_ref'  => [['target_id' => $product_type->id()]],
+  ];
+}
+
+
+/**
+ * Helper function for checking/adding taxonomy terms during setup.
+ *
+ * @param string $taxonomy
+ *   Taxonomy vocabulary to check/add.
+ * @param array $terms
+ *   Array of terms to check/add.
+ *
+ * @return \Drupal\taxonomy\Entity\Term|bool
+ *   The last created term, or false if none were created.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function stratoserp_create_terms(string $taxonomy, array $terms) {
+  $term = FALSE;
+
+  // The last one will be used as the default.
+  foreach ($terms as $new_term) {
+    $find_term = taxonomy_term_load_multiple_by_name($new_term, 'se_contact_type');
+    if (empty($find_term)) {
+      /** @var \Drupal\taxonomy\Entity\Term $term */
+      $term = Term::create([
+        'parent' => [],
+        'name'   => $new_term,
+        'vid'    => $taxonomy,
+      ]);
+      $term->save();
+    }
+  }
+
+  // Return the last term created.
+  return $term;
+}
+
+/**
+ * Helper function for term setup.
+ */
+function stratoserp_set_term_field_config(string $search_term, string $vocabulary, string $field): \Drupal\Core\Entity\EntityInterface {
+  // Load the already created default status terms.
+  $find_term = taxonomy_term_load_multiple_by_name($search_term, $vocabulary);
+  $term = reset($find_term);
+
+  // Now set the last one as the default for the field.
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load($field);
+  $field->setDefaultValue(['target_uuid' => $term->uuid()]);
+  $field->save();
+
+  return $term;
+}

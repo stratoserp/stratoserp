@@ -3,24 +3,3 @@
 /**
  * @file
  */
-
-// Include the main include file for some functions.
-module_load_include('install', 'stratoserp');
-
-/**
- * Implements hook_install().
- */
-function se_invoice_install() {
-
-  // Load the already created default status terms.
-  $open_term = stratoserp_set_term_field_config('Open', 'se_status', 'se_invoice.se_invoice.se_status_ref');
-
-  $find_term = taxonomy_term_load_multiple_by_name('Closed', 'se_status');
-  $closed_term = reset($find_term);
-
-  // Also set the term defaults in config.
-  $config = \Drupal::configFactory()->getEditable('se_invoice.settings');
-  $config->set('open_term', $open_term->id());
-  $config->set('closed_term', $closed_term->id());
-  $config->save();
-}

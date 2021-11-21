@@ -1,0 +1,19 @@
+name: 'StratosERP - Example data'
+description: 'StratosERP module set example data.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - stratoserp:stratoserp
+  - stratoserp:se_business
+  - stratoserp:se_contact
+  - stratoserp:se_invoice
+  - stratoserp:se_item
+  - stratoserp:se_service
+  - stratoserp:se_recurring
+  - stratoserp:se_stock
+  - stratoserp:se_payment
+  - stratoserp:se_purchase_order
+  - stratoserp:se_quote
+  - stratoserp:se_ticket
+

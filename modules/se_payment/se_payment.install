@@ -4,28 +4,3 @@
  * @file
  */
 
-// Include the main include file for some functions.
-module_load_include('install', 'stratoserp');
-
-/**
- * Implements hook_install().
- */
-function se_payment_install() {
-  $terms = [
-    'Cash',
-    'Credit/Debit card',
-    'Cheque',
-    'Paypal',
-    'Direct deposit',
-  ];
-
-  if (!$term = stratoserp_create_terms('se_payment_type', $terms)) {
-    return;
-  }
-
-  // Set the variable.
-  $config = \Drupal::configFactory()->getEditable('se_payment.settings');
-  $config->set('default_payment_vocabulary', 'se_payment_type');
-  $config->set('default_payment_term', $term->id());
-  $config->save();
-}

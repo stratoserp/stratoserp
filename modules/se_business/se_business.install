@@ -6,30 +6,3 @@ declare(strict_types=1);
  * @file
  */
 
-// Include the main include file for some functions.
-module_load_include('install', 'stratoserp');
-
-/**
- * Implements hook_install().
- */
-function se_business_install() {
-  $terms = [
-    'Supplier',
-    'Customer',
-  ];
-
-  if (!$term = stratoserp_create_terms('se_business_type', $terms)) {
-    return;
-  }
-
-  // Now set the last one as the default for the field.
-  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_business.se_business.se_bu_type_ref');
-  $field->setDefaultValue(['target_uuid' => $term->uuid()]);
-  $field->save();
-
-  // Also set the last one as the 'main' contact term.
-  $config = \Drupal::configFactory()->getEditable('se_contact.settings');
-  $config->set('main_contact_term', $term->id());
-  $config->save();
-
-}
