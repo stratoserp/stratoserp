@@ -216,7 +216,10 @@ class EntityItemSelection extends DefaultSelection {
     }
     else {
       // If not a virtual item, it needs to not be sold.
-      $query->condition('se_it_sale_date', NULL, 'IS NULL');
+      $conditionGroup = $query->orConditionGroup()
+        ->condition('se_it_sale_date', NULL, 'IS NULL')
+        ->condition('se_it_sale_date', 0);
+      $query->condition($conditionGroup);
     }
 
     return $query;
