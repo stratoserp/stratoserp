@@ -215,6 +215,7 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
     if (isset($this->se_ti_scheduled->value) || isset($this->se_ti_scheduled->end_value)) {
       return TRUE;
     }
+
     return FALSE;
   }
 
@@ -229,6 +230,8 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
     if (empty($calendarList) || in_array($this->se_ti_type_ref->value, $calendarList, TRUE)) {
       return TRUE;
     }
+
+    return FALSE;
   }
 
   /**
