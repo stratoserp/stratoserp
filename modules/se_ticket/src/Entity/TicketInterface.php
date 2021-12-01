@@ -124,7 +124,7 @@ interface TicketInterface extends ContentEntityInterface, RevisionLogInterface, 
    * @return bool
    *   Whether the ticket has the scheduled fields entered.
    */
-  public function isCalenderType(): bool;
+  public function isCalendarType(): bool;
 
   /**
    * Determine if a ticket should be shown in the calendar.
@@ -132,7 +132,7 @@ interface TicketInterface extends ContentEntityInterface, RevisionLogInterface, 
    * @return bool
    *   Whether the ticket fields mean it should be in the calendar.
    */
-  public function isCalenderWorthy(): bool;
+  public function isCalendarWorthy(): bool;
 
   /**
    * Return the business associated with the invoice.

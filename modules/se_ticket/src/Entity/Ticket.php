@@ -222,7 +222,7 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
   /**
    * {@inheritdoc}
    */
-  public function isCalenderType(): bool {
+  public function isCalendarType(): bool {
     $calendarType = \Drupal::configFactory()
       ->getEditable('se_ticket.settings')
       ->get('se_ticket_calendar_type_list') ?? [];
@@ -237,7 +237,7 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
   /**
    * {@inheritdoc}
    */
-  public function isCalenderWorthy(): bool {
+  public function isCalendarWorthy(): bool {
     if (!$this->isScheduled()) {
       return FALSE;
     }
@@ -246,7 +246,7 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
       return FALSE;
     }
 
-    if (!$this->isCalenderType()) {
+    if (!$this->isCalendarType()) {
       return FALSE;
     }
 
