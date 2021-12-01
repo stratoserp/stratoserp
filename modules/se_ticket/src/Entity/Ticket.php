@@ -201,7 +201,7 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
       ->getEditable('se_ticket.settings')
       ->get('se_ticket_calendar_status_list') ?? [];
 
-    if (empty($closedList) || !in_array($this->se_ti_status_ref->value, $closedList, TRUE)) {
+    if (empty($closedList) || !in_array($this->se_ti_status_ref->target_id, $closedList, TRUE)) {
       return TRUE;
     }
 
@@ -227,7 +227,7 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
       ->getEditable('se_ticket.settings')
       ->get('se_ticket_calendar_type_list') ?? [];
 
-    if (empty($calendarList) || in_array($this->se_ti_type_ref->value, $calendarList, TRUE)) {
+    if (empty($calendarList) || in_array($this->se_ti_type_ref->target_id, $calendarList, TRUE)) {
       return TRUE;
     }
 
