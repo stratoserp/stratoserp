@@ -78,11 +78,6 @@ function se_example_data_business_setup() {
   $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_business.se_business.se_bu_type_ref');
   $field->setDefaultValue(['target_uuid' => $term->uuid()]);
   $field->save();
-
-  // Also set the last one as the 'main' contact term.
-  $config = \Drupal::configFactory()->getEditable('se_contact.settings');
-  $config->set('main_contact_term', $term->id());
-  $config->save();
 }
 
 function se_example_data_contact_setup() {
@@ -114,10 +109,9 @@ function se_example_data_contact_setup() {
 function se_example_data_invoice_setup() {
 
   // Load the already created default status terms.
-  $open_term = stratoserp_set_term_field_config('Open', 'se_status', 'se_invoice.se_invoice.se_status_ref');
+  $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_invoice.se_invoice.se_status_ref');
 
-  $find_term = taxonomy_term_load_multiple_by_name('Closed', 'se_status');
-  $closed_term = reset($find_term);
+  $closed_term = se_example_data_load_term_by_name('Closed', 'se_status');
 
   // Also set the term defaults in config.
   $config = \Drupal::configFactory()->getEditable('se_invoice.settings');
@@ -334,10 +328,9 @@ function se_example_data_payment_setup() {
 function se_example_data_purchase_order_setup() {
 
   // Load the already created default status terms.
-  $open_term = stratoserp_set_term_field_config('Open', 'se_status', 'se_purchase_order.se_purchase_order.se_status_ref');
+  $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_purchase_order.se_purchase_order.se_status_ref');
 
-  $find_term = taxonomy_term_load_multiple_by_name('Closed', 'se_status');
-  $closed_term = reset($find_term);
+  $closed_term = se_example_data_load_term_by_name('Closed', 'se_status');
 
   // Also set the term defaults.
   $config = \Drupal::configFactory()->getEditable('se_purchase_order.settings');
@@ -352,10 +345,9 @@ function se_example_data_purchase_order_setup() {
 function se_example_data_quote_setup() {
 
   // Load the already created default status terms.
-  $open_term = stratoserp_set_term_field_config('Open', 'se_status', 'se_quote.se_quote.se_status_ref');
+  $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_quote.se_quote.se_status_ref');
 
-  $find_term = taxonomy_term_load_multiple_by_name('Closed', 'se_status');
-  $closed_term = reset($find_term);
+  $closed_term = se_example_data_load_term_by_name('Closed', 'se_status');
 
   // Also set the term defaults in config.
   $config = \Drupal::configFactory()->getEditable('se_quote.settings');
@@ -395,9 +387,9 @@ function se_example_data_ticket_setup() {
     'Open',
   ]);
 
-  $priority_term = stratoserp_set_term_field_config('Normal', 'se_ticket_priority', 'se_ticket.se_ticket.se_ti_priority_ref');
-  $ticket_type_term = stratoserp_set_term_field_config('Onsite', 'se_ticket_type', 'se_ticket.se_ticket.se_ti_type_ref');
-  $ticket_status_term = stratoserp_set_term_field_config('Open', 'se_ticket_status', 'se_ticket.se_ticket.se_ti_status_ref');
+  $priority_term = se_example_data_set_term_field_config('Normal', 'se_ticket_priority', 'se_ticket.se_ticket.se_ti_priority_ref');
+  $ticket_type_term = se_example_data_set_term_field_config('Onsite', 'se_ticket_type', 'se_ticket.se_ticket.se_ti_type_ref');
+  $ticket_status_term = se_example_data_set_term_field_config('Open', 'se_ticket_status', 'se_ticket.se_ticket.se_ti_status_ref');
 
   // Also set the term defaults in config.
   $config = \Drupal::configFactory()->getEditable('se_ticket.settings');
@@ -424,14 +416,9 @@ function se_example_data_ticket_setup() {
  * @return array
  */
 function se_item_load_defaults($category, $product_type, $manufacturer, $type) {
-  $term = taxonomy_term_load_multiple_by_name($category, 'se_sale_category');
-  $sale_category = reset($term);
-
-  $term = taxonomy_term_load_multiple_by_name($product_type, 'se_product_type');
-  $product_type = reset($term);
-
-  $term = taxonomy_term_load_multiple_by_name($manufacturer, 'se_manufacturer');
-  $manufacturer = reset($term);
+  $sale_category = se_example_data_load_term_by_name($category, 'se_sale_category');
+  $product_type = se_example_data_load_term_by_name($product_type, 'se_product_type');
+  $manufacturer = se_example_data_load_term_by_name($manufacturer, 'se_manufacturer');
 
   return [
     'type' => $type,
@@ -463,7 +450,7 @@ function stratoserp_create_terms(string $taxonomy, array $terms) {
 
   // The last one will be used as the default.
   foreach ($terms as $new_term) {
-    $find_term = taxonomy_term_load_multiple_by_name($new_term, 'se_contact_type');
+    $find_term = se_example_data_load_term_by_name($new_term, 'se_contact_type');
     if (empty($find_term)) {
       /** @var \Drupal\taxonomy\Entity\Term $term */
       $term = Term::create([
@@ -482,10 +469,9 @@ function stratoserp_create_terms(string $taxonomy, array $terms) {
 /**
  * Helper function for term setup.
  */
-function stratoserp_set_term_field_config(string $search_term, string $vocabulary, string $field): \Drupal\Core\Entity\EntityInterface {
+function se_example_data_set_term_field_config(string $search_term, string $vocabulary, string $field): \Drupal\Core\Entity\EntityInterface {
   // Load the already created default status terms.
-  $find_term = taxonomy_term_load_multiple_by_name($search_term, $vocabulary);
-  $term = reset($find_term);
+  $term = se_example_data_load_term_by_name($search_term, $vocabulary);
 
   // Now set the last one as the default for the field.
   $field = \Drupal::entityTypeManager()->getStorage('field_config')->load($field);
@@ -493,4 +479,13 @@ function stratoserp_set_term_field_config(string $search_term, string $vocabular
   $field->save();
 
   return $term;
+}
+
+/**
+ * Make our own function, since we call it a lot.
+ */
+function se_example_data_load_term_by_name(string $term, string $vocab) {
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $term, 'vid' => $vocab]);
+
+  return reset($terms);
 }
