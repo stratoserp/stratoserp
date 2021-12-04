@@ -1,13 +1,16 @@
 
 stratoserp.home:
-  path: '/'
+  path: '/se'
+  defaults:
+    _controller: '\Drupal\stratoserp\Controller\FrontPageController::statistics'
+    _title: 'Statistics'
   options:
     no_cache: TRUE
   requirements:
     _permission: 'access all businesses'
 
 stratoserp.search_form:
-  path: '/se'
+  path: '/se/search'
   defaults:
     _form: '\Drupal\stratoserp\Form\SearchForm'
     _title_callback: '\Drupal\stratoserp\Form\SearchForm::getPageTitle'

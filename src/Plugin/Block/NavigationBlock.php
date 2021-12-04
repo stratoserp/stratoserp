@@ -9,6 +9,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_contact\Entity\Contact;
+use Drupal\stratoserp\Form\SearchForm;
 
 /**
  * Provides a 'NavigationBlock' block.
@@ -44,11 +45,16 @@ class NavigationBlock extends BlockBase {
   protected array $buttonClass;
 
   /**
+   * Items to display
+   */
+  protected array $items;
+
+  /**
    * {@inheritdoc}
    */
   public function build(): array {
     $build = [];
-    $items = [];
+    $this->items = [];
     $this->buttonClass = [
       'attributes' => [
         'class' => [
@@ -67,45 +73,48 @@ class NavigationBlock extends BlockBase {
     $matcher = \Drupal::routeMatch();
     $parameterBag = $matcher->getParameters();
 
-    if (\Drupal::routeMatch()->getRouteName() === 'stratoserp.search_form') {
-      $items = $this->searchLinks();
+    // Always have the home link.
+    $this->items[] = Link::createFromRoute('Home', '<front>', [], $this->buttonClass);
+
+    // Add the Search form.
+    $searchForm = \Drupal::formBuilder()->getForm(SearchForm::class);
+    unset($searchForm['search']['#title']);
+    $this->items[] = $searchForm;
+
+    if (\Drupal::routeMatch()->getRouteName() === 'stratoserp.home') {
+      $this->searchLinks();
     }
 
-    if (empty($items)) {
-      if ($this->entity = $parameterBag->get('se_contact')) {
-        $items = $this->contactLinks();
-        $this->destination = Url::fromUri('internal:/contact/' . $this->entity->id())->toString();
-      }
-      elseif ($this->entity = $parameterBag->get('se_business')) {
-        $items = $this->businessLinks();
-        $this->destination = Url::fromUri('internal:/business/' . $this->entity->id())->toString();
-      }
-      elseif ($this->entity = $parameterBag->get('se_quote')) {
-        $items = $this->quoteLinks();
-        $this->destination = Url::fromUri('internal:/quote/' . $this->entity->id())->toString();
-      }
-      elseif ($this->entity = $parameterBag->get('se_invoice')) {
-        $items = $this->invoiceLinks();
-        $this->destination = Url::fromUri('internal:/invoice/' . $this->entity->id())->toString();
-      }
-      elseif ($this->entity = $parameterBag->get('se_bill')) {
-        $items = $this->billLinks();
-        $this->destination = Url::fromUri('internal:/bill/' . $this->entity->id())->toString();
-      }
-      elseif ($this->entity = $parameterBag->get('se_purchase_order')) {
-        $items = $this->purchaseOrderLinks();
-        $this->destination = Url::fromUri('internal:/purchase-order/' . $this->entity->id())->toString();
-      }
+    if ($this->entity = $parameterBag->get('se_contact')) {
+      $this->contactLinks();
+      $this->destination = Url::fromUri('internal:/contact/' . $this->entity->id())->toString();
+    }
+    elseif ($this->entity = $parameterBag->get('se_business')) {
+      $this->businessLinks();
+      $this->destination = Url::fromUri('internal:/business/' . $this->entity->id())->toString();
+    }
+    elseif ($this->entity = $parameterBag->get('se_quote')) {
+      $this->quoteLinks();
+      $this->destination = Url::fromUri('internal:/quote/' . $this->entity->id())->toString();
+    }
+    elseif ($this->entity = $parameterBag->get('se_invoice')) {
+      $this->invoiceLinks();
+      $this->destination = Url::fromUri('internal:/invoice/' . $this->entity->id())->toString();
+    }
+    elseif ($this->entity = $parameterBag->get('se_bill')) {
+      $this->billLinks();
+      $this->destination = Url::fromUri('internal:/bill/' . $this->entity->id())->toString();
+    }
+    elseif ($this->entity = $parameterBag->get('se_purchase_order')) {
+      $this->purchaseOrderLinks();
+      $this->destination = Url::fromUri('internal:/purchase-order/' . $this->entity->id())->toString();
     }
 
-    // Push a 'Home' link to the front of the navigation block.
-    array_unshift($items, Link::createFromRoute('Home', '<front>', [], $this->buttonClass));
-
-    if (isset($items)) {
+    if (isset($this->items)) {
       $build['navigation_block'] = [
         '#theme' => 'item_list',
         '#attributes' => ['class' => 'list-inline local-actions'],
-        '#items' => $items,
+        '#items' => $this->items,
       ];
     }
 
@@ -129,6 +138,7 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Retrieve the cache contexts.
+   *
    */
   public function getCacheContexts() {
     return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
@@ -137,209 +147,161 @@ class NavigationBlock extends BlockBase {
   /**
    * Build a list of bill links for display.
    *
-   * @return array
-   *   Output array.
    */
-  private function billLinks(): array {
-    $items = [];
-
+  private function billLinks(): void {
     $routeParameters = $this->setRouteParameters();
 
-    $items[] = Link::createFromRoute('Pay bill', 'se_bill_payment.add',
+    $this->items[] = Link::createFromRoute('Pay bill', 'se_bill_payment.add',
       $routeParameters + [
         'source' => $this->entity->id(),
       ], $this->buttonClass);
-
-    return $items;
   }
 
   /**
    * Build a list of search links for display.
    *
-   * @return array
-   *   Output array.
    */
-  private function searchLinks(): array {
-    $items = [];
-
+  private function searchLinks(): void {
     $routeParameters = $this->setRouteParameters(FALSE);
 
-    $items[] = Link::createFromRoute('Add business', 'entity.se_business.add_form',
+    $this->items[] = Link::createFromRoute('Add business', 'entity.se_business.add_form',
       $routeParameters, $this->buttonClass);
 
-    $items[] = Link::createFromRoute('Add assembly', 'entity.se_item.add_form',
+    $this->items[] = Link::createFromRoute('Add assembly', 'entity.se_item.add_form',
       $routeParameters + [
         'se_item_type' => 'se_assembly',
       ], $this->buttonClass);
 
-    $items[] = Link::createFromRoute('Add stock', 'entity.se_item.add_form',
+    $this->items[] = Link::createFromRoute('Add stock', 'entity.se_item.add_form',
       $routeParameters + [
         'se_item_type' => 'se_stock',
       ], $this->buttonClass);
 
-    $items[] = Link::createFromRoute('Add recurring', 'entity.se_item.add_form',
+    $this->items[] = Link::createFromRoute('Add recurring', 'entity.se_item.add_form',
       $routeParameters + [
         'se_item_type' => 'se_recurring',
       ], $this->buttonClass);
 
-    $items[] = Link::createFromRoute('Add service', 'entity.se_item.add_form',
+    $this->items[] = Link::createFromRoute('Add service', 'entity.se_item.add_form',
       $routeParameters + [
         'se_item_type' => 'se_service',
       ], $this->buttonClass);
-
-    return $items;
   }
 
   /**
    * Build a list of contact links for display.
    *
-   * @return array
-   *   Output array.
    */
-  private function contactLinks(): array {
-    $items = [];
-
+  private function contactLinks(): void {
     $routeParameters = $this->setRouteParameters();
 
-    $items[] = Link::createFromRoute('Add business', 'entity.se_business.add_form',
+    $this->items[] = Link::createFromRoute('Add business', 'entity.se_business.add_form',
       $this->setRouteParameters(FALSE, []), $this->buttonClass);
-    $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
+    $this->items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $routeParameters + [
         'se_information_type' => 'se_document',
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add invoice', 'entity.se_invoice.add_form',
+    $this->items[] = Link::createFromRoute('Add invoice', 'entity.se_invoice.add_form',
       $routeParameters, $this->buttonClass);
 
-    $items = $this->commonLinks($items, $routeParameters);
-
-    return $items;
+    $this->commonLinks($routeParameters);
   }
 
   /**
    * Build a list of business links for display.
    *
-   * @return array
-   *   Output array.
    */
-  private function businessLinks(): array {
-    $items = [];
-
+  private function businessLinks(): void {
     $routeParameters = $this->setRouteParameters(FALSE);
 
-    $items[] = Link::createFromRoute('Add contact', 'entity.se_contact.add_form',
+    $this->items[] = Link::createFromRoute('Add contact', 'entity.se_contact.add_form',
       $routeParameters + [
         'se_bu_ref' => $this->entity->id(),
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
+    $this->items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $routeParameters + [
         'se_information_type' => 'se_document',
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add invoice', 'entity.se_invoice.add_form',
+    $this->items[] = Link::createFromRoute('Add invoice', 'entity.se_invoice.add_form',
       $routeParameters + [
         'se_bu_ref' => $this->entity->id(),
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page',
+    $this->items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page',
       $routeParameters + [
         'se_bu_ref' => $this->entity->id(),
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
+    $this->items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
       $routeParameters + [
         'se_bu_ref' => $this->entity->id(),
         'source' => $this->entity->id(),
       ], $this->buttonClass);
 
-    $items = $this->commonLinks($items, $routeParameters);
-
-    return $items;
+    $this->commonLinks($routeParameters);
   }
 
   /**
    * Return the items with common links added.
    *
-   * @param array $items
-   *   Existing items array.
    * @param array $routeParameters
    *   Any extra route parameters.
    *
-   * @return array
-   *   Output array.
    */
-  private function commonLinks(array $items, array $routeParameters): array {
+  private function commonLinks(array $routeParameters): void {
 
     // @todo Fix source
-    $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
+    $this->items[] = Link::createFromRoute('Add payment', 'se_payment.add',
       $routeParameters + [
         'source' => $this->entity->id(),
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add quote', 'entity.se_quote.add_form',
+    $this->items[] = Link::createFromRoute('Add quote', 'entity.se_quote.add_form',
       $routeParameters + [], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add ticket', 'entity.se_ticket.add_form',
+    $this->items[] = Link::createFromRoute('Add ticket', 'entity.se_ticket.add_form',
       $routeParameters + [], $this->buttonClass);
-
-    return $items;
   }
 
   /**
    * Build a list of invoice links for display.
    *
-   * @return array
-   *   Output array.
    */
-  private function invoiceLinks(): array {
-    $items = [];
-
+  private function invoiceLinks(): void {
     $routeParameters = $this->setRouteParameters();
 
     // @todo Fix source
-    $items[] = Link::createFromRoute('Add payment', 'se_payment.add',
+    $this->items[] = Link::createFromRoute('Add payment', 'se_payment.add',
       $routeParameters + [
         'source' => $this->entity->id(),
       ], $this->buttonClass);
-
-    return $items;
   }
 
   /**
    * Build a list of purchase order links for display.
    *
-   * @return array
-   *   Output array.
    */
-  private function purchaseOrderLinks(): array {
-    $items = [];
-
+  private function purchaseOrderLinks(): void {
     $routeParameters = $this->setRouteParameters();
 
-    $items[] = Link::createFromRoute('Add goods receipt', 'se_goods_receipt.add',
+    $this->items[] = Link::createFromRoute('Add goods receipt', 'se_goods_receipt.add',
       $routeParameters + [
         'source' => $this->entity->id(),
       ], $this->buttonClass);
-
-    return $items;
   }
 
   /**
    * Build a list of quote links for display.
    *
-   * @return array
-   *   Output array.
    */
-  private function quoteLinks(): array {
-    $items = [];
-
+  private function quoteLinks(): void {
     $routeParameters = $this->setRouteParameters();
 
     // @todo Fix source
-    $items[] = Link::createFromRoute('Add invoice', 'se_invoice.add',
+    $this->items[] = Link::createFromRoute('Add invoice', 'se_invoice.add',
       $routeParameters + [
         'source' => $this->entity->id(),
       ], $this->buttonClass);
-    $items[] = Link::createFromRoute('Add purchase order', 'se_purchase_order.add',
+    $this->items[] = Link::createFromRoute('Add purchase order', 'se_purchase_order.add',
       $routeParameters + [
         'source' => $this->entity->id(),
       ], $this->buttonClass);
-
-    return $items;
   }
 
   /**
@@ -384,9 +346,7 @@ class NavigationBlock extends BlockBase {
       }
     }
 
-    $routeParameters = array_merge($routeParameters, $extra);
-
-    return $routeParameters;
+    return array_merge($routeParameters, $extra);
   }
 
 }

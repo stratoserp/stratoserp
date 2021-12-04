@@ -66,6 +66,7 @@ class SearchForm extends FormBase {
     $build['search'] = [
       '#title' => t('Enter business name, id of invoice or quote or simply search.'),
       '#type' => 'textfield',
+      '#size' => 30,
       '#autocomplete_route_name' => 'stratoserp.search',
       '#autocomplete_route_parameters' => [
         'field_name' => 'search',
