@@ -4,8 +4,7 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - drupal:stratoserp
-  - drupal:se_information
+  - stratoserp:se_information
 
 config_devel:
   install:

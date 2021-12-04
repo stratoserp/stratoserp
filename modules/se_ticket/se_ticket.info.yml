@@ -12,7 +12,7 @@ dependencies:
   - drupal:text
   - drupal:user
   - drupal:views
-  - stratoserp:stratoserp
+  - stratoserp:se_business
 
 config_devel:
   install:

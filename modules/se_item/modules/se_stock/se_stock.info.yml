@@ -4,10 +4,8 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - core_event_dispatcher:core_event_dispatcher
-  - se_goods_receipt:se_goods_receipt
-  - se_item:se_item
-  - se_purchase_order:se_purchase_order
+  - hook_event_dispatcher:hook_event_dispatcher
+  - stratoserp:se_item
 
 config_devel:
   install:

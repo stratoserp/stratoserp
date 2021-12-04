@@ -9,8 +9,8 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
-  - se_item_line:se_item_line
-  - stratoserp:stratoserp
+  - stratoserp:se_business
+  - stratoserp:se_item_line
 
 config_devel:
   install:

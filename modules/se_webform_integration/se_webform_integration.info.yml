@@ -4,8 +4,8 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_ticket:se_ticket
-  - stratoserp:stratoserp
+  - stratoserp:se_ticket
+  - stratoserp:se_business
   - webform:webform
   - webform_access:webform_access
   - webform_node:webform_node

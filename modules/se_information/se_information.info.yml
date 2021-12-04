@@ -4,6 +4,7 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - stratoserp:se_business
   - stratoserp:stratoserp
 
 config_devel:

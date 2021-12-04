@@ -4,7 +4,7 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - se_item:se_item
+  - stratoserp:se_item
 
 config_devel:
   install:

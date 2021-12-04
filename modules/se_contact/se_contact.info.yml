@@ -14,7 +14,7 @@ dependencies:
   - drupal:user
   - drupal:views
   - eva:eva
-  - se_business:se_business
+  - stratoserp:se_business
   - stratoserp:stratoserp
 
 config_devel:

@@ -15,6 +15,7 @@ dependencies:
   - drupal:text
   - drupal:user
   - drupal:views
+  - geolocation:geolocation
   - stratoserp:stratoserp
   - stratoserp:se_accounting
 

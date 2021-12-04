@@ -50,9 +50,6 @@ settings:
   se_contact:
     handler: 'default:se_contact'
     handler_settings: {  }
-  preview_link:
-    handler: 'default:preview_link'
-    handler_settings: {  }
   se_quote:
     handler: 'default:se_quote'
     handler_settings: {  }

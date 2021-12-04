@@ -9,7 +9,7 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
-  - se_contact:se_contact
+  - stratoserp:se_contact
   - stratoserp:stratoserp
 
 config_devel:

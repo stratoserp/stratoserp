@@ -21,13 +21,11 @@
         "drupal/extra_field": "^2.1",
         "drupal/field_group": "^3.2",
         "drupal/geolocation": "^3.2",
-        "drupal/preview_link": "dev-1.x"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest"
     },
     "suggest": {
-        "drupal/o365": "dev-2.0.x",
         "drupal/xero": "dev-2.x"
     },
     "minimum-stability": "dev"

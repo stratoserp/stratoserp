@@ -4,14 +4,15 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - hook_event_dispatcher:hook_event_dispatcher
   - drupal:field
   - drupal:menu_ui
   - drupal:path
   - drupal:text
   - drupal:user
-  - se_item_line:se_item_line
-  - se_service:se_service
-  - stratoserp:stratoserp
+  - stratoserp:se_business
+  - stratoserp:se_item_line
+  - stratoserp:se_stock
 
 config_devel:
   install:

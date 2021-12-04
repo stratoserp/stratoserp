@@ -57,9 +57,6 @@ settings:
   se_goods_receipt:
     handler: 'default:se_goods_receipt'
     handler_settings: {  }
-  preview_link:
-    handler: 'default:preview_link'
-    handler_settings: {  }
   se_purchase_order:
     handler: 'default:se_purchase_order'
     handler_settings: {  }
