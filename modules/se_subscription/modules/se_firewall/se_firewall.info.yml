@@ -1,5 +1,5 @@
-name: 'StratosERP - Firewall'
-description: 'Provides a firewall subscription entity type.'
+name: 'StratosERP - Subscription type - Firewall'
+description: 'Firewall subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP

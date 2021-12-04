@@ -1,5 +1,5 @@
-name: 'StratosERP - Phone system'
-description: 'Provides an phone system subscription entity type.'
+name: 'StratosERP - Subscription type - Phone system'
+description: 'Subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
