@@ -20,7 +20,7 @@
         "drupal/eva": "^2.1",
         "drupal/extra_field": "^2.1",
         "drupal/field_group": "^3.2",
-        "drupal/geolocation": "^3.2",
+        "drupal/geolocation": "^3.2"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest"
