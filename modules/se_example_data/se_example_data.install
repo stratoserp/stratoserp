@@ -31,29 +31,6 @@ function se_example_data_install() {
 
 function se_example_data_base_setup() {
 
-  try {
-    // If the toolbar_menu module exists, enable it.
-    if (\Drupal::service('extension.list.module')
-      ->getName('toolbar_menu')) {
-      \Drupal::service('module_installer')
-        ->install(['toolbar_menu'], FALSE);
-    }
-
-    // If its now enabled, create a toolbar menu item.
-    if (\Drupal::moduleHandler()->moduleExists('toolbar_menu')) {
-      $entity_manager = \Drupal::service('entity_type.manager');
-      $entity_manager->getStorage('toolbar_menu_element')->create([
-        'id' => 'stratoserp',
-        'label' => 'StratosERP',
-        'menu' => 'stratos-erp',
-        'weight' => NULL,
-        'rewrite_label' => TRUE,
-      ])->save();
-    }
-  }
-  catch (Exception $e) {
-  }
-
   // Status for quotes, purchase orders, invoices.
   $terms = [
     'Ordered',

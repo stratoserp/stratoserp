@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.se_purchase_order.se_status_ref
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:

@@ -6,7 +6,6 @@ dependencies:
     - field.storage.se_item.se_it_cost_price
     - field.storage.se_item.se_it_sell_price
     - field.storage.se_item.se_it_serial
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:

@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.se_payment.se_pa_total
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:

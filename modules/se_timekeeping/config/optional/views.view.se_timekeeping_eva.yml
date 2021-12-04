@@ -7,7 +7,6 @@ dependencies:
     - field.storage.comment.se_tk_billable
     - field.storage.comment.se_tk_billed
     - field.storage.comment.se_tk_review
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:

@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.se_ticket.se_ti_open_date
     - field.storage.se_ticket.se_ti_scheduled
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:

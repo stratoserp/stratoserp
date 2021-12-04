@@ -5,7 +5,6 @@ dependencies:
     - field.storage.se_ticket.se_ti_scheduled
     - field.storage.se_ticket.se_ti_type_ref
     - system.menu.stratos-erp
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:

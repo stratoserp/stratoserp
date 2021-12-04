@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.se_goods_receipt.se_status_ref
     - field.storage.se_goods_receipt.se_su_ref
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:

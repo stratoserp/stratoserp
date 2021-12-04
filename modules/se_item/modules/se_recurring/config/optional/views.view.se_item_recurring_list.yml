@@ -7,7 +7,6 @@ dependencies:
     - field.storage.se_item.se_it_sell_price
     - se_item.se_item_type.se_recurring
     - system.menu.stratos-erp
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:

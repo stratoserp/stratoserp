@@ -6,7 +6,6 @@ dependencies:
     - field.storage.se_invoice.se_in_total
     - field.storage.se_invoice.se_status_ref
     - taxonomy.vocabulary.se_status
-    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:
