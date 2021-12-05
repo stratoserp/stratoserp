@@ -1,5 +1,5 @@
-name: 'StratosERP - Domain hosting'
-description: 'Provides a domain hosting subscription entity type.'
+name: 'StratosERP - Subscription type - Domain hosting'
+description: 'Domain hosting subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP

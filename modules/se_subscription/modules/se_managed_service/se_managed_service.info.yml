@@ -1,11 +1,10 @@
-name: 'StratosERP - Managed service'
-description: 'Provides a managed service subscription entity type.'
+name: 'StratosERP - Subscription type - Managed service'
+description: 'Managed service subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
   - stratoserp:se_subscription
-
 
 config_devel:
   install:

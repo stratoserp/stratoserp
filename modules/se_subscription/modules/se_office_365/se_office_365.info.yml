@@ -1,11 +1,10 @@
-name: 'StratosERP - Office 365'
-description: 'Provides an office 365 subscription entity type.'
+name: 'StratosERP - Subscription type - Office 365'
+description: 'Office 365 subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
   - stratoserp:se_subscription
-
 
 config_devel:
   install:

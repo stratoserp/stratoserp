@@ -1,5 +1,5 @@
-name: 'StratosERP - Anti Virus'
-description: 'Provides an anti-virus subscription entity type.'
+name: 'StratosERP - Subscription type - Anti Virus'
+description: 'Anti-Virus subscription entity type.'
 type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
