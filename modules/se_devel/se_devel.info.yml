@@ -1,0 +1,8 @@
+name: 'StratosERP - Development helper'
+description: 'Extras for developing StratosERP, not needed for normal operations.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - config_devel:config_devel
+  - stratoserp:stratoserp

@@ -1,0 +1,5 @@
+services:
+  se_devel.config_devel_export:
+    class: Drupal\se_devel\EventSubscriber\ConfigDevelEventSubscriber
+    tags:
+      - { name: event_subscriber }
