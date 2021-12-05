@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_subscription.se_phone_system.se_su_period
     - field.field.se_subscription.se_phone_system.se_su_ref
     - field.field.se_subscription.se_phone_system.se_su_total
+    - field.field.se_subscription.se_phone_system.se_su_use_company_invoice_date
     - se_subscription.se_subscription_type.se_phone_system
   module:
     - datetime
@@ -47,7 +48,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: bottom
   se_su_next_invoice_date:
     type: datetime_default
@@ -56,7 +57,7 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: second
   se_su_period:
     type: duration_human_display
@@ -80,7 +81,17 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: bottom
+  se_su_use_company_invoice_date:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 4
+    region: second
 hidden:
   user_id: true

@@ -18,6 +18,7 @@ config_devel:
     - field.storage.se_subscription.se_su_period
     - field.storage.se_subscription.se_su_ref
     - field.storage.se_subscription.se_su_total
+    - field.storage.se_subscription.se_su_use_company_invoice_date
     - se_subscription.se_subscription_type.se_anti_virus
     - se_subscription.se_subscription_type.se_backup
     - se_subscription.se_subscription_type.se_domain_hosting

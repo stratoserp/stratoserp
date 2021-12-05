@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_su_use_company_invoice_date
+    - se_subscription.se_subscription_type.se_office_365
+id: se_subscription.se_office_365.se_su_use_company_invoice_date
+field_name: se_su_use_company_invoice_date
+entity_type: se_subscription
+bundle: se_office_365
+label: 'Use company invoice date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

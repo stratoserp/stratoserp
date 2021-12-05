@@ -11,6 +11,7 @@ dependencies:
     - field.field.se_subscription.se_email_account.se_su_period
     - field.field.se_subscription.se_email_account.se_su_ref
     - field.field.se_subscription.se_email_account.se_su_total
+    - field.field.se_subscription.se_email_account.se_su_use_company_invoice_date
     - se_subscription.se_subscription_type.se_email_account
   module:
     - datetime
@@ -34,7 +35,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -75,7 +76,7 @@ content:
     third_party_settings: {  }
   se_ea_email_address:
     type: email_default
-    weight: 5
+    weight: 6
     region: second
     settings:
       placeholder: ''
@@ -83,7 +84,7 @@ content:
     third_party_settings: {  }
   se_ea_email_aliases:
     type: email_default
-    weight: 6
+    weight: 7
     region: second
     settings:
       placeholder: ''
@@ -91,7 +92,7 @@ content:
     third_party_settings: {  }
   se_su_lines:
     type: se_item_line_widget
-    weight: 8
+    weight: 9
     region: bottom
     settings:
       match_operator: CONTAINS
@@ -101,7 +102,7 @@ content:
     third_party_settings: {  }
   se_su_management_link:
     type: link_default
-    weight: 7
+    weight: 8
     region: second
     settings:
       placeholder_url: ''
@@ -109,7 +110,7 @@ content:
     third_party_settings: {  }
   se_su_next_invoice_date:
     type: datetime_default
-    weight: 4
+    weight: 5
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -131,9 +132,16 @@ content:
     third_party_settings: {  }
   se_su_total:
     type: se_currency_widget
-    weight: 9
+    weight: 10
     region: bottom
     settings: {  }
+    third_party_settings: {  }
+  se_su_use_company_invoice_date:
+    type: boolean_checkbox
+    weight: 4
+    region: second
+    settings:
+      display_label: true
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete

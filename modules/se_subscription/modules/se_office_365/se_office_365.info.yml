@@ -16,3 +16,4 @@ config_devel:
     - field.field.se_subscription.se_office_365.se_su_period
     - field.field.se_subscription.se_office_365.se_su_ref
     - field.field.se_subscription.se_office_365.se_su_total
+    - field.field.se_subscription.se_office_365.se_su_use_company_invoice_date
