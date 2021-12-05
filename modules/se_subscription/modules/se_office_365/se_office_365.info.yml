@@ -13,6 +13,7 @@ config_devel:
     - core.entity_view_display.se_subscription.se_office_365.default
     - field.field.se_subscription.se_office_365.se_bu_ref
     - field.field.se_subscription.se_office_365.se_su_lines
+    - field.field.se_subscription.se_office_365.se_su_next_invoice_date
     - field.field.se_subscription.se_office_365.se_su_period
     - field.field.se_subscription.se_office_365.se_su_ref
     - field.field.se_subscription.se_office_365.se_su_total

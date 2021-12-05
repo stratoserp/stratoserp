@@ -4,20 +4,21 @@ dependencies:
   config:
     - field.field.se_subscription.se_anti_virus.se_bu_ref
     - field.field.se_subscription.se_anti_virus.se_su_lines
+    - field.field.se_subscription.se_anti_virus.se_su_next_invoice_date
     - field.field.se_subscription.se_anti_virus.se_su_period
     - field.field.se_subscription.se_anti_virus.se_su_ref
     - field.field.se_subscription.se_anti_virus.se_su_total
     - se_subscription.se_subscription_type.se_anti_virus
   module:
+    - datetime
     - duration_field
     - field_layout
     - layout_discovery
     - se_accounting
     - se_item_line
-    - user
 third_party_settings:
   field_layout:
-    id: layout_onecol
+    id: layout_twocol
     settings:
       label: ''
 id: se_subscription.se_anti_virus.default
@@ -27,56 +28,59 @@ mode: default
 content:
   name:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: -4
-    region: content
+    weight: 0
+    region: top
   se_bu_ref:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
-    region: content
+    weight: 1
+    region: first
   se_su_lines:
     type: se_item_line_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 6
+    region: bottom
+  se_su_next_invoice_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
     weight: 5
-    region: content
+    region: second
   se_su_period:
     type: duration_human_display
-    label: above
+    label: inline
     settings:
       text_length: full
       separator: space
     third_party_settings: {  }
-    weight: 1
-    region: content
+    weight: 4
+    region: second
   se_su_ref:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
-    weight: 4
-    region: content
+    weight: 2
+    region: first
   se_su_total:
     type: se_currency_formatter
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 6
-    region: content
-  user_id:
-    type: author
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-hidden: {  }
+    weight: 7
+    region: bottom
+hidden:
+  user_id: true

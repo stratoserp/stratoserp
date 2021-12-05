@@ -46,6 +46,8 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Items to display
+   *
+   * @var array
    */
   protected array $items;
 

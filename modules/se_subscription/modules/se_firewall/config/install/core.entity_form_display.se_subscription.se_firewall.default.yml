@@ -5,11 +5,13 @@ dependencies:
     - field.field.se_subscription.se_firewall.se_bu_ref
     - field.field.se_subscription.se_firewall.se_su_lines
     - field.field.se_subscription.se_firewall.se_su_management_link
+    - field.field.se_subscription.se_firewall.se_su_next_invoice_date
     - field.field.se_subscription.se_firewall.se_su_period
     - field.field.se_subscription.se_firewall.se_su_ref
     - field.field.se_subscription.se_firewall.se_su_total
     - se_subscription.se_subscription_type.se_firewall
   module:
+    - datetime
     - duration_field
     - field_group
     - field_layout
@@ -30,7 +32,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -72,7 +74,7 @@ content:
     third_party_settings: {  }
   se_su_lines:
     type: se_item_line_widget
-    weight: 5
+    weight: 6
     region: bottom
     settings:
       match_operator: CONTAINS
@@ -87,6 +89,12 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  se_su_next_invoice_date:
+    type: datetime_default
+    weight: 5
+    region: second
+    settings: {  }
     third_party_settings: {  }
   se_su_period:
     type: duration_widget
@@ -106,7 +114,7 @@ content:
     third_party_settings: {  }
   se_su_total:
     type: se_currency_widget
-    weight: 6
+    weight: 7
     region: bottom
     settings: {  }
     third_party_settings: {  }

@@ -27,46 +27,4 @@ settings:
         field: _none
       auto_create: 0
       auto_create_bundle: ''
-  block_content:
-    handler: 'default:block_content'
-    handler_settings: {  }
-  file:
-    handler: 'default:file'
-    handler_settings: {  }
-  taxonomy_term:
-    handler: 'default:taxonomy_term'
-    handler_settings: {  }
-  user:
-    handler: 'default:user'
-    handler_settings: {  }
-  webform_submission:
-    handler: 'default:webform_submission'
-    handler_settings: {  }
-  menu_link_content:
-    handler: 'default:menu_link_content'
-    handler_settings: {  }
-  se_bill:
-    handler: 'default:se_bill'
-    handler_settings: {  }
-  se_business:
-    handler: 'default:se_business'
-    handler_settings: {  }
-  se_contact:
-    handler: 'default:se_contact'
-    handler_settings: {  }
-  se_goods_receipt:
-    handler: 'default:se_goods_receipt'
-    handler_settings: {  }
-  se_purchase_order:
-    handler: 'default:se_purchase_order'
-    handler_settings: {  }
-  path_alias:
-    handler: 'default:path_alias'
-    handler_settings: {  }
-  comment:
-    handler: 'default:comment'
-    handler_settings: {  }
-  node:
-    handler: 'default:node'
-    handler_settings: {  }
 field_type: se_item_line

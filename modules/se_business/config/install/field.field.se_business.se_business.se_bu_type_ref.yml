@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.se_business.se_bu_type_ref
     - taxonomy.vocabulary.se_business_type
+  content: {  }
   module:
     - se_business
 id: se_business.se_business.se_bu_type_ref
@@ -14,9 +15,7 @@ label: 'Business type'
 description: ''
 required: true
 translatable: false
-default_value:
-  -
-    target_id: 2c897d77-d268-4997-9424-a842152de02d
+default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
