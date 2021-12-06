@@ -6,6 +6,7 @@
 
 use Drupal\se_item\Entity\Item;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\se_business\Entity\Business;
 
 // Include the main include file for some functions.
 module_load_include('install', 'stratoserp');
@@ -38,7 +39,7 @@ function se_example_data_base_setup() {
     'Open',
   ];
 
-  $term = stratoserp_create_terms('se_status', $terms);
+  stratoserp_create_terms('se_status', $terms);
 }
 
 function se_example_data_business_setup() {
@@ -55,6 +56,29 @@ function se_example_data_business_setup() {
   $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_business.se_business.se_bu_type_ref');
   $field->setDefaultValue(['target_uuid' => $term->uuid()]);
   $field->save();
+
+  $customer_defaults = se_business_load_defaults($term);
+  $customer = Business::create($customer_defaults + [
+    'name' => 'Test customer 1',
+  ]);
+  $customer->save();
+
+  $customer = Business::create($customer_defaults + [
+    'name' => 'Test customer 2',
+  ]);
+  $customer->save();
+
+  $supplier_term = se_example_data_load_term_by_name('Supplier', 'se_business_type');
+  $supplier_defaults = se_business_load_defaults($supplier_term);
+  $supplier = Business::create($supplier_defaults + [
+    'name' => 'Test supplier 1',
+  ]);
+  $supplier->save();
+
+  $supplier = Business::create($supplier_defaults + [
+    'name' => 'Test supplier 2',
+  ]);
+  $supplier->save();
 }
 
 function se_example_data_contact_setup() {
@@ -392,7 +416,7 @@ function se_example_data_ticket_setup() {
  *
  * @return array
  */
-function se_item_load_defaults($category, $product_type, $manufacturer, $type) {
+function se_item_load_defaults($category, $product_type, $manufacturer, $type): array {
   $sale_category = se_example_data_load_term_by_name($category, 'se_sale_category');
   $product_type = se_example_data_load_term_by_name($product_type, 'se_product_type');
   $manufacturer = se_example_data_load_term_by_name($manufacturer, 'se_manufacturer');
@@ -408,6 +432,23 @@ function se_item_load_defaults($category, $product_type, $manufacturer, $type) {
   ];
 }
 
+/**
+ * Helper function for adding businesses.
+ *
+ * @param $term
+ *   Business type.
+ *
+ * @return array
+ */
+function se_business_load_defaults($term): array {
+  return [
+    'type' => 'se_business',
+    'langcode' => 'en',
+    'uid' => '1',
+    'status' => 1,
+    'se_bu_type_ref' => [['target_id' => $term->id()]],
+  ];
+}
 
 /**
  * Helper function for checking/adding taxonomy terms during setup.
