@@ -29,6 +29,8 @@ config_devel:
     - field.field.se_business.se_business.se_bu_email_format
     - field.field.se_business.se_business.se_bu_fax
     - field.field.se_business.se_business.se_bu_homepage
+    - field.field.se_business.se_business.se_bu_invoice_day_of_month
+    - field.field.se_business.se_business.se_bu_last_statement_date
     - field.field.se_business.se_business.se_bu_location
     - field.field.se_business.se_business.se_bu_mobile
     - field.field.se_business.se_business.se_bu_phone
@@ -40,6 +42,7 @@ config_devel:
     - field.field.se_business.se_business.se_bu_state
     - field.field.se_business.se_business.se_bu_status
     - field.field.se_business.se_business.se_bu_suburb
+    - field.field.se_business.se_business.se_bu_terms
     - field.field.se_business.se_business.se_bu_type_ref
     - field.storage.se_business.se_bu_address
     - field.storage.se_business.se_bu_balance
@@ -47,6 +50,8 @@ config_devel:
     - field.storage.se_business.se_bu_email_format
     - field.storage.se_business.se_bu_fax
     - field.storage.se_business.se_bu_homepage
+    - field.storage.se_business.se_bu_invoice_day_of_month
+    - field.storage.se_business.se_bu_last_statement_date
     - field.storage.se_business.se_bu_location
     - field.storage.se_business.se_bu_mobile
     - field.storage.se_business.se_bu_phone
@@ -58,6 +63,7 @@ config_devel:
     - field.storage.se_business.se_bu_state
     - field.storage.se_business.se_bu_status
     - field.storage.se_business.se_bu_suburb
+    - field.storage.se_business.se_bu_terms
     - field.storage.se_business.se_bu_type_ref
     - taxonomy.vocabulary.se_business_type
   optional:

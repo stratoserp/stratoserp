@@ -2,12 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - se_subscription
-id: se_subscription.se_su_use_company_invoice_date
-field_name: se_su_use_company_invoice_date
-entity_type: se_subscription
-type: boolean
-settings: {  }
+    - se_business
+id: se_business.se_bu_terms
+field_name: se_bu_terms
+entity_type: se_business
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

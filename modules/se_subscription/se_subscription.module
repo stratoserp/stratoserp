@@ -56,3 +56,22 @@ function se_subscription_theme_suggestions_se_subscription(array $variables) {
   $suggestions[] = 'se_subscription__' . $entity->id() . '__' . $sanitized_view_mode;
   return $suggestions;
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function se_subscription_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Make sure we only handle subscription forms.
+  $buildInfo = $form_state->getBuildInfo();
+  if (isset($buildInfo['base_form_id']) && $buildInfo['base_form_id'] === 'se_subscription_form') {
+
+    // Based on the 'use business invoice date' checkbox, show/hide the date.
+    $form['se_su_next_invoice_date']['#states'] = [
+      'invisible' => [
+        ':input[name="se_su_use_business_invoice_date[value]"]' => [
+          'checked' => TRUE
+        ],
+      ],
+    ];
+  }
+}

@@ -8,6 +8,8 @@ dependencies:
     - field.field.se_business.se_business.se_bu_email_format
     - field.field.se_business.se_business.se_bu_fax
     - field.field.se_business.se_business.se_bu_homepage
+    - field.field.se_business.se_business.se_bu_invoice_day_of_month
+    - field.field.se_business.se_business.se_bu_last_statement_date
     - field.field.se_business.se_business.se_bu_location
     - field.field.se_business.se_business.se_bu_mobile
     - field.field.se_business.se_business.se_bu_phone
@@ -19,6 +21,7 @@ dependencies:
     - field.field.se_business.se_business.se_bu_state
     - field.field.se_business.se_business.se_bu_status
     - field.field.se_business.se_business.se_bu_suburb
+    - field.field.se_business.se_business.se_bu_terms
     - field.field.se_business.se_business.se_bu_type_ref
   module:
     - field_group
@@ -37,17 +40,17 @@ third_party_settings:
       children:
         - user_id
         - revision_log_message
-      parent_name: ''
-      weight: 17
-      format_type: details
+      label: Extra
       region: bottom
+      parent_name: ''
+      weight: 18
+      format_type: details
       format_settings:
+        classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: Extra
 id: se_business.se_business.default
 targetEntityType: se_business
 bundle: se_business
@@ -64,10 +67,10 @@ content:
   revision_log_message:
     type: string_textarea
     weight: 20
+    region: bottom
     settings:
       rows: 4
       placeholder: ''
-    region: bottom
     third_party_settings: {  }
   se_bu_address:
     type: string_textfield
@@ -79,7 +82,7 @@ content:
     third_party_settings: {  }
   se_bu_email:
     type: email_default
-    weight: 9
+    weight: 10
     region: second
     settings:
       placeholder: ''
@@ -87,24 +90,31 @@ content:
     third_party_settings: {  }
   se_bu_email_format:
     type: options_select
-    weight: 10
+    weight: 11
     region: second
     settings: {  }
     third_party_settings: {  }
   se_bu_fax:
     type: telephone_default
-    weight: 11
+    weight: 12
     region: second
     settings:
       placeholder: ''
     third_party_settings: {  }
   se_bu_homepage:
     type: link_default
-    weight: 8
+    weight: 9
     region: second
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  se_bu_invoice_day_of_month:
+    type: number
+    weight: 8
+    region: first
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   se_bu_mobile:
     type: telephone_default
@@ -122,7 +132,7 @@ content:
     third_party_settings: {  }
   se_bu_postal_address:
     type: string_textfield
-    weight: 12
+    weight: 13
     region: second
     settings:
       size: 25
@@ -130,7 +140,7 @@ content:
     third_party_settings: {  }
   se_bu_postal_postcode:
     type: string_textfield
-    weight: 15
+    weight: 16
     region: second
     settings:
       size: 10
@@ -138,7 +148,7 @@ content:
     third_party_settings: {  }
   se_bu_postal_state:
     type: string_textfield
-    weight: 14
+    weight: 15
     region: second
     settings:
       size: 25
@@ -146,7 +156,7 @@ content:
     third_party_settings: {  }
   se_bu_postal_suburb:
     type: string_textfield
-    weight: 13
+    weight: 14
     region: second
     settings:
       size: 25
@@ -170,7 +180,7 @@ content:
     third_party_settings: {  }
   se_bu_status:
     type: options_select
-    weight: 16
+    weight: 17
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -182,22 +192,30 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
+  se_bu_terms:
+    type: number
+    weight: 21
+    region: first
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   se_bu_type_ref:
+    type: options_select
     weight: 1
+    region: first
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: first
   user_id:
     type: entity_reference_autocomplete
     weight: 19
+    region: bottom
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: bottom
     third_party_settings: {  }
 hidden:
   se_bu_balance: true
+  se_bu_last_statement_date: true
   se_bu_location: true

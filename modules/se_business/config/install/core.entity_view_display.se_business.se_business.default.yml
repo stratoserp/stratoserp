@@ -8,6 +8,8 @@ dependencies:
     - field.field.se_business.se_business.se_bu_email_format
     - field.field.se_business.se_business.se_bu_fax
     - field.field.se_business.se_business.se_bu_homepage
+    - field.field.se_business.se_business.se_bu_invoice_day_of_month
+    - field.field.se_business.se_business.se_bu_last_statement_date
     - field.field.se_business.se_business.se_bu_location
     - field.field.se_business.se_business.se_bu_mobile
     - field.field.se_business.se_business.se_bu_phone
@@ -19,9 +21,11 @@ dependencies:
     - field.field.se_business.se_business.se_bu_state
     - field.field.se_business.se_business.se_bu_status
     - field.field.se_business.se_business.se_bu_suburb
+    - field.field.se_business.se_business.se_bu_terms
     - field.field.se_business.se_business.se_bu_type_ref
     - filter.format.plain_text
   module:
+    - datetime
     - field_group
     - field_layout
     - geolocation
@@ -48,45 +52,45 @@ third_party_settings:
         - group_bu_tab_purchase_orders
         - group_bu_tab_goods_receipts
         - group_bu_bills
+      label: 'Business tabs'
       parent_name: ''
+      region: content
       weight: 2
       format_type: tabs
       format_settings:
-        id: ''
         classes: ''
-        direction: vertical
+        id: ''
         required_fields: false
-      label: 'Business tabs'
-      region: content
+        direction: vertical
     group_bu_tab_tickets:
       children:
         - se_ticket_eva_se_ticket_eva_form
         - se_ticket_eva_se_ticket_eva
         - extra_field_business_ticket_statistics
+      label: Tickets
       parent_name: group_bu_tabs
-      weight: 9
+      region: content
+      weight: 10
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: Tickets
-      region: content
     group_bu_tab_contacts:
       children:
         - se_contact_eva_se_contact_eva_form
         - se_contact_eva_se_contact_eva
+      label: Contacts
       parent_name: group_bu_tabs
-      weight: 7
+      region: content
+      weight: 8
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: Contacts
-      region: content
     group_bu_tab_details:
       children:
         - se_bu_address
@@ -105,149 +109,152 @@ third_party_settings:
         - se_bu_postal_postcode
         - se_bu_balance
         - se_bu_status
+        - se_bu_invoice_day_of_month
+        - se_bu_terms
+        - se_bu_last_statement_date
+      label: Details
       parent_name: group_bu_tabs
+      region: content
       weight: 5
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: Details
-      region: content
     group_bu_tab_location:
       children:
         - se_bu_location
+      label: Location
       parent_name: group_bu_tabs
+      region: content
       weight: 6
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: Location
-      region: content
     group_bu_tab_invoices:
       children:
         - se_invoice_eva_se_invoice_eva_form
         - se_invoice_eva_se_invoice_eva
         - extra_field_business_invoice_statistics
+      label: Invoices
       parent_name: group_bu_tabs
+      region: content
       weight: 13
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: Invoices
-      region: content
     group_bu_tab_purchase_orders:
       children:
         - se_purchase_order_eva_se_purchase_order_eva
         - extra_field_business_purchase_order_statistics
+      label: 'Purchase orders'
       parent_name: group_bu_tabs
+      region: content
       weight: 16
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: 'Purchase orders'
-      region: content
     group_bu_tab_quotes:
       children:
         - se_quote_eva_se_quote_eva
+      label: Quotes
       parent_name: group_bu_tabs
+      region: content
       weight: 12
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: Quotes
-      region: content
     group_bu_tab_payments:
       children:
         - se_payment_eva_se_payment_eva
+      label: Payments
       parent_name: group_bu_tabs
+      region: content
       weight: 14
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: Payments
-      region: content
     group_bu_tab_information:
       children:
         - se_document_eva_se_document_eva_form
         - se_document_eva_se_document_eva
+      label: Information
       parent_name: group_bu_tabs
-      weight: 8
+      region: content
+      weight: 9
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         formatter: closed
         description: ''
-      label: Information
-      region: content
     group_bu_tab_timekeeping:
       children:
         - se_timekeeping_eva_se_timekeeping_eva
-      parent_name: group_bu_tabs
-      weight: 10
       label: Timekeeping
+      parent_name: group_bu_tabs
+      region: content
+      weight: 11
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         formatter: closed
-      region: content
+        description: ''
     group_bu_tab_reports:
       children: {  }
+      label: Reports
       parent_name: group_bu_tabs
+      region: content
       weight: 15
       format_type: tab
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         formatter: closed
-      label: Reports
-      region: content
+        description: ''
     group_bu_bills:
       children:
         - se_bill_eva_se_bill_eva
+      label: Bills
       parent_name: group_bu_tabs
+      region: content
       weight: 18
       format_type: tab
-      region: content
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         formatter: closed
-      label: Bills
+        description: ''
     group_bu_tab_goods_receipts:
       children:
         - se_goods_receipt_eva_se_goods_receipt_eva
+      label: 'Goods receipts'
       parent_name: group_bu_tabs
+      region: content
       weight: 17
       format_type: tab
-      region: content
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         formatter: closed
-      label: 'Goods receipts'
+        description: ''
   field_layout:
     id: layout_onecol
     settings:
@@ -258,79 +265,77 @@ bundle: se_business
 mode: default
 content:
   extra_field_business_invoice_statistics:
-    weight: 11
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 11
+    region: content
   extra_field_business_purchase_order_statistics:
+    settings: {  }
+    third_party_settings: {  }
     weight: 6
     region: content
+  extra_field_business_ticket_statistics:
     settings: {  }
     third_party_settings: {  }
-  extra_field_business_ticket_statistics:
     weight: 11
     region: content
-    settings: {  }
-    third_party_settings: {  }
   name:
-    label: inline
     type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 0
     region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   re_report_eva_re_report_eva:
-    weight: 10
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 10
+    region: content
   se_bill_eva_se_bill_eva:
-    weight: 10
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 10
+    region: content
   se_bu_address:
-    weight: 1
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: content
   se_bu_balance:
     type: se_currency_formatter
-    weight: 16
-    region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
+    weight: 15
+    region: content
   se_bu_email:
     type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
     weight: 5
     region: content
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
   se_bu_email_format:
     type: list_default
-    weight: 6
-    region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
+    weight: 6
+    region: content
   se_bu_fax:
     type: telephone_link
-    weight: 11
-    region: content
     label: inline
     settings:
       title: ''
     third_party_settings: {  }
+    weight: 10
+    region: content
   se_bu_homepage:
     type: link
-    weight: 7
-    region: content
     label: inline
     settings:
       trim_length: 80
@@ -339,13 +344,35 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
+    weight: 7
+    region: content
+  se_bu_invoice_day_of_month:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  se_bu_last_statement_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 19
+    region: content
   se_bu_location:
     type: geolocation_map
-    weight: 6
-    region: content
     label: inline
     settings:
       set_marker: true
+      show_label: false
+      common_map: true
+      show_delta_label: false
+      use_overridden_map_settings: false
       title: ''
       info_text:
         value: ''
@@ -353,59 +380,53 @@ content:
       centre:
         fit_bounds:
           enable: true
-          settings:
-            min_zoom: null
-            reset_zoom: true
           weight: -101
+          settings:
+            reset_zoom: true
+            min_zoom: null
           map_center_id: fit_bounds
         client_location:
-          weight: 0
           enable: false
+          weight: 0
           map_center_id: client_location
         fixed_boundaries:
+          enable: false
+          weight: 0
           settings:
-            north: ''
-            east: ''
             south: ''
             west: ''
-          weight: 0
-          enable: false
+            north: ''
+            east: ''
           map_center_id: fixed_boundaries
         fixed_value:
+          enable: false
+          weight: 0
           settings:
+            location_option_id: fixed_value
             latitude: null
             longitude: null
-            location_option_id: fixed_value
-          weight: 0
-          enable: false
           map_center_id: location_plugins
         freeogeoip:
-          weight: 0
           enable: false
-          map_center_id: location_plugins
+          weight: 0
           settings:
             location_option_id: freeogeoip
+          map_center_id: location_plugins
         ipstack:
-          settings:
-            access_key: ''
-            location_option_id: ipstack
-          weight: 0
           enable: false
+          weight: 0
+          settings:
+            location_option_id: ipstack
+            access_key: ''
           map_center_id: location_plugins
       map_provider_id: google_maps
       map_provider_settings:
-        height: 400px
-        width: 100%
-        type: ROADMAP
-        zoom: 10
-        maxZoom: 20
-        minZoom: 0
-        gestureHandling: auto
         map_features:
           marker_infobubble:
             weight: 0
             settings:
               close_other: 1
+              close_button: 0
               close_button_src: ''
               shadow_style: 0
               padding: 10
@@ -420,7 +441,6 @@ content:
               arrow_style: 2
               arrow_position: 30
               arrow_size: 10
-              close_button: 0
             enabled: false
           control_streetview:
             weight: 0
@@ -429,12 +449,12 @@ content:
               behavior: default
             enabled: false
           control_zoom:
-            enabled: true
             weight: 0
             settings:
               position: RIGHT_CENTER
               behavior: default
               style: LARGE
+            enabled: true
           map_restriction:
             weight: 0
             settings:
@@ -454,11 +474,11 @@ content:
             settings:
               image_path: ''
               styles: ''
-              zoom_on_click: true
-              grid_size: 60
-              minimum_cluster_size: 2
               max_zoom: 15
+              minimum_cluster_size: 2
+              zoom_on_click: true
               average_center: false
+              grid_size: 60
             enabled: false
           marker_icon:
             weight: 0
@@ -481,13 +501,13 @@ content:
                 height: null
             enabled: false
           marker_infowindow:
-            enabled: true
             weight: 0
             settings:
               info_window_solitary: true
               disable_auto_pan: true
-              max_width: null
               info_auto_display: false
+              max_width: null
+            enabled: true
           control_recenter:
             weight: 0
             settings:
@@ -521,7 +541,9 @@ content:
             settings:
               spiderfiable_marker_path: /modules/contrib/geolocation/modules/geolocation_google_maps/images/marker-plus.svg
               markersWontMove: true
+              markersWontHide: false
               keepSpiderfied: true
+              ignoreMapClick: false
               nearbyDistance: 20
               circleSpiralSwitchover: 9
               circleFootSeparation: 23
@@ -529,8 +551,6 @@ content:
               spiralLengthStart: 11
               spiralLengthFactor: 4
               legWeight: 1.5
-              markersWontHide: false
-              ignoreMapClick: false
             enabled: false
           google_maps_layer_traffic:
             weight: 0
@@ -542,12 +562,12 @@ content:
               behavior: default
             enabled: false
           control_maptype:
-            enabled: true
             weight: 0
             settings:
               position: RIGHT_BOTTOM
               behavior: default
               style: DEFAULT
+            enabled: true
           context_popup:
             weight: 0
             settings:
@@ -565,10 +585,10 @@ content:
             weight: 0
             enabled: false
           control_locate:
-            enabled: true
             weight: 0
             settings:
               position: TOP_LEFT
+            enabled: true
           map_disable_poi:
             weight: 0
             enabled: false
@@ -578,14 +598,14 @@ content:
           drawing:
             weight: 0
             settings:
+              polyline: false
               strokeColor: '#FF0000'
               strokeOpacity: '0.8'
               strokeWeight: '2'
-              fillColor: '#FF0000'
-              fillOpacity: '0.35'
-              polyline: false
               geodesic: false
               polygon: false
+              fillColor: '#FF0000'
+              fillOpacity: '0.35'
             enabled: false
           control_fullscreen:
             weight: 0
@@ -604,10 +624,10 @@ content:
                 autocomplete_min_length: 1
                 component_restrictions:
                   route: ''
-                  locality: ''
-                  administrative_area: ''
-                  postal_code: ''
                   country: ''
+                  administrative_area: ''
+                  locality: ''
+                  postal_code: ''
                 boundary_restriction:
                   south: ''
                   west: ''
@@ -623,172 +643,187 @@ content:
           google_maps_layer_transit:
             weight: 0
             enabled: false
-      use_overridden_map_settings: false
-      common_map: true
-      show_delta_label: false
+        type: ROADMAP
+        zoom: 10
+        minZoom: 0
+        maxZoom: 20
+        height: 400px
+        width: 100%
+        gestureHandling: auto
       data_provider_settings: {  }
     third_party_settings: {  }
+    weight: 6
+    region: content
   se_bu_mobile:
     type: telephone_link
-    weight: 9
-    region: content
     label: inline
     settings:
       title: ''
     third_party_settings: {  }
+    weight: 8
+    region: content
   se_bu_phone:
     type: telephone_link
-    weight: 10
-    region: content
     label: inline
     settings:
       title: ''
     third_party_settings: {  }
+    weight: 9
+    region: content
   se_bu_postal_address:
     type: string
-    weight: 12
-    region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 11
+    region: content
   se_bu_postal_postcode:
     type: string
-    weight: 15
-    region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  se_bu_postal_state:
-    type: string
     weight: 14
     region: content
+  se_bu_postal_state:
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  se_bu_postal_suburb:
-    type: string
     weight: 13
     region: content
+  se_bu_postal_suburb:
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 12
+    region: content
   se_bu_postcode:
     type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 4
     region: content
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   se_bu_state:
     type: string
-    weight: 3
-    region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 3
+    region: content
   se_bu_status:
     type: list_default
-    weight: 17
-    region: content
     label: inline
     settings: {  }
     third_party_settings: {  }
+    weight: 16
+    region: content
   se_bu_suburb:
     type: string
-    weight: 2
-    region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 2
+    region: content
+  se_bu_terms:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 18
+    region: content
   se_bu_type_ref:
-    weight: 1
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 1
     region: content
   se_contact_eva_se_contact_eva:
+    settings: {  }
+    third_party_settings: {  }
     weight: 12
     region: content
+  se_contact_eva_se_contact_eva_form:
     settings: {  }
     third_party_settings: {  }
-  se_contact_eva_se_contact_eva_form:
     weight: 11
     region: content
+  se_document_eva_se_document_eva:
     settings: {  }
     third_party_settings: {  }
-  se_document_eva_se_document_eva:
     weight: 10
     region: content
+  se_document_eva_se_document_eva_form:
     settings: {  }
     third_party_settings: {  }
-  se_document_eva_se_document_eva_form:
     weight: 9
     region: content
+  se_goods_receipt_eva_se_goods_receipt_eva:
     settings: {  }
     third_party_settings: {  }
-  se_goods_receipt_eva_se_goods_receipt_eva:
     weight: 3
     region: content
-    settings: {  }
-    third_party_settings: {  }
   se_information_eva_se_information_eva:
-    weight: 10
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 10
+    region: content
   se_invoice_eva_se_invoice_eva:
-    weight: 10
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 10
+    region: content
   se_invoice_eva_se_invoice_eva_form:
+    settings: {  }
+    third_party_settings: {  }
     weight: 9
     region: content
+  se_payment_eva_se_payment_eva:
     settings: {  }
     third_party_settings: {  }
-  se_payment_eva_se_payment_eva:
     weight: 4
     region: content
+  se_purchase_order_eva_se_purchase_order_eva:
     settings: {  }
     third_party_settings: {  }
-  se_purchase_order_eva_se_purchase_order_eva:
     weight: 5
     region: content
-    settings: {  }
-    third_party_settings: {  }
   se_purchase_order_eva_se_purchase_order_eva_form:
-    weight: 9
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 9
+    region: content
   se_quote_eva_se_quote_eva:
-    weight: 10
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 10
+    region: content
   se_ticket_eva_se_ticket_eva:
-    weight: 10
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 10
+    region: content
   se_ticket_eva_se_ticket_eva_form:
+    settings: {  }
+    third_party_settings: {  }
     weight: 9
     region: content
+  se_timekeeping_eva_se_timekeeping_eva:
     settings: {  }
     third_party_settings: {  }
-  se_timekeeping_eva_se_timekeeping_eva:
     weight: 10
     region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   user_id: true

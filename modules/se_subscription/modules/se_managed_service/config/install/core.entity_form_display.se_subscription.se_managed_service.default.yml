@@ -9,7 +9,7 @@ dependencies:
     - field.field.se_subscription.se_managed_service.se_su_period
     - field.field.se_subscription.se_managed_service.se_su_ref
     - field.field.se_subscription.se_managed_service.se_su_total
-    - field.field.se_subscription.se_managed_service.se_su_use_company_invoice_date
+    - field.field.se_subscription.se_managed_service.se_su_use_business_invoice_date
     - se_subscription.se_subscription_type.se_managed_service
   module:
     - datetime
@@ -118,7 +118,7 @@ content:
     region: bottom
     settings: {  }
     third_party_settings: {  }
-  se_su_use_company_invoice_date:
+  se_su_use_business_invoice_date:
     type: boolean_checkbox
     weight: 4
     region: second

@@ -16,4 +16,4 @@ config_devel:
     - field.field.se_subscription.se_anti_virus.se_su_period
     - field.field.se_subscription.se_anti_virus.se_su_ref
     - field.field.se_subscription.se_anti_virus.se_su_total
-    - field.field.se_subscription.se_anti_virus.se_su_use_company_invoice_date
+    - field.field.se_subscription.se_anti_virus.se_su_use_business_invoice_date

@@ -19,4 +19,4 @@ config_devel:
     - field.field.se_subscription.se_domain_hosting.se_su_ref
     - field.field.se_subscription.se_domain_hosting.se_su_total
     - field.storage.se_subscription.se_dh_hosting_type
-    - field.field.se_subscription.se_domain_hosting.se_su_use_company_invoice_date
+    - field.field.se_subscription.se_domain_hosting.se_su_use_business_invoice_date

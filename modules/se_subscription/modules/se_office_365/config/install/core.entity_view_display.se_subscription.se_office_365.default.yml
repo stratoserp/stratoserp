@@ -8,7 +8,7 @@ dependencies:
     - field.field.se_subscription.se_office_365.se_su_period
     - field.field.se_subscription.se_office_365.se_su_ref
     - field.field.se_subscription.se_office_365.se_su_total
-    - field.field.se_subscription.se_office_365.se_su_use_company_invoice_date
+    - field.field.se_subscription.se_office_365.se_su_use_business_invoice_date
     - se_subscription.se_subscription_type.se_office_365
   module:
     - datetime
@@ -83,7 +83,7 @@ content:
     third_party_settings: {  }
     weight: 7
     region: bottom
-  se_su_use_company_invoice_date:
+  se_su_use_business_invoice_date:
     type: boolean
     label: above
     settings:
