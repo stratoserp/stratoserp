@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.se_su_use_business_invoice_date
-    - se_subscription.se_subscription_type.se_firewall
-id: se_subscription.se_firewall.se_su_use_business_invoice_date
-field_name: se_su_use_business_invoice_date
+    - field.storage.se_subscription.se_su_use_bu_due
+    - se_subscription.se_subscription_type.se_managed_service
+id: se_subscription.se_managed_service.se_su_use_bu_due
+field_name: se_su_use_bu_due
 entity_type: se_subscription
-bundle: se_firewall
+bundle: se_managed_service
 label: 'Use business invoice date'
 description: ''
-required: true
+required: false
 translatable: true
 default_value:
   -

@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.se_su_use_business_invoice_date
+    - field.storage.se_subscription.se_su_use_bu_due
     - se_subscription.se_subscription_type.se_anti_virus
-id: se_subscription.se_anti_virus.se_su_use_business_invoice_date
-field_name: se_su_use_business_invoice_date
+id: se_subscription.se_anti_virus.se_su_use_bu_due
+field_name: se_su_use_bu_due
 entity_type: se_subscription
 bundle: se_anti_virus
 label: 'Use business invoice date'
 description: ''
-required: true
+required: false
 translatable: false
 default_value:
   -

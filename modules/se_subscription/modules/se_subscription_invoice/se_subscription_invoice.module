@@ -1,0 +1,14 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Implement cron hook.
+ *
+ * Switch to hook_event_dispatcher?
+ */
+function se_subscription_invoice_cron() {
+  $subscriptionInvoice = \Drupal::service('se_subscription_invoice');
+  $subscriptionInvoice->processDateSubscriptions();
+  $subscriptionInvoice->processSubscriptions();
+}

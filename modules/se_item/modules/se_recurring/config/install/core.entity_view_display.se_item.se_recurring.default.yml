@@ -39,7 +39,7 @@ content:
     region: top
   se_it_active:
     type: boolean
-    label: above
+    label: inline
     settings:
       format: default
       format_custom_false: ''

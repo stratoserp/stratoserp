@@ -1,0 +1,19 @@
+uuid: 29dd812d-2db7-4ee1-a62a-d306d670b6fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_su_next_due
+    - se_subscription.se_subscription_type.se_anti_virus
+id: se_subscription.se_backup.se_su_next_due
+field_name: se_su_next_due
+entity_type: se_subscription
+bundle: se_backup
+label: 'Next invoice date'
+description: ''
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

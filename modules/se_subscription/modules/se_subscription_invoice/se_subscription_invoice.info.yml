@@ -1,10 +1,12 @@
-name: 'StratosERP - Subscription type - Phone system'
-description: 'Subscription entity type.'
+name: 'StratosERP - Subscription integration - invoice'
+description: 'Automatically create invoices from subscriptions.'
 type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - stratoserp:stratoserp
   - stratoserp:se_subscription
+  - stratoserp:se_invoice
 
 config_devel:
   install:
@@ -12,8 +14,6 @@ config_devel:
     - core.entity_view_display.se_subscription.se_phone_system.default
     - field.field.se_subscription.se_phone_system.se_bu_ref
     - field.field.se_subscription.se_phone_system.se_su_lines
-    - field.field.se_subscription.se_phone_system.se_su_next_due
     - field.field.se_subscription.se_phone_system.se_su_period
     - field.field.se_subscription.se_phone_system.se_su_ref
     - field.field.se_subscription.se_phone_system.se_su_total
-    - field.field.se_subscription.se_phone_system.se_su_use_bu_due
