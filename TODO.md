@@ -9,6 +9,7 @@
 - Add more types to front page search.
 - Audit & Fix up permissions.
 - Convert to use phpmoney class?
+- Lazy loader for reports - https://www.drupal.org/project/eva/issues/3193300 - might help.
 
 # Bugs
 
@@ -35,7 +36,7 @@
 ## Calendar
 - Make nice calendar view.
 
-## Goods receipts
+## Goods receipt
 - Auto create bill on entry.
 - Relate to purchase orders.
 

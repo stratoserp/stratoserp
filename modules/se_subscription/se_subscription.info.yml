@@ -29,4 +29,4 @@ config_devel:
     - se_subscription.se_subscription_type.se_office_365
     - se_subscription.se_subscription_type.se_phone_system
   optional:
-    - views.view.se_subscription_eva
+    - views.view.se_subscriptions_eva

@@ -51,7 +51,8 @@ third_party_settings:
         - group_bu_tab_reports
         - group_bu_tab_purchase_orders
         - group_bu_tab_goods_receipts
-        - group_bu_bills
+        - group_su_tab_subscriptions
+        - group_bu_tab_bills
       label: 'Business tabs'
       parent_name: ''
       region: content
@@ -70,7 +71,7 @@ third_party_settings:
       label: Tickets
       parent_name: group_bu_tabs
       region: content
-      weight: 10
+      weight: 9
       format_type: tab
       format_settings:
         classes: ''
@@ -84,7 +85,7 @@ third_party_settings:
       label: Contacts
       parent_name: group_bu_tabs
       region: content
-      weight: 8
+      weight: 7
       format_type: tab
       format_settings:
         classes: ''
@@ -143,7 +144,7 @@ third_party_settings:
       label: Invoices
       parent_name: group_bu_tabs
       region: content
-      weight: 13
+      weight: 12
       format_type: tab
       format_settings:
         classes: ''
@@ -157,7 +158,7 @@ third_party_settings:
       label: 'Purchase orders'
       parent_name: group_bu_tabs
       region: content
-      weight: 16
+      weight: 15
       format_type: tab
       format_settings:
         classes: ''
@@ -170,7 +171,7 @@ third_party_settings:
       label: Quotes
       parent_name: group_bu_tabs
       region: content
-      weight: 12
+      weight: 11
       format_type: tab
       format_settings:
         classes: ''
@@ -183,7 +184,7 @@ third_party_settings:
       label: Payments
       parent_name: group_bu_tabs
       region: content
-      weight: 14
+      weight: 13
       format_type: tab
       format_settings:
         classes: ''
@@ -197,7 +198,7 @@ third_party_settings:
       label: Information
       parent_name: group_bu_tabs
       region: content
-      weight: 9
+      weight: 8
       format_type: tab
       format_settings:
         classes: ''
@@ -210,7 +211,7 @@ third_party_settings:
       label: Timekeeping
       parent_name: group_bu_tabs
       region: content
-      weight: 11
+      weight: 10
       format_type: tab
       format_settings:
         classes: ''
@@ -222,14 +223,14 @@ third_party_settings:
       label: Reports
       parent_name: group_bu_tabs
       region: content
-      weight: 15
+      weight: 14
       format_type: tab
       format_settings:
         classes: ''
         id: ''
         formatter: closed
         description: ''
-    group_bu_bills:
+    group_bu_tab_bills:
       children:
         - se_bill_eva_se_bill_eva
       label: Bills
@@ -248,10 +249,24 @@ third_party_settings:
       label: 'Goods receipts'
       parent_name: group_bu_tabs
       region: content
+      weight: 16
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: ''
+    group_su_tab_subscriptions:
+      children:
+        - se_subscriptions_eva_se_subscriptions_eva
+      label: Subscriptions
+      parent_name: group_bu_tabs
+      region: content
       weight: 17
       format_type: tab
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
         formatter: closed
         description: ''
@@ -303,28 +318,28 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   se_bu_balance:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   se_bu_email:
     type: basic_string
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   se_bu_email_format:
     type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   se_bu_fax:
     type: telephone_link
@@ -332,7 +347,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   se_bu_homepage:
     type: link
@@ -344,7 +359,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   se_bu_invoice_day_of_month:
     type: number_integer
@@ -353,7 +368,7 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 17
+    weight: 18
     region: content
   se_bu_last_statement_date:
     type: datetime_default
@@ -362,7 +377,7 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 19
+    weight: 20
     region: content
   se_bu_location:
     type: geolocation_map
@@ -660,7 +675,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   se_bu_phone:
     type: telephone_link
@@ -668,7 +683,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   se_bu_postal_address:
     type: string
@@ -676,7 +691,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   se_bu_postal_postcode:
     type: string
@@ -684,7 +699,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 15
     region: content
   se_bu_postal_state:
     type: string
@@ -692,7 +707,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 13
+    weight: 14
     region: content
   se_bu_postal_suburb:
     type: string
@@ -700,7 +715,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: content
   se_bu_postcode:
     type: string
@@ -708,7 +723,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   se_bu_state:
     type: string
@@ -716,14 +731,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   se_bu_status:
     type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   se_bu_suburb:
     type: string
@@ -731,7 +746,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   se_bu_terms:
     type: number_integer
@@ -740,7 +755,7 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 18
+    weight: 19
     region: content
   se_bu_type_ref:
     type: entity_reference_label
@@ -806,6 +821,11 @@ content:
     weight: 9
     region: content
   se_quote_eva_se_quote_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  se_subscriptions_eva_se_subscriptions_eva:
     settings: {  }
     third_party_settings: {  }
     weight: 10

@@ -1,17 +1,11 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - field.storage.se_subscription.se_su_next_date
-    - user.role.owner
-    - user.role.staff
   module:
-    - datetime
     - eva
     - se_subscription
-    - user
-id: se_subscription_eva
-label: 'Subscription EVA'
+id: se_subscriptions_eva
+label: 'Subscriptions EVA'
 module: views
 description: ''
 tag: ''
@@ -24,7 +18,6 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Subscription EVA'
       fields:
         created:
           id: created
@@ -158,147 +151,16 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        type:
-          id: type
-          table: se_subscription_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: se_subscription
-          entity_field: type
-          plugin_id: field
-          label: 'Subscription type'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        se_su_next_date:
-          id: se_su_next_date
-          table: se_subscription__se_su_next_date
-          field: se_su_next_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Next invoice date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_default
-          settings:
-            timezone_override: ''
-            format_type: se_iso_like_format
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
       pager:
-        type: full
+        type: mini
         options:
           offset: 0
           items_per_page: 10
           total_pages: null
           id: 0
           tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
+            next: ››
+            previous: ‹‹
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -307,7 +169,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 9
       exposed_form:
         type: basic
         options:
@@ -319,11 +180,8 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: role
-        options:
-          role:
-            owner: owner
-            staff: staff
+        type: none
+        options: {  }
       cache:
         type: tag
         options: {  }
@@ -338,7 +196,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No subscription'
+            value: 'No subscriptions'
             format: basic_html
           tokenize: false
       sorts: {  }
@@ -377,54 +235,7 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-      filters:
-        type:
-          id: type
-          table: se_subscription_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: se_subscription
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: type_op
-            label: 'Subscription type'
-            description: ''
-            use_operator: false
-            operator: type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              owner: '0'
-              staff: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+      filters: {  }
       style:
         type: table
         options:
@@ -432,19 +243,10 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            created: created
             name: name
-            type: type
-            se_su_next_date: se_su_next_date
+            created: created
           default: created
           info:
-            created:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             name:
               sortable: true
               default_sort_order: asc
@@ -452,16 +254,9 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            type:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-medium
-            se_su_next_date:
-              sortable: false
-              default_sort_order: asc
+            created:
+              sortable: true
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -474,6 +269,11 @@ display:
           description: ''
       row:
         type: fields
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
       query:
         type: views_query
         options:
@@ -483,7 +283,6 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -494,20 +293,19 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
-      tags:
-        - 'config:field.storage.se_subscription.se_su_next_date'
-  entity_view_1:
-    id: entity_view_1
-    display_title: 'Subscription EVA'
+      tags: {  }
+  se_subscriptions_eva:
+    id: se_subscriptions_eva
+    display_title: EVA
     display_plugin: entity_view
-    position: 2
+    position: 1
     display_options:
-      display_description: ''
       display_extenders: {  }
       entity_type: se_business
       bundles:
         - se_business
+      argument_mode: id
+      default_argument: null
     cache_metadata:
       max-age: -1
       contexts:
@@ -515,6 +313,4 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
-      tags:
-        - 'config:field.storage.se_subscription.se_su_next_date'
+      tags: {  }

@@ -11,7 +11,7 @@ bundle: se_domain_hosting
 label: Business
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

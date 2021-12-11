@@ -458,9 +458,9 @@ display:
         - user.roles
       tags: {  }
   se_document_eva:
-    display_plugin: entity_view
     id: se_document_eva
     display_title: 'Documents EVA'
+    display_plugin: entity_view
     position: 2
     display_options:
       display_extenders: {  }
