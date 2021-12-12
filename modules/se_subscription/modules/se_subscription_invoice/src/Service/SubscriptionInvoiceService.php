@@ -40,35 +40,17 @@ class SubscriptionInvoiceService {
     // Load subscriptions to create line items
     foreach ($query->execute() as $businessId) {
       $business = Business::load($businessId);
-      $subscriptions = $this->processBusinessSubscriptions($businessId);
+      $items = $this->subscriptionsToItems($businessId);
 
-      if (count($subscriptions)) {
-        $invoices[] = $this->subscriptionsToInvoice($business, $subscriptions);
+      if (count($items)) {
+        if ($invoice = $this->subscriptionsToInvoice($business, $items)) {
+          $invoices[] = $invoice;
+          $this->updateDueDate($items);
+        }
       }
     }
 
     return $invoices;
-  }
-
-  /**
-   * Process subscriptions for a specific business.
-   *
-   * @param $businessId
-   *
-   * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  private function processBusinessSubscriptions($businessId): array {
-    // Build a query for subscriptions due for this business.
-    $query = $this->entityTypeManager
-      ->getStorage('se_subscription')
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('se_su_next_due', date('U'), '<=')
-      ->condition('se_bu_ref', $businessId);
-
-    return $this->subscriptionsToInvoiceLines($query->execute());
   }
 
   /**
@@ -93,13 +75,56 @@ class SubscriptionInvoiceService {
     // Load subscriptions to create line items
     foreach ($query->execute() as $businessId) {
       $business = Business::load($businessId);
-      $subscriptions = $this->processBusinessSubscriptions($businessId);
-      if (count($subscriptions)) {
-        $invoices[] = $this->subscriptionsToInvoice($business, $subscriptions);
+      $items = $this->subscriptionsToItems($businessId);
+      if (count($items)) {
+        if ($invoice = $this->subscriptionsToInvoice($business, $items)) {
+          $invoices[] = $invoice;
+          $this->updateDueDate($items);
+        }
       }
     }
 
     return $invoices;
+  }
+
+  /**
+   * Update the next due date for a subscription.
+   * .
+   *
+   * @param array $items
+   *   The list of successful subscriptions to update.
+   *
+   * @return void
+   */
+  private function updateDueDate($items) {
+    foreach ($items as $item) {
+      $sub = Subscription::load($item['subscription_id']);
+      $seconds = \Drupal::service('duration_field.service')->getSecondsFromDurationString($sub->se_su_period->duration);
+      // Do we need to worry about drift?
+      $sub->se_su_next_due->value += $seconds;
+      $sub->save();
+    }
+  }
+
+  /**
+   * Process subscriptions for a specific business.
+   *
+   * @param $businessId
+   *
+   * @return array
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  private function subscriptionsToItems($businessId): array {
+    // Build a query for subscriptions due for this business.
+    $query = $this->entityTypeManager
+      ->getStorage('se_subscription')
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('se_su_next_due', date('U'), '<=')
+      ->condition('se_bu_ref', $businessId);
+
+    return $this->subscriptionsToInvoiceLines($query->execute());
   }
 
   /**
@@ -143,7 +168,7 @@ class SubscriptionInvoiceService {
   private function subscriptionsToInvoiceLines($subscriptions): array {
     $lines = [];
 
-    foreach ($subscriptions as $index => $sub) {
+    foreach ($subscriptions as $sub) {
       if (!$subscription = Subscription::load($sub)) {
         $this->loggerChannel->critical('Unable to load subscription %s', ['%s' => print_r($sub, TRUE)]);
         return [];
@@ -157,6 +182,7 @@ class SubscriptionInvoiceService {
         'target_id' => $line->target_id,
         'quantity' => $line->quantity,
         'price' => $line->price,
+        'subscription_id' => $subscription->id(),
       ];
     }
 
