@@ -40,9 +40,18 @@ final class ErpCore {
   ];
 
   public const SE_ENTITY_TYPES = [
-    'se_bill', 'se_business', 'se_contact', 'se_goods_receipt',
-    'se_information', 'se_invoice', 'se_item', 'se_payment', 'se_purchase_order', 'se_quote',
-    'se_ticket', 'se_timekeeping',
+    'se_bill',
+    'se_business',
+    'se_contact',
+    'se_goods_receipt',
+    'se_information',
+    'se_invoice',
+    'se_item',
+    'se_payment',
+    'se_purchase_order',
+    'se_quote',
+    'se_ticket',
+    'se_timekeeping',
   ];
 
   public const SE_ITEM_BUNDLES = [

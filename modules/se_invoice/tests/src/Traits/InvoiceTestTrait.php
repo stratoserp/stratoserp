@@ -32,14 +32,14 @@ trait InvoiceTestTrait {
     $this->faker = Factory::create();
 
     $this->invoiceName          = $this->faker->text(45);
-    $this->invoicePhoneNumber   = $this->faker->phoneNumber;
-    $this->invoiceMobileNumber  = $this->faker->phoneNumber;
-    $this->invoiceStreetAddress = $this->faker->streetAddress;
-    $this->invoiceSuburb        = $this->faker->city;
-    $this->invoiceState         = $this->faker->stateAbbr;
-    $this->invoicePostcode      = $this->faker->postcode;
-    $this->invoiceUrl           = $this->faker->url;
-    $this->invoiceCompanyEmail  = $this->faker->companyEmail;
+    $this->invoicePhoneNumber   = $this->faker->phoneNumber();
+    $this->invoiceMobileNumber  = $this->faker->phoneNumber();
+    $this->invoiceStreetAddress = $this->faker->streetAddress();
+    $this->invoiceSuburb        = $this->faker->city();
+    $this->invoiceState         = $this->faker->stateAbbr();
+    $this->invoicePostcode      = $this->faker->postcode();
+    $this->invoiceUrl           = $this->faker->url();
+    $this->invoiceCompanyEmail  = $this->faker->companyEmail();
   }
 
   /**

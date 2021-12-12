@@ -18,7 +18,7 @@ class BusinessCrudTest extends BusinessTestBase {
    */
   public function testBusinessAdd(): void {
     $this->drupalLogin($this->customer);
-    $this->addBusiness(FALSE);
+    $this->addBusiness('Customer', FALSE);
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);

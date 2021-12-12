@@ -32,14 +32,14 @@ trait QuoteTestTrait {
     $this->faker = Factory::create();
 
     $this->quoteName          = $this->faker->text(45);
-    $this->quotePhoneNumber   = $this->faker->phoneNumber;
-    $this->quoteMobileNumber  = $this->faker->phoneNumber;
-    $this->quoteStreetAddress = $this->faker->streetAddress;
-    $this->quoteSuburb        = $this->faker->city;
-    $this->quoteState         = $this->faker->stateAbbr;
-    $this->quotePostcode      = $this->faker->postcode;
-    $this->quoteUrl           = $this->faker->url;
-    $this->quoteCompanyEmail  = $this->faker->companyEmail;
+    $this->quotePhoneNumber   = $this->faker->phoneNumber();
+    $this->quoteMobileNumber  = $this->faker->phoneNumber();
+    $this->quoteStreetAddress = $this->faker->streetAddress();
+    $this->quoteSuburb        = $this->faker->city();
+    $this->quoteState         = $this->faker->stateAbbr();
+    $this->quotePostcode      = $this->faker->postcode();
+    $this->quoteUrl           = $this->faker->url();
+    $this->quoteCompanyEmail  = $this->faker->companyEmail();
   }
 
   /**

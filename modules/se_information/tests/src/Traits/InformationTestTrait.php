@@ -11,7 +11,7 @@ use Faker\Factory;
  */
 trait InformationTestTrait {
 
-  use InformationCreationTrait {
+  use InformationCreationTestTrait {
     createInformation as stratosCreateInformation;
     createInformationContent as stratosCreateInformationContent;
   }

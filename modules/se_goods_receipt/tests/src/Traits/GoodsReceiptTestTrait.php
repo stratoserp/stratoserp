@@ -31,14 +31,14 @@ trait GoodsReceiptTestTrait {
     $this->faker = Factory::create();
 
     $this->goodsReceiptName          = $this->faker->text;
-    $this->goodsReceiptPhoneNumber   = $this->faker->phoneNumber;
-    $this->goodsReceiptMobileNumber  = $this->faker->phoneNumber;
-    $this->goodsReceiptStreetAddress = $this->faker->streetAddress;
-    $this->goodsReceiptSuburb        = $this->faker->city;
-    $this->goodsReceiptState         = $this->faker->stateAbbr;
-    $this->goodsReceiptPostcode      = $this->faker->postcode;
-    $this->goodsReceiptUrl           = $this->faker->url;
-    $this->goodsReceiptCompanyEmail  = $this->faker->companyEmail;
+    $this->goodsReceiptPhoneNumber   = $this->faker->phoneNumber();
+    $this->goodsReceiptMobileNumber  = $this->faker->phoneNumber();
+    $this->goodsReceiptStreetAddress = $this->faker->streetAddress();
+    $this->goodsReceiptSuburb        = $this->faker->city();
+    $this->goodsReceiptState         = $this->faker->stateAbbr();
+    $this->goodsReceiptPostcode      = $this->faker->postcode();
+    $this->goodsReceiptUrl           = $this->faker->url();
+    $this->goodsReceiptCompanyEmail  = $this->faker->companyEmail();
   }
 
   /**

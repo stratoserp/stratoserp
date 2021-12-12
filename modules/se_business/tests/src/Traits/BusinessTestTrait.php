@@ -14,15 +14,15 @@ use Faker\Factory;
  */
 trait BusinessTestTrait {
 
-  protected $businessName;
-  protected $businessPhoneNumber;
-  protected $businessMobileNumber;
-  protected $businessStreetAddress;
-  protected $businessSuburb;
-  protected $businessState;
-  protected $businessPostcode;
-  protected $businessUrl;
-  protected $businessCompanyEmail;
+  protected string $businessName;
+  protected string $businessPhoneNumber;
+  protected string $businessMobileNumber;
+  protected string $businessStreetAddress;
+  protected string $businessSuburb;
+  protected string $businessState;
+  protected string $businessPostcode;
+  protected string $businessUrl;
+  protected string $businessCompanyEmail;
 
   /**
    * Setup basic faker fields for this test trait.
@@ -31,40 +31,49 @@ trait BusinessTestTrait {
     $this->faker = Factory::create();
 
     $this->businessName = $this->faker->realText(50);
-    $this->businessPhoneNumber = $this->faker->phoneNumber;
-    $this->businessMobileNumber = $this->faker->phoneNumber;
-    $this->businessStreetAddress = $this->faker->streetAddress;
-    $this->businessSuburb = $this->faker->city;
-    $this->businessState = $this->faker->stateAbbr;
-    $this->businessPostcode = $this->faker->postcode;
-    $this->businessUrl = $this->faker->url;
-    $this->businessCompanyEmail = $this->faker->companyEmail;
+    $this->businessPhoneNumber = $this->faker->phoneNumber();
+    $this->businessMobileNumber = $this->faker->phoneNumber();
+    $this->businessStreetAddress = $this->faker->streetAddress();
+    $this->businessSuburb = $this->faker->city();
+    $this->businessState = $this->faker->stateAbbr();
+    $this->businessPostcode = $this->faker->postcode();
+    $this->businessUrl = $this->faker->url();
+    $this->businessCompanyEmail = $this->faker->companyEmail();
   }
 
   /**
    * Add a Business entity.
    *
-   * @todo Provide default Business types and test Customer & Supplier.
-   *
+   * @param string $type
+   *   The taxonomy type of the business to lookup/create.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
    * @return \Drupal\se_business\Entity\Business|null
    *   The created business if successful.
    *
-   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
+   * @todo Provide default Business types and test Customer & Supplier.
+   *
    */
-  public function addBusiness(bool $allowed = TRUE): ?Business {
+  public function addBusiness(string $type = 'Customer', bool $allowed = TRUE): ?Business {
     if (!isset($this->businessName)) {
       $this->businessFakerSetup();
     }
+
+    if (!$terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $type, 'vid' => 'se_business_type'])) {
+      return NULL;
+    }
+    $term = reset($terms);
 
     /** @var \Drupal\se_business\Entity\Business $business */
     $business = $this->createBusiness([
       'type' => 'se_business',
       'name' => $this->businessName,
+      'se_bu_type_ref' => [['target_id' => $term->id()]],
     ]);
     self::assertNotEquals($business, FALSE);
     $this->drupalGet($business->toUrl());

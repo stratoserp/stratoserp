@@ -14,11 +14,11 @@ use Drupal\Core\Entity\EntityInterface;
  */
 trait ItemTestTrait {
 
-  protected $itemName;
-  protected $itemCode;
-  protected $itemSerial;
-  protected $itemCostPrice;
-  protected $itemSellPrice;
+  protected string $itemName;
+  protected string $itemCode;
+  protected string $itemSerial;
+  protected int $itemCostPrice;
+  protected float $itemSellPrice;
 
   /**
    * Setup basic faker fields for this test trait.
@@ -41,9 +41,13 @@ trait ItemTestTrait {
    * @return \Drupal\se_item\Entity\Item
    *   The Item Content.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityStorageException|\Drupal\Core\Entity\EntityMalformedException
    */
   public function addStockItem(): Item {
+    if (!isset($this->itemName)) {
+      $this->itemFakerSetup();
+    }
+
     $item = $this->createItem([
       'type' => 'se_stock',
       'name' => $this->itemName,
@@ -72,9 +76,13 @@ trait ItemTestTrait {
    * @return \Drupal\se_item\Entity\Item
    *   The Item Content.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityStorageException|\Drupal\Core\Entity\EntityMalformedException
    */
   public function addServiceItem(): Item {
+    if (!isset($this->itemName)) {
+      $this->itemFakerSetup();
+    }
+
     $item = $this->createItem([
       'type' => 'se_service',
       'name' => $this->itemName,
@@ -91,7 +99,38 @@ trait ItemTestTrait {
   }
 
   /**
-   * Add an item entity.
+   * Add a recurring item entity.
+   *
+   * @return \Drupal\se_item\Entity\Item
+   *   The Item Content.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException|\Drupal\Core\Entity\EntityMalformedException
+   */
+  public function addRecurringItem($period = 'P1M'): Item {
+    if (!isset($this->itemName)) {
+      $this->itemFakerSetup();
+    }
+
+    $item = $this->createItem([
+      'type' => 'se_recurring',
+      'name' => $this->itemName,
+      'se_it_code' => $this->itemCode,
+      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
+      'se_it_recurring_period' => $period,
+    ]);
+
+    self::assertNotEquals($item, FALSE);
+
+    $this->checkGeneralItemAttributes($item);
+
+    return $item;
+  }
+
+  /**
+   * Add an Assembly item entity.
+   *
+   * @todo This is not remotely complete.
    *
    * @return \Drupal\se_item\Entity\Item
    *   The Item Content.
@@ -99,6 +138,10 @@ trait ItemTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addAssemblyItem(): Item {
+    if (!isset($this->itemName)) {
+      $this->itemFakerSetup();
+    }
+
     $item = $this->createItem([
       'type' => 'se_assembly',
       'name' => $this->itemName,

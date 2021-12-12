@@ -10,7 +10,7 @@ use Faker\Factory;
 /**
  * Provides functions for creating users during functional tests.
  */
-trait UserCreateTrait {
+trait UserCreateTestTrait {
 
   /**
    * Storage for the faker data for a user.

@@ -10,7 +10,7 @@ use Drupal\user\Entity\User;
 /**
  *
  */
-trait InformationCreationTrait {
+trait InformationCreationTestTrait {
 
   /**
    *

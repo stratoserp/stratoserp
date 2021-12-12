@@ -11,7 +11,7 @@ use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Url;
 use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\se_testing\Traits\UserCreateTrait;
+use Drupal\Tests\se_testing\Traits\UserCreateTestTrait;
 use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\Tests\UiHelperTrait;
 use Drupal\user\Entity\User;
@@ -41,7 +41,7 @@ class FunctionalTestBase extends TestCase {
   use AssertLegacyTrait;
 
   // Include various StratosERP traits.
-  use UserCreateTrait;
+  use UserCreateTestTrait;
 
   /**
    * The database prefix of this test run.
@@ -49,13 +49,6 @@ class FunctionalTestBase extends TestCase {
    * @var string
    */
   protected $databasePrefix;
-
-  /**
-   * Storage for faker factory.
-   *
-   * @var \Faker\Factory
-   */
-  protected $fakerFactory;
 
   /**
    * Storage for faker.

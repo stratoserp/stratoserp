@@ -32,15 +32,15 @@ trait ContactTestTrait {
     $this->faker = Factory::create();
 
     $this->contactName          = $this->faker->realText(50);
-    $this->contactPhoneNumber   = $this->faker->phoneNumber;
-    $this->contactMobileNumber  = $this->faker->phoneNumber;
-    $this->contactStreetAddress = $this->faker->streetAddress;
-    $this->contactSuburb        = $this->faker->city;
-    $this->contactState         = $this->faker->stateAbbr;
-    $this->contactPostcode      = $this->faker->postcode;
-    $this->contactUrl           = $this->faker->url;
+    $this->contactPhoneNumber   = $this->faker->phoneNumber();
+    $this->contactMobileNumber  = $this->faker->phoneNumber();
+    $this->contactStreetAddress = $this->faker->streetAddress();
+    $this->contactSuburb        = $this->faker->city();
+    $this->contactState         = $this->faker->stateAbbr();
+    $this->contactPostcode      = $this->faker->postcode();
+    $this->contactUrl           = $this->faker->url();
     $this->contactEmail         = $this->faker->email;
-    $this->contactCompanyEmail  = $this->faker->companyEmail;
+    $this->contactCompanyEmail  = $this->faker->companyEmail();
   }
 
   /**
