@@ -4,7 +4,7 @@ dependencies:
   module:
     - eva
     - se_subscription
-id: se_subscriptions_eva
+id: se_subscription_eva
 label: 'Subscriptions EVA'
 module: views
 description: ''
@@ -294,8 +294,8 @@ display:
         - url
         - url.query_args
       tags: {  }
-  se_subscriptions_eva:
-    id: se_subscriptions_eva
+  se_subscription_eva:
+    id: se_subscription_eva
     display_title: EVA
     display_plugin: entity_view
     position: 1

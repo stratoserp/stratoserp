@@ -14,11 +14,11 @@ config_devel:
     - field.storage.se_subscription.se_bu_ref
     - field.storage.se_subscription.se_su_lines
     - field.storage.se_subscription.se_su_management_link
-    - field.storage.se_subscription.se_su_next_date
+    - field.storage.se_subscription.se_su_next_due
     - field.storage.se_subscription.se_su_period
     - field.storage.se_subscription.se_su_ref
     - field.storage.se_subscription.se_su_total
-    - field.storage.se_subscription.se_su_use_business_date
+    - field.storage.se_subscription.se_su_use_bu_due
     - se_subscription.se_subscription_type.se_anti_virus
     - se_subscription.se_subscription_type.se_backup
     - se_subscription.se_subscription_type.se_domain_hosting
@@ -29,4 +29,5 @@ config_devel:
     - se_subscription.se_subscription_type.se_office_365
     - se_subscription.se_subscription_type.se_phone_system
   optional:
-    - views.view.se_subscriptions_eva
+    - views.view.se_subscription_eva
+    - views.view.se_subscription_list
