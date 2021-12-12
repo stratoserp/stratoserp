@@ -9,7 +9,6 @@ dependencies:
     - field.storage.comment.se_tk_date
     - field.storage.comment.se_tk_review
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.owner
     - user.role.staff
   module:

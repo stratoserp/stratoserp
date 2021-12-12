@@ -6,7 +6,6 @@ dependencies:
     - field.storage.se_contact.se_co_mobile
     - field.storage.se_contact.se_co_phone
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.owner
     - user.role.staff
   module:

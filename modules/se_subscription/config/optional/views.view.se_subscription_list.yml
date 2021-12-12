@@ -5,7 +5,6 @@ dependencies:
     - field.storage.se_subscription.se_su_next_due
     - field.storage.se_subscription.se_su_period
     - system.menu.stratos-erp
-    - user.role.administrator
     - user.role.owner
     - user.role.staff
   module:

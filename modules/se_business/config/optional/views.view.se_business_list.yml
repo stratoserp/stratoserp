@@ -9,7 +9,6 @@ dependencies:
     - field.storage.se_business.se_bu_phone
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_business_type
-    - user.role.administrator
     - user.role.owner
     - user.role.staff
   module:
