@@ -6,6 +6,7 @@ dependencies:
     - field.storage.se_invoice.se_status_ref
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_status
+    - user.role.administrator
     - user.role.owner
     - user.role.staff
   module:
@@ -388,13 +389,26 @@ display:
         type: role
         options:
           role:
+            administrator: administrator
             owner: owner
             staff: staff
-            developer: developer
       cache:
         type: tag
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'No invoices'
+            format: basic_html
+          tokenize: false
       sorts: {  }
       arguments: {  }
       filters:

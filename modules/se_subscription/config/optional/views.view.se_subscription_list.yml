@@ -5,6 +5,7 @@ dependencies:
     - field.storage.se_subscription.se_su_next_due
     - field.storage.se_subscription.se_su_period
     - system.menu.stratos-erp
+    - user.role.administrator
     - user.role.owner
     - user.role.staff
   module:
@@ -386,12 +387,26 @@ display:
         type: role
         options:
           role:
+            administrator: administrator
             owner: owner
             staff: staff
       cache:
         type: tag
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'No subscriptions'
+            format: basic_html
+          tokenize: false
       sorts: {  }
       arguments: {  }
       filters:
