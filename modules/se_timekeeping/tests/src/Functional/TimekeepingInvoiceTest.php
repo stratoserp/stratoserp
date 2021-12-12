@@ -33,6 +33,7 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
     $invoice->title = \Drupal::service('se.form_alter')->generateTitle();
     $invoice->set('se_bu_ref', $testBusiness);
     $invoice->save();
+    $this->markEntityForCleanup($invoice);
 
     $this->drupalGet($invoice->toUrl());
     $this->assertSession()->statusCodeEquals(200);

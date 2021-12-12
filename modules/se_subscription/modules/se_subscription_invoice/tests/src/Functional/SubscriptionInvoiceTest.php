@@ -33,6 +33,7 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
       'se_su_period' => [['duration' => 'P1Y']]
     ]);
     $subscription->save();
+    $this->markEntityForCleanup($subscription);
     $id = $subscription->id();
     $oldCount = \Drupal::entityTypeManager()->getStorage('se_invoice')->loadByProperties([]);
 

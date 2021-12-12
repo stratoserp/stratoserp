@@ -53,6 +53,7 @@ class QuoteCrudTest extends QuoteTestBase {
     // Now create an invoice from the Timekeeping entries.
     $invoice = \Drupal::classResolver(InvoiceController::class)->createInvoiceFromQuote($quote);
     $invoice->save();
+    $this->markEntityForCleanup($invoice);
 
     $this->drupalLogout();
   }
@@ -69,6 +70,7 @@ class QuoteCrudTest extends QuoteTestBase {
     // Now create an invoice from the Timekeeping entries.
     $invoice = \Drupal::classResolver(PurchaseOrderController::class)->createPurchaseOrderFromQuote($quote);
     $invoice->save();
+    $this->markEntityForCleanup($invoice);
 
     $this->drupalLogout();
   }

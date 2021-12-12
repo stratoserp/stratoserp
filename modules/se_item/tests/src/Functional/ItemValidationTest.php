@@ -48,6 +48,7 @@ class ItemValidationTest extends ItemTestBase {
     $violations = $item->validate();
     self::assertEquals(0, $violations->count());
     $item->save();
+    $this->markEntityForCleanup($item);
 
     // Now this should create a duplicate violation.
     $newItem = $this->createItemContent([

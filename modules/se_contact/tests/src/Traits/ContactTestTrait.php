@@ -111,6 +111,7 @@ trait ContactTestTrait {
     if ($termId) {
       $contact->se_co_type_ref = $termId;
       $contact->save();
+      $this->markEntityForCleanup($contact);
     }
 
     return $contact;
@@ -131,6 +132,7 @@ trait ContactTestTrait {
     $contact = $this->createContactContent($settings);
 
     $contact->save();
+    $this->markEntityForCleanup($contact);
 
     return $contact;
   }

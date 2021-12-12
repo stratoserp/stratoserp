@@ -59,6 +59,8 @@ trait TimekeepingTestTrait {
       'status' => CommentInterface::PUBLISHED,
     ]);
     $comment->save();
+    $this->markEntityForCleanup($comment);
+
     self::assertNotEquals($comment, FALSE);
 
     $this->drupalGet($comment->toUrl());

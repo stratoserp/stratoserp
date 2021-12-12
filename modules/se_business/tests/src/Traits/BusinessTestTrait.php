@@ -134,6 +134,7 @@ trait BusinessTestTrait {
     $business = $this->createBusinessContent($settings);
 
     $business->save();
+    $this->markEntityForCleanup($business);
 
     return $business;
   }

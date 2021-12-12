@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_document\Functional;
 
+use Drupal\user\Entity\User;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
@@ -15,12 +16,8 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  */
 class InformationDocumentCreateTest extends ExistingSiteBase {
 
-  /**
-   * Faker factory for business.
-   *
-   * @var \Faker\Factory
-   */
-  protected $business;
+  protected User $customer;
+  protected User $staff;
 
   /**
    * List of pages to test permissions on.
@@ -35,9 +32,9 @@ class InformationDocumentCreateTest extends ExistingSiteBase {
    * Test the information document permissions.
    */
   public function testInformationDocumentPermissions() {
-    $this->business = $this->createUser([], NULL, FALSE);
-    $this->business->addRole('business');
-    $this->business->save();
+    $this->customer = $this->createUser([], NULL, FALSE);
+    $this->customer->addRole('business');
+    $this->customer->save();
 
     $this->staff = $this->createUser([], NULL, FALSE);
     $this->staff->addRole('staff');
@@ -49,7 +46,7 @@ class InformationDocumentCreateTest extends ExistingSiteBase {
     }
 
     foreach ($this->pages as $page) {
-      $this->drupalLogin($this->business);
+      $this->drupalLogin($this->customer);
       $this->drupalGet($page);
       $this->assertSession()->statusCodeEquals(403);
       $this->drupalLogout();

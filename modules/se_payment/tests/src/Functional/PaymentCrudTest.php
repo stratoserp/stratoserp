@@ -89,6 +89,7 @@ class PaymentCrudTest extends PaymentTestBase {
     $payment = \Drupal::classResolver(PaymentController::class)->createPaymentFromInvoice($invoice);
     self::assertEquals($invoice->getTotal(), $payment->getTotal());
     $payment->save();
+    $this->markEntityForCleanup($payment);
 
     $invoice1 = $this->addInvoice($testBusiness, $items);
     $items = $this->createItems();
@@ -102,6 +103,7 @@ class PaymentCrudTest extends PaymentTestBase {
     $payment = \Drupal::classResolver(PaymentController::class)->createPaymentFromInvoice($invoice);
     self::assertEquals($total, $payment->getTotal());
     $payment->save();
+    $this->markEntityForCleanup($payment);
 
     $this->drupalLogout();
   }

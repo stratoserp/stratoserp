@@ -34,6 +34,7 @@ trait InformationCreationTestTrait {
     $information = $this->createInformationContent($settings);
 
     $information->save();
+    $this->markEntityForCleanup($information);
 
     return $information;
   }

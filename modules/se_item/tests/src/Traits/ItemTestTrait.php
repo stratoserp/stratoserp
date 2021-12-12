@@ -215,7 +215,6 @@ trait ItemTestTrait {
   public function createItem(array $settings = []) {
     $item = $this->createItemContent($settings);
     $item->save();
-
     $this->markEntityForCleanup($item);
 
     return $item;

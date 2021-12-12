@@ -89,6 +89,7 @@ trait TicketTestTrait {
     $ticket = $this->createTicketContent($settings);
 
     $ticket->save();
+    $this->markEntityForCleanup($ticket);
 
     return $ticket;
   }

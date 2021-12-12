@@ -99,6 +99,7 @@ trait PaymentTestTrait {
     $payment = $this->createPaymentContent($settings);
 
     $payment->save();
+    $this->markEntityForCleanup($payment);
 
     return $payment;
   }

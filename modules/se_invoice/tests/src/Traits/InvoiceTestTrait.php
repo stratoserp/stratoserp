@@ -144,6 +144,8 @@ trait InvoiceTestTrait {
     }
 
     $invoice->save();
+    $this->markEntityForCleanup($invoice);
+
     /** @var \Drupal\se_business\Entity\Business $business */
     $business = $invoice->se_bu_ref->entity;
 
@@ -184,6 +186,8 @@ trait InvoiceTestTrait {
     }
 
     $invoice->save();
+    $this->markEntityForCleanup($invoice);
+
     /** @var \Drupal\se_business\Entity\Business $business */
     $business = $invoice->se_bu_ref->entity;
 
@@ -230,6 +234,7 @@ trait InvoiceTestTrait {
     $invoice = $this->createInvoiceContent($settings);
 
     $invoice->save();
+    $this->markEntityForCleanup($invoice);
 
     return $invoice;
   }

@@ -103,6 +103,7 @@ trait GoodsReceiptTestTrait {
     $goodsReceipt = $this->createGoodsReceiptContent($settings);
 
     $goodsReceipt->save();
+    $this->markEntityForCleanup($goodsReceipt);
 
     return $goodsReceipt;
   }

@@ -93,6 +93,7 @@ trait SubscriptionTestTrait {
     $subscription = $this->createSubscriptionContent($settings);
 
     $subscription->save();
+    $this->markEntityForCleanup($subscription);
 
     return $subscription;
   }

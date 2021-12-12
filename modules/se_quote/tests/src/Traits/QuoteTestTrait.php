@@ -124,6 +124,7 @@ trait QuoteTestTrait {
     $quote = $this->createQuoteContent($settings);
 
     $quote->save();
+    $this->markEntityForCleanup($quote);
 
     return $quote;
   }
