@@ -9,8 +9,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_help().
@@ -42,7 +43,7 @@ function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id)
   // Make a list of forms from the core types.
   $se_forms = array_map(static function ($value) {
     return $value . '_add_form';
-  }, ErpCore::SE_ENTITY_TYPES);
+  }, Constants::SE_ENTITY_TYPES);
 
   if (in_array($form_id, $se_forms, TRUE)) {
     // We don't need the publish button, anywhere.
@@ -167,3 +168,20 @@ function stratoserp_toolbar_alter(&$items) {
     unset($items['administration']);
   }
 }
+
+/**
+ * Keep local tasks fresh on entities? Not sure we need this.
+ *
+ * @param $variables
+ *
+ * @return void
+ *
+function stratoserp_preprocess_page(&$variables) {
+  foreach (\Drupal::routeMatch()->getParameters() as $param) {
+    if ($param instanceof EntityInterface) {
+      \Drupal::service('plugin.manager.menu.local_action')
+        ->clearCachedDefinitions();
+    }
+  }
+}
+*/
