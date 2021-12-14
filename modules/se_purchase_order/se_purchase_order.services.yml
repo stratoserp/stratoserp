@@ -3,7 +3,3 @@ services:
     class: Drupal\se_purchase_order\EventSubscriber\PurchaseOrderSubscriber
     tags:
       - { name: event_subscriber }
-
-  se_purchase_order.form_alter:
-    class: Drupal\se_purchase_order\Service\FormAlter
-    arguments: ['@request_stack', '@entity_type.manager', '@current_user']

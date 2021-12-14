@@ -39,14 +39,15 @@ class GoodsReceiptForm extends ContentEntityForm {
     /** @var \Drupal\se_goods_receipt\Entity\GoodsReceipt $entity */
     $form = parent::buildForm($form, $form_state);
 
-    \Drupal::service('se.form_alter')->setBusinessField($form, 'se_bu_ref');
-    \Drupal::service('se_purchase_order.form_alter')->setPurchaseOrderField($form, 'se_po_ref');
+    $service = \Drupal::service('se.form_alter');
+    $service->setBusinessField($form, 'se_bu_ref');
+    $service->setPurchaseOrderField($form, 'se_po_ref');
 
     // Perform some goods receipt specific tweaks.
     foreach ($form['se_gr_lines']['widget'] as $index => $value) {
       // @todo I'm sure there is a better way to filter these out.
       if (is_numeric($index)) {
-        // Remove all other options, we can only goods receipt stock.
+        // Remove all other options, goods receipt is for stock only.
         $form['se_gr_lines']['target_type']['#options'] = ['se_item:se_stock'];
         $form['se_gr_lines']['target_type']['#type'] = 'value';
       }

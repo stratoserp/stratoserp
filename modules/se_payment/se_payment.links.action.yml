@@ -9,6 +9,6 @@ entity.se_payment.add_form:
 se_payment.add:
   route_name: se_payment.add
   title: 'Add Payment'
-  class: 'Drupal\stratoserp\LocalAction\SourceIdAction'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
     - entity.se_invoice.canonical

@@ -18,7 +18,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
  *   se_payment.links.action.yml
  *   se_payment.routing.yml
  */
-class SourceIdAction extends LocalActionDefault {
+class SourceIdLocalAction extends LocalActionDefault {
 
   /**
    * Set the source value on local actions to the entity id.

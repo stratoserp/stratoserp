@@ -40,3 +40,12 @@ stratoserp.admin_config_stratoserp:
   requirements:
     _permission: 'access administration pages'
 
+stratoserp.admin_config_ui:
+  path: '/admin/structure/stratoserp/ui'
+  defaults:
+    _form: '\Drupal\stratoserp\Form\SettingsForm'
+    _title: 'StratosERP UI'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'access administration pages'

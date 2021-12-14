@@ -82,7 +82,7 @@ class ContactService {
    *   The list of contacts.
    */
   public function loadContactsByBusiness(EntityInterface $entity): array {
-    // Ensure its really a business entity.
+    // Ensure it's really a business entity.
     $business = \Drupal::service('se_business.service')->lookupBusiness($entity);
 
     return \Drupal::entityQuery('se_contact')

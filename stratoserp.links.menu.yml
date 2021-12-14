@@ -10,5 +10,11 @@ stratoserp.admin_config_stratoserp:
   title: 'StratosERP'
   route_name: stratoserp.admin_config_stratoserp
   parent: system.admin_config
-  description: 'Configure StratosERP.'
+  description: 'Configuration for various StratosERP components.'
   weight: -50
+
+stratoserp.admin_config_ui:
+  title: 'StratosERP UI'
+  route_name: stratoserp.admin_config_ui
+  parent: stratoserp.admin_config_stratoserp
+  description: 'Configure custom StratosERP UI elements.'

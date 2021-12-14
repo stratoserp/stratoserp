@@ -10,6 +10,6 @@ entity.se_contact.add_form:
 se_contact.add:
   route_name: se_contact.add
   title: 'Add contact'
-  class: 'Drupal\stratoserp\LocalAction\SourceIdAction'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
     - entity.se_business.canonical

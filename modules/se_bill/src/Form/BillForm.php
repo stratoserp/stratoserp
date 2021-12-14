@@ -37,8 +37,7 @@ class BillForm extends ContentEntityForm {
     /** @var \Drupal\se_bill\Entity\Bill $entity */
     $form = parent::buildForm($form, $form_state);
 
-    $service = \Drupal::service('se.form_alter');
-    $service->setBusinessField($form, 'se_bu_ref');
+    \Drupal::service('se.form_alter')->setBusinessField($form, 'se_bu_ref');
 
     if (!$this->entity->isNew()) {
       $form['group_bi_extra']['new_revision'] = [

@@ -237,7 +237,7 @@ class GoodsReceiptController extends ControllerBase {
    * @return \Drupal\Core\Entity\EntityInterface
    *   An entity ready for the submission form.
    */
-  public function createGoodsReceiptFromPurchaseOrder($source): EntityInterface {
+  public function createGoodsReceiptFromPurchaseOrder(EntityInterface $source): EntityInterface {
     $goodsReceipt = GoodsReceipt::create([
       'bundle' => 'se_goods_receipt',
     ]);

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment\Controller;
 
-use Beta\Microsoft\Graph\Model\Entity;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
@@ -247,14 +246,16 @@ class PaymentController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function createPaymentFromInvoice(EntityInterface $source) {
+  public function createPaymentFromInvoice(EntityInterface $source): EntityInterface {
 
     $payment = Payment::create([
       'bundle' => 'se_payment',
     ]);
 
     $paymentType = \Drupal::service('config.factory')->get('se_payment.settings')->get('default_payment_term');
-    $paymentTerm = Term::load($paymentType);
+    if (!$paymentTerm = Term::load($paymentType)) {
+      \Drupal::messenger()->addWarning('Unable to load default payment term.');
+    }
 
     $business = \Drupal::service('se_business.service')->lookupBusiness($source);
 
@@ -279,7 +280,7 @@ class PaymentController extends ControllerBase {
           'target_id' => $invoice->id(),
           'target_type' => 'se_invoice',
           'amount' => $outstandingAmount,
-          'payment_type' => $paymentTerm->id(),
+          'payment_type' => $paymentTerm->id() ?? '',
         ];
         $lines[] = $line;
         $total += $outstandingAmount;

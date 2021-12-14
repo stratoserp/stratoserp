@@ -2,20 +2,20 @@
 se_print.invoice:
   route_name: se_print.invoice
   title: 'Print invoice'
-  class: 'Drupal\stratoserp\LocalAction\SourceIdAction'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
     - entity.se_invoice.canonical
 
 se_print.quote:
   route_name: se_print.quote
   title: 'Print quote'
-  class: 'Drupal\stratoserp\LocalAction\SourceIdAction'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
     - entity.se_quote.canonical
 
 se_print.ticket:
   route_name: se_print.ticket
   title: 'Print ticket'
-  class: 'Drupal\stratoserp\LocalAction\SourceIdAction'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
     - entity.se_ticket.canonical

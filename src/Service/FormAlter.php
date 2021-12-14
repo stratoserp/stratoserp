@@ -63,8 +63,6 @@ class FormAlter {
   /**
    * Set the business reference field on an entity form.
    *
-   * @todo Move to business?
-   *
    * @param array $form
    *   Form render array.
    * @param string $field
@@ -100,8 +98,6 @@ class FormAlter {
   /**
    * Set the contact reference field on an entity form.
    *
-   * @todo Move to contact?
-   *
    * @param array $form
    *   Form render array.
    * @param string $field
@@ -122,6 +118,41 @@ class FormAlter {
     }
 
     if (!$entity = $this->entityTypeManager->getStorage('se_contact')->load($value)) {
+      return;
+    }
+
+    // Only update if the field is empty.
+    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
+      return;
+    }
+
+    // Really do the update now.
+    $form[$field]['widget'][0]['target_id']['#default_value'] = $entity;
+  }
+
+  /**
+   * Set the purchase order field on an entity form.
+   *
+   * @param array $form
+   *   Form render array.
+   * @param string $field
+   *   The reference field to update.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function setPurchaseOrderField(array &$form, string $field): void {
+    // Try and retrieve the named variable from the request.
+    if (!$value = $this->currentRequest->get('se_po_ref')) {
+      return;
+    }
+
+    // If its not a numeric value, return.
+    if (!is_numeric($value)) {
+      return;
+    }
+
+    if (!$entity = $this->entityTypeManager->getStorage('se_purchase_order')->load($value)) {
       return;
     }
 

@@ -67,49 +67,54 @@ class NavigationBlock extends BlockBase {
       ],
     ];
 
-    // @todo This should be more granular.
-    if (\Drupal::currentUser()->isAnonymous()) {
-      return [];
-    }
-
-    $matcher = \Drupal::routeMatch();
-    $parameterBag = $matcher->getParameters();
+    $parameterBag = \Drupal::routeMatch()->getParameters();
 
     // Always have the home link.
     $this->items[] = Link::createFromRoute('Home', '<front>', [], $this->buttonClass);
 
-    // Add the Search form.
-    $searchForm = \Drupal::formBuilder()->getForm(SearchForm::class);
-    unset($searchForm['search']['#title']);
-    $this->items[] = $searchForm;
-
-    if (\Drupal::routeMatch()->getRouteName() === 'stratoserp.home') {
-      $this->searchLinks();
+    $config = \Drupal::configFactory()->get('stratoserp.settings');
+    if (!$config->get('hide_search')) {
+      // Add the Search form.
+      $searchForm = \Drupal::formBuilder()->getForm(SearchForm::class);
+      unset($searchForm['search']['#title']);
+      $this->items[] = $searchForm;
     }
 
-    if ($this->entity = $parameterBag->get('se_contact')) {
-      $this->contactLinks();
-      $this->destination = Url::fromUri('internal:/contact/' . $this->entity->id())->toString();
-    }
-    elseif ($this->entity = $parameterBag->get('se_business')) {
-      $this->businessLinks();
-      $this->destination = Url::fromUri('internal:/business/' . $this->entity->id())->toString();
-    }
-    elseif ($this->entity = $parameterBag->get('se_quote')) {
-      $this->quoteLinks();
-      $this->destination = Url::fromUri('internal:/quote/' . $this->entity->id())->toString();
-    }
-    elseif ($this->entity = $parameterBag->get('se_invoice')) {
-      $this->invoiceLinks();
-      $this->destination = Url::fromUri('internal:/invoice/' . $this->entity->id())->toString();
-    }
-    elseif ($this->entity = $parameterBag->get('se_bill')) {
-      $this->billLinks();
-      $this->destination = Url::fromUri('internal:/bill/' . $this->entity->id())->toString();
-    }
-    elseif ($this->entity = $parameterBag->get('se_purchase_order')) {
-      $this->purchaseOrderLinks();
-      $this->destination = Url::fromUri('internal:/purchase-order/' . $this->entity->id())->toString();
+    if (!$config->get('hide_buttons')) {
+      if (\Drupal::routeMatch()->getRouteName() === 'stratoserp.home') {
+        $this->searchLinks();
+      }
+
+      if ($this->entity = $parameterBag->get('se_contact')) {
+        $this->contactLinks();
+        $this->destination = Url::fromUri('internal:/contact/' . $this->entity->id())
+          ->toString();
+      }
+      elseif ($this->entity = $parameterBag->get('se_business')) {
+        $this->businessLinks();
+        $this->destination = Url::fromUri('internal:/business/' . $this->entity->id())
+          ->toString();
+      }
+      elseif ($this->entity = $parameterBag->get('se_quote')) {
+        $this->quoteLinks();
+        $this->destination = Url::fromUri('internal:/quote/' . $this->entity->id())
+          ->toString();
+      }
+      elseif ($this->entity = $parameterBag->get('se_invoice')) {
+        $this->invoiceLinks();
+        $this->destination = Url::fromUri('internal:/invoice/' . $this->entity->id())
+          ->toString();
+      }
+      elseif ($this->entity = $parameterBag->get('se_bill')) {
+        $this->billLinks();
+        $this->destination = Url::fromUri('internal:/bill/' . $this->entity->id())
+          ->toString();
+      }
+      elseif ($this->entity = $parameterBag->get('se_purchase_order')) {
+        $this->purchaseOrderLinks();
+        $this->destination = Url::fromUri('internal:/purchase-order/' . $this->entity->id())
+          ->toString();
+      }
     }
 
     if (isset($this->items)) {
@@ -130,12 +135,12 @@ class NavigationBlock extends BlockBase {
    *   The cache tags.
    */
   public function getCacheTags() {
-    // @todo is this right? Fix it.
     if ($this->entity && is_object($this->entity)) {
-      return Cache::mergeTags(parent::getCacheTags(), ['entity:' . $this->entity->id()]);
+      $tags[] = 'entity:' . $this->entity->id();
     }
 
-    return parent::getCacheTags();
+    $tags[] = 'stratoserp_navigation_block';
+    return Cache::mergeTags(parent::getCacheTags(), $tags);
   }
 
   /**
