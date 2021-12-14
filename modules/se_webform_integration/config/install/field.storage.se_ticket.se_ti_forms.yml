@@ -4,7 +4,7 @@ dependencies:
   module:
     - se_ticket
     - webform
-id: node.se_ti_forms
+id: se_ticket.se_ti_forms
 field_name: se_ti_forms
 entity_type: se_ticket
 type: webform

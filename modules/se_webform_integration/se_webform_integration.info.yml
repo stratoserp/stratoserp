@@ -8,7 +8,6 @@ dependencies:
   - stratoserp:se_business
   - webform:webform
   - webform_access:webform_access
-  - webform_node:webform_node
   - webform_views:webform_views
   - webform_templates:webform_templates
 

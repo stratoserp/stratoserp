@@ -49,7 +49,7 @@ function se_webform_integration_install_attach(EntityTypeManagerInterface $entit
 
   // Set the form display.
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
-  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('node.se_ticket.default');
+  $form_display = $entity_type_manager->getStorage('entity_form_display')->load('se_ticket.se_ticket.default');
   $form_display->setComponent('se_ti_forms', [
     'type' => 'webform_integration_entity_reference_select',
     'region' => 'bottom',
@@ -59,7 +59,7 @@ function se_webform_integration_install_attach(EntityTypeManagerInterface $entit
 
   // Add the webform field to the entity view display.
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
-  $display = $entity_type_manager->getStorage('entity_view_display')->load('node.se_ticket.default');
+  $display = $entity_type_manager->getStorage('entity_view_display')->load('se_ticket.se_ticket.default');
   $display->setComponent('se_ti_forms', [
     'type' => 'webform_entity_reference_link',
     'region' => 'bottom',

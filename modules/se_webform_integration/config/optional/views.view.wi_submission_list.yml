@@ -382,7 +382,7 @@ display:
             title: All
           title_enable: false
           title: ''
-          default_argument_type: node
+          default_argument_type: se_ticket
           default_argument_options: {  }
           default_argument_skip_url: false
           summary_options:
@@ -426,7 +426,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      entity_type: node
+      entity_type: se_ticket
       bundles:
         - se_ticket
     cache_metadata:
