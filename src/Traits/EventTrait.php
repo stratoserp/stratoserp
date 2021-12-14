@@ -8,12 +8,12 @@ use Drupal\se_invoice\Entity\Invoice;
 /**
  * Trait to provide drupal event utilities.
  *
- * When saving an invoice of business, there are times when it makes sense
+ * When saving an invoice or business, there are times when it makes sense
  * to skip further events.
  *
  * @package Drupal\stratoserp\Traits
  */
-trait ErpEventTrait {
+trait EventTrait {
 
   /**
    * Add a flag to an invoice so that future events are not processed on it.

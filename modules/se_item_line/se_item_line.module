@@ -5,7 +5,7 @@
  * Custom functions for item manipulation.
  */
 
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 use Drupal\Core\Form\FormStateInterface;
 
 /**

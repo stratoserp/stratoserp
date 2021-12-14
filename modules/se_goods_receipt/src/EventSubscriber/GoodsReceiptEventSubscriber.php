@@ -7,7 +7,7 @@ namespace Drupal\se_goods_receipt\EventSubscriber;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 use Drupal\se_item\Entity\Item;
 
 /**
@@ -39,7 +39,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
       return;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
+    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
     foreach ($entity->{$bundleFieldType . '_lines'} as $index => $itemLine) {
       if (!empty($itemLine->serial)) {
         /** @var \Drupal\se_item\Entity\Item $item */
@@ -67,7 +67,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
       return;
     }
 
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
+    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
     foreach ($entity->{$bundleFieldType . '_lines'} as $itemLine) {
       /** @var \Drupal\se_item\Entity\Item $item */
       if ($item = Item::load($itemLine->target_id)) {

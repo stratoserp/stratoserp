@@ -66,7 +66,7 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
-  private function findEntity($type, $description, $field, $text): array {
+  private function findEntity(string $type, string $description, string $field, string $text): array {
     $matches = [];
 
     $text = Database::getConnection()->escapeLike($text);
@@ -104,7 +104,7 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
-  private function findBusinesses($text): array {
+  private function findBusinesses(string $text): array {
     $matches = [];
 
     $text = Database::getConnection()->escapeLike($text);
@@ -150,7 +150,7 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
-  private function findItems($type, $description, $field, $text): array {
+  private function findItems(string $type, string $description, string $field, string $text): array {
     $matches = [];
 
     $query = \Drupal::entityQuery('se_item')
@@ -197,7 +197,7 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
-  private function findInformation($type, $description, $field, $text): array {
+  private function findInformation(string $type, string $description, string $field, string $text): array {
     $matches = [];
 
     $query = \Drupal::entityQuery('se_information')

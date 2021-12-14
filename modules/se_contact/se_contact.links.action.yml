@@ -7,3 +7,10 @@ entity.se_contact.add_form:
     - entity.se_business.canonical
     - 'view.se_contact_list.se_contact_list'
     - 'view.se_contact_eva.se_contact_eva'
+
+se_contact.add:
+  route_name: se_contact.add
+  title: 'Add contact'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdAction'
+  appears_on:
+    - entity.se_business.canonical

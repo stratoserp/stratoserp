@@ -6,7 +6,7 @@ namespace Drupal\se_payment_line\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 
 /**
  * Class PaymentLinePresaveEventSubscriber.
@@ -40,12 +40,12 @@ class PaymentLineEventSubscriber implements PaymentLineEventSubscriberInterface 
     }
 
     // Check that its an entity type which has items.
-    if (!array_key_exists($entity->getEntityTypeId(), ErpCore::SE_PAYMENT_LINE_BUNDLES)) {
+    if (!array_key_exists($entity->getEntityTypeId(), Constants::SE_PAYMENT_LINE_BUNDLES)) {
       return;
     }
 
     $total = 0;
-    $bundleFieldType = 'se_' . ErpCore::SE_PAYMENT_LINE_BUNDLES[$entity->bundle()];
+    $bundleFieldType = 'se_' . Constants::SE_PAYMENT_LINE_BUNDLES[$entity->bundle()];
 
     // Loop through the payment lines to calculate total.
     foreach ($entity->{$bundleFieldType . '_lines'} as $paymentLine) {

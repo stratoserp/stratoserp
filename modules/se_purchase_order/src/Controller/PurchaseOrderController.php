@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\se_purchase_order\Entity\PurchaseOrder;
 use Drupal\se_purchase_order\Entity\PurchaseOrderInterface;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -243,8 +243,8 @@ class PurchaseOrderController extends ControllerBase {
     ]);
 
     $total = 0;
-    $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
+    $sourceFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
+    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
 
     // @todo Make this a service?
     /**

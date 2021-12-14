@@ -6,7 +6,7 @@ namespace Drupal\se_item_line\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 
 /**
  * Class ItemLinePresaveEventSubscriber.
@@ -31,7 +31,7 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
    */
   public function itemLineEntityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
-    if (!array_key_exists($entity->getEntityTypeId(), ErpCore::SE_ITEM_LINE_BUNDLES)) {
+    if (!array_key_exists($entity->getEntityTypeId(), Constants::SE_ITEM_LINE_BUNDLES)) {
       return;
     }
 

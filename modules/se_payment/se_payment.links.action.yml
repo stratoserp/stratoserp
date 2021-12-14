@@ -5,3 +5,10 @@ entity.se_payment.add_form:
   appears_on:
     - entity.se_payment.collection
     - 'view.se_payment_list.se_payment_list'
+
+se_payment.add:
+  route_name: se_payment.add
+  title: 'Add Payment'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdAction'
+  appears_on:
+    - entity.se_invoice.canonical

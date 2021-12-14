@@ -7,7 +7,7 @@ namespace Drupal\se_item_line\Service;
 use Drupal\comment\Entity\Comment;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_item\Entity\Item;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 
 /**
  * Business service class for common custom related manipulations.
@@ -25,7 +25,7 @@ class TotalService {
    */
   public function calculateTotal(EntityInterface $entity): EntityInterface {
     $total = 0;
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$entity->getEntityTypeId()];
+    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$entity->getEntityTypeId()];
 
     // If there isn't a total field, run away.
     if (!isset($entity->{$bundleFieldType . '_total'})) {

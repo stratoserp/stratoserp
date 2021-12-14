@@ -122,4 +122,8 @@ interface InvoiceInterface extends ContentEntityInterface, RevisionLogInterface,
    */
   public function getBusiness(): Business;
 
+  /**
+   * Return a friendly filename for the invoice to be saved as.
+   */
+  public function generateFilename(): string;
 }

@@ -286,6 +286,7 @@ class PaymentController extends ControllerBase {
       }
     }
 
+    $payment->se_bu_ref = $business;
     $payment->se_pa_lines = $lines;
     $payment->se_pa_total = $total;
 

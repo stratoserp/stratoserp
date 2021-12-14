@@ -78,24 +78,19 @@ class PrintController extends ControllerBase {
   /**
    * Providing printing functionality for local action.
    *
-   * @param string $source
+   * @param \Drupal\Core\Entity\EntityInterface $source
    *
    * @return array
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function invoice(string $source): array {
+  public function entity(EntityInterface $source): array {
     $print_engine = $this->pluginManager->createSelectedInstance('pdf');
 
-    // If we couldn't load the specified invoice, bail.
-    if (!$invoice = $this->entityTypeManager->getStorage('se_invoice')->load($source)) {
-      return [];
-    }
-
-    $filename = $invoice->generateFilename() . '.pdf';
+    $filename = $source->generateFilename() . '.pdf';
 
     // Use private files, not sharing publicly.
-    $uri = $this->printBuilder->savePrintable([$invoice], $print_engine, 'private', $filename, FALSE);
+    $uri = $this->printBuilder->savePrintable([$source], $print_engine, 'private', $filename, FALSE);
 
     return [
       '#markup' => $uri

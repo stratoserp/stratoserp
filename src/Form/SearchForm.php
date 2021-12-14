@@ -10,7 +10,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_information\Entity\Information;
 use Drupal\se_item\Entity\Item;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -166,7 +166,7 @@ class SearchForm extends FormBase {
         return $this->messenger->addMessage(t('No matches found'));
       }
 
-      $fullType = ErpCore::SE_ENTITY_LOOKUP[$type];
+      $fullType = Constants::SE_ENTITY_LOOKUP[$type];
       $entity = \Drupal::entityTypeManager()->getStorage($fullType)->load($code);
       if (!$entity) {
         return $this->messenger->addError(t('Invalid entity'));

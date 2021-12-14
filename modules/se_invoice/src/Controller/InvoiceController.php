@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_invoice\Entity\InvoiceInterface;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -295,7 +295,7 @@ class InvoiceController extends ControllerBase {
 
     $total = 0;
     $lines = [];
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES['se_invoice'];
+    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES['se_invoice'];
 
     // Loop through the timekeeping entries and setup invoice lines.
     foreach ($entityIds as $entityId) {
@@ -345,8 +345,8 @@ class InvoiceController extends ControllerBase {
     ]);
 
     $total = 0;
-    $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $destFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$invoice->getEntityTypeId()];
+    $sourceFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
+    $destFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$invoice->getEntityTypeId()];
 
     // @todo Make this a service.
     /**

@@ -6,9 +6,12 @@ namespace Drupal\se_item_line\Plugin\Field\FieldFormatter;
 
 use Drupal\comment\Entity\Comment;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldFormatter\DynamicEntityReferenceLabelFormatter;
 use Drupal\filter\FilterProcessResult;
@@ -55,7 +58,6 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
    * Re-implementation of viewElements from EntityReferenceLabelFormatter.
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-
     $rows = [];
 
     $headers = [
@@ -150,6 +152,48 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
         'tags' => $cache_tags,
       ],
     ];
+  }
+
+  /**
+   * Overridden method that will render items for printing.
+   *
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $items
+   *   Items to display.
+   * @param string $langcode
+   *   Language code.
+   *
+   * @return array|\Drupal\Core\Entity\EntityInterface[]
+   *   Output for theme to work with.
+   */
+  protected function getEntitiesToView(EntityReferenceFieldItemListInterface $items, $langcode) {
+    $entities = [];
+    if (!$request = \Drupal::requestStack()->getCurrentRequest()) {
+      return [];
+    }
+
+    foreach ($items as $delta => $item) {
+      // Ignore items where no entity could be loaded in prepareView().
+      if (!empty($item->_loaded)) {
+        $entity = $item->entity;
+
+        // Set the entity in the correct language for display.
+        if ($entity instanceof TranslatableInterface) {
+          $entity = \Drupal::service('entity.repository')->getTranslationFromContext($entity, $langcode);
+        }
+
+        $access = $this->checkAccess($entity);
+        // Add the access result's cacheability, ::view() needs it.
+        $item->_accessCacheability = CacheableMetadata::createFromObject($access);
+        // Allow listing items for preview links.
+        if ($access->isAllowed() || preg_match('/^\/preview-link\/.*?/', $request->getPathInfo())) {
+          // Add the referring item, in case the formatter needs it.
+          $entity->_referringItem = $items[$delta];
+          $entities[$delta] = $entity;
+        }
+      }
+    }
+
+    return $entities;
   }
 
 }

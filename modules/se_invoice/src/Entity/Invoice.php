@@ -12,6 +12,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_payment\Traits\PaymentTrait;
+use Drupal\stratoserp\Traits\EntityTrait;
 use Drupal\user\UserInterface;
 
 /**
@@ -79,6 +80,7 @@ class Invoice extends RevisionableContentEntityBase implements InvoiceInterface 
 
   use EntityChangedTrait;
   use PaymentTrait;
+  use EntityTrait;
 
   /**
    * {@inheritdoc}
@@ -220,13 +222,6 @@ class Invoice extends RevisionableContentEntityBase implements InvoiceInterface 
     }
 
     return $this->getTotal() - $paidAmount;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getBusiness(): Business {
-    return $this->se_bu_ref->entity;
   }
 
   /**

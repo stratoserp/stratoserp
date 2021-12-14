@@ -11,4 +11,3 @@ se_purchase_order.add:
     parameters:
       source:
         type: entity:se_purchase_order
-

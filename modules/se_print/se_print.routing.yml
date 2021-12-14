@@ -1,8 +1,36 @@
 
-entity.se_invoice.print:
+se_print.invoice:
   path: '/invoice/print/{source}'
   defaults:
     _title: 'Print invoice'
-    _controller: '\Drupal\se_print\Controller\PrintController::invoice'
+    _controller: '\Drupal\se_print\Controller\PrintController::entity'
   requirements:
     _permission: 'view invoice entities'
+  options:
+    parameters:
+      source:
+        type: entity:se_invoice
+
+se_print.quote:
+  path: '/quote/print/{source}'
+  defaults:
+    _title: 'Print quote'
+    _controller: '\Drupal\se_print\Controller\PrintController::entity'
+  requirements:
+    _permission: 'view quote entities'
+  options:
+    parameters:
+      source:
+        type: entity:se_quote
+
+se_print.ticket:
+  path: '/ticket/print/{source}'
+  defaults:
+    _title: 'Print ticket'
+    _controller: '\Drupal\se_print\Controller\PrintController::entity'
+  requirements:
+    _permission: 'view ticket entities'
+  options:
+    parameters:
+      source:
+        type: entity:se_ticket

@@ -12,8 +12,8 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Entity\Payment;
-use Drupal\stratoserp\ErpCore;
-use Drupal\stratoserp\Traits\ErpEventTrait;
+use Drupal\stratoserp\Constants;
+use Drupal\stratoserp\Traits\EventTrait;
 use Drupal\se_payment\Traits\PaymentTrait;
 
 /**
@@ -27,7 +27,7 @@ use Drupal\se_payment\Traits\PaymentTrait;
  */
 class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface {
 
-  use ErpEventTrait;
+  use EventTrait;
   use PaymentTrait;
 
   /**
@@ -121,7 +121,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function updateInvoices(Payment $payment, bool $paid = TRUE): int {
-    $bundleFieldType = 'se_' . ErpCore::SE_PAYMENT_LINE_BUNDLES[$payment->bundle()];
+    $bundleFieldType = 'se_' . Constants::SE_PAYMENT_LINE_BUNDLES[$payment->bundle()];
 
     $amount = 0;
     foreach ($payment->{$bundleFieldType . '_lines'} as $paymentLine) {

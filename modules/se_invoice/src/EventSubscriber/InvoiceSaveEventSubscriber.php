@@ -10,7 +10,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_payment\Traits\PaymentTrait;
-use Drupal\stratoserp\Traits\ErpEventTrait;
+use Drupal\stratoserp\Traits\EventTrait;
 
 /**
  * Class InvoiceSaveEventSubscriber.
@@ -24,7 +24,7 @@ use Drupal\stratoserp\Traits\ErpEventTrait;
  */
 class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface {
 
-  use ErpEventTrait;
+  use EventTrait;
   use PaymentTrait;
 
   /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_purchase_order\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
@@ -28,7 +28,7 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
     $datasets = [];
     // @todo Move this to a service and pass in the entity type and business.
     $type = 'se_purchase_order';
-    $bundleFieldType = ErpCore::SE_ITEM_LINE_BUNDLES[$type];
+    $bundleFieldType = Constants::SE_ITEM_LINE_BUNDLES[$type];
 
     /** @var \Drupal\Core\Entity\EntityInterface $business */
     if (!$business = $this->getCurrentControllerEntity()) {

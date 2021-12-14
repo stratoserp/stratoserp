@@ -7,7 +7,7 @@ namespace Drupal\se_xero\EventSubscriber;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\stratoserp\Traits\ErpEventTrait;
+use Drupal\stratoserp\Traits\EventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
 
-  use ErpEventTrait;
+  use EventTrait;
 
   /**
    * {@inheritdoc}

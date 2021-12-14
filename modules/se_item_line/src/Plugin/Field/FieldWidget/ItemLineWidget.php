@@ -9,7 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityReferenceWidget;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 
 /**
  * Plugin implementation of the 'se_item_line_widget' widget.
@@ -34,7 +34,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['#type'] = 'container';
 
     $host_type = $items->getEntity()->getEntityTypeId();
-    $line_type = ErpCore::SE_ITEM_LINE_BUNDLES[$host_type];
+    $line_type = Constants::SE_ITEM_LINE_BUNDLES[$host_type];
 
     // Put quantity field first.
     // Disable qty if serial is set, there can be only one.
@@ -209,7 +209,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $host_type = $form_state->getFormObject()->getEntity()->getEntityTypeId();
 
-    if (!array_key_exists($host_type, ErpCore::SE_ITEM_LINE_BUNDLES)) {
+    if (!array_key_exists($host_type, Constants::SE_ITEM_LINE_BUNDLES)) {
       return $values;
     }
 

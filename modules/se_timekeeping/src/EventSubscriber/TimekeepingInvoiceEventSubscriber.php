@@ -11,7 +11,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 
 /**
  * Class TimekeepingSaveEventSubscriber.
@@ -91,7 +91,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function timekeepingMarkItemsBilled(Invoice $invoice): void {
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
+    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
 
     foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
       if ($itemLine->target_type === 'comment') {
@@ -115,7 +115,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function timekeepingMarkItemsUnBilled(Invoice $invoice): void {
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
+    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
 
     foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
       if ($itemLine->target_type === 'comment') {

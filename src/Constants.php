@@ -7,7 +7,7 @@ namespace Drupal\stratoserp;
 /**
  * Simple class to store some constants for the StratosERP system.
  */
-final class ErpCore {
+final class Constants {
 
   // @todo Need to make this something modules can add to.
   public const SE_ITEM_LINE_BUNDLES = [

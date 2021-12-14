@@ -10,7 +10,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\se_business\Entity\Business;
+use Drupal\stratoserp\Traits\EntityTrait;
 use Drupal\user\UserInterface;
 
 /**
@@ -77,6 +77,7 @@ use Drupal\user\UserInterface;
 class Quote extends RevisionableContentEntityBase implements QuoteInterface {
 
   use EntityChangedTrait;
+  use EntityTrait;
 
   /**
    * {@inheritdoc}
@@ -198,13 +199,6 @@ class Quote extends RevisionableContentEntityBase implements QuoteInterface {
    */
   public function getTotal(): int {
     return (int) $this->se_qu_total->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getBusiness(): Business {
-    return $this->se_bu_ref->entity;
   }
 
   /**

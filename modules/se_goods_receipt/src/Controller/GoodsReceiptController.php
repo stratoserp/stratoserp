@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\se_goods_receipt\Entity\GoodsReceiptInterface;
-use Drupal\stratoserp\ErpCore;
+use Drupal\stratoserp\Constants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -242,8 +242,8 @@ class GoodsReceiptController extends ControllerBase {
       'bundle' => 'se_goods_receipt',
     ]);
 
-    $sourceFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $bundleFieldType = 'se_' . ErpCore::SE_ITEM_LINE_BUNDLES[$goodsReceipt->getEntityTypeId()];
+    $sourceFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
+    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$goodsReceipt->getEntityTypeId()];
 
     // For each item in the purchase order, create the qty
     // number of fields for serial number entry.

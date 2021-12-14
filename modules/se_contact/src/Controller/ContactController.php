@@ -5,7 +5,9 @@ namespace Drupal\se_contact\Controller;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
+use Drupal\se_contact\Entity\Contact;
 use Drupal\se_contact\Entity\ContactInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -208,5 +210,29 @@ class ContactController extends ControllerBase implements ContainerInjectionInte
 
     return $build;
   }
+
+  /**
+   * Provides the entity submission form for payment creation from an invoice.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   Source entity to copy data from.
+   *
+   * @return array
+   *   An entity submission form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function fromBusiness(EntityInterface $source): array {
+    $entity = Contact::create([
+      'bundle' => 'se_contact',
+    ]);
+
+    $business = \Drupal::service('se_business.service')->lookupBusiness($source);
+    $entity->se_bu_ref = $business;
+
+    return $this->entityFormBuilder()->getForm($entity);
+  }
+
 
 }

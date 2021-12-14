@@ -51,7 +51,7 @@ third_party_settings:
         - group_bu_tab_reports
         - group_bu_tab_purchase_orders
         - group_bu_tab_goods_receipts
-        - group_su_tab_subscriptions
+        - group_bu_tab_subscriptions
         - group_bu_tab_bills
       label: 'Business tabs'
       parent_name: ''
@@ -256,9 +256,9 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_su_tab_subscriptions:
+    group_bu_tab_subscriptions:
       children:
-        - se_subscriptions_eva_se_subscriptions_eva
+        - se_subscription_eva_se_subscription_eva
       label: Subscriptions
       parent_name: group_bu_tabs
       region: content
@@ -825,7 +825,7 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
-  se_subscriptions_eva_se_subscriptions_eva:
+  se_subscription_eva_se_subscription_eva:
     settings: {  }
     third_party_settings: {  }
     weight: 10
