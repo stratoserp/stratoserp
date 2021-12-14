@@ -1,0 +1,6 @@
+se_print.invoice:
+  route_name: entity.se_invoice.print
+  title: 'Print invoice'
+  class: 'Drupal\se_print\LocalAction\PrintAction'
+  appears_on:
+    - entity.se_invoice.canonical

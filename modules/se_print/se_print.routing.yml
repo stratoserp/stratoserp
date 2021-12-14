@@ -1,0 +1,8 @@
+
+entity.se_invoice.print:
+  path: '/invoice/print/{source}'
+  defaults:
+    _title: 'Print invoice'
+    _controller: '\Drupal\se_print\Controller\PrintController::invoice'
+  requirements:
+    _permission: 'view invoice entities'
