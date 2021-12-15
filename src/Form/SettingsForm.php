@@ -24,6 +24,13 @@ class SettingsForm extends ConfigFormBase {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
+
+    $form['first_contact'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Add the first contact by default.'),
+      '#default_value' => $this->config('stratoserp.settings')->get('first_contact'),
+    ];
+
     $form['hide_search'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Hide the Search box on the Navigation Block.'),
@@ -42,6 +49,7 @@ class SettingsForm extends ConfigFormBase {
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('stratoserp.settings')
+      ->set('first_contact', $form_state->getValue('first_contact'))
       ->set('hide_search', $form_state->getValue('hide_search'))
       ->set('hide_buttons', $form_state->getValue('hide_buttons'))
       ->save();

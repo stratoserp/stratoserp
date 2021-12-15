@@ -275,19 +275,10 @@ class InvoiceController extends ControllerBase {
     // Retrieve a list of non billed timekeeping entries for this business.
     $query = \Drupal::entityQuery('comment');
 
-    // If it is not a business, and no business set in the source entity, bail.
-    if ($source->getEntityTypeId() !== 'se_business') {
-      if (!$source->se_bu_ref->target_id) {
-        return $invoice;
-      }
-      $businessRef = $source->se_bu_ref->target_id;
-    }
-    else {
-      $businessRef = $source->id();
-    }
+    $business = \Drupal::service('se_business.service')->lookupBusiness($source);
 
     $query->condition('comment_type', 'se_timekeeping')
-      ->condition('se_bu_ref', $businessRef)
+      ->condition('se_bu_ref', $business->id())
       ->condition('se_tk_billed', TRUE, '<>')
       ->condition('se_tk_billable', TRUE)
       ->condition('se_tk_amount', 0, '>');
@@ -324,6 +315,7 @@ class InvoiceController extends ControllerBase {
       }
     }
 
+    $invoice->se_bu_ref = $business;
     $invoice->{$bundleFieldType . '_lines'} = $lines;
     $invoice->{$bundleFieldType . '_total'} = $total;
 
@@ -357,10 +349,9 @@ class InvoiceController extends ControllerBase {
       $invoice->{$destFieldType . '_lines'}->appendItem($item->getValue());
     }
 
-    $invoice->se_bu_ref->target_id = $source->se_bu_ref->target_id;
-    $invoice->se_bu_ref->target_type = $source->se_bu_ref->target_type;
-    $invoice->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $invoice->{$destFieldType . '_quote_ref'}->target_id = $source->id();
+    $invoice->se_bu_ref = $source->se_bu_ref;
+    $invoice->se_co_ref = $source->se_co_ref ?? NULL;
+    $invoice->{$destFieldType . '_quote_ref'} = $source;
     $invoice->{$destFieldType . '_total'} = $total;
 
     return $invoice;

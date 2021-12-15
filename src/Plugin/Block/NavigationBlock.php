@@ -24,6 +24,13 @@ use Drupal\stratoserp\Form\SearchForm;
 class NavigationBlock extends BlockBase {
 
   /**
+   * Configuration.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  protected $config;
+
+  /**
    * Entity to work on.
    *
    * @var \Drupal\Core\Entity\EntityInterface
@@ -45,7 +52,7 @@ class NavigationBlock extends BlockBase {
   protected array $buttonClass;
 
   /**
-   * Items to display
+   * Items to display.
    *
    * @var array
    */
@@ -72,15 +79,15 @@ class NavigationBlock extends BlockBase {
     // Always have the home link.
     $this->items[] = Link::createFromRoute('Home', '<front>', [], $this->buttonClass);
 
-    $config = \Drupal::configFactory()->get('stratoserp.settings');
-    if (!$config->get('hide_search')) {
+    $this->config = \Drupal::configFactory()->get('stratoserp.settings');
+    if (!$this->config->get('hide_search')) {
       // Add the Search form.
       $searchForm = \Drupal::formBuilder()->getForm(SearchForm::class);
       unset($searchForm['search']['#title']);
       $this->items[] = $searchForm;
     }
 
-    if (!$config->get('hide_buttons')) {
+    if (!$this->config->get('hide_buttons')) {
       if (\Drupal::routeMatch()->getRouteName() === 'stratoserp.home') {
         $this->searchLinks();
       }
@@ -145,7 +152,6 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Retrieve the cache contexts.
-   *
    */
   public function getCacheContexts() {
     return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
@@ -153,7 +159,6 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Build a list of bill links for display.
-   *
    */
   private function billLinks(): void {
     $routeParameters = $this->setRouteParameters();
@@ -166,7 +171,6 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Build a list of search links for display.
-   *
    */
   private function searchLinks(): void {
     $routeParameters = $this->setRouteParameters(FALSE);
@@ -197,7 +201,6 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Build a list of contact links for display.
-   *
    */
   private function contactLinks(): void {
     $routeParameters = $this->setRouteParameters();
@@ -216,7 +219,6 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Build a list of business links for display.
-   *
    */
   private function businessLinks(): void {
     $routeParameters = $this->setRouteParameters(FALSE);
@@ -251,7 +253,6 @@ class NavigationBlock extends BlockBase {
    *
    * @param array $routeParameters
    *   Any extra route parameters.
-   *
    */
   private function commonLinks(array $routeParameters): void {
 
@@ -282,7 +283,6 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Build a list of purchase order links for display.
-   *
    */
   private function purchaseOrderLinks(): void {
     $routeParameters = $this->setRouteParameters();
@@ -295,7 +295,6 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Build a list of quote links for display.
-   *
    */
   private function quoteLinks(): void {
     $routeParameters = $this->setRouteParameters();
@@ -347,9 +346,11 @@ class NavigationBlock extends BlockBase {
         }
       }
 
-      // Add in the first contact to the route parameters.
-      if ($includeContact && !empty($contacts) && $contact = Contact::load(reset($contacts))) {
-        $routeParameters['se_co_ref'] = $contact->id();
+      if ($this->config->get('first_contact')) {
+        // Add in the first contact to the route parameters.
+        if ($includeContact && !empty($contacts) && $contact = Contact::load(reset($contacts))) {
+          $routeParameters['se_co_ref'] = $contact->id();
+        }
       }
     }
 
