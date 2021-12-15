@@ -79,7 +79,7 @@ class BillRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $se_bill_revision = NULL) {
-    $this->revision = $this->BillStorage->loadRevision($se_bill_revision);
+    $this->revision = $this->billStorage->loadRevision($se_bill_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -89,7 +89,7 @@ class BillRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->BillStorage->deleteRevision($this->revision->getRevisionId());
+    $this->billStorage->deleteRevision($this->revision->getRevisionId());
 
     $this->logger('content')->notice('Bill: deleted %title revision %revision.', [
       '%title' => $this->revision->label(),
