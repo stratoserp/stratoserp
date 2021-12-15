@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @file
  * Core functions for StratosERP module file.
@@ -7,21 +9,20 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\stratoserp\Constants;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_help().
  *
- * @param $route_name
+ * @param string $route_name
  * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
  *
- * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+ * @return \Drupal\Core\StringTranslation\TranslatableMarkup|NULL
  */
-function stratoserp_help($route_name, RouteMatchInterface $route_match) {
+function stratoserp_help(string $route_name, RouteMatchInterface $route_match): ?TranslatableMarkup {
   if ($route_name === 'stratoserp_main') {
     return t('Main console page.');
   }
@@ -35,11 +36,13 @@ function stratoserp_help($route_name, RouteMatchInterface $route_match) {
  *
  * @todo Needs review since moving to Entities.
  *
- * @param $form
+ * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
- * @param $form_id
+ * @param string $form_id
+ *
+ * @return NULL
  */
-function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function stratoserp_form_alter(array &$form, FormStateInterface $form_state, string $form_id) {
   // Make a list of forms from the core types.
   $se_forms = array_map(static function ($value) {
     return $value . '_add_form';
@@ -65,18 +68,23 @@ function stratoserp_form_alter(&$form, FormStateInterface $form_state, $form_id)
     $form['actions']['submit']['#submit'][] = 'stratoserp_entity_delete_redirect_submit';
   }
 
+  return NULL;
 }
 
 /**
- * Redirect delete submissions to the frontpage.
+ * Redirect deleted submissions to the frontpage.
  *
  * @todo Make customisable/redirect back to business?
  *
  * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *
+ * @return NULL
  */
 function stratoserp_entity_delete_redirect_submit(array &$form, FormStateInterface $form_state) {
   $form_state->setRedirectUrl(Url::fromRoute('<front>'));
+
+  return NULL;
 }
 
 /**
@@ -84,6 +92,8 @@ function stratoserp_entity_delete_redirect_submit(array &$form, FormStateInterfa
  *
  * @param array $form
  *   Form array to be manipulated.
+ *
+ * @return NULL
  */
 function stratoserp_hide_publish_buttons(array &$form) {
   // This should work.
@@ -95,6 +105,8 @@ function stratoserp_hide_publish_buttons(array &$form) {
 
   // Ensure that we can 'Save' as well.
   $form['actions']['submit']['#access'] = TRUE;
+
+  return NULL;
 }
 
 /**
@@ -102,38 +114,52 @@ function stratoserp_hide_publish_buttons(array &$form) {
  *
  * @param array $form
  *   Form array to be manipulated.
+ *
+ * @return NULL
  */
 function stratoserp_populate_title_field(array &$form) {
   // $form['title']['#hidden'] = TRUE;
   $form['title']['widget'][0]['value']['#default_value'] = \Drupal::service('se.form_alter')->generateTitle();
+
+  return NULL;
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
  *
- * @param $form
+ * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
- * @param $form_id
+ * @param string $form_id
+ *
+ * @return NULL
  */
-function stratoserp_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function stratoserp_form_user_login_form_alter(array &$form, FormStateInterface $form_state, string $form_id) {
   // Alter login form and add own custom submit handler.
   $form['#submit'][] = '_stratoserp_user_login_form_submit';
+
+  return NULL;
 }
 
 /**
  * Custom submit handler for login form.
  *
- * @param $form
+ * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *
+ * @return NULL;
  */
-function _stratoserp_user_login_form_submit($form, FormStateInterface $form_state) {
+function _stratoserp_user_login_form_submit(array &$form, FormStateInterface $form_state) {
   $form_state->setRedirect('<front>');
+
+  return NULL;
 }
 
 /**
  * I don't think we're using this.
+ *
+ * @return array
  */
-function stratoserp_theme() {
+function stratoserp_theme(): array {
   return [
     'stratoserp_admin_page' => [
       'variables' => [
@@ -151,22 +177,32 @@ function stratoserp_theme() {
  *
  * @param array $fieldTypes
  *   A list with field types.
+ *
+ * @return NULL;
  */
 function stratoserp_multiple_field_remove_button_field_types_alter(array &$fieldTypes) {
   $fieldTypes[] = 'se_item_line';
   $fieldTypes[] = 'se_payment_line';
+
+  return NULL;
 }
 
 /**
  * Implements hook_toolbar_alter().
  *
  * See: https://www.drupal.org/project/toolbar_menu/issues/2658470
+ *
+ * @param array $items
+ *
+ * @return NULL;
  */
-function stratoserp_toolbar_alter(&$items) {
+function stratoserp_toolbar_alter(array &$items) {
   $account = Drupal::currentUser();
-  if (!in_array('administrator', $account->getRoles())) {
+  if (!in_array('administrator', $account->getRoles(), TRUE)) {
     unset($items['administration']);
   }
+
+  return NULL;
 }
 
 /**
