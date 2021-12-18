@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\se_quote\Functional;
 
 use Drupal\se_invoice\Controller\InvoiceController;

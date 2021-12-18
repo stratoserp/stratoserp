@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_item\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;

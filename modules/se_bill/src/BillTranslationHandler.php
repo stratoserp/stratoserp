@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_bill;
 
 use Drupal\content_translation\ContentTranslationHandler;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\se_ticket;
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
