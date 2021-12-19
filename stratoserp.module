@@ -63,27 +63,6 @@ function stratoserp_form_alter(array &$form, FormStateInterface $form_state, str
   // If using the ExtraField Form plugins, then some fields need to be removed.
   // unset($form['meta'], $form['advanced'], $form['status'], $form['actions']);.
 
-  // If this is something being deleted, redirect back to the frontpage.
-  if (preg_match('/(.*?)_delete_form/', $form_id)) {
-    $form['actions']['submit']['#submit'][] = 'stratoserp_entity_delete_redirect_submit';
-  }
-
-  return NULL;
-}
-
-/**
- * Redirect deleted submissions to the frontpage.
- *
- * @todo Make customisable/redirect back to business?
- *
- * @param array $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *
- * @return NULL
- */
-function stratoserp_entity_delete_redirect_submit(array &$form, FormStateInterface $form_state) {
-  $form_state->setRedirectUrl(Url::fromRoute('<front>'));
-
   return NULL;
 }
 
