@@ -47,6 +47,7 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
           $newSettings[$entity] = $entitySettings;
         }
       }
+      sort($newSettings);
       $data['settings'] = $newSettings;
     }
 
@@ -58,7 +59,18 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
           $newContent[] = $value;
         }
       }
+      sort($newContent);
       $data['dependencies']['content'] = $newContent;
+    }
+
+    // Deduplicate dependency config.
+    if (isset($data['dependencies']['config'])) {
+      $newDependencies = [];
+      foreach ($data['dependencies']['config'] as $value) {
+        $newDependencies[$value] = $value;
+      }
+      sort($newDependencies);
+      $data['dependencies']['config'] = array_values($newDependencies);
     }
 
     // Remove very specific ticket fields.
