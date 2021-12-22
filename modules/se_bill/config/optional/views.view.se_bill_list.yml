@@ -384,9 +384,10 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
-            owner: owner
+            developer: developer
             staff: staff
+            owner: owner
+            administrator: administrator
       cache:
         type: tag
         options: {  }

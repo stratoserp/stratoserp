@@ -14,7 +14,6 @@ dependencies:
     - field.field.se_subscription.se_email_account.se_su_use_bu_due
     - se_subscription.se_subscription_type.se_email_account
   module:
-    - datetime
     - duration_field
     - field_layout
     - layout_discovery
@@ -52,14 +51,14 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 4
     region: second
   se_ea_email_aliases:
     type: basic_string
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 5
     region: second
   se_su_lines:
     type: se_item_line_formatter
@@ -78,16 +77,17 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 6
     region: second
   se_su_next_due:
-    type: datetime_default
+    type: timestamp
     label: inline
     settings:
-      timezone_override: ''
-      format_type: medium
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 8
     region: second
   se_su_period:
     type: duration_human_display
@@ -121,7 +121,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 4
+    weight: 7
     region: second
 hidden:
   user_id: true

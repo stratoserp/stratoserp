@@ -323,9 +323,10 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
             owner: owner
             staff: staff
+            developer: developer
+            administrator: administrator
       cache:
         type: none
         options: {  }

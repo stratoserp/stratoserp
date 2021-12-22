@@ -11,7 +11,6 @@ dependencies:
     - field.field.se_subscription.se_office_365.se_su_use_bu_due
     - se_subscription.se_subscription_type.se_office_365
   module:
-    - datetime
     - duration_field
     - field_layout
     - layout_discovery
@@ -51,11 +50,12 @@ content:
     weight: 6
     region: bottom
   se_su_next_due:
-    type: datetime_default
+    type: timestamp
     label: inline
     settings:
-      timezone_override: ''
-      format_type: medium
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
     weight: 5
     region: second

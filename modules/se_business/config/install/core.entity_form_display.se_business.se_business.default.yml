@@ -24,10 +24,12 @@ dependencies:
     - field.field.se_business.se_business.se_bu_terms
     - field.field.se_business.se_business.se_bu_type_ref
   module:
+    - datetime
     - field_group
     - field_layout
     - layout_discovery
     - link
+    - se_accounting
     - se_business
     - telephone
 third_party_settings:
@@ -43,7 +45,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 18
+      weight: 21
       format_type: details
       format_settings:
         classes: ''
@@ -80,6 +82,12 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
+  se_bu_balance:
+    type: se_currency_widget
+    weight: 8
+    region: first
+    settings: {  }
+    third_party_settings: {  }
   se_bu_email:
     type: email_default
     weight: 10
@@ -111,10 +119,16 @@ content:
     third_party_settings: {  }
   se_bu_invoice_day_of_month:
     type: number
-    weight: 8
-    region: first
+    weight: 18
+    region: second
     settings:
       placeholder: ''
+    third_party_settings: {  }
+  se_bu_last_statement_date:
+    type: datetime_default
+    weight: 19
+    region: second
+    settings: {  }
     third_party_settings: {  }
   se_bu_mobile:
     type: telephone_default
@@ -194,8 +208,8 @@ content:
     third_party_settings: {  }
   se_bu_terms:
     type: number
-    weight: 21
-    region: first
+    weight: 20
+    region: second
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -216,6 +230,4 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  se_bu_balance: true
-  se_bu_last_statement_date: true
   se_bu_location: true

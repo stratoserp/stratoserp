@@ -6,7 +6,6 @@ namespace Drupal\se_devel\EventSubscriber;
 
 use Drupal\config_devel\Event\ConfigDevelEvents;
 use Drupal\config_devel\Event\ConfigDevelSaveEvent;
-use Drupal\Core\Config\ConfigCrudEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

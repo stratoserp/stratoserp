@@ -18,10 +18,11 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  se_item:
+  -
     handler: 'default:se_item'
     handler_settings:
       target_bundles:
+        se_service: se_service
         se_stock: se_stock
       sort:
         field: _none

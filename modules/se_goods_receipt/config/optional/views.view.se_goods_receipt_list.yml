@@ -385,9 +385,10 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
-            owner: owner
             staff: staff
+            owner: owner
+            developer: developer
+            administrator: administrator
       cache:
         type: none
         options: {  }

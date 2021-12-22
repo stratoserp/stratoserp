@@ -20,17 +20,7 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  comment:
-    handler: se_timekeeping
-    handler_settings:
-      target_bundles:
-        se_timekeeping: se_timekeeping
-      sort:
-        field: _none
-        direction: ASC
-      auto_create: 0
-      auto_create_bundle: ''
-  se_item:
+  -
     handler: se_item
     handler_settings:
       target_bundles:
@@ -41,4 +31,14 @@ settings:
         direction: ASC
       auto_create: 0
       auto_create_bundle: se_service
+  -
+    handler: se_timekeeping
+    handler_settings:
+      target_bundles:
+        se_timekeeping: se_timekeeping
+      sort:
+        field: _none
+        direction: ASC
+      auto_create: 0
+      auto_create_bundle: ''
 field_type: se_item_line

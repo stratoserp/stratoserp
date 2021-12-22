@@ -23,147 +23,12 @@ base_table: comment_field_data
 base_field: cid
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: role
-        options:
-          role:
-            staff: staff
-            owner: owner
-            developer: developer
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: full
-        options:
-          items_per_page: 10
-          offset: 0
-          id: 0
-          total_pages: null
-          tags:
-            previous: ‹
-            next: ›
-            first: ‹‹
-            last: ››
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          quantity: 9
-      style:
-        type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            view_comment: view_comment
-            created: created
-            subject: subject
-            se_tk_billable: se_tk_billable
-            se_tk_billed: se_tk_billed
-            se_tk_review: se_tk_review
-            uid: uid
-            se_tk_amount: se_tk_amount
-          info:
-            view_comment:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            created:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            subject:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            se_tk_billable:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-medium
-            se_tk_billed:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-medium
-            se_tk_review:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: priority-low
-            uid:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            se_tk_amount:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: created
-          empty_table: false
-      row:
-        type: fields
-        options:
-          inline: {  }
-          separator: ''
-          hide_empty: false
-          default_field_elements: true
-      relationships: {  }
+      title: 'Timekeeping list'
       fields:
         view_comment:
           id: view_comment
@@ -172,6 +37,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: comment
+          plugin_id: entity_link
           label: 'Link to Comment'
           exclude: true
           alter:
@@ -216,8 +83,6 @@ display:
           text: view
           output_url_as_text: true
           absolute: false
-          entity_type: comment
-          plugin_id: entity_link
         created:
           id: created
           table: comment_field_data
@@ -225,6 +90,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: comment
+          entity_field: created
+          plugin_id: field
           label: Date
           exclude: false
           alter:
@@ -282,9 +150,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: comment
-          entity_field: created
-          plugin_id: field
         subject:
           id: subject
           table: comment_field_data
@@ -292,6 +157,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: comment
+          entity_field: subject
+          plugin_id: field
           label: Comment
           exclude: false
           alter:
@@ -347,9 +215,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: comment
-          entity_field: subject
-          plugin_id: field
         se_tk_billable:
           id: se_tk_billable
           table: comment__se_tk_billable
@@ -357,6 +222,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Billable
           exclude: false
           alter:
@@ -402,8 +268,8 @@ display:
           type: boolean
           settings:
             format: default
-            format_custom_true: ''
             format_custom_false: ''
+            format_custom_true: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -414,7 +280,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         se_tk_billed:
           id: se_tk_billed
           table: comment__se_tk_billed
@@ -422,6 +287,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Billed
           exclude: false
           alter:
@@ -467,8 +333,8 @@ display:
           type: boolean
           settings:
             format: default
-            format_custom_true: ''
             format_custom_false: ''
+            format_custom_true: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -479,7 +345,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         se_tk_review:
           id: se_tk_review
           table: comment__se_tk_review
@@ -487,6 +352,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Needs review'
           exclude: false
           alter:
@@ -532,8 +398,8 @@ display:
           type: boolean
           settings:
             format: default
-            format_custom_true: ''
             format_custom_false: ''
+            format_custom_true: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -544,7 +410,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         uid:
           id: uid
           table: comment_field_data
@@ -552,6 +417,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: comment
+          entity_field: uid
+          plugin_id: field
           label: 'Author uid'
           exclude: false
           alter:
@@ -607,9 +475,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: comment
-          entity_field: uid
-          plugin_id: field
         se_tk_amount:
           id: se_tk_amount
           table: comment__se_tk_amount
@@ -617,6 +482,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Time
           exclude: false
           alter:
@@ -671,52 +537,47 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
-      filters:
-        status:
-          value: '1'
-          table: comment_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: comment
-          entity_field: status
-          id: status
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 10
+          total_pages: null
+          id: 0
+          tags:
+            next: ›
+            previous: ‹
+            first: ‹‹
+            last: ››
           expose:
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-          group: 1
-        comment_type:
-          id: comment_type
-          table: comment_field_data
-          field: comment_type
-          value:
-            se_timekeeping: se_timekeeping
-          entity_type: comment
-          entity_field: comment_type
-          plugin_id: bundle
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
-      sorts:
-        created:
-          id: created
-          table: comment_field_data
-          field: created
-          order: DESC
-          entity_type: comment
-          entity_field: created
-          plugin_id: date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          exposed: false
-          expose:
-            label: ''
-            field_identifier: created
-          granularity: second
-      header: {  }
-      footer: {  }
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: role
+        options:
+          role:
+            staff: staff
+            owner: owner
+            developer: developer
+      cache:
+        type: tag
+        options: {  }
       empty:
         area:
           id: area
@@ -725,12 +586,29 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: text
           empty: true
-          tokenize: false
           content:
             value: 'No timekeeping'
             format: basic_html
-          plugin_id: text
+          tokenize: false
+      sorts:
+        created:
+          id: created
+          table: comment_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: comment
+          entity_field: created
+          plugin_id: date
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: created
+          exposed: false
+          granularity: second
       arguments:
         se_bu_ref_target_id:
           id: se_bu_ref_target_id
@@ -739,6 +617,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: numeric
           default_action: default
           exception:
             value: all
@@ -752,8 +631,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 10
             override: false
+            items_per_page: 10
           summary:
             sort_order: asc
             number_of_records: 0
@@ -765,10 +644,131 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-          plugin_id: numeric
-      display_extenders: {  }
+      filters:
+        status:
+          id: status
+          table: comment_field_data
+          field: status
+          entity_type: comment
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        comment_type:
+          id: comment_type
+          table: comment_field_data
+          field: comment_type
+          entity_type: comment
+          entity_field: comment_type
+          plugin_id: bundle
+          value:
+            se_timekeeping: se_timekeeping
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            view_comment: view_comment
+            created: created
+            subject: subject
+            se_tk_billable: se_tk_billable
+            se_tk_billed: se_tk_billed
+            se_tk_review: se_tk_review
+            uid: uid
+            se_tk_amount: se_tk_amount
+          default: created
+          info:
+            view_comment:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            created:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            subject:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_tk_billable:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-medium
+            se_tk_billed:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-medium
+            se_tk_review:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-low
+            uid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_tk_amount:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships: {  }
       use_ajax: true
-      title: 'Timekeeping list'
+      header: {  }
+      footer: {  }
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -783,20 +783,20 @@ display:
         - 'config:field.storage.comment.se_tk_billed'
         - 'config:field.storage.comment.se_tk_review'
   se_timekeeping_eva:
-    display_plugin: entity_view
     id: se_timekeeping_eva
     display_title: 'Timekeeping EVA'
+    display_plugin: entity_view
     position: 1
     display_options:
+      defaults:
+        title: true
+      display_description: ''
       display_extenders: {  }
       entity_type: se_business
       bundles:
         - se_business
-      defaults:
-        title: true
       argument_mode: id
       default_argument: null
-      display_description: ''
     cache_metadata:
       max-age: -1
       contexts:

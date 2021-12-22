@@ -12,7 +12,6 @@ dependencies:
     - field.field.se_subscription.se_managed_service.se_su_use_bu_due
     - se_subscription.se_subscription_type.se_managed_service
   module:
-    - datetime
     - duration_field
     - field_layout
     - layout_discovery
@@ -62,16 +61,17 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 4
     region: second
   se_su_next_due:
-    type: datetime_default
+    type: timestamp
     label: inline
     settings:
-      timezone_override: ''
-      format_type: medium
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: second
   se_su_period:
     type: duration_human_display
@@ -105,7 +105,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: second
 hidden:
   user_id: true

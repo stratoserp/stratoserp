@@ -22,5 +22,6 @@ settings:
       field: _none
       direction: ASC
     auto_create: 0
+    auto_create_bundle: ''
     business_type: '4'
 field_type: entity_reference

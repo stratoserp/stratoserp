@@ -12,7 +12,6 @@ dependencies:
     - field.field.se_subscription.se_firewall.se_su_use_bu_due
     - se_subscription.se_subscription_type.se_firewall
   module:
-    - datetime
     - duration_field
     - field_group
     - field_layout
@@ -85,21 +84,21 @@ content:
     third_party_settings: {  }
   se_su_management_link:
     type: link_default
-    weight: 6
-    region: second
+    weight: 3
+    region: first
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
   se_su_next_due:
-    type: datetime_default
-    weight: 5
+    type: datetime_timestamp
+    weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
   se_su_period:
     type: duration_widget
-    weight: 3
+    weight: 4
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -121,7 +120,7 @@ content:
     third_party_settings: {  }
   se_su_use_bu_due:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: second
     settings:
       display_label: true
