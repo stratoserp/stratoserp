@@ -9,6 +9,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\stratoserp\Traits\EventTrait;
 
@@ -46,7 +47,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
 
-    if ($invoice->getEntityTypeId() !== 'se_invoice' || $invoice->isNew()) {
+    if (!($invoice instanceof Invoice) || $invoice->isNew()) {
       return;
     }
 
@@ -65,7 +66,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   public function invoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if ($invoice->getEntityTypeId() !== 'se_invoice') {
+    if (!($invoice instanceof Invoice)) {
       return;
     }
 
@@ -90,7 +91,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   public function invoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if ($invoice->getEntityTypeId() !== 'se_invoice') {
+    if (!($invoice instanceof Invoice)) {
       return;
     }
 
@@ -114,7 +115,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   public function invoiceDelete(EntityDeleteEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if ($invoice->getEntityTypeId() !== 'se_invoice' || $invoice->isNew()) {
+    if (!($invoice instanceof Invoice) || $invoice->isNew()) {
       return;
     }
 

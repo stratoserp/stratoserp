@@ -7,6 +7,7 @@ namespace Drupal\se_xero\EventSubscriber;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\stratoserp\Traits\EventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -38,14 +39,14 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
    *   The event we are working with.
    */
   public function xeroInvoiceInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
     if ($this->isSkipInvoiceSaveEvents($entity)) {
       return;
     }
 
     // @todo Check for the xero uuid instead?
-    if ($entity->bundle() === 'se_business' && !$entity->get('se_xero_uuid')) {
+    if ($entity instanceof Invoice && !$entity->get('se_xero_uuid')) {
       \Drupal::service('se_xero.invoice_service')->sync($entity);
     }
   }
@@ -57,13 +58,13 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
    *   The event we are working with.
    */
   public function xeroInvoiceUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
     if ($this->isSkipInvoiceSaveEvents($entity)) {
       return;
     }
 
-    if ($entity->bundle() === 'se_business' && !$entity->get('se_xero_uuid')) {
+    if ($entity instanceof Invoice && !$entity->get('se_xero_uuid')) {
       \Drupal::service('se_xero.invoice_service')->sync($entity);
     }
 

@@ -200,10 +200,10 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
    */
   public function isOpen() {
     $openStatus = \Drupal::configFactory()
-      ->getEditable('se_ticket.settings')
+      ->get('se_ticket.settings')
       ->get('se_ticket_calendar_status_list') ?? [];
 
-    if (empty($openStatus) || in_array($this->se_ti_status_ref->target_id, $openStatus, TRUE)) {
+    if (empty($openStatus) || in_array((string) $this->se_ti_status_ref->target_id, $openStatus, TRUE)) {
       return TRUE;
     }
 
@@ -226,10 +226,10 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
    */
   public function isCalendarType(): bool {
     $calendarType = \Drupal::configFactory()
-      ->getEditable('se_ticket.settings')
+      ->get('se_ticket.settings')
       ->get('se_ticket_calendar_type_list') ?? [];
 
-    if (empty($calendarType) || in_array($this->se_ti_type_ref->target_id, $calendarType, TRUE)) {
+    if (empty($calendarType) || in_array((string) $this->se_ti_type_ref->target_id, $calendarType, TRUE)) {
       return TRUE;
     }
 

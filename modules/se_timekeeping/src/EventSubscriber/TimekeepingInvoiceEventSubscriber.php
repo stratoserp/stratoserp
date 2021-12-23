@@ -38,11 +38,11 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * {@inheritdoc}
    */
   public function timekeepingInvoiceInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
 
-    if ($invoice->getEntityTypeId() === 'se_invoice') {
-      $this->timekeepingMarkItemsBilled($invoice);
+    if ($entity instanceof Invoice) {
+      $this->timekeepingMarkItemsBilled($entity);
     }
   }
 
@@ -50,11 +50,11 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * {@inheritdoc}
    */
   public function timekeepingInvoiceUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
 
-    if ($invoice->getEntityTypeId() === 'se_invoice') {
-      $this->timekeepingMarkItemsBilled($invoice);
+    if ($entity instanceof Invoice) {
+      $this->timekeepingMarkItemsBilled($entity);
     }
   }
 
@@ -62,11 +62,11 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * {@inheritdoc}
    */
   public function timekeepingInvoicePresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
 
-    if ($invoice->getEntityTypeId() === 'se_invoice') {
-      $this->timekeepingMarkItemsUnBilled($invoice);
+    if ($entity instanceof Invoice) {
+      $this->timekeepingMarkItemsUnBilled($entity);
     }
   }
 
@@ -74,11 +74,11 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * {@inheritdoc}
    */
   public function timekeepingInvoiceDelete(EntityDeleteEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
+    $entity = $event->getEntity();
 
-    if ($invoice->getEntityTypeId() === 'se_invoice') {
-      $this->timekeepingMarkItemsUnBilled($invoice);
+    if ($entity instanceof Invoice) {
+      $this->timekeepingMarkItemsUnBilled($entity);
     }
   }
 

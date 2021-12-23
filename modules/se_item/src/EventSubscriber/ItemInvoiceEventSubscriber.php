@@ -40,7 +40,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
   public function itemInvoicePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_invoice') {
+    if (!($entity instanceof Invoice)) {
       return;
     }
 
@@ -54,7 +54,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
   public function itemInvoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_invoice') {
+    if (!($entity instanceof Invoice)) {
       return;
     }
 
@@ -67,7 +67,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
   public function itemInvoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_invoice') {
+    if (!($entity instanceof Invoice)) {
       return;
     }
 
@@ -190,7 +190,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
   public function itemInvoiceDelete(EntityDeleteEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_invoice') {
+    if (!($entity instanceof Invoice)) {
       return;
     }
 

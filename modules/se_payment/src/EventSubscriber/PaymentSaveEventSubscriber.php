@@ -49,7 +49,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
     /** @var \Drupal\se_payment\Entity\Payment $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'se_payment') {
+    if (!($entity instanceof Payment)) {
       return;
     }
 
@@ -64,7 +64,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
     /** @var \Drupal\se_payment\Entity\Payment $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'se_payment') {
+    if (!($entity instanceof Payment)) {
       return;
     }
 
@@ -79,8 +79,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
     /** @var \Drupal\se_payment\Entity\Payment $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'se_payment'
-      || $entity->isNew()) {
+    if (!($entity instanceof Payment) || $entity->isNew()) {
       return;
     }
 
@@ -95,8 +94,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
     /** @var \Drupal\se_payment\Entity\Payment $entity */
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'se_payment'
-      || $entity->isNew()) {
+    if (!($entity instanceof Payment)) {
       return;
     }
 

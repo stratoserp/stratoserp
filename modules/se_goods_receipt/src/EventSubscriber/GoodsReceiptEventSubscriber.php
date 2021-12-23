@@ -7,6 +7,7 @@ namespace Drupal\se_goods_receipt\EventSubscriber;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\stratoserp\Constants;
 use Drupal\se_item\Entity\Item;
 
@@ -35,7 +36,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
    */
   public function itemLineEntityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_goods_receipt') {
+    if (!($entity instanceof GoodsReceipt)) {
       return;
     }
 
@@ -63,7 +64,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
    */
   public function goodsReceiptItemsInsert(EntityInsertEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_goods_receipt') {
+    if (!($entity instanceof GoodsReceipt)) {
       return;
     }
 

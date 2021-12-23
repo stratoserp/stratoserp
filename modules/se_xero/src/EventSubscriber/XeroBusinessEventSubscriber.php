@@ -7,6 +7,7 @@ namespace Drupal\se_xero\EventSubscriber;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\se_business\Entity\Business;
 use Drupal\stratoserp\Traits\EventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -40,7 +41,7 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
   public function xeroBusinessInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_business') {
+    if (!($entity instanceof Business)) {
       return;
     }
 
@@ -62,7 +63,7 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
   public function xeroBusinessUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() !== 'se_business') {
+    if (!($entity instanceof Business)) {
       return;
     }
 
