@@ -66,7 +66,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/subscription/{se_subscription}/revisions/{se_subscription_revision}/revert",
  *     "revision_delete" = "/subscription/{se_subscription}/revisions/{se_subscription_revision}/delete",
  *     "translation_revert" = "/subscription/{se_subscription}/revisions/{se_subscription_revision}/revert/{langcode}",
- *     "collection" = "/admin/se/subscription",
+ *     "collection" = "/se/subscription-list",
  *   },
  *   options = {
  *     "_admin_route" = "0",

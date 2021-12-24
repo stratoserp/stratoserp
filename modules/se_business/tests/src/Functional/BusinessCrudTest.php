@@ -46,12 +46,12 @@ class BusinessCrudTest extends BusinessTestBase {
     $this->editEntity($testBusiness, FALSE);
     $this->drupalLogout();
 
-    // Ensure staff can't delete a business.
+    // Ensure staff can edit a business.
     $this->drupalLogin($this->staff);
     $this->editEntity($testBusiness);
     $this->drupalLogout();
 
-    // Ensure administrator can delete a business.
+    // Ensure administrator can edit  a business.
     $this->drupalLogin($this->owner);
     $this->editEntity($testBusiness);
     $this->drupalLogout();

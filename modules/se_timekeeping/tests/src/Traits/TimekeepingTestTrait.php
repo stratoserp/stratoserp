@@ -6,6 +6,7 @@ namespace Drupal\Tests\se_timekeeping\Traits;
 
 use Drupal\comment\CommentInterface;
 use Drupal\comment\Entity\Comment;
+use Drupal\se_item\Entity\Item;
 use Drupal\se_ticket\Entity\Ticket;
 use Faker\Factory;
 
@@ -14,7 +15,7 @@ use Faker\Factory;
  */
 trait TimekeepingTestTrait {
 
-  protected $timekeepingName;
+  protected string $timekeepingName;
 
   /**
    * Setup basic faker fields for this test trait.
@@ -22,7 +23,7 @@ trait TimekeepingTestTrait {
   public function timekeepingFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $this->timekeepingName          = $this->faker->realText(45);
+    $this->timekeepingName = $this->faker->realText(45);
   }
 
   /**
@@ -33,16 +34,20 @@ trait TimekeepingTestTrait {
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
+   * @return \Drupal\comment\Entity\Comment|null
+   *   Return the created comment, or NULL if access denied.
+   * 
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function addTimekeeping(Ticket $ticket, bool $allowed = TRUE) {
     if (!isset($this->timekeepingName)) {
       $this->timekeepingFakerSetup();
     }
 
-    $item = \Drupal::service('se_item.service')->findByCode('TECHSERVICE');
+    $item = $this->findCreateTechServiceItem();
+    self::assertNotNull($item);
+    self::assertNotEmpty($item);
 
     /** @var \Drupal\comment\Entity\Comment $comment */
     $comment = Comment::create([
@@ -90,9 +95,43 @@ trait TimekeepingTestTrait {
    *   The timekeeping comment to try and delete.
    * @param bool $allowed
    *   Whether the deletion shoulw be allowed.
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function deleteTimekeeping(Comment $comment, bool $allowed): void {
     $this->deleteComment($comment, $allowed);
+  }
+
+  /**
+   * Find or create then return service item.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function findCreateTechServiceItem(): Item {
+    // Try and find it.
+    if ($itemList = \Drupal::service('se_item.service')->findByCode('TECHSERVICE')) {
+      // Load and return if found.
+      $item = Item::load(reset($itemList));
+      return $item;
+    }
+
+    // We need to create it and mark it for later cleanup.
+    $item = Item::create([
+      'type' => 'se_service',
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'name' => 'Technical service',
+      'body' => 'Technical service by one of our qualified technicians.',
+      'se_it_code' => [['value' => 'TECHSERVICE']],
+      'se_it_sell_price' => [['value' => 16000]],
+      'se_it_cost_price' => [['value' => 5500]],
+    ]);
+    $item->save();
+    $this->markEntityForCleanup($item);
+
+    return $item;
   }
 
 }

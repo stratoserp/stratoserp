@@ -65,7 +65,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/ticket/{se_ticket}/revisions/{se_ticket_revision}/revert",
  *     "revision_delete" = "/ticket/{se_ticket}/revisions/{se_ticket_revision}/delete",
  *     "translation_revert" = "/ticket/{se_ticket}/revisions/{se_ticket_revision}/revert/{langcode}",
- *     "collection" = "/admin/se/ticket",
+ *     "collection" = "/se/ticket-list",
  *   },
  *   field_ui_base_route = "se_ticket.settings",
  *   revision_metadata_keys = {

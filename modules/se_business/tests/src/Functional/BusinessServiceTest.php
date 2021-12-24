@@ -27,6 +27,9 @@ class BusinessServiceTest extends BusinessTestBase {
    * Ensure that the business lookup service will return
    * the business if called with a business entity.
    *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testBusinessServiceWithBusiness(): void {
@@ -48,9 +51,11 @@ class BusinessServiceTest extends BusinessTestBase {
   /**
    * Test business lookup service with an invoice.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testBusinessServiceWithInvoice(): void {
 
@@ -76,9 +81,11 @@ class BusinessServiceTest extends BusinessTestBase {
   /**
    * Test business lookup service with an quote.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testBusinessServiceWithQuote(): void {
 

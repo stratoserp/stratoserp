@@ -64,7 +64,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/quote/{se_quote}/revisions/{se_quote_revision}/revert",
  *     "revision_delete" = "/quote/{se_quote}/revisions/{se_quote_revision}/delete",
  *     "translation_revert" = "/quote/{se_quote}/revisions/{se_quote_revision}/revert/{langcode}",
- *     "collection" = "/admin/se/quote",
+ *     "collection" = "/se/quote-list",
  *   },
  *   field_ui_base_route = "se_quote.settings",
  *   revision_metadata_keys = {

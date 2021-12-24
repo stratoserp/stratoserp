@@ -63,7 +63,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/goods-receipt/{se_goods_receipt}/revisions/{se_goods_receipt_revision}/revert",
  *     "revision_delete" = "/goods-receipt/{se_goods_receipt}/revisions/{se_goods_receipt_revision}/delete",
  *     "translation_revert" = "/goods-receipt/{se_goods_receipt}/revisions/{se_goods_receipt_revision}/revert/{langcode}",
- *     "collection" = "/admin/se/goods-receipt",
+ *     "collection" = "/se/goods-receipt-list",
  *   },
  *   field_ui_base_route = "se_goods_receipt.settings",
  *   revision_metadata_keys = {

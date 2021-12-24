@@ -63,7 +63,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/bill/{se_bill}/revisions/{se_bill_revision}/revert",
  *     "revision_delete" = "/bill/{se_bill}/revisions/{se_bill_revision}/delete",
  *     "translation_revert" = "/bill/{se_bill}/revisions/{se_bill_revision}/revert/{langcode}",
- *     "collection" = "/admin/se/bill/se_bill",
+ *     "collection" = "/se/bill-list",
  *   },
  *   field_ui_base_route = "se_bill.settings",
  *   revision_metadata_keys = {

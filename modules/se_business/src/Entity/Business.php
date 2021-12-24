@@ -64,7 +64,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/business/{se_business}/revisions/{se_business_revision}/revert",
  *     "revision_delete" = "/business/{se_business}/revisions/{se_business_revision}/delete",
  *     "translation_revert" = "/business/{se_business}/revisions/{se_business_revision}/revert/{langcode}",
- *     "collection" = "/admin/se/business",
+ *     "collection" = "/se/business-list",
  *   },
  *   field_ui_base_route = "se_business.settings",
  *   revision_metadata_keys = {

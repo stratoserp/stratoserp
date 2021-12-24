@@ -66,7 +66,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/invoice/{se_invoice}/revisions/{se_invoice_revision}/revert",
  *     "revision_delete" = "/invoice/{se_invoice}/revisions/{se_invoice_revision}/delete",
  *     "translation_revert" = "/invoice/{se_invoice}/revisions/{se_invoice_revision}/revert/{langcode}",
- *     "collection" = "/admin/se/invoice",
+ *     "collection" = "/se/invoice-list",
  *   },
  *   field_ui_base_route = "se_invoice.settings",
  *   revision_metadata_keys = {

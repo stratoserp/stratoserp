@@ -61,6 +61,7 @@ trait ItemTestTrait {
 
     // Ensure that the item is not its own original/parent item.
     self::assertNotNull($item->se_it_item_ref);
+    self::assertNotNull($item->se_it_item_ref->entity);
     self::assertNotEquals($item->se_it_item_ref->entity->id(), $item->id());
     self::assertEquals($this->itemSerial, $item->se_it_serial->value);
     // $this->assertNull($item->se_it_goods_receipt_ref);

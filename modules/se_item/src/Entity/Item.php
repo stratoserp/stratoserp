@@ -66,7 +66,7 @@ use Drupal\user\UserInterface;
  *     "revision_revert" = "/item/{se_item}/revisions/{se_item_revision}/revert",
  *     "revision_delete" = "/item/{se_item}/revisions/{se_item_revision}/delete",
  *     "translation_revert" = "/item/{se_item}/revisions/{se_item_revision}/revert/{langcode}",
- *     "collection" = "/admin/content/item",
+ *     "collection" = "/se/item-list",
  *   },
  *   bundle_entity_type = "se_item_type",
  *   field_ui_base_route = "entity.se_item_type.edit_form",

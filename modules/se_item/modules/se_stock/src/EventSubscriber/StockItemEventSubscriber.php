@@ -32,7 +32,7 @@ class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
   public function stockItemPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
 
-    if ($entity->getEntityTypeId() !== 'se_item') {
+    if (!($entity instanceof Item)) {
       return;
     }
 
