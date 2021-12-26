@@ -19,7 +19,7 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  -
+  se_item:
     handler: 'default:se_item'
     handler_settings:
       target_bundles:

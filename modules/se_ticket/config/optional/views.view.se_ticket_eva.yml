@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.se_ticket.se_ti_open_date
     - field.storage.se_ticket.se_ti_scheduled
+    - user.role.developer
     - user.role.owner
     - user.role.staff
   module:
@@ -41,8 +42,8 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: false
-            path: ''
+            make_link: true
+            path: '/ticket/{{ id }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -105,8 +106,8 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: false
-            path: ''
+            make_link: true
+            path: '/ticket/{{ id }}'
             absolute: false
             external: false
             replace_spaces: false

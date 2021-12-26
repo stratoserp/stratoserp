@@ -46,7 +46,6 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
           $newSettings[$entity] = $entitySettings;
         }
       }
-      sort($newSettings);
       $data['settings'] = $newSettings;
     }
 
