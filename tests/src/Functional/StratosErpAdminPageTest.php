@@ -13,7 +13,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  * @group se_o365_ticket
  * @group stratoserp
  */
-class StratosERPAdminPageTest extends FunctionalTestBase {
+class StratosErpAdminPageTest extends FunctionalTestBase {
 
   /**
    * Text link to check.
@@ -26,7 +26,7 @@ class StratosERPAdminPageTest extends FunctionalTestBase {
    * @throws \Behat\Mink\Exception\ResponseTextException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testStratosERPAdminPageTest() {
+  public function testStratosErpAdminPageTest() {
 
     $page = $this->getSession()->getPage();
     $assert = $this->assertSession();

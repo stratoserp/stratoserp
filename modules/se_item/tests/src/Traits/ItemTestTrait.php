@@ -41,7 +41,8 @@ trait ItemTestTrait {
    * @return \Drupal\se_item\Entity\Item
    *   The Item Content.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException|\Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addStockItem(): Item {
     if (!isset($this->itemName)) {
@@ -77,7 +78,8 @@ trait ItemTestTrait {
    * @return \Drupal\se_item\Entity\Item
    *   The Item Content.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException|\Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addServiceItem(): Item {
     if (!isset($this->itemName)) {
@@ -105,7 +107,8 @@ trait ItemTestTrait {
    * @return \Drupal\se_item\Entity\Item
    *   The Item Content.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException|\Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function addRecurringItem($period = 'P1M'): Item {
     if (!isset($this->itemName)) {

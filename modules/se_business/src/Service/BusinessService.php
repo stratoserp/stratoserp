@@ -6,7 +6,6 @@ namespace Drupal\se_business\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_business\Entity\BusinessInterface;

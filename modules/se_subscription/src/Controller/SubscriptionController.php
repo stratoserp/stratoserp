@@ -120,7 +120,7 @@ class SubscriptionController extends ControllerBase {
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_subscription\SubscriptionInterface $revision */
+      /** @var \Drupal\se_subscription\Entity\SubscriptionInterface $revision */
       $revision = $se_subscription_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -139,7 +139,7 @@ class SubscriptionController extends ControllerBase {
           ]));
         }
         else {
-          $link = $se_subscription->toLink($date);
+          $link = $se_subscription->toLink($date)->toString();
         }
 
         $row = [];

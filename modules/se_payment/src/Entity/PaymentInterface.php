@@ -111,4 +111,5 @@ interface PaymentInterface extends ContentEntityInterface, RevisionLogInterface,
    * Return the business associated with the invoice.
    */
   public function getBusiness(): Business;
+
 }

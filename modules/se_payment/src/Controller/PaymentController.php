@@ -7,6 +7,7 @@ namespace Drupal\se_payment\Controller;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_payment\Entity\Payment;
 use Drupal\se_payment\Entity\PaymentInterface;
@@ -115,7 +116,7 @@ class PaymentController extends ControllerBase {
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_payment\PaymentInterface $revision */
+      /** @var \Drupal\se_payment\Entity\PaymentInterface $revision */
       $revision = $se_payment_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -128,13 +129,13 @@ class PaymentController extends ControllerBase {
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_payment->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_payment.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_payment.revision', [
             'se_payment' => $se_payment->id(),
             'se_payment_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_payment->link($date);
+          $link = $se_payment->toLink($date)->toString();
         }
 
         $row = [];

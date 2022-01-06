@@ -55,7 +55,9 @@ trait WebformIntegrationEntityReferenceWidgetTrait {
     $field_name = $items->getName();
 
     // Get field input name from field parents, field name, and the delta.
-    $field_parents = array_merge($element['#field_parents'], [$field_name, $delta]);
+    $field_parents = array_merge(
+      $element['#field_parents'], [$field_name, $delta]
+    );
     $field_input_name = (array_shift($field_parents)) . ('[' . implode('][', $field_parents) . ']');
 
     // Get target ID element.

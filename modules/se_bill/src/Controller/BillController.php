@@ -6,6 +6,7 @@ namespace Drupal\se_bill\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_bill\Entity\BillInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -109,7 +110,7 @@ class BillController extends ControllerBase {
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_bill\BillInterface $revision */
+      /** @var \Drupal\se_bill\Entity\BillInterface $revision */
       $revision = $se_bill_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -122,13 +123,13 @@ class BillController extends ControllerBase {
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_bill->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_bill.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_bill.revision', [
             'se_bill' => $se_bill->id(),
             'se_bill_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_bill->link($date);
+          $link = $se_bill->toLink($date)->toString();
         }
 
         $row = [];

@@ -6,8 +6,8 @@ namespace Drupal\se_contact\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_contact\Entity\Contact;
 use Drupal\se_contact\Entity\ContactInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  *  Returns responses for Contact routes.
  */
-class ContactController extends ControllerBase implements ContainerInjectionInterface {
+class ContactController extends ControllerBase {
 
   /**
    * The date formatter.
@@ -112,7 +112,7 @@ class ContactController extends ControllerBase implements ContainerInjectionInte
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_contact\ContactInterface $revision */
+      /** @var \Drupal\se_contact\Entity\ContactInterface $revision */
       $revision = $se_contact_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -125,13 +125,13 @@ class ContactController extends ControllerBase implements ContainerInjectionInte
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_contact->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_contact.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_contact.revision', [
             'se_contact' => $se_contact->id(),
             'se_contact_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_contact->link($date);
+          $link = $se_contact->toLink($date)->toString();
         }
 
         $row = [];
@@ -230,11 +230,9 @@ class ContactController extends ControllerBase implements ContainerInjectionInte
       'bundle' => 'se_contact',
     ]);
 
-    $business = \Drupal::service('se_business.service')->lookupBusiness($source);
-    $entity->se_bu_ref = $business;
+    $entity->se_bu_ref = \Drupal::service('se_business.service')->lookupBusiness($source);
 
     return $this->entityFormBuilder()->getForm($entity);
   }
-
 
 }

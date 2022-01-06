@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Contains se_goods_receipt.page.inc.
  *
  * Page callback for Goods Receipt entities.
  */
+
+declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 

@@ -269,7 +269,6 @@ class NavigationBlock extends BlockBase {
 
   /**
    * Build a list of invoice links for display.
-   *
    */
   private function invoiceLinks(): void {
     $routeParameters = $this->setRouteParameters();

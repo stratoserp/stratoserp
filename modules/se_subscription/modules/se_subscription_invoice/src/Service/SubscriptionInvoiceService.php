@@ -10,11 +10,22 @@ use Drupal\se_business\Entity\Business;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_subscription\Entity\Subscription;
 
+/**
+ * Service to create invoices out of subscriptions.
+ */
 class SubscriptionInvoiceService {
 
   protected EntityTypeManagerInterface $entityTypeManager;
   protected LoggerChannel $loggerChannel;
 
+  /**
+   * Constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   EntityTypeManager for later.
+   * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
+   *   Logger for later.
+   */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannel $loggerChannel) {
     $this->entityTypeManager = $entityTypeManager;
     $this->loggerChannel = $loggerChannel;
@@ -24,6 +35,8 @@ class SubscriptionInvoiceService {
    * Retrieve the list of businesses with subscriptions that match this day.
    *
    * @return array
+   *   And array of invoices.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -37,16 +50,14 @@ class SubscriptionInvoiceService {
       ->accessCheck(FALSE)
       ->condition('se_bu_invoice_day_of_month', date('d'), '<=');
 
-    // Load subscriptions to create line items
+    // Load subscriptions to create line items.
     foreach ($query->execute() as $businessId) {
       $business = Business::load($businessId);
       $items = $this->subscriptionsToItems($businessId);
 
-      if (count($items)) {
-        if ($invoice = $this->subscriptionsToInvoice($business, $items)) {
-          $invoices[] = $invoice;
-          $this->updateDueDate($items);
-        }
+      if (count($items) && $invoice = $this->subscriptionsToInvoice($business, $items)) {
+        $invoices[] = $invoice;
+        $this->updateDueDate($items);
       }
     }
 
@@ -57,6 +68,8 @@ class SubscriptionInvoiceService {
    * Process subscriptions that are not set to use the business date.
    *
    * @return array
+   *   An array of invoices.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -72,15 +85,13 @@ class SubscriptionInvoiceService {
       ->condition('se_su_next_due', date('U'), '<=')
       ->condition('se_su_use_bu_due', 0);
 
-    // Load subscriptions to create line items
+    // Load subscriptions to create line items.
     foreach ($query->execute() as $businessId) {
       $business = Business::load($businessId);
       $items = $this->subscriptionsToItems($businessId);
-      if (count($items)) {
-        if ($invoice = $this->subscriptionsToInvoice($business, $items)) {
-          $invoices[] = $invoice;
-          $this->updateDueDate($items);
-        }
+      if (count($items) && $invoice = $this->subscriptionsToInvoice($business, $items)) {
+        $invoices[] = $invoice;
+        $this->updateDueDate($items);
       }
     }
 
@@ -89,14 +100,13 @@ class SubscriptionInvoiceService {
 
   /**
    * Update the next due date for a subscription.
-   * .
    *
    * @param array $items
    *   The list of successful subscriptions to update.
    *
-   * @return void
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function updateDueDate($items) {
+  private function updateDueDate(array $items): void {
     foreach ($items as $item) {
       $sub = Subscription::load($item['subscription_id']);
       $seconds = \Drupal::service('duration_field.service')->getSecondsFromDurationString($sub->se_su_period->duration);
@@ -109,13 +119,16 @@ class SubscriptionInvoiceService {
   /**
    * Process subscriptions for a specific business.
    *
-   * @param $businessId
+   * @param \Drupal\se_business\Entity\Business $businessId
+   *   The business we're doing subscription invoicing for.
    *
    * @return array
+   *   The invoice lines.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  private function subscriptionsToItems($businessId): array {
+  private function subscriptionsToItems(Business $businessId): array {
     // Build a query for subscriptions due for this business.
     $query = $this->entityTypeManager
       ->getStorage('se_subscription')
@@ -130,13 +143,17 @@ class SubscriptionInvoiceService {
   /**
    * Create an invoice from the subscription lines and business.
    *
-   * @param $business
-   * @param $subscriptions
+   * @param \Drupal\se_business\Entity\Business $business
+   *   The business we're doing subscription invoicing for.
+   * @param \Drupal\se_subscription\Entity\Subscription[] $subscriptions
+   *   The list of subscriptions.
    *
    * @return \Drupal\se_invoice\Entity\Invoice
+   *   The completed invoice
+   *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function subscriptionsToInvoice($business, $subscriptions): Invoice {
+  private function subscriptionsToInvoice(Business $business, array $subscriptions): Invoice {
     $invoiceContent = [
       'type' => 'se_invoice',
       'name' => '',
@@ -152,7 +169,6 @@ class SubscriptionInvoiceService {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = Invoice::create($invoiceContent);
     $invoice->setName('Test');
-    $invoice->getTotal();
     $invoice->save();
 
     return $invoice;
@@ -161,11 +177,13 @@ class SubscriptionInvoiceService {
   /**
    * Create the item lines for an invoice.
    *
-   * @param $subscriptions
+   * @param \Drupal\se_subscription\Entity\Subscription[] $subscriptions
+   *   The list of subscriptions to process.
    *
    * @return array
+   *   The item line array for the invoice.
    */
-  private function subscriptionsToInvoiceLines($subscriptions): array {
+  private function subscriptionsToInvoiceLines(array $subscriptions): array {
     $lines = [];
 
     foreach ($subscriptions as $sub) {

@@ -64,7 +64,12 @@ class WebformIntegrationEntityReferenceSelectWidget extends OptionsWidgetBase {
     }
 
     // Set validation callback.
-    $target_element['#element_validate'] = [[get_class($this), 'validateWebformEntityReferenceSelectWidget']];
+    $target_element['#element_validate'] = [
+      [
+        get_class($this),
+        'validateWebformEntityReferenceSelectWidget',
+      ],
+    ];
 
     return $target_element;
   }

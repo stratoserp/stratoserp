@@ -30,8 +30,14 @@ trait SubscriptionTestTrait {
   /**
    * Add a subscription and set the business to the value passed in.
    *
-   * @param \Drupal\se_business\Entity\Business|null $customer
+   * @param string $subscriptionType
+   *   The subscription type we're wrangling.
+   * @param \Drupal\se_business\Entity\Business $customer
    *   The business to associate the subscription with.
+   * @param \Drupal\se_business\Entity\Business $supplier
+   *   The business to associate the subscription with.
+   * @param \Drupal\se_item\Entity\Item $item
+   *   The subscription item.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
@@ -54,7 +60,7 @@ trait SubscriptionTestTrait {
       'se_su_ref' => $supplier,
       'se_item_lines' => [
         $item,
-      ]
+      ],
     ]);
     self::assertNotEquals($subscription, FALSE);
 
@@ -106,6 +112,7 @@ trait SubscriptionTestTrait {
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface
    *   The created but not yet saved subscription entity.
+   *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function createSubscriptionContent(array $settings = []) {

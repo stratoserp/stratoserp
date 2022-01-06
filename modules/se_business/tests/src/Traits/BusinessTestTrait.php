@@ -56,15 +56,18 @@ trait BusinessTestTrait {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
-   * @todo Provide default Business types and test Customer & Supplier.
    *
+   * @todo Provide default Business types and test Customer & Supplier.
    */
   public function addBusiness(string $type = 'Customer', bool $allowed = TRUE): ?Business {
     if (!isset($this->businessName)) {
       $this->businessFakerSetup();
     }
 
-    if (!$terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $type, 'vid' => 'se_business_type'])) {
+    if (!$terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties([
+      'name' => $type,
+      'vid' => 'se_business_type',
+    ])) {
       return NULL;
     }
     $term = reset($terms);

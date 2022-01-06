@@ -11,9 +11,9 @@ use Drupal\stratoserp\Traits\HtmlRouteProviderTrait;
  * Provides routes for Business entities.
  *
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
-  */
+ */
 class BusinessHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   use HtmlRouteProviderTrait;
-  
+
 }

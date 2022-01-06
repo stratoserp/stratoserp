@@ -9,7 +9,7 @@ use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Plugin implementation of a widget to display cents in Human readable dollars and cents.
+ * Time widget.
  *
  * @FieldWidget(
  *   id = "TimeWidget",

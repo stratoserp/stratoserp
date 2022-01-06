@@ -21,7 +21,6 @@ class BusinessSettingsForm extends FormBase {
    */
   protected $entityTypeManager;
 
-
   /**
    * Simple constructor.
    */

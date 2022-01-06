@@ -9,6 +9,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provide common functions used by the various entities, rather than duplicate.
+ *
+ * This should be able to be removed when this issue hits.
+ * https://www.drupal.org/project/drupal/issues/2350939
  */
 trait RevisionableEntityTrait {
 
@@ -44,14 +47,16 @@ trait RevisionableEntityTrait {
 
     switch ($status) {
       case SAVED_NEW:
-        $this->messenger()->addMessage($this->t('Created the %label Goods Receipt.', [
+        $this->messenger()->addMessage($this->t('Created %label @type.', [
           '%label' => $entity->label(),
+          '@type' => $entity->getEntityType()->getLabel(),
         ]));
         break;
 
       default:
-        $this->messenger()->addMessage($this->t('Saved the %label Goods Receipt.', [
+        $this->messenger()->addMessage($this->t('Saved %label @type.', [
           '%label' => $entity->label(),
+          '@type' => $entity->getEntityType()->getLabel(),
         ]));
     }
     $entityType = $entity->getEntityTypeId();

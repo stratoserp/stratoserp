@@ -9,6 +9,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_item\Entity\ItemInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class ItemController.
@@ -16,6 +17,30 @@ use Drupal\se_item\Entity\ItemInterface;
  *  Returns responses for Item routes.
  */
 class ItemController extends ControllerBase {
+
+  /**
+   * The date formatter.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatter
+   */
+  protected $dateFormatter;
+
+  /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\Renderer
+   */
+  protected $renderer;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    $instance = parent::create($container);
+    $instance->dateFormatter = $container->get('date.formatter');
+    $instance->renderer = $container->get('renderer');
+    return $instance;
+  }
 
   /**
    * Displays a Item  revision.
@@ -44,7 +69,10 @@ class ItemController extends ControllerBase {
    */
   public function revisionPageTitle($se_item_revision) {
     $se_item = $this->entityTypeManager()->getStorage('se_item')->loadRevision($se_item_revision);
-    return $this->t('Revision of %title from %date', ['%title' => $se_item->label(), '%date' => \Drupal::service('date.formatter')->format($se_item->getRevisionCreationTime())]);
+    return $this->t('Revision of %title from %date', [
+      '%title' => $se_item->label(),
+      '%date' => $this->dateFormatter->format($se_item->getRevisionCreationTime()),
+    ]);
   }
 
   /**
@@ -64,7 +92,12 @@ class ItemController extends ControllerBase {
     $has_translations = (count($languages) > 1);
     $se_item_storage = $this->entityTypeManager()->getStorage('se_item');
 
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', ['@langname' => $langname, '%title' => $se_item->label()]) : $this->t('Revisions for %title', ['%title' => $se_item->label()]);
+    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
+      '@langname' => $langname,
+      '%title' => $se_item->label(),
+    ]) : $this->t('Revisions for %title', [
+      '%title' => $se_item->label(),
+    ]);
     $header = [$this->t('Revision'), $this->t('Operations')];
 
     $revert_permission = (($account->hasPermission("revert all item revisions") || $account->hasPermission('administer item entities')));
@@ -77,7 +110,7 @@ class ItemController extends ControllerBase {
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_item\ItemInterface $revision */
+      /** @var \Drupal\se_item\Entity\ItemInterface $revision */
       $revision = $se_item_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -88,12 +121,15 @@ class ItemController extends ControllerBase {
         ];
 
         // Use revision link to link to revisions that are not active.
-        $date = \Drupal::service('date.formatter')->format($revision->getRevisionCreationTime(), 'short');
+        $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid !== $se_item->getRevisionId()) {
-          $link = Link::fromTextAndUrl($date, new Url('entity.se_item.revision', ['se_item' => $se_item->id(), 'se_item_revision' => $vid]));
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_item.revision', [
+            'se_item' => $se_item->id(),
+            'se_item_revision' => $vid,
+          ]));
         }
         else {
-          $link = $se_item->toLink($date);
+          $link = $se_item->toLink($date)->toString();
         }
 
         $row = [];
@@ -103,8 +139,11 @@ class ItemController extends ControllerBase {
             '#template' => '{% trans %}{{ date }} by {{ username }}{% endtrans %}{% if message %}<p class="revision-log">{{ message }}</p>{% endif %}',
             '#context' => [
               'date' => $link,
-              'username' => \Drupal::service('renderer')->renderPlain($username),
-              'message' => ['#markup' => $revision->getRevisionLogMessage(), '#allowed_tags' => Xss::getHtmlTagList()],
+              'username' => $this->renderer->renderPlain($username),
+              'message' => [
+                '#markup' => $revision->getRevisionLogMessage(),
+                '#allowed_tags' => Xss::getHtmlTagList(),
+              ],
             ],
           ],
         ];
@@ -129,15 +168,25 @@ class ItemController extends ControllerBase {
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.se_item.translation_revert', ['se_item' => $se_item->id(), 'se_item_revision' => $vid, 'langcode' => $langcode]) :
-              Url::fromRoute('entity.se_item.revision_revert', ['se_item' => $se_item->id(), 'se_item_revision' => $vid]),
+              Url::fromRoute('entity.se_item.translation_revert', [
+                'se_item' => $se_item->id(),
+                'se_item_revision' => $vid,
+                'langcode' => $langcode,
+              ]) :
+              Url::fromRoute('entity.se_item.revision_revert', [
+                'se_item' => $se_item->id(),
+                'se_item_revision' => $vid,
+              ]),
             ];
           }
 
           if ($delete_permission) {
             $links['delete'] = [
               'title' => $this->t('Delete'),
-              'url' => Url::fromRoute('entity.se_item.revision_delete', ['se_item' => $se_item->id(), 'se_item_revision' => $vid]),
+              'url' => Url::fromRoute('entity.se_item.revision_delete', [
+                'se_item' => $se_item->id(),
+                'se_item_revision' => $vid,
+              ]),
             ];
           }
 

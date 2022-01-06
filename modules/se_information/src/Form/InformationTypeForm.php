@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class InformationTypeForm.
+ * Provide a form for set up of information types.
  */
 class InformationTypeForm extends EntityForm {
 

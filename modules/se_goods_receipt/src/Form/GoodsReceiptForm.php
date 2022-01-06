@@ -17,7 +17,7 @@ use Drupal\stratoserp\Traits\RevisionableEntityTrait;
 class GoodsReceiptForm extends ContentEntityForm {
 
   use RevisionableEntityTrait;
-  
+
   /**
    * The current user account.
    *

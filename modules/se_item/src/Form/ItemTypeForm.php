@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class ItemTypeForm.
+ * The form for defining item types.
  */
 class ItemTypeForm extends EntityForm {
 

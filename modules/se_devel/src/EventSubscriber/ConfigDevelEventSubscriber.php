@@ -77,7 +77,7 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
         if ((stripos($fileName, 'core.entity_form_display') !== FALSE)
         || (stripos($fileName, 'core.entity_view_display') !== FALSE)) {
           unset($data['content']['se_timekeeping']);
-          if (($key = array_search('field.field.se_ticket.se_ticket.se_timekeeping', $data['dependencies']['config'], TRUE)) !== false) {
+          if (($key = array_search('field.field.se_ticket.se_ticket.se_timekeeping', $data['dependencies']['config'], TRUE)) !== FALSE) {
             unset($data['dependencies']['config'][$key]);
           }
         }
@@ -93,8 +93,8 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
    * @return array
    *   An array of event listener definitions.
    */
-  static function getSubscribedEvents() {
-    $events[ConfigDevelEvents::SAVE][] = array('onConfigSave', 50);
+  public static function getSubscribedEvents() {
+    $events[ConfigDevelEvents::SAVE][] = ['onConfigSave', 50];
     return $events;
   }
 

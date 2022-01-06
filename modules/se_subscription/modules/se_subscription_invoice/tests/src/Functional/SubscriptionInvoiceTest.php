@@ -7,8 +7,19 @@ namespace Drupal\Tests\se_subscription_invoice\Functional;
 use Drupal\se_subscription\Entity\Subscription;
 use Drupal\Tests\se_subscription\Functional\SubscriptionTestBase;
 
+/**
+ * Test for creating subscriptions and invoicing them.
+ */
 class SubscriptionInvoiceTest extends SubscriptionTestBase {
 
+  /**
+   * Test creating subscriptions and invoicing them.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function testSubscriptionInvoice(): void {
     $this->drupalLogin($this->staff);
     $customer = $this->addBusiness();
@@ -28,25 +39,28 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
         $item,
       ],
       'se_su_next_due' => [
-        $oldTime
+        $oldTime,
       ],
-      'se_su_period' => [['duration' => 'P1Y']]
+      'se_su_period' => [
+        [
+          'duration' => 'P1Y',
+        ],
+      ],
     ]);
     $subscription->save();
     $this->markEntityForCleanup($subscription);
-    $id = $subscription->id();
+    $sub = $subscription->id();
     $oldCount = \Drupal::entityTypeManager()->getStorage('se_invoice')->loadByProperties([]);
 
-    // $invoices = \Drupal::service('se_subscription_invoice')->processSubscriptions();
+    $invoices = \Drupal::service('se_subscription_invoice')->processSubscriptions();
     $invoices = \Drupal::service('se_subscription_invoice')->processDateSubscriptions();
 
-    $updated = Subscription::load($id);
+    $updated = Subscription::load($sub);
     $newTime = $updated->se_su_next_due->value;
     $newCount = \Drupal::entityTypeManager()->getStorage('se_invoice')->loadByProperties([]);
 
     self::assertNotEquals($oldTime, $newTime);
     self::assertNotEquals($oldCount, $newCount);
   }
-
 
 }

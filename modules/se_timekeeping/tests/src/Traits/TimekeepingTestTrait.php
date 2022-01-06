@@ -36,7 +36,7 @@ trait TimekeepingTestTrait {
    *
    * @return \Drupal\comment\Entity\Comment|null
    *   Return the created comment, or NULL if access denied.
-   * 
+   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */

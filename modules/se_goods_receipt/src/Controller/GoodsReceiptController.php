@@ -7,6 +7,7 @@ namespace Drupal\se_goods_receipt\Controller;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\se_goods_receipt\Entity\GoodsReceiptInterface;
@@ -112,7 +113,7 @@ class GoodsReceiptController extends ControllerBase {
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_goods_receipt\GoodsReceiptInterface $revision */
+      /** @var \Drupal\se_goods_receipt\Entity\GoodsReceiptInterface $revision */
       $revision = $se_goods_receipt_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -125,13 +126,13 @@ class GoodsReceiptController extends ControllerBase {
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_goods_receipt->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_goods_receipt.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_goods_receipt.revision', [
             'se_goods_receipt' => $se_goods_receipt->id(),
             'se_goods_receipt_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_goods_receipt->link($date);
+          $link = $se_goods_receipt->toLink($date)->toString();
         }
 
         $row = [];

@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class CodeSerialUniqueConstraint extends Constraint {
   /**
-   * Message shown when trying create stock item with non-unique code & serial combination.
+   * Message when creating a non-unique stock item code & serial combination.
    *
    * @var string
    */

@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Contains se_item.page.inc.
  *
  * Page callback for Item entities.
  */
+
+declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 

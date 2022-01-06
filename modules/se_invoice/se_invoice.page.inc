@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Contains se_invoice.page.inc.
  *
  * Page callback for Invoice entities.
  */
+
+declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 

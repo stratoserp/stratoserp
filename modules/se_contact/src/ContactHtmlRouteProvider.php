@@ -15,5 +15,5 @@ use Drupal\stratoserp\Traits\HtmlRouteProviderTrait;
 class ContactHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   use HtmlRouteProviderTrait;
-  
+
 }

@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_subscription_invoice\Functional;
 
-use Drupal\se_subscription\Entity\Subscription;
 use Drupal\Tests\se_subscription\Functional\SubscriptionTestBase;
 
+/**
+ * Specific subscription type test.
+ */
 class SubscriptionAntiVirusTest extends SubscriptionTestBase {
 
   /**
-   * Ensure that adding an Anti Virus subscrioption works.
+   * Ensure that adding an Anti Virus subscription works.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
@@ -30,4 +32,5 @@ class SubscriptionAntiVirusTest extends SubscriptionTestBase {
 
     $this->drupalLogout();
   }
+
 }

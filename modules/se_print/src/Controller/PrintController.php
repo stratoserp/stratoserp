@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_print\Plugin\EntityPrintPluginManagerInterface;
 use Drupal\entity_print\Plugin\ExportTypeManagerInterface;
-use Drupal\entity_print\Plugin\PrintEngineInterface;
 use Drupal\entity_print\PrintBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -79,8 +78,11 @@ class PrintController extends ControllerBase {
    * Providing printing functionality for local action.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
+   *   The source entity to print.
    *
    * @return array
+   *   Markup.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -93,7 +95,7 @@ class PrintController extends ControllerBase {
     $uri = $this->printBuilder->savePrintable([$source], $print_engine, 'private', $filename, FALSE);
 
     return [
-      '#markup' => $uri
+      '#markup' => $uri,
     ];
   }
 

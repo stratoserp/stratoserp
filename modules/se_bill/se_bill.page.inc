@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Contains se_bill.page.inc.
  *
  * Page callback for Bill entities.
  */
+
+declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 

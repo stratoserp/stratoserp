@@ -9,14 +9,15 @@ use Drupal\Core\Menu\LocalActionDefault;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
- * Custom class for local actions to get their current entity id as 'source'
+ * Custom class for local actions to get their current entity id as 'source'.
  *
  * Needs associated routing.yml as well.
- * examples:
+ * examples in:
  *   se_print.links.action.yml
  *   se_print.routing.yml
  *   se_payment.links.action.yml
  *   se_payment.routing.yml
+ * .
  */
 class SourceIdLocalAction extends LocalActionDefault {
 
@@ -24,8 +25,10 @@ class SourceIdLocalAction extends LocalActionDefault {
    * Set the source value on local actions to the entity id.
    *
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   *   The incoming route to match.
    *
    * @return array
+   *   The source and id.
    */
   public function getRouteParameters(RouteMatchInterface $route_match) {
     foreach (\Drupal::routeMatch()->getParameters() as $param) {
@@ -34,4 +37,5 @@ class SourceIdLocalAction extends LocalActionDefault {
       }
     }
   }
+
 }

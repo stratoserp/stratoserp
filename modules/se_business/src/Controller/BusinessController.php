@@ -6,6 +6,7 @@ namespace Drupal\se_business\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_business\Entity\BusinessInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -109,7 +110,7 @@ class BusinessController extends ControllerBase {
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_business\BusinessInterface $revision */
+      /** @var \Drupal\se_business\Entity\BusinessInterface $revision */
       $revision = $se_business_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -122,13 +123,13 @@ class BusinessController extends ControllerBase {
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_business->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_business.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_business.revision', [
             'se_business' => $se_business->id(),
             'se_business_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_business->link($date);
+          $link = $se_business->toLink($date)->toString();
         }
 
         $row = [];

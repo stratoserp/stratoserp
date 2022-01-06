@@ -10,6 +10,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\se_accounting\Service\CurrencyFormat;
 use Drupal\se_item\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -71,8 +72,10 @@ class ItemsController extends ControllerBase {
   }
 
   /**
-   * Setup the fields if the target type was changed.
+   * Set up the fields if the target type was changed.
    *
+   * @param \Drupal\Core\Ajax\AjaxResponse $response
+   *   The ajax response we're building.
    * @param string $type
    *   The new target type.
    * @param string $index
@@ -103,8 +106,12 @@ class ItemsController extends ControllerBase {
   }
 
   /**
-   * Setup the fields if the target id was changed.
+   * Set up the fields if the target id was changed.
    *
+   * @param \Drupal\Core\Ajax\AjaxResponse $response
+   *   The ajax response we're building.
+   * @param \Drupal\se_accounting\Service\CurrencyFormat $currencyService
+   *   Service for displaying currency.
    * @param array $values
    *   Form values to work with.
    * @param string $field
@@ -114,7 +121,7 @@ class ItemsController extends ControllerBase {
    * @param string $index
    *   The line index to update.
    */
-  private static function targetIdChange(AjaxResponse $response, $currencyService, array &$values, string $field, string $type, string $index): void {
+  private static function targetIdChange(AjaxResponse $response, CurrencyFormat $currencyService, array &$values, string $field, string $type, string $index): void {
     // If there is no item code to load we can return now.
     /** @var \Drupal\se_item\Entity\Item $item */
     if ($values[$field][$index]['target_id'] === NULL) {
@@ -178,6 +185,10 @@ class ItemsController extends ControllerBase {
   /**
    * Re calculate the total field.
    *
+   * @param \Drupal\Core\Ajax\AjaxResponse $response
+   *   The ajax response we're building.
+   * @param \Drupal\se_accounting\Service\CurrencyFormat $currencyService
+   *   Service for displaying currency.
    * @param array $values
    *   Form values to work with.
    * @param string $field
@@ -185,7 +196,7 @@ class ItemsController extends ControllerBase {
    * @param string $type
    *   The new target type.
    */
-  private static function reCalculateTotal(AjaxResponse $response, $currencyService, array $values, string $field, string $type): void {
+  private static function reCalculateTotal(AjaxResponse $response, CurrencyFormat $currencyService, array $values, string $field, string $type): void {
     $total = 0;
     foreach ($values[$field] as $index => $value) {
       if (is_int($index) && !empty($value['target_id'])) {

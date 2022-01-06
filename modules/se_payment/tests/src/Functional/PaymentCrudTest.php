@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_payment\Functional;
 
-use Drupal\se_invoice\Controller\InvoiceController;
 use Drupal\se_payment\Controller\PaymentController;
 use Drupal\Tests\se_business\Traits\BusinessTestTrait;
 use Drupal\Tests\se_invoice\Traits\InvoiceTestTrait;
@@ -79,6 +78,9 @@ class PaymentCrudTest extends PaymentTestBase {
     $this->drupalLogout();
   }
 
+  /**
+   * Test creating a payment from an invoice.
+   */
   public function testInvoiceToPayment() {
     $this->drupalLogin($this->staff);
     $testBusiness = $this->addBusiness();

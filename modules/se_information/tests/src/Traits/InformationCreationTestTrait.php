@@ -8,12 +8,12 @@ use Drupal\se_information\Entity\Information;
 use Drupal\user\Entity\User;
 
 /**
- *
+ * Test out information manipulation.
  */
 trait InformationCreationTestTrait {
 
   /**
-   *
+   * Retrieve information by title.
    */
   public function getInformationByTitle($name, $reset = FALSE) {
     if ($reset) {
@@ -28,7 +28,7 @@ trait InformationCreationTestTrait {
   }
 
   /**
-   *
+   * Create some information content.
    */
   public function createInformation(array $settings = []) {
     $information = $this->createInformationContent($settings);
@@ -40,7 +40,7 @@ trait InformationCreationTestTrait {
   }
 
   /**
-   *
+   * Create some information content.
    */
   public function createInformationContent(array $settings = []) {
     $settings += [

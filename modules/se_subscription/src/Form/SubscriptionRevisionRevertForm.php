@@ -32,7 +32,7 @@ class SubscriptionRevisionRevertForm extends ConfirmFormBase {
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $SubscriptionStorage;
+  protected $subscriptionStorage;
 
   /**
    * The date formatter service.
@@ -50,7 +50,7 @@ class SubscriptionRevisionRevertForm extends ConfirmFormBase {
    *   The date formatter service.
    */
   public function __construct(EntityStorageInterface $entity_storage, DateFormatterInterface $date_formatter) {
-    $this->SubscriptionStorage = $entity_storage;
+    $this->subscriptionStorage = $entity_storage;
     $this->dateFormatter = $date_formatter;
   }
 
@@ -105,7 +105,7 @@ class SubscriptionRevisionRevertForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $se_subscription_revision = NULL) {
-    $this->revision = $this->SubscriptionStorage->loadRevision($se_subscription_revision);
+    $this->revision = $this->subscriptionStorage->loadRevision($se_subscription_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -125,8 +125,14 @@ class SubscriptionRevisionRevertForm extends ConfirmFormBase {
     ]);
     $this->revision->save();
 
-    $this->logger('content')->notice('Subscription: reverted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
-    $this->messenger()->addMessage(t('Subscription %title has been reverted to the revision from %revision-date.', ['%title' => $this->revision->label(), '%revision-date' => $this->dateFormatter->format($original_revision_timestamp)]));
+    $this->logger('content')->notice('Subscription: reverted %title revision %revision.', [
+      '%title' => $this->revision->label(),
+      '%revision' => $this->revision->getRevisionId(),
+    ]);
+    $this->messenger()->addMessage(t('Subscription %title has been reverted to the revision from %revision-date.', [
+      '%title' => $this->revision->label(),
+      '%revision-date' => $this->dateFormatter->format($original_revision_timestamp),
+    ]));
     $form_state->setRedirect(
       'entity.se_subscription.version_history',
       ['se_subscription' => $this->revision->id()]

@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Contains se_business.page.inc.
  *
  * Page callback for Business entities.
  */
+
+declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 

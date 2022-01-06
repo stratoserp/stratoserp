@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class SubscriptionSettingsForm.
+ * Provide a settings form for subscription types.
  *
  * @ingroup se_subscription
  */

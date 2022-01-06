@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Contains se_payment.page.inc.
  *
  * Page callback for Payment entities.
  */
+
+declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 

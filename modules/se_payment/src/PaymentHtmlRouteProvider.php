@@ -15,5 +15,5 @@ use Drupal\stratoserp\Traits\HtmlRouteProviderTrait;
 class PaymentHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   use HtmlRouteProviderTrait;
-  
+
 }

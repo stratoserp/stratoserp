@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class InformationSettingsForm.
+ * Provide a settings form for information types.
  *
  * @ingroup se_information
  */

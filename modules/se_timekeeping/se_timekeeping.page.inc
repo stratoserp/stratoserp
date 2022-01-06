@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
- * Contains se_timekeeping.page.inc.
- *
- * Page callback for Ticket entities.
+ * Procedural functions for timekeeping.
  */
+
+declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 

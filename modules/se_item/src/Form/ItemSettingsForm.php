@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class ItemSettingsForm.
+ * Provide the setting form for item entities.
  *
  * @ingroup se_item
  */

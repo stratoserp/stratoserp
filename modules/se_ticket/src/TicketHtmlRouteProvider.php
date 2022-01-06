@@ -15,5 +15,5 @@ use Drupal\stratoserp\Traits\HtmlRouteProviderTrait;
 class TicketHtmlRouteProvider extends DefaultHtmlRouteProvider {
 
   use HtmlRouteProviderTrait;
-  
+
 }

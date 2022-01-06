@@ -5,6 +5,7 @@ namespace Drupal\se_purchase_order\Controller;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_purchase_order\Entity\PurchaseOrder;
 use Drupal\se_purchase_order\Entity\PurchaseOrderInterface;
@@ -123,13 +124,13 @@ class PurchaseOrderController extends ControllerBase {
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_purchase_order->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_purchase_order.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_purchase_order.revision', [
             'se_purchase_order' => $se_purchase_order->id(),
             'se_purchase_order_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_purchase_order->link($date);
+          $link = $se_purchase_order->toLink($date)->toString();
         }
 
         $row = [];
@@ -219,7 +220,6 @@ class PurchaseOrderController extends ControllerBase {
    *
    * @return array
    *   An entity submission form.
-   *
    */
   public function fromQuote(EntityInterface $source) {
     $entity = $this->createPurchaseOrderFromQuote($source);

@@ -6,6 +6,7 @@ namespace Drupal\se_ticket\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_ticket\Entity\TicketInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -109,7 +110,7 @@ class TicketController extends ControllerBase {
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_ticket\TicketInterface $revision */
+      /** @var \Drupal\se_ticket\Entity\TicketInterface $revision */
       $revision = $se_ticket_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -122,13 +123,13 @@ class TicketController extends ControllerBase {
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_ticket->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_ticket.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_ticket.revision', [
             'se_ticket' => $se_ticket->id(),
             'se_ticket_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_ticket->link($date);
+          $link = $se_ticket->toLink($date)->toString();
         }
 
         $row = [];

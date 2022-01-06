@@ -7,6 +7,7 @@ namespace Drupal\se_invoice\Controller;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_invoice\Entity\InvoiceInterface;
@@ -119,12 +120,12 @@ class InvoiceController extends ControllerBase {
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_invoice\InvoiceInterface $revision */
+      /** @var \Drupal\se_invoice\Entity\InvoiceInterface $revision */
       $revision = $se_invoice_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
-      if ($revision->hasTranslation($langcode) && $revision->getTranslation($langcode)
-          ->isRevisionTranslationAffected()) {
+      if ($revision->hasTranslation($langcode)
+        && $revision->getTranslation($langcode)->isRevisionTranslationAffected()) {
         $username = [
           '#theme' => 'username',
           '#account' => $revision->getRevisionUser(),
@@ -133,13 +134,13 @@ class InvoiceController extends ControllerBase {
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_invoice->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_invoice.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_invoice.revision', [
             'se_invoice' => $se_invoice->id(),
             'se_invoice_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_invoice->link($date);
+          $link = $se_invoice->toLink($date)->toString();
         }
 
         $row = [];

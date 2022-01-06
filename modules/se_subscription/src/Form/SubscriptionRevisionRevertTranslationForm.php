@@ -99,7 +99,7 @@ class SubscriptionRevisionRevertTranslationForm extends SubscriptionRevisionReve
     $revert_untranslated_fields = $form_state->getValue('revert_untranslated_fields');
 
     /** @var \Drupal\se_subscription\Entity\SubscriptionInterface $default_revision */
-    $latest_revision = $this->SubscriptionStorage->load($revision->id());
+    $latest_revision = $this->subscriptionStorage->load($revision->id());
     $latest_revision_translation = $latest_revision->getTranslation($this->langcode);
 
     $revision_translation = $revision->getTranslation($this->langcode);

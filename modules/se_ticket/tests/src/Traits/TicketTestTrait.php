@@ -23,7 +23,7 @@ trait TicketTestTrait {
   public function ticketFakerSetup(): void {
     $this->faker = Factory::create();
 
-    $this->ticketName          = $this->faker->text(45);
+    $this->ticketName = $this->faker->text(45);
   }
 
   /**

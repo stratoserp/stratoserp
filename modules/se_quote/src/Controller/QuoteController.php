@@ -6,7 +6,7 @@ namespace Drupal\se_quote\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_quote\Entity\QuoteInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  *  Returns responses for Quote routes.
  */
-class QuoteController extends ControllerBase implements ContainerInjectionInterface {
+class QuoteController extends ControllerBase {
 
   /**
    * The date formatter.
@@ -110,7 +110,7 @@ class QuoteController extends ControllerBase implements ContainerInjectionInterf
     $latest_revision = TRUE;
 
     foreach (array_reverse($vids) as $vid) {
-      /** @var \Drupal\se_quote\QuoteInterface $revision */
+      /** @var \Drupal\se_quote\Entity\QuoteInterface $revision */
       $revision = $se_quote_storage->loadRevision($vid);
       // Only show revisions that are affected by the language that is being
       // displayed.
@@ -123,13 +123,13 @@ class QuoteController extends ControllerBase implements ContainerInjectionInterf
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_quote->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.se_quote.revision', [
+          $link = Link::fromTextAndUrl($date, new Url('entity.se_quote.revision', [
             'se_quote' => $se_quote->id(),
             'se_quote_revision' => $vid,
           ]));
         }
         else {
-          $link = $se_quote->link($date);
+          $link = $se_quote->toLink($date)->toString();
         }
 
         $row = [];

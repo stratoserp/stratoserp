@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\se_timekeeping\Service;
 
 /**
- * Class TimeFormat.
+ * Time formatting service to switch between types.
  *
  * @package Drupal\se_timekeeping\Service
  */

@@ -31,7 +31,7 @@ class SubscriptionRevisionDeleteForm extends ConfirmFormBase {
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $SubscriptionStorage;
+  protected $subscriptionStorage;
 
   /**
    * The database connection.
@@ -49,7 +49,7 @@ class SubscriptionRevisionDeleteForm extends ConfirmFormBase {
    *   The database connection.
    */
   public function __construct(EntityStorageInterface $entity_storage, Connection $connection) {
-    $this->SubscriptionStorage = $entity_storage;
+    $this->subscriptionStorage = $entity_storage;
     $this->connection = $connection;
   }
 
@@ -98,7 +98,7 @@ class SubscriptionRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $se_subscription_revision = NULL) {
-    $this->revision = $this->SubscriptionStorage->loadRevision($se_subscription_revision);
+    $this->revision = $this->subscriptionStorage->loadRevision($se_subscription_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -108,12 +108,16 @@ class SubscriptionRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->SubscriptionStorage->deleteRevision($this->revision->getRevisionId());
+    $this->subscriptionStorage->deleteRevision($this->revision->getRevisionId());
 
-    $this->logger('content')->notice('Subscription: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
+    $this->logger('content')->notice('Subscription: deleted %title revision %revision.', [
+      '%title' => $this->revision->label(),
+      '%revision' => $this->revision->getRevisionId(),
+    ]);
     $messenger = \Drupal::messenger();
     $messenger->addMessage(t('Revision from %revision-date of Subscription %title has been deleted.', [
-      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()
+      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()),
+      '%title' => $this->revision->label(),
     ]));
     $form_state->setRedirect(
       'entity.se_subscription.canonical',

@@ -8,7 +8,6 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\stratoserp\Traits\RevisionableEntityTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form controller for Subscription edit forms.

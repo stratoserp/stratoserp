@@ -15,14 +15,23 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class SettingsForm extends ConfigFormBase {
 
+  /**
+   * {@inheritdoc}
+   */
   protected function getEditableConfigNames() {
     return ['stratoserp.settings'];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId() {
     return 'stratoserp_configuration_form';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $form['first_contact'] = [
@@ -47,6 +56,9 @@ class SettingsForm extends ConfigFormBase {
     return parent::buildForm($form, $form_state);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('stratoserp.settings')
       ->set('first_contact', $form_state->getValue('first_contact'))

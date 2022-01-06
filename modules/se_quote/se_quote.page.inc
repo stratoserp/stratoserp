@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Contains se_quote.page.inc.
  *
  * Page callback for Quote entities.
  */
+
+declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 

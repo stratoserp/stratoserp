@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\stratoserp\Traits;
 
-
 use Drupal\Core\Entity\EntityTypeInterface;
 use Symfony\Component\Routing\Route;
 
 /**
  * Provide common functions used by the various entities, rather than duplicate.
+ *
+ * This should be able to be removed when this issue hits.
+ * https://www.drupal.org/project/drupal/issues/2350939
  *
  * Little hacky, assumes that the Label is the first part of the class.
  */
@@ -61,7 +63,7 @@ trait HtmlRouteProviderTrait {
    */
   protected function getHistoryRoute(EntityTypeInterface $entity_type) {
     if ($entity_type->hasLinkTemplate('version-history')) {
-      $label = str_replace(' ', '', (string)$entity_type->getLabel());
+      $label = str_replace(' ', '', (string) $entity_type->getLabel());
       $route = new Route($entity_type->getLinkTemplate('version-history'));
       $route
         ->setDefaults([
@@ -85,7 +87,7 @@ trait HtmlRouteProviderTrait {
    */
   protected function getRevisionRoute(EntityTypeInterface $entity_type) {
     if ($entity_type->hasLinkTemplate('revision')) {
-      $label = str_replace(' ', '', (string)$entity_type->getLabel());
+      $label = str_replace(' ', '', (string) $entity_type->getLabel());
       $route = new Route($entity_type->getLinkTemplate('revision'));
       $route
         ->setDefaults([
@@ -109,7 +111,7 @@ trait HtmlRouteProviderTrait {
    */
   protected function getRevisionRevertRoute(EntityTypeInterface $entity_type) {
     if ($entity_type->hasLinkTemplate('revision_revert')) {
-      $label = str_replace(' ', '', (string)$entity_type->getLabel());
+      $label = str_replace(' ', '', (string) $entity_type->getLabel());
       $route = new Route($entity_type->getLinkTemplate('revision_revert'));
       $route
         ->setDefaults([
@@ -122,7 +124,6 @@ trait HtmlRouteProviderTrait {
     }
   }
 
-
   /**
    * Gets the revision delete route.
    *
@@ -134,7 +135,7 @@ trait HtmlRouteProviderTrait {
    */
   protected function getRevisionDeleteRoute(EntityTypeInterface $entity_type) {
     if ($entity_type->hasLinkTemplate('revision_delete')) {
-      $label = str_replace(' ', '', (string)$entity_type->getLabel());
+      $label = str_replace(' ', '', (string) $entity_type->getLabel());
       $route = new Route($entity_type->getLinkTemplate('revision_delete'));
       $route
         ->setDefaults([
@@ -158,7 +159,7 @@ trait HtmlRouteProviderTrait {
    */
   protected function getRevisionTranslationRevertRoute(EntityTypeInterface $entity_type) {
     if ($entity_type->hasLinkTemplate('translation_revert')) {
-      $label = str_replace(' ', '', (string)$entity_type->getLabel());
+      $label = str_replace(' ', '', (string) $entity_type->getLabel());
       $route = new Route($entity_type->getLinkTemplate('translation_revert'));
       $route
         ->setDefaults([
@@ -182,7 +183,7 @@ trait HtmlRouteProviderTrait {
    */
   protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
     if (!$entity_type->getBundleEntityType()) {
-      $label = str_replace(' ', '', (string)$entity_type->getLabel());
+      $label = str_replace(' ', '', (string) $entity_type->getLabel());
       $route = new Route("/admin/structure/{$entity_type->id()}/settings");
       $route
         ->setDefaults([

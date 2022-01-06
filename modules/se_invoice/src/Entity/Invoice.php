@@ -10,7 +10,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\se_business\Entity\Business;
 use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\stratoserp\Traits\EntityTrait;
 use Drupal\user\UserInterface;

@@ -12,7 +12,7 @@ use Drupal\xero\XeroQuery;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- *
+ * Provide configuration for xero integration.
  */
 class SettingsForm extends ConfigFormBase {
 
@@ -34,8 +34,11 @@ class SettingsForm extends ConfigFormBase {
    * SettingsForm constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   Config factory instance.
    * @param \Drupal\xero\XeroQuery $xeroQuery
+   *   Xero query instance.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   *   Entity type manager.
    */
   public function __construct(ConfigFactoryInterface $config_factory, XeroQuery $xeroQuery, EntityTypeManager $entity_type_manager) {
     parent::__construct($config_factory);
@@ -74,6 +77,7 @@ class SettingsForm extends ConfigFormBase {
    * Retrieve the list of accounts from Xero.
    *
    * @return array
+   *   The list of accounts.
    */
   public function retrieveAccountList(): array {
     $account_options = [];
