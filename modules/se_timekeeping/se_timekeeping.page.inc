@@ -3,6 +3,8 @@
 /**
  * @file
  * Procedural functions for timekeeping.
+ *
+ * Page callback for Timekeeping entities.
  */
 
 declare(strict_types=1);
@@ -10,7 +12,7 @@ declare(strict_types=1);
 use Drupal\Core\Render\Element;
 
 /**
- * Prepares variables for Ticket templates.
+ * Prepares variables for Timekeeping templates.
  *
  * Default template: se_timekeeping.html.twig.
  *
@@ -20,7 +22,7 @@ use Drupal\Core\Render\Element;
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_se_timekeeping(array &$variables) {
-  // Fetch Ticket Entity Object.
+  // Fetch Timekeeping Entity Object.
   $se_timekeeping = $variables['elements']['#se_timekeeping'];
 
   // Helpful $content variable for templates.
