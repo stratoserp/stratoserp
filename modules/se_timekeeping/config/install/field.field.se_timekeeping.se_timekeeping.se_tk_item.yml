@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_timekeeping.se_tk_item
+    - se_item.se_item_type.se_service
+id: se_timekeeping.se_timekeeping.se_tk_item
+field_name: se_tk_item
+entity_type: se_timekeeping
+bundle: se_timekeeping
+label: Type
+description: 'Select the type of service performed'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:se_item'
+  handler_settings:
+    target_bundles:
+      se_service: se_service
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

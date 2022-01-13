@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_timekeeping
+    - se_invoice
+id: se_timekeeping.se_tk_invoice_ref
+field_name: se_tk_invoice_ref
+entity_type: se_timekeeping
+type: entity_reference
+settings:
+  target_type: se_invoice
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

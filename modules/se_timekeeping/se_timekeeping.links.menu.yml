@@ -1,0 +1,14 @@
+
+# Timekeeping menu items definition
+entity.se_timekeeping.collection:
+  title: 'Timekeeping list'
+  route_name: entity.se_timekeeping.collection
+  description: 'List Timekeeping entities'
+  parent: system.admin_content
+  weight: 100
+
+se_timekeeping.admin.structure.settings:
+  title: 'Timekeeping settings'
+  description: 'Configure Timekeeping entities'
+  route_name: se_timekeeping.settings
+  parent: stratoserp.admin_config_stratoserp

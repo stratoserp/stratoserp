@@ -1,0 +1,27 @@
+uuid: 819d3b3e-c852-4304-b642-5a9b5f92ca92
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_timekeeping.se_tk_invoice_ref
+  module:
+    - se_timekeeping
+id: se_timekeeping.se_timekeeping.se_tk_invoice_ref
+field_name: se_tk_invoice_ref
+entity_type: se_timekeeping
+bundle: se_timekeeping
+label: Invoice
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:se_invoice'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

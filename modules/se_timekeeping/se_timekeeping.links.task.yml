@@ -1,0 +1,32 @@
+# Timekeeping routing definition
+se_timekeeping.settings_tab:
+  route_name: se_timekeeping.settings
+  title: 'Settings'
+  base_route: se_timekeeping.settings
+
+entity.se_timekeeping.canonical:
+  route_name: entity.se_timekeeping.canonical
+  base_route: entity.se_timekeeping.canonical
+  title: 'View'
+
+entity.se_timekeeping.edit_form:
+  route_name: entity.se_timekeeping.edit_form
+  base_route: entity.se_timekeeping.canonical
+  title: 'Edit'
+
+entity.se_timekeeping.version_history:
+  route_name: entity.se_timekeeping.version_history
+  base_route: entity.se_timekeeping.canonical
+  title: 'Revisions'
+
+entity.se_timekeeping.delete_form:
+  route_name:  entity.se_timekeeping.delete_form
+  base_route:  entity.se_timekeeping.canonical
+  title: Delete
+  weight: 10
+
+entity.se_timekeeping_type.edit_form:
+  title: 'Edit'
+  route_name: entity.se_timekeeping_type.edit_form
+  base_route: entity.se_timekeeping_type.edit_form
+

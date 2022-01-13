@@ -1,0 +1,10 @@
+uuid: 5bbb2877-3923-4f8c-ad31-908150df8ffd
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_timekeeping
+id: se_timekeeping.token
+label: Token
+targetEntityType: se_timekeeping
+cache: true

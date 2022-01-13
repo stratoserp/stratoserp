@@ -1,0 +1,28 @@
+add timekeeping entities:
+  title: 'Create new Timekeeping entities'
+
+administer timekeeping entities:
+  title: 'Administer Timekeeping entities'
+  description: 'Allow to access the administration form to configure Timekeeping entities.'
+  restrict access: true
+
+delete timekeeping entities:
+  title: 'Delete Timekeeping entities'
+
+edit timekeeping entities:
+  title: 'Edit Timekeeping entities'
+
+view timekeeping entities:
+  title: 'View Timekeeping entities'
+
+view all timekeeping revisions:
+  title: 'View all Timekeeping revisions'
+
+revert all timekeeping revisions:
+  title: 'Revert all Timekeeping revisions'
+  description: 'Role requires permission <em>view Timekeeping revisions</em> and <em>edit rights</em> for timekeeping entities in question or <em>administer timekeeping entities</em>.'
+
+delete all timekeeping revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Timekeeping revisions</em> and <em>delete rights</em> for timekeeping entities in question or <em>administer timekeeping entities</em>.'
+

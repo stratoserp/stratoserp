@@ -1,0 +1,7 @@
+
+entity.se_timekeeping.add_form:
+  route_name: entity.se_timekeeping.add_form
+  title: 'Add Timekeeping'
+  appears_on:
+    - entity.se_timekeeping.collection
+    - 'view.se_timekeeping_list.se_timekeeping_list'
