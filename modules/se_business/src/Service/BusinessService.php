@@ -52,13 +52,13 @@ class BusinessService {
    *   Business entity.
    */
   public function lookupBusiness(EntityInterface $entity) {
-    /** @var \Drupal\se_business\Entity\Business $entity */
     if ($entity instanceof BusinessInterface) {
       return $entity;
     }
 
-    if (isset($entity->se_bu_ref) && $business = $entity->se_bu_ref->referencedEntities()) {
-      return reset($business);
+    if (isset($entity->se_bu_ref) && $business = $entity->getBusiness()) {
+      /** @var \Drupal\se_business\Entity\Business $business */
+      return $business;
     }
 
     return FALSE;

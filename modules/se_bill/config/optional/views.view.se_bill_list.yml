@@ -381,13 +381,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: role
+        type: perm
         options:
-          role:
-            developer: developer
-            staff: staff
-            owner: owner
-            administrator: administrator
+          perm: 'view bill entities'
       cache:
         type: tag
         options: {  }

@@ -6,6 +6,8 @@ namespace Drupal\stratoserp\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\se_business\Entity\Business;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -14,32 +16,25 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class FormAlter {
 
   /**
-   * Request service.
-   *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
-   */
-  protected $requestStack;
-
-  /**
    * Current request.
    *
    * @var null|\Symfony\Component\HttpFoundation\Request
    */
-  protected $currentRequest;
+  protected ?Request $currentRequest;
 
   /**
    * Entity Type Manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * Current User.
    *
    * @var \Drupal\Core\Session\AccountProxyInterface
    */
-  protected $currentUser;
+  protected AccountProxyInterface $currentUser;
 
   /**
    * Environment constructor.
@@ -54,9 +49,8 @@ class FormAlter {
   public function __construct(RequestStack $requestStack,
                               EntityTypeManagerInterface $entityTypeManager,
                               AccountProxyInterface $currentUser) {
-    $this->requestStack = $requestStack;
     $this->entityTypeManager = $entityTypeManager;
-    $this->currentRequest = $this->requestStack->getCurrentRequest();
+    $this->currentRequest = $requestStack->getCurrentRequest();
     $this->currentUser = $currentUser;
   }
 
@@ -71,7 +65,12 @@ class FormAlter {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function setBusinessField(array &$form, string $field): void {
+  public function setBusinessField(array &$form, string $field, Business $business = NULL): void {
+    if ($business !== NULL) {
+      $this->setReferenceField($form, $field, $business);
+      return;
+    }
+
     // Try and retrieve the named variable from the request.
     if (!$value = $this->currentRequest->get('se_bu_ref')) {
       return;
@@ -86,13 +85,7 @@ class FormAlter {
       return;
     }
 
-    // Only update if the field is empty.
-    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-      return;
-    }
-
-    // Really do the update now.
-    $form[$field]['widget'][0]['target_id']['#default_value'] = $entity;
+    $this->setReferenceField($form, $field, $entity);
   }
 
   /**
@@ -121,13 +114,7 @@ class FormAlter {
       return;
     }
 
-    // Only update if the field is empty.
-    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-      return;
-    }
-
-    // Really do the update now.
-    $form[$field]['widget'][0]['target_id']['#default_value'] = $entity;
+    $this->setReferenceField($form, $field, $entity);
   }
 
   /**
@@ -156,13 +143,7 @@ class FormAlter {
       return;
     }
 
-    // Only update if the field is empty.
-    if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
-      return;
-    }
-
-    // Really do the update now.
-    $form[$field]['widget'][0]['target_id']['#default_value'] = $entity;
+    $this->setReferenceField($form, $field, $entity);
   }
 
   /**
@@ -184,13 +165,27 @@ class FormAlter {
       return;
     }
 
+    $this->setReferenceField($form, $field, $term);
+  }
+
+  /**
+   * @param array $form
+   *   Form render array.
+   * @param string $field
+   *   The reference field to update.
+   * @param $value
+   *   Value to set the field to.
+   *
+   * @return void
+   */
+  public function setReferenceField(array &$form, string $field, $value) {
     // Only update if the field is empty.
     if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
       return;
     }
 
     // Really do the update now.
-    $form[$field]['widget'][0]['target_id']['#default_value'] = $term;
+    $form[$field]['widget'][0]['target_id']['#default_value'] = $value;
   }
 
   /**

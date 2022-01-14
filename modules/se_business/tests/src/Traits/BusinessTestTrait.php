@@ -76,7 +76,7 @@ trait BusinessTestTrait {
     $business = $this->createBusiness([
       'type' => 'se_business',
       'name' => $this->businessName,
-      'se_bu_type_ref' => [['target_id' => $term->id()]],
+      'se_bu_type_ref' => $term,
     ]);
     self::assertNotEquals($business, FALSE);
     $this->drupalGet($business->toUrl());

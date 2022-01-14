@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - comment.type.se_timekeeping
     - field.storage.se_invoice.se_in_lines
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
@@ -20,11 +19,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  comment:
+  se_timekeeping:
     handler: se_timekeeping
     handler_settings:
-      target_bundles:
-        se_timekeeping: se_timekeeping
+      target_bundles: null
       sort:
         field: _none
         direction: ASC

@@ -250,12 +250,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: role
+        type: perm
         options:
-          role:
-            staff: staff
-            owner: owner
-            developer: developer
+          perm: 'view ticket entities'
       cache:
         type: tag
         options: {  }

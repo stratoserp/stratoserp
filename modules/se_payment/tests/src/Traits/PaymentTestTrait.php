@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+// Strict types here breaks the item line saving tests.
+// declare(strict_types=1);
 
 namespace Drupal\Tests\se_payment\Traits;
 
@@ -36,22 +37,22 @@ trait PaymentTestTrait {
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_payment\Entity\Payment|null
    *   The Payment to return.
    *
-   * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addPayment(Invoice $invoice = NULL, bool $allowed = TRUE) {
     if (!isset($this->paymentName)) {
       $this->paymentFakerSetup();
     }
 
-    $config = \Drupal::configFactory()->getEditable('se_payment.settings');
+    $term = \Drupal::configFactory()->getEditable('se_payment.settings')->get('default_payment_term');
 
     $lines = [];
     $line = [
       'target_id' => $invoice->id(),
       'target_type' => 'se_invoice',
       'amount' => $invoice->se_in_total->value,
-      'payment_type' => $config->get('default_payment_term'),
+      'payment_type' => $term,
     ];
     $lines[] = $line;
 
@@ -85,7 +86,7 @@ trait PaymentTestTrait {
   }
 
   /**
-   * Create and save an Payment entity.
+   * Create and save a Payment entity.
    *
    * @param array $settings
    *   Array of settings to apply to the Payment entity.
@@ -105,7 +106,7 @@ trait PaymentTestTrait {
   }
 
   /**
-   * Create but dont save a Payment entity.
+   * Create but don't save a Payment entity.
    *
    * @param array $settings
    *   Array of settings to apply to the Payment entity.

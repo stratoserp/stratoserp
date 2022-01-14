@@ -81,7 +81,7 @@ class EntityItemSelection extends DefaultSelection {
 
     $options = [];
     $entities = $this->entityTypeManager->getStorage($this->targetType)->loadMultiple($result);
-    foreach ($entities as $entity_id => $item) {
+    foreach ($entities as $entityId => $item) {
       $output = [];
       $bundle = $item->bundle();
 
@@ -94,7 +94,7 @@ class EntityItemSelection extends DefaultSelection {
       $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $item->se_it_sell_price->value);
 
       // Format - Code #Serial# Desc - Price.
-      $options[$bundle][$entity_id] = implode(' ', $output);
+      $options[$bundle][$entityId] = implode(' ', $output);
     }
 
     return $options;

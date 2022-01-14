@@ -4,12 +4,12 @@ dependencies:
   module:
     - se_ticket
     - se_timekeeping
-id: se_ticket.se_timekeeping
-field_name: se_timekeeping
-entity_type: se_ticket
+id: se_timekeeping.se_ti_ref
+field_name: se_ti_ref
+entity_type: se_timekeeping
 type: entity_reference
 settings:
-  target_type: se_timekeeping
+  target_type: se_ticket
 module: core
 locked: false
 cardinality: 1

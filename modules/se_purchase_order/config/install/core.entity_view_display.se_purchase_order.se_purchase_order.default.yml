@@ -61,15 +61,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_comments:
-    weight: 9
-    label: above
-    settings:
-      view_mode: default
-      pager_id: 0
-    third_party_settings: {  }
-    type: comment_default
-    region: bottom
   se_po_lines:
     weight: 5
     label: above

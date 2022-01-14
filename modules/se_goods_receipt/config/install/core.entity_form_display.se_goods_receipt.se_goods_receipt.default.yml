@@ -70,12 +70,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  se_comments:
-    weight: 9
-    settings: {  }
-    third_party_settings: {  }
-    type: comment_default
-    region: bottom
   se_gr_lines:
     weight: 7
     settings:

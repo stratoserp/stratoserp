@@ -103,13 +103,8 @@ interface PaymentInterface extends ContentEntityInterface, RevisionLogInterface,
   public function setRevisionUserId($uid);
 
   /**
-   * Return the total invoice value.
+   * Return the total payment value.
    */
   public function getTotal(): int;
-
-  /**
-   * Return the business associated with the invoice.
-   */
-  public function getBusiness(): Business;
 
 }

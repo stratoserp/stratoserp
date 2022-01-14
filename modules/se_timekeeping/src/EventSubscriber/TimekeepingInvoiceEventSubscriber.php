@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\se_timekeeping\EventSubscriber;
 
-use Drupal\comment\Entity\Comment;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
+use Drupal\se_timekeeping\Entity\Timekeeping;
 use Drupal\stratoserp\Constants;
 
 /**
@@ -94,13 +94,13 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
     $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
 
     foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
-      if ($itemLine->target_type === 'comment') {
-        /** @var \Drupal\comment\Entity\Comment $comment */
-        if ($comment = Comment::load($itemLine->target_id)) {
+      if ($itemLine->target_type === 'se_timekeeping') {
+        /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
+        if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
           // @todo Make a service for this?
-          $comment->set('se_tk_billed', TRUE);
-          $comment->set('se_tk_invoice_ref', $invoice->id());
-          $comment->save();
+          $timekeeping->set('se_tk_billed', TRUE);
+          $timekeeping->set('se_tk_invoice_ref', $invoice->id());
+          $timekeeping->save();
         }
       }
     }
@@ -118,13 +118,13 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
     $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
 
     foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
-      if ($itemLine->target_type === 'comment') {
-        /** @var \Drupal\comment\Entity\Comment $comment */
-        if ($comment = Comment::load($itemLine->target_id)) {
+      if ($itemLine->target_type === 'se_timekeeping') {
+        /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
+        if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
           // @todo Make a service for this?
-          $comment->set('se_tk_billed', FALSE);
-          $comment->set('se_tk_invoice_ref', NULL);
-          $comment->save();
+          $timekeeping->set('se_tk_billed', FALSE);
+          $timekeeping->set('se_tk_invoice_ref', NULL);
+          $timekeeping->save();
         }
       }
     }

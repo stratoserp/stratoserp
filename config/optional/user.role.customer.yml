@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - comment
     - stratoserp
     - system
 id: customer
@@ -10,7 +9,6 @@ label: Customer
 weight: 4
 is_admin: null
 permissions:
-  - 'access comments'
   - 'access content'
   - 'access printer-friendly version'
   - 'access stratoserp'
@@ -20,7 +18,5 @@ permissions:
   - 'job list'
   - 'maintain own subscriptions'
   - 'manage own subscriptions'
-  - 'post comments'
-  - 'skip comment approval'
   - 'subscribe to content'
   - 'view erp google map'

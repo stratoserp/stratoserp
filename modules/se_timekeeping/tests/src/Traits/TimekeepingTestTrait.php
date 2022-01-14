@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_timekeeping\Traits;
 
-use Drupal\comment\CommentInterface;
-use Drupal\comment\Entity\Comment;
 use Drupal\se_item\Entity\Item;
 use Drupal\se_ticket\Entity\Ticket;
+use Drupal\se_timekeeping\Entity\Timekeeping;
 use Faker\Factory;
 
 /**
@@ -34,8 +33,8 @@ trait TimekeepingTestTrait {
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
-   * @return \Drupal\comment\Entity\Comment|null
-   *   Return the created comment, or NULL if access denied.
+   * @return \Drupal\se_timekeeping\Entity\Timekeeping|null
+   *   Return the created timekeeping, or NULL if access denied.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -49,26 +48,23 @@ trait TimekeepingTestTrait {
     self::assertNotNull($item);
     self::assertNotEmpty($item);
 
-    /** @var \Drupal\comment\Entity\Comment $comment */
-    $comment = Comment::create([
+    /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
+    $timekeeping = Timekeeping::create([
       'entity_id' => $ticket->id(),
       'entity_type' => 'se_ticket',
-      'field_name' => 'se_timekeeping',
-      'comment_type' => 'se_timekeeping',
       'se_bu_ref' => $ticket->se_bu_ref,
       'se_tk_comment' => $this->timekeepingName,
       'se_tk_billable' => TRUE,
       'se_tk_billed' => FALSE,
       'se_tk_amount' => 60,
       'se_tk_item' => $item,
-      'status' => CommentInterface::PUBLISHED,
     ]);
-    $comment->save();
-    $this->markEntityForCleanup($comment);
+    $timekeeping->save();
+    $this->markEntityForCleanup($timekeeping);
 
-    self::assertNotEquals($comment, FALSE);
+    self::assertNotEquals($timekeeping, FALSE);
 
-    $this->drupalGet($comment->toUrl());
+    $this->drupalGet($timekeeping->toUrl());
 
     $content = $this->getTextContent();
 
@@ -85,22 +81,22 @@ trait TimekeepingTestTrait {
     // Check that what we entered is shown.
     self::assertStringContainsString($this->timekeepingName, $content);
 
-    return $comment;
+    return $timekeeping;
   }
 
   /**
    * Test deleting a timekeeping entry.
    *
-   * @param \Drupal\comment\Entity\Comment $comment
-   *   The timekeeping comment to try and delete.
+   * @param \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping
+   *   The timekeeping to try and delete.
    * @param bool $allowed
-   *   Whether the deletion shoulw be allowed.
+   *   Whether the deletion should be allowed.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function deleteTimekeeping(Comment $comment, bool $allowed): void {
-    $this->deleteComment($comment, $allowed);
+  public function deleteTimekeeping(Timekeeping $timekeeping, bool $allowed): void {
+    $this->deleteEntity($timekeeping, $allowed);
   }
 
   /**

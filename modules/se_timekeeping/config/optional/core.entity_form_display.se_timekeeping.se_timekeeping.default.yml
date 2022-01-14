@@ -1,9 +1,9 @@
-uuid: 09acc29c-5ef6-4568-8db5-a4e660d93ea7
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.se_timekeeping.se_timekeeping.se_bu_ref
+    - field.field.se_timekeeping.se_timekeeping.se_ti_ref
     - field.field.se_timekeeping.se_timekeeping.se_tk_amount
     - field.field.se_timekeeping.se_timekeeping.se_tk_billable
     - field.field.se_timekeeping.se_timekeeping.se_tk_billed
@@ -23,8 +23,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-_core:
-  default_config_hash: UqhgEqD91mvsxwI5EO4Be-T1NQ1XiO-bUawLw55DbnQ
 id: se_timekeeping.se_timekeeping.default
 targetEntityType: se_timekeeping
 bundle: se_timekeeping
@@ -48,6 +46,16 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  se_ti_ref:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: second
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   se_tk_amount:
     type: number
     weight: 2
@@ -57,14 +65,14 @@ content:
     third_party_settings: {  }
   se_tk_billable:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: second
     settings:
       display_label: true
     third_party_settings: {  }
   se_tk_billed:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: second
     settings:
       display_label: true
@@ -79,13 +87,13 @@ content:
     third_party_settings: {  }
   se_tk_date:
     type: datetime_default
-    weight: 5
+    weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
   se_tk_item:
     type: entity_reference_autocomplete
-    weight: 4
+    weight: 5
     region: second
     settings:
       match_operator: CONTAINS
@@ -95,7 +103,7 @@ content:
     third_party_settings: {  }
   se_tk_review:
     type: boolean_checkbox
-    weight: 8
+    weight: 9
     region: second
     settings:
       display_label: true

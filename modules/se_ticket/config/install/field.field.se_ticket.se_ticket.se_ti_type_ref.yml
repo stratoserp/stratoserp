@@ -4,7 +4,8 @@ dependencies:
   config:
     - field.storage.se_ticket.se_ti_type_ref
     - taxonomy.vocabulary.se_ticket_type
-  content: {  }
+  content:
+    - 'taxonomy_term:se_ticket_type:7bf890e8-8dfd-4384-bcb4-e0b2a59fef7e'
   module:
     - se_ticket
 id: se_ticket.se_ticket.se_ti_type_ref

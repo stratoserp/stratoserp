@@ -13,7 +13,6 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_ti_status_ref
     - field.field.se_ticket.se_ticket.se_ti_type_ref
   module:
-    - comment
     - datetime_range
     - field_layout
     - file
@@ -44,7 +43,7 @@ content:
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    weight: 11
+    weight: 10
     region: bottom
   se_body:
     type: text_default
@@ -121,5 +120,15 @@ content:
     third_party_settings: {  }
     weight: 4
     region: first
+  se_timekeeping_ti_eva_se_timekeeping_bu_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: bottom
+  se_timekeeping_ti_eva_se_timekeeping_ti_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: bottom
 hidden:
   user_id: true

@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\se_timekeeping\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\se_business\Entity\Business;
+use Drupal\se_ticket\Entity\Ticket;
 use Drupal\stratoserp\Traits\RevisionableEntityTrait;
 
 /**
@@ -28,11 +31,19 @@ class TimekeepingForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function buildForm(array $form, FormStateInterface $form_state, Business $business = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, Ticket $ticket = NULL) {
     $form = parent::buildForm($form, $form_state);
 
-    \Drupal::service('se.form_alter')->setBusinessField($form, 'se_bu_ref', $business);
+    if ($ticket !== NULL) {
+      $formAlter = \Drupal::service('se.form_alter');
+      $formAlter->setBusinessField($form, 'se_bu_ref', $ticket->getBusiness());
+      $formAlter->setReferenceField($form, 'se_ti_ref', $ticket);
+
+      $form['actions']['submit']['#submit'][] = '::ticketRedirect';
+    }
 
     if (!$this->entity->isNew()) {
       $form['group_co_extra']['new_revision'] = [
@@ -44,6 +55,17 @@ class TimekeepingForm extends ContentEntityForm {
     }
 
     return $form;
+  }
+
+  /**
+   * Custom redirect back to the ticket.
+   */
+  public static function ticketRedirect(array $form, FormStateInterface $form_state) {
+    $ticketId = $form_state->getValue('se_ti_ref')[0]['target_id'];
+    if (isset($ticketId)) {
+      $form_state->setRedirect('entity.se_ticket.canonical', ['se_ticket' => $ticketId]);
+    }
+
   }
 
 }

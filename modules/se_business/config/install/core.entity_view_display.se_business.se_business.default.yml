@@ -65,8 +65,6 @@ third_party_settings:
         direction: vertical
     group_bu_tab_tickets:
       children:
-        - se_ticket_eva_se_ticket_eva_form
-        - se_ticket_eva_se_ticket_eva
         - extra_field_business_ticket_statistics
       label: Tickets
       parent_name: group_bu_tabs
@@ -207,7 +205,7 @@ third_party_settings:
         description: ''
     group_bu_tab_timekeeping:
       children:
-        - se_timekeeping_eva_se_timekeeping_eva
+        - se_timekeeping_bu_eva_se_timekeeping_bu_eva
       label: Timekeeping
       parent_name: group_bu_tabs
       region: content
@@ -274,6 +272,7 @@ third_party_settings:
     id: layout_onecol
     settings:
       label: ''
+
 id: se_business.se_business.default
 targetEntityType: se_business
 bundle: se_business
@@ -839,6 +838,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 9
+    region: content
+  se_timekeeping_bu_eva_se_timekeeping_bu_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
   se_timekeeping_eva_se_timekeeping_eva:
     settings: {  }

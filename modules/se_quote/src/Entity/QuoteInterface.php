@@ -107,9 +107,4 @@ interface QuoteInterface extends ContentEntityInterface, RevisionLogInterface, E
    */
   public function getTotal(): int;
 
-  /**
-   * Return the business associated with the quote.
-   */
-  public function getBusiness(): Business;
-
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\Controller;
 
-use Drupal\comment\Entity\Comment;
 use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
@@ -12,6 +11,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\se_accounting\Service\CurrencyFormat;
 use Drupal\se_item\Entity\Item;
+use Drupal\se_timekeeping\Entity\Timekeeping;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -131,9 +131,9 @@ class ItemsController extends ControllerBase {
     $targetType = $values[$field][$index]['target_type'];
     switch ($targetType) {
       case 'comment':
-        /** @var \Drupal\comment\Entity\Comment $comment */
-        if (($comment = Comment::load($values[$field][$index]['target_id'])) && $item = $comment->se_tk_item->entity) {
-          $date = new DateTimePlus($comment->se_tk_date->value, date_default_timezone_get());
+        /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
+        if (($timekeeping = Timekeeping::load($values[$field][$index]['target_id'])) && $item = $timekeeping->se_tk_item->entity) {
+          $date = new DateTimePlus($timekeeping->se_tk_date->value, date_default_timezone_get());
           $response->addCommand(
             new InvokeCommand(
               "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-completed-date-date']",
@@ -145,7 +145,7 @@ class ItemsController extends ControllerBase {
             new InvokeCommand(
               "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-quantity']",
               'val',
-              [$comment->se_tk_amount]
+              [$timekeeping->se_tk_amount]
             ),
           );
         }

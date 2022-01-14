@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.storage.se_timekeeping.se_tk_review
+  module:
+    - se_timekeeping
 id: se_timekeeping.se_timekeeping.se_tk_review
 field_name: se_tk_review
 entity_type: se_timekeeping

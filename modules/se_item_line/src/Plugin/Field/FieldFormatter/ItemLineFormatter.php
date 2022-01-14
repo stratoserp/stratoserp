@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\Plugin\Field\FieldFormatter;
 
-use Drupal\comment\Entity\Comment;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -16,6 +15,7 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldFormatter\DynamicEntityReferenceLabelFormatter;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Render\FilteredMarkup;
+use Drupal\se_timekeeping\Entity\Timekeeping;
 
 /**
  * Plugin implementation of the 'dynamic entity reference label' formatter.
@@ -72,16 +72,16 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
     $cache_tags = [];
 
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
-      /** @var \Drupal\se_item\Entity\Item|\Drupal\comment\Entity\Comment $entity */
+      /** @var \Drupal\se_item\Entity\Item|\Drupal\se_timekeeping\Entity\Timekeeping $entity */
       $uri = $entity->toUrl();
 
       unset($item);
       switch ($entity->bundle()) {
         case 'se_timekeeping':
           $item = $items[$delta]->target_id;
-          if ($commented_entity = Comment::load($item)) {
-            $cache_tags = Cache::mergeTags($cache_tags, $commented_entity->getCacheTags());
-            $item = $commented_entity->se_tk_item->entity->se_it_code->value;
+          if ($timekeeping = Timekeeping::load($item)) {
+            $cache_tags = Cache::mergeTags($cache_tags, $timekeeping->getCacheTags());
+            $item = $timekeeping->se_tk_item->entity->se_it_code->value;
           }
           else {
             $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());

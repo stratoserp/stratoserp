@@ -11,6 +11,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\stratoserp\Traits\EntityTrait;
 use Drupal\user\UserInterface;
 
 /**
@@ -77,6 +78,7 @@ use Drupal\user\UserInterface;
 class Business extends RevisionableContentEntityBase implements BusinessInterface {
 
   use EntityChangedTrait;
+  use EntityTrait;
 
   /**
    * {@inheritdoc}

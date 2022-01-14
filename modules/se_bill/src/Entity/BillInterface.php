@@ -101,4 +101,9 @@ interface BillInterface extends ContentEntityInterface, RevisionLogInterface, En
    */
   public function setRevisionUserId($uid);
 
+  /**
+   * Return the total bill value.
+   */
+  public function getTotal(): int;
+
 }

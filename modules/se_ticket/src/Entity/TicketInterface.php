@@ -134,9 +134,4 @@ interface TicketInterface extends ContentEntityInterface, RevisionLogInterface, 
    */
   public function isCalendarWorthy(): bool;
 
-  /**
-   * Return the business associated with the invoice.
-   */
-  public function getBusiness(): Business;
-
 }

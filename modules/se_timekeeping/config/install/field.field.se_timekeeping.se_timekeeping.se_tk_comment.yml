@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.se_timekeeping.se_tk_comment
   module:
+    - se_timekeeping
     - text
 id: se_timekeeping.se_timekeeping.se_tk_comment
 field_name: se_tk_comment

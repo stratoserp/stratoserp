@@ -23,12 +23,9 @@ display:
     position: 0
     display_options:
       access:
-        type: role
+        type: perm
         options:
-          role:
-            developer: developer
-            staff: staff
-            owner: owner
+          perm: 'view webform submission entities'
       cache:
         type: tag
         options: {  }

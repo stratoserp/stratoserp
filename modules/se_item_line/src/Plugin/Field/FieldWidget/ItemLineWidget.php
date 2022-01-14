@@ -67,7 +67,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     // Changes to the target type field.
     $build['target_type']['#prefix'] = '<span class="se-item">';
     $build['target_type']['#title'] = t('Item');
-    $build['target_type']['#options']['comment'] = $this->t('Timekeeping');
+    $build['target_type']['#options']['se_timekeeping'] = $this->t('Timekeeping');
     $build['target_type']['#weight'] = 10;
     $build['target_type']['#ajax'] = [
       'callback' => 'Drupal\se_item_line\Controller\ItemsController::updateFields',

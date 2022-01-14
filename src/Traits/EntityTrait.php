@@ -18,7 +18,7 @@ trait EntityTrait {
   /**
    * {@inheritdoc}
    */
-  public function getBusiness(): Business {
+  public function getBusiness(): ?Business {
     return $this->se_bu_ref->entity;
   }
 

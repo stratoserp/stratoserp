@@ -313,12 +313,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: role
+        type: perm
         options:
-          role:
-            owner: owner
-            staff: staff
-            developer: developer
+          perm: 'view contact entities'
       cache:
         type: tag
         options: {  }

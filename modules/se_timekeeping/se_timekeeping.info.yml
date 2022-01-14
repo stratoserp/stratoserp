@@ -6,7 +6,6 @@ package: StratosERP
 dependencies:
   - hook_event_dispatcher:hook_event_dispatcher
   - duration_field:duration_field
-  - drupal:comment
   - drupal:views
   - stratoserp:se_business
   - stratoserp:se_invoice
@@ -14,7 +13,6 @@ dependencies:
 
 config_devel:
   install:
-    # Non comment based entity.
     - field.field.se_timekeeping.se_timekeeping.se_bu_ref
     - field.field.se_timekeeping.se_timekeeping.se_tk_amount
     - field.field.se_timekeeping.se_timekeeping.se_tk_billable
@@ -23,7 +21,6 @@ config_devel:
     - field.field.se_timekeeping.se_timekeeping.se_tk_date
     - field.field.se_timekeeping.se_timekeeping.se_tk_item
     - field.field.se_timekeeping.se_timekeeping.se_tk_review
-
     - field.storage.se_timekeeping.se_bu_ref
     - field.storage.se_timekeeping.se_tk_amount
     - field.storage.se_timekeeping.se_tk_billable
@@ -37,9 +34,7 @@ config_devel:
     - core.entity_form_display.se_timekeeping.se_timekeeping
     - core.entity_view_display.se_timekeeping.se_timekeeping
     - core.entity_view_mode.se_timekeeping.token
-
     - field.field.se_timekeeping.se_timekeeping.se_tk_invoice_ref
     - field.storage.se_timekeeping.se_tk_invoice_ref
-
     - views.view.se_timekeeping_bu_eva
     - views.view.se_timekeeping_list

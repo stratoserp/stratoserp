@@ -214,7 +214,7 @@ class TimekeepingController extends ControllerBase {
   }
 
   /**
-   * Provides the entity submission form for payment creation from an invoice.
+   * Provides the entity submission form for timekeeping creation from a business.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   Source entity to copy data from.

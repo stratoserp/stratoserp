@@ -185,7 +185,7 @@ class FunctionalTestBase extends TestCase {
    * Confirm whether user can edit an entity.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The comment to delete.
+   *   The entity to edit.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
@@ -210,7 +210,7 @@ class FunctionalTestBase extends TestCase {
    * Confirm whether user can delete an entity.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The comment to delete.
+   *   The entity to delete.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *

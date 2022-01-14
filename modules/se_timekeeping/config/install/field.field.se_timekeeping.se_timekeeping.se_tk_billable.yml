@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.storage.se_timekeeping.se_tk_billable
+  module:
+    - se_timekeeping
 id: se_timekeeping.se_timekeeping.se_tk_billable
 field_name: se_tk_billable
 entity_type: se_timekeeping

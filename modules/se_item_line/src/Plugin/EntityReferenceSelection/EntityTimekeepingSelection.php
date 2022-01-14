@@ -62,9 +62,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
       }
     }
 
-    $filters = [];
-
-    $query = $this->buildEntityQuery($match, $matchOperator, $filters);
+    $query = $this->buildEntityQuery($match, $matchOperator);
     if ($limit > 0) {
       $query->range(0, $limit);
     }
@@ -77,14 +75,14 @@ class EntityTimekeepingSelection extends DefaultSelection {
 
     $options = [];
     $entities = $this->entityTypeManager->getStorage($this->targetType)->loadMultiple($result);
-    foreach ($entities as $entityId => $comment) {
+    foreach ($entities as $entityId => $timekeeping) {
       $output = [];
-      $bundle = $comment->bundle();
+      $bundle = $timekeeping->bundle();
 
-      if ($itemCode = $comment->se_tk_item->entity) {
+      if ($itemCode = $timekeeping->se_tk_item->entity) {
         $output[] = $itemCode->se_it_code->value;
 
-        $output[] = substr($comment->label(), 0, 80);
+        $output[] = substr($timekeeping->label(), 0, 80);
         if (isset($itemCode->se_it_sell_price->value)) {
           $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $itemCode->se_it_sell_price->value);
         }
@@ -104,14 +102,12 @@ class EntityTimekeepingSelection extends DefaultSelection {
    * @param string $matchOperator
    *   The operation the matching should be done with. Defaults
    *   to "CONTAINS".
-   * @param array $filters
-   *   Array of filters to apply to the query.
    *
    * @return \Drupal\Core\Entity\Query\QueryInterface
    *   The EntityQuery object with the basic conditions and sorting applied to
    *   it.
    */
-  protected function buildEntityQuery($match = NULL, $matchOperator = 'CONTAINS', array $filters = []) {
+  protected function buildEntityQuery($match = NULL, $matchOperator = 'CONTAINS') {
     // Call parent to build the base query. Do not provide the $match
     // parameter, because we want to implement our own logic and we can't
     // unset conditions.

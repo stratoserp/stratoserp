@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    - comment
     - se_invoice
     - se_item
     - se_item_line
+    - se_timekeeping
 id: se_invoice.se_in_lines
 field_name: se_in_lines
 entity_type: se_invoice
@@ -13,7 +13,7 @@ type: se_item_line
 settings:
   exclude_entity_types: 0
   entity_type_ids:
-    comment: comment
+    se_timekeeping: se_timekeeping
     se_item: se_item
 module: se_item_line
 locked: false

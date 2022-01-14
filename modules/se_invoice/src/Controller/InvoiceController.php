@@ -274,12 +274,11 @@ class InvoiceController extends ControllerBase {
     ]);
 
     // Retrieve a list of non billed timekeeping entries for this business.
-    $query = \Drupal::entityQuery('comment');
+    $query = \Drupal::entityQuery('se_timekeeping');
 
     $business = \Drupal::service('se_business.service')->lookupBusiness($source);
 
-    $query->condition('comment_type', 'se_timekeeping')
-      ->condition('se_bu_ref', $business->id())
+    $query->condition('se_bu_ref', $business->id())
       ->condition('se_tk_billed', TRUE, '<>')
       ->condition('se_tk_billable', TRUE)
       ->condition('se_tk_amount', 0, '>');
@@ -291,19 +290,19 @@ class InvoiceController extends ControllerBase {
 
     // Loop through the timekeeping entries and setup invoice lines.
     foreach ($entityIds as $entityId) {
-      /** @var \Drupal\comment\Entity\Comment $comment */
-      if ($comment = $this->entityTypeManager()
-        ->getStorage('comment')
+      /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
+      if ($timekeeping = $this->entityTypeManager()
+        ->getStorage('se_timekeeping')
         ->load($entityId)) {
         /** @var \Drupal\se_item\Entity\Item $item */
-        if ($item = $comment->se_tk_item->entity) {
+        if ($item = $timekeeping->se_tk_item->entity) {
           $price = (int) $item->se_it_sell_price->value;
           $line = [
-            'target_type' => 'comment',
-            'target_id' => $comment->id(),
-            'quantity' => round($comment->se_tk_amount->value / 60, 2),
-            'notes' => $comment->se_tk_comment->value,
-            'format' => $comment->se_tk_comment->format,
+            'target_type' => 'se_timekeeping',
+            'target_id' => $timekeeping->id(),
+            'quantity' => round($timekeeping->se_tk_amount->value / 60, 2),
+            'note' => $timekeeping->se_tk_comment->value,
+            'format' => $timekeeping->se_tk_comment->format,
             'price' => $price,
           ];
           $lines[] = $line;
@@ -311,7 +310,7 @@ class InvoiceController extends ControllerBase {
         }
         else {
           \Drupal::logger('se_timekeeping')
-            ->error('No matching item for entry @cid', ['@cid' => $comment->id()]);
+            ->error('No matching item for entry @id', ['@id' => $timekeeping->id()]);
         }
       }
     }

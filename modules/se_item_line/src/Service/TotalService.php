@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\Service;
 
-use Drupal\comment\Entity\Comment;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_item\Entity\Item;
+use Drupal\se_timekeeping\Entity\Timekeeping;
 use Drupal\stratoserp\Constants;
 
 /**
@@ -34,10 +34,10 @@ class TotalService {
 
     // Loop through the item lines to calculate total.
     foreach ($entity->{$bundleFieldType . '_lines'} as $index => $itemLine) {
-      // If its a comment type, and no price, load the comment item for price.
+      // If it's a timekeeping entry, and no price, load the associated item for price.
       if (isset($itemLine->target_id) && !isset($itemLine->price)) {
-        if (($itemLine->target_type === 'comment') && $comment = Comment::load($itemLine->target_id)) {
-          $item = $comment->se_tk_item->entity;
+        if (($itemLine->target_type === 'se_timekeeping') && $timekeeping = Timekeeping::load($itemLine->target_id)) {
+          $item = $timekeeping->se_tk_item->entity;
           $itemLine->price = $item->se_it_sell_price->value;
         }
       }

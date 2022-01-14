@@ -10,7 +10,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\se_business\Entity\Business;
 use Drupal\stratoserp\Traits\EntityTrait;
 use Drupal\user\UserInterface;
 
@@ -24,7 +23,7 @@ use Drupal\user\UserInterface;
  *   label = @Translation("Ticket"),
  *   handlers = {
  *     "storage" = "Drupal\se_ticket\TicketStorage",
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "view_builder" = "Drupal\se_ticket\Entity\TicketViewBuilder",
  *     "list_builder" = "Drupal\se_ticket\TicketListBuilder",
  *     "views_data" = "Drupal\se_ticket\Entity\TicketViewsData",
  *     "translation" = "Drupal\se_ticket\TicketTranslationHandler",
@@ -253,13 +252,6 @@ class Ticket extends RevisionableContentEntityBase implements TicketInterface {
     }
 
     return TRUE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getBusiness(): Business {
-    return $this->se_bu_ref->entity;
   }
 
   /**

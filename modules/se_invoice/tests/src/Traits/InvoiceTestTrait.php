@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+// Strict types here breaks the item line saving tests.
+// declare(strict_types=1);
 
 namespace Drupal\Tests\se_invoice\Traits;
 
@@ -81,10 +82,7 @@ trait InvoiceTestTrait {
     $invoice = $this->createInvoice([
       'type' => 'se_invoice',
       'name' => $this->invoiceName,
-      'se_bu_ref' => [
-        'target_id' => $testBusiness->id(),
-        'target_type' => 'se_business',
-      ],
+      'se_bu_ref' => $testBusiness,
       'se_in_phone' => $this->invoicePhoneNumber,
       'se_in_email' => $this->invoiceCompanyEmail,
       'se_in_lines' => $lines,
@@ -261,7 +259,7 @@ trait InvoiceTestTrait {
       elseif (method_exists($this, 'setUpCurrentUser')) {
         /** @var \Drupal\user\UserInterface $user */
         $this->invoiceUser = $this->setUpCurrentUser();
-        $settings['uid'] = $this->user->id();
+        $settings['uid'] = $this->invoiceUser->id();
       }
       else {
         $settings['uid'] = 0;

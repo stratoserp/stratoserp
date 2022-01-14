@@ -384,13 +384,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: role
+        type: perm
         options:
-          role:
-            staff: staff
-            owner: owner
-            developer: developer
-            administrator: administrator
+          perm: 'view purchase order entities'
       cache:
         type: tag
         options: {  }

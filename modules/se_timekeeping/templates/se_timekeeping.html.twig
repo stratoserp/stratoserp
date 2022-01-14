@@ -1,0 +1,22 @@
+{#
+/**
+ * @file se_timekeeping.html.twig
+ * Default theme implementation to present Contact data.
+ *
+ * This template is used when viewing Contact pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_se_timekeeping()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('se_timekeeping') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

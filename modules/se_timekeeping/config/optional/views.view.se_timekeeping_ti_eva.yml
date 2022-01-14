@@ -1,38 +1,35 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - user.role.owner
-    - user.role.staff
   module:
     - eva
-    - se_bill
+    - se_timekeeping
     - user
-id: se_bill_eva
-label: Bills
+id: se_timekeeping_ti_eva
+label: Timekeeping
 module: views
 description: ''
 tag: ''
-base_table: se_bill_field_data
+base_table: se_timekeeping_field_data
 base_field: id
 display:
   default:
     id: default
-    display_title: Master
+    display_title: Default
     display_plugin: default
     position: 0
     display_options:
+      title: 'Timekeeping eva for ticket'
       fields:
-        name:
-          id: name
-          table: se_bill_field_data
-          field: name
+        rendered_entity:
+          id: rendered_entity
+          table: se_timekeeping
+          field: rendered_entity
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: null
-          entity_field: name
-          plugin_id: field
+          entity_type: se_timekeeping
+          plugin_id: rendered_entity
           label: ''
           exclude: false
           alter:
@@ -66,7 +63,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -74,31 +71,17 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
+          view_mode: default
       pager:
-        type: full
+        type: mini
         options:
           offset: 0
           items_per_page: 10
           total_pages: null
           id: 0
           tags:
-            next: ›
-            previous: ‹
-            first: ‹‹
-            last: ››
+            next: ››
+            previous: ‹‹
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -107,7 +90,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 9
       exposed_form:
         type: basic
         options:
@@ -121,7 +103,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'view bill entities'
+          perm: 'view timekeeping entities'
       cache:
         type: tag
         options: {  }
@@ -136,11 +118,45 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No bills'
+            value: 'No timekeeping'
             format: basic_html
           tokenize: false
       sorts: {  }
-      arguments: {  }
+      arguments:
+        se_ti_ref_target_id:
+          id: se_ti_ref_target_id
+          table: se_timekeeping__se_ti_ref
+          field: se_ti_ref_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: node
+          default_argument_options: {  }
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
       filters: {  }
       style:
         type: table
@@ -181,33 +197,37 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
-        - user.roles
-      tags: {  }
-  se_bill_eva:
-    id: se_bill_eva
-    display_title: 'Bills EVA'
+        - user.permissions
+      tags:
+        - 'config:core.entity_view_display.se_timekeeping.se_timekeeping.default'
+  se_timekeeping_ti_eva:
+    id: se_timekeeping_ti_eva
+    display_title: EVA
     display_plugin: entity_view
     position: 1
     display_options:
-      display_description: ''
+      defaults:
+        title: true
       display_extenders: {  }
-      entity_type: se_business
+      entity_type: se_ticket
       bundles:
-        - se_business
+        - se_ticket
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
-        - user.roles
-      tags: {  }
+        - user.permissions
+      tags:
+        - 'config:core.entity_view_display.se_timekeeping.se_timekeeping.default'
