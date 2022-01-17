@@ -56,8 +56,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    // Store the values on the object before saving for adjustments afterwards.
-    $invoice->se_old_total = $invoice->getTotal();
+    \Drupal::service('se_invoice.service')->storeBalance($invoice);
   }
 
   /**
@@ -75,14 +74,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    $invoice->set('se_status_ref', \Drupal::service('se_invoice.service')->checkInvoiceStatus($invoice));
-
-    // On insert, the total is outstanding.
-    $invoiceBalance = $invoice->getTotal();
-    $invoice->set('se_outstanding', $invoiceBalance);
-
-    $business = $invoice->getBusiness();
-    $business->adjustBalance($invoiceBalance);
+    \Drupal::service('se_invoice.service')->statusTotalInsert($invoice);
   }
 
   /**
@@ -100,13 +92,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    $invoice->set('se_status_ref', \Drupal::service('se_invoice.service')->checkInvoiceStatus($invoice));
-
-    $invoiceBalance = $invoice->getInvoiceBalance();
-    $invoice->set('se_outstanding', $invoiceBalance);
-
-    $business = $invoice->getBusiness();
-    $business->adjustBalance($invoiceBalance - (int) $invoice->se_old_total);
+    \Drupal::service('se_invoice.service')->statusTotalUpdate($invoice);
   }
 
   /**
@@ -124,8 +110,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    $business = $invoice->getBusiness();
-    $business->adjustBalance($invoice->getTotal() * -1);
+    \Drupal::service('se_invoice.service')->deleteUpdate($invoice);
   }
 
 }

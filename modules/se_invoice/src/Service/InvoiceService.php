@@ -115,4 +115,35 @@ class InvoiceService {
     return NULL;
   }
 
+  public function storeBalance($invoice) {
+    // Store the values on the object before saving for adjustments afterwards.
+    $invoice->se_old_total = $invoice->getTotal();
+  }
+
+  public function statusTotalInsert($invoice) {
+    $invoice->set('se_status_ref', $this->checkInvoiceStatus($invoice));
+
+    // On insert, the total is outstanding.
+    $invoiceBalance = $invoice->getTotal();
+    $invoice->set('se_outstanding', $invoiceBalance);
+
+    $business = $invoice->getBusiness();
+    $business->adjustBalance($invoiceBalance);
+  }
+  
+  public function statusTotalUpdate($invoice) {
+    $invoice->set('se_status_ref', $this->checkInvoiceStatus($invoice));
+
+    $invoiceBalance = $invoice->getInvoiceBalance();
+    $invoice->set('se_outstanding', $invoiceBalance);
+
+    $business = $invoice->getBusiness();
+    $business->adjustBalance($invoiceBalance - (int) $invoice->se_in_old_total);
+  }
+  
+  public function deleteUpdate($invoice) {
+    $business = $invoice->getBusiness();
+    $business->adjustBalance($invoice->getTotal() * -1);
+  }
+  
 }

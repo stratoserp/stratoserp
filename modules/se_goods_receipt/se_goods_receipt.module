@@ -6,6 +6,8 @@ declare(strict_types=1);
  * @file
  */
 
+use Drupal\se_goods_receipt\Entity\GoodsReceipt;
+
 /**
  * Implements hook_theme().
  */
@@ -19,4 +21,12 @@ function se_goods_receipt_theme() {
   ];
 
   return $theme;
+}
+
+function se_goods_reeipt_se_goods_receipt_presave(GoodsReceipt $goodsReceipt) {
+  // \Drupal::service('se_goods_receipt.service')->createItems($goodsReceipt);
+}
+
+function se_goods_receipt_se_goods_receipt_insert(GoodsReceipt $goodsReceipt) {
+  // \Drupal::service('se_goods_receipt.service')->updateFields($goodsReceipt);
 }

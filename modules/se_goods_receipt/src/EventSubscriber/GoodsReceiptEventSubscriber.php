@@ -35,51 +35,28 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
    * {@inheritdoc}
    */
   public function itemLineEntityPresave(EntityPresaveEvent $event): void {
-    $entity = $event->getEntity();
-    if (!($entity instanceof GoodsReceipt)) {
+    $goodsReceipt = $event->getEntity();
+
+    if (!($goodsReceipt instanceof GoodsReceipt)) {
       return;
     }
 
-    foreach ($entity->se_item_lines as $index => $itemLine) {
-      if (!empty($itemLine->serial)) {
-        /** @var \Drupal\se_item\Entity\Item $item */
-        if ($item = Item::load($itemLine->target_id)) {
-          if ($item->se_serial->value !== $itemLine->serial) {
-            $newItem = $item->createDuplicate();
-            $newItem
-              ->set('se_serial', $itemLine->serial)
-              ->set('se_it_ref', $item->id())
-              ->save();
-
-            $entity->se_item_lines[$index]->target_id = $newItem->id();
-          }
-        }
-      }
-    }
+    // Ensure that the items being received exist.
+    \Drupal::service('se_goods_receipt.service')->createItems($goodsReceipt);
   }
 
   /**
    * {@inheritdoc}
    */
   public function goodsReceiptItemsInsert(EntityInsertEvent $event): void {
-    $entity = $event->getEntity();
-    if (!($entity instanceof GoodsReceipt)) {
+    $goodsReceipt = $event->getEntity();
+
+    if (!($goodsReceipt instanceof GoodsReceipt)) {
       return;
     }
 
-    foreach ($entity->se_item_lines as $itemLine) {
-      /** @var \Drupal\se_item\Entity\Item $item */
-      if ($item = Item::load($itemLine->target_id)) {
-        if ($item->bundle() !== 'se_stock') {
-          continue;
-        }
-        $item
-          ->set('se_gr_ref', $entity->id())
-          ->set('se_po_ref', $entity->se_po_ref->target_id)
-          ->set('se_cost_price', $itemLine->price)
-          ->save();
-      }
-    }
+    // Store the various references on the item.
+    \Drupal::service('se_goods_receipt.service')->updateFields($goodsReceipt);
   }
 
 }
