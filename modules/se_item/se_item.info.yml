@@ -25,9 +25,9 @@ config_devel:
     - field.storage.se_item.se_it_sell_price
     - field.storage.se_item.se_it_serial
   optional:
-    - field.storage.se_item.se_it_gr_ref
-    - field.storage.se_item.se_it_in_ref
-    - field.storage.se_item.se_it_po_ref
+    - field.storage.se_item.se_gr_ref
+    - field.storage.se_item.se_in_ref
+    - field.storage.se_item.se_po_ref
     - views.view.item_by_manufacturer
     - views.view.item_by_product_type
     - views.view.item_by_sale_category

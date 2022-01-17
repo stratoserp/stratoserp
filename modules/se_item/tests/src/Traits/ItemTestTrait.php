@@ -65,7 +65,7 @@ trait ItemTestTrait {
     self::assertNotNull($item->se_it_item_ref->entity);
     self::assertNotEquals($item->se_it_item_ref->entity->id(), $item->id());
     self::assertEquals($this->itemSerial, $item->se_it_serial->value);
-    // $this->assertNull($item->se_it_gr_ref);
+    // $this->assertNull($item->se_gr_ref);
     $content = $this->checkGeneralItemAttributes($item);
     self::assertStringContainsString($this->itemSerial, $content);
 
@@ -176,8 +176,8 @@ trait ItemTestTrait {
   private function checkGeneralItemAttributes(Item $item): string {
 
     // Ensure that there is no invoice associated with the brand new item.
-    if (isset($item->se_it_in_ref->entity)) {
-      self::assertNull($item->se_it_in_ref->entity);
+    if (isset($item->se_in_ref->entity)) {
+      self::assertNull($item->se_in_ref->entity);
     }
 
     self::assertNotNull($item->se_it_code->value);

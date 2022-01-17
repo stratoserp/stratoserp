@@ -6,14 +6,14 @@ dependencies:
     - field.field.se_item.se_stock.se_it_code
     - field.field.se_item.se_stock.se_it_cost_price
     - field.field.se_item.se_stock.se_it_description
-    - field.field.se_item.se_stock.se_it_gr_ref
+    - field.field.se_item.se_stock.se_gr_ref
     - field.field.se_item.se_stock.se_it_images
-    - field.field.se_item.se_stock.se_it_in_ref
+    - field.field.se_item.se_stock.se_in_ref
     - field.field.se_item.se_stock.se_it_item_ref
     - field.field.se_item.se_stock.se_it_lost
     - field.field.se_item.se_stock.se_it_manufacturer_ref
     - field.field.se_item.se_stock.se_it_product_type_ref
-    - field.field.se_item.se_stock.se_it_po_ref
+    - field.field.se_item.se_stock.se_po_ref
     - field.field.se_item.se_stock.se_it_sale_category_ref
     - field.field.se_item.se_stock.se_it_sale_date
     - field.field.se_item.se_stock.se_it_sale_price
@@ -100,7 +100,7 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  se_it_gr_ref:
+  se_gr_ref:
     type: entity_reference_autocomplete
     weight: 13
     region: second
@@ -118,7 +118,7 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-  se_it_in_ref:
+  se_in_ref:
     type: entity_reference_autocomplete
     weight: 5
     region: first
@@ -157,7 +157,7 @@ content:
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_it_po_ref:
+  se_po_ref:
     type: entity_reference_autocomplete
     weight: 12
     region: second

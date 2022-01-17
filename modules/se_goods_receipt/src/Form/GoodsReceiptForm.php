@@ -21,7 +21,7 @@ class GoodsReceiptForm extends StratosContentEntityForm {
     $form = parent::buildForm($form, $form_state);
 
     $service = \Drupal::service('se.form_alter');
-    $service->setPurchaseOrderField($form, 'se_gr_po_ref');
+    $service->setPurchaseOrderField($form, 'se_po_ref');
 
     // Perform some goods receipt specific tweaks.
     foreach ($form['se_gr_lines']['widget'] as $index => $value) {

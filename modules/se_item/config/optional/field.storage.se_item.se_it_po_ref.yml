@@ -4,8 +4,8 @@ dependencies:
   module:
     - se_item
     - se_purchase_order
-id: se_item.se_it_po_ref
-field_name: se_it_po_ref
+id: se_item.se_po_ref
+field_name: se_po_ref
 entity_type: se_item
 type: entity_reference
 settings:

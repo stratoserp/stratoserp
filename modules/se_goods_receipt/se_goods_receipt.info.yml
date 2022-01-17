@@ -21,12 +21,12 @@ config_devel:
     - field.field.se_goods_receipt.se_goods_receipt.se_bu_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_co_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_gr_lines
-    - field.field.se_goods_receipt.se_goods_receipt.se_gr_po_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_po_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_gr_total
     - field.storage.se_goods_receipt.se_bu_ref
     - field.storage.se_goods_receipt.se_co_ref
     - field.storage.se_goods_receipt.se_gr_lines
-    - field.storage.se_goods_receipt.se_gr_po_ref
+    - field.storage.se_goods_receipt.se_po_ref
     - field.storage.se_goods_receipt.se_gr_total
   optional:
     - views.view.se_goods_receipt_eva

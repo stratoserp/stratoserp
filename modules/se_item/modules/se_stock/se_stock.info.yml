@@ -27,8 +27,8 @@ config_devel:
   optional:
     - core.entity_form_display.se_item.se_stock.default
     - core.entity_view_display.se_item.se_stock.default
-    - field.field.se_item.se_stock.se_it_gr_ref
-    - field.field.se_item.se_stock.se_it_in_ref
-    - field.field.se_item.se_stock.se_it_po_ref
+    - field.field.se_item.se_stock.se_gr_ref
+    - field.field.se_item.se_stock.se_in_ref
+    - field.field.se_item.se_stock.se_po_ref
     - views.view.se_stock_item_by_code_eva
     - views.view.se_stock_item_list

@@ -227,7 +227,7 @@ display:
           id: name_1
           table: se_goods_receipt_field_data
           field: name
-          relationship: reverse__se_goods_receipt__se_gr_po_ref
+          relationship: reverse__se_goods_receipt__se_po_ref
           group_type: group
           admin_label: ''
           entity_type: se_goods_receipt
@@ -503,10 +503,10 @@ display:
           replica: false
           query_tags: {  }
       relationships:
-        reverse__se_goods_receipt__se_gr_po_ref:
-          id: reverse__se_goods_receipt__se_gr_po_ref
+        reverse__se_goods_receipt__se_po_ref:
+          id: reverse__se_goods_receipt__se_po_ref
           table: se_purchase_order_field_data
-          field: reverse__se_goods_receipt__se_gr_po_ref
+          field: reverse__se_goods_receipt__se_po_ref
           relationship: none
           group_type: group
           admin_label: se_po_ref

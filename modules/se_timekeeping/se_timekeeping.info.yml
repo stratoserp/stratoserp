@@ -34,7 +34,7 @@ config_devel:
     - core.entity_form_display.se_timekeeping.se_timekeeping
     - core.entity_view_display.se_timekeeping.se_timekeeping
     - core.entity_view_mode.se_timekeeping.token
-    - field.field.se_timekeeping.se_timekeeping.se_tk_in_ref
-    - field.storage.se_timekeeping.se_tk_in_ref
+    - field.field.se_timekeeping.se_timekeeping.se_in_ref
+    - field.storage.se_timekeeping.se_in_ref
     - views.view.se_timekeeping_bu_eva
     - views.view.se_timekeeping_list

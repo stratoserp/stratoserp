@@ -99,7 +99,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
         if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
           // @todo Make a service for this?
           $timekeeping->set('se_tk_billed', TRUE);
-          $timekeeping->set('se_tk_in_ref', $invoice->id());
+          $timekeeping->set('se_in_ref', $invoice->id());
           $timekeeping->save();
         }
       }
@@ -123,7 +123,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
         if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
           // @todo Make a service for this?
           $timekeeping->set('se_tk_billed', FALSE);
-          $timekeeping->set('se_tk_in_ref', NULL);
+          $timekeeping->set('se_in_ref', NULL);
           $timekeeping->save();
         }
       }

@@ -4,8 +4,8 @@ dependencies:
   module:
     - se_invoice
     - se_item
-id: se_item.se_it_in_ref
-field_name: se_it_in_ref
+id: se_item.se_in_ref
+field_name: se_in_ref
 entity_type: se_item
 type: entity_reference
 settings:

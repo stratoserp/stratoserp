@@ -9,7 +9,7 @@ dependencies:
     - field.field.se_timekeeping.se_timekeeping.se_tk_billed
     - field.field.se_timekeeping.se_timekeeping.se_tk_comment
     - field.field.se_timekeeping.se_timekeeping.se_tk_date
-    - field.field.se_timekeeping.se_timekeeping.se_tk_in_ref
+    - field.field.se_timekeeping.se_timekeeping.se_in_ref
     - field.field.se_timekeeping.se_timekeeping.se_tk_item
     - field.field.se_timekeeping.se_timekeeping.se_tk_review
   module:
@@ -127,5 +127,5 @@ content:
     third_party_settings: {  }
 hidden:
   revision_log_message: true
-  se_tk_in_ref: true
+  se_in_ref: true
   user_id: true
