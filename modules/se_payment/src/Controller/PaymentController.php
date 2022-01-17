@@ -126,13 +126,13 @@ class PaymentController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_payment->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_payment.revision', [
             'se_payment' => $se_payment->id(),
             'se_payment_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_payment->toLink($date)->toString();

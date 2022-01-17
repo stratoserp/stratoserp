@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_goods_receipt.se_gr_purchase_order_ref
+    - field.storage.se_goods_receipt.se_gr_po_ref
     - field.storage.se_goods_receipt.se_gr_total
     - system.menu.stratos-erp
     - user.role.owner
@@ -225,10 +225,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_gr_purchase_order_ref:
-          id: se_gr_purchase_order_ref
-          table: se_goods_receipt__se_gr_purchase_order_ref
-          field: se_gr_purchase_order_ref
+        se_gr_po_ref:
+          id: se_gr_po_ref
+          table: se_goods_receipt__se_gr_po_ref
+          field: se_gr_po_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -508,7 +508,7 @@ display:
             created: created
             name: name
             se_status_ref: se_status_ref
-            se_gr_purchase_order_ref: se_gr_purchase_order_ref
+            se_gr_po_ref: se_gr_po_ref
           default: id
           info:
             id:
@@ -539,7 +539,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_gr_purchase_order_ref:
+            se_gr_po_ref:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -589,7 +589,7 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_goods_receipt.se_gr_purchase_order_ref'
+        - 'config:field.storage.se_goods_receipt.se_gr_po_ref'
         - 'config:field.storage.se_goods_receipt.se_gr_total'
   se_goods_receipt_list:
     id: se_goods_receipt_list
@@ -617,5 +617,5 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_goods_receipt.se_gr_purchase_order_ref'
+        - 'config:field.storage.se_goods_receipt.se_gr_po_ref'
         - 'config:field.storage.se_goods_receipt.se_gr_total'

@@ -120,13 +120,13 @@ class QuoteController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_quote->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_quote.revision', [
             'se_quote' => $se_quote->id(),
             'se_quote_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_quote->toLink($date)->toString();

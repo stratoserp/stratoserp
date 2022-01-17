@@ -130,13 +130,13 @@ class SubscriptionController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_subscription->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_subscription.revision', [
             'se_subscription' => $se_subscription->id(),
             'se_subscription_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_subscription->toLink($date)->toString();

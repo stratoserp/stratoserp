@@ -8,7 +8,7 @@ namespace Drupal\Tests\se_ticket\Functional;
  * Ticket permission tests.
  *
  * @coversDefault Drupal\se_ticket
- * @group se_timekeeping
+ * @group se_ticket
  * @group stratoserp
  */
 class TicketPermissionTest extends TicketTestBase {

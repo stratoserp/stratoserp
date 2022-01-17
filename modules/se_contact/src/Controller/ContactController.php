@@ -122,13 +122,13 @@ class ContactController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_contact->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_contact.revision', [
             'se_contact' => $se_contact->id(),
             'se_contact_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_contact->toLink($date)->toString();

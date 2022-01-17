@@ -121,13 +121,13 @@ class PurchaseOrderController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_purchase_order->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_purchase_order.revision', [
             'se_purchase_order' => $se_purchase_order->id(),
             'se_purchase_order_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_purchase_order->toLink($date)->toString();

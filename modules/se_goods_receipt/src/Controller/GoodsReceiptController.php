@@ -123,13 +123,13 @@ class GoodsReceiptController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_goods_receipt->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_goods_receipt.revision', [
             'se_goods_receipt' => $se_goods_receipt->id(),
             'se_goods_receipt_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_goods_receipt->toLink($date)->toString();
@@ -258,7 +258,7 @@ class GoodsReceiptController extends ControllerBase {
 
     $goodsReceipt->se_bu_ref->target_id = $source->se_bu_ref->target_id;
     $goodsReceipt->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $goodsReceipt->{$bundleFieldType . '_purchase_order_ref'}->target_id = $source->id();
+    $goodsReceipt->se_gr_po_ref->target_id = $source->id();
 
     return $goodsReceipt;
   }

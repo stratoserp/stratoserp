@@ -26,7 +26,7 @@ third_party_settings:
     settings:
       label: ''
   field_group:
-    group_su_extra:
+    group_extra:
       children:
         - user_id
         - revision_log_message

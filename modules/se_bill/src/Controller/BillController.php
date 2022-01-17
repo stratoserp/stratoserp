@@ -120,13 +120,13 @@ class BillController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_bill->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_bill.revision', [
             'se_bill' => $se_bill->id(),
             'se_bill_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_bill->toLink($date)->toString();

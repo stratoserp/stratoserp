@@ -9,11 +9,12 @@ dependencies:
     - field.field.se_timekeeping.se_timekeeping.se_tk_billed
     - field.field.se_timekeeping.se_timekeeping.se_tk_comment
     - field.field.se_timekeeping.se_timekeeping.se_tk_date
-    - field.field.se_timekeeping.se_timekeeping.se_in_ref
+    - field.field.se_timekeeping.se_timekeeping.se_tk_in_ref
     - field.field.se_timekeeping.se_timekeeping.se_tk_item
     - field.field.se_timekeeping.se_timekeeping.se_tk_review
   module:
     - datetime
+    - field_group
     - field_layout
     - layout_discovery
     - se_timekeeping
@@ -23,6 +24,22 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_extra:
+      children:
+        - user_id
+        - revision_log_message
+      label: Extra
+      region: bottom
+      parent_name: ''
+      weight: 12
+      format_type: details
+      format_settings:
+        classes: ''
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
 id: se_timekeeping.se_timekeeping.default
 targetEntityType: se_timekeeping
 bundle: se_timekeeping
@@ -110,5 +127,5 @@ content:
     third_party_settings: {  }
 hidden:
   revision_log_message: true
-  se_in_ref: true
+  se_tk_in_ref: true
   user_id: true

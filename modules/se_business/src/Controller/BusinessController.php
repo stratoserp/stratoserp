@@ -120,13 +120,13 @@ class BusinessController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_business->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_business.revision', [
             'se_business' => $se_business->id(),
             'se_business_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_business->toLink($date)->toString();

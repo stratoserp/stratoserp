@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - se_ticket
-    - se_timekeeping
-id: se_ticket.se_timekeeping
-field_name: se_timekeeping
-entity_type: se_ticket
+    - se_goods_receipt
+    - se_item
+id: se_item.se_it_gr_ref
+field_name: se_it_gr_ref
+entity_type: se_item
 type: entity_reference
 settings:
-  target_type: se_timekeeping
+  target_type: se_goods_receipt
 module: core
 locked: false
 cardinality: 1

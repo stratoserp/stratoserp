@@ -120,13 +120,13 @@ class TicketController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_ticket->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_ticket.revision', [
             'se_ticket' => $se_ticket->id(),
             'se_ticket_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_ticket->toLink($date)->toString();

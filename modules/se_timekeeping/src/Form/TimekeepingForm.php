@@ -4,30 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\se_timekeeping\Form;
 
-use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Entity\ContentEntityForm;
-use Drupal\Core\Entity\EntityRepositoryInterface;
-use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\se_ticket\Entity\Ticket;
-use Drupal\stratoserp\Traits\RevisionableEntityTrait;
+use Drupal\stratoserp\Form\StratosContentEntityForm;
 
 /**
  * Form controller for Timekeeping edit forms.
  *
  * @ingroup se_timekeeping
  */
-class TimekeepingForm extends ContentEntityForm {
-
-  use RevisionableEntityTrait;
-
-  /**
-   * The current user account.
-   *
-   * @var \Drupal\Core\Session\AccountProxyInterface
-   */
-  protected AccountProxyInterface $account;
+class TimekeepingForm extends StratosContentEntityForm {
 
   /**
    * {@inheritdoc}
@@ -38,20 +24,10 @@ class TimekeepingForm extends ContentEntityForm {
     $form = parent::buildForm($form, $form_state);
 
     if ($ticket !== NULL) {
-      $formAlter = \Drupal::service('se.form_alter');
-      $formAlter->setBusinessField($form, 'se_bu_ref', $ticket->getBusiness());
-      $formAlter->setReferenceField($form, 'se_ti_ref', $ticket);
+      \Drupal::service('se.form_alter')->setReferenceField($form, 'se_ti_ref', $ticket);
 
+      // Add our custom redirect to stay on the ticket when submitted.
       $form['actions']['submit']['#submit'][] = '::ticketRedirect';
-    }
-
-    if (!$this->entity->isNew()) {
-      $form['group_co_extra']['new_revision'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Create new revision'),
-        '#default_value' => FALSE,
-        '#weight' => -20,
-      ];
     }
 
     return $form;

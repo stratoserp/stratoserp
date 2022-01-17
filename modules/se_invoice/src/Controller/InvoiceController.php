@@ -131,13 +131,13 @@ class InvoiceController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $se_invoice->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_invoice.revision', [
             'se_invoice' => $se_invoice->id(),
             'se_invoice_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_invoice->toLink($date)->toString();

@@ -6,9 +6,15 @@ namespace Drupal\stratoserp\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\se_bill\Entity\Bill;
+use Drupal\se_business\Entity\Business;
 use Drupal\se_contact\Entity\Contact;
+use Drupal\se_invoice\Entity\Invoice;
+use Drupal\se_purchase_order\Entity\PurchaseOrder;
+use Drupal\se_quote\Entity\Quote;
 use Drupal\stratoserp\Form\SearchForm;
 
 /**
@@ -93,31 +99,49 @@ class NavigationBlock extends BlockBase {
       }
 
       if ($this->entity = $parameterBag->get('se_contact')) {
+        if (!$this->entity instanceof Contact) {
+          $this->entity = Contact::load($this->entity);
+        }
         $this->contactLinks();
         $this->destination = Url::fromUri('internal:/contact/' . $this->entity->id())
           ->toString();
       }
       elseif ($this->entity = $parameterBag->get('se_business')) {
+        if (!$this->entity instanceof Business) {
+          $this->entity = Business::load($this->entity);
+        }
         $this->businessLinks();
         $this->destination = Url::fromUri('internal:/business/' . $this->entity->id())
           ->toString();
       }
       elseif ($this->entity = $parameterBag->get('se_quote')) {
+        if (!$this->entity instanceof Quote) {
+          $this->entity = Quote::load($this->entity);
+        }
         $this->quoteLinks();
         $this->destination = Url::fromUri('internal:/quote/' . $this->entity->id())
           ->toString();
       }
       elseif ($this->entity = $parameterBag->get('se_invoice')) {
+        if (!$this->entity instanceof Invoice) {
+          $this->entity = Invoice::load($this->entity);
+        }
         $this->invoiceLinks();
         $this->destination = Url::fromUri('internal:/invoice/' . $this->entity->id())
           ->toString();
       }
       elseif ($this->entity = $parameterBag->get('se_bill')) {
+        if (!$this->entity instanceof Bill) {
+          $this->entity = Bill::load($this->entity);
+        }
         $this->billLinks();
         $this->destination = Url::fromUri('internal:/bill/' . $this->entity->id())
           ->toString();
       }
       elseif ($this->entity = $parameterBag->get('se_purchase_order')) {
+        if (!$this->entity instanceof PurchaseOrder) {
+          $this->entity = PurchaseOrder::load($this->entity);
+        }
         $this->purchaseOrderLinks();
         $this->destination = Url::fromUri('internal:/purchase-order/' . $this->entity->id())
           ->toString();

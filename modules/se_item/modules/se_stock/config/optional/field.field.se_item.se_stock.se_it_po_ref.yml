@@ -2,23 +2,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.se_it_goods_receipt_ref
+    - field.storage.se_item.se_it_po_ref
     - se_item.se_item_type.se_stock
-id: se_item.se_stock.se_it_goods_receipt_ref
-field_name: se_it_goods_receipt_ref
+id: se_item.se_stock.se_it_po_ref
+field_name: se_it_po_ref
 entity_type: se_item
 bundle: se_stock
-label: 'Goods receipt'
+label: 'Purchase order'
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_goods_receipt'
+  handler: 'default:se_purchase_order'
   handler_settings:
     target_bundles:
-      se_goods_receipt: se_goods_receipt
+      se_purchase_order: se_purchase_order
     sort:
       field: _none
     auto_create: false

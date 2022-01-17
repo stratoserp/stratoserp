@@ -2,58 +2,58 @@
 
 declare(strict_types=1);
 
-namespace Drupal\se_quote;
+namespace Drupal\stratoserp;
 
 use Drupal\Core\Entity\ContentEntityStorageInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\se_quote\Entity\QuoteInterface;
 
 /**
- * Defines the storage handler class for Quote entities.
+ * Defines the storage handler class for Stratos entities.
  *
  * This extends the base storage class, adding required special handling for
- * Quote entities.
+ * Stratos entities.
  *
- * @ingroup se_quote
+ * @ingroup stratoserp
  */
-interface QuoteStorageInterface extends ContentEntityStorageInterface {
+interface StratosStorageInterface extends ContentEntityStorageInterface {
 
   /**
-   * Gets a list of Quote revision IDs for a specific Quote.
+   * Gets a list of revision IDs for a specific entity.
    *
-   * @param \Drupal\se_quote\Entity\QuoteInterface $entity
-   *   The Quote entity.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity.
    *
    * @return int[]
-   *   Quote revision IDs (in ascending order).
+   *   Revision IDs (in ascending order).
    */
-  public function revisionIds(QuoteInterface $entity);
+  public function revisionIds(EntityInterface $entity);
 
   /**
-   * Gets a list of revision IDs having a given user as Quote author.
+   * Gets a list of revision IDs having a given user as author.
    *
    * @param \Drupal\Core\Session\AccountInterface $account
    *   The user entity.
    *
    * @return int[]
-   *   Quote revision IDs (in ascending order).
+   *   Revision IDs (in ascending order).
    */
   public function userRevisionIds(AccountInterface $account);
 
   /**
    * Counts the number of revisions in the default language.
    *
-   * @param \Drupal\se_quote\Entity\QuoteInterface $entity
-   *   The Quote entity.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity.
    *
    * @return int
    *   The number of revisions in the default language.
    */
-  public function countDefaultLanguageRevisions(QuoteInterface $entity);
+  public function countDefaultLanguageRevisions(EntityInterface $entity);
 
   /**
-   * Unsets the language for all Quote with the given language.
+   * Unsets the language for all entities of this type with the given language.
    *
    * @param \Drupal\Core\Language\LanguageInterface $language
    *   The language object.

@@ -9,7 +9,7 @@ dependencies:
     - field.field.se_timekeeping.se_timekeeping.se_tk_billed
     - field.field.se_timekeeping.se_timekeeping.se_tk_comment
     - field.field.se_timekeeping.se_timekeeping.se_tk_date
-    - field.field.se_timekeeping.se_timekeeping.se_in_ref
+    - field.field.se_timekeeping.se_timekeeping.se_tk_in_ref
     - field.field.se_timekeeping.se_timekeeping.se_tk_item
     - field.field.se_timekeeping.se_timekeeping.se_tk_review
   module:
@@ -97,7 +97,7 @@ content:
     third_party_settings: {  }
     weight: 6
     region: second
-  se_in_ref:
+  se_tk_in_ref:
     type: entity_reference_label
     label: inline
     settings:

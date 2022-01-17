@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - field.storage.se_item.se_it_cost_price
-    - field.storage.se_item.se_it_goods_receipt_ref
-    - field.storage.se_item.se_it_invoice_ref
-    - field.storage.se_item.se_it_purchase_order_ref
+    - field.storage.se_item.se_it_gr_ref
+    - field.storage.se_item.se_it_in_ref
+    - field.storage.se_item.se_it_po_ref
     - field.storage.se_item.se_it_sale_price
     - field.storage.se_item.se_it_serial
     - se_item.se_item_type.se_stock
@@ -160,10 +160,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_invoice_ref:
-          id: se_it_invoice_ref
-          table: se_item__se_it_invoice_ref
-          field: se_it_invoice_ref
+        se_it_in_ref:
+          id: se_it_in_ref
+          table: se_item__se_it_in_ref
+          field: se_it_in_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -223,10 +223,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_goods_receipt_ref:
-          id: se_it_goods_receipt_ref
-          table: se_item__se_it_goods_receipt_ref
-          field: se_it_goods_receipt_ref
+        se_it_gr_ref:
+          id: se_it_gr_ref
+          table: se_item__se_it_gr_ref
+          field: se_it_gr_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -286,10 +286,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_purchase_order_ref:
-          id: se_it_purchase_order_ref
-          table: se_item__se_it_purchase_order_ref
-          field: se_it_purchase_order_ref
+        se_it_po_ref:
+          id: se_it_po_ref
+          table: se_item__se_it_po_ref
+          field: se_it_po_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -644,9 +644,9 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_item.se_it_cost_price'
-        - 'config:field.storage.se_item.se_it_goods_receipt_ref'
-        - 'config:field.storage.se_item.se_it_invoice_ref'
-        - 'config:field.storage.se_item.se_it_purchase_order_ref'
+        - 'config:field.storage.se_item.se_it_gr_ref'
+        - 'config:field.storage.se_item.se_it_in_ref'
+        - 'config:field.storage.se_item.se_it_po_ref'
         - 'config:field.storage.se_item.se_it_sale_price'
         - 'config:field.storage.se_item.se_it_serial'
   se_stock_item_by_code_eva:
@@ -669,8 +669,8 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_item.se_it_cost_price'
-        - 'config:field.storage.se_item.se_it_goods_receipt_ref'
-        - 'config:field.storage.se_item.se_it_invoice_ref'
-        - 'config:field.storage.se_item.se_it_purchase_order_ref'
+        - 'config:field.storage.se_item.se_it_gr_ref'
+        - 'config:field.storage.se_item.se_it_in_ref'
+        - 'config:field.storage.se_item.se_it_po_ref'
         - 'config:field.storage.se_item.se_it_sale_price'
         - 'config:field.storage.se_item.se_it_serial'

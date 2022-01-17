@@ -89,7 +89,7 @@ class BusinessRevisionRevertForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $se_business_revision = NULL) {
-    $this->revision = $this->BusinessStorage->loadRevision($se_business_revision);
+    $this->revision = $this->businessStorage->loadRevision($se_business_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;

@@ -120,13 +120,13 @@ class InformationController extends ControllerBase {
           '#account' => $revision->getRevisionUser(),
         ];
 
-        // Use revision link to link to revisions that are not active.
+        // Use revision link for revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid !== $se_information->getRevisionId()) {
           $link = Link::fromTextAndUrl($date, new Url('entity.se_information.revision', [
             'se_information' => $se_information->id(),
             'se_information_revision' => $vid,
-          ]));
+          ]))->toString();
         }
         else {
           $link = $se_information->toLink($date)->toString();

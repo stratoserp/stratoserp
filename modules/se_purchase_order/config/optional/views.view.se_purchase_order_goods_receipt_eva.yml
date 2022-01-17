@@ -259,10 +259,10 @@ display:
       empty: {  }
       sorts: {  }
       arguments:
-        se_gr_purchase_order_ref_target_id:
-          id: se_gr_purchase_order_ref_target_id
-          table: se_goods_receipt__se_gr_purchase_order_ref
-          field: se_gr_purchase_order_ref_target_id
+        se_po_ref_target_id:
+          id: se_po_ref_target_id
+          table: se_goods_receipt__se_po_ref
+          field: se_po_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
