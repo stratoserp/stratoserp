@@ -9,6 +9,9 @@ use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\user\EntityOwnerInterface;
 
+/**
+ * Interface for base functions used in the various entities.
+ */
 interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
   /**
@@ -26,7 +29,7 @@ interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLog
    *   The Entity name.
    *
    * @return \Drupal\Core\Entity\EntityInterface
-   *   The called Entity entity.
+   *   The called Entity.
    */
   public function setName($name);
 
@@ -45,14 +48,9 @@ interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLog
    *   The Entity creation timestamp.
    *
    * @return \Drupal\Core\Entity\EntityInterface
-   *   The called Entity entity.
+   *   The called Entity.
    */
   public function setCreatedTime($timestamp);
-
-  /**
-   * Return the search prefix.
-   */
-  public function getSearchPrefix(): string;
 
   /**
    * Gets the Entity revision creation timestamp.
@@ -69,7 +67,7 @@ interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLog
    *   The UNIX timestamp of when this revision was created.
    *
    * @return \Drupal\Core\Entity\EntityInterface
-   *   The called entity.
+   *   The called Entity.
    */
   public function setRevisionCreationTime($timestamp);
 
@@ -88,8 +86,13 @@ interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLog
    *   The user ID of the revision author.
    *
    * @return \Drupal\Core\Entity\EntityInterface
-   *   The called entity.
+   *   The called Entity.
    */
   public function setRevisionUserId($uid);
+
+  /**
+   * Return the search prefix.
+   */
+  public function getSearchPrefix(): string;
 
 }

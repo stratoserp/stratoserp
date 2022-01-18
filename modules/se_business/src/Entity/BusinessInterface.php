@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\se_business\Entity;
 
-use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\RevisionLogInterface;
-use Drupal\Core\Entity\EntityChangedInterface;
-use Drupal\user\EntityOwnerInterface;
+use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 
 /**
  * Provides an interface for defining Business entities.
  *
  * @ingroup se_business
  */
-interface BusinessInterface extends ContentEntityInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
+interface BusinessInterface extends StratosEntityBaseInterface {
 
   /**
    * Return the search prefix.

@@ -622,7 +622,7 @@ display:
             id: id
             name: name
             created: created
-            se_outstanding: se_in_outstanding
+            se_outstanding: se_outstanding
             se_status_ref: se_status_ref
           default: id
           info:
