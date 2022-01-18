@@ -363,7 +363,7 @@ content:
     region: content
   se_invoice_day_of_month:
     type: number_integer
-    label: above
+    label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -372,7 +372,7 @@ content:
     region: content
   se_last_statement_date:
     type: datetime_default
-    label: above
+    label: inline
     settings:
       timezone_override: ''
       format_type: medium
@@ -749,7 +749,7 @@ content:
     region: content
   se_terms:
     type: number_integer
-    label: above
+    label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
