@@ -37,22 +37,22 @@ dependencies:
     - telephone
 third_party_settings:
   field_group:
-    group_bu_tabs:
+    group_tabs:
       children:
-        - group_bu_tab_details
-        - group_bu_tab_location
-        - group_bu_tab_contacts
-        - group_bu_tab_information
-        - group_bu_tab_tickets
-        - group_bu_tab_timekeeping
-        - group_bu_tab_quotes
-        - group_bu_tab_invoices
-        - group_bu_tab_payments
-        - group_bu_tab_reports
-        - group_bu_tab_purchase_orders
-        - group_bu_tab_goods_receipts
-        - group_bu_tab_subscriptions
-        - group_bu_tab_bills
+        - group_tab_details
+        - group_tab_location
+        - group_tab_contacts
+        - group_tab_information
+        - group_tab_tickets
+        - group_tab_timekeeping
+        - group_tab_quotes
+        - group_tab_invoices
+        - group_tab_payments
+        - group_tab_reports
+        - group_tab_purchase_orders
+        - group_tab_goods_receipts
+        - group_tab_subscriptions
+        - group_tab_bills
       label: 'Business tabs'
       parent_name: ''
       region: content
@@ -63,11 +63,13 @@ third_party_settings:
         id: ''
         required_fields: false
         direction: vertical
-    group_bu_tab_tickets:
+    group_tab_tickets:
       children:
+        - se_ticket_eva_se_ticket_eva_form
+        - se_ticket_eva_se_ticket_eva
         - extra_field_business_ticket_statistics
       label: Tickets
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 24
       format_type: tab
@@ -76,12 +78,12 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_contacts:
+    group_tab_contacts:
       children:
         - se_contact_eva_se_contact_eva_form
         - se_contact_eva_se_contact_eva
       label: Contacts
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 22
       format_type: tab
@@ -90,7 +92,7 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_details:
+    group_tab_details:
       children:
         - se_address
         - se_suburb
@@ -112,7 +114,7 @@ third_party_settings:
         - se_last_statement_date
         - se_terms
       label: Details
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 20
       format_type: tab
@@ -121,11 +123,11 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_location:
+    group_tab_location:
       children:
         - se_location
       label: Location
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 21
       format_type: tab
@@ -134,13 +136,13 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_invoices:
+    group_tab_invoices:
       children:
         - se_invoice_eva_se_invoice_eva_form
         - se_invoice_eva_se_invoice_eva
         - extra_field_business_invoice_statistics
       label: Invoices
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 27
       format_type: tab
@@ -149,12 +151,12 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_purchase_orders:
+    group_tab_purchase_orders:
       children:
         - se_purchase_order_eva_se_purchase_order_eva
         - extra_field_business_purchase_order_statistics
       label: 'Purchase orders'
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 30
       format_type: tab
@@ -163,11 +165,11 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_quotes:
+    group_tab_quotes:
       children:
         - se_quote_eva_se_quote_eva
       label: Quotes
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 26
       format_type: tab
@@ -176,11 +178,11 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_payments:
+    group_tab_payments:
       children:
         - se_payment_eva_se_payment_eva
       label: Payments
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 28
       format_type: tab
@@ -189,12 +191,12 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_information:
+    group_tab_information:
       children:
         - se_document_eva_se_document_eva_form
         - se_document_eva_se_document_eva
       label: Information
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 23
       format_type: tab
@@ -203,11 +205,11 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_timekeeping:
+    group_tab_timekeeping:
       children:
         - se_timekeeping_bu_eva_se_timekeeping_bu_eva
       label: Timekeeping
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 25
       format_type: tab
@@ -216,10 +218,10 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_reports:
+    group_tab_reports:
       children: {  }
       label: Reports
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 29
       format_type: tab
@@ -228,11 +230,24 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_goods_receipts:
+    group_tab_bills:
+      children:
+        - se_bill_eva_se_bill_eva
+      label: Bills
+      parent_name: group_tabs
+      region: content
+      weight: 18
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: ''
+    group_tab_goods_receipts:
       children:
         - se_goods_receipt_eva_se_goods_receipt_eva
       label: 'Goods receipts'
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 31
       format_type: tab
@@ -241,24 +256,11 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-    group_bu_tab_bills:
-      children:
-        - se_bill_eva_se_bill_eva
-      label: Bills
-      parent_name: group_bu_tabs
-      region: content
-      weight: 33
-      format_type: tab
-      format_settings:
-        classes: ''
-        id: ''
-        formatter: closed
-        description: ''
-    group_bu_tab_subscriptions:
+    group_tab_subscriptions:
       children:
         - se_subscription_eva_se_subscription_eva
       label: Subscriptions
-      parent_name: group_bu_tabs
+      parent_name: group_tabs
       region: content
       weight: 32
       format_type: tab
@@ -272,7 +274,6 @@ third_party_settings:
     id: layout_onecol
     settings:
       label: ''
-
 id: se_business.se_business.default
 targetEntityType: se_business
 bundle: se_business
@@ -324,7 +325,7 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   se_email:
     type: basic_string
@@ -346,7 +347,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   se_homepage:
     type: link
@@ -383,7 +384,6 @@ content:
     label: inline
     settings:
       set_marker: true
-      show_label: false
       common_map: true
       show_delta_label: false
       use_overridden_map_settings: false
@@ -674,7 +674,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   se_phone:
     type: telephone_link
@@ -682,7 +682,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   se_postal_address:
     type: string
@@ -690,7 +690,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   se_postal_postcode:
     type: string
@@ -698,7 +698,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 15
     region: content
   se_postal_state:
     type: string
@@ -706,7 +706,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 13
+    weight: 14
     region: content
   se_postal_suburb:
     type: string
@@ -714,7 +714,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: content
   se_postcode:
     type: string
@@ -737,7 +737,7 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   se_suburb:
     type: string
@@ -838,11 +838,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 9
-    region: content
-  se_timekeeping_bu_eva_se_timekeeping_bu_eva:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
     region: content
   se_timekeeping_eva_se_timekeeping_eva:
     settings: {  }
