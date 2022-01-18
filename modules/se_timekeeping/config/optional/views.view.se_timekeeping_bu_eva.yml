@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_timekeeping.se_tk_amount
-    - field.storage.se_timekeeping.se_tk_billable
-    - field.storage.se_timekeeping.se_tk_billed
-    - field.storage.se_timekeeping.se_tk_date
-    - field.storage.se_timekeeping.se_tk_review
+    - field.storage.se_timekeeping.se_amount
+    - field.storage.se_timekeeping.se_billable
+    - field.storage.se_timekeeping.se_billed
+    - field.storage.se_timekeeping.se_date
+    - field.storage.se_timekeeping.se_review
     - user.role.owner
     - user.role.staff
   module:
@@ -30,10 +30,10 @@ display:
     display_options:
       title: 'Timekeeping list'
       fields:
-        se_tk_date:
-          id: se_tk_date
-          table: se_timekeeping__se_tk_date
-          field: se_tk_date
+        se_date:
+          id: se_date
+          table: se_timekeeping__se_date
+          field: se_date
           relationship: none
           group_type: group
           admin_label: ''
@@ -158,10 +158,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_tk_billable:
-          id: se_tk_billable
-          table: se_timekeeping__se_tk_billable
-          field: se_tk_billable
+        se_billable:
+          id: se_billable
+          table: se_timekeeping__se_billable
+          field: se_billable
           relationship: none
           group_type: group
           admin_label: ''
@@ -223,10 +223,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_tk_billed:
-          id: se_tk_billed
-          table: se_timekeeping__se_tk_billed
-          field: se_tk_billed
+        se_billed:
+          id: se_billed
+          table: se_timekeeping__se_billed
+          field: se_billed
           relationship: none
           group_type: group
           admin_label: ''
@@ -288,10 +288,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_tk_review:
-          id: se_tk_review
-          table: se_timekeeping__se_tk_review
-          field: se_tk_review
+        se_review:
+          id: se_review
+          table: se_timekeeping__se_review
+          field: se_review
           relationship: none
           group_type: group
           admin_label: ''
@@ -418,10 +418,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_tk_amount:
-          id: se_tk_amount
-          table: se_timekeeping__se_tk_amount
-          field: se_tk_amount
+        se_amount:
+          id: se_amount
+          table: se_timekeeping__se_amount
+          field: se_amount
           plugin_id: field
       pager:
         type: mini
@@ -561,11 +561,11 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_timekeeping.se_tk_amount'
-        - 'config:field.storage.se_timekeeping.se_tk_billable'
-        - 'config:field.storage.se_timekeeping.se_tk_billed'
-        - 'config:field.storage.se_timekeeping.se_tk_date'
-        - 'config:field.storage.se_timekeeping.se_tk_review'
+        - 'config:field.storage.se_timekeeping.se_amount'
+        - 'config:field.storage.se_timekeeping.se_billable'
+        - 'config:field.storage.se_timekeeping.se_billed'
+        - 'config:field.storage.se_timekeeping.se_date'
+        - 'config:field.storage.se_timekeeping.se_review'
   se_timekeeping_bu_eva:
     id: se_timekeeping_bu_eva
     display_title: EVA
@@ -587,8 +587,8 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_timekeeping.se_tk_amount'
-        - 'config:field.storage.se_timekeeping.se_tk_billable'
-        - 'config:field.storage.se_timekeeping.se_tk_billed'
-        - 'config:field.storage.se_timekeeping.se_tk_date'
-        - 'config:field.storage.se_timekeeping.se_tk_review'
+        - 'config:field.storage.se_timekeeping.se_amount'
+        - 'config:field.storage.se_timekeeping.se_billable'
+        - 'config:field.storage.se_timekeeping.se_billed'
+        - 'config:field.storage.se_timekeeping.se_date'
+        - 'config:field.storage.se_timekeeping.se_review'

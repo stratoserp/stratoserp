@@ -14,21 +14,21 @@ dependencies:
 config_devel:
   install:
     - field.field.se_timekeeping.se_timekeeping.se_bu_ref
-    - field.field.se_timekeeping.se_timekeeping.se_tk_amount
-    - field.field.se_timekeeping.se_timekeeping.se_tk_billable
-    - field.field.se_timekeeping.se_timekeeping.se_tk_billed
-    - field.field.se_timekeeping.se_timekeeping.se_tk_comment
-    - field.field.se_timekeeping.se_timekeeping.se_tk_date
-    - field.field.se_timekeeping.se_timekeeping.se_tk_item
-    - field.field.se_timekeeping.se_timekeeping.se_tk_review
+    - field.field.se_timekeeping.se_timekeeping.se_amount
+    - field.field.se_timekeeping.se_timekeeping.se_billable
+    - field.field.se_timekeeping.se_timekeeping.se_billed
+    - field.field.se_timekeeping.se_timekeeping.se_comment
+    - field.field.se_timekeeping.se_timekeeping.se_date
+    - field.field.se_timekeeping.se_timekeeping.se_it_ref
+    - field.field.se_timekeeping.se_timekeeping.se_review
     - field.storage.se_timekeeping.se_bu_ref
-    - field.storage.se_timekeeping.se_tk_amount
-    - field.storage.se_timekeeping.se_tk_billable
-    - field.storage.se_timekeeping.se_tk_billed
-    - field.storage.se_timekeeping.se_tk_comment
-    - field.storage.se_timekeeping.se_tk_date
-    - field.storage.se_timekeeping.se_tk_item
-    - field.storage.se_timekeeping.se_tk_review
+    - field.storage.se_timekeeping.se_amount
+    - field.storage.se_timekeeping.se_billable
+    - field.storage.se_timekeeping.se_billed
+    - field.storage.se_timekeeping.se_comment
+    - field.storage.se_timekeeping.se_date
+    - field.storage.se_timekeeping.se_it_ref
+    - field.storage.se_timekeeping.se_review
 
   optional:
     - core.entity_form_display.se_timekeeping.se_timekeeping

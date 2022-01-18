@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_timekeeping.se_billable
+  module:
+    - se_timekeeping
+id: se_timekeeping.se_timekeeping.se_billable
+field_name: se_billable
+entity_type: se_timekeeping
+bundle: se_timekeeping
+label: Billable
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

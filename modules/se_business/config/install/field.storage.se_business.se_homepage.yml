@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - se_business
+id: se_business.se_homepage
+field_name: se_homepage
+entity_type: se_business
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

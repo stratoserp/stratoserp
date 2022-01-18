@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_invoice.se_in_outstanding
-    - field.storage.se_invoice.se_in_total
+    - field.storage.se_invoice.se_outstanding
+    - field.storage.se_invoice.se_total
     - field.storage.se_invoice.se_status_ref
     - taxonomy.vocabulary.se_status
     - user.role.owner
@@ -228,10 +228,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_in_outstanding:
-          id: se_in_outstanding
-          table: se_invoice__se_in_outstanding
-          field: se_in_outstanding
+        se_outstanding:
+          id: se_outstanding
+          table: se_invoice__se_outstanding
+          field: se_outstanding
           relationship: none
           group_type: group
           admin_label: ''
@@ -353,10 +353,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_in_total:
-          id: se_in_total
-          table: se_invoice__se_in_total
-          field: se_in_total
+        se_total:
+          id: se_total
+          table: se_invoice__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -622,7 +622,7 @@ display:
             id: id
             name: name
             created: created
-            se_in_outstanding: se_in_outstanding
+            se_outstanding: se_in_outstanding
             se_status_ref: se_status_ref
           default: id
           info:
@@ -647,7 +647,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_in_outstanding:
+            se_outstanding:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -697,8 +697,8 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_invoice.se_in_outstanding'
-        - 'config:field.storage.se_invoice.se_in_total'
+        - 'config:field.storage.se_invoice.se_outstanding'
+        - 'config:field.storage.se_invoice.se_total'
         - 'config:field.storage.se_invoice.se_status_ref'
   se_invoice_eva:
     id: se_invoice_eva
@@ -721,6 +721,6 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_invoice.se_in_outstanding'
-        - 'config:field.storage.se_invoice.se_in_total'
+        - 'config:field.storage.se_invoice.se_outstanding'
+        - 'config:field.storage.se_invoice.se_total'
         - 'config:field.storage.se_invoice.se_status_ref'

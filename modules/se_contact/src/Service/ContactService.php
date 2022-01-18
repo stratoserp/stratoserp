@@ -66,7 +66,7 @@ class ContactService {
     // Setup the query.
     $query = \Drupal::entityQuery('se_contact')
       ->condition('se_bu_ref', $business->id())
-      ->condition('se_co_type_ref', $termId);
+      ->condition('se_type_ref', $termId);
 
     // Return the executed query.
     return $query->execute();

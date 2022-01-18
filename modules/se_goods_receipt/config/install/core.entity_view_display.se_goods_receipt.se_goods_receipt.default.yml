@@ -4,9 +4,9 @@ dependencies:
   config:
     - field.field.se_goods_receipt.se_goods_receipt.se_bu_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_co_ref
-    - field.field.se_goods_receipt.se_goods_receipt.se_gr_lines
+    - field.field.se_goods_receipt.se_goods_receipt.se_item_lines
     - field.field.se_goods_receipt.se_goods_receipt.se_po_ref
-    - field.field.se_goods_receipt.se_goods_receipt.se_gr_total
+    - field.field.se_goods_receipt.se_goods_receipt.se_total
     - field.field.se_goods_receipt.se_goods_receipt.se_status_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_su_ref
   module:
@@ -61,7 +61,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_gr_lines:
+  se_item_lines:
     weight: 5
     label: above
     settings: {  }
@@ -76,7 +76,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_gr_total:
+  se_total:
     type: se_currency_formatter
     weight: 6
     region: bottom

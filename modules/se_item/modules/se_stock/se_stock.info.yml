@@ -9,20 +9,20 @@ dependencies:
 
 config_devel:
   install:
-    - field.field.se_item.se_stock.se_it_active
-    - field.field.se_item.se_stock.se_it_code
-    - field.field.se_item.se_stock.se_it_cost_price
-    - field.field.se_item.se_stock.se_it_description
-    - field.field.se_item.se_stock.se_it_images
-    - field.field.se_item.se_stock.se_it_item_ref
-    - field.field.se_item.se_stock.se_it_lost
-    - field.field.se_item.se_stock.se_it_manufacturer_ref
-    - field.field.se_item.se_stock.se_it_product_type_ref
-    - field.field.se_item.se_stock.se_it_sale_category_ref
-    - field.field.se_item.se_stock.se_it_sale_date
-    - field.field.se_item.se_stock.se_it_sale_price
-    - field.field.se_item.se_stock.se_it_sell_price
-    - field.field.se_item.se_stock.se_it_serial
+    - field.field.se_item.se_stock.se_active
+    - field.field.se_item.se_stock.se_code
+    - field.field.se_item.se_stock.se_cost_price
+    - field.field.se_item.se_stock.se_description
+    - field.field.se_item.se_stock.se_images
+    - field.field.se_item.se_stock.se_it_ref
+    - field.field.se_item.se_stock.se_lost
+    - field.field.se_item.se_stock.se_manufacturer_ref
+    - field.field.se_item.se_stock.se_product_type_ref
+    - field.field.se_item.se_stock.se_sale_category_ref
+    - field.field.se_item.se_stock.se_sale_date
+    - field.field.se_item.se_stock.se_sale_price
+    - field.field.se_item.se_stock.se_sell_price
+    - field.field.se_item.se_stock.se_serial
     - se_item.se_item_type.se_stock
   optional:
     - core.entity_form_display.se_item.se_stock.default

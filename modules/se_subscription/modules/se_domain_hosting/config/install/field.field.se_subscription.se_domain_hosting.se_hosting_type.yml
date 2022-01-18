@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_hosting_type
+    - se_subscription.se_subscription_type.se_domain_hosting
+  module:
+    - options
+id: se_subscription.se_domain_hosting.se_hosting_type
+field_name: se_hosting_type
+entity_type: se_subscription
+bundle: se_domain_hosting
+label: 'Hosting type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

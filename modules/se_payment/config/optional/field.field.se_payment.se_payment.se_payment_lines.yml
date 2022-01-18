@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_payment.se_payment_lines
+  module:
+    - se_payment
+    - se_payment_line
+id: se_payment.se_payment.se_payment_lines
+field_name: se_payment_lines
+entity_type: se_payment
+bundle: se_payment
+label: Payments
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:se_invoice'
+  handler_settings: {  }
+field_type: se_payment_line

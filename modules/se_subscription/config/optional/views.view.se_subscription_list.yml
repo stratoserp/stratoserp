@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_subscription.se_su_next_due
-    - field.storage.se_subscription.se_su_period
+    - field.storage.se_subscription.se_next_due
+    - field.storage.se_subscription.se_period
     - system.menu.stratos-erp
     - user.role.owner
     - user.role.staff
@@ -225,10 +225,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_su_period:
-          id: se_su_period
-          table: se_subscription__se_su_period
-          field: se_su_period
+        se_period:
+          id: se_period
+          table: se_subscription__se_period
+          field: se_period
           relationship: none
           group_type: group
           admin_label: ''
@@ -289,10 +289,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_su_next_due:
-          id: se_su_next_due
-          table: se_subscription__se_su_next_due
-          field: se_su_next_due
+        se_next_due:
+          id: se_next_due
+          table: se_subscription__se_next_due
+          field: se_next_due
           relationship: none
           group_type: group
           admin_label: ''
@@ -488,8 +488,8 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_subscription.se_su_next_due'
-        - 'config:field.storage.se_subscription.se_su_period'
+        - 'config:field.storage.se_subscription.se_next_due'
+        - 'config:field.storage.se_subscription.se_period'
   se_subscription_list:
     id: se_subscription_list
     display_title: Page
@@ -516,5 +516,5 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_subscription.se_su_next_due'
-        - 'config:field.storage.se_subscription.se_su_period'
+        - 'config:field.storage.se_subscription.se_next_due'
+        - 'config:field.storage.se_subscription.se_period'

@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_purchase_order.se_po_total
+    - field.storage.se_purchase_order.se_total
     - field.storage.se_purchase_order.se_status_ref
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_business_type
@@ -290,10 +290,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_po_total:
-          id: se_po_total
-          table: se_purchase_order__se_po_total
-          field: se_po_total
+        se_total:
+          id: se_total
+          table: se_purchase_order__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -558,7 +558,7 @@ display:
             created: created
             name: name
             se_status_ref: se_status_ref
-            se_po_total: se_po_total
+            se_total: se_total
           default: id
           info:
             id:
@@ -589,7 +589,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_po_total:
+            se_total:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -640,7 +640,7 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_purchase_order.se_po_total'
+        - 'config:field.storage.se_purchase_order.se_total'
         - 'config:field.storage.se_purchase_order.se_status_ref'
   se_purchase_order_list:
     id: se_purchase_order_list
@@ -669,5 +669,5 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_purchase_order.se_po_total'
+        - 'config:field.storage.se_purchase_order.se_total'
         - 'config:field.storage.se_purchase_order.se_status_ref'

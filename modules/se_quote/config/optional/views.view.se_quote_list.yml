@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_quote.se_qu_total
+    - field.storage.se_quote.se_total
     - field.storage.se_quote.se_status_ref
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_status
@@ -290,10 +290,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_qu_total:
-          id: se_qu_total
-          table: se_quote__se_qu_total
-          field: se_qu_total
+        se_total:
+          id: se_total
+          table: se_quote__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -604,7 +604,7 @@ display:
             created: created
             id: id
             se_status_ref: se_status_ref
-            se_qu_total: se_qu_total
+            se_total: se_total
           default: id
           info:
             name:
@@ -635,7 +635,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_qu_total:
+            se_total:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -687,7 +687,7 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_quote.se_qu_total'
+        - 'config:field.storage.se_quote.se_total'
         - 'config:field.storage.se_quote.se_status_ref'
   se_quote_list:
     id: se_quote_list
@@ -716,5 +716,5 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_quote.se_qu_total'
+        - 'config:field.storage.se_quote.se_total'
         - 'config:field.storage.se_quote.se_status_ref'

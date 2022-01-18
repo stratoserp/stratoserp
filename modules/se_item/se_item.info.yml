@@ -10,20 +10,20 @@ dependencies:
 
 config_devel:
   install:
-    - field.storage.se_item.se_it_active
-    - field.storage.se_item.se_it_code
-    - field.storage.se_item.se_it_cost_price
-    - field.storage.se_item.se_it_description
-    - field.storage.se_item.se_it_images
-    - field.storage.se_item.se_it_item_ref
-    - field.storage.se_item.se_it_lost
-    - field.storage.se_item.se_it_manufacturer_ref
-    - field.storage.se_item.se_it_product_type_ref
-    - field.storage.se_item.se_it_sale_category_ref
-    - field.storage.se_item.se_it_sale_date
-    - field.storage.se_item.se_it_sale_price
-    - field.storage.se_item.se_it_sell_price
-    - field.storage.se_item.se_it_serial
+    - field.storage.se_item.se_active
+    - field.storage.se_item.se_code
+    - field.storage.se_item.se_cost_price
+    - field.storage.se_item.se_description
+    - field.storage.se_item.se_images
+    - field.storage.se_item.se_it_ref
+    - field.storage.se_item.se_lost
+    - field.storage.se_item.se_manufacturer_ref
+    - field.storage.se_item.se_product_type_ref
+    - field.storage.se_item.se_sale_category_ref
+    - field.storage.se_item.se_sale_date
+    - field.storage.se_item.se_sale_price
+    - field.storage.se_item.se_sell_price
+    - field.storage.se_item.se_serial
   optional:
     - field.storage.se_item.se_gr_ref
     - field.storage.se_item.se_in_ref

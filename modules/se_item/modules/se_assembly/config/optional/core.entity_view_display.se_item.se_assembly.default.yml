@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_assembly.se_it_active
-    - field.field.se_item.se_assembly.se_it_code
-    - field.field.se_item.se_assembly.se_it_cost_price
-    - field.field.se_item.se_assembly.se_it_description
-    - field.field.se_item.se_assembly.se_it_manufacturer_ref
-    - field.field.se_item.se_assembly.se_it_product_type_ref
-    - field.field.se_item.se_assembly.se_it_sale_category_ref
-    - field.field.se_item.se_assembly.se_it_sell_price
-    - field.field.se_item.se_assembly.se_it_serial
+    - field.field.se_item.se_assembly.se_active
+    - field.field.se_item.se_assembly.se_code
+    - field.field.se_item.se_assembly.se_cost_price
+    - field.field.se_item.se_assembly.se_description
+    - field.field.se_item.se_assembly.se_manufacturer_ref
+    - field.field.se_item.se_assembly.se_product_type_ref
+    - field.field.se_item.se_assembly.se_sale_category_ref
+    - field.field.se_item.se_assembly.se_sell_price
+    - field.field.se_item.se_assembly.se_serial
     - se_item.se_item_type.se_assembly
   module:
     - field_layout
@@ -35,7 +35,7 @@ content:
     third_party_settings: {  }
     weight: 0
     region: top
-  se_it_active:
+  se_active:
     type: boolean
     label: inline
     settings:
@@ -45,7 +45,7 @@ content:
     third_party_settings: {  }
     weight: 5
     region: first
-  se_it_code:
+  se_code:
     type: string
     label: inline
     settings:
@@ -53,21 +53,21 @@ content:
     third_party_settings: {  }
     weight: 1
     region: first
-  se_it_cost_price:
+  se_cost_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 2
     region: first
-  se_it_description:
+  se_description:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 9
     region: bottom
-  se_it_manufacturer_ref:
+  se_manufacturer_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -75,7 +75,7 @@ content:
     third_party_settings: {  }
     weight: 7
     region: second
-  se_it_product_type_ref:
+  se_product_type_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -83,7 +83,7 @@ content:
     third_party_settings: {  }
     weight: 6
     region: second
-  se_it_sale_category_ref:
+  se_sale_category_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -91,14 +91,14 @@ content:
     third_party_settings: {  }
     weight: 8
     region: second
-  se_it_sell_price:
+  se_sell_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 3
     region: first
-  se_it_serial:
+  se_serial:
     type: string
     label: inline
     settings:

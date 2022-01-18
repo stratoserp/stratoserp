@@ -53,11 +53,11 @@ trait TimekeepingTestTrait {
       'entity_id' => $ticket->id(),
       'entity_type' => 'se_ticket',
       'se_bu_ref' => $ticket->se_bu_ref,
-      'se_tk_comment' => $this->timekeepingName,
-      'se_tk_billable' => TRUE,
-      'se_tk_billed' => FALSE,
-      'se_tk_amount' => 60,
-      'se_tk_item' => $item,
+      'se_comment' => $this->timekeepingName,
+      'se_billable' => TRUE,
+      'se_billed' => FALSE,
+      'se_amount' => 60,
+      'se_it_ref' => $item,
     ]);
     $timekeeping->save();
     $this->markEntityForCleanup($timekeeping);
@@ -120,9 +120,9 @@ trait TimekeepingTestTrait {
       'status' => 1,
       'name' => 'Technical service',
       'body' => 'Technical service by one of our qualified technicians.',
-      'se_it_code' => [['value' => 'TECHSERVICE']],
-      'se_it_sell_price' => [['value' => 16000]],
-      'se_it_cost_price' => [['value' => 5500]],
+      'se_code' => [['value' => 'TECHSERVICE']],
+      'se_sell_price' => [['value' => 16000]],
+      'se_cost_price' => [['value' => 5500]],
     ]);
     $item->save();
     $this->markEntityForCleanup($item);

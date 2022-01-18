@@ -9,7 +9,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityReferenceWidget;
-use Drupal\stratoserp\Constants;
 
 /**
  * Plugin implementation of the 'se_item_line_widget' widget.
@@ -34,7 +33,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['#type'] = 'container';
 
     $host_type = $items->getEntity()->getEntityTypeId();
-    $line_type = Constants::SE_ITEM_LINE_BUNDLES[$host_type];
 
     // Put quantity field first.
     // Disable qty if serial is set, there can be only one.
@@ -49,7 +47,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#states' => [
         'enabled' => [
           [
-            ':input[' . $this->lineSelector($line_type, $delta, 'serial') . ']' => [
+            ':input[' . $this->lineSelector($delta, 'serial') . ']' => [
               ['value' => 'Serial'],
               'or',
               ['value' => ''],
@@ -97,7 +95,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       ],
       '#states' => [
         'visible' => [
-          ':input[' . $this->lineSelector($line_type, $delta, 'target_type') . ']' => [
+          ':input[' . $this->lineSelector($delta, 'target_type') . ']' => [
             'value' => 'se_item',
           ],
         ],
@@ -185,8 +183,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   /**
    * Helper function to construct the state selectors.
    *
-   * @param string $lineType
-   *   The two letter content type code.
    * @param int $delta
    *   The line number.
    * @param string $field
@@ -195,8 +191,8 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
    * @return string
    *   Constructed state target.
    */
-  private function lineSelector(string $lineType, int $delta, string $field): string {
-    return "name=\"se_{$lineType}_lines[{$delta}][{$field}]\"";
+  private function lineSelector(int $delta, string $field): string {
+    return "name=\"se_item_lines[{$delta}][{$field}]\"";
   }
 
   /**
@@ -209,7 +205,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $host_type = $form_state->getFormObject()->getEntity()->getEntityTypeId();
 
-    if (!array_key_exists($host_type, Constants::SE_ITEM_LINE_BUNDLES)) {
+    if (!isset($entity->se_item_lines)) {
       return $values;
     }
 

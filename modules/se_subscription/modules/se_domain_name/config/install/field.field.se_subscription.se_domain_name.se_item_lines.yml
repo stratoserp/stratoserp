@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_item_lines
+    - se_item.se_item_type.se_recurring
+    - se_subscription.se_subscription_type.se_domain_name
+  module:
+    - se_item_line
+id: se_subscription.se_domain_name.se_item_lines
+field_name: se_item_lines
+entity_type: se_subscription
+bundle: se_domain_name
+label: Lines
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  se_item:
+    handler: se_item
+    handler_settings:
+      target_bundles:
+        se_recurring: se_recurring
+      sort:
+        field: _none
+        direction: ASC
+      auto_create: 0
+      auto_create_bundle: ''
+field_type: se_item_line

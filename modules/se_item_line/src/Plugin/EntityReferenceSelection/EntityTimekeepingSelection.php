@@ -79,12 +79,12 @@ class EntityTimekeepingSelection extends DefaultSelection {
       $output = [];
       $bundle = $timekeeping->bundle();
 
-      if ($itemCode = $timekeeping->se_tk_item->entity) {
-        $output[] = $itemCode->se_it_code->value;
+      if ($itemCode = $timekeeping->se_it_ref->entity) {
+        $output[] = $itemCode->se_code->value;
 
         $output[] = substr($timekeeping->label(), 0, 80);
-        if (isset($itemCode->se_it_sell_price->value)) {
-          $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $itemCode->se_it_sell_price->value);
+        if (isset($itemCode->se_sell_price->value)) {
+          $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $itemCode->se_sell_price->value);
         }
 
         $options[$bundle][$entityId] = implode(' ', $output);

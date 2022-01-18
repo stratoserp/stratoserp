@@ -45,14 +45,13 @@ class PaymentLineEventSubscriber implements PaymentLineEventSubscriberInterface 
     }
 
     $total = 0;
-    $bundleFieldType = 'se_' . Constants::SE_PAYMENT_LINE_BUNDLES[$entity->bundle()];
 
     // Loop through the payment lines to calculate total.
-    foreach ($entity->{$bundleFieldType . '_lines'} as $paymentLine) {
+    foreach ($entity->se_payment_lines as $paymentLine) {
       $total += $paymentLine->amount;
     }
 
-    $entity->{$bundleFieldType . '_total'}->value = $total;
+    $entity->se_total->value = $total;
   }
 
 }

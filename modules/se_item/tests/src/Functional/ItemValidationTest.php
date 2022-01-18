@@ -21,7 +21,7 @@ class ItemValidationTest extends ItemTestBase {
     $this->itemFakerSetup();
 
     $item = $this->createItemContent([
-      'se_it_code' => $this->itemCode,
+      'se_code' => $this->itemCode,
     ]);
     $violations = $item->validate();
     self::assertGreaterThanOrEqual(1, $violations->count());
@@ -43,7 +43,7 @@ class ItemValidationTest extends ItemTestBase {
     // Now create it.
     $item = $this->createItemContent([
       'name' => $this->itemName,
-      'se_it_code' => $code,
+      'se_code' => $code,
     ]);
     $violations = $item->validate();
     self::assertEquals(0, $violations->count());
@@ -53,11 +53,11 @@ class ItemValidationTest extends ItemTestBase {
     // Now this should create a duplicate violation.
     $newItem = $this->createItemContent([
       'name' => $this->itemName,
-      'se_it_code' => $code,
+      'se_code' => $code,
     ]);
     $violations = $newItem->validate();
     self::assertEquals(1, $violations->count());
-    self::assertEquals($violations[0]->getPropertyPath(), 'se_it_code');
+    self::assertEquals($violations[0]->getPropertyPath(), 'se_code');
     self::assertEquals($violations[0]->getMessage(), t('Item %id with code %value already exists.',
       ['%id' => $item->id(), '%value' => $code],
       ['langcode' => NULL]

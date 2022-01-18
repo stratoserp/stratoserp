@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_ticket.se_ti_open_date
-    - field.storage.se_ticket.se_ti_scheduled
+    - field.storage.se_ticket.se_open_date
+    - field.storage.se_ticket.se_scheduled
     - user.role.developer
     - user.role.owner
     - user.role.staff
@@ -93,10 +93,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_ti_scheduled:
-          id: se_ti_scheduled
-          table: se_ticket__se_ti_scheduled
-          field: se_ti_scheduled
+        se_scheduled:
+          id: se_scheduled
+          table: se_ticket__se_scheduled
+          field: se_scheduled
           relationship: none
           group_type: group
           admin_label: ''
@@ -223,10 +223,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_ti_open_date:
-          id: se_ti_open_date
-          table: se_ticket__se_ti_open_date
-          field: se_ti_open_date
+        se_open_date:
+          id: se_open_date
+          table: se_ticket__se_open_date
+          field: se_open_date
           relationship: none
           group_type: group
           admin_label: ''
@@ -433,10 +433,10 @@ display:
           default_row_class: true
           columns:
             id: id
-            se_ti_scheduled: se_ti_scheduled
+            se_scheduled: se_scheduled
             name: name
-            se_ti_open_date: se_ti_open_date
-          default: se_ti_open_date
+            se_open_date: se_open_date
+          default: se_open_date
           info:
             id:
               sortable: true
@@ -445,7 +445,7 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-medium
-            se_ti_scheduled:
+            se_scheduled:
               sortable: true
               default_sort_order: desc
               align: ''
@@ -459,7 +459,7 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-low
-            se_ti_open_date:
+            se_open_date:
               sortable: true
               default_sort_order: desc
               align: ''
@@ -501,8 +501,8 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_ticket.se_ti_open_date'
-        - 'config:field.storage.se_ticket.se_ti_scheduled'
+        - 'config:field.storage.se_ticket.se_open_date'
+        - 'config:field.storage.se_ticket.se_scheduled'
   se_ticket_eva:
     id: se_ticket_eva
     display_title: 'Tickets EVA'
@@ -523,5 +523,5 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_ticket.se_ti_open_date'
-        - 'config:field.storage.se_ticket.se_ti_scheduled'
+        - 'config:field.storage.se_ticket.se_open_date'
+        - 'config:field.storage.se_ticket.se_scheduled'

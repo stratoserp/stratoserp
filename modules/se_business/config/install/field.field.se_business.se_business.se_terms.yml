@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_business.se_terms
+  module:
+    - se_business
+id: se_business.se_business.se_terms
+field_name: se_terms
+entity_type: se_business
+bundle: se_business
+label: Terms
+description: 'The number of days between sending statements.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 7
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

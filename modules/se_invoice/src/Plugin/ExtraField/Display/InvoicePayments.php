@@ -60,7 +60,7 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
       $payment = Payment::load($paymentLine->entity_id);
       $uri = $payment->toUrl();
 
-      foreach ($payment->se_pa_lines as $line) {
+      foreach ($payment->se_payment_lines as $line) {
 
         /** @var \Drupal\taxonomy\Entity\Term $type */
         $type = Term::load($line->payment_type);

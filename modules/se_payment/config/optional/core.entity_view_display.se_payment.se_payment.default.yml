@@ -3,8 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.se_payment.se_payment.se_bu_ref
-    - field.field.se_payment.se_payment.se_pa_lines
-    - field.field.se_payment.se_payment.se_pa_total
+    - field.field.se_payment.se_payment.se_payment_lines
+    - field.field.se_payment.se_payment.se_total
   module:
     - field_layout
     - layout_discovery
@@ -37,14 +37,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_pa_lines:
+  se_payment_lines:
     weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_payment_line_formatter
     region: bottom
-  se_pa_total:
+  se_total:
     weight: 4
     label: inline
     settings: {  }

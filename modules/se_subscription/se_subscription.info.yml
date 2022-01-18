@@ -12,13 +12,13 @@ dependencies:
 config_devel:
   install:
     - field.storage.se_subscription.se_bu_ref
-    - field.storage.se_subscription.se_su_lines
-    - field.storage.se_subscription.se_su_management_link
-    - field.storage.se_subscription.se_su_next_due
-    - field.storage.se_subscription.se_su_period
+    - field.storage.se_subscription.se_item_lines
+    - field.storage.se_subscription.se_management_link
+    - field.storage.se_subscription.se_next_due
+    - field.storage.se_subscription.se_period
     - field.storage.se_subscription.se_su_ref
-    - field.storage.se_subscription.se_su_total
-    - field.storage.se_subscription.se_su_use_bu_due
+    - field.storage.se_subscription.se_total
+    - field.storage.se_subscription.se_use_bu_due
     - se_subscription.se_subscription_type.se_anti_virus
     - se_subscription.se_subscription_type.se_backup
     - se_subscription.se_subscription_type.se_domain_hosting

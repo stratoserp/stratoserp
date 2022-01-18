@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.se_goods_receipt.se_po_ref
-    - field.storage.se_goods_receipt.se_gr_total
+    - field.storage.se_goods_receipt.se_total
     - system.menu.stratos-erp
     - user.role.owner
     - user.role.staff
@@ -288,10 +288,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_gr_total:
-          id: se_gr_total
-          table: se_goods_receipt__se_gr_total
-          field: se_gr_total
+        se_total:
+          id: se_total
+          table: se_goods_receipt__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -590,7 +590,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_goods_receipt.se_po_ref'
-        - 'config:field.storage.se_goods_receipt.se_gr_total'
+        - 'config:field.storage.se_goods_receipt.se_total'
   se_goods_receipt_list:
     id: se_goods_receipt_list
     display_title: Page
@@ -618,4 +618,4 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_goods_receipt.se_po_ref'
-        - 'config:field.storage.se_goods_receipt.se_gr_total'
+        - 'config:field.storage.se_goods_receipt.se_total'

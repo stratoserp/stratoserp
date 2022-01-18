@@ -119,10 +119,8 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function updateInvoices(Payment $payment, bool $paid = TRUE): int {
-    $bundleFieldType = 'se_' . Constants::SE_PAYMENT_LINE_BUNDLES[$payment->bundle()];
-
     $amount = 0;
-    foreach ($payment->{$bundleFieldType . '_lines'} as $paymentLine) {
+    foreach ($payment->se_payment_lines as $paymentLine) {
       // Don't try on operate on invoices with no payment.
       /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
       if (!empty($paymentLine->amount)
@@ -143,7 +141,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
         $this->setSkipBusinessXeroEvents($business);
 
         $invoice->set('se_status_ref', \Drupal::service('se_invoice.service')->checkInvoiceStatus($invoice, $paymentLine->amount));
-        $invoice->set('se_in_outstanding', $invoice->getInvoiceBalance());
+        $invoice->set('se_outstanding', $invoice->getInvoiceBalance());
         $invoice->save();
 
         $amount += $paymentLine->amount;
@@ -168,7 +166,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    * @return void|int
    *   New balance.
    */
-  private function updateBusinessBalance(EntityInterface $entity, int $amount): int {
+  private function updateBusinessBalance(EntityInterface $entity, int $amount): ?int {
     if ($amount === 0) {
       return 0;
     }

@@ -45,7 +45,7 @@ class TimekeepingStatisticsUser extends BlockBase {
         $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
-        $query->condition('se_tk_billed', TRUE);
+        $query->condition('se_billed', TRUE);
         $entity_ids = $query->execute();
         $comments = \Drupal::entityTypeManager()
           ->getStorage('se_timekeeping')
@@ -53,7 +53,7 @@ class TimekeepingStatisticsUser extends BlockBase {
         $total = 0;
         /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
         foreach ($comments as $timekeeping) {
-          $total += $timekeeping->se_tk_amount->value;
+          $total += $timekeeping->se_amount->value;
         }
         $month_data[] = \Drupal::service('se_timekeeping.time_format')->formatDecimal($total);
         $fg_colors[] = $fg_color;

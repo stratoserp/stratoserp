@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_period
+    - se_subscription.se_subscription_type.se_managed_service
+  module:
+    - duration_field
+id: se_subscription.se_managed_service.se_period
+field_name: se_period
+entity_type: se_subscription
+bundle: se_managed_service
+label: Period
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  granularity: 'y:m'
+field_type: duration

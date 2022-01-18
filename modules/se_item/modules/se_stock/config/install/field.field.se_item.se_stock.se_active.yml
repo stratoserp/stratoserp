@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_item.se_active
+    - se_item.se_item_type.se_stock
+id: se_item.se_stock.se_active
+field_name: se_active
+entity_type: se_item
+bundle: se_stock
+label: Active
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

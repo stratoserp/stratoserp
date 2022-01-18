@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\se_purchase_order\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\stratoserp\Constants;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
@@ -26,9 +25,6 @@ class UserPurchaseOrderStatistics extends BlockBase {
   public function build() {
     $content = FALSE;
     $datasets = [];
-    // @todo Move this to a service and pass in this.
-    $type = 'se_purchase_order';
-    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$type];
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
@@ -62,7 +58,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
 
         $month = 0;
         foreach ($entities as $entity) {
-          $month += $entity->{$bundleFieldType . '_total'}->value;
+          $month += $entity->se_total->value;
         }
         $month_data[] = $month;
         $fg_colors[] = $fg_color;
@@ -87,7 +83,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
       return [];
     }
 
-    $build['user_' . $type . '_statistics'] = [
+    $build['user_po_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -101,7 +97,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
           'mode' => 'dataset',
         ],
       ],
-      '#id' => 'user_' . $type . '_statistics',
+      '#id' => 'user_po_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

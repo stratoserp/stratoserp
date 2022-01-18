@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_invoice
+    - se_payment
+    - se_payment_line
+id: se_payment.se_payment_lines
+field_name: se_payment_lines
+entity_type: se_payment
+type: se_payment_line
+settings:
+  target_type: se_invoice
+module: se_payment_line
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

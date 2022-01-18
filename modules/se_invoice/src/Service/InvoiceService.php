@@ -80,9 +80,9 @@ class InvoiceService {
    *   The invoice status
    */
   public function checkInvoiceStatus(Invoice $invoice, $payment = NULL): Term {
-    if ($payment === $invoice->se_in_total->value
-      || $payment === $invoice->se_in_outstanding->value
-      || (int) $invoice->se_in_outstanding->value === 0) {
+    if ($payment === $invoice->se_total->value
+      || $payment === $invoice->se_outstanding->value
+      || (int) $invoice->se_outstanding->value === 0) {
       return $this->getClosedTerm();
     }
 

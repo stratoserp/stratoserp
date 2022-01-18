@@ -18,13 +18,13 @@ config_devel:
     - core.entity_view_display.se_quote.se_quote.default
     - field.field.se_quote.se_quote.se_bu_ref
     - field.field.se_quote.se_quote.se_co_ref
-    - field.field.se_quote.se_quote.se_qu_lines
-    - field.field.se_quote.se_quote.se_qu_total
+    - field.field.se_quote.se_quote.se_item_lines
+    - field.field.se_quote.se_quote.se_total
     - field.field.se_quote.se_quote.se_status_ref
     - field.storage.se_quote.se_bu_ref
     - field.storage.se_quote.se_co_ref
-    - field.storage.se_quote.se_qu_lines
-    - field.storage.se_quote.se_qu_total
+    - field.storage.se_quote.se_item_lines
+    - field.storage.se_quote.se_total
     - field.storage.se_quote.se_status_ref
   optional:
     - views.view.se_quote_eva

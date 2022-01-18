@@ -13,7 +13,7 @@ dependencies:
 
 config_devel:
   install:
-    - field.storage.se_ticket.se_ti_forms
+    - field.storage.se_ticket.se_forms
     - webform.webform.we_pc_fresh_install
     - webform.webform.wi_window_cleaning_complete
     - webform.webform.wi_window_cleaning_start

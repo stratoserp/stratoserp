@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\se_purchase_order\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\stratoserp\Constants;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
@@ -28,7 +27,6 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
     $datasets = [];
     // @todo Move this to a service and pass in the entity type and business.
     $type = 'se_purchase_order';
-    $bundleFieldType = Constants::SE_ITEM_LINE_BUNDLES[$type];
 
     /** @var \Drupal\Core\Entity\EntityInterface $business */
     if (!$business = $this->getCurrentControllerEntity()) {
@@ -61,9 +59,8 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
         }
 
         $total = 0;
-        $bundle_field_total = 'se_' . $bundleFieldType . '_total';
         foreach ($entities as $entity) {
-          $total += $entity->{$bundle_field_total}->value;
+          $total += $entity->se_total->value;
         }
         $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($total ?? 0);
         $fg_colors[] = $fg_color;
@@ -88,7 +85,7 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
       return [];
     }
 
-    $build['business_' . $bundleFieldType . '_statistics'] = [
+    $build['business_po_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingMonths()),
         'datasets' => $datasets,
@@ -102,7 +99,7 @@ class BusinessPurchaseOrderStatistics extends BlockBase {
           'mode' => 'dataset',
         ],
       ],
-      '#id' => 'business_' . $bundleFieldType . '_statistics',
+      '#id' => 'business_po_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

@@ -67,9 +67,9 @@ function se_subscription_form_alter(&$form, \Drupal\Core\Form\FormStateInterface
   if (isset($buildInfo['base_form_id']) && $buildInfo['base_form_id'] === 'se_subscription_form') {
 
     // Based on the 'use business invoice date' checkbox, show/hide the date.
-    $form['se_su_next_due']['#states'] = [
+    $form['se_next_due']['#states'] = [
       'invisible' => [
-        ':input[name="se_su_use_bu_due[value]"]' => [
+        ':input[name="se_use_bu_due[value]"]' => [
           'checked' => TRUE
         ],
       ],

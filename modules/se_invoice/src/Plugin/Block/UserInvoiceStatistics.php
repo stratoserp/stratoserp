@@ -63,7 +63,7 @@ class UserInvoiceStatistics extends BlockBase {
 
         /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
         foreach ($invoices as $invoice) {
-          $month += $invoice->se_in_total->value;
+          $month += $invoice->se_total->value;
         }
         $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw((int) ($month ?? 0));
         $fg_colors[] = $fg_color;

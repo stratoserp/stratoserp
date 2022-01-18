@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_contact.se_co_email
-    - field.storage.se_contact.se_co_mobile
-    - field.storage.se_contact.se_co_phone
+    - field.storage.se_contact.se_email
+    - field.storage.se_contact.se_mobile
+    - field.storage.se_contact.se_phone
     - system.menu.stratos-erp
     - user.role.owner
     - user.role.staff
@@ -226,10 +226,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_co_email:
-          id: se_co_email
-          table: se_contact__se_co_email
-          field: se_co_email
+        se_email:
+          id: se_email
+          table: se_contact__se_email
+          field: se_email
           relationship: none
           group_type: group
           admin_label: ''
@@ -288,10 +288,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_co_mobile:
-          id: se_co_mobile
-          table: se_contact__se_co_mobile
-          field: se_co_mobile
+        se_mobile:
+          id: se_mobile
+          table: se_contact__se_mobile
+          field: se_mobile
           relationship: none
           group_type: group
           admin_label: ''
@@ -351,10 +351,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_co_phone:
-          id: se_co_phone
-          table: se_contact__se_co_phone
-          field: se_co_phone
+        se_phone:
+          id: se_phone
+          table: se_contact__se_phone
+          field: se_phone
           relationship: none
           group_type: group
           admin_label: ''
@@ -562,9 +562,9 @@ display:
             id: id
             created: created
             name: name
-            se_co_email: se_co_email
-            se_co_mobile: se_co_mobile
-            se_co_phone: se_co_phone
+            se_email: se_email
+            se_mobile: se_mobile
+            se_phone: se_phone
           default: id
           info:
             id:
@@ -588,17 +588,17 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_co_email:
+            se_email:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_co_mobile:
+            se_mobile:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_co_phone:
+            se_phone:
               align: ''
               separator: ''
               empty_column: false
@@ -647,9 +647,9 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_contact.se_co_email'
-        - 'config:field.storage.se_contact.se_co_mobile'
-        - 'config:field.storage.se_contact.se_co_phone'
+        - 'config:field.storage.se_contact.se_email'
+        - 'config:field.storage.se_contact.se_mobile'
+        - 'config:field.storage.se_contact.se_phone'
   se_contact_list:
     id: se_contact_list
     display_title: Page
@@ -676,6 +676,6 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_contact.se_co_email'
-        - 'config:field.storage.se_contact.se_co_mobile'
-        - 'config:field.storage.se_contact.se_co_phone'
+        - 'config:field.storage.se_contact.se_email'
+        - 'config:field.storage.se_contact.se_mobile'
+        - 'config:field.storage.se_contact.se_phone'

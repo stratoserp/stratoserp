@@ -4,8 +4,8 @@ dependencies:
   module:
     - se_ticket
     - webform
-id: se_ticket.se_ti_forms
-field_name: se_ti_forms
+id: se_ticket.se_forms
+field_name: se_forms
 entity_type: se_ticket
 type: webform
 settings:

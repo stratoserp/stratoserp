@@ -10,15 +10,15 @@ config_devel:
   install:
     - core.entity_form_display.se_item.se_recurring.default
     - core.entity_view_display.se_item.se_recurring.default
-    - field.field.se_item.se_recurring.se_it_active
-    - field.field.se_item.se_recurring.se_it_code
-    - field.field.se_item.se_recurring.se_it_cost_price
-    - field.field.se_item.se_recurring.se_it_description
-    - field.field.se_item.se_recurring.se_it_item_ref
-    - field.field.se_item.se_recurring.se_it_manufacturer_ref
-    - field.field.se_item.se_recurring.se_it_product_type_ref
-    - field.field.se_item.se_recurring.se_it_sale_category_ref
-    - field.field.se_item.se_recurring.se_it_sell_price
+    - field.field.se_item.se_recurring.se_active
+    - field.field.se_item.se_recurring.se_code
+    - field.field.se_item.se_recurring.se_cost_price
+    - field.field.se_item.se_recurring.se_description
+    - field.field.se_item.se_recurring.se_it_ref
+    - field.field.se_item.se_recurring.se_manufacturer_ref
+    - field.field.se_item.se_recurring.se_product_type_ref
+    - field.field.se_item.se_recurring.se_sale_category_ref
+    - field.field.se_item.se_recurring.se_sell_price
     - se_item.se_item_type.se_recurring
   optional:
     - views.view.se_item_recurring_list

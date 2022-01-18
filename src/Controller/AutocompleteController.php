@@ -41,7 +41,7 @@ class AutocompleteController extends ControllerBase {
       $invoices = $this->findEntity('se_invoice', 'Invoice', 'id', $searchString);
       $quotes = $this->findEntity('se_quote', 'Quote', 'id', $searchString);
       $items = $this->findItems('se_item', 'Item', 'name', $searchString);
-      $serials = $this->findItems('se_item', 'Item', 'se_it_serial', $searchString);
+      $serials = $this->findItems('se_item', 'Item', 'se_serial', $searchString);
       $information = $this->findInformation('se_document', 'Document', 'name', $searchString);
 
       $matches = array_merge($business, $contacts, $invoices, $quotes, $items, $serials, $information);
@@ -165,8 +165,8 @@ class AutocompleteController extends ControllerBase {
       $fields = array_filter([
         $description,
         $item->getName(),
-        $item->se_it_serial->value ?: NULL,
-        \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $item->se_it_sell_price->value),
+        $item->se_serial->value ?: NULL,
+        \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $item->se_sell_price->value),
       ]);
       $key = implode(' - ', $fields);
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));

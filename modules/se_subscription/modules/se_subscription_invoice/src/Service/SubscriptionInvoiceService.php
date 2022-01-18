@@ -48,7 +48,7 @@ class SubscriptionInvoiceService {
       ->getStorage('se_business')
       ->getQuery()
       ->accessCheck(FALSE)
-      ->condition('se_bu_invoice_day_of_month', date('d'), '<=');
+      ->condition('se_invoice_day_of_month', date('d'), '<=');
 
     // Load subscriptions to create line items.
     foreach ($query->execute() as $businessId) {
@@ -82,8 +82,8 @@ class SubscriptionInvoiceService {
       ->getStorage('se_subscription')
       ->getQuery()
       ->accessCheck(FALSE)
-      ->condition('se_su_next_due', date('U'), '<=')
-      ->condition('se_su_use_bu_due', 0);
+      ->condition('se_next_due', date('U'), '<=')
+      ->condition('se_use_bu_due', 0);
 
     // Load subscriptions to create line items.
     foreach ($query->execute() as $businessId) {
@@ -109,9 +109,9 @@ class SubscriptionInvoiceService {
   private function updateDueDate(array $items): void {
     foreach ($items as $item) {
       $sub = Subscription::load($item['subscription_id']);
-      $seconds = \Drupal::service('duration_field.service')->getSecondsFromDurationString($sub->se_su_period->duration);
+      $seconds = \Drupal::service('duration_field.service')->getSecondsFromDurationString($sub->se_period->duration);
       // Do we need to worry about drift?
-      $sub->se_su_next_due->value += $seconds;
+      $sub->se_next_due->value += $seconds;
       $sub->save();
     }
   }
@@ -134,7 +134,7 @@ class SubscriptionInvoiceService {
       ->getStorage('se_subscription')
       ->getQuery()
       ->accessCheck(FALSE)
-      ->condition('se_su_next_due', date('U'), '<=')
+      ->condition('se_next_due', date('U'), '<=')
       ->condition('se_bu_ref', $businessId);
 
     return $this->subscriptionsToInvoiceLines($query->execute());
@@ -161,9 +161,9 @@ class SubscriptionInvoiceService {
         'target_id' => $business->id(),
         'target_type' => 'se_business',
       ],
-      'se_in_phone' => $business->se_bu_phone,
-      'se_in_email' => $business->se_bu_email,
-      'se_in_lines' => $subscriptions,
+      'se_phone' => $business->se_phone,
+      'se_email' => $business->se_email,
+      'se_item_lines' => $subscriptions,
     ];
 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
@@ -193,7 +193,7 @@ class SubscriptionInvoiceService {
       }
 
       // Subscriptions are limited to a single line.
-      $line = $subscription->se_su_lines[0];
+      $line = $subscription->se_item_lines[0];
 
       $lines[] = [
         'target_type' => $line->target_type,

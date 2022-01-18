@@ -6,12 +6,12 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_body
     - field.field.se_ticket.se_ticket.se_bu_ref
     - field.field.se_ticket.se_ticket.se_co_ref
-    - field.field.se_ticket.se_ticket.se_ti_open_date
-    - field.field.se_ticket.se_ticket.se_ti_owner_ref
-    - field.field.se_ticket.se_ticket.se_ti_priority_ref
-    - field.field.se_ticket.se_ticket.se_ti_scheduled
-    - field.field.se_ticket.se_ticket.se_ti_status_ref
-    - field.field.se_ticket.se_ticket.se_ti_type_ref
+    - field.field.se_ticket.se_ticket.se_open_date
+    - field.field.se_ticket.se_ticket.se_owner_ref
+    - field.field.se_ticket.se_ticket.se_priority_ref
+    - field.field.se_ticket.se_ticket.se_scheduled
+    - field.field.se_ticket.se_ticket.se_status_ref
+    - field.field.se_ticket.se_ticket.se_type_ref
   module:
     - datetime_range
     - field_layout
@@ -68,7 +68,7 @@ content:
     third_party_settings: {  }
     weight: 2
     region: first
-  se_ti_open_date:
+  se_open_date:
     type: timestamp
     label: inline
     settings:
@@ -78,7 +78,7 @@ content:
     third_party_settings: {  }
     weight: 5
     region: second
-  se_ti_owner_ref:
+  se_owner_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -86,7 +86,7 @@ content:
     third_party_settings: {  }
     weight: 3
     region: first
-  se_ti_priority_ref:
+  se_priority_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -94,7 +94,7 @@ content:
     third_party_settings: {  }
     weight: 7
     region: second
-  se_ti_scheduled:
+  se_scheduled:
     type: daterange_default
     label: inline
     settings:
@@ -104,7 +104,7 @@ content:
     third_party_settings: {  }
     weight: 6
     region: second
-  se_ti_status_ref:
+  se_status_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -112,7 +112,7 @@ content:
     third_party_settings: {  }
     weight: 8
     region: second
-  se_ti_type_ref:
+  se_type_ref:
     type: entity_reference_label
     label: inline
     settings:

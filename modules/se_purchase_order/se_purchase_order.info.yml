@@ -20,15 +20,15 @@ config_devel:
     - core.entity_view_display.se_purchase_order.se_purchase_order.default
     - field.field.se_purchase_order.se_purchase_order.se_bu_ref
     - field.field.se_purchase_order.se_purchase_order.se_co_ref
-    - field.field.se_purchase_order.se_purchase_order.se_po_lines
-    - field.field.se_purchase_order.se_purchase_order.se_po_quote_ref
-    - field.field.se_purchase_order.se_purchase_order.se_po_total
+    - field.field.se_purchase_order.se_purchase_order.se_item_lines
+    - field.field.se_purchase_order.se_purchase_order.se_qu_ref
+    - field.field.se_purchase_order.se_purchase_order.se_total
     - field.field.se_purchase_order.se_purchase_order.se_su_ref
     - field.storage.se_purchase_order.se_bu_ref
     - field.storage.se_purchase_order.se_co_ref
-    - field.storage.se_purchase_order.se_po_lines
-    - field.storage.se_purchase_order.se_po_quote_ref
-    - field.storage.se_purchase_order.se_po_total
+    - field.storage.se_purchase_order.se_item_lines
+    - field.storage.se_purchase_order.se_qu_ref
+    - field.storage.se_purchase_order.se_total
     - field.storage.se_purchase_order.se_su_ref
   optional:
     - views.view.se_purchase_order_eva

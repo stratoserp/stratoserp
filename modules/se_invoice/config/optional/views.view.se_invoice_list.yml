@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_invoice.se_in_total
+    - field.storage.se_invoice.se_total
     - field.storage.se_invoice.se_status_ref
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_status
@@ -291,10 +291,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_in_total:
-          id: se_in_total
-          table: se_invoice__se_in_total
-          field: se_in_total
+        se_total:
+          id: se_total
+          table: se_invoice__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -576,7 +576,7 @@ display:
             created: created
             name: name
             se_status_ref: se_status_ref
-            se_in_total: se_in_total
+            se_total: se_total
           default: id
           info:
             id:
@@ -607,7 +607,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_in_total:
+            se_total:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -659,7 +659,7 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_invoice.se_in_total'
+        - 'config:field.storage.se_invoice.se_total'
         - 'config:field.storage.se_invoice.se_status_ref'
   se_invoice_list:
     id: se_invoice_list
@@ -688,5 +688,5 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_invoice.se_in_total'
+        - 'config:field.storage.se_invoice.se_total'
         - 'config:field.storage.se_invoice.se_status_ref'

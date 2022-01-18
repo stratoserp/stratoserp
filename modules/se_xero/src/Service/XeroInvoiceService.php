@@ -111,8 +111,8 @@ class XeroInvoiceService {
     $invoices->get(0)->get('LineItems')->appendItem([
       'Description' => 'ERP Sale',
       'Quantity' => 1,
-      'UnitAmount' => $node->se_in_total->value,
-      'LineAmount' => $node->se_in_total->value,
+      'UnitAmount' => $node->se_total->value,
+      'LineAmount' => $node->se_total->value,
       'AccountCode' => $settings->get('invoice.account'),
     ]);
 
@@ -139,7 +139,7 @@ class XeroInvoiceService {
     }
 
     // If the invoice has zero value, bail.
-    if ($node->se_in_total->value == 0) {
+    if ($node->se_total->value == 0) {
       return FALSE;
     }
 

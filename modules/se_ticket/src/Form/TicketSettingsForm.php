@@ -66,7 +66,7 @@ class TicketSettingsForm extends FormBase {
       }
 
       // Now set the last one as the default for the field.
-      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_priority_ref')) {
+      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_priority_ref')) {
         $field->setDefaultValue(['target_uuid' => $term->uuid()]);
         $field->save();
 
@@ -86,7 +86,7 @@ class TicketSettingsForm extends FormBase {
       }
 
       // Now set the last one as the default for the field.
-      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_type_ref')) {
+      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_type_ref')) {
         $field->setDefaultValue(['target_uuid' => $term->uuid()]);
         $field->save();
 
@@ -133,7 +133,7 @@ class TicketSettingsForm extends FormBase {
       }
 
       // Now set the last one as the default for the field.
-      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_status_ref')) {
+      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_status_ref')) {
         $field->setDefaultValue(['target_uuid' => $term->uuid()]);
         $field->save();
 
@@ -194,7 +194,7 @@ class TicketSettingsForm extends FormBase {
     $priorityOptions = $typeOptions = $statusOptions = [];
 
     // Retrieve the field and then the vocab.
-    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_priority_ref')) {
+    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_priority_ref')) {
       $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
       $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
 
@@ -217,7 +217,7 @@ class TicketSettingsForm extends FormBase {
     }
 
     // Retrieve the field and then the vocab.
-    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_type_ref')) {
+    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_type_ref')) {
       $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
       $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
 
@@ -249,7 +249,7 @@ class TicketSettingsForm extends FormBase {
     }
 
     // Retrieve the field and then the vocab.
-    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_ti_status_ref')) {
+    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_status_ref')) {
       $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
       $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
 

@@ -52,19 +52,19 @@ trait ItemTestTrait {
     $item = $this->createItem([
       'type' => 'se_stock',
       'name' => $this->itemName,
-      'se_it_code' => $this->itemCode,
-      'se_it_serial' => $this->itemSerial,
-      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
-      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
+      'se_code' => $this->itemCode,
+      'se_serial' => $this->itemSerial,
+      'se_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
     ]);
 
     self::assertNotEquals($item, FALSE);
 
     // Ensure that the item is not its own original/parent item.
-    self::assertNotNull($item->se_it_item_ref);
-    self::assertNotNull($item->se_it_item_ref->entity);
-    self::assertNotEquals($item->se_it_item_ref->entity->id(), $item->id());
-    self::assertEquals($this->itemSerial, $item->se_it_serial->value);
+    self::assertNotNull($item->se_it_ref);
+    self::assertNotNull($item->se_it_ref->entity);
+    self::assertNotEquals($item->se_it_ref->entity->id(), $item->id());
+    self::assertEquals($this->itemSerial, $item->se_serial->value);
     // $this->assertNull($item->se_gr_ref);
     $content = $this->checkGeneralItemAttributes($item);
     self::assertStringContainsString($this->itemSerial, $content);
@@ -89,9 +89,9 @@ trait ItemTestTrait {
     $item = $this->createItem([
       'type' => 'se_service',
       'name' => $this->itemName,
-      'se_it_code' => $this->itemCode,
-      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
-      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
+      'se_code' => $this->itemCode,
+      'se_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
     ]);
 
     self::assertNotEquals($item, FALSE);
@@ -118,10 +118,10 @@ trait ItemTestTrait {
     $item = $this->createItem([
       'type' => 'se_recurring',
       'name' => $this->itemName,
-      'se_it_code' => $this->itemCode,
-      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
-      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
-      'se_it_recurring_period' => $period,
+      'se_code' => $this->itemCode,
+      'se_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
+      'se_recurring_period' => $period,
     ]);
 
     self::assertNotEquals($item, FALSE);
@@ -149,10 +149,10 @@ trait ItemTestTrait {
     $item = $this->createItem([
       'type' => 'se_assembly',
       'name' => $this->itemName,
-      'se_it_code' => $this->itemCode,
-      'se_it_serial' => $this->itemSerial,
-      'se_it_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
-      'se_it_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
+      'se_code' => $this->itemCode,
+      'se_serial' => $this->itemSerial,
+      'se_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
     ]);
 
     self::assertNotEquals($item, FALSE);
@@ -180,13 +180,13 @@ trait ItemTestTrait {
       self::assertNull($item->se_in_ref->entity);
     }
 
-    self::assertNotNull($item->se_it_code->value);
-    self::assertNotNull($item->se_it_cost_price->value);
-    self::assertNotNull($item->se_it_sell_price->value);
+    self::assertNotNull($item->se_code->value);
+    self::assertNotNull($item->se_cost_price->value);
+    self::assertNotNull($item->se_sell_price->value);
 
-    self::assertEquals($this->itemCode, $item->se_it_code->value);
-    self::assertEquals($this->itemCostPrice, $this->currencyFormat->formatRaw((int) $item->se_it_cost_price->value));
-    self::assertEquals($this->itemSellPrice, $this->currencyFormat->formatRaw((int) $item->se_it_sell_price->value));
+    self::assertEquals($this->itemCode, $item->se_code->value);
+    self::assertEquals($this->itemCostPrice, $this->currencyFormat->formatRaw((int) $item->se_cost_price->value));
+    self::assertEquals($this->itemSellPrice, $this->currencyFormat->formatRaw((int) $item->se_sell_price->value));
 
     $this->drupalGet($item->toUrl());
 

@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_goods_receipt.se_gr_total
+    - field.storage.se_goods_receipt.se_total
     - user.role.owner
     - user.role.staff
   module:
@@ -156,10 +156,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_gr_total:
-          id: se_gr_total
-          table: se_goods_receipt__se_gr_total
-          field: se_gr_total
+        se_total:
+          id: se_total
+          table: se_goods_receipt__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -346,7 +346,7 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_goods_receipt.se_gr_total'
+        - 'config:field.storage.se_goods_receipt.se_total'
   purchase_order_goods_receipt_eva:
     id: purchase_order_goods_receipt_eva
     display_title: 'Purchase Order - Goods Receipt EVA'
@@ -367,4 +367,4 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_goods_receipt.se_gr_total'
+        - 'config:field.storage.se_goods_receipt.se_total'

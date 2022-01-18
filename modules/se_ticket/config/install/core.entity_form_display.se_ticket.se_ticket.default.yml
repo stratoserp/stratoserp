@@ -6,12 +6,12 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_body
     - field.field.se_ticket.se_ticket.se_bu_ref
     - field.field.se_ticket.se_ticket.se_co_ref
-    - field.field.se_ticket.se_ticket.se_ti_open_date
-    - field.field.se_ticket.se_ticket.se_ti_owner_ref
-    - field.field.se_ticket.se_ticket.se_ti_priority_ref
-    - field.field.se_ticket.se_ticket.se_ti_scheduled
-    - field.field.se_ticket.se_ticket.se_ti_status_ref
-    - field.field.se_ticket.se_ticket.se_ti_type_ref
+    - field.field.se_ticket.se_ticket.se_open_date
+    - field.field.se_ticket.se_ticket.se_owner_ref
+    - field.field.se_ticket.se_ticket.se_priority_ref
+    - field.field.se_ticket.se_ticket.se_scheduled
+    - field.field.se_ticket.se_ticket.se_status_ref
+    - field.field.se_ticket.se_ticket.se_type_ref
   module:
     - datetime_range
     - field_group
@@ -97,13 +97,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_ti_open_date:
+  se_open_date:
     type: datetime_timestamp
     weight: 5
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_ti_owner_ref:
+  se_owner_ref:
     type: entity_reference_autocomplete
     weight: 3
     region: first
@@ -113,7 +113,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_ti_priority_ref:
+  se_priority_ref:
     type: entity_reference_autocomplete
     weight: 7
     region: second
@@ -123,13 +123,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_ti_scheduled:
+  se_scheduled:
     type: daterange_default
     weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_ti_status_ref:
+  se_status_ref:
     type: entity_reference_autocomplete
     weight: 8
     region: second
@@ -139,7 +139,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_ti_type_ref:
+  se_type_ref:
     type: entity_reference_autocomplete
     weight: 4
     region: first

@@ -63,8 +63,8 @@ trait GoodsReceiptTestTrait {
     $goodsReceipt = $this->createGoodsReceipt([
       'type' => 'se_goods_receipt',
       'name' => $this->goodsReceiptName,
-      'se_ti_phone' => $this->goodsReceiptPhoneNumber,
-      'se_ti_email' => $this->goodsReceiptCompanyEmail,
+      'se_phone' => $this->goodsReceiptPhoneNumber,
+      'se_email' => $this->goodsReceiptCompanyEmail,
     ]);
     self::assertNotEquals($goodsReceipt, FALSE);
     $this->drupalGet($goodsReceipt->toUrl());

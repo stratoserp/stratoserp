@@ -3,9 +3,9 @@ index 1d44863e..f0f2d45f 100644
 --- a/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
 +++ b/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_form_display.se_ticket.se_ticket.default.yml
 @@ -12,6 +12,7 @@ dependencies:
-     - field.field.se_ticket.se_ticket.se_ti_scheduled
-     - field.field.se_ticket.se_ticket.se_ti_status_ref
-     - field.field.se_ticket.se_ticket.se_ti_type_ref
+     - field.field.se_ticket.se_ticket.se_scheduled
+     - field.field.se_ticket.se_ticket.se_status_ref
+     - field.field.se_ticket.se_ticket.se_type_ref
 +    - field.field.se_ticket.se_ticket.se_timekeeping
    module:
      - comment
@@ -28,9 +28,9 @@ index 1d721932..86202aac 100644
 --- a/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
 +++ b/web/modules/contrib/stratoserp/modules/se_ticket/config/install/core.entity_view_display.se_ticket.se_ticket.default.yml
 @@ -12,6 +12,7 @@ dependencies:
-     - field.field.se_ticket.se_ticket.se_ti_scheduled
-     - field.field.se_ticket.se_ticket.se_ti_status_ref
-     - field.field.se_ticket.se_ticket.se_ti_type_ref
+     - field.field.se_ticket.se_ticket.se_scheduled
+     - field.field.se_ticket.se_ticket.se_status_ref
+     - field.field.se_ticket.se_ticket.se_type_ref
 +    - field.field.se_ticket.se_ticket.se_timekeeping
    module:
      - comment

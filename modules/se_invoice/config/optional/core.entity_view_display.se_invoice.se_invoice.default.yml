@@ -4,12 +4,12 @@ dependencies:
   config:
     - field.field.se_invoice.se_invoice.se_bu_ref
     - field.field.se_invoice.se_invoice.se_co_ref
-    - field.field.se_invoice.se_invoice.se_in_customer_order
-    - field.field.se_invoice.se_invoice.se_in_lines
-    - field.field.se_invoice.se_invoice.se_in_outstanding
-    - field.field.se_invoice.se_invoice.se_in_quote_ref
-    - field.field.se_invoice.se_invoice.se_in_sent
-    - field.field.se_invoice.se_invoice.se_in_total
+    - field.field.se_invoice.se_invoice.se_customer_order
+    - field.field.se_invoice.se_invoice.se_item_lines
+    - field.field.se_invoice.se_invoice.se_outstanding
+    - field.field.se_invoice.se_invoice.se_qu_ref
+    - field.field.se_invoice.se_invoice.se_sent
+    - field.field.se_invoice.se_invoice.se_total
     - field.field.se_invoice.se_invoice.se_status_ref
   module:
     - field_layout
@@ -61,7 +61,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_in_customer_order:
+  se_customer_order:
     weight: 5
     label: inline
     settings:
@@ -69,21 +69,21 @@ content:
     third_party_settings: {  }
     type: string
     region: second
-  se_in_lines:
+  se_item_lines:
     weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
-  se_in_outstanding:
+  se_outstanding:
     type: se_currency_formatter
     weight: 9
     region: bottom
     label: inline
     settings: {  }
     third_party_settings: {  }
-  se_in_quote_ref:
+  se_qu_ref:
     weight: 6
     label: inline
     settings:
@@ -91,7 +91,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  se_in_sent:
+  se_sent:
     weight: 7
     label: inline
     settings:
@@ -101,7 +101,7 @@ content:
     third_party_settings: {  }
     type: boolean
     region: second
-  se_in_total:
+  se_total:
     weight: 10
     label: inline
     settings: {  }

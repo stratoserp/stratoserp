@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.se_it_code
-    - field.storage.se_item.se_it_cost_price
-    - field.storage.se_item.se_it_sell_price
-    - field.storage.se_item.se_it_serial
+    - field.storage.se_item.se_code
+    - field.storage.se_item.se_cost_price
+    - field.storage.se_item.se_sell_price
+    - field.storage.se_item.se_serial
     - user.role.owner
     - user.role.staff
   module:
@@ -92,10 +92,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_code:
-          id: se_it_code
-          table: se_item__se_it_code
-          field: se_it_code
+        se_code:
+          id: se_code
+          table: se_item__se_code
+          field: se_code
           relationship: none
           group_type: group
           admin_label: ''
@@ -220,10 +220,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_sell_price:
-          id: se_it_sell_price
-          table: se_item__se_it_sell_price
-          field: se_it_sell_price
+        se_sell_price:
+          id: se_sell_price
+          table: se_item__se_sell_price
+          field: se_sell_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -286,10 +286,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_cost_price:
-          id: se_it_cost_price
-          table: se_item__se_it_cost_price
-          field: se_it_cost_price
+        se_cost_price:
+          id: se_cost_price
+          table: se_item__se_cost_price
+          field: se_cost_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -352,10 +352,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_serial:
-          id: se_it_serial
-          table: se_item__se_it_serial
-          field: se_it_serial
+        se_serial:
+          id: se_serial
+          table: se_item__se_serial
+          field: se_serial
           relationship: none
           group_type: group
           admin_label: ''
@@ -472,10 +472,10 @@ display:
           exposed: false
           granularity: second
       arguments:
-        se_it_sale_category_ref_target_id:
-          id: se_it_sale_category_ref_target_id
-          table: se_item__se_it_sale_category_ref
-          field: se_it_sale_category_ref_target_id
+        se_sale_category_ref_target_id:
+          id: se_sale_category_ref_target_id
+          table: se_item__se_sale_category_ref
+          field: se_sale_category_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -594,10 +594,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        se_it_code_value:
-          id: se_it_code_value
-          table: se_item__se_it_code
-          field: se_it_code_value
+        se_code_value:
+          id: se_code_value
+          table: se_item__se_code
+          field: se_code_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -607,11 +607,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: se_it_code_value_op
+            operator_id: se_code_value_op
             label: Code
             description: ''
             use_operator: false
-            operator: se_it_code_value_op
+            operator: se_code_value_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: code
@@ -730,10 +730,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        se_it_serial_value:
-          id: se_it_serial_value
-          table: se_item__se_it_serial
-          field: se_it_serial_value
+        se_serial_value:
+          id: se_serial_value
+          table: se_item__se_serial
+          field: se_serial_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -743,11 +743,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: se_it_serial_value_op
+            operator_id: se_serial_value_op
             label: Serial
             description: ''
             use_operator: false
-            operator: se_it_serial_value_op
+            operator: se_serial_value_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: serial

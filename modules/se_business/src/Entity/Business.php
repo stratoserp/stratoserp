@@ -83,14 +83,14 @@ class Business extends StratosEntityBase implements BusinessInterface {
    * {@inheritdoc}
    */
   public function getBalance(): int {
-    return (int) $this->se_bu_balance->value;
+    return (int) $this->se_balance->value;
   }
 
   /**
    * {@inheritdoc}
    */
   public function setBalance(int $value): int {
-    $this->set('se_bu_balance', $value);
+    $this->set('se_balance', $value);
     try {
       $this->save();
     }
@@ -104,7 +104,7 @@ class Business extends StratosEntityBase implements BusinessInterface {
    * {@inheritdoc}
    */
   public function adjustBalance(int $value): int {
-    $this->set('se_bu_balance', (int) $this->se_bu_balance->value + $value);
+    $this->set('se_balance', (int) $this->se_balance->value + $value);
     try {
       $this->save();
     }

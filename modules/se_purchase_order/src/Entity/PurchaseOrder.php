@@ -82,7 +82,7 @@ class PurchaseOrder extends StratosEntityBase implements PurchaseOrderInterface 
    * {@inheritdoc}
    */
   public function getTotal(): int {
-    return (int) $this->se_po_total->value;
+    return (int) $this->se_total->value;
   }
 
   /**

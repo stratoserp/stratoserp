@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - field.field.se_contact.se_contact.se_bu_ref
-    - field.field.se_contact.se_contact.se_co_email
-    - field.field.se_contact.se_contact.se_co_mobile
-    - field.field.se_contact.se_contact.se_co_phone
-    - field.field.se_contact.se_contact.se_co_type_ref
+    - field.field.se_contact.se_contact.se_email
+    - field.field.se_contact.se_contact.se_mobile
+    - field.field.se_contact.se_contact.se_phone
+    - field.field.se_contact.se_contact.se_type_ref
   module:
     - field_layout
     - layout_discovery
@@ -17,6 +17,22 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_extra:
+      children:
+        - user_id
+        - revision_log_message
+      label: Extra
+      region: bottom
+      parent_name: ''
+      weight: 9
+      format_type: details
+      format_settings:
+        classes: ''
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
 id: se_contact.se_contact.default
 targetEntityType: se_contact
 bundle: se_contact
@@ -48,7 +64,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  se_co_email:
+  se_email:
     weight: 7
     settings:
       size: 25
@@ -56,21 +72,21 @@ content:
     third_party_settings: {  }
     type: email_default
     region: second
-  se_co_mobile:
+  se_mobile:
     weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: second
-  se_co_phone:
+  se_phone:
     weight: 6
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: second
-  se_co_type_ref:
+  se_type_ref:
     weight: 2
     settings: {  }
     third_party_settings: {  }

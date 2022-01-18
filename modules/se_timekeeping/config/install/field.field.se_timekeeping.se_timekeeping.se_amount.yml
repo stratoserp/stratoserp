@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_timekeeping.se_amount
+  module:
+    - se_timekeeping
+id: se_timekeeping.se_timekeeping.se_amount
+field_name: se_amount
+entity_type: se_timekeeping
+bundle: se_timekeeping
+label: Time
+description: 'Time spent in minutes'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_business.se_postal_address
+  module:
+    - se_business
+id: se_business.se_business.se_postal_address
+field_name: se_postal_address
+entity_type: se_business
+bundle: se_business
+label: 'Postal Address'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

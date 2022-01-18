@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_contact
+    - telephone
+id: se_contact.se_mobile
+field_name: se_mobile
+entity_type: se_contact
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

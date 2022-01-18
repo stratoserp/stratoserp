@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_contact.se_type_ref
+    - taxonomy.vocabulary.se_contact_type
+  content: {  }
+  module:
+    - se_contact
+id: se_contact.se_contact.se_type_ref
+field_name: se_type_ref
+entity_type: se_contact
+bundle: se_contact
+label: Type
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      se_contact_type: se_contact_type
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

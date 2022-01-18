@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_bill.se_bi_total
+    - field.storage.se_bill.se_total
     - field.storage.se_bill.se_bu_ref
     - system.menu.stratos-erp
     - user.role.owner
@@ -223,10 +223,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bi_total:
-          id: se_bi_total
-          table: se_bill__se_bi_total
-          field: se_bi_total
+        se_total:
+          id: se_total
+          table: se_bill__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -417,7 +417,7 @@ display:
             id: id
             created: created
             se_bu_ref: se_bu_ref
-            se_bi_total: se_bi_total
+            se_total: se_total
             name: name
           default: id
           info:
@@ -442,7 +442,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_bi_total:
+            se_total:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -484,7 +484,7 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_bill.se_bi_total'
+        - 'config:field.storage.se_bill.se_total'
         - 'config:field.storage.se_bill.se_bu_ref'
   se_bill_list:
     id: se_bill_list
@@ -511,5 +511,5 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_bill.se_bi_total'
+        - 'config:field.storage.se_bill.se_total'
         - 'config:field.storage.se_bill.se_bu_ref'

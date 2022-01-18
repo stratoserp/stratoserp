@@ -43,7 +43,7 @@ class Item {
    */
   public function findByCode($code) {
     return \Drupal::entityQuery('se_item')
-      ->condition('se_it_code', $code)
+      ->condition('se_code', $code)
       ->execute();
   }
 

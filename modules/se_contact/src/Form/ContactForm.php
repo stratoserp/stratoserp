@@ -23,7 +23,7 @@ class ContactForm extends StratosContentEntityForm {
     // @todo This should be removed and handled on the field itself now
     $config = \Drupal::configFactory()->get('se_contact.settings');
     if ($contact_type = (int) $config->get('main_contact_term')) {
-      \Drupal::service('se.form_alter')->setTaxonomyField($form, 'se_co_type_ref', $contact_type);
+      \Drupal::service('se.form_alter')->setTaxonomyField($form, 'se_type_ref', $contact_type);
     }
 
     return $form;

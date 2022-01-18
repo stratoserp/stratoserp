@@ -3,15 +3,15 @@ status: true
 dependencies:
   config:
     - field.field.se_subscription.se_email_account.se_bu_ref
-    - field.field.se_subscription.se_email_account.se_ea_email_address
-    - field.field.se_subscription.se_email_account.se_ea_email_aliases
-    - field.field.se_subscription.se_email_account.se_su_lines
-    - field.field.se_subscription.se_email_account.se_su_management_link
-    - field.field.se_subscription.se_email_account.se_su_next_due
-    - field.field.se_subscription.se_email_account.se_su_period
+    - field.field.se_subscription.se_email_account.se_email_address
+    - field.field.se_subscription.se_email_account.se_email_aliases
+    - field.field.se_subscription.se_email_account.se_item_lines
+    - field.field.se_subscription.se_email_account.se_management_link
+    - field.field.se_subscription.se_email_account.se_next_due
+    - field.field.se_subscription.se_email_account.se_period
     - field.field.se_subscription.se_email_account.se_su_ref
-    - field.field.se_subscription.se_email_account.se_su_total
-    - field.field.se_subscription.se_email_account.se_su_use_bu_due
+    - field.field.se_subscription.se_email_account.se_total
+    - field.field.se_subscription.se_email_account.se_use_bu_due
     - se_subscription.se_subscription_type.se_email_account
   module:
     - duration_field
@@ -46,28 +46,28 @@ content:
     third_party_settings: {  }
     weight: 1
     region: first
-  se_ea_email_address:
+  se_email_address:
     type: basic_string
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 4
     region: second
-  se_ea_email_aliases:
+  se_email_aliases:
     type: basic_string
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 5
     region: second
-  se_su_lines:
+  se_item_lines:
     type: se_item_line_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 9
     region: bottom
-  se_su_management_link:
+  se_management_link:
     type: link
     label: inline
     settings:
@@ -79,7 +79,7 @@ content:
     third_party_settings: {  }
     weight: 6
     region: second
-  se_su_next_due:
+  se_next_due:
     type: timestamp
     label: inline
     settings:
@@ -89,7 +89,7 @@ content:
     third_party_settings: {  }
     weight: 8
     region: second
-  se_su_period:
+  se_period:
     type: duration_human_display
     label: inline
     settings:
@@ -106,14 +106,14 @@ content:
     third_party_settings: {  }
     weight: 2
     region: first
-  se_su_total:
+  se_total:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 10
     region: bottom
-  se_su_use_bu_due:
+  se_use_bu_due:
     type: boolean
     label: inline
     settings:

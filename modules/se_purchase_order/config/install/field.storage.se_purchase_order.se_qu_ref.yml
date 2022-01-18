@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_purchase_order
+id: se_purchase_order.se_qu_ref
+field_name: se_qu_ref
+entity_type: se_purchase_order
+type: entity_reference
+settings:
+  target_type: se_purchase_order
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

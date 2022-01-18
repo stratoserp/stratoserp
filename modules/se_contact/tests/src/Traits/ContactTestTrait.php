@@ -66,7 +66,7 @@ trait ContactTestTrait {
     $contact = $this->createContact([
       'type' => 'se_contact',
       'name' => $this->contactName,
-      'se_co_phone' => $this->contactPhoneNumber,
+      'se_phone' => $this->contactPhoneNumber,
       'se_bu_ref' => $business,
     ]);
     self::assertNotEquals($contact, FALSE);
@@ -109,7 +109,7 @@ trait ContactTestTrait {
 
     $termId = $config->get('main_contact_term');
     if ($termId) {
-      $contact->se_co_type_ref = $termId;
+      $contact->se_type_ref = $termId;
       $contact->save();
       $this->markEntityForCleanup($contact);
     }

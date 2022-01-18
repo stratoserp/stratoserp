@@ -11,14 +11,14 @@ config_devel:
     - core.entity_form_display.se_subscription.se_email_account.default
     - core.entity_view_display.se_subscription.se_email_account.default
     - field.field.se_subscription.se_email_account.se_bu_ref
-    - field.field.se_subscription.se_email_account.se_ea_email_address
-    - field.field.se_subscription.se_email_account.se_ea_email_aliases
-    - field.field.se_subscription.se_email_account.se_su_lines
-    - field.field.se_subscription.se_email_account.se_su_management_link
-    - field.field.se_subscription.se_email_account.se_su_next_due
-    - field.field.se_subscription.se_email_account.se_su_period
+    - field.field.se_subscription.se_email_account.se_email_address
+    - field.field.se_subscription.se_email_account.se_email_aliases
+    - field.field.se_subscription.se_email_account.se_item_lines
+    - field.field.se_subscription.se_email_account.se_management_link
+    - field.field.se_subscription.se_email_account.se_next_due
+    - field.field.se_subscription.se_email_account.se_period
     - field.field.se_subscription.se_email_account.se_su_ref
-    - field.field.se_subscription.se_email_account.se_su_total
-    - field.storage.se_subscription.se_ea_email_address
-    - field.storage.se_subscription.se_ea_email_aliases
-    - field.field.se_subscription.se_email_account.se_su_use_bu_due
+    - field.field.se_subscription.se_email_account.se_total
+    - field.storage.se_subscription.se_email_address
+    - field.storage.se_subscription.se_email_aliases
+    - field.field.se_subscription.se_email_account.se_use_bu_due

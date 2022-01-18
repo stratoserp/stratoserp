@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_total
+    - se_subscription.se_subscription_type.se_managed_service
+  module:
+    - se_accounting
+id: se_subscription.se_managed_service.se_total
+field_name: se_total
+entity_type: se_subscription
+bundle: se_managed_service
+label: Total
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: '0'
+default_value_callback: ''
+settings:
+  min: ''
+  max: ''
+  prefix: ''
+  suffix: ''
+field_type: se_currency

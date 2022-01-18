@@ -51,7 +51,7 @@ trait PaymentTestTrait {
     $line = [
       'target_id' => $invoice->id(),
       'target_type' => 'se_invoice',
-      'amount' => $invoice->se_in_total->value,
+      'amount' => $invoice->se_total->value,
       'payment_type' => $term,
     ];
     $lines[] = $line;
@@ -60,10 +60,10 @@ trait PaymentTestTrait {
     $payment = $this->createPayment([
       'type' => 'se_payment',
       'name' => $this->paymentName,
-      'se_pa_lines' => $lines,
+      'se_payment_lines' => $lines,
     ]);
     self::assertNotEquals($payment, FALSE);
-    self::assertNotNull($payment->se_pa_total->value);
+    self::assertNotNull($payment->se_total->value);
 
     $this->drupalGet($payment->toUrl());
 

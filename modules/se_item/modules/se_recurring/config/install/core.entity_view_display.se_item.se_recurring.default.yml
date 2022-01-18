@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_recurring.se_it_active
-    - field.field.se_item.se_recurring.se_it_code
-    - field.field.se_item.se_recurring.se_it_cost_price
-    - field.field.se_item.se_recurring.se_it_description
-    - field.field.se_item.se_recurring.se_it_item_ref
-    - field.field.se_item.se_recurring.se_it_manufacturer_ref
-    - field.field.se_item.se_recurring.se_it_product_type_ref
-    - field.field.se_item.se_recurring.se_it_recurring_period
-    - field.field.se_item.se_recurring.se_it_sale_category_ref
-    - field.field.se_item.se_recurring.se_it_sell_price
+    - field.field.se_item.se_recurring.se_active
+    - field.field.se_item.se_recurring.se_code
+    - field.field.se_item.se_recurring.se_cost_price
+    - field.field.se_item.se_recurring.se_description
+    - field.field.se_item.se_recurring.se_it_ref
+    - field.field.se_item.se_recurring.se_manufacturer_ref
+    - field.field.se_item.se_recurring.se_product_type_ref
+    - field.field.se_item.se_recurring.se_recurring_period
+    - field.field.se_item.se_recurring.se_sale_category_ref
+    - field.field.se_item.se_recurring.se_sell_price
     - se_item.se_item_type.se_recurring
   module:
     - duration_field
@@ -37,7 +37,7 @@ content:
     third_party_settings: {  }
     weight: 0
     region: top
-  se_it_active:
+  se_active:
     type: boolean
     label: inline
     settings:
@@ -47,7 +47,7 @@ content:
     third_party_settings: {  }
     weight: 10
     region: first
-  se_it_code:
+  se_code:
     type: string
     label: inline
     settings:
@@ -55,21 +55,21 @@ content:
     third_party_settings: {  }
     weight: 1
     region: first
-  se_it_cost_price:
+  se_cost_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 5
     region: second
-  se_it_description:
+  se_description:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 9
     region: bottom
-  se_it_item_ref:
+  se_it_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -77,7 +77,7 @@ content:
     third_party_settings: {  }
     weight: 8
     region: second
-  se_it_manufacturer_ref:
+  se_manufacturer_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -85,7 +85,7 @@ content:
     third_party_settings: {  }
     weight: 7
     region: second
-  se_it_product_type_ref:
+  se_product_type_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -93,7 +93,7 @@ content:
     third_party_settings: {  }
     weight: 6
     region: second
-  se_it_recurring_period:
+  se_recurring_period:
     type: duration_human_display
     label: inline
     settings:
@@ -102,7 +102,7 @@ content:
     third_party_settings: {  }
     weight: 3
     region: first
-  se_it_sale_category_ref:
+  se_sale_category_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -110,7 +110,7 @@ content:
     third_party_settings: {  }
     weight: 4
     region: second
-  se_it_sell_price:
+  se_sell_price:
     type: se_currency_formatter
     label: inline
     settings: {  }

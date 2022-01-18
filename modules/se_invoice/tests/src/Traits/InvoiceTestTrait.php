@@ -72,10 +72,10 @@ trait InvoiceTestTrait {
         'target_type' => 'se_item',
         'target_id' => $item['item']->id(),
         'quantity' => $item['quantity'],
-        'price' => $item['item']->se_it_sell_price->value,
+        'price' => $item['item']->se_sell_price->value,
       ];
       $lines[] = $line;
-      $total += $item['quantity'] * $item['item']->se_it_sell_price->value;
+      $total += $item['quantity'] * $item['item']->se_sell_price->value;
     }
 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
@@ -83,16 +83,16 @@ trait InvoiceTestTrait {
       'type' => 'se_invoice',
       'name' => $this->invoiceName,
       'se_bu_ref' => $testBusiness,
-      'se_in_phone' => $this->invoicePhoneNumber,
-      'se_in_email' => $this->invoiceCompanyEmail,
-      'se_in_lines' => $lines,
+      'se_phone' => $this->invoicePhoneNumber,
+      'se_email' => $this->invoiceCompanyEmail,
+      'se_item_lines' => $lines,
     ]);
     self::assertNotEquals($invoice, FALSE);
-    self::assertNotNull($invoice->se_in_total->value);
-    self::assertEquals($total, $invoice->se_in_total->value);
+    self::assertNotNull($invoice->se_total->value);
+    self::assertEquals($total, $invoice->se_total->value);
 
     // Ensure that the items are present and valid.
-    foreach ($invoice->se_in_lines as $line) {
+    foreach ($invoice->se_item_lines as $line) {
       self::assertNotNull($line->price);
     }
 
@@ -130,13 +130,13 @@ trait InvoiceTestTrait {
     $business = $invoice->se_bu_ref->entity;
     $businessOldBalance = \Drupal::service('se_business.service')->getBalance($business);
 
-    $oldTotal = $invoice->se_in_total->value;
-    $oldOutstanding = $invoice->se_in_outstanding->value;
+    $oldTotal = $invoice->se_total->value;
+    $oldOutstanding = $invoice->se_outstanding->value;
 
-    self::assertEquals($invoice->se_in_total->value, $businessOldBalance);
+    self::assertEquals($invoice->se_total->value, $businessOldBalance);
 
     $newTotal = 0;
-    foreach ($invoice->se_in_lines as $line) {
+    foreach ($invoice->se_item_lines as $line) {
       $line->price += rand(10, 20);
       $newTotal += $line->quantity * $line->price;
     }
@@ -147,13 +147,13 @@ trait InvoiceTestTrait {
     /** @var \Drupal\se_business\Entity\Business $business */
     $business = $invoice->se_bu_ref->entity;
 
-    self::assertNotEquals($invoice->se_in_total->value, $oldTotal);
-    self::assertNotEquals($invoice->se_in_outstanding->value, $oldOutstanding);
-    self::assertEquals($invoice->se_in_total->value, $newTotal);
-    self::assertEquals($invoice->se_in_outstanding->value, $newTotal);
+    self::assertNotEquals($invoice->se_total->value, $oldTotal);
+    self::assertNotEquals($invoice->se_outstanding->value, $oldOutstanding);
+    self::assertEquals($invoice->se_total->value, $newTotal);
+    self::assertEquals($invoice->se_outstanding->value, $newTotal);
 
     $businessNewBalance = \Drupal::service('se_business.service')->getBalance($business);
-    self::assertEquals($invoice->se_in_total->value, $businessNewBalance);
+    self::assertEquals($invoice->se_total->value, $businessNewBalance);
 
     return $invoice;
   }
@@ -172,13 +172,13 @@ trait InvoiceTestTrait {
     $business = $invoice->se_bu_ref->entity;
     $businessOldBalance = \Drupal::service('se_business.service')->getBalance($business);
 
-    $oldTotal = $invoice->se_in_total->value;
-    $oldOutstanding = $invoice->se_in_outstanding->value;
+    $oldTotal = $invoice->se_total->value;
+    $oldOutstanding = $invoice->se_outstanding->value;
 
-    self::assertEquals($invoice->se_in_total->value, $businessOldBalance);
+    self::assertEquals($invoice->se_total->value, $businessOldBalance);
 
     $newTotal = 0;
-    foreach ($invoice->se_in_lines as $line) {
+    foreach ($invoice->se_item_lines as $line) {
       $line->price -= rand(10, 20);
       $newTotal += $line->quantity * $line->price;
     }
@@ -189,13 +189,13 @@ trait InvoiceTestTrait {
     /** @var \Drupal\se_business\Entity\Business $business */
     $business = $invoice->se_bu_ref->entity;
 
-    self::assertNotEquals($invoice->se_in_total->value, $oldTotal);
-    self::assertNotEquals($invoice->se_in_outstanding->value, $oldOutstanding);
-    self::assertEquals($invoice->se_in_total->value, $newTotal);
-    self::assertEquals($invoice->se_in_outstanding->value, $newTotal);
+    self::assertNotEquals($invoice->se_total->value, $oldTotal);
+    self::assertNotEquals($invoice->se_outstanding->value, $oldOutstanding);
+    self::assertEquals($invoice->se_total->value, $newTotal);
+    self::assertEquals($invoice->se_outstanding->value, $newTotal);
 
     $businessNewBalance = \Drupal::service('se_business.service')->getBalance($business);
-    self::assertEquals($invoice->se_in_total->value, $businessNewBalance);
+    self::assertEquals($invoice->se_total->value, $businessNewBalance);
 
     return $invoice;
   }
@@ -212,7 +212,7 @@ trait InvoiceTestTrait {
    *   Whether the payment finalises the invoice.
    */
   public function checkInvoicePaymentStatus(Invoice $invoice, Payment $payment): bool {
-    self::assertEquals($invoice->se_in_total->value, $payment->se_pa_total->value);
+    self::assertEquals($invoice->se_total->value, $payment->se_total->value);
 
     return TRUE;
   }

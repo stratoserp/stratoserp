@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_recurring.se_it_active
-    - field.field.se_item.se_recurring.se_it_code
-    - field.field.se_item.se_recurring.se_it_cost_price
-    - field.field.se_item.se_recurring.se_it_description
-    - field.field.se_item.se_recurring.se_it_item_ref
-    - field.field.se_item.se_recurring.se_it_manufacturer_ref
-    - field.field.se_item.se_recurring.se_it_product_type_ref
-    - field.field.se_item.se_recurring.se_it_recurring_period
-    - field.field.se_item.se_recurring.se_it_sale_category_ref
-    - field.field.se_item.se_recurring.se_it_sell_price
+    - field.field.se_item.se_recurring.se_active
+    - field.field.se_item.se_recurring.se_code
+    - field.field.se_item.se_recurring.se_cost_price
+    - field.field.se_item.se_recurring.se_description
+    - field.field.se_item.se_recurring.se_it_ref
+    - field.field.se_item.se_recurring.se_manufacturer_ref
+    - field.field.se_item.se_recurring.se_product_type_ref
+    - field.field.se_item.se_recurring.se_recurring_period
+    - field.field.se_item.se_recurring.se_sale_category_ref
+    - field.field.se_item.se_recurring.se_sell_price
     - se_item.se_item_type.se_recurring
   module:
     - duration_field
@@ -62,14 +62,14 @@ content:
       rows: 4
       placeholder: ''
     third_party_settings: {  }
-  se_it_active:
+  se_active:
     type: boolean_checkbox
     weight: 11
     region: first
     settings:
       display_label: true
     third_party_settings: {  }
-  se_it_code:
+  se_code:
     type: string_textfield
     weight: 1
     region: first
@@ -77,13 +77,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_cost_price:
+  se_cost_price:
     type: se_currency_widget
     weight: 4
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_it_description:
+  se_description:
     type: text_textarea
     weight: 9
     region: bottom
@@ -91,7 +91,7 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  se_it_item_ref:
+  se_it_ref:
     type: entity_reference_autocomplete
     weight: 8
     region: second
@@ -101,31 +101,31 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_manufacturer_ref:
+  se_manufacturer_ref:
     type: options_select
     weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_it_product_type_ref:
+  se_product_type_ref:
     type: options_select
     weight: 5
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_it_recurring_period:
+  se_recurring_period:
     type: duration_widget
     weight: 3
     region: first
     settings: {  }
     third_party_settings: {  }
-  se_it_sale_category_ref:
+  se_sale_category_ref:
     type: options_select
     weight: 7
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_it_sell_price:
+  se_sell_price:
     type: se_currency_widget
     weight: 2
     region: first

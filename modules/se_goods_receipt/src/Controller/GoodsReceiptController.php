@@ -11,7 +11,6 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\se_goods_receipt\Entity\GoodsReceiptInterface;
-use Drupal\stratoserp\Constants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -243,16 +242,13 @@ class GoodsReceiptController extends ControllerBase {
       'bundle' => 'se_goods_receipt',
     ]);
 
-    $sourceFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$goodsReceipt->getEntityTypeId()];
-
     // For each item in the purchase order, create the qty
     // number of fields for serial number entry.
-    foreach ($source->{$sourceFieldType . '_lines'} as $itemLine) {
+    foreach ($source->se_item_lines as $itemLine) {
       // @todo ensure we're using the non-serialised item here?
       $itemCount = $itemLine->quantity;
       for ($count = 0; $count < $itemCount; $count++) {
-        $goodsReceipt->{$bundleFieldType . '_lines'}->appendItem($itemLine->getValue());
+        $goodsReceipt->se_item_lines->appendItem($itemLine->getValue());
       }
     }
 

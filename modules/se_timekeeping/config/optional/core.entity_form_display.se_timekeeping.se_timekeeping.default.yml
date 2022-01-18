@@ -4,14 +4,14 @@ dependencies:
   config:
     - field.field.se_timekeeping.se_timekeeping.se_bu_ref
     - field.field.se_timekeeping.se_timekeeping.se_ti_ref
-    - field.field.se_timekeeping.se_timekeeping.se_tk_amount
-    - field.field.se_timekeeping.se_timekeeping.se_tk_billable
-    - field.field.se_timekeeping.se_timekeeping.se_tk_billed
-    - field.field.se_timekeeping.se_timekeeping.se_tk_comment
-    - field.field.se_timekeeping.se_timekeeping.se_tk_date
+    - field.field.se_timekeeping.se_timekeeping.se_amount
+    - field.field.se_timekeeping.se_timekeeping.se_billable
+    - field.field.se_timekeeping.se_timekeeping.se_billed
+    - field.field.se_timekeeping.se_timekeeping.se_comment
+    - field.field.se_timekeeping.se_timekeeping.se_date
     - field.field.se_timekeeping.se_timekeeping.se_in_ref
-    - field.field.se_timekeeping.se_timekeeping.se_tk_item
-    - field.field.se_timekeeping.se_timekeeping.se_tk_review
+    - field.field.se_timekeeping.se_timekeeping.se_it_ref
+    - field.field.se_timekeeping.se_timekeeping.se_review
   module:
     - datetime
     - field_group
@@ -73,28 +73,28 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_tk_amount:
+  se_amount:
     type: number
     weight: 2
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
-  se_tk_billable:
+  se_billable:
     type: boolean_checkbox
     weight: 7
     region: second
     settings:
       display_label: true
     third_party_settings: {  }
-  se_tk_billed:
+  se_billed:
     type: boolean_checkbox
     weight: 8
     region: second
     settings:
       display_label: true
     third_party_settings: {  }
-  se_tk_comment:
+  se_comment:
     type: text_textarea
     weight: 1
     region: first
@@ -102,13 +102,13 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  se_tk_date:
+  se_date:
     type: datetime_default
     weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_tk_item:
+  se_it_ref:
     type: entity_reference_autocomplete
     weight: 5
     region: second
@@ -118,7 +118,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_tk_review:
+  se_review:
     type: boolean_checkbox
     weight: 9
     region: second

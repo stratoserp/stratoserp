@@ -22,22 +22,22 @@ config_devel:
     - field.field.se_ticket.se_ticket.se_body
     - field.field.se_ticket.se_ticket.se_bu_ref
     - field.field.se_ticket.se_ticket.se_co_ref
-    - field.field.se_ticket.se_ticket.se_ti_open_date
-    - field.field.se_ticket.se_ticket.se_ti_owner_ref
-    - field.field.se_ticket.se_ticket.se_ti_priority_ref
-    - field.field.se_ticket.se_ticket.se_ti_scheduled
-    - field.field.se_ticket.se_ticket.se_ti_status_ref
-    - field.field.se_ticket.se_ticket.se_ti_type_ref
+    - field.field.se_ticket.se_ticket.se_open_date
+    - field.field.se_ticket.se_ticket.se_owner_ref
+    - field.field.se_ticket.se_ticket.se_priority_ref
+    - field.field.se_ticket.se_ticket.se_scheduled
+    - field.field.se_ticket.se_ticket.se_status_ref
+    - field.field.se_ticket.se_ticket.se_type_ref
     - field.storage.se_ticket.se_attachments
     - field.storage.se_ticket.se_body
     - field.storage.se_ticket.se_bu_ref
     - field.storage.se_ticket.se_co_ref
-    - field.storage.se_ticket.se_ti_open_date
-    - field.storage.se_ticket.se_ti_owner_ref
-    - field.storage.se_ticket.se_ti_priority_ref
-    - field.storage.se_ticket.se_ti_scheduled
-    - field.storage.se_ticket.se_ti_status_ref
-    - field.storage.se_ticket.se_ti_type_ref
+    - field.storage.se_ticket.se_open_date
+    - field.storage.se_ticket.se_owner_ref
+    - field.storage.se_ticket.se_priority_ref
+    - field.storage.se_ticket.se_scheduled
+    - field.storage.se_ticket.se_status_ref
+    - field.storage.se_ticket.se_type_ref
     - taxonomy.vocabulary.se_ticket_priority
     - taxonomy.vocabulary.se_ticket_status
     - taxonomy.vocabulary.se_ticket_type

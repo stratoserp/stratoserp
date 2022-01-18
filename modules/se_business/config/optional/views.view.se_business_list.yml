@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_business.se_bu_balance
-    - field.storage.se_business.se_bu_email
-    - field.storage.se_business.se_bu_homepage
-    - field.storage.se_business.se_bu_mobile
-    - field.storage.se_business.se_bu_phone
+    - field.storage.se_business.se_balance
+    - field.storage.se_business.se_email
+    - field.storage.se_business.se_homepage
+    - field.storage.se_business.se_mobile
+    - field.storage.se_business.se_phone
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_business_type
     - user.role.owner
@@ -98,10 +98,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bu_email:
-          id: se_bu_email
-          table: se_business__se_bu_email
-          field: se_bu_email
+        se_email:
+          id: se_email
+          table: se_business__se_email
+          field: se_email
           relationship: none
           group_type: group
           admin_label: ''
@@ -160,10 +160,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bu_mobile:
-          id: se_bu_mobile
-          table: se_business__se_bu_mobile
-          field: se_bu_mobile
+        se_mobile:
+          id: se_mobile
+          table: se_business__se_mobile
+          field: se_mobile
           relationship: none
           group_type: group
           admin_label: ''
@@ -223,10 +223,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bu_phone:
-          id: se_bu_phone
-          table: se_business__se_bu_phone
-          field: se_bu_phone
+        se_phone:
+          id: se_phone
+          table: se_business__se_phone
+          field: se_phone
           relationship: none
           group_type: group
           admin_label: ''
@@ -286,10 +286,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bu_homepage:
-          id: se_bu_homepage
-          table: se_business__se_bu_homepage
-          field: se_bu_homepage
+        se_homepage:
+          id: se_homepage
+          table: se_business__se_homepage
+          field: se_homepage
           relationship: none
           group_type: group
           admin_label: ''
@@ -353,10 +353,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bu_balance:
-          id: se_bu_balance
-          table: se_business__se_bu_balance
-          field: se_bu_balance
+        se_balance:
+          id: se_balance
+          table: se_business__se_balance
+          field: se_balance
           relationship: none
           group_type: group
           admin_label: ''
@@ -505,10 +505,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        se_bu_email_value:
-          id: se_bu_email_value
-          table: se_business__se_bu_email
-          field: se_bu_email_value
+        se_email_value:
+          id: se_email_value
+          table: se_business__se_email
+          field: se_email_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -518,11 +518,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: se_bu_email_value_op
+            operator_id: se_email_value_op
             label: Email
             description: ''
             use_operator: false
-            operator: se_bu_email_value_op
+            operator: se_email_value_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: email
@@ -551,10 +551,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        se_bu_mobile_value:
-          id: se_bu_mobile_value
-          table: se_business__se_bu_mobile
-          field: se_bu_mobile_value
+        se_mobile_value:
+          id: se_mobile_value
+          table: se_business__se_mobile
+          field: se_mobile_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -564,11 +564,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: se_bu_mobile_value_op
+            operator_id: se_mobile_value_op
             label: Mobile
             description: ''
             use_operator: false
-            operator: se_bu_mobile_value_op
+            operator: se_mobile_value_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: mobile
@@ -597,10 +597,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        se_bu_phone_value:
-          id: se_bu_phone_value
-          table: se_business__se_bu_phone
-          field: se_bu_phone_value
+        se_phone_value:
+          id: se_phone_value
+          table: se_business__se_phone
+          field: se_phone_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -610,11 +610,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: se_bu_phone_value_op
+            operator_id: se_phone_value_op
             label: Phone
             description: ''
             use_operator: false
-            operator: se_bu_phone_value_op
+            operator: se_phone_value_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: phone
@@ -643,10 +643,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        se_bu_type_ref_target_id:
-          id: se_bu_type_ref_target_id
-          table: se_business__se_bu_type_ref
-          field: se_bu_type_ref_target_id
+        se_type_ref_target_id:
+          id: se_type_ref_target_id
+          table: se_business__se_type_ref
+          field: se_type_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -656,11 +656,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: se_bu_type_ref_target_id_op
+            operator_id: se_type_ref_target_id_op
             label: 'Business type'
             description: ''
             use_operator: false
-            operator: se_bu_type_ref_target_id_op
+            operator: se_type_ref_target_id_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: bu_type
@@ -703,11 +703,11 @@ display:
           default_row_class: true
           columns:
             name: name
-            se_bu_email: se_bu_email
-            se_bu_mobile: se_bu_mobile
-            se_bu_phone: se_bu_phone
-            se_bu_homepage: se_bu_homepage
-            se_bu_balance: se_bu_balance
+            se_email: se_email
+            se_mobile: se_mobile
+            se_phone: se_phone
+            se_homepage: se_homepage
+            se_balance: se_balance
           default: '-1'
           info:
             name:
@@ -717,33 +717,33 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_email:
+            se_email:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_mobile:
+            se_mobile:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_phone:
+            se_phone:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_homepage:
+            se_homepage:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_balance:
+            se_balance:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -786,11 +786,11 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_business.se_bu_balance'
-        - 'config:field.storage.se_business.se_bu_email'
-        - 'config:field.storage.se_business.se_bu_homepage'
-        - 'config:field.storage.se_business.se_bu_mobile'
-        - 'config:field.storage.se_business.se_bu_phone'
+        - 'config:field.storage.se_business.se_balance'
+        - 'config:field.storage.se_business.se_email'
+        - 'config:field.storage.se_business.se_homepage'
+        - 'config:field.storage.se_business.se_mobile'
+        - 'config:field.storage.se_business.se_phone'
   se_business_list:
     id: se_business_list
     display_title: Page
@@ -818,8 +818,8 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.se_business.se_bu_balance'
-        - 'config:field.storage.se_business.se_bu_email'
-        - 'config:field.storage.se_business.se_bu_homepage'
-        - 'config:field.storage.se_business.se_bu_mobile'
-        - 'config:field.storage.se_business.se_bu_phone'
+        - 'config:field.storage.se_business.se_balance'
+        - 'config:field.storage.se_business.se_email'
+        - 'config:field.storage.se_business.se_homepage'
+        - 'config:field.storage.se_business.se_mobile'
+        - 'config:field.storage.se_business.se_phone'

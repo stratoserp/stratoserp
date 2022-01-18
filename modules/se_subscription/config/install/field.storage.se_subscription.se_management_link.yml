@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - se_subscription
+id: se_subscription.se_management_link
+field_name: se_management_link
+entity_type: se_subscription
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -88,7 +88,7 @@ class BusinessSettingsForm extends FormBase {
 
     // Retrieve the field and then the vocab.
     $vocabulary = '';
-    if ($field = $this->entityTypeManager->getStorage('field_config')->load('se_business.se_business.se_bu_type_ref')) {
+    if ($field = $this->entityTypeManager->getStorage('field_config')->load('se_business.se_business.se_type_ref')) {
       $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
     }
 

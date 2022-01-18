@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_use_bu_due
+    - se_subscription.se_subscription_type.se_backup
+id: se_subscription.se_backup.se_use_bu_due
+field_name: se_use_bu_due
+entity_type: se_subscription
+bundle: se_backup
+label: 'Use business invoice date'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - field.field.se_contact.se_contact.se_bu_ref
-    - field.field.se_contact.se_contact.se_co_email
-    - field.field.se_contact.se_contact.se_co_mobile
-    - field.field.se_contact.se_contact.se_co_phone
-    - field.field.se_contact.se_contact.se_co_type_ref
+    - field.field.se_contact.se_contact.se_email
+    - field.field.se_contact.se_contact.se_mobile
+    - field.field.se_contact.se_contact.se_phone
+    - field.field.se_contact.se_contact.se_type_ref
   module:
     - field_layout
     - layout_discovery
@@ -42,14 +42,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_co_email:
+  se_email:
     weight: 3
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: first
-  se_co_mobile:
+  se_mobile:
     weight: 1
     label: inline
     settings:
@@ -57,7 +57,7 @@ content:
     third_party_settings: {  }
     type: string
     region: first
-  se_co_phone:
+  se_phone:
     weight: 2
     label: inline
     settings:
@@ -65,7 +65,7 @@ content:
     third_party_settings: {  }
     type: string
     region: first
-  se_co_type_ref:
+  se_type_ref:
     weight: 5
     label: inline
     settings:

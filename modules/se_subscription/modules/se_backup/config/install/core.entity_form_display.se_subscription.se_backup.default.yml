@@ -3,12 +3,12 @@ status: true
 dependencies:
   config:
     - field.field.se_subscription.se_backup.se_bu_ref
-    - field.field.se_subscription.se_backup.se_su_lines
-    - field.field.se_subscription.se_backup.se_su_next_due
-    - field.field.se_subscription.se_backup.se_su_period
+    - field.field.se_subscription.se_backup.se_item_lines
+    - field.field.se_subscription.se_backup.se_next_due
+    - field.field.se_subscription.se_backup.se_period
     - field.field.se_subscription.se_backup.se_su_ref
-    - field.field.se_subscription.se_backup.se_su_total
-    - field.field.se_subscription.se_backup.se_su_use_bu_due
+    - field.field.se_subscription.se_backup.se_total
+    - field.field.se_subscription.se_backup.se_use_bu_due
     - se_subscription.se_subscription_type.se_backup
   module:
     - duration_field
@@ -70,7 +70,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_su_lines:
+  se_item_lines:
     type: se_item_line_widget
     weight: 6
     region: bottom
@@ -80,13 +80,13 @@ content:
       size: 40
       placeholder: ''
     third_party_settings: {  }
-  se_su_next_due:
+  se_next_due:
     type: datetime_timestamp
     weight: 5
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_su_period:
+  se_period:
     type: duration_widget
     weight: 3
     region: second
@@ -102,13 +102,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_su_total:
+  se_total:
     type: se_currency_widget
     weight: 7
     region: bottom
     settings: {  }
     third_party_settings: {  }
-  se_su_use_bu_due:
+  se_use_bu_due:
     type: boolean_checkbox
     weight: 4
     region: second

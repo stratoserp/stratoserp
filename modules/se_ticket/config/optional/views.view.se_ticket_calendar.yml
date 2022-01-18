@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_ticket.se_ti_scheduled
-    - field.storage.se_ticket.se_ti_type_ref
+    - field.storage.se_ticket.se_scheduled
+    - field.storage.se_ticket.se_type_ref
     - system.menu.stratos-erp
     - user.role.owner
     - user.role.staff
@@ -93,10 +93,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_ti_scheduled:
-          id: se_ti_scheduled
-          table: se_ticket__se_ti_scheduled
-          field: se_ti_scheduled
+        se_scheduled:
+          id: se_scheduled
+          table: se_ticket__se_scheduled
+          field: se_scheduled
           relationship: none
           group_type: group
           admin_label: ''
@@ -158,10 +158,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_ti_type_ref:
-          id: se_ti_type_ref
-          table: se_ticket__se_ti_type_ref
-          field: se_ti_type_ref
+        se_type_ref:
+          id: se_type_ref
+          table: se_ticket__se_type_ref
+          field: se_type_ref
           relationship: none
           group_type: group
           admin_label: ''
@@ -258,10 +258,10 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        se_ti_scheduled_value:
-          id: se_ti_scheduled_value
-          table: se_ticket__se_ti_scheduled
-          field: se_ti_scheduled_value
+        se_scheduled_value:
+          id: se_scheduled_value
+          table: se_ticket__se_scheduled
+          field: se_scheduled_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -269,7 +269,7 @@ display:
           order: DESC
           expose:
             label: ''
-            field_identifier: se_ti_scheduled_value
+            field_identifier: se_scheduled_value
           exposed: false
           granularity: minute
       arguments: {  }
@@ -279,8 +279,8 @@ display:
         options:
           default_date_source: now
           defaultDate: ''
-          start: se_ti_scheduled
-          end: se_ti_scheduled
+          start: se_scheduled
+          end: se_scheduled
           title: name
           left_buttons: 'prev,next today'
           right_buttons: 'dayGridMonth,timeGridWeek,timeGridDay,listYear'
@@ -297,7 +297,7 @@ display:
           openEntityInNewTab: 1
           createEventLink: 1
           eventLimit: '2'
-          tax_field: se_ti_type_ref
+          tax_field: se_type_ref
           vocabularies: se_ticket_type
           color_bundle:
             se_ticket: '#3a87ad'
@@ -347,8 +347,8 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_ticket.se_ti_scheduled'
-        - 'config:field.storage.se_ticket.se_ti_type_ref'
+        - 'config:field.storage.se_ticket.se_scheduled'
+        - 'config:field.storage.se_ticket.se_type_ref'
   se_ticket_calendar:
     id: se_ticket_calendar
     display_title: Page
@@ -374,5 +374,5 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_ticket.se_ti_scheduled'
-        - 'config:field.storage.se_ticket.se_ti_type_ref'
+        - 'config:field.storage.se_ticket.se_scheduled'
+        - 'config:field.storage.se_ticket.se_type_ref'

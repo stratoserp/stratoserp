@@ -2,27 +2,27 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_business.se_business.se_bu_address
-    - field.field.se_business.se_business.se_bu_balance
-    - field.field.se_business.se_business.se_bu_email
-    - field.field.se_business.se_business.se_bu_email_format
-    - field.field.se_business.se_business.se_bu_fax
-    - field.field.se_business.se_business.se_bu_homepage
-    - field.field.se_business.se_business.se_bu_invoice_day_of_month
-    - field.field.se_business.se_business.se_bu_last_statement_date
-    - field.field.se_business.se_business.se_bu_location
-    - field.field.se_business.se_business.se_bu_mobile
-    - field.field.se_business.se_business.se_bu_phone
-    - field.field.se_business.se_business.se_bu_postal_address
-    - field.field.se_business.se_business.se_bu_postal_postcode
-    - field.field.se_business.se_business.se_bu_postal_state
-    - field.field.se_business.se_business.se_bu_postal_suburb
-    - field.field.se_business.se_business.se_bu_postcode
-    - field.field.se_business.se_business.se_bu_state
-    - field.field.se_business.se_business.se_bu_status
-    - field.field.se_business.se_business.se_bu_suburb
-    - field.field.se_business.se_business.se_bu_terms
-    - field.field.se_business.se_business.se_bu_type_ref
+    - field.field.se_business.se_business.se_address
+    - field.field.se_business.se_business.se_balance
+    - field.field.se_business.se_business.se_email
+    - field.field.se_business.se_business.se_email_format
+    - field.field.se_business.se_business.se_fax
+    - field.field.se_business.se_business.se_homepage
+    - field.field.se_business.se_business.se_invoice_day_of_month
+    - field.field.se_business.se_business.se_last_statement_date
+    - field.field.se_business.se_business.se_location
+    - field.field.se_business.se_business.se_mobile
+    - field.field.se_business.se_business.se_phone
+    - field.field.se_business.se_business.se_postal_address
+    - field.field.se_business.se_business.se_postal_postcode
+    - field.field.se_business.se_business.se_postal_state
+    - field.field.se_business.se_business.se_postal_suburb
+    - field.field.se_business.se_business.se_postcode
+    - field.field.se_business.se_business.se_state
+    - field.field.se_business.se_business.se_status
+    - field.field.se_business.se_business.se_suburb
+    - field.field.se_business.se_business.se_terms
+    - field.field.se_business.se_business.se_type_ref
     - filter.format.plain_text
   module:
     - datetime
@@ -92,25 +92,25 @@ third_party_settings:
         description: ''
     group_bu_tab_details:
       children:
-        - se_bu_address
-        - se_bu_suburb
-        - se_bu_state
-        - se_bu_postcode
-        - se_bu_email
-        - se_bu_email_format
-        - se_bu_homepage
-        - se_bu_mobile
-        - se_bu_phone
-        - se_bu_fax
-        - se_bu_postal_address
-        - se_bu_postal_suburb
-        - se_bu_postal_state
-        - se_bu_postal_postcode
-        - se_bu_balance
-        - se_bu_status
-        - se_bu_invoice_day_of_month
-        - se_bu_last_statement_date
-        - se_bu_terms
+        - se_address
+        - se_suburb
+        - se_state
+        - se_postcode
+        - se_email
+        - se_email_format
+        - se_homepage
+        - se_mobile
+        - se_phone
+        - se_fax
+        - se_postal_address
+        - se_postal_suburb
+        - se_postal_state
+        - se_postal_postcode
+        - se_balance
+        - se_status
+        - se_invoice_day_of_month
+        - se_last_statement_date
+        - se_terms
       label: Details
       parent_name: group_bu_tabs
       region: content
@@ -123,7 +123,7 @@ third_party_settings:
         description: ''
     group_bu_tab_location:
       children:
-        - se_bu_location
+        - se_location
       label: Location
       parent_name: group_bu_tabs
       region: content
@@ -311,7 +311,7 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
-  se_bu_address:
+  se_address:
     type: string
     label: inline
     settings:
@@ -319,28 +319,28 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  se_bu_balance:
+  se_balance:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 15
     region: content
-  se_bu_email:
+  se_email:
     type: basic_string
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 5
     region: content
-  se_bu_email_format:
+  se_email_format:
     type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 6
     region: content
-  se_bu_fax:
+  se_fax:
     type: telephone_link
     label: inline
     settings:
@@ -348,7 +348,7 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
-  se_bu_homepage:
+  se_homepage:
     type: link
     label: inline
     settings:
@@ -360,7 +360,7 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
-  se_bu_invoice_day_of_month:
+  se_invoice_day_of_month:
     type: number_integer
     label: above
     settings:
@@ -369,7 +369,7 @@ content:
     third_party_settings: {  }
     weight: 17
     region: content
-  se_bu_last_statement_date:
+  se_last_statement_date:
     type: datetime_default
     label: above
     settings:
@@ -378,7 +378,7 @@ content:
     third_party_settings: {  }
     weight: 18
     region: content
-  se_bu_location:
+  se_location:
     type: geolocation_map
     label: inline
     settings:
@@ -668,7 +668,7 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  se_bu_mobile:
+  se_mobile:
     type: telephone_link
     label: inline
     settings:
@@ -676,7 +676,7 @@ content:
     third_party_settings: {  }
     weight: 8
     region: content
-  se_bu_phone:
+  se_phone:
     type: telephone_link
     label: inline
     settings:
@@ -684,7 +684,7 @@ content:
     third_party_settings: {  }
     weight: 9
     region: content
-  se_bu_postal_address:
+  se_postal_address:
     type: string
     label: inline
     settings:
@@ -692,7 +692,7 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
-  se_bu_postal_postcode:
+  se_postal_postcode:
     type: string
     label: inline
     settings:
@@ -700,7 +700,7 @@ content:
     third_party_settings: {  }
     weight: 14
     region: content
-  se_bu_postal_state:
+  se_postal_state:
     type: string
     label: inline
     settings:
@@ -708,7 +708,7 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
-  se_bu_postal_suburb:
+  se_postal_suburb:
     type: string
     label: inline
     settings:
@@ -716,7 +716,7 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
-  se_bu_postcode:
+  se_postcode:
     type: string
     label: inline
     settings:
@@ -724,7 +724,7 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  se_bu_state:
+  se_state:
     type: string
     label: inline
     settings:
@@ -732,14 +732,14 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  se_bu_status:
+  se_status:
     type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 16
     region: content
-  se_bu_suburb:
+  se_suburb:
     type: string
     label: inline
     settings:
@@ -747,7 +747,7 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  se_bu_terms:
+  se_terms:
     type: number_integer
     label: above
     settings:
@@ -756,7 +756,7 @@ content:
     third_party_settings: {  }
     weight: 19
     region: content
-  se_bu_type_ref:
+  se_type_ref:
     type: entity_reference_label
     label: inline
     settings:

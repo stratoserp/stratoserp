@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_business
+id: se_business.se_terms
+field_name: se_terms
+entity_type: se_business
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.se_it_cost_price
+    - field.storage.se_item.se_cost_price
     - field.storage.se_item.se_gr_ref
     - field.storage.se_item.se_in_ref
     - field.storage.se_item.se_po_ref
-    - field.storage.se_item.se_it_sale_price
-    - field.storage.se_item.se_it_serial
+    - field.storage.se_item.se_sale_price
+    - field.storage.se_item.se_serial
     - se_item.se_item_type.se_stock
     - user.role.owner
     - user.role.staff
@@ -97,10 +97,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_serial:
-          id: se_it_serial
-          table: se_item__se_it_serial
-          field: se_it_serial
+        se_serial:
+          id: se_serial
+          table: se_item__se_serial
+          field: se_serial
           relationship: none
           group_type: group
           admin_label: ''
@@ -349,10 +349,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_cost_price:
-          id: se_it_cost_price
-          table: se_item__se_it_cost_price
-          field: se_it_cost_price
+        se_cost_price:
+          id: se_cost_price
+          table: se_item__se_cost_price
+          field: se_cost_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -411,10 +411,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_sale_price:
-          id: se_it_sale_price
-          table: se_item__se_it_sale_price
-          field: se_it_sale_price
+        se_sale_price:
+          id: se_sale_price
+          table: se_item__se_sale_price
+          field: se_sale_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -527,10 +527,10 @@ display:
           tokenize: false
       sorts: {  }
       arguments:
-        se_it_item_ref_target_id:
-          id: se_it_item_ref_target_id
-          table: se_item__se_it_item_ref
-          field: se_it_item_ref_target_id
+        se_it_ref_target_id:
+          id: se_it_ref_target_id
+          table: se_item__se_it_ref
+          field: se_it_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -574,10 +574,10 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
-        se_it_item_ref_target_id:
-          id: se_it_item_ref_target_id
-          table: se_item__se_it_item_ref
-          field: se_it_item_ref_target_id
+        se_it_ref_target_id:
+          id: se_it_ref_target_id
+          table: se_item__se_it_ref
+          field: se_it_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -643,12 +643,12 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_item.se_it_cost_price'
+        - 'config:field.storage.se_item.se_cost_price'
         - 'config:field.storage.se_item.se_gr_ref'
         - 'config:field.storage.se_item.se_in_ref'
         - 'config:field.storage.se_item.se_po_ref'
-        - 'config:field.storage.se_item.se_it_sale_price'
-        - 'config:field.storage.se_item.se_it_serial'
+        - 'config:field.storage.se_item.se_sale_price'
+        - 'config:field.storage.se_item.se_serial'
   se_stock_item_by_code_eva:
     id: se_stock_item_by_code_eva
     display_title: EVA
@@ -668,9 +668,9 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_item.se_it_cost_price'
+        - 'config:field.storage.se_item.se_cost_price'
         - 'config:field.storage.se_item.se_gr_ref'
         - 'config:field.storage.se_item.se_in_ref'
         - 'config:field.storage.se_item.se_po_ref'
-        - 'config:field.storage.se_item.se_it_sale_price'
-        - 'config:field.storage.se_item.se_it_serial'
+        - 'config:field.storage.se_item.se_sale_price'
+        - 'config:field.storage.se_item.se_serial'

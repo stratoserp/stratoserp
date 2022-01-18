@@ -24,12 +24,12 @@ class GoodsReceiptForm extends StratosContentEntityForm {
     $service->setPurchaseOrderField($form, 'se_po_ref');
 
     // Perform some goods receipt specific tweaks.
-    foreach ($form['se_gr_lines']['widget'] as $index => $value) {
+    foreach ($form['se_item_lines']['widget'] as $index => $value) {
       // @todo I'm sure there is a better way to filter these out.
       if (is_numeric($index)) {
         // Remove all other options, goods receipt is for stock only.
-        $form['se_gr_lines']['target_type']['#options'] = ['se_item:se_stock'];
-        $form['se_gr_lines']['target_type']['#type'] = 'value';
+        $form['se_item_lines']['target_type']['#options'] = ['se_item:se_stock'];
+        $form['se_item_lines']['target_type']['#type'] = 'value';
       }
     }
 

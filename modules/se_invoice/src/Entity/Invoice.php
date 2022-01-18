@@ -91,14 +91,14 @@ class Invoice extends StratosEntityBase implements InvoiceInterface {
    * {@inheritdoc}
    */
   public function getTotal(): int {
-    return (int) $this->se_in_total->value;
+    return (int) $this->se_total->value;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getOutstanding(): int {
-    return (int) $this->se_in_outstanding->value;
+    return (int) $this->se_outstanding->value;
   }
 
   /**
@@ -108,7 +108,7 @@ class Invoice extends StratosEntityBase implements InvoiceInterface {
     $paidAmount = 0;
 
     foreach ($this->getInvoicePaymentAmounts($this) as $payment) {
-      $paidAmount += $payment->se_pa_lines_amount;
+      $paidAmount += $payment->se_payment_lines_amount;
     }
 
     return $this->getTotal() - $paidAmount;

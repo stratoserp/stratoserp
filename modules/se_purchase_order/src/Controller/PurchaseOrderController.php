@@ -9,7 +9,6 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_purchase_order\Entity\PurchaseOrder;
 use Drupal\se_purchase_order\Entity\PurchaseOrderInterface;
-use Drupal\stratoserp\Constants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -243,23 +242,22 @@ class PurchaseOrderController extends ControllerBase {
     ]);
 
     $total = 0;
-    $sourceFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$destination->getEntityTypeId()];
 
     // @todo Make this a service?
     /**
      * @var int $index
      * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
      */
-    foreach ($source->{$sourceFieldType . '_lines'} as $item) {
-      $destination->{$bundleFieldType . '_lines'}->appendItem($item->getValue());
+    foreach ($source->se_item_lines as $item) {
+      $destination->se_item_lines->appendItem($item->getValue());
     }
 
     $destination->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    // @todo Why is this here?
     $destination->se_bu_ref->target_type = $source->se_bu_ref->target_type;
     $destination->se_co_ref->target_id = $source->se_co_ref->target_id;
-    $destination->{$bundleFieldType . '_quote_ref'}->target_id = $source->id();
-    $destination->{$bundleFieldType . '_total'} = $total;
+    $destination->se_qu_ref->target_id = $source->id();
+    $destination->se_total = $total;
 
     return $destination;
   }

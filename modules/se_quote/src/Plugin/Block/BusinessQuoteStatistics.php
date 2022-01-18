@@ -56,8 +56,8 @@ class BusinessQuoteStatistics extends BlockBase {
         }
         /** @var \Drupal\se_quote\Entity\Quote $quote */
         foreach ($quotes as $quote) {
-          if (is_object($quote) && $quote->hasField('se_qu_total')) {
-            $total += $quote->se_qu_total->value;
+          if (is_object($quote) && $quote->hasField('se_total')) {
+            $total += $quote->se_total->value;
           }
         }
         $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw((int) ($total ?? 0));

@@ -81,13 +81,13 @@ trait QuoteTestTrait {
         'target_id' => $testBusiness->id(),
         'target_type' => 'se_business',
       ],
-      'se_qu_phone' => $this->quotePhoneNumber,
-      'se_qu_email' => $this->quoteCompanyEmail,
-      'se_qu_lines' => $lines,
+      'se_phone' => $this->quotePhoneNumber,
+      'se_email' => $this->quoteCompanyEmail,
+      'se_item_lines' => $lines,
     ]);
 
     self::assertNotEquals($quote, FALSE);
-    self::assertNotNull($quote->se_qu_total->value);
+    self::assertNotNull($quote->se_total->value);
 
     $this->drupalGet($quote->toUrl());
 

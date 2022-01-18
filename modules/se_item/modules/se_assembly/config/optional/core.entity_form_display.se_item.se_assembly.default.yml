@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_assembly.se_it_active
-    - field.field.se_item.se_assembly.se_it_code
-    - field.field.se_item.se_assembly.se_it_cost_price
-    - field.field.se_item.se_assembly.se_it_description
-    - field.field.se_item.se_assembly.se_it_manufacturer_ref
-    - field.field.se_item.se_assembly.se_it_product_type_ref
-    - field.field.se_item.se_assembly.se_it_sale_category_ref
-    - field.field.se_item.se_assembly.se_it_sell_price
-    - field.field.se_item.se_assembly.se_it_serial
+    - field.field.se_item.se_assembly.se_active
+    - field.field.se_item.se_assembly.se_code
+    - field.field.se_item.se_assembly.se_cost_price
+    - field.field.se_item.se_assembly.se_description
+    - field.field.se_item.se_assembly.se_manufacturer_ref
+    - field.field.se_item.se_assembly.se_product_type_ref
+    - field.field.se_item.se_assembly.se_sale_category_ref
+    - field.field.se_item.se_assembly.se_sell_price
+    - field.field.se_item.se_assembly.se_serial
     - se_item.se_item_type.se_assembly
   module:
     - field_group
@@ -60,14 +60,14 @@ content:
       rows: 4
       placeholder: ''
     third_party_settings: {  }
-  se_it_active:
+  se_active:
     type: boolean_checkbox
     weight: 10
     region: first
     settings:
       display_label: true
     third_party_settings: {  }
-  se_it_code:
+  se_code:
     type: string_textfield
     weight: 1
     region: first
@@ -75,13 +75,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_cost_price:
+  se_cost_price:
     type: se_currency_widget
     weight: 2
     region: first
     settings: {  }
     third_party_settings: {  }
-  se_it_description:
+  se_description:
     type: text_textarea
     weight: 8
     region: bottom
@@ -89,7 +89,7 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  se_it_manufacturer_ref:
+  se_manufacturer_ref:
     type: entity_reference_autocomplete
     weight: 6
     region: second
@@ -99,7 +99,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_product_type_ref:
+  se_product_type_ref:
     type: entity_reference_autocomplete
     weight: 5
     region: second
@@ -109,7 +109,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_sale_category_ref:
+  se_sale_category_ref:
     type: entity_reference_autocomplete
     weight: 7
     region: second
@@ -119,13 +119,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_sell_price:
+  se_sell_price:
     type: se_currency_widget
     weight: 3
     region: first
     settings: {  }
     third_party_settings: {  }
-  se_it_serial:
+  se_serial:
     type: string_textfield
     weight: 4
     region: first

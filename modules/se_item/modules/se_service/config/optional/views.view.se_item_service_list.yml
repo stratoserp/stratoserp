@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.se_it_code
-    - field.storage.se_item.se_it_cost_price
-    - field.storage.se_item.se_it_sell_price
+    - field.storage.se_item.se_code
+    - field.storage.se_item.se_cost_price
+    - field.storage.se_item.se_sell_price
     - se_item.se_item_type.se_service
     - system.menu.stratos-erp
     - user.role.owner
@@ -162,10 +162,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_code:
-          id: se_it_code
-          table: se_item__se_it_code
-          field: se_it_code
+        se_code:
+          id: se_code
+          table: se_item__se_code
+          field: se_code
           relationship: none
           group_type: group
           admin_label: ''
@@ -355,10 +355,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_cost_price:
-          id: se_it_cost_price
-          table: se_item__se_it_cost_price
-          field: se_it_cost_price
+        se_cost_price:
+          id: se_cost_price
+          table: se_item__se_cost_price
+          field: se_cost_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -417,10 +417,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_it_sell_price:
-          id: se_it_sell_price
-          table: se_item__se_it_sell_price
-          field: se_it_sell_price
+        se_sell_price:
+          id: se_sell_price
+          table: se_item__se_sell_price
+          field: se_sell_price
           relationship: none
           group_type: group
           admin_label: ''
@@ -563,10 +563,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        se_it_code_value:
-          id: se_it_code_value
-          table: se_item__se_it_code
-          field: se_it_code_value
+        se_code_value:
+          id: se_code_value
+          table: se_item__se_code
+          field: se_code_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -576,11 +576,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: se_it_code_value_op
+            operator_id: se_code_value_op
             label: Code
             description: ''
             use_operator: false
-            operator: se_it_code_value_op
+            operator: se_code_value_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: code
@@ -662,11 +662,11 @@ display:
           columns:
             id: id
             created: created
-            se_it_code: se_it_code
+            se_code: se_code
             name: name
             type: type
-            se_it_cost_price: se_it_cost_price
-            se_it_sell_price: se_it_sell_price
+            se_cost_price: se_cost_price
+            se_sell_price: se_sell_price
           default: id
           info:
             id:
@@ -683,7 +683,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_it_code:
+            se_code:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -704,14 +704,14 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_it_cost_price:
+            se_cost_price:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-medium
-            se_it_sell_price:
+            se_sell_price:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -748,9 +748,9 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_item.se_it_code'
-        - 'config:field.storage.se_item.se_it_cost_price'
-        - 'config:field.storage.se_item.se_it_sell_price'
+        - 'config:field.storage.se_item.se_code'
+        - 'config:field.storage.se_item.se_cost_price'
+        - 'config:field.storage.se_item.se_sell_price'
   se_item_service_list:
     id: se_item_service_list
     display_title: Page
@@ -777,6 +777,6 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_item.se_it_code'
-        - 'config:field.storage.se_item.se_it_cost_price'
-        - 'config:field.storage.se_item.se_it_sell_price'
+        - 'config:field.storage.se_item.se_code'
+        - 'config:field.storage.se_item.se_cost_price'
+        - 'config:field.storage.se_item.se_sell_price'

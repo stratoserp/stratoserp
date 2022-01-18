@@ -35,13 +35,13 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
       'name' => $this->subscriptionName,
       'se_bu_ref' => $customer,
       'se_su_ref' => $supplier,
-      'se_su_lines' => [
+      'se_item_lines' => [
         $item,
       ],
-      'se_su_next_due' => [
+      'se_next_due' => [
         $oldTime,
       ],
-      'se_su_period' => [
+      'se_period' => [
         [
           'duration' => 'P1Y',
         ],
@@ -56,7 +56,7 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
     $invoices = \Drupal::service('se_subscription_invoice')->processDateSubscriptions();
 
     $updated = Subscription::load($sub);
-    $newTime = $updated->se_su_next_due->value;
+    $newTime = $updated->se_next_due->value;
     $newCount = \Drupal::entityTypeManager()->getStorage('se_invoice')->loadByProperties([]);
 
     self::assertNotEquals($oldTime, $newTime);

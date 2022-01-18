@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.se_payment.se_bu_ref
-    - field.storage.se_payment.se_pa_total
+    - field.storage.se_payment.se_total
     - system.menu.stratos-erp
     - user.role.owner
     - user.role.staff
@@ -288,10 +288,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_pa_total:
-          id: se_pa_total
-          table: se_payment__se_pa_total
-          field: se_pa_total
+        se_total:
+          id: se_total
+          table: se_payment__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -504,7 +504,7 @@ display:
             created: created
             name: name
             se_bu_ref: se_bu_ref
-            se_pa_total: se_pa_total
+            se_total: se_total
           default: id
           info:
             id:
@@ -535,7 +535,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_pa_total:
+            se_total:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -587,7 +587,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_payment.se_bu_ref'
-        - 'config:field.storage.se_payment.se_pa_total'
+        - 'config:field.storage.se_payment.se_total'
   se_payment_list:
     id: se_payment_list
     display_title: Page
@@ -615,4 +615,4 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_payment.se_bu_ref'
-        - 'config:field.storage.se_payment.se_pa_total'
+        - 'config:field.storage.se_payment.se_total'

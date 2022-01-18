@@ -86,7 +86,7 @@ class Ticket extends StratosEntityBase implements TicketInterface {
       ->get('se_ticket.settings')
       ->get('se_ticket_calendar_status_list') ?? [];
 
-    if (empty($openStatus) || in_array((string) $this->se_ti_status_ref->target_id, $openStatus, TRUE)) {
+    if (empty($openStatus) || in_array((string) $this->se_status_ref->target_id, $openStatus, TRUE)) {
       return TRUE;
     }
 
@@ -97,7 +97,7 @@ class Ticket extends StratosEntityBase implements TicketInterface {
    * {@inheritdoc}
    */
   public function isScheduled(): bool {
-    if (isset($this->se_ti_scheduled->value) || isset($this->se_ti_scheduled->end_value)) {
+    if (isset($this->se_scheduled->value) || isset($this->se_scheduled->end_value)) {
       return TRUE;
     }
 
@@ -112,7 +112,7 @@ class Ticket extends StratosEntityBase implements TicketInterface {
       ->get('se_ticket.settings')
       ->get('se_ticket_calendar_type_list') ?? [];
 
-    if (empty($calendarType) || in_array((string) $this->se_ti_type_ref->target_id, $calendarType, TRUE)) {
+    if (empty($calendarType) || in_array((string) $this->se_type_ref->target_id, $calendarType, TRUE)) {
       return TRUE;
     }
 

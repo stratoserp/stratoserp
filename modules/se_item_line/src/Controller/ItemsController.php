@@ -132,8 +132,8 @@ class ItemsController extends ControllerBase {
     switch ($targetType) {
       case 'comment':
         /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
-        if (($timekeeping = Timekeeping::load($values[$field][$index]['target_id'])) && $item = $timekeeping->se_tk_item->entity) {
-          $date = new DateTimePlus($timekeeping->se_tk_date->value, date_default_timezone_get());
+        if (($timekeeping = Timekeeping::load($values[$field][$index]['target_id'])) && $item = $timekeeping->se_it_ref->entity) {
+          $date = new DateTimePlus($timekeeping->se_date->value, date_default_timezone_get());
           $response->addCommand(
             new InvokeCommand(
               "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-completed-date-date']",
@@ -145,7 +145,7 @@ class ItemsController extends ControllerBase {
             new InvokeCommand(
               "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-quantity']",
               'val',
-              [$timekeeping->se_tk_amount]
+              [$timekeeping->se_amount]
             ),
           );
         }
@@ -157,7 +157,7 @@ class ItemsController extends ControllerBase {
           $response->addCommand(new InvokeCommand(
             "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
             'val',
-            [$item->se_it_serial->value]
+            [$item->se_serial->value]
           ));
         }
 
@@ -168,7 +168,7 @@ class ItemsController extends ControllerBase {
       return;
     }
 
-    $item_price = $item->se_it_sell_price->value;
+    $item_price = $item->se_sell_price->value;
     $displayPrice = $currencyService->formatDisplay((int) $item_price);
 
     // Update the values so that the total gets updated as well.

@@ -8,15 +8,15 @@ dependencies:
 
 config_devel:
   install:
-    - field.field.se_item.se_assembly.se_it_active
-    - field.field.se_item.se_assembly.se_it_code
-    - field.field.se_item.se_assembly.se_it_cost_price
-    - field.field.se_item.se_assembly.se_it_description
-    - field.field.se_item.se_assembly.se_it_manufacturer_ref
-    - field.field.se_item.se_assembly.se_it_product_type_ref
-    - field.field.se_item.se_assembly.se_it_sale_category_ref
-    - field.field.se_item.se_assembly.se_it_sell_price
-    - field.field.se_item.se_assembly.se_it_serial
+    - field.field.se_item.se_assembly.se_active
+    - field.field.se_item.se_assembly.se_code
+    - field.field.se_item.se_assembly.se_cost_price
+    - field.field.se_item.se_assembly.se_description
+    - field.field.se_item.se_assembly.se_manufacturer_ref
+    - field.field.se_item.se_assembly.se_product_type_ref
+    - field.field.se_item.se_assembly.se_sale_category_ref
+    - field.field.se_item.se_assembly.se_sell_price
+    - field.field.se_item.se_assembly.se_serial
     - se_item.se_item_type.se_assembly
   optional:
     - core.entity_form_display.se_item.se_assembly.default

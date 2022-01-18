@@ -45,7 +45,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
     }
 
     // Store the existing items in the object for later reconciliation.
-    $entity->se_in_lines_old = $entity->se_in_lines;
+    $entity->se_item_lines_old = $entity->se_item_lines;
   }
 
   /**
@@ -93,11 +93,11 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
     // @todo should this be retrieved from the invoice?
     $date = new DateTimePlus(NULL, date_default_timezone_get());
 
-    if (isset($invoice->se_in_lines_old)) {
+    if (isset($invoice->se_item_lines_old)) {
       $reconcileList = $this->markItemsAvailable($invoice);
     }
 
-    foreach ($invoice->{'se_in_lines'} as $itemLine) {
+    foreach ($invoice->{'se_item_lines'} as $itemLine) {
       // Only operate on items that are also stock items.
       if (($itemLine->target_type === 'se_item')
         && ($item = Item::load($itemLine->target_id))
@@ -124,7 +124,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
   private function markItemsAvailable(Invoice $invoice): array {
     $reconcileList = [];
 
-    foreach ($invoice->{'se_in_lines_old'} as $itemLine) {
+    foreach ($invoice->{'se_item_lines_old'} as $itemLine) {
       // Only operate on items that are also stock items.
       if (($itemLine->target_type === 'se_item')
         && ($item = Item::load($itemLine->target_id))
@@ -156,8 +156,8 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
     // themselves, they are never sold.
     if ($item->hasParent()) {
       $item
-        ->set('se_it_sale_date', $date->format('Y-m-d'))
-        ->set('se_it_sale_price', $price)
+        ->set('se_sale_date', $date->format('Y-m-d'))
+        ->set('se_sale_price', $price)
         ->set('se_in_ref', $invoice->id());
     }
     return $item;
@@ -177,8 +177,8 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
     // themselves, they are never sold.
     if ($item->hasParent()) {
       $item
-        ->set('se_it_sale_date', NULL)
-        ->set('se_it_sale_price', NULL)
+        ->set('se_sale_date', NULL)
+        ->set('se_sale_price', NULL)
         ->set('se_in_ref', NULL);
     }
     return $item;
@@ -206,7 +206,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function markItemsAvailableSave(Invoice $invoice): void {
-    foreach ($invoice->{'se_in_lines'} as $itemLine) {
+    foreach ($invoice->{'se_item_lines'} as $itemLine) {
       // Only operate on items.
       // Only operator on stock items.
       if (($itemLine->target_type === 'se_item') && ($item = Item::load($itemLine->target_id))

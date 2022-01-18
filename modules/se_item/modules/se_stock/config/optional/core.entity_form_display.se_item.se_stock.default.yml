@@ -2,23 +2,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_stock.se_it_active
-    - field.field.se_item.se_stock.se_it_code
-    - field.field.se_item.se_stock.se_it_cost_price
-    - field.field.se_item.se_stock.se_it_description
+    - field.field.se_item.se_stock.se_active
+    - field.field.se_item.se_stock.se_code
+    - field.field.se_item.se_stock.se_cost_price
+    - field.field.se_item.se_stock.se_description
     - field.field.se_item.se_stock.se_gr_ref
-    - field.field.se_item.se_stock.se_it_images
+    - field.field.se_item.se_stock.se_images
     - field.field.se_item.se_stock.se_in_ref
-    - field.field.se_item.se_stock.se_it_item_ref
-    - field.field.se_item.se_stock.se_it_lost
-    - field.field.se_item.se_stock.se_it_manufacturer_ref
-    - field.field.se_item.se_stock.se_it_product_type_ref
+    - field.field.se_item.se_stock.se_it_ref
+    - field.field.se_item.se_stock.se_lost
+    - field.field.se_item.se_stock.se_manufacturer_ref
+    - field.field.se_item.se_stock.se_product_type_ref
     - field.field.se_item.se_stock.se_po_ref
-    - field.field.se_item.se_stock.se_it_sale_category_ref
-    - field.field.se_item.se_stock.se_it_sale_date
-    - field.field.se_item.se_stock.se_it_sale_price
-    - field.field.se_item.se_stock.se_it_sell_price
-    - field.field.se_item.se_stock.se_it_serial
+    - field.field.se_item.se_stock.se_sale_category_ref
+    - field.field.se_item.se_stock.se_sale_date
+    - field.field.se_item.se_stock.se_sale_price
+    - field.field.se_item.se_stock.se_sell_price
+    - field.field.se_item.se_stock.se_serial
     - image.style.thumbnail
     - se_item.se_item_type.se_stock
   module:
@@ -71,14 +71,14 @@ content:
       rows: 4
       placeholder: ''
     third_party_settings: {  }
-  se_it_active:
+  se_active:
     type: boolean_checkbox
     weight: 18
     region: first
     settings:
       display_label: true
     third_party_settings: {  }
-  se_it_code:
+  se_code:
     type: string_textfield
     weight: 3
     region: first
@@ -86,13 +86,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_cost_price:
+  se_cost_price:
     type: se_currency_widget
     weight: 14
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_it_description:
+  se_description:
     type: text_textarea
     weight: 15
     region: bottom
@@ -110,7 +110,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_images:
+  se_images:
     type: image_image
     weight: 16
     region: bottom
@@ -128,7 +128,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_item_ref:
+  se_it_ref:
     type: entity_reference_autocomplete
     weight: 8
     region: first
@@ -138,20 +138,20 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_lost:
+  se_lost:
     type: boolean_checkbox
     weight: 4
     region: first
     settings:
       display_label: true
     third_party_settings: {  }
-  se_it_manufacturer_ref:
+  se_manufacturer_ref:
     type: options_select
     weight: 10
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_it_product_type_ref:
+  se_product_type_ref:
     type: options_select
     weight: 9
     region: second
@@ -167,31 +167,31 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_it_sale_category_ref:
+  se_sale_category_ref:
     type: options_select
     weight: 11
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_it_sale_date:
+  se_sale_date:
     type: datetime_default
     weight: 6
     region: first
     settings: {  }
     third_party_settings: {  }
-  se_it_sale_price:
+  se_sale_price:
     type: se_currency_widget
     weight: 7
     region: first
     settings: {  }
     third_party_settings: {  }
-  se_it_sell_price:
+  se_sell_price:
     type: se_currency_widget
     weight: 2
     region: top
     settings: {  }
     third_party_settings: {  }
-  se_it_serial:
+  se_serial:
     type: string_textfield
     weight: 1
     region: top

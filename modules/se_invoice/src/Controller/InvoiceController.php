@@ -279,14 +279,13 @@ class InvoiceController extends ControllerBase {
     $business = \Drupal::service('se_business.service')->lookupBusiness($source);
 
     $query->condition('se_bu_ref', $business->id())
-      ->condition('se_tk_billed', TRUE, '<>')
-      ->condition('se_tk_billable', TRUE)
-      ->condition('se_tk_amount', 0, '>');
+      ->condition('se_billed', TRUE, '<>')
+      ->condition('se_billable', TRUE)
+      ->condition('se_amount', 0, '>');
     $entityIds = $query->execute();
 
     $total = 0;
     $lines = [];
-    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES['se_invoice'];
 
     // Loop through the timekeeping entries and setup invoice lines.
     foreach ($entityIds as $entityId) {
@@ -295,14 +294,14 @@ class InvoiceController extends ControllerBase {
         ->getStorage('se_timekeeping')
         ->load($entityId)) {
         /** @var \Drupal\se_item\Entity\Item $item */
-        if ($item = $timekeeping->se_tk_item->entity) {
-          $price = (int) $item->se_it_sell_price->value;
+        if ($item = $timekeeping->se_it_ref->entity) {
+          $price = (int) $item->se_sell_price->value;
           $line = [
             'target_type' => 'se_timekeeping',
             'target_id' => $timekeeping->id(),
-            'quantity' => round($timekeeping->se_tk_amount->value / 60, 2),
-            'note' => $timekeeping->se_tk_comment->value,
-            'format' => $timekeeping->se_tk_comment->format,
+            'quantity' => round($timekeeping->se_amount->value / 60, 2),
+            'note' => $timekeeping->se_comment->value,
+            'format' => $timekeeping->se_comment->format,
             'price' => $price,
           ];
           $lines[] = $line;
@@ -316,8 +315,8 @@ class InvoiceController extends ControllerBase {
     }
 
     $invoice->se_bu_ref = $business;
-    $invoice->{$bundleFieldType . '_lines'} = $lines;
-    $invoice->{$bundleFieldType . '_total'} = $total;
+    $invoice->se_item_lines = $lines;
+    $invoice->se_total = $total;
 
     return $invoice;
   }
@@ -337,22 +336,20 @@ class InvoiceController extends ControllerBase {
     ]);
 
     $total = 0;
-    $sourceFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$source->getEntityTypeId()];
-    $destFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$invoice->getEntityTypeId()];
 
     // @todo Make this a service.
     /**
      * @var int $index
      * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
      */
-    foreach ($source->{$sourceFieldType . '_lines'} as $item) {
-      $invoice->{$destFieldType . '_lines'}->appendItem($item->getValue());
+    foreach ($source->se_item_lines as $item) {
+      $invoice->se_item_lines->appendItem($item->getValue());
     }
 
     $invoice->se_bu_ref = $source->se_bu_ref;
     $invoice->se_co_ref = $source->se_co_ref ?? NULL;
-    $invoice->{$destFieldType . '_quote_ref'} = $source;
-    $invoice->{$destFieldType . '_total'} = $total;
+    $invoice->se_qu_ref = $source;
+    $invoice->se_total = $total;
 
     return $invoice;
   }

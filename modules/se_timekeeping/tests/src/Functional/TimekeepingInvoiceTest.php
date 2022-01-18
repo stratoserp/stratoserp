@@ -42,8 +42,8 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
     // Calculate expected value.
     $amount = 0;
     foreach ($testTimekeeping as $timekeeping) {
-      $price = (int) $timekeeping->se_tk_item->entity->se_it_sell_price->value;
-      $quantity = (int) round($timekeeping->se_tk_amount->value / 60, 2);
+      $price = (int) $timekeeping->se_it_ref->entity->se_sell_price->value;
+      $quantity = (int) round($timekeeping->se_amount->value / 60, 2);
       $amount += $quantity * $price;
     }
     $amount = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $amount);

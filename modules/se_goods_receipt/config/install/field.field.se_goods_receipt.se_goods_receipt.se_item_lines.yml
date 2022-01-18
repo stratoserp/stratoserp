@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_goods_receipt.se_item_lines
+    - se_item.se_item_type.se_service
+  module:
+    - se_goods_receipt
+    - se_item_line
+id: se_goods_receipt.se_goods_receipt.se_item_lines
+field_name: se_item_lines
+entity_type: se_goods_receipt
+bundle: se_goods_receipt
+label: Items
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  se_item:
+    handler: 'default:se_item'
+    handler_settings:
+      target_bundles:
+        se_service: se_service
+      sort:
+        field: _none
+      auto_create: 0
+      auto_create_bundle: ''
+field_type: se_item_line

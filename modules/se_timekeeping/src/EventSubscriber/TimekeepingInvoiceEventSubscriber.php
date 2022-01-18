@@ -11,7 +11,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_timekeeping\Entity\Timekeeping;
-use Drupal\stratoserp\Constants;
 
 /**
  * Class TimekeepingSaveEventSubscriber.
@@ -91,14 +90,12 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function timekeepingMarkItemsBilled(Invoice $invoice): void {
-    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
-
-    foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
+    foreach ($invoice->se_item_lines as $itemLine) {
       if ($itemLine->target_type === 'se_timekeeping') {
         /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
         if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
           // @todo Make a service for this?
-          $timekeeping->set('se_tk_billed', TRUE);
+          $timekeeping->set('se_billed', TRUE);
           $timekeeping->set('se_in_ref', $invoice->id());
           $timekeeping->save();
         }
@@ -115,14 +112,12 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function timekeepingMarkItemsUnBilled(Invoice $invoice): void {
-    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$invoice->bundle()];
-
-    foreach ($invoice->{$bundleFieldType . '_lines'} as $itemLine) {
+    foreach ($invoice->se_item_lines as $itemLine) {
       if ($itemLine->target_type === 'se_timekeeping') {
         /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
         if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
           // @todo Make a service for this?
-          $timekeeping->set('se_tk_billed', FALSE);
+          $timekeeping->set('se_billed', FALSE);
           $timekeeping->set('se_in_ref', NULL);
           $timekeeping->save();
         }

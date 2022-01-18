@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_bill.se_total
+  module:
+    - se_accounting
+    - se_bill
+id: se_bill.se_bill.se_total
+field_name: se_total
+entity_type: se_bill
+bundle: se_bill
+label: Total
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: se_currency

@@ -55,7 +55,7 @@ function se_example_data_business_setup() {
   }
 
   // Now set the last one as the default for the field.
-  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_business.se_business.se_bu_type_ref');
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_business.se_business.se_type_ref');
   $field->setDefaultValue(['target_uuid' => $term->uuid()]);
   $field->save();
 
@@ -96,7 +96,7 @@ function se_example_data_contact_setup() {
   }
 
   // Now set the last one as the default for the field.
-  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_contact.se_contact.se_co_type_ref');
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_contact.se_contact.se_type_ref');
   $field->setDefaultValue(['target_uuid' => $term->uuid()]);
   $field->save();
 
@@ -172,20 +172,20 @@ function se_example_data_recurring_setup() {
   $item = Item::create($defaults + [
       'name' => 'Domain name registration',
       'body' => 'Domain name registration - yearly.',
-      'se_it_code' => [['value' => 'DOMAINNAME-YEARLY']],
-      'se_it_sell_price' => [['value' => 6000]],
-      'se_it_recurring_period' => [['duration' => 'P1Y']],
-      'se_it_cost_price' => [['value' => 2000]],
+      'se_code' => [['value' => 'DOMAINNAME-YEARLY']],
+      'se_sell_price' => [['value' => 6000]],
+      'se_recurring_period' => [['duration' => 'P1Y']],
+      'se_cost_price' => [['value' => 2000]],
     ]);
   $item->save();
 
   $item = Item::create($defaults + [
       'name' => 'Domain name - biennually',
       'body' => 'Domain name - biennually.',
-      'se_it_code' => [['value' => 'DOMAINNAME-BIENNUALLY']],
-      'se_it_sell_price' => [['value' => 12000]],
-      'se_it_recurring_period' => [['duration' => 'P2Y']],
-      'se_it_cost_price' => [['value' => 4000]],
+      'se_code' => [['value' => 'DOMAINNAME-BIENNUALLY']],
+      'se_sell_price' => [['value' => 12000]],
+      'se_recurring_period' => [['duration' => 'P2Y']],
+      'se_cost_price' => [['value' => 4000]],
     ]);
   $item->save();
 
@@ -194,10 +194,10 @@ function se_example_data_recurring_setup() {
   $item = Item::create($defaults + [
       'name' => 'Domain hosting',
       'body' => 'Domain hosting - yearly.',
-      'se_it_code' => [['value' => 'DOMAINHOSTING-YEARLY']],
-      'se_it_sell_price' => [['value' => 24000]],
-      'se_it_recurring_period' => [['duration' => 'P1Y']],
-      'se_it_cost_price' => [['value' => 12000]],
+      'se_code' => [['value' => 'DOMAINHOSTING-YEARLY']],
+      'se_sell_price' => [['value' => 24000]],
+      'se_recurring_period' => [['duration' => 'P1Y']],
+      'se_cost_price' => [['value' => 12000]],
     ]);
   $item->save();
 }
@@ -208,18 +208,18 @@ function se_example_data_service_setup() {
   $item = Item::create($defaults + [
       'name' => 'Technical service',
       'body' => 'Technical service by one of our qualified technicians.',
-      'se_it_code' => [['value' => 'TECHSERVICE']],
-      'se_it_sell_price' => [['value' => 16000]],
-      'se_it_cost_price' => [['value' => 5500]],
+      'se_code' => [['value' => 'TECHSERVICE']],
+      'se_sell_price' => [['value' => 16000]],
+      'se_cost_price' => [['value' => 5500]],
     ]);
   $item->save();
 
   $item = Item::create($defaults + [
       'name' => 'Workshop service',
       'body' => 'Workshop service by one of our qualified technicians.',
-      'se_it_code' => [['value' => 'WORKSHOP']],
-      'se_it_sell_price' => [['value' => 12000]],
-      'se_it_cost_price' => [['value' => 5500]],
+      'se_code' => [['value' => 'WORKSHOP']],
+      'se_sell_price' => [['value' => 12000]],
+      'se_cost_price' => [['value' => 5500]],
     ]);
   $item->save();
 }
@@ -230,20 +230,20 @@ function se_example_data_stock_setup() {
   $item = Item::create($defaults + [
       'name' => 'Microsoft KB600',
       'body' => 'Microsoft KB600',
-      'se_it_code' => [['value' => 'MS-KB-600']],
-      'se_it_serial' => [['value' => '111111']],
-      'se_it_sell_price' => [['value' => 4500]],
-      'se_it_cost_price' => [['value' => 2500]],
+      'se_code' => [['value' => 'MS-KB-600']],
+      'se_serial' => [['value' => '111111']],
+      'se_sell_price' => [['value' => 4500]],
+      'se_cost_price' => [['value' => 2500]],
     ]);
   $item->save();
 
   $item = Item::create($defaults + [
       'name' => 'Microsoft KB800',
       'body' => 'Microsoft KB800',
-      'se_it_code' => [['value' => 'MS-KB-800']],
-      'se_it_serial' => [['value' => '222222']],
-      'se_it_sell_price' => [['value' => 5500]],
-      'se_it_cost_price' => [['value' => 3000]],
+      'se_code' => [['value' => 'MS-KB-800']],
+      'se_serial' => [['value' => '222222']],
+      'se_sell_price' => [['value' => 5500]],
+      'se_cost_price' => [['value' => 3000]],
     ]);
   $item->save();
 
@@ -252,20 +252,20 @@ function se_example_data_stock_setup() {
   $item = Item::create($defaults + [
       'name' => 'Lenovo 11e',
       'body' => 'Lenovo 11e',
-      'se_it_code' => [['value' => 'LN-11E']],
-      'se_it_serial' => [['value' => '333333']],
-      'se_it_sell_price' => [['value' => 89900]],
-      'se_it_cost_price' => [['value' => 67900]],
+      'se_code' => [['value' => 'LN-11E']],
+      'se_serial' => [['value' => '333333']],
+      'se_sell_price' => [['value' => 89900]],
+      'se_cost_price' => [['value' => 67900]],
     ]);
   $item->save();
 
   $item = Item::create($defaults + [
       'name' => 'Lenovo x280',
       'body' => 'Lenovo x280',
-      'se_it_code' => [['value' => 'LN-X280']],
-      'se_it_serial' => [['value' => '444444']],
-      'se_it_sell_price' => [['value' => 129900]],
-      'se_it_cost_price' => [['value' => 100100]],
+      'se_code' => [['value' => 'LN-X280']],
+      'se_serial' => [['value' => '444444']],
+      'se_sell_price' => [['value' => 129900]],
+      'se_cost_price' => [['value' => 100100]],
     ]);
   $item->save();
 
@@ -274,30 +274,30 @@ function se_example_data_stock_setup() {
   $item = Item::create($defaults + [
       'name' => 'Canon PIXMA - Cyan',
       'body' => 'Canon PIXMA - Cyan',
-      'se_it_code' => [['value' => 'CN-PIXMA-CYAN']],
-      'se_it_serial' => [['value' => '555555']],
-      'se_it_sell_price' => [['value' => 1499]],
-      'se_it_cost_price' => [['value' => 1000]],
+      'se_code' => [['value' => 'CN-PIXMA-CYAN']],
+      'se_serial' => [['value' => '555555']],
+      'se_sell_price' => [['value' => 1499]],
+      'se_cost_price' => [['value' => 1000]],
     ]);
   $item->save();
 
   $item = Item::create($defaults + [
       'name' => 'Canon PIXMA - Yellow',
       'body' => 'Canon PIXMA - Yellow',
-      'se_it_code' => [['value' => 'CN-PIXMA-YELLOW']],
-      'se_it_serial' => [['value' => '666666']],
-      'se_it_sell_price' => [['value' => 1499]],
-      'se_it_cost_price' => [['value' => 1000]],
+      'se_code' => [['value' => 'CN-PIXMA-YELLOW']],
+      'se_serial' => [['value' => '666666']],
+      'se_sell_price' => [['value' => 1499]],
+      'se_cost_price' => [['value' => 1000]],
     ]);
   $item->save();
 
   $item = Item::create($defaults + [
       'name' => 'Canon PIXMA - Magenta',
       'body' => 'Canon PIXMA - Magenta',
-      'se_it_code' => [['value' => 'CN-PIXMA-MAGENTA']],
-      'se_it_serial' => [['value' => '777777']],
-      'se_it_sell_price' => [['value' => 1499]],
-      'se_it_cost_price' => [['value' => 1000]],
+      'se_code' => [['value' => 'CN-PIXMA-MAGENTA']],
+      'se_serial' => [['value' => '777777']],
+      'se_sell_price' => [['value' => 1499]],
+      'se_cost_price' => [['value' => 1000]],
     ]);
   $item->save();
 }
@@ -390,9 +390,9 @@ function se_example_data_ticket_setup() {
     'Open',
   ]);
 
-  $priority_term = se_example_data_set_term_field_config('Normal', 'se_ticket_priority', 'se_ticket.se_ticket.se_ti_priority_ref');
-  $ticket_type_term = se_example_data_set_term_field_config('Onsite', 'se_ticket_type', 'se_ticket.se_ticket.se_ti_type_ref');
-  $ticket_status_term = se_example_data_set_term_field_config('Open', 'se_ticket_status', 'se_ticket.se_ticket.se_ti_status_ref');
+  $priority_term = se_example_data_set_term_field_config('Normal', 'se_ticket_priority', 'se_ticket.se_ticket.se_priority_ref');
+  $ticket_type_term = se_example_data_set_term_field_config('Onsite', 'se_ticket_type', 'se_ticket.se_ticket.se_type_ref');
+  $ticket_status_term = se_example_data_set_term_field_config('Open', 'se_ticket_status', 'se_ticket.se_ticket.se_status_ref');
 
   // Also set the term defaults in config.
   $config = \Drupal::configFactory()->getEditable('se_ticket.settings');
@@ -428,9 +428,9 @@ function se_item_load_defaults($category, $product_type, $manufacturer, $type): 
     'langcode' => 'en',
     'uid' => '1',
     'status' => 1,
-    'se_it_sale_category_ref' => [['target_id' => $sale_category->id()]],
-    'se_it_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
-    'se_it_product_type_ref'  => [['target_id' => $product_type->id()]],
+    'se_sale_category_ref' => [['target_id' => $sale_category->id()]],
+    'se_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
+    'se_product_type_ref'  => [['target_id' => $product_type->id()]],
   ];
 }
 
@@ -448,7 +448,7 @@ function se_business_load_defaults($term): array {
     'langcode' => 'en',
     'uid' => '1',
     'status' => 1,
-    'se_bu_type_ref' => [['target_id' => $term->id()]],
+    'se_type_ref' => [['target_id' => $term->id()]],
   ];
 }
 

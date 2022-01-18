@@ -4,14 +4,14 @@ dependencies:
   config:
     - field.field.se_timekeeping.se_timekeeping.se_bu_ref
     - field.field.se_timekeeping.se_timekeeping.se_ti_ref
-    - field.field.se_timekeeping.se_timekeeping.se_tk_amount
-    - field.field.se_timekeeping.se_timekeeping.se_tk_billable
-    - field.field.se_timekeeping.se_timekeeping.se_tk_billed
-    - field.field.se_timekeeping.se_timekeeping.se_tk_comment
-    - field.field.se_timekeeping.se_timekeeping.se_tk_date
+    - field.field.se_timekeeping.se_timekeeping.se_amount
+    - field.field.se_timekeeping.se_timekeeping.se_billable
+    - field.field.se_timekeeping.se_timekeeping.se_billed
+    - field.field.se_timekeeping.se_timekeeping.se_comment
+    - field.field.se_timekeeping.se_timekeeping.se_date
     - field.field.se_timekeeping.se_timekeeping.se_in_ref
-    - field.field.se_timekeeping.se_timekeeping.se_tk_item
-    - field.field.se_timekeeping.se_timekeeping.se_tk_review
+    - field.field.se_timekeeping.se_timekeeping.se_it_ref
+    - field.field.se_timekeeping.se_timekeeping.se_review
   module:
     - datetime
     - field_layout
@@ -52,7 +52,7 @@ content:
     third_party_settings: {  }
     weight: 4
     region: second
-  se_tk_amount:
+  se_amount:
     type: number_integer
     label: inline
     settings:
@@ -61,7 +61,7 @@ content:
     third_party_settings: {  }
     weight: 2
     region: first
-  se_tk_billable:
+  se_billable:
     type: boolean
     label: inline
     settings:
@@ -71,7 +71,7 @@ content:
     third_party_settings: {  }
     weight: 7
     region: second
-  se_tk_billed:
+  se_billed:
     type: boolean
     label: inline
     settings:
@@ -81,14 +81,14 @@ content:
     third_party_settings: {  }
     weight: 8
     region: second
-  se_tk_comment:
+  se_comment:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 1
     region: first
-  se_tk_date:
+  se_date:
     type: datetime_default
     label: inline
     settings:
@@ -105,7 +105,7 @@ content:
     third_party_settings: {  }
     weight: 10
     region: second
-  se_tk_item:
+  se_it_ref:
     type: entity_reference_label
     label: inline
     settings:
@@ -113,7 +113,7 @@ content:
     third_party_settings: {  }
     weight: 5
     region: second
-  se_tk_review:
+  se_review:
     type: boolean
     label: inline
     settings:

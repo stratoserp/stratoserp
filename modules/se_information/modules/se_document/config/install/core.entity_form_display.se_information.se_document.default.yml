@@ -3,10 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.se_information.se_document.se_bu_ref
-    - field.field.se_information.se_document.se_if_attachments
-    - field.field.se_information.se_document.se_if_body
-    - field.field.se_information.se_document.se_if_comments
-    - field.field.se_information.se_document.se_if_images
+    - field.field.se_information.se_document.se_attachments
+    - field.field.se_information.se_document.se_body
+    - field.field.se_information.se_document.se_images
     - image.style.thumbnail
     - se_information.se_information_type.se_document
   module:
@@ -69,14 +68,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  se_if_attachments:
+  se_attachments:
     weight: 5
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
     region: first
-  se_if_body:
+  se_body:
     weight: 2
     settings:
       rows: 5
@@ -84,13 +83,7 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: bottom
-  se_if_comments:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: comment_default
-    region: bottom
-  se_if_images:
+  se_images:
     weight: 6
     settings:
       progress_indicator: throbber

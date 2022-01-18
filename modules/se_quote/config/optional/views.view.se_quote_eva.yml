@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_quote.se_qu_total
+    - field.storage.se_quote.se_total
     - field.storage.se_quote.se_status_ref
     - user.role.owner
     - user.role.staff
@@ -288,10 +288,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_qu_total:
-          id: se_qu_total
-          table: se_quote__se_qu_total
-          field: se_qu_total
+        se_total:
+          id: se_total
+          table: se_quote__se_total
+          field: se_total
           relationship: none
           group_type: group
           admin_label: ''
@@ -453,7 +453,7 @@ display:
             created: created
             name: name
             se_status_ref: se_status_ref
-            se_qu_total: se_qu_total
+            se_total: se_total
           default: id
           info:
             id:
@@ -484,7 +484,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_qu_total:
+            se_total:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -526,7 +526,7 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_quote.se_qu_total'
+        - 'config:field.storage.se_quote.se_total'
         - 'config:field.storage.se_quote.se_status_ref'
   se_quote_eva:
     id: se_quote_eva
@@ -548,5 +548,5 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_quote.se_qu_total'
+        - 'config:field.storage.se_quote.se_total'
         - 'config:field.storage.se_quote.se_status_ref'

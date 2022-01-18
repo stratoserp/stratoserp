@@ -93,7 +93,7 @@ class Item extends StratosEntityBase implements ItemInterface {
    * {@inheritdoc}
    */
   public function hasParent(): bool {
-    return !empty($this->se_item_ref->target_id);
+    return !empty($this->se_it_ref->target_id);
   }
 
   /**

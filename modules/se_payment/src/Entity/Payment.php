@@ -82,7 +82,7 @@ class Payment extends StratosEntityBase implements PaymentInterface {
    * {@inheritdoc}
    */
   public function getTotal(): int {
-    return (int) $this->se_pa_total->value;
+    return (int) $this->se_total->value;
   }
 
   /**

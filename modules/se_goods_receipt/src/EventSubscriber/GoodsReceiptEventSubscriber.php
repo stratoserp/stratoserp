@@ -40,19 +40,18 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
       return;
     }
 
-    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
-    foreach ($entity->{$bundleFieldType . '_lines'} as $index => $itemLine) {
+    foreach ($entity->se_item_lines as $index => $itemLine) {
       if (!empty($itemLine->serial)) {
         /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = Item::load($itemLine->target_id)) {
-          if ($item->se_it_serial->value !== $itemLine->serial) {
+          if ($item->se_serial->value !== $itemLine->serial) {
             $newItem = $item->createDuplicate();
             $newItem
-              ->set('se_it_serial', $itemLine->serial)
-              ->set('se_it_item_ref', $item->id())
+              ->set('se_serial', $itemLine->serial)
+              ->set('se_it_ref', $item->id())
               ->save();
 
-            $entity->{$bundleFieldType . '_lines'}[$index]->target_id = $newItem->id();
+            $entity->se_item_lines[$index]->target_id = $newItem->id();
           }
         }
       }
@@ -68,8 +67,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
       return;
     }
 
-    $bundleFieldType = 'se_' . Constants::SE_ITEM_LINE_BUNDLES[$entity->bundle()];
-    foreach ($entity->{$bundleFieldType . '_lines'} as $itemLine) {
+    foreach ($entity->se_item_lines as $itemLine) {
       /** @var \Drupal\se_item\Entity\Item $item */
       if ($item = Item::load($itemLine->target_id)) {
         if ($item->bundle() !== 'se_stock') {
@@ -78,7 +76,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
         $item
           ->set('se_gr_ref', $entity->id())
           ->set('se_po_ref', $entity->se_po_ref->target_id)
-          ->set('se_it_cost_price', $itemLine->price)
+          ->set('se_cost_price', $itemLine->price)
           ->save();
       }
     }

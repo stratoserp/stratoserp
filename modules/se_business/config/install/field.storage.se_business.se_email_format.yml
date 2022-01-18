@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - se_business
+id: se_business.se_email_format
+field_name: se_email_format
+entity_type: se_business
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '0'
+      label: 'Plain text email'
+    -
+      value: '1'
+      label: 'HTML email'
+    -
+      value: '2'
+      label: 'PDF email'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

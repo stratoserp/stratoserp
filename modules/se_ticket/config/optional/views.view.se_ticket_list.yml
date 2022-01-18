@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.se_ticket.se_bu_ref
-    - field.storage.se_ticket.se_ti_scheduled
+    - field.storage.se_ticket.se_scheduled
     - system.menu.stratos-erp
     - user.role.owner
     - user.role.staff
@@ -223,10 +223,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_ti_scheduled:
-          id: se_ti_scheduled
-          table: se_ticket__se_ti_scheduled
-          field: se_ti_scheduled
+        se_scheduled:
+          id: se_scheduled
+          table: se_ticket__se_scheduled
+          field: se_scheduled
           relationship: none
           group_type: group
           admin_label: ''
@@ -388,7 +388,7 @@ display:
             created: created
             name: name
             se_bu_ref: se_bu_ref
-            se_ti_scheduled: se_ti_scheduled
+            se_scheduled: se_scheduled
           default: created
           info:
             created:
@@ -412,7 +412,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_ti_scheduled:
+            se_scheduled:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -449,7 +449,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_ticket.se_bu_ref'
-        - 'config:field.storage.se_ticket.se_ti_scheduled'
+        - 'config:field.storage.se_ticket.se_scheduled'
   se_ticket_list:
     id: se_ticket_list
     display_title: Page
@@ -472,4 +472,4 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.se_ticket.se_bu_ref'
-        - 'config:field.storage.se_ticket.se_ti_scheduled'
+        - 'config:field.storage.se_ticket.se_scheduled'
