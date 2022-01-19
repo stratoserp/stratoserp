@@ -118,7 +118,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No timekeeping'
+            value: ''
             format: basic_html
           tokenize: false
       sorts: {  }

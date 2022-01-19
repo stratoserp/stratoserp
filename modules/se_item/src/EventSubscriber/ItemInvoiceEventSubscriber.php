@@ -158,6 +158,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
       $item
         ->set('se_sale_date', $date->format('Y-m-d'))
         ->set('se_sale_price', $price)
+        ->set('se_sold', TRUE)
         ->set('se_in_ref', $invoice->id());
     }
     return $item;
@@ -179,6 +180,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
       $item
         ->set('se_sale_date', NULL)
         ->set('se_sale_price', NULL)
+        ->set('se_sold', FALSE)
         ->set('se_in_ref', NULL);
     }
     return $item;

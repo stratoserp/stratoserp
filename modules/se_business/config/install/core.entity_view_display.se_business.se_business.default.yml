@@ -8,7 +8,7 @@ dependencies:
     - field.field.se_business.se_business.se_email_format
     - field.field.se_business.se_business.se_fax
     - field.field.se_business.se_business.se_homepage
-    - field.field.se_business.se_business.se_invoice_day_of_month
+    - field.field.se_business.se_business.se_invoice_day
     - field.field.se_business.se_business.se_last_statement_date
     - field.field.se_business.se_business.se_location
     - field.field.se_business.se_business.se_mobile
@@ -110,7 +110,7 @@ third_party_settings:
         - se_postal_postcode
         - se_balance
         - se_status
-        - se_invoice_day_of_month
+        - se_invoice_day
         - se_last_statement_date
         - se_terms
       label: Details
@@ -361,7 +361,7 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
-  se_invoice_day_of_month:
+  se_invoice_day:
     type: number_integer
     label: inline
     settings:

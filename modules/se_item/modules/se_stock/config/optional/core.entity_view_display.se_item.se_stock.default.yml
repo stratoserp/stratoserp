@@ -19,6 +19,7 @@ dependencies:
     - field.field.se_item.se_stock.se_sale_price
     - field.field.se_item.se_stock.se_sell_price
     - field.field.se_item.se_stock.se_serial
+    - field.field.se_item.se_stock.se_sold
     - image.style.thumbnail
     - se_item.se_item_type.se_stock
   module:
@@ -112,6 +113,16 @@ content:
     weight: 10
     region: first
   se_lost:
+    type: boolean
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
+    region: first
+  se_sold:
     type: boolean
     label: inline
     settings:

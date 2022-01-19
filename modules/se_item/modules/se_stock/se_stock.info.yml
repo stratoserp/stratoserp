@@ -23,6 +23,7 @@ config_devel:
     - field.field.se_item.se_stock.se_sale_price
     - field.field.se_item.se_stock.se_sell_price
     - field.field.se_item.se_stock.se_serial
+    - field.field.se_item.se_stock.se_sold
     - se_item.se_item_type.se_stock
   optional:
     - core.entity_form_display.se_item.se_stock.default

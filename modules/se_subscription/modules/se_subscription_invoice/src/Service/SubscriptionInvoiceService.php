@@ -48,7 +48,7 @@ class SubscriptionInvoiceService {
       ->getStorage('se_business')
       ->getQuery()
       ->accessCheck(FALSE)
-      ->condition('se_invoice_day_of_month', date('d'), '<=');
+      ->condition('se_invoice_day', date('d'), '<=');
 
     // Load subscriptions to create line items.
     foreach ($query->execute() as $businessId) {

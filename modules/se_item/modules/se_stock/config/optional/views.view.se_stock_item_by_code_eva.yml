@@ -522,7 +522,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No stock sub-items'
+            value: 'No stock items'
             format: basic_html
           tokenize: false
       sorts: {  }

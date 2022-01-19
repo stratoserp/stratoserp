@@ -24,6 +24,7 @@ config_devel:
     - field.storage.se_item.se_sale_price
     - field.storage.se_item.se_sell_price
     - field.storage.se_item.se_serial
+    - field.storage.se_item.se_sold
   optional:
     - field.storage.se_item.se_gr_ref
     - field.storage.se_item.se_in_ref

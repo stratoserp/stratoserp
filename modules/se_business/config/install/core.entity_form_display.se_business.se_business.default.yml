@@ -8,7 +8,7 @@ dependencies:
     - field.field.se_business.se_business.se_email_format
     - field.field.se_business.se_business.se_fax
     - field.field.se_business.se_business.se_homepage
-    - field.field.se_business.se_business.se_invoice_day_of_month
+    - field.field.se_business.se_business.se_invoice_day
     - field.field.se_business.se_business.se_last_statement_date
     - field.field.se_business.se_business.se_location
     - field.field.se_business.se_business.se_mobile
@@ -117,7 +117,7 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-  se_invoice_day_of_month:
+  se_invoice_day:
     type: number
     weight: 18
     region: second
