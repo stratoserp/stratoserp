@@ -655,10 +655,10 @@ display:
         - url
         - url.query_args
         - user
-        - user.roles
+        - user.permissions
       tags:
-        - 'config:field.storage.se_invoice.se_total'
         - 'config:field.storage.se_invoice.se_status_ref'
+        - 'config:field.storage.se_invoice.se_total'
   se_invoice_list:
     id: se_invoice_list
     display_title: Page
@@ -684,7 +684,7 @@ display:
         - url
         - url.query_args
         - user
-        - user.roles
+        - user.permissions
       tags:
-        - 'config:field.storage.se_invoice.se_total'
         - 'config:field.storage.se_invoice.se_status_ref'
+        - 'config:field.storage.se_invoice.se_total'

@@ -625,6 +625,7 @@ display:
           admin_label: 'se_bu_ref: Business'
           plugin_id: standard
           required: false
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -636,10 +637,10 @@ display:
         - url
         - url.query_args
         - user
-        - user.roles
+        - user.permissions
       tags:
-        - 'config:field.storage.se_purchase_order.se_total'
         - 'config:field.storage.se_purchase_order.se_status_ref'
+        - 'config:field.storage.se_purchase_order.se_total'
   se_purchase_order_list:
     id: se_purchase_order_list
     display_title: Page
@@ -665,7 +666,7 @@ display:
         - url
         - url.query_args
         - user
-        - user.roles
+        - user.permissions
       tags:
-        - 'config:field.storage.se_purchase_order.se_total'
         - 'config:field.storage.se_purchase_order.se_status_ref'
+        - 'config:field.storage.se_purchase_order.se_total'

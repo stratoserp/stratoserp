@@ -575,6 +575,7 @@ display:
           admin_label: 'se_bu_ref: Business'
           plugin_id: standard
           required: false
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -585,7 +586,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_goods_receipt.se_po_ref'
         - 'config:field.storage.se_goods_receipt.se_total'
@@ -613,7 +614,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_goods_receipt.se_po_ref'
         - 'config:field.storage.se_goods_receipt.se_total'

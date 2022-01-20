@@ -353,15 +353,17 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
           items_per_page: 15
           total_pages: null
           id: 0
           tags:
-            next: ››
-            previous: ‹‹
+            next: ›
+            previous: ‹
+            first: ‹‹
+            last: ››
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -370,6 +372,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
       exposed_form:
         type: basic
         options:
@@ -484,7 +487,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_subscription.se_next_due'
         - 'config:field.storage.se_subscription.se_period'
@@ -512,7 +515,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_subscription.se_next_due'
         - 'config:field.storage.se_subscription.se_period'

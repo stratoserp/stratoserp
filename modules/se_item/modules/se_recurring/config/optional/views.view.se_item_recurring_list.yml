@@ -38,7 +38,7 @@ display:
           entity_field: id
           plugin_id: field
           label: ID
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -432,7 +432,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 5
+          quantity: 9
       exposed_form:
         type: basic
         options:
@@ -671,7 +671,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_item.se_code'
         - 'config:field.storage.se_item.se_cost_price'
@@ -701,7 +701,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_item.se_code'
         - 'config:field.storage.se_item.se_cost_price'
