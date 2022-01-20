@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_contact.se_contact.se_phone
     - field.field.se_contact.se_contact.se_type_ref
   module:
+    - field_group
     - field_layout
     - layout_discovery
     - se_contact

@@ -5,8 +5,6 @@ dependencies:
     - field.storage.se_ticket.se_bu_ref
     - field.storage.se_ticket.se_scheduled
     - system.menu.stratos-erp
-    - user.role.owner
-    - user.role.staff
   module:
     - datetime_range
     - dynamic_entity_reference

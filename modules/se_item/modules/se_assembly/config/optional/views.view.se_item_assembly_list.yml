@@ -8,8 +8,6 @@ dependencies:
     - field.storage.se_item.se_serial
     - se_item.se_item_type.se_assembly
     - system.menu.stratos-erp
-    - user.role.owner
-    - user.role.staff
   module:
     - se_accounting
     - se_item

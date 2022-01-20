@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_timekeeping.se_timekeeping.se_bu_ref
-    - field.field.se_timekeeping.se_timekeeping.se_ti_ref
     - field.field.se_timekeeping.se_timekeeping.se_amount
     - field.field.se_timekeeping.se_timekeeping.se_billable
     - field.field.se_timekeeping.se_timekeeping.se_billed
+    - field.field.se_timekeeping.se_timekeeping.se_bu_ref
     - field.field.se_timekeeping.se_timekeeping.se_comment
     - field.field.se_timekeeping.se_timekeeping.se_date
     - field.field.se_timekeeping.se_timekeeping.se_in_ref
     - field.field.se_timekeeping.se_timekeeping.se_it_ref
     - field.field.se_timekeeping.se_timekeeping.se_review
+    - field.field.se_timekeeping.se_timekeeping.se_ti_ref
   module:
     - datetime
     - field_group
@@ -53,26 +53,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_bu_ref:
-    type: entity_reference_autocomplete
-    weight: 3
-    region: second
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  se_ti_ref:
-    type: entity_reference_autocomplete
-    weight: 4
-    region: second
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   se_amount:
     type: number
     weight: 2
@@ -93,6 +73,16 @@ content:
     region: second
     settings:
       display_label: true
+    third_party_settings: {  }
+  se_bu_ref:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: second
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   se_comment:
     type: text_textarea
@@ -124,6 +114,16 @@ content:
     region: second
     settings:
       display_label: true
+    third_party_settings: {  }
+  se_ti_ref:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: second
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
 hidden:
   revision_log_message: true

@@ -3,11 +3,9 @@ status: true
 dependencies:
   config:
     - field.storage.se_invoice.se_outstanding
-    - field.storage.se_invoice.se_total
     - field.storage.se_invoice.se_status_ref
+    - field.storage.se_invoice.se_total
     - taxonomy.vocabulary.se_status
-    - user.role.owner
-    - user.role.staff
   module:
     - eva
     - se_accounting

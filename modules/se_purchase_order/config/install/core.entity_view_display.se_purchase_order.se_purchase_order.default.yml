@@ -6,9 +6,9 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_co_ref
     - field.field.se_purchase_order.se_purchase_order.se_item_lines
     - field.field.se_purchase_order.se_purchase_order.se_qu_ref
-    - field.field.se_purchase_order.se_purchase_order.se_total
     - field.field.se_purchase_order.se_purchase_order.se_status_ref
     - field.field.se_purchase_order.se_purchase_order.se_su_ref
+    - field.field.se_purchase_order.se_purchase_order.se_total
   module:
     - field_layout
     - layout_discovery
@@ -76,13 +76,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
-  se_total:
-    weight: 6
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
-    type: se_currency_formatter
-    region: bottom
   se_status_ref:
     weight: 4
     label: inline
@@ -99,6 +92,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: first
+  se_total:
+    weight: 6
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: se_currency_formatter
+    region: bottom
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true

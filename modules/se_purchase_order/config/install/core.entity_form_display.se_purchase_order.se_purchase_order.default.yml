@@ -6,9 +6,9 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_co_ref
     - field.field.se_purchase_order.se_purchase_order.se_item_lines
     - field.field.se_purchase_order.se_purchase_order.se_qu_ref
-    - field.field.se_purchase_order.se_purchase_order.se_total
     - field.field.se_purchase_order.se_purchase_order.se_status_ref
     - field.field.se_purchase_order.se_purchase_order.se_su_ref
+    - field.field.se_purchase_order.se_purchase_order.se_total
   module:
     - field_group
     - field_layout
@@ -107,12 +107,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: second
-  se_total:
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
-    type: se_currency_widget
-    region: bottom
   se_status_ref:
     weight: 3
     settings: {  }
@@ -129,6 +123,12 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
+  se_total:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: se_currency_widget
+    region: bottom
   title:
     type: string_textfield
     weight: 0

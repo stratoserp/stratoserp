@@ -15,6 +15,7 @@ dependencies:
     - se_quote
     - se_subscription
     - se_ticket
+    - se_timekeeping
     - stratoserp
     - system
     - toolbar

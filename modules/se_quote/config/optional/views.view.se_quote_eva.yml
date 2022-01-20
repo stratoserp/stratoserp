@@ -2,10 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_quote.se_total
     - field.storage.se_quote.se_status_ref
-    - user.role.owner
-    - user.role.staff
+    - field.storage.se_quote.se_total
   module:
     - eva
     - se_accounting

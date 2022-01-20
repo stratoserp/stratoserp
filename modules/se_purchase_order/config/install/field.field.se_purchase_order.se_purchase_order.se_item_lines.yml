@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.se_purchase_order.se_item_lines
+    - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
   module:
     - se_item_line

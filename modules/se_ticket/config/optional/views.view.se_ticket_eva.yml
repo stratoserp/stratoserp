@@ -4,9 +4,6 @@ dependencies:
   config:
     - field.storage.se_ticket.se_open_date
     - field.storage.se_ticket.se_scheduled
-    - user.role.developer
-    - user.role.owner
-    - user.role.staff
   module:
     - datetime_range
     - eva
@@ -308,7 +305,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 9
+          quantity: 5
       exposed_form:
         type: basic
         options:
@@ -499,7 +496,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_ticket.se_open_date'
         - 'config:field.storage.se_ticket.se_scheduled'
@@ -521,7 +518,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_ticket.se_open_date'
         - 'config:field.storage.se_ticket.se_scheduled'

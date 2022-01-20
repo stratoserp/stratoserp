@@ -31,8 +31,8 @@ config_devel:
     - field.storage.se_timekeeping.se_review
 
   optional:
-    - core.entity_form_display.se_timekeeping.se_timekeeping
-    - core.entity_view_display.se_timekeeping.se_timekeeping
+    - core.entity_form_display.se_timekeeping.se_timekeeping.default
+    - core.entity_view_display.se_timekeeping.se_timekeeping.default
     - core.entity_view_mode.se_timekeeping.token
     - field.field.se_timekeeping.se_timekeeping.se_in_ref
     - field.storage.se_timekeeping.se_in_ref

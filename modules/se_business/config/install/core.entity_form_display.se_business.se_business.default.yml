@@ -18,6 +18,7 @@ dependencies:
     - field.field.se_business.se_business.se_postal_state
     - field.field.se_business.se_business.se_postal_suburb
     - field.field.se_business.se_business.se_postcode
+    - field.field.se_business.se_business.se_reminder_days
     - field.field.se_business.se_business.se_state
     - field.field.se_business.se_business.se_status
     - field.field.se_business.se_business.se_suburb
@@ -231,3 +232,4 @@ content:
     third_party_settings: {  }
 hidden:
   se_location: true
+  se_reminder_days: true

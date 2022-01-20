@@ -5,8 +5,6 @@ dependencies:
     - field.storage.se_ticket.se_scheduled
     - field.storage.se_ticket.se_type_ref
     - system.menu.stratos-erp
-    - user.role.owner
-    - user.role.staff
   module:
     - datetime
     - datetime_range

@@ -71,19 +71,6 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
       $data['dependencies']['config'] = array_values($newDependencies);
     }
 
-    // Remove very specific ticket fields.
-    if (isset($data['id'])) {
-      if ($data['id'] === 'se_ticket.se_ticket.default') {
-        if ((stripos($fileName, 'core.entity_form_display') !== FALSE)
-        || (stripos($fileName, 'core.entity_view_display') !== FALSE)) {
-          unset($data['content']['se_timekeeping']);
-          if (($key = array_search('field.field.se_ticket.se_ticket.se_timekeeping', $data['dependencies']['config'], TRUE)) !== FALSE) {
-            unset($data['dependencies']['config'][$key]);
-          }
-        }
-      }
-    }
-
     $event->setData($data);
   }
 

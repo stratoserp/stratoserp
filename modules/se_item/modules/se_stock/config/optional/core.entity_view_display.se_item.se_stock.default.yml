@@ -12,8 +12,8 @@ dependencies:
     - field.field.se_item.se_stock.se_it_ref
     - field.field.se_item.se_stock.se_lost
     - field.field.se_item.se_stock.se_manufacturer_ref
-    - field.field.se_item.se_stock.se_product_type_ref
     - field.field.se_item.se_stock.se_po_ref
+    - field.field.se_item.se_stock.se_product_type_ref
     - field.field.se_item.se_stock.se_sale_category_ref
     - field.field.se_item.se_stock.se_sale_date
     - field.field.se_item.se_stock.se_sale_price
@@ -122,16 +122,6 @@ content:
     third_party_settings: {  }
     weight: 6
     region: first
-  se_sold:
-    type: boolean
-    label: inline
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 6
-    region: first
   se_manufacturer_ref:
     type: entity_reference_label
     label: inline
@@ -139,14 +129,6 @@ content:
       link: true
     third_party_settings: {  }
     weight: 2
-    region: top
-  se_product_type_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
     region: top
   se_po_ref:
     type: entity_reference_label
@@ -156,6 +138,14 @@ content:
     third_party_settings: {  }
     weight: 11
     region: second
+  se_product_type_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: top
   se_sale_category_ref:
     type: entity_reference_label
     label: inline
@@ -194,6 +184,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 5
+    region: first
+  se_sold:
+    type: boolean
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
     region: first
   se_stock_item_by_code_eva_se_stock_item_by_code_eva:
     settings: {  }

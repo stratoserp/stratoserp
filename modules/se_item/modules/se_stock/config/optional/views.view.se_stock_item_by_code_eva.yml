@@ -9,8 +9,6 @@ dependencies:
     - field.storage.se_item.se_sale_price
     - field.storage.se_item.se_serial
     - se_item.se_item_type.se_stock
-    - user.role.owner
-    - user.role.staff
   module:
     - eva
     - se_accounting

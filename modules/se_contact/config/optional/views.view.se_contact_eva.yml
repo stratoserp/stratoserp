@@ -5,8 +5,6 @@ dependencies:
     - field.storage.se_contact.se_email
     - field.storage.se_contact.se_mobile
     - field.storage.se_contact.se_phone
-    - user.role.owner
-    - user.role.staff
   module:
     - eva
     - se_contact

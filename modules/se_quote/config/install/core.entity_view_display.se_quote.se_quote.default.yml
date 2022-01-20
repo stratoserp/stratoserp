@@ -5,8 +5,8 @@ dependencies:
     - field.field.se_quote.se_quote.se_bu_ref
     - field.field.se_quote.se_quote.se_co_ref
     - field.field.se_quote.se_quote.se_item_lines
-    - field.field.se_quote.se_quote.se_total
     - field.field.se_quote.se_quote.se_status_ref
+    - field.field.se_quote.se_quote.se_total
   module:
     - field_layout
     - layout_discovery
@@ -59,13 +59,6 @@ content:
     third_party_settings: {  }
     type: se_item_line_formatter
     region: bottom
-  se_total:
-    type: se_currency_formatter
-    weight: 5
-    region: bottom
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
   se_status_ref:
     weight: 3
     label: inline
@@ -74,6 +67,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
+  se_total:
+    type: se_currency_formatter
+    weight: 5
+    region: bottom
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true

@@ -5,8 +5,6 @@ dependencies:
     - field.storage.se_payment.se_bu_ref
     - field.storage.se_payment.se_total
     - system.menu.stratos-erp
-    - user.role.owner
-    - user.role.staff
   module:
     - se_accounting
     - se_business

@@ -2,14 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_information.se_document.se_bu_ref
     - field.field.se_information.se_document.se_attachments
     - field.field.se_information.se_document.se_body
+    - field.field.se_information.se_document.se_bu_ref
     - field.field.se_information.se_document.se_images
     - image.style.thumbnail
     - se_information.se_information_type.se_document
   module:
-    - comment
     - field_layout
     - file
     - image
@@ -33,14 +32,6 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  se_bu_ref:
-    weight: 1
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   se_attachments:
     weight: 2
     label: inline
@@ -55,6 +46,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  se_bu_ref:
+    weight: 1
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   se_images:
     weight: 3

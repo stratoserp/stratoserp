@@ -6,8 +6,6 @@ dependencies:
     - field.storage.se_item.se_cost_price
     - field.storage.se_item.se_sell_price
     - field.storage.se_item.se_serial
-    - user.role.owner
-    - user.role.staff
   module:
     - se_accounting
     - se_item

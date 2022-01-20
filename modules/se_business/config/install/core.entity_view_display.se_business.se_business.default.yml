@@ -18,6 +18,7 @@ dependencies:
     - field.field.se_business.se_business.se_postal_state
     - field.field.se_business.se_business.se_postal_suburb
     - field.field.se_business.se_business.se_postcode
+    - field.field.se_business.se_business.se_reminder_days
     - field.field.se_business.se_business.se_state
     - field.field.se_business.se_business.se_status
     - field.field.se_business.se_business.se_suburb
@@ -46,12 +47,12 @@ third_party_settings:
         - group_tab_tickets
         - group_tab_timekeeping
         - group_tab_quotes
+        - group_tab_subscriptions
         - group_tab_invoices
         - group_tab_payments
         - group_tab_reports
         - group_tab_purchase_orders
         - group_tab_goods_receipts
-        - group_tab_subscriptions
         - group_tab_bills
       label: 'Business tabs'
       parent_name: ''
@@ -109,9 +110,10 @@ third_party_settings:
         - se_postal_state
         - se_postal_postcode
         - se_balance
-        - se_status
         - se_invoice_day
         - se_last_statement_date
+        - se_reminder_days
+        - se_status
         - se_terms
       label: Details
       parent_name: group_tabs
@@ -144,7 +146,7 @@ third_party_settings:
       label: Invoices
       parent_name: group_tabs
       region: content
-      weight: 27
+      weight: 28
       format_type: tab
       format_settings:
         classes: ''
@@ -158,7 +160,7 @@ third_party_settings:
       label: 'Purchase orders'
       parent_name: group_tabs
       region: content
-      weight: 30
+      weight: 31
       format_type: tab
       format_settings:
         classes: ''
@@ -184,7 +186,7 @@ third_party_settings:
       label: Payments
       parent_name: group_tabs
       region: content
-      weight: 28
+      weight: 29
       format_type: tab
       format_settings:
         classes: ''
@@ -207,6 +209,7 @@ third_party_settings:
         description: ''
     group_tab_timekeeping:
       children:
+        - se_timekeeping_bu_eva_se_timekeeping_bu_eva_form
         - se_timekeeping_bu_eva_se_timekeeping_bu_eva
       label: Timekeeping
       parent_name: group_tabs
@@ -223,7 +226,7 @@ third_party_settings:
       label: Reports
       parent_name: group_tabs
       region: content
-      weight: 29
+      weight: 30
       format_type: tab
       format_settings:
         classes: ''
@@ -236,7 +239,7 @@ third_party_settings:
       label: Bills
       parent_name: group_tabs
       region: content
-      weight: 18
+      weight: 33
       format_type: tab
       format_settings:
         classes: ''
@@ -249,7 +252,7 @@ third_party_settings:
       label: 'Goods receipts'
       parent_name: group_tabs
       region: content
-      weight: 31
+      weight: 32
       format_type: tab
       format_settings:
         classes: ''
@@ -262,7 +265,7 @@ third_party_settings:
       label: Subscriptions
       parent_name: group_tabs
       region: content
-      weight: 32
+      weight: 27
       format_type: tab
       format_settings:
         classes: ''
@@ -307,11 +310,6 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
-  se_bill_eva_se_bill_eva:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
   se_address:
     type: string
     label: inline
@@ -325,7 +323,32 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 15
+    region: content
+  se_bill_eva_se_bill_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  se_contact_eva_se_contact_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  se_contact_eva_se_contact_eva_form:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  se_document_eva_se_document_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  se_document_eva_se_document_eva_form:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
     region: content
   se_email:
     type: basic_string
@@ -347,7 +370,12 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 11
+    weight: 10
+    region: content
+  se_goods_receipt_eva_se_goods_receipt_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
     region: content
   se_homepage:
     type: link
@@ -361,6 +389,11 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
+  se_information_eva_se_information_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   se_invoice_day:
     type: number_integer
     label: inline
@@ -368,7 +401,17 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 17
+    weight: 16
+    region: content
+  se_invoice_eva_se_invoice_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  se_invoice_eva_se_invoice_eva_form:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
     region: content
   se_last_statement_date:
     type: datetime_default
@@ -377,13 +420,14 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 18
+    weight: 17
     region: content
   se_location:
     type: geolocation_map
     label: inline
     settings:
       set_marker: true
+      show_label: false
       common_map: true
       show_delta_label: false
       use_overridden_map_settings: false
@@ -674,7 +718,12 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 8
+    region: content
+  se_payment_eva_se_payment_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
     region: content
   se_phone:
     type: telephone_link
@@ -682,7 +731,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
   se_postal_address:
     type: string
@@ -690,7 +739,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 12
+    weight: 11
     region: content
   se_postal_postcode:
     type: string
@@ -698,7 +747,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 15
+    weight: 14
     region: content
   se_postal_state:
     type: string
@@ -706,7 +755,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: content
   se_postal_suburb:
     type: string
@@ -714,98 +763,13 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 13
+    weight: 12
     region: content
   se_postcode:
     type: string
     label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  se_state:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  se_status:
-    type: list_default
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  se_suburb:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  se_terms:
-    type: number_integer
-    label: inline
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 19
-    region: content
-  se_type_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  se_contact_eva_se_contact_eva:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 12
-    region: content
-  se_contact_eva_se_contact_eva_form:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 11
-    region: content
-  se_document_eva_se_document_eva:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  se_document_eva_se_document_eva_form:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  se_goods_receipt_eva_se_goods_receipt_eva:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  se_information_eva_se_information_eva:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  se_invoice_eva_se_invoice_eva:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  se_invoice_eva_se_invoice_eva_form:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  se_payment_eva_se_payment_eva:
-    settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
@@ -824,10 +788,51 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
+  se_reminder_days:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  se_state:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  se_status:
+    type: list_default
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
+    region: content
   se_subscription_eva_se_subscription_eva:
     settings: {  }
     third_party_settings: {  }
     weight: 10
+    region: content
+  se_suburb:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  se_terms:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 20
     region: content
   se_ticket_eva_se_ticket_eva:
     settings: {  }
@@ -839,10 +844,28 @@ content:
     third_party_settings: {  }
     weight: 9
     region: content
+  se_timekeeping_bu_eva_se_timekeeping_bu_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  se_timekeeping_bu_eva_se_timekeeping_bu_eva_form:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
   se_timekeeping_eva_se_timekeeping_eva:
     settings: {  }
     third_party_settings: {  }
     weight: 10
+    region: content
+  se_type_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   user_id: true

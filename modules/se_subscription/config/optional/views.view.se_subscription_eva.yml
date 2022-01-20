@@ -4,6 +4,7 @@ dependencies:
   module:
     - eva
     - se_subscription
+    - user
 id: se_subscription_eva
 label: 'Subscriptions EVA'
 module: views

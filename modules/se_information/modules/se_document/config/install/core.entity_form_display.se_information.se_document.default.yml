@@ -2,14 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_information.se_document.se_bu_ref
     - field.field.se_information.se_document.se_attachments
     - field.field.se_information.se_document.se_body
+    - field.field.se_information.se_document.se_bu_ref
     - field.field.se_information.se_document.se_images
     - image.style.thumbnail
     - se_information.se_information_type.se_document
   module:
-    - comment
     - field_group
     - field_layout
     - file
@@ -58,16 +57,6 @@ content:
       placeholder: ''
     region: bottom
     third_party_settings: {  }
-  se_bu_ref:
-    weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_attachments:
     weight: 5
     settings:
@@ -83,6 +72,16 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: bottom
+  se_bu_ref:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
   se_images:
     weight: 6
     settings:

@@ -2,12 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_quote.se_total
     - field.storage.se_quote.se_status_ref
+    - field.storage.se_quote.se_total
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_status
-    - user.role.owner
-    - user.role.staff
   module:
     - se_accounting
     - se_business

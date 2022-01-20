@@ -7,8 +7,6 @@ dependencies:
     - field.storage.se_timekeeping.se_billed
     - field.storage.se_timekeeping.se_date
     - field.storage.se_timekeeping.se_review
-    - user.role.owner
-    - user.role.staff
   module:
     - datetime
     - eva
@@ -30,6 +28,72 @@ display:
     display_options:
       title: 'Timekeeping list'
       fields:
+        id:
+          id: id
+          table: se_timekeeping_field_data
+          field: id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: se_timekeeping
+          entity_field: id
+          plugin_id: field
+          label: ID
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         se_date:
           id: se_date
           table: se_timekeeping__se_date
@@ -43,8 +107,8 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: false
-            path: ''
+            make_link: true
+            path: 'timekeeping/{{ id }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -353,17 +417,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        user_id:
-          id: user_id
-          table: se_timekeeping_field_data
-          field: user_id
-          relationship: none
+        name_1:
+          id: name_1
+          table: users_field_data
+          field: name
+          relationship: user_id
           group_type: group
           admin_label: ''
-          entity_type: se_timekeeping
-          entity_field: user_id
+          entity_type: user
+          entity_field: name
           plugin_id: field
-          label: 'Authored by'
+          label: Name
           exclude: false
           alter:
             alter_text: false
@@ -404,11 +468,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: value
+          type: user_name
           settings:
-            link: true
-          group_column: target_id
+            link_to_entity: true
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -424,15 +488,17 @@ display:
           field: se_amount
           plugin_id: field
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
           items_per_page: 10
           total_pages: null
           id: 0
           tags:
-            next: ››
-            previous: ‹‹
+            next: ›
+            previous: ‹
+            first: ‹‹
+            last: ››
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -441,11 +507,12 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 5
       exposed_form:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -508,7 +575,55 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-      filters: {  }
+      filters:
+        uid:
+          id: uid
+          table: users_field_data
+          field: uid
+          relationship: user_id
+          group_type: group
+          admin_label: ''
+          entity_type: user
+          entity_field: uid
+          plugin_id: user_name
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: uid_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: uid_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: uid
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: table
         options:
@@ -516,10 +631,58 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            se_date: se_date
             name: name
-          default: '-1'
+            se_billable: se_billable
+            se_billed: se_billed
+            se_review: se_review
+            user_id: user_id
+            se_amount: se_amount
+          default: se_date
           info:
+            se_date:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_billable:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_billed:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_review:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            user_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            se_amount:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -547,7 +710,18 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        user_id:
+          id: user_id
+          table: se_timekeeping_field_data
+          field: user_id
+          relationship: none
+          group_type: group
+          admin_label: User
+          entity_type: se_timekeeping
+          entity_field: user_id
+          plugin_id: standard
+          required: false
       use_ajax: true
       header: {  }
       footer: {  }
@@ -559,7 +733,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_timekeeping.se_amount'
         - 'config:field.storage.se_timekeeping.se_billable'
@@ -585,7 +759,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_timekeeping.se_amount'
         - 'config:field.storage.se_timekeeping.se_billable'

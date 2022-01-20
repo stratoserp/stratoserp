@@ -2,11 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_bill.se_total
     - field.storage.se_bill.se_bu_ref
+    - field.storage.se_bill.se_total
     - system.menu.stratos-erp
-    - user.role.owner
-    - user.role.staff
   module:
     - se_accounting
     - se_bill

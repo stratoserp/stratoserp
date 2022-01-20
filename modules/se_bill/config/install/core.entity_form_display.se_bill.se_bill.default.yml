@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_bill.se_bill.se_total
     - field.field.se_bill.se_bill.se_body
     - field.field.se_bill.se_bill.se_bu_ref
     - field.field.se_bill.se_bill.se_co_ref
     - field.field.se_bill.se_bill.se_status_ref
+    - field.field.se_bill.se_bill.se_total
   module:
     - field_group
     - field_layout
@@ -56,12 +56,6 @@ content:
       placeholder: ''
     region: bottom
     third_party_settings: {  }
-  se_total:
-    weight: 5
-    settings: {  }
-    third_party_settings: {  }
-    type: se_currency_widget
-    region: bottom
   se_body:
     type: text_textarea
     weight: 4
@@ -96,6 +90,12 @@ content:
     third_party_settings: {  }
     type: options_select
     region: second
+  se_total:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: se_currency_widget
+    region: bottom
   title:
     type: string_textfield
     weight: 0

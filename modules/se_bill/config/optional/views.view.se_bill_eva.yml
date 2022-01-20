@@ -1,9 +1,6 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - user.role.owner
-    - user.role.staff
   module:
     - eva
     - se_bill

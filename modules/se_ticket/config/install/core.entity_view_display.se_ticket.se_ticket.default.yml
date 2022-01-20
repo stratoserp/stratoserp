@@ -112,14 +112,6 @@ content:
     third_party_settings: {  }
     weight: 8
     region: second
-  se_type_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
-    region: first
   se_timekeeping_ti_eva_se_timekeeping_bu_eva:
     settings: {  }
     third_party_settings: {  }
@@ -130,5 +122,13 @@ content:
     third_party_settings: {  }
     weight: 11
     region: bottom
+  se_type_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: first
 hidden:
   user_id: true
