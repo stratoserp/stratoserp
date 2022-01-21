@@ -22,11 +22,13 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'goodsReceiptItemsInsert',
-      // HookEventDispatcherInterface::ENTITY_DELETE => '', // @todo delete.
-    ];
+    return [];
+
+//    return [
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
+//      HookEventDispatcherInterface::ENTITY_INSERT => 'goodsReceiptItemsInsert',
+//      // HookEventDispatcherInterface::ENTITY_DELETE => '', // @todo delete.
+//    ];
   }
 
   /**

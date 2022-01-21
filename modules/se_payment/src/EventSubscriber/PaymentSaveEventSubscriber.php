@@ -26,12 +26,14 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentPresave',
-      HookEventDispatcherInterface::ENTITY_DELETE => 'paymentDelete',
-    ];
+    return [];
+
+//    return [
+//      HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
+//      HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentPresave',
+//      HookEventDispatcherInterface::ENTITY_DELETE => 'paymentDelete',
+//    ];
   }
 
   /**

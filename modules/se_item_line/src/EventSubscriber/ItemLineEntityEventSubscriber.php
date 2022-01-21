@@ -20,9 +20,11 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
-    ];
+    return [];
+
+//    return [
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
+//    ];
   }
 
   /**

@@ -21,9 +21,11 @@ class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'stockItemPresave',
-    ];
+    return [];
+    
+//    return [
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'stockItemPresave',
+//    ];
   }
 
   /**

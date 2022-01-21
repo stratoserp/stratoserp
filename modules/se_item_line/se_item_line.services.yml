@@ -1,8 +1,8 @@
 services:
-#  se_item_line.item_line_presave:
-#    class: Drupal\se_item_line\EventSubscriber\ItemLineEntityEventSubscriber
-#    tags:
-#      - { name: event_subscriber }
+  se_item_line.item_line_presave:
+    class: Drupal\se_item_line\EventSubscriber\ItemLineEntityEventSubscriber
+    tags:
+      - { name: event_subscriber }
 
   se_item_line.service:
     class: Drupal\se_item_line\Service\ItemLineService

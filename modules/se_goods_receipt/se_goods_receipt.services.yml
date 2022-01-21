@@ -1,8 +1,8 @@
 services:
-#  se_goods_receipt.items_presave:
-#    class: Drupal\se_goods_receipt\EventSubscriber\GoodsReceiptEventSubscriber
-#    tags:
-#      - { name: event_subscriber }
+  se_goods_receipt.items_presave:
+    class: Drupal\se_goods_receipt\EventSubscriber\GoodsReceiptEventSubscriber
+    tags:
+      - { name: event_subscriber }
 
   se_goods_receipt.service:
     class: Drupal\se_goods_receipt\Service\GoodsReceiptService

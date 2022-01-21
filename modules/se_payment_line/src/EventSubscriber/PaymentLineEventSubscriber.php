@@ -21,9 +21,11 @@ class PaymentLineEventSubscriber implements PaymentLineEventSubscriberInterface 
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentLineEntityPresave',
-    ];
+    return [];
+
+//    return [
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentLineEntityPresave',
+//    ];
   }
 
   /**

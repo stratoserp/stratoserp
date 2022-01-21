@@ -4,6 +4,7 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
+  - hook_event_dispatcher:core_event_dispatcher
   - field_group:field_group
 
 config_devel:

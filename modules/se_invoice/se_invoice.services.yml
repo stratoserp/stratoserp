@@ -1,8 +1,8 @@
 services:
-#  se_invoice.invoice_save:
-#    class: Drupal\se_invoice\EventSubscriber\InvoiceSaveEventSubscriber
-#    tags:
-#      - { name: event_subscriber }
+  se_invoice.invoice_save:
+    class: Drupal\se_invoice\EventSubscriber\InvoiceSaveEventSubscriber
+    tags:
+      - { name: event_subscriber }
 
   se_invoice.service:
     class: Drupal\se_invoice\Service\InvoiceService
