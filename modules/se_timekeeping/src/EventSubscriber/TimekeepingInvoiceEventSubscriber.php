@@ -25,14 +25,12 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [];
-
-//    return [
-//      HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInvoiceInsert',
-//      HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
-//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
-//      HookEventDispatcherInterface::ENTITY_DELETE => 'timekeepingInvoiceDelete',
-//    ];
+    return [
+      HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInvoiceInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
+      HookEventDispatcherInterface::ENTITY_DELETE => 'timekeepingInvoiceDelete',
+    ];
   }
 
   /**

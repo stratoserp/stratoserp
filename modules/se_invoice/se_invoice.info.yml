@@ -4,7 +4,6 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - hook_event_dispatcher:hook_event_dispatcher
   - drupal:field
   - drupal:menu_ui
   - drupal:path

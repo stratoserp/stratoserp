@@ -1,8 +1,8 @@
 services:
-  se_stock.item_insert:
-    class: Drupal\se_stock\EventSubscriber\StockItemEventSubscriber
-    tags:
-      - { name: event_subscriber }
+#  se_stock.item_insert:
+#    class: Drupal\se_stock\EventSubscriber\StockItemEventSubscriber
+#    tags:
+#      - { name: event_subscriber }
 
   se_stock.service:
     class: Drupal\se_stock\Service\StockService

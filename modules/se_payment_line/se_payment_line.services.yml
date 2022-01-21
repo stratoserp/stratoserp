@@ -1,8 +1,8 @@
 services:
-  se_payment_line.se_payment_line_presave:
-    class: Drupal\se_payment_line\EventSubscriber\PaymentLineEventSubscriber
-    tags:
-      - { name: event_subscriber }
+#  se_payment_line.se_payment_line_presave:
+#    class: Drupal\se_payment_line\EventSubscriber\PaymentLineEventSubscriber
+#    tags:
+#      - { name: event_subscriber }
 
   se_payment_line.service:
     class: Drupal\se_payment_line\Service\PaymentLineService
