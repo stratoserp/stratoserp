@@ -17,22 +17,22 @@ module_load_include('install', 'stratoserp');
  * Implements hook_install().
  */
 function se_example_data_install() {
-  se_example_data_base_setup();
+  se_example_data_status_term_setup();
   se_example_data_business_setup();
-  se_example_data_contact_setup();
-  se_example_data_invoice_setup();
+  se_example_data_contact_term_setup();
+  se_example_data_invoice_term_setup();
   se_example_data_item_setup();
   // se_example_data_assembly_setup();
   se_example_data_service_setup();
   se_example_data_recurring_setup();
   se_example_data_stock_setup();
-  se_example_data_payment_setup();
-  se_example_data_purchase_order_setup();
-  se_example_data_quote_setup();
+  se_example_data_payment_term_setup();
+  se_example_data_purchase_order_term_setup();
+  se_example_data_quote_term_setup();
   se_example_data_ticket_setup();
 }
 
-function se_example_data_base_setup() {
+function se_example_data_status_term_setup() {
 
   // Status for quotes, purchase orders, invoices.
   $terms = [
@@ -45,20 +45,11 @@ function se_example_data_base_setup() {
 }
 
 function se_example_data_business_setup() {
-  $terms = [
-    'Supplier',
-    'Customer',
-  ];
-
-  if (!$term = stratoserp_create_terms('se_business_type', $terms)) {
+  // If we don't get the terms setup, just return.
+  if (!$term = se_example_data_business_term_setup()) {
     return;
   }
-
-  // Now set the last one as the default for the field.
-  $field = \Drupal::entityTypeManager()->getStorage('field_config')->load('se_business.se_business.se_type_ref');
-  $field->setDefaultValue(['target_uuid' => $term->uuid()]);
-  $field->save();
-
+  
   $customer_defaults = se_business_load_defaults($term);
   $customer = Business::create($customer_defaults + [
     'name' => 'Test customer 1',
@@ -83,7 +74,27 @@ function se_example_data_business_setup() {
   $supplier->save();
 }
 
-function se_example_data_contact_setup() {
+function se_example_data_business_term_setup() {
+  $terms = [
+    'Supplier',
+    'Customer',
+  ];
+
+  if (!$term = stratoserp_create_terms('se_business_type', $terms)) {
+    return FALSE;
+  }
+
+  // Now set the last one as the default for the field.
+  $field = \Drupal::entityTypeManager()
+    ->getStorage('field_config')
+    ->load('se_business.se_business.se_type_ref');
+  $field->setDefaultValue(['target_uuid' => $term->uuid()]);
+  $field->save();
+  
+  return $term;
+}
+
+  function se_example_data_contact_term_setup() {
   // Install some basic contact types.
   $terms = [
     'General contact',
@@ -109,7 +120,7 @@ function se_example_data_contact_setup() {
 /**
  * Implements hook_install().
  */
-function se_example_data_invoice_setup() {
+function se_example_data_invoice_term_setup() {
 
   // Load the already created default status terms.
   $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_invoice.se_invoice.se_status_ref');
@@ -305,7 +316,7 @@ function se_example_data_stock_setup() {
 /**
  * Implements hook_install().
  */
-function se_example_data_payment_setup() {
+function se_example_data_payment_term_setup() {
   $terms = [
     'Cash',
     'Credit/Debit card',
@@ -328,7 +339,7 @@ function se_example_data_payment_setup() {
 /**
  * Implements hook_install().
  */
-function se_example_data_purchase_order_setup() {
+function se_example_data_purchase_order_term_setup() {
 
   // Load the already created default status terms.
   $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_purchase_order.se_purchase_order.se_status_ref');
@@ -345,7 +356,7 @@ function se_example_data_purchase_order_setup() {
 /**
  * Implements hook_install().
  */
-function se_example_data_quote_setup() {
+function se_example_data_quote_term_setup() {
 
   // Load the already created default status terms.
   $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_quote.se_quote.se_status_ref');
