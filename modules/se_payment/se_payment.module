@@ -6,6 +6,8 @@ declare(strict_types=1);
  * @file
  */
 
+use Drupal\se_payment\Entity\Payment;
+
 /**
  * Implements hook_theme().
  */
@@ -19,4 +21,29 @@ function se_payment_theme() {
   ];
 
   return $theme;
+}
+
+function se_payment_se_payment_presave(Payment $payment) {
+  // New entities have nothing to store here.
+  if ($payment->isNew()) {
+    return;
+  }
+
+  $amount = \Drupal::service('se_payment.service')->updateInvoices($payment, FALSE);
+  \Drupal::service('se_payment.service')->updateBusinessBalance($payment, $amount);
+}
+
+function se_payment_se_payment_insert(Payment $payment) {
+  $amount = \Drupal::service('se_payment.service')->updateInvoices($payment);
+  \Drupal::service('se_payment.service')->updateBusinessBalance($payment, $amount);
+}
+
+function se_payment_se_payment_update(Payment $payment) {
+  $amount = \Drupal::service('se_payment.service')->updateInvoices($payment);
+  \Drupal::service('se_payment.service')->updateBusinessBalance($payment, $amount);
+}
+
+function se_payment_se_payment_delete(Payment $payment) {
+  $amount = \Drupal::service('se_payment.service')->updateInvoices($payment, FALSE);
+  \Drupal::service('se_payment.service')->updateBusinessBalance($payment, $amount);
 }

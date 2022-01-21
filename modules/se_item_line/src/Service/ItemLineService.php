@@ -11,13 +11,13 @@ use Drupal\se_timekeeping\Entity\Timekeeping;
 /**
  * Business service class for common custom related manipulations.
  */
-class TotalService {
+class ItemLineService {
 
   /**
    * Calculate the total and more of an entity with item lines.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity to update the totals for..
+   *   Entity to update the totals for.
    *
    * @return \Drupal\Core\Entity\EntityInterface
    *   The updated entity.

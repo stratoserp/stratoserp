@@ -81,6 +81,11 @@ class Invoice extends StratosEntityBase implements InvoiceInterface {
   use PaymentTrait;
 
   /**
+   * @var bool
+   */
+  private bool $skipInvoiceSaveEvents = FALSE;
+
+  /**
    * {@inheritdoc}
    */
   public function getSearchPrefix(): string {
@@ -112,6 +117,20 @@ class Invoice extends StratosEntityBase implements InvoiceInterface {
     }
 
     return $this->getTotal() - $paidAmount;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSkipInvoiceSaveEvents(bool $value = TRUE): void {
+    $this->skipInvoiceSaveEvents = $value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSkipInvoiceSaveEvents(): bool {
+    return $this->skipInvoiceSaveEvents ?: FALSE;
   }
 
   /**

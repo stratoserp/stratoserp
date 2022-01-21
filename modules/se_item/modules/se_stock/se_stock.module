@@ -6,6 +6,8 @@ declare(strict_types=1);
  * @file
  */
 
+use Drupal\se_item\Entity\Item;
+
 /**
  * Implements hook_entity_type_alter().
  */
@@ -14,4 +16,12 @@ function se_stock_entity_type_alter(array &$entity_types) {
   /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
   $entity = $entity_types['se_item'];
   $entity->addConstraint('CodeSerialUnique');
+}
+
+function se_stock_se_item_presave(Item $item) {
+  if ($item->bundle() !== 'se_stock') {
+    return;
+  }
+
+  $item = \Drupal::service('se_stock.service')->ensureItem($item);
 }

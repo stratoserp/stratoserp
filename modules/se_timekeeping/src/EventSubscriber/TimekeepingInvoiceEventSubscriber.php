@@ -25,104 +25,68 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInvoiceInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
-      HookEventDispatcherInterface::ENTITY_DELETE => 'timekeepingInvoiceDelete',
-    ];
-  }
+    return [];
 
-  /**
-   * {@inheritdoc}
-   */
-  public function timekeepingInvoiceInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
-
-    if ($entity instanceof Invoice) {
-      $this->timekeepingMarkItemsBilled($entity);
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function timekeepingInvoiceUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
-
-    if ($entity instanceof Invoice) {
-      $this->timekeepingMarkItemsBilled($entity);
-    }
+//    return [
+//      HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInvoiceInsert',
+//      HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
+//      HookEventDispatcherInterface::ENTITY_DELETE => 'timekeepingInvoiceDelete',
+//    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function timekeepingInvoicePresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
-
-    if ($entity instanceof Invoice) {
-      $this->timekeepingMarkItemsUnBilled($entity);
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+    if (!$invoice instanceof Invoice) {
+      return;
     }
+
+    \Drupal::service('se_invoice.service')->timekeepingMarkItemsUnBilled($invoice);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function timekeepingInvoiceInsert(EntityInsertEvent $event): void {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+    if (!$invoice instanceof Invoice) {
+      return;
+    }
+
+    \Drupal::service('se_invoice.service')->timekeepingMarkItemsBilled($invoice);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function timekeepingInvoiceUpdate(EntityUpdateEvent $event): void {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+
+    if (!$invoice instanceof Invoice) {
+      return;
+    }
+
+    \Drupal::service('se_invoice.service')->timekeepingMarkItemsBilled($invoice);
   }
 
   /**
    * {@inheritdoc}
    */
   public function timekeepingInvoiceDelete(EntityDeleteEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
 
-    if ($entity instanceof Invoice) {
-      $this->timekeepingMarkItemsUnBilled($entity);
+    if (!$invoice instanceof Invoice) {
+      return;
     }
-  }
 
-  /**
-   * Loop through the invoice entries and mark the originals as required.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The entity to update timekeeping items.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  private function timekeepingMarkItemsBilled(Invoice $invoice): void {
-    foreach ($invoice->se_item_lines as $itemLine) {
-      if ($itemLine->target_type === 'se_timekeeping') {
-        /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
-        if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
-          // @todo Make a service for this?
-          $timekeeping->set('se_billed', TRUE);
-          $timekeeping->set('se_in_ref', $invoice->id());
-          $timekeeping->save();
-        }
-      }
-    }
-  }
-
-  /**
-   * Loop through the invoice entries and mark the originals as required.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The entity to update timekeeping items.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  private function timekeepingMarkItemsUnBilled(Invoice $invoice): void {
-    foreach ($invoice->se_item_lines as $itemLine) {
-      if ($itemLine->target_type === 'se_timekeeping') {
-        /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
-        if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
-          // @todo Make a service for this?
-          $timekeeping->set('se_billed', FALSE);
-          $timekeeping->set('se_in_ref', NULL);
-          $timekeeping->save();
-        }
-      }
-    }
+    \Drupal::service('se_invoice.service')->timekeepingMarkItemsUnBilled($invoice);
   }
 
 }

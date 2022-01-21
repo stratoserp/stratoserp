@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Traits\PaymentTrait;
+use Drupal\se_timekeeping\Entity\Timekeeping;
 use Drupal\taxonomy\Entity\Term;
 
 /**
@@ -130,7 +131,7 @@ class InvoiceService {
     $business = $invoice->getBusiness();
     $business->adjustBalance($invoiceBalance);
   }
-  
+
   public function statusTotalUpdate($invoice) {
     $invoice->set('se_status_ref', $this->checkInvoiceStatus($invoice));
 
@@ -138,12 +139,56 @@ class InvoiceService {
     $invoice->set('se_outstanding', $invoiceBalance);
 
     $business = $invoice->getBusiness();
-    $business->adjustBalance($invoiceBalance - (int) $invoice->se_in_old_total);
+    $business->adjustBalance($invoiceBalance - (int) $invoice->se_old_total);
   }
-  
+
   public function deleteUpdate($invoice) {
     $business = $invoice->getBusiness();
     $business->adjustBalance($invoice->getTotal() * -1);
   }
-  
+
+  /**
+   * Loop through the invoice entries and mark the originals as required.
+   *
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   The entity to update timekeeping items.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function timekeepingMarkItemsBilled(Invoice $invoice): void {
+    foreach ($invoice->se_item_lines as $itemLine) {
+      if ($itemLine->target_type === 'se_timekeeping') {
+        /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
+        if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
+          // @todo Make a service for this?
+          $timekeeping->set('se_billed', TRUE);
+          $timekeeping->set('se_in_ref', $invoice->id());
+          $timekeeping->save();
+        }
+      }
+    }
+  }
+
+  /**
+   * Loop through the invoice entries and mark the originals as required.
+   *
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   The entity to update timekeeping items.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function timekeepingMarkItemsUnBilled(Invoice $invoice): void {
+    foreach ($invoice->se_item_lines as $itemLine) {
+      if ($itemLine->target_type === 'se_timekeeping') {
+        /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
+        if ($timekeeping = Timekeeping::load($itemLine->target_id)) {
+          // @todo Make a service for this?
+          $timekeeping->set('se_billed', FALSE);
+          $timekeeping->set('se_in_ref', NULL);
+          $timekeeping->save();
+        }
+      }
+    }
+  }
+
 }

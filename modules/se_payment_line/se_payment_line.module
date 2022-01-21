@@ -5,3 +5,9 @@ declare(strict_types=1);
 /**
  * @file
  */
+
+use Drupal\se_payment\Entity\Payment;
+
+function se_payment_line_se_payment_presave(Payment $payment) {
+  \Drupal::service('se_payment_line.service')->calculateTotal($payment);
+}

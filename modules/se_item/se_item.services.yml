@@ -10,5 +10,5 @@ services:
       - { name: event_subscriber }
 
   se_item.service:
-    class: Drupal\se_item\Service\Item
+    class: Drupal\se_item\Service\ItemService
     arguments: ['@entity_type.manager']

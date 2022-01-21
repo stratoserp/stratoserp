@@ -24,6 +24,11 @@ function se_invoice_theme(): array {
 }
 
 function se_invoice_se_invoice_presave(Invoice $invoice) {
+  // New entities have nothing to store here.
+  if ($invoice->isNew()) {
+    return;
+  }
+
   \Drupal::service('se_invoice.service')->storeBalance($invoice);
 }
 
@@ -32,9 +37,19 @@ function se_invoice_se_invoice_insert(Invoice $invoice) {
 }
 
 function se_invoice_se_invoice_update(Invoice $invoice) {
+  // This is set by payments or they would be re-saving save the invoice.
+  if ($invoice->getSkipInvoiceSaveEvents()) {
+    return;
+  }
+  
   \Drupal::service('se_invoice.service')->statusTotalUpdate($invoice);
 }
 
 function se_invoice_se_invoice_delete(Invoice $invoice) {
+  // This is set by payments or they would be re-saving save the invoice.
+  if ($invoice->getSkipInvoiceSaveEvents()) {
+    return;
+  }
+  
   \Drupal::service('se_invoice.service')->deleteUpdate($invoice);
 }

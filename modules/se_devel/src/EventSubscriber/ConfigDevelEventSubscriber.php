@@ -14,6 +14,17 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ConfigDevelEventSubscriber implements EventSubscriberInterface {
 
   /**
+   * Registers the methods in this class that should be listeners.
+   *
+   * @return array
+   *   An array of event listener definitions.
+   */
+  public static function getSubscribedEvents() {
+    $events[ConfigDevelEvents::SAVE][] = ['onConfigSave', 50];
+    return $events;
+  }
+
+  /**
    * React to configuration ConfigEvent::SAVE events.
    *
    * @param \Drupal\config_devel\Event\ConfigDevelSaveEvent $event
@@ -72,17 +83,6 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
     }
 
     $event->setData($data);
-  }
-
-  /**
-   * Registers the methods in this class that should be listeners.
-   *
-   * @return array
-   *   An array of event listener definitions.
-   */
-  public static function getSubscribedEvents() {
-    $events[ConfigDevelEvents::SAVE][] = ['onConfigSave', 50];
-    return $events;
   }
 
 }

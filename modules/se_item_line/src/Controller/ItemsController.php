@@ -41,22 +41,22 @@ class ItemsController extends ControllerBase {
     $trigger = $request->request->get('_triggering_element_name');
 
     // Which we can then use with a regular expression;.
-    preg_match("/(se_(..)_lines)\[(\d)\]\[(.*?)\].*/", $trigger, $matches);
-    if (count($matches) < 5) {
+    preg_match("/se_item_lines\[(\d)\]\[(.*?)\].*/", $trigger, $matches);
+    if (count($matches) < 3) {
       return $response;
     }
 
     // To extract the fields we need.
-    [$field, $type, $index, $trigger] = array_slice($matches, 1);
+    [$index, $trigger] = array_slice($matches, 1);
 
     // Changing target type is a special case, just empty some fields.
     switch ($trigger) {
       case 'target_type':
-        self::targetTypeChange($response, $type, $index);
+        self::targetTypeChange($response, $index);
         break;
 
       case 'target_id':
-        self::targetIdChange($response, $currencyService, $values, $field, $type, $index);
+        self::targetIdChange($response, $currencyService, $values, $index);
         break;
 
       case 'price':
@@ -66,7 +66,7 @@ class ItemsController extends ControllerBase {
     }
 
     // Always Update the total.
-    self::reCalculateTotal($response, $currencyService, $values, $field, $type);
+    self::reCalculateTotal($response, $currencyService, $values);
 
     return $response;
   }
@@ -76,29 +76,27 @@ class ItemsController extends ControllerBase {
    *
    * @param \Drupal\Core\Ajax\AjaxResponse $response
    *   The ajax response we're building.
-   * @param string $type
-   *   The new target type.
    * @param string $index
    *   The line index to update.
    */
-  private static function targetTypeChange(AjaxResponse $response, string $type, string $index): void {
+  private static function targetTypeChange(AjaxResponse $response, string $index): void {
     $response->addCommand(
       new InvokeCommand(
-        "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-quantity']",
+        "form input[data-drupal-selector='edit-se-item-lines-{$index}-quantity']",
         'val',
         [1]
       ),
     );
     $response->addCommand(
       new InvokeCommand(
-        "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-target_id']",
+        "form input[data-drupal-selector='edit-se-item-lines-{$index}-target_id']",
         'val',
         ['']
       )
     );
     $response->addCommand(
       new InvokeCommand(
-        "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
+        "form input[data-drupal-selector='edit-se-item-lines-{$index}-serial']",
         'val',
         ['']
       ),
@@ -114,36 +112,32 @@ class ItemsController extends ControllerBase {
    *   Service for displaying currency.
    * @param array $values
    *   Form values to work with.
-   * @param string $field
-   *   Field from the triggering element.
-   * @param string $type
-   *   The new target type.
    * @param string $index
    *   The line index to update.
    */
-  private static function targetIdChange(AjaxResponse $response, CurrencyFormat $currencyService, array &$values, string $field, string $type, string $index): void {
+  private static function targetIdChange(AjaxResponse $response, CurrencyFormat $currencyService, array &$values, string $index): void {
     // If there is no item code to load we can return now.
     /** @var \Drupal\se_item\Entity\Item $item */
-    if ($values[$field][$index]['target_id'] === NULL) {
+    if ($values['se_item_lines'][$index]['target_id'] === NULL) {
       return;
     }
 
-    $targetType = $values[$field][$index]['target_type'];
+    $targetType = $values['se_item_lines'][$index]['target_type'];
     switch ($targetType) {
       case 'comment':
         /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
-        if (($timekeeping = Timekeeping::load($values[$field][$index]['target_id'])) && $item = $timekeeping->se_it_ref->entity) {
+        if (($timekeeping = Timekeeping::load($values['se_item_lines'][$index]['target_id'])) && $item = $timekeeping->se_it_ref->entity) {
           $date = new DateTimePlus($timekeeping->se_date->value, date_default_timezone_get());
           $response->addCommand(
             new InvokeCommand(
-              "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-completed-date-date']",
+              "form input[data-drupal-selector='edit-se-item-lines-{$index}-completed-date-date']",
               'val',
               [$date->format('Y-m-d')]
             )
           );
           $response->addCommand(
             new InvokeCommand(
-              "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-quantity']",
+              "form input[data-drupal-selector='edit-se-item-lines-{$index}-quantity']",
               'val',
               [$timekeeping->se_amount]
             ),
@@ -153,9 +147,9 @@ class ItemsController extends ControllerBase {
 
       case 'se_item':
         /** @var \Drupal\se_item\Entity\Item $item */
-        if ($item = Item::load($values[$field][$index]['target_id'])) {
+        if ($item = Item::load($values['se_item_lines'][$index]['target_id'])) {
           $response->addCommand(new InvokeCommand(
-            "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-serial']",
+            "form input[data-drupal-selector='edit-se-item-lines-{$index}-serial']",
             'val',
             [$item->se_serial->value]
           ));
@@ -172,11 +166,11 @@ class ItemsController extends ControllerBase {
     $displayPrice = $currencyService->formatDisplay((int) $item_price);
 
     // Update the values so that the total gets updated as well.
-    $values[$field][$index]['price'] = $displayPrice;
+    $values['se_item_lines'][$index]['price'] = $displayPrice;
 
     // Create a new ajax response to set the price.
     $response->addCommand(new InvokeCommand(
-      "form input[data-drupal-selector='edit-se-{$type}-lines-{$index}-price']",
+      "form input[data-drupal-selector='edit-se-item-lines-{$index}-price']",
       'val',
       [$displayPrice]
     ));
@@ -191,14 +185,10 @@ class ItemsController extends ControllerBase {
    *   Service for displaying currency.
    * @param array $values
    *   Form values to work with.
-   * @param string $field
-   *   Field from the triggering element.
-   * @param string $type
-   *   The new target type.
    */
-  private static function reCalculateTotal(AjaxResponse $response, CurrencyFormat $currencyService, array $values, string $field, string $type): void {
+  private static function reCalculateTotal(AjaxResponse $response, CurrencyFormat $currencyService, array $values): void {
     $total = 0;
-    foreach ($values[$field] as $index => $value) {
+    foreach ($values['se_item_lines'] as $index => $value) {
       if (is_int($index) && !empty($value['target_id'])) {
         $price = $currencyService->formatStorage($value['price']);
         if (!empty($price)) {
@@ -208,7 +198,7 @@ class ItemsController extends ControllerBase {
     }
 
     $response->addCommand(new InvokeCommand(
-      "form input[data-drupal-selector='edit-se-{$type}-total-0-value']",
+      "form input[data-drupal-selector='edit-se-total-0-value']",
       'val',
       [$currencyService->formatDisplay((int) $total)]
     ));

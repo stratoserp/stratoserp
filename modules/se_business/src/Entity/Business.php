@@ -117,6 +117,20 @@ class Business extends StratosEntityBase implements BusinessInterface {
   /**
    * {@inheritdoc}
    */
+  public function setSkipBusinessXeroEvents(bool $value = TRUE): void {
+    $this->skipBusinessXeroEvents = TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSkipBusinessXeroEvents(): bool {
+    return $this->skipBusinessXeroEvents ?: FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 

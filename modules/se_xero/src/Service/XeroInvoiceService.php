@@ -122,7 +122,7 @@ class XeroInvoiceService {
   /**
    * Create an Invoice in Xero.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\node\Entity\Node $invoice
    *   The node being processed.
    *
    * @return bool
@@ -132,21 +132,21 @@ class XeroInvoiceService {
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public function sync(Node $node) {
+  public function sync(Invoice $invoice) {
     $settings = \Drupal::configFactory()->get('se_xero.settings');
     if (!$settings->get('system.enabled')) {
       return FALSE;
     }
 
     // If the invoice has zero value, bail.
-    if ($node->se_total->value == 0) {
+    if ($invoice->se_total->value == 0) {
       return FALSE;
     }
 
     // See if the business already exists, add them if not.
-    $node->business = \Drupal::service('se_business.service')->lookupBusiness($node);
-    if (!isset($node->business->se_xero_uuid->value)) {
-      \Drupal::service('se_xero.contact_service')->sync($node->business);
+    $invoice->business = \Drupal::service('se_business.service')->lookupBusiness($invoice);
+    if (!isset($invoice->business->se_xero_uuid->value)) {
+      \Drupal::service('se_xero.contact_service')->sync($invoice->business);
     }
 
     // Setup the data structure.
@@ -158,12 +158,12 @@ class XeroInvoiceService {
     $xeroQuery = $this->xeroQueryFactory->get();
 
     // Setup the values, return if there are no invoice lines.
-    if (!$invoices = $this->setInvoiceValues($settings, $invoices, $node)) {
+    if (!$invoices = $this->setInvoiceValues($settings, $invoices, $invoice)) {
       return FALSE;
     }
 
     // Check if its an existing invoice that needs updating.
-    if ($invoice = $this->lookupInvoice($node)) {
+    if ($invoice = $this->lookupInvoice($invoice)) {
       // Update?
       $xeroQuery->setId($invoice->get('InvoiceID')->getValue());
     }
@@ -176,7 +176,7 @@ class XeroInvoiceService {
 
     if ($result === FALSE) {
       $this->logger->log(LogLevel::ERROR, (string) new FormattableMarkup('Cannot create invoice @invoice, operation failed.', [
-        '@invoice' => $node->title->value,
+        '@invoice' => $invoice->title->value,
       ]));
       return FALSE;
     }
@@ -185,11 +185,11 @@ class XeroInvoiceService {
       /** @var \Drupal\xero\Plugin\DataType\Contact $createdXeroInvoice */
       $createdXeroInvoice = $result->get(0);
       $remote_id = $createdXeroInvoice->get('InvoiceID')->getValue();
-      $node->set('se_xero_uuid', $remote_id);
-      $node->save();
+      $invoice->set('se_xero_uuid', $remote_id);
+      $invoice->save();
 
       $this->logger->log(LogLevel::INFO, (string) new FormattableMarkup('Created invoice @invoice with remote id @remote_id.', [
-        '@invoice' => $node->title->value,
+        '@invoice' => $invoice->title->value,
         '@remote_id' => $remote_id,
       ]));
       return TRUE;

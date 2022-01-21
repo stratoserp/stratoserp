@@ -20,9 +20,11 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
-    ];
+    return [];
+
+//    return [
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
+//    ];
   }
 
   /**
@@ -34,7 +36,7 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
       return;
     }
 
-    \Drupal::service('se_item_line.total_update')->calculateTotal($entity);
+    \Drupal::service('se_item_line.service')->calculateTotal($entity);
   }
 
 }

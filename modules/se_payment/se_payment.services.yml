@@ -3,3 +3,6 @@ services:
     class: Drupal\se_payment\EventSubscriber\PaymentSaveEventSubscriber
     tags:
       - { name: event_subscriber }
+
+  se_payment.service:
+    class: Drupal\se_payment\Service\PaymentService

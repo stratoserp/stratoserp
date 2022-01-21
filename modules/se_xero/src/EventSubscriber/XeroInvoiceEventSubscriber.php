@@ -8,7 +8,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\stratoserp\Traits\EventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -19,8 +18,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @package Drupal\se_xero\EventSubscriber
  */
 class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
-
-  use EventTrait;
 
   /**
    * {@inheritdoc}
@@ -39,16 +36,17 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
    *   The event we are working with.
    */
   public function xeroInvoiceInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
-    if ($this->isSkipInvoiceSaveEvents($entity)) {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+    if (!$invoice instanceof Invoice) {
       return;
     }
 
-    // @todo Check for the xero uuid instead?
-    if ($entity instanceof Invoice && !$entity->get('se_xero_uuid')) {
-      \Drupal::service('se_xero.invoice_service')->sync($entity);
+    if ($invoice->getSkipInvoiceSaveEvents()) {
+      return;
     }
+
+    \Drupal::service('se_xero.invoice_service')->sync($invoice);
   }
 
   /**
@@ -58,16 +56,17 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
    *   The event we are working with.
    */
   public function xeroInvoiceUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $entity */
-    $entity = $event->getEntity();
-    if ($this->isSkipInvoiceSaveEvents($entity)) {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+    if (!$invoice instanceof Invoice) {
       return;
     }
 
-    if ($entity instanceof Invoice && !$entity->get('se_xero_uuid')) {
-      \Drupal::service('se_xero.invoice_service')->sync($entity);
+    if ($invoice->getSkipInvoiceSaveEvents()) {
+      return;
     }
 
+    \Drupal::service('se_xero.invoice_service')->sync($invoice);
   }
 
 }

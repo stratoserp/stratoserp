@@ -10,8 +10,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\se_payment\Traits\PaymentTrait;
-use Drupal\stratoserp\Traits\EventTrait;
 
 /**
  * Class InvoiceSaveEventSubscriber.
@@ -25,19 +23,18 @@ use Drupal\stratoserp\Traits\EventTrait;
  */
 class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface {
 
-  use EventTrait;
-  use PaymentTrait;
-
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoicePresave',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_DELETE => 'invoiceDelete',
-    ];
+    return [];
+
+//    return [
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoicePresave',
+//      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
+//      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
+//      HookEventDispatcherInterface::ENTITY_DELETE => 'invoiceDelete',
+//    ];
   }
 
   /**
@@ -46,13 +43,12 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   public function invoicePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-
-    if (!($invoice instanceof Invoice) || $invoice->isNew()) {
+    if (!$invoice instanceof Invoice || $invoice->isNew()) {
       return;
     }
 
-    // This is set by payments as they re-save the invoice.
-    if ($this->isSkipInvoiceSaveEvents($invoice)) {
+    // This is set by payments or they would be re-saving save the invoice.
+    if ($invoice->getSkipInvoiceSaveEvents()) {
       return;
     }
 
@@ -65,12 +61,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   public function invoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if (!($invoice instanceof Invoice)) {
-      return;
-    }
-
-    // This is set by payments as they re-save the invoice.
-    if ($this->isSkipInvoiceSaveEvents($invoice)) {
+    if (!$invoice instanceof Invoice) {
       return;
     }
 
@@ -83,12 +74,12 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   public function invoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if (!($invoice instanceof Invoice)) {
+    if (!$invoice instanceof Invoice) {
       return;
     }
 
-    // This is set by payments as they re-save the invoice.
-    if ($this->isSkipInvoiceSaveEvents($invoice)) {
+    // This is set by payments or they would be re-saving save the invoice.
+    if ($invoice->getSkipInvoiceSaveEvents()) {
       return;
     }
 
@@ -101,12 +92,12 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   public function invoiceDelete(EntityDeleteEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if (!($invoice instanceof Invoice) || $invoice->isNew()) {
+    if (!$invoice instanceof Invoice) {
       return;
     }
 
-    // This is set by payments as they re-save the invoice.
-    if ($this->isSkipInvoiceSaveEvents($invoice)) {
+    // This is set by payments or they would be re-saving save the invoice.
+    if ($invoice->getSkipInvoiceSaveEvents()) {
       return;
     }
 

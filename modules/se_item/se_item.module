@@ -10,6 +10,7 @@ declare(strict_types=1);
 use Drupal\stratoserp\Constants;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\se_invoice\Entity\Invoice;
 
 /**
  * Implements hook_help().
@@ -64,4 +65,20 @@ function se_item_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $e
   if (isset($fields['se_code']) && in_array($bundle, Constants::SE_ITEM_BUNDLES, TRUE)) {
     $fields['se_code']->addConstraint('UniqueItem', []);
   }
+}
+
+function se_item_se_invoice_presave(Invoice $invoice) {
+  \Drupal::service('se_stock.service')->storeOldLines($invoice);
+}
+
+function se_item_se_invoice_insert(Invoice $invoice) {
+  \Drupal::service('se_stock.service')->reconcileItems($invoice);
+}
+
+function se_item_se_invoice_update(Invoice $invoice) {
+  \Drupal::service('se_stock.service')->reconcileItems($invoice);
+}
+
+function se_item_se_invoice_delete(Invoice $invoice) {
+  \Drupal::service('se_stock.service')->markItemsAvailableSave($invoice);
 }

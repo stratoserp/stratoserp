@@ -8,8 +8,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_goods_receipt\Entity\GoodsReceipt;
-use Drupal\stratoserp\Constants;
-use Drupal\se_item\Entity\Item;
 
 /**
  * Class GoodsReceiptInsertEventSubscriber.
@@ -24,11 +22,13 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'goodsReceiptItemsInsert',
-      // HookEventDispatcherInterface::ENTITY_DELETE => '', // @todo delete.
-    ];
+    return [];
+
+//    return [
+//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
+//      HookEventDispatcherInterface::ENTITY_INSERT => 'goodsReceiptItemsInsert',
+//      // HookEventDispatcherInterface::ENTITY_DELETE => '', // @todo delete.
+//    ];
   }
 
   /**
@@ -36,8 +36,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
    */
   public function itemLineEntityPresave(EntityPresaveEvent $event): void {
     $goodsReceipt = $event->getEntity();
-
-    if (!($goodsReceipt instanceof GoodsReceipt)) {
+    if (!$goodsReceipt instanceof GoodsReceipt) {
       return;
     }
 
@@ -50,8 +49,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
    */
   public function goodsReceiptItemsInsert(EntityInsertEvent $event): void {
     $goodsReceipt = $event->getEntity();
-
-    if (!($goodsReceipt instanceof GoodsReceipt)) {
+    if (!$goodsReceipt instanceof GoodsReceipt) {
       return;
     }
 

@@ -3,3 +3,7 @@ services:
     class: Drupal\se_stock\EventSubscriber\StockItemEventSubscriber
     tags:
       - { name: event_subscriber }
+
+  se_stock.service:
+    class: Drupal\se_stock\Service\StockService
+    arguments: ['@entity_type.manager']

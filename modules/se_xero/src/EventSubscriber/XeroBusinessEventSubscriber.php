@@ -8,7 +8,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_business\Entity\Business;
-use Drupal\stratoserp\Traits\EventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -19,8 +18,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @package Drupal\se_xero\EventSubscriber
  */
 class XeroBusinessEventSubscriber implements EventSubscriberInterface {
-
-  use EventTrait;
 
   /**
    * {@inheritdoc}
@@ -39,19 +36,17 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
    *   The event to work with.
    */
   public function xeroBusinessInsert(EntityInsertEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
-    $entity = $event->getEntity();
-    if (!($entity instanceof Business)) {
+    /** @var \Drupal\se_business\Entity\Business $business */
+    $business = $event->getEntity();
+    if (!$business instanceof Business) {
       return;
     }
 
-    if ($this->isSkipBusinessXeroEvents($entity)) {
+    if ($business->getSkipBusinessXeroEvents($business)) {
       return;
     }
 
-    if (!$entity->get('se_xero_uuid')) {
-      \Drupal::service('se_xero.contact_service')->sync($entity);
-    }
+    \Drupal::service('se_xero.contact_service')->sync($business);
   }
 
   /**
@@ -61,19 +56,17 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
    *   The event to work with.
    */
   public function xeroBusinessUpdate(EntityUpdateEvent $event): void {
-    /** @var \Drupal\node\Entity\Node $entity */
-    $entity = $event->getEntity();
-    if (!($entity instanceof Business)) {
+    /** @var \Drupal\se_business\Entity\Business $business */
+    $business = $event->getEntity();
+    if (!$business instanceof Business) {
       return;
     }
 
-    if ($this->isSkipBusinessXeroEvents($entity)) {
+    if ($business->getSkipBusinessXeroEvents($business)) {
       return;
     }
 
-    if (!$entity->get('se_xero_uuid')) {
-      \Drupal::service('se_xero.contact_service')->sync($entity);
-    }
+    \Drupal::service('se_xero.contact_service')->sync($business);
   }
 
 }

@@ -4,6 +4,6 @@ services:
     tags:
       - { name: event_subscriber }
 
-  se_item_line.total_update:
-    class: Drupal\se_item_line\Service\TotalService
+  se_item_line.service:
+    class: Drupal\se_item_line\Service\ItemLineService
     arguments: [ '@config.factory', '@entity_type.manager' ]

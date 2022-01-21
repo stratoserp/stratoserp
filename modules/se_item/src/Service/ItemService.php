@@ -12,7 +12,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *
  * @package Drupal\se_item\Service
  */
-class Item {
+class ItemService {
   use StringTranslationTrait;
 
   /**

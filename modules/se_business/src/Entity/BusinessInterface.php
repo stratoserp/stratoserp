@@ -48,4 +48,20 @@ interface BusinessInterface extends StratosEntityBaseInterface {
    */
   public function adjustBalance(int $value): int;
 
+  /**
+   * Add a flag to a business so that future events are not processed on it.
+   *
+   * @param bool $value
+   *   The new value to set the flag to, defaults to TRUE.
+   */
+  public function setSkipBusinessXeroEvents(bool $value = TRUE): void;
+
+  /**
+   * Retrieve whether to skip invoice save events.
+   *
+   * @return bool
+   *   Return the current setting.
+   */
+  public function getSkipBusinessXeroEvents(): bool;
+
 }

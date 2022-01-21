@@ -205,10 +205,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     $host_type = $form_state->getFormObject()->getEntity()->getEntityTypeId();
 
-    if (!isset($entity->se_item_lines)) {
-      return $values;
-    }
-
     foreach ($values as $index => $line) {
 
       // Only invoices have a completed date.
