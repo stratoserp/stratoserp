@@ -23,18 +23,3 @@ function se_timekeeping_theme() {
   return $theme;
 }
 
-function se_timekeeping_se_invoice_presave(Invoice $invoice) {
-  \Drupal::service('se_invoice.service')->timekeepingMarkItemsUnBilled($invoice);
-}
-
-function se_payment_se_invoice_insert(Invoice $invoice) {
-  \Drupal::service('se_invoice.service')->timekeepingMarkItemsBilled($invoice);
-}
-
-function se_payment_se_invoice_update(Invoice $invoice) {
-  \Drupal::service('se_invoice.service')->timekeepingMarkItemsBilled($invoice);
-}
-
-function se_payment_se_invoice_delete(Invoice $invoice) {
-  \Drupal::service('se_invoice.service')->timekeepingMarkItemsUnBilled($invoice);
-}

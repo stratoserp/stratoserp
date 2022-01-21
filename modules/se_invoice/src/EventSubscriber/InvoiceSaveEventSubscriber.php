@@ -27,14 +27,12 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    return [];
-
-//    return [
-//      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoicePresave',
-//      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
-//      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
-//      HookEventDispatcherInterface::ENTITY_DELETE => 'invoiceDelete',
-//    ];
+    return [
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoicePresave',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
+      HookEventDispatcherInterface::ENTITY_DELETE => 'invoiceDelete',
+    ];
   }
 
   /**
