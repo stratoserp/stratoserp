@@ -6,6 +6,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Entity\Payment;
 
+/**
+ * Simplme payment service.
+ */
 class PaymentService {
 
   /**

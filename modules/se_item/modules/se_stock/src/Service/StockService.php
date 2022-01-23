@@ -25,7 +25,7 @@ class StockService {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  function ensureItem(Item $item) {
+  public function ensureItem(Item $item) {
     if (!empty($item->se_serial->value)) {
       $query = \Drupal::entityQuery('se_item')
         ->condition('type', 'se_stock')
@@ -63,17 +63,21 @@ class StockService {
     if (isset($stockItem)) {
       $item->se_it_ref->target_id = $stockItem->id();
     }
-    
+
     return $item;
   }
 
+  /**
+   * Store the existing items dynamically for later reconciliation.
+   */
   public function storeOldLines(Invoice $entity): void {
-    // Store the existing items dynamically in the object for later reconciliation.
     $entity->se_item_lines_old = $entity->se_item_lines;
   }
 
+  /**
+   * Remove the existing items dynamically for later reconciliation.
+   */
   public function removeOldLines(Invoice $entity): void {
-    // Store the existing items dynamically in the object for later reconciliation.
     unset($entity->se_item_lines_old);
   }
 
@@ -208,6 +212,5 @@ class StockService {
       }
     }
   }
-
 
 }

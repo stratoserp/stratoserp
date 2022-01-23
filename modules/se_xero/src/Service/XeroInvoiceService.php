@@ -8,6 +8,7 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\TypedData\TypedDataManagerInterface;
 use Drupal\node\Entity\Node;
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\xero\Plugin\DataType\XeroItemList;
 use Drupal\xero\XeroQueryFactory;
 use Psr\Log\LoggerInterface;
@@ -60,13 +61,13 @@ class XeroInvoiceService {
    *
    * @todo Stub needs to be completed.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The invoice node to check for.
    *
    * @return bool
    *   Whether the invoice is already uploaded to Xero.
    */
-  public function lookupInvoice(Node $node): bool {
+  public function lookupInvoice(Invoice $invoice): bool {
     // $xeroQuery = $this->xeroQueryFactory->get();
     // $xeroQuery->setType('xero_invoice');
     // $xeroQuery->addCondition('InvoiceNumber', $node->invoice_id->value);
@@ -122,8 +123,8 @@ class XeroInvoiceService {
   /**
    * Create an Invoice in Xero.
    *
-   * @param \Drupal\node\Entity\Node $invoice
-   *   The node being processed.
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   The invoice being processed.
    *
    * @return bool
    *   The upload transaction result.

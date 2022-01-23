@@ -61,6 +61,8 @@ class FormAlter {
    *   Form render array.
    * @param string $field
    *   The reference field to update.
+   * @param \Drupal\se_business\Entity\Business|null $business
+   *   Function can be passed in a business, or get from url.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
@@ -169,16 +171,16 @@ class FormAlter {
   }
 
   /**
+   * Helper function to set a reference field value.
+   *
    * @param array $form
    *   Form render array.
    * @param string $field
    *   The reference field to update.
-   * @param $value
+   * @param object $value
    *   Value to set the field to.
-   *
-   * @return void
    */
-  public function setReferenceField(array &$form, string $field, $value) {
+  public function setReferenceField(array &$form, string $field, object $value): void {
     // Only update if the field is empty.
     if (!empty($form[$field]['widget'][0]['target_id']['#default_value'])) {
       return;

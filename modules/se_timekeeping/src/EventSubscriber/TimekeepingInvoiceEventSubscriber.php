@@ -10,7 +10,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\se_timekeeping\Entity\Timekeeping;
 
 /**
  * Class TimekeepingSaveEventSubscriber.

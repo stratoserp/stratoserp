@@ -116,12 +116,24 @@ class InvoiceService {
     return NULL;
   }
 
-  public function storeBalance($invoice) {
+  /**
+   * Store the previous balance of the invoice dynamically.
+   *
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   Invoice object to store the balance in.
+   */
+  public function storeBalance(Invoice $invoice) {
     // Store the values on the object before saving for adjustments afterwards.
     $invoice->se_old_total = $invoice->getTotal();
   }
 
-  public function statusTotalInsert($invoice) {
+  /**
+   * Update invoice total on insert.
+   *
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   Invoice to update.
+   */
+  public function statusTotalInsert(Invoice $invoice) {
     $invoice->set('se_status_ref', $this->checkInvoiceStatus($invoice));
 
     // On insert, the total is outstanding.
@@ -132,7 +144,13 @@ class InvoiceService {
     $business->adjustBalance($invoiceBalance);
   }
 
-  public function statusTotalUpdate($invoice) {
+  /**
+   * Update invoice total on update.
+   *
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   Invoice to update.
+   */
+  public function statusTotalUpdate(Invoice $invoice) {
     $invoice->set('se_status_ref', $this->checkInvoiceStatus($invoice));
 
     $invoiceBalance = $invoice->getInvoiceBalance();
@@ -142,7 +160,13 @@ class InvoiceService {
     $business->adjustBalance($invoiceBalance - (int) $invoice->se_old_total);
   }
 
-  public function deleteUpdate($invoice) {
+  /**
+   * Update balance if an invoice is deleted.
+   *
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   Invoice to update.
+   */
+  public function deleteUpdate(Invoice $invoice) {
     $business = $invoice->getBusiness();
     $business->adjustBalance($invoice->getTotal() * -1);
   }

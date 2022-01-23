@@ -51,6 +51,8 @@ interface BusinessInterface extends StratosEntityBaseInterface {
   /**
    * Add a flag to a business so that future events are not processed on it.
    *
+   * Specific to Xero integration, so maybe could be handled better.
+   *
    * @param bool $value
    *   The new value to set the flag to, defaults to TRUE.
    */
@@ -58,6 +60,8 @@ interface BusinessInterface extends StratosEntityBaseInterface {
 
   /**
    * Retrieve whether to skip invoice save events.
+   *
+   * Specific to Xero integration, so maybe could be handled better.
    *
    * @return bool
    *   Return the current setting.

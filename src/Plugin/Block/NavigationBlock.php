@@ -6,7 +6,6 @@ namespace Drupal\stratoserp\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_bill\Entity\Bill;

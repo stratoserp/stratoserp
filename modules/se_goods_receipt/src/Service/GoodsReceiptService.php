@@ -7,8 +7,19 @@ namespace Drupal\se_goods_receipt\Service;
 use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\se_item\Entity\Item;
 
+/**
+ * Provide simple services for goods receipts.
+ */
 class GoodsReceiptService {
 
+  /**
+   * If there is a serial number, but its a new item, create as a new item.
+   *
+   * @param \Drupal\se_goods_receipt\Entity\GoodsReceipt $goodsReceipt
+   *   The goods receipt to work with.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function createItems(GoodsReceipt $goodsReceipt) {
     foreach ($goodsReceipt->se_item_lines as $index => $itemLine) {
       if (!empty($itemLine->serial)) {
@@ -28,6 +39,14 @@ class GoodsReceiptService {
     }
   }
 
+  /**
+   * Update the lines in a goods receipt with values from the items.
+   *
+   * @param \Drupal\se_goods_receipt\Entity\GoodsReceipt $goodsReceipt
+   *   The goods receipt to work with.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function updateFields(GoodsReceipt $goodsReceipt) {
     foreach ($goodsReceipt->se_item_lines as $itemLine) {
       /** @var \Drupal\se_item\Entity\Item $item */

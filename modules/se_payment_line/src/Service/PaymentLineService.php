@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment_line\Service;
 
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\se_payment\Entity\Payment;
 
 /**
  * Provide services for payment lines.
@@ -14,13 +14,10 @@ class PaymentLineService {
   /**
    * Calculate the total an entity with payment lines.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity to update the totals for..
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   The updated entity.
+   * @param \Drupal\se_payment\Entity\Payment $payment
+   *   Payment entity to update the totals for.
    */
-  function calculateTotal(EntityInterface $payment) {
+  public function calculateTotal(Payment $payment) {
     $total = 0;
 
     // Loop through the payment lines to calculate total.

@@ -4,15 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\se_contact\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\RevisionableInterface;
-use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
-use Drupal\stratoserp\Traits\EntityTrait;
-use Drupal\user\UserInterface;
 
 /**
  * Defines the Contact entity.

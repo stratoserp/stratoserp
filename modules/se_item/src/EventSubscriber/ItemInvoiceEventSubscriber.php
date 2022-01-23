@@ -71,7 +71,6 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
     \Drupal::service('se_stock.service')->reconcileItems($invoice);
   }
 
-
   /**
    * {@inheritdoc}
    */

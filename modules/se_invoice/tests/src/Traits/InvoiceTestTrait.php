@@ -1,8 +1,5 @@
 <?php
 
-// Strict types here breaks the item line saving tests.
-// declare(strict_types=1);
-
 namespace Drupal\Tests\se_invoice\Traits;
 
 use Drupal\se_business\Entity\Business;
@@ -13,6 +10,9 @@ use Faker\Factory;
 
 /**
  * Provides functions for creating content during functional tests.
+ *
+ * Strict types in this file breaks the item line saving tests.
+ * declare(strict_types=1);
  */
 trait InvoiceTestTrait {
 

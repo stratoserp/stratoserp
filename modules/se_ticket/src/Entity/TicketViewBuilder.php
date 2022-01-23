@@ -13,6 +13,9 @@ use Drupal\se_timekeeping\Entity\Timekeeping;
  */
 class TicketViewBuilder extends EntityViewBuilder {
 
+  /**
+   * {@inheritdoc}
+   */
   public function view(EntityInterface $entity, $view_mode = 'full', $langcode = NULL) {
     $build = parent::view($entity, $view_mode, $langcode);
 

@@ -32,7 +32,7 @@ class ItemLineService {
 
     // Loop through the item lines to calculate total.
     foreach ($entity->se_item_lines as $index => $itemLine) {
-      // If it's a timekeeping entry, and no price, load the associated item for price.
+      // If it's a timekeeping entry, and no price, load the item for price.
       if (isset($itemLine->target_id) && !isset($itemLine->price)) {
         if (($itemLine->target_type === 'se_timekeeping') && $timekeeping = Timekeeping::load($itemLine->target_id)) {
           $item = $timekeeping->se_it_ref->entity;

@@ -48,4 +48,5 @@ interface InvoiceInterface extends StratosEntityBaseInterface {
    *   Return the current setting.
    */
   public function getSkipInvoiceSaveEvents(): bool;
+
 }
