@@ -40,6 +40,13 @@ class EntityItemSelection extends DefaultSelection {
   protected string $targetType;
 
   /**
+   * Target type.
+   *
+   * @var array
+   */
+  protected array $targetBundles;
+
+  /**
    * Configuration.
    *
    * @var array
@@ -60,6 +67,7 @@ class EntityItemSelection extends DefaultSelection {
    */
   public function getReferenceableEntities($match = NULL, $match_operator = 'CONTAINS', $limit = 0) {
     $this->targetType = $this->getConfiguration()['target_type'];
+    $this->targetBundles = $this->getConfiguration()['target_bundles'];
 
     $filters = [];
 
@@ -213,13 +221,37 @@ class EntityItemSelection extends DefaultSelection {
       foreach ($filters['virtual'] as $filter) {
         $query->condition($labelKey, $filter, 'CONTAINS');
       }
+      return $query;
     }
-    else {
-      // If not a virtual item, it needs to not be sold.
-      $conditionGroup = $query->orConditionGroup()
-        ->condition('se_sold', FALSE);
-      $query->condition($conditionGroup);
+
+    // Build up the conditions.
+    $conditionGroup = $query->orConditionGroup();
+
+    foreach ($this->targetBundles as $bundle) {
+      switch ($bundle) {
+        case 'se_assembly':
+          $conditionGroup
+            ->condition('type', 'se_assembly')
+            ->condition('se_sold', FALSE);
+          break;
+
+        case 'se_recurring';
+          $conditionGroup->condition('type', 'se_recurring');
+          break;
+          
+        case 'se_stock':
+          $conditionGroup
+            ->condition('type', 'se_stock')
+            ->condition('se_sold', FALSE);
+          break;
+
+        case 'se_service':
+          $conditionGroup->condition('type', 'se_service');
+          break;
+
+      }
     }
+    $query->condition($conditionGroup);
 
     return $query;
   }
