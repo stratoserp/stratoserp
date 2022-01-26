@@ -141,7 +141,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: basic_string
+          type: email_mailto
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -487,7 +487,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_contact.se_email'
         - 'config:field.storage.se_contact.se_mobile'
@@ -510,7 +510,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_contact.se_email'
         - 'config:field.storage.se_contact.se_mobile'
