@@ -51,7 +51,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 11
+    weight: 5
     region: first
   se_code:
     type: string
@@ -59,95 +59,52 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 1
     region: first
   se_cost_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 12
-    region: second
+    weight: 2
+    region: first
   se_description:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 9
     region: bottom
-  se_images:
-    type: image
-    label: inline
-    settings:
-      image_link: ''
-      image_style: ''
-    third_party_settings: {  }
-    weight: 15
-    region: bottom
-  se_in_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 13
-    region: second
-  se_lost:
-    type: boolean
-    label: inline
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 6
-    region: first
   se_manufacturer_ref:
     type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
-    region: top
+    weight: 7
+    region: second
   se_product_type_ref:
     type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    weight: 1
-    region: top
+    weight: 6
+    region: second
   se_sale_category_ref:
     type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
-    region: top
-  se_sale_date:
-    type: datetime_default
-    label: inline
-    settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings: {  }
-    weight: 10
-    region: first
-  se_sale_price:
-    type: se_currency_formatter
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: first
+    weight: 8
+    region: second
   se_sell_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 3
     region: first
   se_serial:
     type: string
@@ -155,17 +112,13 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 5
-    region: first
-  se_sold:
-    type: boolean
-    label: inline
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 7
+    weight: 4
     region: first
 hidden:
+  se_images: true
+  se_in_ref: true
+  se_lost: true
+  se_sale_date: true
+  se_sale_price: true
+  se_sold: true
   user_id: true

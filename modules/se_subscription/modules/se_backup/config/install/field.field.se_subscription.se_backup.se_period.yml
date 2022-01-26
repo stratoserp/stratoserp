@@ -17,5 +17,5 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  granularity: 'y:m:d'
+  granularity: 'y:m'
 field_type: duration

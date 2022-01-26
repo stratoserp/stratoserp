@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_domain_name
+    - se_subscription.se_subscription_type.se_domain_hosting
+id: se_subscription.se_domain_hosting.se_domain_name
+field_name: se_domain_name
+entity_type: se_subscription
+bundle: se_domain_hosting
+label: 'Domain name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -74,12 +74,14 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
 
     // Deduplicate dependency config.
     if (isset($data['dependencies']['config'])) {
-      $newDependencies = [];
-      foreach ($data['dependencies']['config'] as $value) {
-        $newDependencies[$value] = $value;
-      }
-      sort($newDependencies);
-      $data['dependencies']['config'] = array_values($newDependencies);
+      $data['dependencies']['config'] = array_unique($data['dependencies']['config']);
+      sort($data['dependencies']['config']);
+    }
+
+    // Deduplicate permiossions.
+    if (isset($data['permissions'])) {
+      $data['permissions'] = array_unique($data['permissions']);
+      sort($data['permissions']);
     }
 
     $event->setData($data);
