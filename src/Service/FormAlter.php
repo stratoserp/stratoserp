@@ -55,6 +55,36 @@ class FormAlter {
   }
 
   /**
+   * Helper function to retrieve the business.
+   *
+   * @param \Drupal\se_business\Entity\Business $business
+   *   Function can be passed in a business, or get from url.
+   *
+   * @return \Drupal\se_business\Entity\Business|null
+   *   Business entity
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function getBusiness(Business $business = null): ?Business {
+    // Try and retrieve the named variable from the request.
+    if (!$value = $this->currentRequest->get('se_bu_ref')) {
+      return NULL;
+    }
+
+    // If its not a numeric value, return.
+    if (!is_numeric($value)) {
+      return NULL;
+    }
+
+    if (!$entity = $this->entityTypeManager->getStorage('se_business')->load($value)) {
+      return NULL;
+    }
+
+    return $entity;
+  }
+
+  /**
    * Set the business reference field on an entity form.
    *
    * @param array $form
@@ -73,21 +103,9 @@ class FormAlter {
       return;
     }
 
-    // Try and retrieve the named variable from the request.
-    if (!$value = $this->currentRequest->get('se_bu_ref')) {
-      return;
+    if ($entity = $this->getBusiness($business)) {
+      $this->setReferenceField($form, $field, $entity);
     }
-
-    // If its not a numeric value, return.
-    if (!is_numeric($value)) {
-      return;
-    }
-
-    if (!$entity = $this->entityTypeManager->getStorage('se_business')->load($value)) {
-      return;
-    }
-
-    $this->setReferenceField($form, $field, $entity);
   }
 
   /**
