@@ -17,3 +17,4 @@ dependencies:
   - stratoserp:se_quote
   - stratoserp:se_ticket
 
+config_devel: {  }

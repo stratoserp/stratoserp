@@ -6,3 +6,5 @@ package: StratosERP
 dependencies:
   - config_devel:config_devel
   - stratoserp:stratoserp
+
+config_devel: {  }

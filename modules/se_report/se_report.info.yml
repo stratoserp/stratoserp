@@ -7,3 +7,5 @@ dependencies:
   - stratoserp:stratoserp
   - chartjs_api:chartjs_api
   - views_bulk_operations:views_bulk_operations
+
+config_devel: {  }
