@@ -8,9 +8,17 @@ use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Tags;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_business\Entity\Business;
+use Drupal\se_contact\Entity\Contact;
+use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\se_information\Entity\Information;
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_item\Entity\Item;
+use Drupal\se_payment\Entity\Payment;
+use Drupal\se_quote\Entity\Quote;
+use Drupal\stratoserp\Constants;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,36 +37,67 @@ class AutocompleteController extends ControllerBase {
    *   The response to send back.
    */
   public function handleAutocomplete(Request $request): JsonResponse {
-    $matches = [];
+    $matches = $regexMatches = [];
 
     // Get the typed string from the URL, if it exists.
     if ($input = $request->query->get('q')) {
       $searchString = Tags::explode($input);
       $searchString = mb_strtolower(array_pop($searchString));
 
-      $business = $this->findBusinesses($searchString);
-      $contacts = $this->findEntity('se_contact', 'Contact', 'name', $searchString);
-      $invoices = $this->findEntity('se_invoice', 'Invoice', 'id', $searchString);
-      $quotes = $this->findEntity('se_quote', 'Quote', 'id', $searchString);
-      $items = $this->findItems('se_item', 'Item', 'name', $searchString);
-      $serials = $this->findItems('se_item', 'Item', 'se_serial', $searchString);
-      $information = $this->findInformation('se_document', 'Document', 'name', $searchString);
+      // If a shorthand style, don't try anything else.
+      if (preg_match("/(..)-(\d+)/", $searchString, $regexMatches)) {
+        [, $type, $code] = $regexMatches;
+        return $this->handlespecific($type, $code);
+      }
 
-      $matches = array_merge($business, $contacts, $invoices, $quotes, $items, $serials, $information);
+      $matches = $this->findBusinesses($searchString);
+      foreach (Constants::SE_ENTITY_LOOKUP as $code => $type) {
+        // Don't do business again.
+        if ($code === 'bu') {
+          continue;
+        }
 
+        $matches += $this->findEntity(
+          $type['type'],
+          $type['label'],
+          ['name', 'id'],
+          $searchString);
+      }
     }
 
     return new JsonResponse($matches);
   }
 
   /**
-   * Return nodes of $type with $text in $field, prefix with $description.
+   * Handle advanced users specifying the shorthand style direct lookups.
+   *
+   * @param string $type
+   *   The shorthand code for an entity type.
+   * @param string $code
+   *   The entity id/code.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   The Json response.
+   */
+  private function handleSpecific(string $type, string $code): JsonResponse {
+    $matches = [];
+
+    $fullType = Constants::SE_ENTITY_LOOKUP[$type];
+    if ($entity = \Drupal::entityTypeManager()->getStorage($fullType['type'])->load($code)) {
+      $matches[] = $this->buildEntityOutput($fullType['label'], (int) $entity->id(), $entity);
+    }
+
+    return new JsonResponse($matches);
+  }
+
+  /**
+   * Return entities of $type with $text in $field, prefix with $description.
    *
    * @param string $type
    *   The type of node to search for.
    * @param string $description
    *   The text description for the type.
-   * @param string $field
+   * @param array $fields
    *   The field to be searched.
    * @param string $text
    *   The text to search for.
@@ -66,33 +105,62 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
-  private function findEntity(string $type, string $description, string $field, string $text): array {
+  private function findEntity(string $type, string $description, array $fields, string $text): array {
     $matches = [];
 
     $text = Database::getConnection()->escapeLike($text);
     $query = \Drupal::entityQuery($type)
-      ->condition($field, '%' . $text . '%', 'LIKE')
+      ->accessCheck(TRUE)
       ->range(0, 10);
-    $entity_ids = $query->execute();
 
-    $entities = \Drupal::entityTypeManager()->getStorage($type)->loadMultiple($entity_ids);
-    foreach ($entities as $entity_id => $entity) {
-      $key = sprintf("%s (%s-%s)", $entity->getName(), $entity->getSearchPrefix(), $entity_id);
-      $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
-      // Names containing commas or quotes must be wrapped in quotes.
-      $key = Tags::encode($key);
-      $fields = array_filter([
-        $description,
-        $key,
-      ]);
-      $output_description = implode(' - ', $fields);
-      $matches[] = [
-        'value' => $key,
-        'label' => $output_description,
-      ];
+    $conditionGroup = $query->orConditionGroup();
+    foreach ($fields as $field) {
+      $conditionGroup->condition($field, '%' . $text . '%', 'LIKE');
+    }
+    $query->condition($conditionGroup);
+
+    $entityIds = $query->execute();
+
+    $entities = \Drupal::entityTypeManager()->getStorage($type)->loadMultiple($entityIds);
+    foreach ($entities as $entityId => $entity) {
+      $matches[] = $this->buildEntityOutput($description, (int) $entityId, $entity);
     }
 
     return $matches;
+  }
+
+  /**
+   * Build an output string for the various entity types.
+   *
+   * @param string $description
+   *   The description of the entity type.
+   * @param int $entityId
+   *   The entity id we'd working with.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Could be any one of many.
+   *
+   * @return array
+   *   Formatted array for matches.
+   */
+  #[ArrayShape([
+    'value' => "string",
+    'label' => "string",
+  ])]
+  private function buildEntityOutput(string $description, int $entityId, EntityInterface $entity) {
+    $key = sprintf("%s (%s-%s)", $entity->getName(), $entity->getSearchPrefix(), $entityId);
+    $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
+    // Names containing commas or quotes must be wrapped in quotes.
+    $key = Tags::encode($key);
+    $fields = array_filter([
+      $description,
+      $key,
+    ]);
+    $outputDescription = implode(' - ', $fields);
+
+    return [
+      'value' => $key,
+      'label' => $outputDescription,
+    ];
   }
 
   /**
@@ -104,17 +172,23 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
+  #[ArrayShape([
+    'value' => "string",
+    'label' => "string",
+  ])]
   private function findBusinesses(string $text): array {
     $matches = [];
 
     $text = Database::getConnection()->escapeLike($text);
     $query = \Drupal::entityQuery('se_business')
+      ->accessCheck(TRUE)
       ->condition('name', '%' . $text . '%', 'LIKE')
+      ->condition('se_status', TRUE)
       ->range(0, 10);
 
-    $item_ids = $query->execute();
+    $itemIds = $query->execute();
     /** @var \Drupal\node\Entity\Node $item */
-    foreach (Business::loadMultiple($item_ids) as $entity_id => $business) {
+    foreach (Business::loadMultiple($itemIds) as $entityId => $business) {
       $fields = array_filter([
         $business->getName(),
       ]);
@@ -122,13 +196,13 @@ class AutocompleteController extends ControllerBase {
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);
-      $output_description = $business->getName();
+      $outputDescription = $business->getName();
 
-      $key .= ' (' . $entity_id . ')';
+      $key .= ' (' . $entityId . ')';
       $businessId = $business->id();
       $matches[] = [
         'value' => $key,
-        'label' => $output_description . " - ($businessId)",
+        'label' => $outputDescription . " - ($businessId)",
       ];
     }
 
@@ -138,8 +212,6 @@ class AutocompleteController extends ControllerBase {
   /**
    * Return items of $type with $text in $field, prefix with $description.
    *
-   * @param string $type
-   *   The type of item to search for.
    * @param string $description
    *   The text description for the type.
    * @param string $field
@@ -150,18 +222,21 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
-  private function findItems(string $type, string $description, string $field, string $text): array {
+  #[ArrayShape([
+    'value' => "string",
+    'label' => "string",
+  ])]
+  private function findItems(string $description, string $field, string $text): array {
     $matches = [];
 
+    $text = Database::getConnection()->escapeLike($text);
     $query = \Drupal::entityQuery('se_item')
-      ->condition($field, '%' .
-                  Database::getConnection()->escapeLike($text) . '%', 'LIKE')
-      // ->condition('type', $type)
+      ->condition($field, '%' . $text . '%', 'LIKE')
       ->range(0, 10);
 
-    $item_ids = $query->execute();
+    $itemIds = $query->execute();
     /** @var \Drupal\node\Entity\Node $item */
-    foreach (Item::loadMultiple($item_ids) as $entity_id => $item) {
+    foreach (Item::loadMultiple($itemIds) as $entityId => $item) {
       $fields = array_filter([
         $description,
         $item->getName(),
@@ -172,7 +247,7 @@ class AutocompleteController extends ControllerBase {
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);
-      $key .= ' (!' . $entity_id . ')';
+      $key .= ' (!' . $entityId . ')';
       $matches[] = [
         'value' => $key,
         'label' => $key,
@@ -185,8 +260,6 @@ class AutocompleteController extends ControllerBase {
   /**
    * Return information of $type with $text in $field, prefix with $description.
    *
-   * @param string $type
-   *   The type of information to search for.
    * @param string $description
    *   The text description for the type.
    * @param string $field
@@ -197,19 +270,22 @@ class AutocompleteController extends ControllerBase {
    * @return array
    *   An array of matches.
    */
-  private function findInformation(string $type, string $description, string $field, string $text): array {
+  #[ArrayShape([
+    'value' => "string",
+    'label' => "string",
+  ])]
+  private function findInformation(string $description, string $field, string $text): array {
     $matches = [];
 
+    $text = Database::getConnection()->escapeLike($text);
     $query = \Drupal::entityQuery('se_information')
-      ->condition($field, '%' .
-                  Database::getConnection()->escapeLike($text) . '%', 'LIKE')
-      // ->condition('type', $type)
+      ->condition($field, '%' . $text . '%', 'LIKE')
       ->range(0, 10);
 
-    $item_ids = $query->execute();
+    $itemIds = $query->execute();
     /** @var \Drupal\node\Entity\Node $information */
-    foreach (Information::loadMultiple($item_ids) as $entity_id => $information) {
-      $key = $information->getName() . " (#$entity_id)";
+    foreach (Information::loadMultiple($itemIds) as $entityId => $information) {
+      $key = $information->getName() . " (#$entityId)";
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);

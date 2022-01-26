@@ -6,37 +6,25 @@ namespace Drupal\stratoserp;
 
 /**
  * Simple class to store some constants for the StratosERP system.
+ *
+ * @todo Should these things be like a central registry?
  */
 final class Constants {
 
-  // @todo Need to make this something modules can add to.
-  public const SE_ITEM_LINE_BUNDLES = [
-    'se_bill'            => 'bi',
-    'se_goods_receipt'   => 'gr',
-    'se_invoice'         => 'in',
-    'se_purchase_order'  => 'po',
-    'se_quote'           => 'qu',
-
-    // Covers many bundles.
-    'se_subscription'    => 'su',
-  ];
-
-  public const SE_PAYMENT_LINE_BUNDLES = [
-    'se_payment' => 'pa',
-  ];
-
-  // @todo Better way?
+  // Provide a quick way to convert from shorthand codes to useful info.
   public const SE_ENTITY_LOOKUP = [
-    'bi' => 'se_bill',
-    'bu' => 'se_business',
-    'co' => 'se_contact',
-    'gr' => 'se_goods_receipt',
-    'if' => 'se_information',
-    'in' => 'se_invoice',
-    'pa' => 'se_payment',
-    'po' => 'se_purchase_order',
-    'qu' => 'se_quote',
-    'ti' => 'se_ticket',
+    'bi' => ['type' => 'se_bill', 'label' => 'Bill'],
+    'bu' => ['type' => 'se_business', 'label' => 'Business'],
+    'co' => ['type' => 'se_contact', 'label' => 'Contact'],
+    'gr' => ['type' => 'se_goods_receipt', 'label' => 'Goods receipt'],
+    'if' => ['type' => 'se_information', 'label' => 'Information'],
+    'in' => ['type' => 'se_invoice', 'label' => 'Invoice'],
+    'it' => ['type' => 'se_item', 'label' => 'Item'],
+    'pa' => ['type' => 'se_payment', 'label' => 'Payment'],
+    'po' => ['type' => 'se_purchase_order', 'label' => 'Purchase order'],
+    'qu' => ['type' => 'se_quote', 'label' => 'Quote'],
+    'su' => ['type' => 'se_subscription', 'label' => 'Subscription'],
+    'ti' => ['type' => 'se_ticket', 'label' => 'Ticket'],
   ];
 
   public const SE_ENTITY_TYPES = [
@@ -59,11 +47,6 @@ final class Constants {
     'se_recurring',
     'se_service',
     'se_stock',
-  ];
-
-  public const SE_INFORMATION_BUNDLES = [
-    'se_document',
-    'se_subscription',
   ];
 
 }

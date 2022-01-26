@@ -148,8 +148,6 @@ class SearchForm extends FormBase {
   /**
    * Extract entity information from a search string and try to load it.
    *
-   * @todo refactor to entity.
-   *
    * @param string $search
    *   The string the user entered.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
@@ -160,13 +158,13 @@ class SearchForm extends FormBase {
    */
   protected function searchLoadEntity($search, FormStateInterface $form_state) {
     // If the user has chosen a node from the popup, load it.
-    if (preg_match("/\((..)\-([0-9]+)\)/", $search, $matches)) {
-      [, $type, $code] = $matches;
+    if (preg_match("/\((..)-(\d+)\)/", $search, $regexMatches)) {
+      [, $type, $code] = $regexMatches;
       if (empty($type) || empty($code)) {
         return $this->messenger->addMessage(t('No matches found'));
       }
 
-      $fullType = Constants::SE_ENTITY_LOOKUP[$type];
+      $fullType = Constants::SE_ENTITY_LOOKUP[$type]['type'];
       $entity = \Drupal::entityTypeManager()->getStorage($fullType)->load($code);
       if (!$entity) {
         return $this->messenger->addError(t('Invalid entity'));
