@@ -6,15 +6,24 @@ dependencies:
     - field.field.se_item.se_assembly.se_code
     - field.field.se_item.se_assembly.se_cost_price
     - field.field.se_item.se_assembly.se_description
+    - field.field.se_item.se_assembly.se_images
+    - field.field.se_item.se_assembly.se_in_ref
+    - field.field.se_item.se_assembly.se_lost
     - field.field.se_item.se_assembly.se_manufacturer_ref
     - field.field.se_item.se_assembly.se_product_type_ref
     - field.field.se_item.se_assembly.se_sale_category_ref
+    - field.field.se_item.se_assembly.se_sale_date
+    - field.field.se_item.se_assembly.se_sale_price
     - field.field.se_item.se_assembly.se_sell_price
     - field.field.se_item.se_assembly.se_serial
+    - field.field.se_item.se_assembly.se_sold
+    - image.style.thumbnail
     - se_item.se_item_type.se_assembly
   module:
+    - datetime
     - field_group
     - field_layout
+    - image
     - layout_discovery
     - se_accounting
     - text
@@ -31,7 +40,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 9
+      weight: 16
       format_type: details
       format_settings:
         classes: ''
@@ -62,14 +71,14 @@ content:
     third_party_settings: {  }
   se_active:
     type: boolean_checkbox
-    weight: 10
+    weight: 9
     region: first
     settings:
       display_label: true
     third_party_settings: {  }
   se_code:
     type: string_textfield
-    weight: 1
+    weight: 3
     region: first
     settings:
       size: 60
@@ -77,61 +86,93 @@ content:
     third_party_settings: {  }
   se_cost_price:
     type: se_currency_widget
-    weight: 2
-    region: first
+    weight: 13
+    region: second
     settings: {  }
     third_party_settings: {  }
   se_description:
     type: text_textarea
-    weight: 8
+    weight: 14
     region: bottom
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  se_manufacturer_ref:
+  se_images:
+    type: image_image
+    weight: 15
+    region: bottom
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  se_in_ref:
     type: entity_reference_autocomplete
-    weight: 6
-    region: second
+    weight: 8
+    region: first
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  se_lost:
+    type: boolean_checkbox
+    weight: 4
+    region: top
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  se_manufacturer_ref:
+    type: options_select
+    weight: 11
+    region: second
+    settings: {  }
     third_party_settings: {  }
   se_product_type_ref:
-    type: entity_reference_autocomplete
-    weight: 5
+    type: options_select
+    weight: 10
     region: second
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   se_sale_category_ref:
-    type: entity_reference_autocomplete
-    weight: 7
+    type: options_select
+    weight: 12
     region: second
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
+    third_party_settings: {  }
+  se_sale_date:
+    type: datetime_default
+    weight: 6
+    region: first
+    settings: {  }
+    third_party_settings: {  }
+  se_sale_price:
+    type: se_currency_widget
+    weight: 7
+    region: first
+    settings: {  }
     third_party_settings: {  }
   se_sell_price:
     type: se_currency_widget
-    weight: 3
-    region: first
+    weight: 2
+    region: top
     settings: {  }
     third_party_settings: {  }
   se_serial:
     type: string_textfield
-    weight: 4
-    region: first
+    weight: 1
+    region: top
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  se_sold:
+    type: boolean_checkbox
+    weight: 5
+    region: first
+    settings:
+      display_label: true
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete

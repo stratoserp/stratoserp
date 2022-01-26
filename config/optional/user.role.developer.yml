@@ -22,7 +22,6 @@ dependencies:
     - geolocation
     - image
     - linkit
-    - migrate_tools
     - node
     - path
     - rest

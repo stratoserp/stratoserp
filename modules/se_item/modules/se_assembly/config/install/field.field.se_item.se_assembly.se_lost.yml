@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_item.se_lost
+    - se_item.se_item_type.se_assembly
+id: se_item.se_assembly.se_lost
+field_name: se_lost
+entity_type: se_item
+bundle: se_assembly
+label: Lost
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
