@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\se_subscription_invoice\Service;
 
+use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannel;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_subscription\Entity\Subscription;
@@ -14,6 +16,8 @@ use Drupal\se_subscription\Entity\Subscription;
  * Service to create invoices out of subscriptions.
  */
 class SubscriptionInvoiceService {
+
+  use StringTranslationTrait;
 
   protected EntityTypeManagerInterface $entityTypeManager;
   protected LoggerChannel $loggerChannel;
@@ -48,12 +52,13 @@ class SubscriptionInvoiceService {
       ->getStorage('se_business')
       ->getQuery()
       ->accessCheck(FALSE)
+      ->condition('se_invoice_day', 0, '>')
       ->condition('se_invoice_day', date('d'), '<=');
 
     // Load subscriptions to create line items.
     foreach ($query->execute() as $businessId) {
       $business = Business::load($businessId);
-      $items = $this->subscriptionsToItems($businessId);
+      $items = $this->subscriptionsToItems($business);
 
       if (count($items) && $invoice = $this->subscriptionsToInvoice($business, $items)) {
         $invoices[] = $invoice;
@@ -101,25 +106,25 @@ class SubscriptionInvoiceService {
   /**
    * Update the next due date for a subscription.
    *
-   * @param array $items
+   * @param array $subscriptions
    *   The list of successful subscriptions to update.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function updateDueDate(array $items): void {
-    foreach ($items as $item) {
-      $sub = Subscription::load($item['subscription_id']);
-      $seconds = \Drupal::service('duration_field.service')->getSecondsFromDurationString($sub->se_period->duration);
+  private function updateDueDate(array $subscriptions): void {
+    foreach ($subscriptions as $lines) {
+      $subscription = Subscription::load($lines['subscription_id']);
+      $seconds = \Drupal::service('duration_field.service')->getSecondsFromDurationString($subscription->se_period->duration);
       // Do we need to worry about drift?
-      $sub->se_next_due->value += $seconds;
-      $sub->save();
+      $subscription->se_next_due->value += $seconds;
+      $subscription->save();
     }
   }
 
   /**
    * Process subscriptions for a specific business.
    *
-   * @param \Drupal\se_business\Entity\Business $businessId
+   * @param \Drupal\se_business\Entity\Business $business
    *   The business we're doing subscription invoicing for.
    *
    * @return array
@@ -128,14 +133,14 @@ class SubscriptionInvoiceService {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  private function subscriptionsToItems(Business $businessId): array {
+  private function subscriptionsToItems(Business $business): array {
     // Build a query for subscriptions due for this business.
     $query = $this->entityTypeManager
       ->getStorage('se_subscription')
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition('se_next_due', date('U'), '<=')
-      ->condition('se_bu_ref', $businessId);
+      ->condition('se_bu_ref', $business->id());
 
     return $this->subscriptionsToInvoiceLines($query->execute());
   }
@@ -168,7 +173,13 @@ class SubscriptionInvoiceService {
 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = Invoice::create($invoiceContent);
-    $invoice->setName('Test');
+    $date = new DateTimePlus('now', date_default_timezone_get());
+    $entityTitle = $this->t('@business - @type - @date', [
+      '@business' => $business->getName(),
+      '@type' => $this->formatPlural(count($subscriptions), 'Subscription', 'Subscriptions'),
+      '@date' => $date->format('d/m/Y'),
+    ]);
+    $invoice->setName($entityTitle);
     $invoice->save();
 
     return $invoice;
@@ -194,11 +205,25 @@ class SubscriptionInvoiceService {
 
       // Subscriptions are limited to a single line.
       $line = $subscription->se_item_lines[0];
+      switch ($subscription->bundle()) {
+        case 'se_email_account':
+          $extra = $subscription->se_email_address->value;
+          break;
+
+        case 'se_domain_name':
+        case 'se_domain_hosting':
+          $extra = $subscription->se_domain_name->value;
+          break;
+
+        default:
+          $extra = '';
+      }
 
       $lines[] = [
         'target_type' => $line->target_type,
         'target_id' => $line->target_id,
         'quantity' => $line->quantity,
+        'note' => $extra,
         'price' => $line->price,
         'subscription_id' => $subscription->id(),
       ];
