@@ -43,7 +43,7 @@ class PaymentService {
         //
         // This event will save the invoice, avoid an invoice save in any other
         // triggered events.
-        $invoice->setSkipInvoiceSaveEvents();
+        $invoice->setSkipSaveEvents();
 
         // This event updates the total, avoid it in other triggered events.
         /** @var \Drupal\se_business\Entity\Business $business */

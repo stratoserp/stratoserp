@@ -75,9 +75,11 @@ class Invoice extends StratosEntityBase implements InvoiceInterface {
   use PaymentTrait;
 
   /**
+   * Used to avoid multiple saves in cascading events.
+   *
    * @var bool
    */
-  private bool $skipInvoiceSaveEvents = FALSE;
+  private bool $skipSaveEvents = FALSE;
 
   /**
    * {@inheritdoc}
@@ -116,15 +118,15 @@ class Invoice extends StratosEntityBase implements InvoiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function setSkipInvoiceSaveEvents(bool $value = TRUE): void {
-    $this->skipInvoiceSaveEvents = $value;
+  public function setSkipSaveEvents(bool $value = TRUE): void {
+    $this->skipSaveEvents = $value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getSkipInvoiceSaveEvents(): bool {
-    return $this->skipInvoiceSaveEvents ?: FALSE;
+  public function getSkipSaveEvents(): bool {
+    return $this->skipSaveEvents ?: FALSE;
   }
 
   /**

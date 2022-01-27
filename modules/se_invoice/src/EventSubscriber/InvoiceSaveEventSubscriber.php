@@ -46,7 +46,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
     }
 
     // This is set by payments or they would be re-saving save the invoice.
-    if ($invoice->getSkipInvoiceSaveEvents()) {
+    if ($invoice->getSkipSaveEvents()) {
       return;
     }
 
@@ -77,7 +77,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
     }
 
     // This is set by payments or they would be re-saving save the invoice.
-    if ($invoice->getSkipInvoiceSaveEvents()) {
+    if ($invoice->getSkipSaveEvents()) {
       return;
     }
 
@@ -95,7 +95,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
     }
 
     // This is set by payments or they would be re-saving save the invoice.
-    if ($invoice->getSkipInvoiceSaveEvents()) {
+    if ($invoice->getSkipSaveEvents()) {
       return;
     }
 

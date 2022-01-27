@@ -39,7 +39,7 @@ interface InvoiceInterface extends StratosEntityBaseInterface {
    * @param bool $value
    *   The new value to set the flag to, defaults to TRUE.
    */
-  public function setSkipInvoiceSaveEvents(bool $value): void;
+  public function setSkipSaveEvents(bool $value): void;
 
   /**
    * Retrieve whether to skip invoice save events.
@@ -47,6 +47,6 @@ interface InvoiceInterface extends StratosEntityBaseInterface {
    * @return bool
    *   Return the current setting.
    */
-  public function getSkipInvoiceSaveEvents(): bool;
+  public function getSkipSaveEvents(): bool;
 
 }
