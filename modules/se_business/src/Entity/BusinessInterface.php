@@ -14,11 +14,6 @@ use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 interface BusinessInterface extends StratosEntityBaseInterface {
 
   /**
-   * Return the search prefix.
-   */
-  public function getSearchPrefix(): string;
-
-  /**
    * Retrieve the current Business balance.
    *
    * @return int
@@ -52,11 +47,8 @@ interface BusinessInterface extends StratosEntityBaseInterface {
    * Add a flag to a business so that future events are not processed on it.
    *
    * Specific to Xero integration, so maybe could be handled better.
-   *
-   * @param bool $value
-   *   The new value to set the flag to, defaults to TRUE.
    */
-  public function setSkipBusinessXeroEvents(bool $value = TRUE): void;
+  public function setSkipXeroEvents(): void;
 
   /**
    * Retrieve whether to skip invoice save events.
@@ -66,6 +58,6 @@ interface BusinessInterface extends StratosEntityBaseInterface {
    * @return bool
    *   Return the current setting.
    */
-  public function getSkipBusinessXeroEvents(): bool;
+  public function isSkipXeroEvents(): bool;
 
 }

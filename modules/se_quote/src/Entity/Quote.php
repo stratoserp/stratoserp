@@ -6,7 +6,7 @@ namespace Drupal\se_quote\Entity;
 
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\stratoserp\Entity\StratosEntityBase;
+use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
  * Defines the Quote entity.
@@ -69,7 +69,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   }
  * )
  */
-class Quote extends StratosEntityBase implements QuoteInterface {
+class Quote extends StratosLinesEntityBase implements QuoteInterface {
 
   /**
    * {@inheritdoc}

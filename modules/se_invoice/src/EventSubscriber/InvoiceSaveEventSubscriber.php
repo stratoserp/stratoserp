@@ -45,11 +45,12 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    // This is set by payments or they would be re-saving save the invoice.
-    if ($invoice->getSkipSaveEvents()) {
+    // Avoid a business balance update when payment is saving the invoice.
+    if ($invoice->isSkipSaveEvents()) {
       return;
     }
 
+    // Store the balance to relatively adjust the business outstanding.
     \Drupal::service('se_invoice.service')->storeBalance($invoice);
   }
 
@@ -76,11 +77,6 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    // This is set by payments or they would be re-saving save the invoice.
-    if ($invoice->getSkipSaveEvents()) {
-      return;
-    }
-
     \Drupal::service('se_invoice.service')->statusTotalUpdate($invoice);
   }
 
@@ -91,11 +87,6 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
     if (!$invoice instanceof Invoice) {
-      return;
-    }
-
-    // This is set by payments or they would be re-saving save the invoice.
-    if ($invoice->getSkipSaveEvents()) {
       return;
     }
 

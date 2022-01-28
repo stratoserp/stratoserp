@@ -14,11 +14,6 @@ use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 interface ItemInterface extends StratosEntityBaseInterface {
 
   /**
-   * Return the search prefix.
-   */
-  public function getSearchPrefix(): string;
-
-  /**
    * Returns if the item is a stock item.
    *
    * @return bool

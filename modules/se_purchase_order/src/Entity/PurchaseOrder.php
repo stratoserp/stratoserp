@@ -6,7 +6,7 @@ namespace Drupal\se_purchase_order\Entity;
 
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\stratoserp\Entity\StratosEntityBase;
+use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
  * Defines the Purchase Order entity.
@@ -69,7 +69,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   }
  * )
  */
-class PurchaseOrder extends StratosEntityBase implements PurchaseOrderInterface {
+class PurchaseOrder extends StratosLinesEntityBase implements PurchaseOrderInterface {
 
   /**
    * {@inheritdoc}

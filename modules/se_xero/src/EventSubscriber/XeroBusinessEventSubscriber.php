@@ -42,7 +42,7 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if ($business->getSkipBusinessXeroEvents($business)) {
+    if ($business->isSkipXeroEvents($business)) {
       return;
     }
 
@@ -62,7 +62,7 @@ class XeroBusinessEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if ($business->getSkipBusinessXeroEvents($business)) {
+    if ($business->isSkipXeroEvents($business)) {
       return;
     }
 

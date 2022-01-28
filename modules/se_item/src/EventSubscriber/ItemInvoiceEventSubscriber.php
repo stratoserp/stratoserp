@@ -15,6 +15,7 @@ use Drupal\se_invoice\Entity\Invoice;
  * Class InvoiceSaveEventSubscriber.
  *
  * Update item status if they have been invoiced out.
+ * @todo Move these to the StockItemEventSubscriber, where they should be?
  *
  * @package Drupal\se_item\EventSubscriber
  */
@@ -42,7 +43,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
       return;
     }
 
-    \Drupal::service('se_stock.service')->storeOldLines($invoice);
+    $invoice->storeOldLines();
   }
 
   /**

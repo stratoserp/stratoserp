@@ -156,6 +156,11 @@ class InvoiceService {
     $invoiceBalance = $invoice->getInvoiceBalance();
     $invoice->set('se_outstanding', $invoiceBalance);
 
+    // Avoid a business balance update when payment is saving the invoice.
+    if ($invoice->isSkipSaveEvents()) {
+      return;
+    }
+
     $business = $invoice->getBusiness();
     $business->adjustBalance($invoiceBalance - (int) $invoice->se_old_total);
   }

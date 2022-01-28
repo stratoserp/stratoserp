@@ -68,26 +68,13 @@ class StockService {
   }
 
   /**
-   * Store the existing items dynamically for later reconciliation.
-   */
-  public function storeOldLines(Invoice $entity): void {
-    $entity->se_item_lines_old = $entity->se_item_lines;
-  }
-
-  /**
-   * Remove the existing items dynamically for later reconciliation.
-   */
-  public function removeOldLines(Invoice $entity): void {
-    unset($entity->se_item_lines_old);
-  }
-
-  /**
    * Mark the items as sold.
    *
-   * Work through the list from the pre-save, if there is one first, then
-   * replace the items in that list with the ones in this invoice, then
-   * finally save them all. This will mean only a single save is required
-   * for each item, much better that the previous way.
+   * Work through the list from the pre-save and set the items to available.
+   * Then update the items in that list with the ones now on the invoice.
+   * Finally, save them all.
+   *
+   * This means only a single save is required for each item.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The invoice that is being processed.
@@ -95,14 +82,10 @@ class StockService {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function reconcileItems(Invoice $invoice): void {
-    $reconcileList = [];
-
     // @todo should this be retrieved from the invoice?
     $date = new DateTimePlus(NULL, date_default_timezone_get());
 
-    if (isset($invoice->se_item_lines_old)) {
-      $reconcileList = $this->markItemsAvailable($invoice);
-    }
+    $reconcileList = $this->markItemsAvailable($invoice);
 
     foreach ($invoice->se_item_lines as $itemLine) {
       // Only operate on items that are also stock items.
@@ -131,7 +114,7 @@ class StockService {
   private function markItemsAvailable(Invoice $invoice): array {
     $reconcileList = [];
 
-    foreach ($invoice->se_item_lines_old as $itemLine) {
+    foreach ($invoice->getOldLines() as $itemLine) {
       // Only operate on items that are also stock items.
       if (($itemLine->target_type === 'se_item')
         && ($item = Item::load($itemLine->target_id))

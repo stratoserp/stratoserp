@@ -30,80 +30,6 @@ function stratoserp_help(string $route_name, RouteMatchInterface $route_match): 
 }
 
 /**
- * Change the node buttons to be what we want.
- *
- * Implements hook_form_alter().
- *
- * @todo Needs review since moving to Entities.
- *
- * @param array $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- * @param string $form_id
- *
- * @return NULL
- */
-function stratoserp_form_alter(array &$form, FormStateInterface $form_state, string $form_id) {
-  // Make a list of forms from the core types.
-  $se_forms = array_map(static function ($value) {
-    return $value . '_add_form';
-  }, Constants::SE_ENTITY_TYPES);
-
-  if (in_array($form_id, $se_forms, TRUE)) {
-    // We don't need the publish button, anywhere.
-    stratoserp_hide_publish_buttons($form);
-
-    // Hide the title fields for some node types.
-    if (!in_array($form_id, [
-      'se_business_add_form', 'se_contact_add_form', 'se_ticket_add_form',
-    ])) {
-      // Pre-fill the title field with sensible values.
-      stratoserp_populate_title_field($form);
-    }
-  }
-  // If using the ExtraField Form plugins, then some fields need to be removed.
-  // unset($form['meta'], $form['advanced'], $form['status'], $form['actions']);.
-
-  return NULL;
-}
-
-/**
- * Helper function to hide the publish buttons.
- *
- * @param array $form
- *   Form array to be manipulated.
- *
- * @return NULL
- */
-function stratoserp_hide_publish_buttons(array &$form) {
-  // This should work.
-  $form['actions']['unpublish']['#access'] = FALSE;
-  $form['actions']['publish']['#access'] = FALSE;
-
-  // But it doesn't. Sledge hammer time.
-  unset($form['actions']['unpublish'], $form['actions']['publish']);
-
-  // Ensure that we can 'Save' as well.
-  $form['actions']['submit']['#access'] = TRUE;
-
-  return NULL;
-}
-
-/**
- * Nodes are handy, but we don't really need the title field.
- *
- * @param array $form
- *   Form array to be manipulated.
- *
- * @return NULL
- */
-function stratoserp_populate_title_field(array &$form) {
-  // $form['title']['#hidden'] = TRUE;
-  $form['title']['widget'][0]['value']['#default_value'] = \Drupal::service('se.form_alter')->generateTitle();
-
-  return NULL;
-}
-
-/**
  * Implements hook_form_FORM_ID_alter().
  *
  * @param array $form
@@ -183,20 +109,3 @@ function stratoserp_toolbar_alter(array &$items) {
 
   return NULL;
 }
-
-/**
- * Keep local tasks fresh on entities? Not sure we need this.
- *
- * @param $variables
- *
- * @return void
- *
-function stratoserp_preprocess_page(&$variables) {
-  foreach (\Drupal::routeMatch()->getParameters() as $param) {
-    if ($param instanceof EntityInterface) {
-      \Drupal::service('plugin.manager.menu.local_action')
-        ->clearCachedDefinitions();
-    }
-  }
-}
-*/

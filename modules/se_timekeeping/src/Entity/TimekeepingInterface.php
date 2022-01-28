@@ -13,9 +13,4 @@ use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
  */
 interface TimekeepingInterface extends StratosEntityBaseInterface {
 
-  /**
-   * Return the search prefix.
-   */
-  public function getSearchPrefix(): string;
-
 }

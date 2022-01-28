@@ -51,7 +51,7 @@ class ItemLineService {
       $total += $itemLine->quantity * $itemLine->price;
     }
 
-    $entity->set('se_total', $total);
+    $entity->se_total->value = $total;
 
     return $entity;
   }

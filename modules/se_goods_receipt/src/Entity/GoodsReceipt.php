@@ -6,7 +6,7 @@ namespace Drupal\se_goods_receipt\Entity;
 
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\stratoserp\Entity\StratosEntityBase;
+use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
  * Defines the Goods Receipt entity.
@@ -69,7 +69,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   }
  * )
  */
-class GoodsReceipt extends StratosEntityBase implements GoodsReceiptInterface {
+class GoodsReceipt extends StratosLinesEntityBase implements GoodsReceiptInterface {
 
   /**
    * {@inheritdoc}

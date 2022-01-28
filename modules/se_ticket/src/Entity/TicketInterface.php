@@ -14,11 +14,6 @@ use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 interface TicketInterface extends StratosEntityBaseInterface {
 
   /**
-   * Return the search prefix.
-   */
-  public function getSearchPrefix(): string;
-
-  /**
    * Determine if a ticket is still open or closed.
    *
    * @return bool

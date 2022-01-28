@@ -14,11 +14,6 @@ use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 interface BillInterface extends StratosEntityBaseInterface {
 
   /**
-   * Return the search prefix for this entity type.
-   */
-  public function getSearchPrefix(): string;
-
-  /**
    * Return the total amount of the entity.
    */
   public function getTotal(): int;

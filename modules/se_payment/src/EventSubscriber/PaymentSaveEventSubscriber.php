@@ -40,13 +40,11 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
   public function paymentPresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\se_payment\Entity\Payment $payment */
     $payment = $event->getEntity();
-
     if (!$payment instanceof Payment || $payment->isNew()) {
       return;
     }
 
-    $amount = \Drupal::service('se_payment.service')->updateInvoices($payment, FALSE);
-    \Drupal::service('se_payment.service')->updateBusinessBalance($payment, $amount);
+    $payment->storeOldPayments();
   }
 
   /**
@@ -59,8 +57,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
       return;
     }
 
-    $amount = \Drupal::service('se_payment.service')->updateInvoices($payment);
-    \Drupal::service('se_payment.service')->updateBusinessBalance($payment, $amount);
+    \Drupal::service('se_payment.service')->updateInvoices($payment);
   }
 
   /**
@@ -73,8 +70,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
       return;
     }
 
-    $amount = \Drupal::service('se_payment.service')->updateInvoices($payment);
-    \Drupal::service('se_payment.service')->updateBusinessBalance($payment, $amount);
+    \Drupal::service('se_payment.service')->updateInvoices($payment);
   }
 
   /**
@@ -87,8 +83,7 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
       return;
     }
 
-    $amount = \Drupal::service('se_payment.service')->updateInvoices($payment, FALSE);
-    \Drupal::service('se_payment.service')->updateBusinessBalance($payment, $amount);
+    \Drupal::service('se_payment.service')->updateInvoices($payment);
   }
 
 }

@@ -14,13 +14,18 @@ use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 interface PaymentInterface extends StratosEntityBaseInterface {
 
   /**
-   * Return the search prefix.
-   */
-  public function getSearchPrefix(): string;
-
-  /**
    * Return the total payment value.
    */
   public function getTotal(): int;
+
+  /**
+   * Store the current lines for later comparison in the save process.
+   */
+  public function storeOldPayments(): void;
+
+  /**
+   * Retrieve the stored lines for comparison in the save process.
+   */
+  public function getOldPayments();
 
 }

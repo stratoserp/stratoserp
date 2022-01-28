@@ -117,14 +117,14 @@ class Business extends StratosEntityBase implements BusinessInterface {
   /**
    * {@inheritdoc}
    */
-  public function setSkipBusinessXeroEvents(bool $value = TRUE): void {
+  public function setSkipXeroEvents(): void {
     $this->skipBusinessXeroEvents = TRUE;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getSkipBusinessXeroEvents(): bool {
+  public function isSkipXeroEvents(): bool {
     return $this->skipBusinessXeroEvents ?: FALSE;
   }
 

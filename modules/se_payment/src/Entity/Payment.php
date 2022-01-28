@@ -72,6 +72,11 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
 class Payment extends StratosEntityBase implements PaymentInterface {
 
   /**
+   * Storage for payment lines during save process.
+   */
+  private $paymentLineStorage;
+
+  /**
    * {@inheritdoc}
    */
   public function getSearchPrefix(): string {
@@ -83,6 +88,20 @@ class Payment extends StratosEntityBase implements PaymentInterface {
    */
   public function getTotal(): int {
     return (int) $this->se_total->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function storeOldPayments(): void {
+    $this->paymentLineStorage = $this->se_payment_lines;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOldPayments() {
+    return $this->paymentLineStorage ?: [];
   }
 
   /**

@@ -60,6 +60,7 @@ trait PaymentTestTrait {
     $payment = $this->createPayment([
       'type' => 'se_payment',
       'name' => $this->paymentName,
+      'se_bu_ref' => $invoice->se_bu_ref,
       'se_payment_lines' => $lines,
     ]);
     self::assertNotEquals($payment, FALSE);

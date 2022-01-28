@@ -42,7 +42,7 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if ($invoice->getSkipSaveEvents()) {
+    if ($invoice->isSkipSaveEvents()) {
       return;
     }
 
@@ -62,7 +62,7 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if ($invoice->getSkipSaveEvents()) {
+    if ($invoice->isSkipSaveEvents()) {
       return;
     }
 

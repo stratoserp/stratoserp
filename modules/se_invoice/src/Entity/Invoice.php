@@ -7,7 +7,7 @@ namespace Drupal\se_invoice\Entity;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\se_payment\Traits\PaymentTrait;
-use Drupal\stratoserp\Entity\StratosEntityBase;
+use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
  * Defines the Invoice entity.
@@ -70,7 +70,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   }
  * )
  */
-class Invoice extends StratosEntityBase implements InvoiceInterface {
+class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
 
   use PaymentTrait;
 
@@ -125,7 +125,7 @@ class Invoice extends StratosEntityBase implements InvoiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getSkipSaveEvents(): bool {
+  public function isSkipSaveEvents(): bool {
     return $this->skipSaveEvents ?: FALSE;
   }
 

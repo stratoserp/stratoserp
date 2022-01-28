@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\se_invoice\Entity;
 
-use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
+use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
 
 /**
  * Provides an interface for defining Invoice entities.
  *
  * @ingroup se_invoice
  */
-interface InvoiceInterface extends StratosEntityBaseInterface {
-
-  /**
-   * Return the search prefix.
-   */
-  public function getSearchPrefix(): string;
+interface InvoiceInterface extends StratosLinesEntityBaseInterface {
 
   /**
    * Return the total invoice value.
@@ -47,6 +42,6 @@ interface InvoiceInterface extends StratosEntityBaseInterface {
    * @return bool
    *   Return the current setting.
    */
-  public function getSkipSaveEvents(): bool;
+  public function isSkipSaveEvents(): bool;
 
 }

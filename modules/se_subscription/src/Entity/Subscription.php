@@ -6,7 +6,7 @@ namespace Drupal\se_subscription\Entity;
 
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\stratoserp\Entity\StratosEntityBase;
+use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
  * Defines the Subscription entity.
@@ -76,7 +76,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   }
  * )
  */
-class Subscription extends StratosEntityBase implements SubscriptionInterface {
+class Subscription extends StratosLinesEntityBase implements SubscriptionInterface {
 
   /**
    * {@inheritdoc}
