@@ -44,4 +44,14 @@ interface InvoiceInterface extends StratosLinesEntityBaseInterface {
    */
   public function isSkipSaveEvents(): bool;
 
+  /**
+   * Store the current invoice total for later comparison.
+   */
+  public function storeOldTotal(): void;
+
+  /**
+   * Retrieve the stored total.
+   */
+  public function getOldTotal();
+
 }

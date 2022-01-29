@@ -82,6 +82,11 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
   private bool $skipSaveEvents = FALSE;
 
   /**
+   * Storage for item lines during save process.
+   */
+  private int $totalStorage;
+
+  /**
    * {@inheritdoc}
    */
   public function getSearchPrefix(): string {
@@ -127,6 +132,20 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
    */
   public function isSkipSaveEvents(): bool {
     return $this->skipSaveEvents ?: FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function storeOldTotal(): void {
+    $this->totalStorage = $this->se_total->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOldTotal() {
+    return $this->totalStorage ?: [];
   }
 
   /**

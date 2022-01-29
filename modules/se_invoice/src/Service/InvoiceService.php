@@ -162,7 +162,7 @@ class InvoiceService {
     }
 
     $business = $invoice->getBusiness();
-    $business->adjustBalance($invoiceBalance - (int) $invoice->se_old_total);
+    $business->adjustBalance($invoiceBalance - (int) $invoice->getOldTotal());
   }
 
   /**

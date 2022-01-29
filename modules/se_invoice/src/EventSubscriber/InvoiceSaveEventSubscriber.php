@@ -51,7 +51,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
     }
 
     // Store the balance to relatively adjust the business outstanding.
-    \Drupal::service('se_invoice.service')->storeBalance($invoice);
+    $invoice->storeOldTotal();
   }
 
   /**

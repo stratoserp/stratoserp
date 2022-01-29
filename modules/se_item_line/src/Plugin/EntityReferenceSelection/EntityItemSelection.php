@@ -238,7 +238,7 @@ class EntityItemSelection extends DefaultSelection {
         case 'se_recurring';
           $conditionGroup->condition('type', 'se_recurring');
           break;
-          
+
         case 'se_stock':
           $conditionGroup
             ->condition('type', 'se_stock')

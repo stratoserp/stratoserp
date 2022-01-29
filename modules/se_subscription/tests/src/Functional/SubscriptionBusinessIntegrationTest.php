@@ -10,7 +10,7 @@ namespace Drupal\Tests\se_subscription\Functional;
 class SubscriptionBusinessIntegrationTest extends SubscriptionTestBase {
 
   /**
-   * Ensure the subcriptions vertical tab shows.
+   * Ensure the Subcriptions vertical tab shows.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */

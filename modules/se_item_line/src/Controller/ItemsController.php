@@ -15,7 +15,7 @@ use Drupal\se_timekeeping\Entity\Timekeeping;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class for Ajax controller to upate the item serial/price.
+ * Class for Ajax controller to update the item serial/price.
  */
 class ItemsController extends ControllerBase {
 
@@ -37,7 +37,7 @@ class ItemsController extends ControllerBase {
     $response = new AjaxResponse();
     $currencyService = \Drupal::service('se_accounting.currency_format');
 
-    // Use the triggering element to determine the line index;.
+    // Use the triggering element to determine the line index.
     $trigger = $request->request->get('_triggering_element_name');
 
     // Which we can then use with a regular expression;.
@@ -116,8 +116,7 @@ class ItemsController extends ControllerBase {
    *   The line index to update.
    */
   private static function targetIdChange(AjaxResponse $response, CurrencyFormat $currencyService, array &$values, string $index): void {
-    // If there is no item code to load we can return now.
-    /** @var \Drupal\se_item\Entity\Item $item */
+    // If there is no target selected we can return now.
     if ($values['se_item_lines'][$index]['target_id'] === NULL) {
       return;
     }
