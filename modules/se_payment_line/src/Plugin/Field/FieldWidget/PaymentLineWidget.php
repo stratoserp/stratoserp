@@ -32,6 +32,11 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
     // Adjust the weight of the target id field.
     $build['target_id']['#weight'] = 6;
     $build['target_id']['#attributes']['placeholder'] = t('Select invoice');
+    $build['target_id']['#ajax'] = [
+      'callback' => 'Drupal\se_payment_line\Controller\PaymentsController::updateFields',
+      'event' => 'autocompleteclose change',
+      'progress' => FALSE,
+    ];
 
     // Add a new price field.
     $build['amount'] = [
@@ -43,6 +48,11 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
       '#required' => TRUE,
       '#attributes' => [
         'placeholder' => t('Amount'),
+      ],
+      '#ajax' => [
+        'callback' => 'Drupal\se_payment_line\Controller\PaymentsController::updateFields',
+        'event' => 'change',
+        'progress' => FALSE,
       ],
     ];
 
