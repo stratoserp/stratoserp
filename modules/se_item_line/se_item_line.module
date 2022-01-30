@@ -43,14 +43,3 @@ function se_item_line_hide_text_format(array $element): array {
   }
   return $element;
 }
-
-/**
- * Implements hook_entity_presave().
- */
-function se_item_line_entity_presave(EntityInterface $entity) {
-  if (!isset($entity->se_item_lines)) {
-    return;
-  }
-
-  \Drupal::service('se_item_line.service')->calculateTotal($entity);
-}
