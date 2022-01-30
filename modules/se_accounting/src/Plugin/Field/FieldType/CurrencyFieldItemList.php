@@ -11,14 +11,4 @@ use Drupal\Core\Field\Plugin\Field\FieldType\IntegerItem;
  */
 class CurrencyFieldItemList extends IntegerItem {
 
-  /**
-   * {@inheritdoc}
-   */
-  // @codingStandardsIgnoreStart
-  public function referencedEntities() {
-    // ignore
-    return parent::referencedEntities();
-  }
-  // @codingStandardsIgnoreEnd
-
 }

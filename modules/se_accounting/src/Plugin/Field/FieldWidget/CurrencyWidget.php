@@ -37,7 +37,7 @@ class CurrencyWidget extends WidgetBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Disable all validation for now.
    */
   public static function validate($element, FormStateInterface $formState) {
   }
