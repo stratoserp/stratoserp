@@ -53,6 +53,7 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
 
     $rows = [];
 
+    // This function returns raw data, so looks a little weird.
     foreach ($this->getInvoicePayments($invoice) as $paymentLine) {
       $row = [];
 
@@ -60,19 +61,15 @@ class InvoicePayments extends ExtraFieldDisplayFormattedBase {
       $payment = Payment::load($paymentLine->entity_id);
       $uri = $payment->toUrl();
 
-      foreach ($payment->se_payment_lines as $line) {
-
-        /** @var \Drupal\taxonomy\Entity\Term $type */
-        $type = Term::load($line->payment_type);
-        $row = [
-          'payment' => Link::fromTextAndUrl($payment->id(), $uri),
-          'date' => Link::fromTextAndUrl($line->payment_date, $uri),
-          'type' => $type->name->value,
-          'amount' => \Drupal::service('se_accounting.currency_format')
-            ->formatDisplay((int) $line->amount),
-        ];
-      }
-
+      /** @var \Drupal\taxonomy\Entity\Term $type */
+      $type = Term::load($paymentLine->se_payment_lines_payment_type);
+      $row = [
+        'payment' => Link::fromTextAndUrl($payment->id(), $uri),
+        'date' => Link::fromTextAndUrl($paymentLine->se_payment_lines_payment_date, $uri),
+        'type' => $type->name->value,
+        'amount' => \Drupal::service('se_accounting.currency_format')
+          ->formatDisplay((int) $paymentLine->se_payment_lines_amount),
+      ];
       $rows[] = $row;
     }
 
