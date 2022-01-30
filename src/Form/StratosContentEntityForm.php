@@ -32,7 +32,7 @@ class StratosContentEntityForm extends ContentEntityForm {
     $formAlter = \Drupal::service('se.form_alter');
     $formAlter->setBusinessField($form, 'se_bu_ref');
     $formAlter->setContactField($form, 'se_co_ref');
-    $form['name']['widget'][0]['value']['#default_value'] = $formAlter->generateTitle();
+    $formAlter->setStandardText($form, 'name', $formAlter->generateTitle());
 
     if (!$this->entity->isNew()) {
       $form['group_extra']['new_revision'] = [

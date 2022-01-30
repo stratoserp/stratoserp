@@ -221,4 +221,24 @@ class FormAlter {
     ])->render();
   }
 
+  /**
+   * Helper function to set a text field value.
+   *
+   * @param array $form
+   *   Form render array.
+   * @param string $field
+   *   The reference field to update.
+   * @param string $value
+   *   Value to set the field to.
+   */
+  public function setStandardText(array &$form, string $field, string $value): void {
+    // Only update if the field is empty.
+    if (!empty($form[$field]['widget'][0]['value']['#default_value'])) {
+      return;
+    }
+
+    // Really do the update now.
+    $form[$field]['widget'][0]['value']['#default_value'] = $value;
+  }
+
 }
