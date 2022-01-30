@@ -14,13 +14,11 @@ label: Outstanding
 description: ''
 required: false
 translatable: false
-default_value:
-  -
-    value: 0
+default_value: {  }
 default_value_callback: ''
 settings:
-  min: ''
-  max: ''
+  min: null
+  max: null
   prefix: ''
   suffix: ''
 field_type: se_currency
