@@ -91,12 +91,7 @@ class Business extends StratosEntityBase implements BusinessInterface {
    */
   public function setBalance(int $value): int {
     $this->set('se_balance', $value);
-    try {
-      $this->save();
-    }
-    catch (EntityStorageException $e) {
-      \Drupal::logger('se_business')->error('Error updating business balance, this is very bad.');
-    }
+    $this->save();
     return $this->getBalance();
   }
 
@@ -105,12 +100,7 @@ class Business extends StratosEntityBase implements BusinessInterface {
    */
   public function adjustBalance(int $value): int {
     $this->set('se_balance', (int) $this->se_balance->value + $value);
-    try {
-      $this->save();
-    }
-    catch (EntityStorageException $e) {
-      \Drupal::logger('se_business')->error('Error updating business balance, this is very bad.');
-    }
+    $this->save();
     return $this->getBalance();
   }
 
@@ -125,7 +115,7 @@ class Business extends StratosEntityBase implements BusinessInterface {
    * {@inheritdoc}
    */
   public function isSkipXeroEvents(): bool {
-    return $this->skipBusinessXeroEvents ?: FALSE;
+    return $this->skipBusinessXeroEvents ?? FALSE;
   }
 
   /**
