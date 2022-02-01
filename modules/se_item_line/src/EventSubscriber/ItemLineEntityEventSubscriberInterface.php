@@ -15,7 +15,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 interface ItemLineEntityEventSubscriberInterface extends EventSubscriberInterface {
 
   /**
-   * Process line items when an entity with them is saved.
+   * Calculate the total based on the item lines values.
+   *
+   * Uses a specific event priority to ensure that the total is
+   * calculated in time for other events.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.

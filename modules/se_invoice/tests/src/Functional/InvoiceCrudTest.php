@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_invoice\Functional;
 
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\Tests\se_business\Traits\BusinessTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 
@@ -56,8 +57,6 @@ class InvoiceCrudTest extends InvoiceTestBase {
     // Add an invoice as staff.
     $this->drupalLogin($this->staff);
     $invoice = $this->addInvoice($testBusiness, $items);
-    $invoice->save();
-    $this->markEntityForCleanup($invoice);
     $this->adjustInvoiceIncrease($invoice);
     $this->adjustInvoiceDecrease($invoice);
 

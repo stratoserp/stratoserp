@@ -28,7 +28,9 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'invoicePresave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => [
+        'invoicePresave', 25,
+      ],
       HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
       HookEventDispatcherInterface::ENTITY_DELETE => 'invoiceDelete',
@@ -41,17 +43,11 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
   public function invoicePresave(EntityPresaveEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if (!$invoice instanceof Invoice || $invoice->isNew()) {
+    if (!$invoice instanceof Invoice) {
       return;
     }
 
-    // Avoid a business balance update when payment is saving the invoice.
-    if ($invoice->isSkipSaveEvents()) {
-      return;
-    }
-
-    // Store the balance to relatively adjust the business outstanding.
-    $invoice->storeOldTotal();
+    \Drupal::service('se_invoice.service')->preSave($invoice);
   }
 
   /**
@@ -64,7 +60,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    \Drupal::service('se_invoice.service')->statusTotalInsert($invoice);
+    \Drupal::service('se_invoice.service')->statusTotalUpdate($invoice);
   }
 
   /**
@@ -74,6 +70,11 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
     if (!$invoice instanceof Invoice) {
+      return;
+    }
+
+    // Avoid a business balance update when payment is saving the invoice.
+    if ($invoice->isSkipSaveEvents()) {
       return;
     }
 

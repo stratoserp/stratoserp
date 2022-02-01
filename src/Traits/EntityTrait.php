@@ -19,7 +19,8 @@ trait EntityTrait {
    * {@inheritdoc}
    */
   public function getBusiness(): ?Business {
-    return $this->se_bu_ref->entity;
+    $businessId = $this->se_bu_ref->entity->id();
+    return Business::load($businessId);
   }
 
   /**

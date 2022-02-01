@@ -74,7 +74,7 @@ class Payment extends StratosEntityBase implements PaymentInterface {
   /**
    * Storage for payment lines during save process.
    */
-  private $paymentLineStorage;
+  private Payment $oldPayment;
 
   /**
    * {@inheritdoc}
@@ -93,15 +93,22 @@ class Payment extends StratosEntityBase implements PaymentInterface {
   /**
    * {@inheritdoc}
    */
-  public function storeOldPayments(): void {
-    $this->paymentLineStorage = $this->se_payment_lines;
+  public function storeOldPayment(): void {
+    if (!isset($this->oldPayment) && !$this->isNew()) {
+      if ($oldPayment = self::load($this->id())) {
+        $this->oldPayment = $oldPayment;
+      }
+      else {
+        unset($this->oldPayment);
+      }
+    }
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getOldPayments() {
-    return $this->paymentLineStorage ?: [];
+  public function getOldPayment(): ?Payment {
+    return $this->oldPayment ?? NULL;
   }
 
   /**

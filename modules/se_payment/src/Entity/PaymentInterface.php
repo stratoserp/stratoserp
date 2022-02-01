@@ -21,11 +21,11 @@ interface PaymentInterface extends StratosEntityBaseInterface {
   /**
    * Store the current lines for later comparison in the save process.
    */
-  public function storeOldPayments(): void;
+  public function storeOldPayment(): void;
 
   /**
    * Retrieve the stored lines for comparison in the save process.
    */
-  public function getOldPayments();
+  public function getOldPayment(): ?Payment;
 
 }

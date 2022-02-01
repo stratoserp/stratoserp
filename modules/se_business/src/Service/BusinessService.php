@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\se_business\Entity\Business;
 use Drupal\se_business\Entity\BusinessInterface;
+use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 
 /**
  * Business service class for common custom related manipulations.
@@ -45,13 +46,13 @@ class BusinessService {
   /**
    * Given any entity with a business, return the (first) business.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\stratoserp\Entity\StratosEntityBaseInterface $entity
    *   Entity to return the business for.
    *
    * @return bool|\Drupal\se_business\Entity\Business
    *   Business entity.
    */
-  public function lookupBusiness(EntityInterface $entity) {
+  public function lookupBusiness(StratosEntityBaseInterface $entity) {
     if ($entity instanceof BusinessInterface) {
       return $entity;
     }
@@ -62,49 +63,6 @@ class BusinessService {
     }
 
     return FALSE;
-  }
-
-  /**
-   * Retrieve the current balance for a business.
-   *
-   * @param \Drupal\se_business\Entity\Business $entity
-   *   Business to return the balance for.
-   *
-   * @return int
-   *   The balance for the business in cents.
-   */
-  public function getBalance(Business $entity): int {
-    return $entity->getBalance();
-  }
-
-  /**
-   * Set the business balance to a specific value.
-   *
-   * @param \Drupal\se_business\Entity\Business $entity
-   *   Business to set the balance for.
-   * @param int $value
-   *   Amount to set as the business balance in cents.
-   *
-   * @return int
-   *   The balance of the business account afterwards.
-   */
-  public function setBalance(Business $entity, int $value): int {
-    return $entity->setBalance($value);
-  }
-
-  /**
-   * Add a value to the business existing balance.
-   *
-   * @param \Drupal\se_business\Entity\Business $entity
-   *   Business to adjust the balance for.
-   * @param int $value
-   *   The value to be added to the business, positives and negatives will work.
-   *
-   * @return int
-   *   The balance of the business account afterwards.
-   */
-  public function adjustBalance(Business $entity, int $value): int {
-    return $entity->adjustBalance($value);
   }
 
 }

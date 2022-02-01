@@ -10,7 +10,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 /**
  * Class ItemLinePresaveEventSubscriber.
  *
- * When an entity with item lines is saved, recalculate the total.
+ * Calculate the total based on the item lines values.
  *
  * @package Drupal\se_item_line\EventSubscriber
  */
@@ -21,7 +21,9 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => [
+        'itemLineEntityPresave', 100,
+      ],
     ];
   }
 

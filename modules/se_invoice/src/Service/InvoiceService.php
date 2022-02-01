@@ -75,15 +75,15 @@ class InvoiceService {
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The Invoice entity.
    * @param string $payment
-   *   The payment amount.
+   *   The paid amount.
    *
    * @return \Drupal\taxonomy\Entity\Term
    *   The invoice status
    */
   public function checkInvoiceStatus(Invoice $invoice, $payment = NULL): Term {
-    if ($payment === $invoice->se_total->value
-      || $payment === $invoice->se_outstanding->value
-      || (int) $invoice->se_outstanding->value === 0) {
+    if ($payment === (string) $invoice->getTotal()
+      || $payment === (string) $invoice->getOutstanding()
+      || (int) $invoice->getOutstanding() === 0) {
       return $this->getClosedTerm();
     }
 
@@ -93,11 +93,11 @@ class InvoiceService {
   /**
    * Retrieve the term user for open status.
    *
-   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\taxonomy\Entity\Term|null
+   * @return \Drupal\taxonomy\Entity\Term|null
    *   The term for open status.
    */
-  public function getOpenTerm() {
-    if ($term = \Drupal::configFactory()->get('se_invoice.settings')->get('open_term')) {
+  public function getOpenTerm(): ?Term {
+    if ($term = $this->configFactory->get('se_invoice.settings')->get('open_term')) {
       return Term::load($term);
     }
     return NULL;
@@ -106,74 +106,88 @@ class InvoiceService {
   /**
    * Retrieve the term user for paid status.
    *
-   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\taxonomy\Entity\Term|null
+   * @return \Drupal\taxonomy\Entity\Term|null
    *   The term for paid status.
    */
-  public function getClosedTerm() {
-    if ($term = \Drupal::configFactory()->get('se_invoice.settings')->get('closed_term')) {
+  public function getClosedTerm(): ?Term {
+    if ($term = $this->configFactory->get('se_invoice.settings')->get('closed_term')) {
       return Term::load($term);
     }
     return NULL;
   }
 
   /**
-   * Store the previous balance of the invoice dynamically.
+   * Setup fields and more in preparation for saving/updating an invoice.
+   *
+   * Some shenanigans in here to cope with invoice amounts
+   * being adjusted.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   Invoice object to store the balance in.
+   *   The invoice to work with.
    */
-  public function storeBalance(Invoice $invoice) {
-    // Store the values on the object before saving for adjustments afterwards.
-    $invoice->se_old_total = $invoice->getTotal();
-  }
+  public function preSave(Invoice $invoice): void {
+    // Set the outstanding amount field.
+    if ($invoice->isNew()) {
+      $invoiceTotal = $invoice->getTotal();
+      $invoice->setOutstanding($invoiceTotal);
+    }
+    else {
+      // Store the old invoice for comparisons in later events.
+      $invoice->storeOldInvoice();
 
-  /**
-   * Update invoice total on insert.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   Invoice to update.
-   */
-  public function statusTotalInsert(Invoice $invoice) {
-    $invoice->set('se_status_ref', $this->checkInvoiceStatus($invoice));
+      // Retrieve the new invoice total.
+      $invoiceTotal = $invoice->getTotal();
 
-    // On insert, the total is outstanding.
-    $invoiceBalance = $invoice->getTotal();
-    $invoice->set('se_outstanding', $invoiceBalance);
+      // If the balance owning on this invoice is different from before, adjust.
+      if ($oldInvoice = $invoice->getOldInvoice()) {
+        $oldOutstanding = $oldInvoice->getOutstanding();
+        $difference = $invoiceTotal - $oldOutstanding;
+        $invoice->setOutstanding($oldOutstanding + $difference);
+      }
+    }
 
-    $business = $invoice->getBusiness();
-    $business->adjustBalance($invoiceBalance);
+    // Needs to be after outstanding is calculated.
+    $invoice->se_status_ref->entity = $this->checkInvoiceStatus($invoice);
   }
 
   /**
    * Update invoice total on update.
    *
+   * Some shenanigans in here to cope with invoice amounts
+   * being adjusted.
+   *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   Invoice to update.
    */
-  public function statusTotalUpdate(Invoice $invoice) {
-    $invoice->set('se_status_ref', $this->checkInvoiceStatus($invoice));
+  public function statusTotalUpdate(Invoice $invoice): void {
+    // Update the business balance.
+    if ($business = $invoice->getBusiness()) {
 
-    $invoiceBalance = $invoice->getInvoiceBalance();
-    $invoice->set('se_outstanding', $invoiceBalance);
+      // Retrieve the new invoice outstanding amount.
+      $invoiceOutstanding = $invoice->getOutstanding();
 
-    // Avoid a business balance update when payment is saving the invoice.
-    if ($invoice->isSkipSaveEvents()) {
-      return;
+      if ($oldInvoice = $invoice->getOldInvoice()) {
+        $oldOutstanding = $oldInvoice->getOutstanding();
+        $difference = $invoiceOutstanding - $oldOutstanding;
+        $business->adjustBalance($difference);
+      }
+      else {
+        $business->adjustBalance($invoiceOutstanding);
+      }
     }
-
-    $business = $invoice->getBusiness();
-    $business->adjustBalance($invoiceBalance - (int) $invoice->getOldTotal());
   }
 
   /**
-   * Update balance if an invoice is deleted.
+   * Update customer balance if an invoice is deleted.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   Invoice to update.
    */
   public function deleteUpdate(Invoice $invoice) {
-    $business = $invoice->getBusiness();
-    $business->adjustBalance($invoice->getTotal() * -1);
+    if ($business = $invoice->getBusiness()) {
+      // @todo What if there were payments?
+      $business->adjustBalance($invoice->getTotal() * -1);
+    }
   }
 
   /**

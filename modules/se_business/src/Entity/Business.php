@@ -99,7 +99,11 @@ class Business extends StratosEntityBase implements BusinessInterface {
    * {@inheritdoc}
    */
   public function adjustBalance(int $value): int {
-    $this->set('se_balance', (int) $this->se_balance->value + $value);
+    if ($value === 0) {
+      return $this->getBalance();
+    }
+
+    $this->se_balance->value = (int) $this->se_balance->value + $value;
     $this->save();
     return $this->getBalance();
   }

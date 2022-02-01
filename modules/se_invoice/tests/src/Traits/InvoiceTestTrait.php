@@ -127,8 +127,8 @@ trait InvoiceTestTrait {
    */
   public function adjustInvoiceIncrease(Invoice $invoice): Invoice {
     /** @var \Drupal\se_business\Entity\Business $business */
-    $business = $invoice->se_bu_ref->entity;
-    $businessOldBalance = \Drupal::service('se_business.service')->getBalance($business);
+    $business = $invoice->getBusiness();
+    $businessOldBalance = $business->getBalance();
 
     $oldTotal = $invoice->se_total->value;
     $oldOutstanding = $invoice->se_outstanding->value;
@@ -142,17 +142,13 @@ trait InvoiceTestTrait {
     }
 
     $invoice->save();
-    $this->markEntityForCleanup($invoice);
-
-    /** @var \Drupal\se_business\Entity\Business $business */
-    $business = $invoice->se_bu_ref->entity;
 
     self::assertNotEquals($invoice->se_total->value, $oldTotal);
     self::assertNotEquals($invoice->se_outstanding->value, $oldOutstanding);
     self::assertEquals($invoice->se_total->value, $newTotal);
     self::assertEquals($invoice->se_outstanding->value, $newTotal);
 
-    $businessNewBalance = \Drupal::service('se_business.service')->getBalance($business);
+    $businessNewBalance = $business->getBalance();
     self::assertEquals($invoice->se_total->value, $businessNewBalance);
 
     return $invoice;
@@ -169,8 +165,8 @@ trait InvoiceTestTrait {
    */
   public function adjustInvoiceDecrease(Invoice $invoice): Invoice {
     /** @var \Drupal\se_business\Entity\Business $business */
-    $business = $invoice->se_bu_ref->entity;
-    $businessOldBalance = \Drupal::service('se_business.service')->getBalance($business);
+    $business = $invoice->getBusiness();
+    $businessOldBalance = $business->getBalance();
 
     $oldTotal = $invoice->se_total->value;
     $oldOutstanding = $invoice->se_outstanding->value;
@@ -184,17 +180,13 @@ trait InvoiceTestTrait {
     }
 
     $invoice->save();
-    $this->markEntityForCleanup($invoice);
-
-    /** @var \Drupal\se_business\Entity\Business $business */
-    $business = $invoice->se_bu_ref->entity;
 
     self::assertNotEquals($invoice->se_total->value, $oldTotal);
     self::assertNotEquals($invoice->se_outstanding->value, $oldOutstanding);
     self::assertEquals($invoice->se_total->value, $newTotal);
     self::assertEquals($invoice->se_outstanding->value, $newTotal);
 
-    $businessNewBalance = \Drupal::service('se_business.service')->getBalance($business);
+    $businessNewBalance = $business->getBalance();
     self::assertEquals($invoice->se_total->value, $businessNewBalance);
 
     return $invoice;

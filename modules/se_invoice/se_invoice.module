@@ -6,8 +6,6 @@ declare(strict_types=1);
  * @file
  */
 
-use Drupal\se_invoice\Entity\Invoice;
-
 /**
  * Implements hook_theme().
  */
@@ -22,4 +20,3 @@ function se_invoice_theme(): array {
 
   return $theme;
 }
-

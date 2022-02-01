@@ -31,7 +31,7 @@ class PaymentService {
       // Don't try on operate on invoices with no payment.
       /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
       if (!empty($paymentLine->amount)
-        && $invoice = Invoice::load($paymentLine->target_id)) {
+      && $invoice = Invoice::load($paymentLine->target_id)) {
 
         $reconcileList[$invoice->id()] = $invoice;
         $newTotal += $paymentLine->amount;
@@ -39,24 +39,34 @@ class PaymentService {
     }
 
     // Loop through the invoices and save them all now.
-    foreach ($reconcileList as $item) {
-      $item->save();
+    foreach ($reconcileList as $invoice) {
+      $invoice->setSkipSaveEvents();
+      $invoice->save();
     }
 
-    $payment->se_bu_ref->entity->adjustBalance($previousTotal - $newTotal);
+    /** @var \Drupal\se_business\Entity\Business $business */
+    $business = $payment->se_bu_ref->entity;
+    $business->adjustBalance($previousTotal - $newTotal);
   }
 
   /**
-   * Set all invoices completely unpaid, this will be reconciled later.
+   * Build the list of invoices that were on the payment before.
    */
   private function loadOldInvoices(Payment $payment): array {
     $reconcileList = [];
     $amount = 0;
 
-    foreach ($payment->getOldPayments() as $paymentLine) {
-      $invoice = Invoice::load($paymentLine->target_id);
-      $reconcileList[$invoice->id()] = $invoice;
-      $amount += $paymentLine->amount;
+    if ($oldPayment = $payment->getOldPayment()) {
+      foreach ($oldPayment->se_payment_lines as $paymentLine) {
+        if ($invoice = Invoice::load($paymentLine->target_id)) {
+          $reconcileList[$invoice->id()] = $invoice;
+          $amount += $paymentLine->amount;
+        }
+        else {
+          \Drupal::logger('se_payment')
+            ->error('Error loading invoice apparently in payment, this is very bad.');
+        }
+      }
     }
 
     return [$reconcileList, $amount];

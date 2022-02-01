@@ -361,8 +361,7 @@ class NavigationBlock extends BlockBase {
       }
       else {
         // Otherwise, load the main contact from the associated business.
-        $entities = $this->entity->se_bu_ref->referencedEntities();
-        if ($business = reset($entities)) {
+        if ($business = $this->entity->getBusiness()) {
           $routeParameters['se_bu_ref'] = $business->id();
           $contacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($business);
         }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\se_invoice\EventSubscriber;
 
-use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -44,14 +43,5 @@ interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
    */
   public function invoicePresave(EntityPresaveEvent $event);
 
-  /**
-   * Reduce the business balance by the amount of the invoice.
-   *
-   * This needs to be done or the amount owed by the business will be wrong.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
-   *   The event we are working with.
-   */
-  public function invoiceDelete(EntityDeleteEvent $event);
 
 }

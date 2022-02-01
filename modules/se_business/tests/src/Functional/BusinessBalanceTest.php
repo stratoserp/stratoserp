@@ -21,14 +21,14 @@ class BusinessBalanceTest extends BusinessTestBase {
     $this->drupalLogin($this->staff);
     $business = $this->addBusiness();
 
-    \Drupal::service('se_business.service')->setBalance($business, 25017);
-    self::assertEquals(25017, \Drupal::service('se_business.service')->getBalance($business));
+    $business->setBalance(25017);
+    self::assertEquals(25017, $business->getBalance());
 
-    \Drupal::service('se_business.service')->adjustBalance($business, -5012);
-    self::assertEquals(20005, \Drupal::service('se_business.service')->getBalance($business));
+    $business->adjustBalance(-5012);
+    self::assertEquals(20005, $business->getBalance());
 
-    \Drupal::service('se_business.service')->adjustBalance($business, -20005);
-    self::assertEquals(0, \Drupal::service('se_business.service')->getBalance($business));
+    $business->adjustBalance(-20005);
+    self::assertEquals(0, $business->getBalance());
 
     $this->drupalLogout();
   }

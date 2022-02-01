@@ -6,7 +6,6 @@ namespace Drupal\se_payment\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_payment\Entity\Payment;
@@ -27,9 +26,10 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    */
   public static function getSubscribedEvents(): array {
     return [
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentPreAction',
+      HookEventDispatcherInterface::ENTITY_PRE_DELETE => 'paymentPreAction',
       HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentPresave',
       HookEventDispatcherInterface::ENTITY_DELETE => 'paymentDelete',
     ];
   }
@@ -37,14 +37,15 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
   /**
    * {@inheritdoc}
    */
-  public function paymentPresave(EntityPresaveEvent $event): void {
+  public function paymentPreAction($event): void {
     /** @var \Drupal\se_payment\Entity\Payment $payment */
     $payment = $event->getEntity();
     if (!$payment instanceof Payment || $payment->isNew()) {
       return;
     }
 
-    $payment->storeOldPayments();
+    // Store the old payment for comparisons in later events.
+    $payment->storeOldPayment();
   }
 
   /**

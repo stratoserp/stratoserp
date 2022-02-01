@@ -22,7 +22,7 @@ class XeroCommands extends DrushCommands {
     if (!$settings->get('system.enabled')) {
       return FALSE;
     }
-    $timestamp = ($settings->get('business.sync_timestamp') ?: 0);
+    $timestamp = ($settings->get('business.sync_timestamp') ?? 0);
 
     // Retrieve list of nodes changed since last sync.
     $ids = \Drupal::entityQuery('se_business')
@@ -53,7 +53,7 @@ class XeroCommands extends DrushCommands {
     if (!$settings->get('system.enabled')) {
       return FALSE;
     }
-    $timestamp = ($settings->get('invoice.sync_timestamp') ?: 0);
+    $timestamp = ($settings->get('invoice.sync_timestamp') ?? 0);
 
     // Retrieve list of nodes changed since last sync.
     $ids = \Drupal::entityQuery('se_invoice')

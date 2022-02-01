@@ -24,6 +24,11 @@ interface InvoiceInterface extends StratosLinesEntityBaseInterface {
   public function getOutstanding(): int;
 
   /**
+   * Set the unpaid invoice value.
+   */
+  public function setOutstanding(int $value): void;
+
+  /**
    * Retrieve the outstanding balance for an invoice.
    */
   public function getInvoiceBalance(): int;
@@ -47,11 +52,24 @@ interface InvoiceInterface extends StratosLinesEntityBaseInterface {
   /**
    * Store the current invoice total for later comparison.
    */
-  public function storeOldTotal(): void;
+  public function storeOldTotal(int $total): void;
 
   /**
    * Retrieve the stored total.
    */
-  public function getOldTotal();
+  public function getOldTotal(): int;
+
+  /**
+   * Store the old invoice in the presave process.
+   */
+  public function storeOldInvoice(): void;
+
+  /**
+   * Retrieve the old invoice when in the presave process.
+   *
+   * @return \Drupal\se_invoice\Entity\Invoice|null
+   *   The stored invoice, or NULL.
+   */
+  public function getOldInvoice(): ?Invoice;
 
 }

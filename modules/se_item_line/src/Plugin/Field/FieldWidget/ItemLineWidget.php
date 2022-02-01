@@ -40,7 +40,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['quantity'] = [
       '#title' => t('Quantity'),
       '#type' => 'textfield',
-      '#default_value' => $items[$delta]->quantity ?: 1,
+      '#default_value' => $items[$delta]->quantity ?? 1,
       '#size' => 8,
       '#maxlength' => 8,
       '#weight' => 5,
@@ -125,7 +125,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['price'] = [
       '#title' => t('Unit price'),
       '#type' => 'textfield',
-      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->price ?: 0),
+      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->price),
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 40,

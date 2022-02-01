@@ -25,9 +25,9 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    */
   public static function getSubscribedEvents(): array {
     return [
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
       HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInvoiceInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
       HookEventDispatcherInterface::ENTITY_DELETE => 'timekeepingInvoiceDelete',
     ];
   }
@@ -41,8 +41,6 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
     if (!$invoice instanceof Invoice) {
       return;
     }
-
-    \Drupal::service('se_invoice.service')->timekeepingMarkItemsUnBilled($invoice);
   }
 
   /**

@@ -43,7 +43,12 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
       return;
     }
 
-    $invoice->storeOldLines();
+    // Don't update items when called from a payment save.
+    if ($invoice->isSkipSaveEvents()) {
+      return;
+    }
+
+    $invoice->storeOldInvoice();
   }
 
   /**
@@ -53,6 +58,11 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
     if (!($invoice instanceof Invoice)) {
+      return;
+    }
+
+    // Don't update items when called from a payment save.
+    if ($invoice->isSkipSaveEvents()) {
       return;
     }
 
@@ -66,6 +76,11 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
     if (!($invoice instanceof Invoice)) {
+      return;
+    }
+
+    // Don't update items when called from a payment save.
+    if ($invoice->isSkipSaveEvents()) {
       return;
     }
 

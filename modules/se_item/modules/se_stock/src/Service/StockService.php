@@ -82,7 +82,6 @@ class StockService {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function reconcileItems(Invoice $invoice): void {
-    // @todo should this be retrieved from the invoice?
     $date = new DateTimePlus(NULL, date_default_timezone_get());
 
     $reconcileList = $this->markItemsAvailable($invoice);
@@ -114,7 +113,12 @@ class StockService {
   private function markItemsAvailable(Invoice $invoice): array {
     $reconcileList = [];
 
-    foreach ($invoice->getOldLines() as $itemLine) {
+    /** @var \Drupal\se_invoice\Entity\Invoice|null $oldInvoice */
+    if (!$oldInvoice = $invoice->getOldInvoice()) {
+      return [];
+    }
+
+    foreach ($oldInvoice->se_item_lines as $itemLine) {
       // Only operate on items that are also stock items.
       if (($itemLine->target_type === 'se_item')
         && ($item = Item::load($itemLine->target_id))

@@ -23,7 +23,7 @@ class PaymentCrudTest extends PaymentTestBase {
   use InvoiceTestTrait;
 
   /**
-   * Test adding an payment.
+   * Test adding a payment.
    */
   public function testPaymentAdd(): void {
     $this->drupalLogin($this->staff);

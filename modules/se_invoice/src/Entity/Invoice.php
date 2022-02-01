@@ -87,6 +87,11 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
   private int $totalStorage;
 
   /**
+   * Storage for the current database version to compare with during crud.
+   */
+  private Invoice $oldInvoice;
+
+  /**
    * {@inheritdoc}
    */
   public function getSearchPrefix(): string {
@@ -105,6 +110,13 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
    */
   public function getOutstanding(): int {
     return (int) $this->se_outstanding->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setOutstanding(int $value): void {
+    $this->se_outstanding->value = (string) $value;
   }
 
   /**
@@ -131,21 +143,41 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
    * {@inheritdoc}
    */
   public function isSkipSaveEvents(): bool {
-    return $this->skipSaveEvents ?: FALSE;
+    return $this->skipSaveEvents ?? FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function storeOldTotal(): void {
-    $this->totalStorage = $this->se_total->value;
+  public function storeOldTotal($total): void {
+    $this->totalStorage = $total;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getOldTotal() {
-    return $this->totalStorage ?: [];
+  public function getOldTotal(): int {
+    return $this->totalStorage ?? 0;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function storeOldInvoice(): void {
+    if ($this->isNew()) {
+      return;
+    }
+
+    if ($oldInvoice = self::load($this->id())) {
+      $this->oldInvoice = $oldInvoice;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOldInvoice(): ?Invoice {
+    return $this->oldInvoice ?? NULL;
   }
 
   /**

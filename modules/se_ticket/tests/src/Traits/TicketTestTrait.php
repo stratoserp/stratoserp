@@ -41,7 +41,7 @@ trait TicketTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addTicket(Business $business = NULL, bool $allowed = TRUE) {
+  public function addTicket(Business $business = NULL, bool $allowed = TRUE): ?Ticket {
     if (!isset($this->ticketName)) {
       $this->ticketFakerSetup();
     }
