@@ -35,6 +35,7 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
     $build['target_id']['#ajax'] = [
       'callback' => 'Drupal\se_payment_line\Controller\PaymentsController::updateFields',
       'event' => 'autocompleteclose change',
+      'disable-refocus' => TRUE,
       'progress' => FALSE,
     ];
 
@@ -52,6 +53,7 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
       '#ajax' => [
         'callback' => 'Drupal\se_payment_line\Controller\PaymentsController::updateFields',
         'event' => 'change',
+        'disable-refocus' => TRUE,
         'progress' => FALSE,
       ],
     ];
