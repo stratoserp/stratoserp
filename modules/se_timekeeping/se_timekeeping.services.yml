@@ -2,6 +2,9 @@ services:
   se_timekeeping.time_format:
     class: Drupal\se_timekeeping\Service\TimeFormat
 
+  se_timekeeping.service:
+    class: Drupal\se_timekeeping\Service\TimeKeepingService
+
   se_timekeeping.items_postsave:
     class: Drupal\se_timekeeping\EventSubscriber\TimekeepingInvoiceEventSubscriber
     tags:

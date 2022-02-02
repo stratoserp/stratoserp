@@ -41,6 +41,11 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
     if (!$invoice instanceof Invoice) {
       return;
     }
+
+    if ($oldInvoice = $invoice->getOldInvoice()) {
+      \Drupal::service('se_timekeeping.service')
+        ->timekeepingMarkItemsUnBilled($oldInvoice);
+    }
   }
 
   /**
@@ -53,7 +58,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
       return;
     }
 
-    \Drupal::service('se_invoice.service')->timekeepingMarkItemsBilled($invoice);
+    \Drupal::service('se_timekeeping.service')->timekeepingMarkItemsBilled($invoice);
   }
 
   /**
@@ -67,7 +72,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
       return;
     }
 
-    \Drupal::service('se_invoice.service')->timekeepingMarkItemsBilled($invoice);
+    \Drupal::service('se_timekeeping.service')->timekeepingMarkItemsBilled($invoice);
   }
 
   /**
@@ -81,7 +86,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
       return;
     }
 
-    \Drupal::service('se_invoice.service')->timekeepingMarkItemsUnBilled($invoice);
+    \Drupal::service('se_timekeeping.service')->timekeepingMarkItemsUnBilled($invoice);
   }
 
 }

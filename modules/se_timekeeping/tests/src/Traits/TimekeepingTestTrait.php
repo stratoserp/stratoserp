@@ -40,9 +40,7 @@ trait TimekeepingTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addTimekeeping(Ticket $ticket, bool $allowed = TRUE) {
-    if (!isset($this->timekeepingName)) {
-      $this->timekeepingFakerSetup();
-    }
+    $this->timekeepingFakerSetup();
 
     $item = $this->findCreateTechServiceItem();
     self::assertNotNull($item);
