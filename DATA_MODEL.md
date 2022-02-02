@@ -49,7 +49,7 @@ First class entity types.
 - Customer ref (Business)
 - Contact ref(s) (Contact)
 - Item line(s) (Entity)
-- Timekeeping(s) (Comment)
+- Timekeeping(s) (Timekeeping)
 - Payment(s) (Payment)
 - Status (Taxonomy)
 
@@ -63,7 +63,7 @@ First class entity types.
 
 - Customer ref (Customer)
 - Contact ref(s) (Contact)
-- Timekeeping(s) (Comment)
+- Timekeeping(s) (Timekeeping)
 
 ### Warranty
 

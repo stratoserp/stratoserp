@@ -25,7 +25,7 @@ class TimeFormatter extends FormatterBase {
    */
   public function settingsSummary() {
     $summary = [];
-    $summary[] = $this->t('Displays time fields using hours and minutes.');
+    $summary[] = (string) $this->t('Displays time fields using hours and minutes.');
     return $summary;
   }
 

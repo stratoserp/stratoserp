@@ -123,9 +123,10 @@ class ItemsController extends ControllerBase {
 
     $targetType = $values['se_item_lines'][$index]['target_type'];
     switch ($targetType) {
-      case 'comment':
+      case 'se_timekeeping':
         /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
-        if (($timekeeping = Timekeeping::load($values['se_item_lines'][$index]['target_id'])) && $item = $timekeeping->se_it_ref->entity) {
+        if (($timekeeping = Timekeeping::load($values['se_item_lines'][$index]['target_id']))
+        && $item = $timekeeping->se_it_ref->entity) {
           $date = new DateTimePlus($timekeeping->se_date->value, date_default_timezone_get());
           $response->addCommand(
             new InvokeCommand(

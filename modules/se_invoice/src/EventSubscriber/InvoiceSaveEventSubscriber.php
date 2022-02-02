@@ -73,7 +73,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    // Avoid a business balance update when payment is saving the invoice.
+    // Don't update invoice and business balance when triggered by payment.
     if ($invoice->isSkipSaveEvents()) {
       return;
     }

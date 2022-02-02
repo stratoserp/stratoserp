@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_invoice\EventSubscriber;
 
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -15,6 +16,17 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @package Drupal\se_invoice\EventSubscriber
  */
 interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
+
+  /**
+   * Reduce the business balance by the amount of the old invoice.
+   *
+   * This needs to be done in case the amount changes on the saving
+   * of this invoice.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event we are working with.
+   */
+  public function invoicePresave(EntityPresaveEvent $event);
 
   /**
    * Add the total of this invoice to the amount the business owes.
@@ -33,15 +45,11 @@ interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
   public function invoiceUpdate(EntityUpdateEvent $event);
 
   /**
-   * Reduce the business balance by the amount of the old invoice.
+   * Remove total of this invoice from the amount the business owes.
    *
-   * This needs to be done in case the amount changes on the saving
-   * of this invoice.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
    */
-  public function invoicePresave(EntityPresaveEvent $event);
-
+  public function invoiceDelete(EntityDeleteEvent $event);
 
 }
