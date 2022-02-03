@@ -75,16 +75,16 @@ content:
     third_party_settings: {  }
   se_domain_name:
     type: string_textfield
-    weight: 4
-    region: second
+    weight: 2
+    region: first
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   se_hosting_type:
     type: options_select
-    weight: 5
-    region: second
+    weight: 3
+    region: first
     settings: {  }
     third_party_settings: {  }
   se_item_lines:
@@ -99,7 +99,7 @@ content:
     third_party_settings: {  }
   se_management_link:
     type: link_default
-    weight: 6
+    weight: 8
     region: second
     settings:
       placeholder_url: ''
@@ -107,20 +107,20 @@ content:
     third_party_settings: {  }
   se_next_due:
     type: datetime_timestamp
-    weight: 8
-    region: second
+    weight: 5
+    region: first
     settings: {  }
     third_party_settings: {  }
   se_period:
     type: duration_widget
-    weight: 3
-    region: second
+    weight: 6
+    region: top
     settings: {  }
     third_party_settings: {  }
   se_su_ref:
     type: entity_reference_autocomplete
-    weight: 2
-    region: first
+    weight: 7
+    region: second
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -135,8 +135,8 @@ content:
     third_party_settings: {  }
   se_use_bu_due:
     type: boolean_checkbox
-    weight: 7
-    region: second
+    weight: 4
+    region: first
     settings:
       display_label: true
     third_party_settings: {  }

@@ -17,13 +17,10 @@ dependencies:
     - field.field.se_item.se_assembly.se_sell_price
     - field.field.se_item.se_assembly.se_serial
     - field.field.se_item.se_assembly.se_sold
-    - image.style.thumbnail
     - se_item.se_item_type.se_assembly
   module:
-    - datetime
     - field_group
     - field_layout
-    - image
     - layout_discovery
     - se_accounting
     - text

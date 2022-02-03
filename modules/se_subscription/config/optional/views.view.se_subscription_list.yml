@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.se_subscription.se_bu_ref
     - field.storage.se_subscription.se_next_due
     - field.storage.se_subscription.se_period
     - system.menu.stratos-erp
@@ -441,7 +442,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -518,6 +519,54 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        type:
+          id: type
+          table: se_subscription_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: se_subscription
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: type_op
+            label: 'Subscription type'
+            description: ''
+            use_operator: false
+            operator: type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: table
       row:
@@ -553,8 +602,8 @@ display:
         - url.query_args
         - user.permissions
       tags:
+        - 'config:field.storage.se_subscription.se_bu_ref'
         - 'config:field.storage.se_subscription.se_next_due'
-        - 'config:field.storage.se_subscription.se_period'
         - 'config:field.storage.se_subscription.se_period'
   se_subscription_list:
     id: se_subscription_list
@@ -582,6 +631,6 @@ display:
         - url.query_args
         - user.permissions
       tags:
+        - 'config:field.storage.se_subscription.se_bu_ref'
         - 'config:field.storage.se_subscription.se_next_due'
-        - 'config:field.storage.se_subscription.se_period'
         - 'config:field.storage.se_subscription.se_period'

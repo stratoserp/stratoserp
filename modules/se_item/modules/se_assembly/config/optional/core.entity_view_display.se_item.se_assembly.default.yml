@@ -19,9 +19,7 @@ dependencies:
     - field.field.se_item.se_assembly.se_sold
     - se_item.se_item_type.se_assembly
   module:
-    - datetime
     - field_layout
-    - image
     - layout_discovery
     - se_accounting
     - text
