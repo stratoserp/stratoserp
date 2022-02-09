@@ -7,47 +7,53 @@ namespace Drupal\se_subscription_invoice\Service;
 use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannel;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\duration_field\Service\DurationService;
+use Drupal\duration_field\Service\DurationServiceInterface;
 use Drupal\se_business\Entity\Business;
+use Drupal\se_business\Service\BusinessService;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_subscription\Entity\Subscription;
 
 /**
  * Service to create invoices out of subscriptions.
  */
-class SubscriptionInvoiceService {
+class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface {
 
   use StringTranslationTrait;
 
   protected EntityTypeManagerInterface $entityTypeManager;
   protected LoggerChannel $loggerChannel;
+  protected BusinessService $businessService;
+  protected DurationService $durationService;
 
   /**
-   * Constructor.
+   * Constructor for this service.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   EntityTypeManager for later.
    * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
    *   Logger for later.
+   * @param \Drupal\se_business\Service\BusinessService $businessService
+   *   The business service.
+   * @param \Drupal\duration_field\Service\DurationService $durationService
+   *   The duration service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannel $loggerChannel) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelInterface $loggerChannel, BusinessService $businessService, DurationServiceInterface $durationService) {
     $this->entityTypeManager = $entityTypeManager;
     $this->loggerChannel = $loggerChannel;
+    $this->businessService = $businessService;
+    $this->durationService = $durationService;
   }
 
   /**
-   * Retrieve the list of businesses with subscriptions that match this day.
-   *
-   * @return array
-   *   And array of invoices.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function processDateSubscriptions(): array {
     $invoices = [];
 
+    // Load the business ids for businesses that have a invoice day set.
     $query = $this->entityTypeManager
       ->getStorage('se_business')
       ->getQuery()
@@ -70,14 +76,7 @@ class SubscriptionInvoiceService {
   }
 
   /**
-   * Process subscriptions that are not set to use the business date.
-   *
-   * @return array
-   *   An array of invoices.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function processSubscriptions(): array {
     $invoices = [];
@@ -114,7 +113,7 @@ class SubscriptionInvoiceService {
   private function updateDueDate(array $subscriptions): void {
     foreach ($subscriptions as $lines) {
       $subscription = Subscription::load($lines['subscription_id']);
-      $seconds = \Drupal::service('duration_field.service')->getSecondsFromDurationString($subscription->se_period->duration);
+      $seconds = $this->durationService->getSecondsFromDurationString($subscription->se_period->duration);
       // Do we need to worry about drift?
       $subscription->se_next_due->value += $seconds;
       $subscription->save();
@@ -173,13 +172,19 @@ class SubscriptionInvoiceService {
 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = Invoice::create($invoiceContent);
+
+    // Build the invoice title.
     $date = new DateTimePlus('now', date_default_timezone_get());
-    $entityTitle = $this->t('@business - @type - @date', [
+    $entityTitle = (string) $this->t('@business - @type - @date', [
       '@business' => $business->getName(),
       '@type' => $this->formatPlural(count($subscriptions), 'Subscription', 'Subscriptions'),
       '@date' => $date->format('d/m/Y'),
     ]);
     $invoice->setName($entityTitle);
+
+    // Set the timestamp on the invoice to the business invoice day.
+    $invoice->setCreatedTime($this->businessService->getInvoiceDayTimestamp($business));
+
     $invoice->save();
 
     return $invoice;

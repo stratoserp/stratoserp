@@ -1,5 +1,5 @@
 services:
   se_subscription_invoice:
     class: Drupal\se_subscription_invoice\Service\SubscriptionInvoiceService
-    arguments: ['@entity_type.manager', '@logger.channel.stratoserp']
+    arguments: ['@entity_type.manager', '@logger.channel.stratoserp', '@se_business.service', '@duration_field.service']
 

@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\se_business\Service;
 
+use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\se_business\Entity\Business;
 use Drupal\se_business\Entity\BusinessInterface;
 use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 
 /**
  * Business service class for common custom related manipulations.
  */
-class BusinessService {
+class BusinessService implements BusinessServiceInterface {
 
   /**
    * The config factory.
@@ -44,13 +43,7 @@ class BusinessService {
   }
 
   /**
-   * Given any entity with a business, return the (first) business.
-   *
-   * @param \Drupal\stratoserp\Entity\StratosEntityBaseInterface $entity
-   *   Entity to return the business for.
-   *
-   * @return bool|\Drupal\se_business\Entity\Business
-   *   Business entity.
+   * {@inheritdoc}
    */
   public function lookupBusiness(StratosEntityBaseInterface $entity) {
     if ($entity instanceof BusinessInterface) {
@@ -63,6 +56,16 @@ class BusinessService {
     }
 
     return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInvoiceDayTimestamp($business): int {
+    return DateTimePlus::createFromFormat(
+      'Y-m-d H:i:s',
+      date('Y-m-') . sprintf('%02d', $business->se_invoice_day->value) . ' 00:00:00'
+    )->getTimestamp();
   }
 
 }
