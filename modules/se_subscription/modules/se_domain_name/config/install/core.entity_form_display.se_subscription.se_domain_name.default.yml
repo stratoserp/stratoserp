@@ -34,7 +34,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -83,15 +83,15 @@ content:
     third_party_settings: {  }
   se_external_id:
     type: string_textfield
-    weight: 11
-    region: first
+    weight: 7
+    region: second
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   se_item_lines:
     type: se_item_line_widget
-    weight: 8
+    weight: 9
     region: bottom
     settings:
       match_operator: CONTAINS
@@ -101,7 +101,7 @@ content:
     third_party_settings: {  }
   se_management_link:
     type: link_default
-    weight: 7
+    weight: 8
     region: second
     settings:
       placeholder_url: ''
@@ -109,13 +109,13 @@ content:
     third_party_settings: {  }
   se_next_due:
     type: datetime_timestamp
-    weight: 4
+    weight: 5
     region: first
     settings: {  }
     third_party_settings: {  }
   se_period:
     type: duration_widget
-    weight: 5
+    weight: 3
     region: first
     settings: {  }
     third_party_settings: {  }
@@ -131,13 +131,13 @@ content:
     third_party_settings: {  }
   se_total:
     type: se_currency_widget
-    weight: 9
+    weight: 10
     region: bottom
     settings: {  }
     third_party_settings: {  }
   se_use_bu_due:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: first
     settings:
       display_label: true

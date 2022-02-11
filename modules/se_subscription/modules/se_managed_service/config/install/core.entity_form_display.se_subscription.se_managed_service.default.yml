@@ -91,13 +91,13 @@ content:
     third_party_settings: {  }
   se_next_due:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     region: first
     settings: {  }
     third_party_settings: {  }
   se_period:
     type: duration_widget
-    weight: 4
+    weight: 2
     region: first
     settings: {  }
     third_party_settings: {  }
@@ -119,7 +119,7 @@ content:
     third_party_settings: {  }
   se_use_bu_due:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: first
     settings:
       display_label: true

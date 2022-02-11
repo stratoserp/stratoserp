@@ -57,8 +57,8 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 5
-    region: second
+    weight: 4
+    region: first
   se_period:
     type: duration_human_display
     label: inline
@@ -66,16 +66,16 @@ content:
       text_length: full
       separator: space
     third_party_settings: {  }
-    weight: 3
-    region: second
+    weight: 2
+    region: first
   se_su_ref:
     type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
-    region: first
+    weight: 5
+    region: second
   se_total:
     type: se_currency_formatter
     label: above
@@ -91,7 +91,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 4
-    region: second
+    weight: 3
+    region: first
 hidden:
   user_id: true

@@ -54,29 +54,29 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
-    region: second
+    weight: 2
+    region: first
   se_external_id:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 11
-    region: first
+    weight: 8
+    region: second
   se_hosting_type:
     type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 5
-    region: second
+    weight: 4
+    region: first
   se_item_lines:
     type: se_item_line_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: bottom
   se_management_link:
     type: link
@@ -88,7 +88,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 9
     region: second
   se_next_due:
     type: timestamp
@@ -98,8 +98,8 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 8
-    region: second
+    weight: 6
+    region: first
   se_period:
     type: duration_human_display
     label: inline
@@ -108,21 +108,21 @@ content:
       separator: space
     third_party_settings: {  }
     weight: 3
-    region: second
+    region: first
   se_su_ref:
     type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
-    region: first
+    weight: 7
+    region: second
   se_total:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: bottom
   se_use_bu_due:
     type: boolean
@@ -132,7 +132,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 7
-    region: second
+    weight: 5
+    region: first
 hidden:
   user_id: true
