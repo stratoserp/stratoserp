@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_external_id
+    - se_subscription.se_subscription_type.se_domain_hosting
+id: se_subscription.se_domain_hosting.se_external_id
+field_name: se_external_id
+entity_type: se_subscription
+bundle: se_domain_hosting
+label: 'External id'
+description: 'This field can be used to store a value to link the subscription to an external id/system.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

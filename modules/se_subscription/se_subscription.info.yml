@@ -13,6 +13,7 @@ config_devel:
   install:
     - field.storage.se_subscription.se_bu_ref
     - field.storage.se_subscription.se_domain_name
+    - field.storage.se_subscription.se_external_id
     - field.storage.se_subscription.se_item_lines
     - field.storage.se_subscription.se_management_link
     - field.storage.se_subscription.se_next_due
