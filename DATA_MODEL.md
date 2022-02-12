@@ -140,7 +140,7 @@ First class entity types.
 
 ### All functions and their subscriptions
 
-- Goods Receipt - Triggered by Goods Receipt
+- Goods receipt - Triggered by Goods receipt
   - ENTITY_INSERT - itemsInsert Loop through each item and update the refs and cost.
 
   - ENTITY_PRE_SAVE - itemLineEntityPresave Loop through each item received and create a new 'stock' item.
@@ -164,7 +164,7 @@ First class entity types.
 
     On update, they will get re-marked as sold again. This is in case an entry is removed, it then needs to be available for other invoices.
 
-- Item Line - Triggered by Bill, Goods Receipt, Invoice, Quote, Purchase Order
+- Item Line - Triggered by Bill, Goods receipt, Invoice, Quote, Purchase order
   - ENTITY_PRE_SAVE - itemLineEntityPresave Loop through the lines on the invoice to calculate the total
 
 - Payment - Triggered by Payment
@@ -180,7 +180,7 @@ First class entity types.
 - Payment Line - Triggered by Payment
   - ENTITY_PRE_SAVE - paymentLineEntityPresave Loop through the lines on the payment to calculate the total.
 
-- Purchase Order
+- Purchase order
   - ENTITY_CREATE - purchaseOrderInsert Just a stub function, not sure there is really anything to do on PO creation.
 
 - Stock - Triggered by Stock

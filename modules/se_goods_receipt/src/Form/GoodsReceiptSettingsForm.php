@@ -37,7 +37,7 @@ class GoodsReceiptSettingsForm extends FormBase {
   }
 
   /**
-   * Defines the settings form for Goods Receipt entities.
+   * Defines the settings form for Goods receipt entities.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
@@ -48,7 +48,7 @@ class GoodsReceiptSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['goodsreceipt_settings']['#markup'] = 'Settings form for Goods Receipt entities. Manage field settings here.';
+    $form['goodsreceipt_settings']['#markup'] = 'Settings form for Goods receipt entities. Manage field settings here.';
     return $form;
   }
 

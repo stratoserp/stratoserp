@@ -1,7 +1,7 @@
 
 entity.se_goods_receipt.add_form:
   route_name: entity.se_goods_receipt.add_form
-  title: 'Add Goods Receipt'
+  title: 'Add Goods receipt'
   appears_on:
     - entity.se_goods_receipt.collection
     - 'view.se_goods_receipt_list.se_goods_receipt_list'

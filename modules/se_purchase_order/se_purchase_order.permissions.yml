@@ -1,30 +1,30 @@
 add purchase order entities:
-  title: 'Create new Purchase Order entities'
+  title: 'Create new Purchase order entities'
 
 administer purchase order entities:
-  title: 'Administer Purchase Order entities'
-  description: 'Allow to access the administration form to configure Purchase Order entities.'
+  title: 'Administer Purchase order entities'
+  description: 'Allow to access the administration form to configure Purchase order entities.'
   restrict access: true
 
 delete purchase order entities:
-  title: 'Delete Purchase Order entities'
+  title: 'Delete Purchase order entities'
 
 edit purchase order entities:
-  title: 'Edit Purchase Order entities'
+  title: 'Edit Purchase order entities'
 
 view purchase order entities:
-  title: 'View Purchase Order entities'
+  title: 'View Purchase order entities'
 
 view all purchase order revisions:
-  title: 'View all Purchase Order revisions'
+  title: 'View all Purchase order revisions'
 
 revert all purchase order revisions:
-  title: 'Revert all Purchase Order revisions'
-  description: 'Role requires permission <em>view Purchase Order revisions</em> and <em>edit rights</em> for purchase order entities in
+  title: 'Revert all Purchase order revisions'
+  description: 'Role requires permission <em>view Purchase order revisions</em> and <em>edit rights</em> for purchase order entities in
   question or <em>administer purchase order entities</em>.'
 
 delete all purchase order revisions:
   title: 'Delete all revisions'
-  description: 'Role requires permission to <em>view Purchase Order revisions</em> and <em>delete rights</em> for purchase order entities
+  description: 'Role requires permission to <em>view Purchase order revisions</em> and <em>delete rights</em> for purchase order entities
    in question or <em>administer purchase order entities</em>.'
 

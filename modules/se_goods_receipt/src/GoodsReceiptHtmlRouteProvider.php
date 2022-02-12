@@ -8,7 +8,7 @@ use Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider;
 use Drupal\stratoserp\Traits\HtmlRouteProviderTrait;
 
 /**
- * Provides routes for Goods Receipt entities.
+ * Provides routes for Goods receipt entities.
  *
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */

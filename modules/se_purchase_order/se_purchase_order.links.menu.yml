@@ -1,14 +1,14 @@
 
 # PurchaseOrder menu items definition
 entity.se_purchase_order.collection:
-  title: 'Purchase Order list'
+  title: 'Purchase order list'
   route_name: entity.se_purchase_order.collection
-  description: 'List Purchase Order entities'
+  description: 'List Purchase order entities'
   parent: system.admin_content
   weight: 100
 
 se_purchase_order.admin.structure.settings:
-  title: 'Purchase Order settings'
-  description: 'Configure Purchase Order entities'
+  title: 'Purchase order settings'
+  description: 'Configure Purchase order entities'
   route_name: se_purchase_order.settings
   parent: stratoserp.admin_config_stratoserp

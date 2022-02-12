@@ -16,6 +16,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  * @ContentEntityType(
  *   id = "se_bill",
  *   label = @Translation("Bill"),
+ *   label_collection = @Translation("Bills"),
  *   handlers = {
  *     "storage" = "Drupal\se_bill\BillStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
@@ -38,6 +39,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   data_table = "se_bill_field_data",
  *   revision_table = "se_bill_revision",
  *   revision_data_table = "se_bill_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer bill entities",
  *   entity_keys = {

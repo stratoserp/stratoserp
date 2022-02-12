@@ -10,21 +10,21 @@ use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for deleting a Goods Receipt revision.
+ * Provides a form for deleting a Goods receipt revision.
  *
  * @ingroup se_goods_receipt
  */
 class GoodsReceiptRevisionDeleteForm extends ConfirmFormBase {
 
   /**
-   * The Goods Receipt revision.
+   * The Goods receipt revision.
    *
    * @var \Drupal\se_goods_receipt\Entity\GoodsReceiptInterface
    */
   protected $revision;
 
   /**
-   * The Goods Receipt storage.
+   * The Goods receipt storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
@@ -93,12 +93,12 @@ class GoodsReceiptRevisionDeleteForm extends ConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->GoodsReceiptStorage->deleteRevision($this->revision->getRevisionId());
 
-    $this->logger('content')->notice('Goods Receipt: deleted %title revision %revision.', [
+    $this->logger('content')->notice('Goods receipt: deleted %title revision %revision.', [
       '%title' => $this->revision->label(),
       '%revision' => $this->revision->getRevisionId(),
     ]);
     $this->messenger()
-      ->addMessage(t('Revision from %revision-date of Goods Receipt %title has been deleted.', [
+      ->addMessage(t('Revision from %revision-date of Goods receipt %title has been deleted.', [
         '%revision-date' => format_date($this->revision->getRevisionCreationTime()),
         '%title' => $this->revision->label(),
       ]));

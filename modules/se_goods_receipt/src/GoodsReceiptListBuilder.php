@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Link;
 
 /**
- * Defines a class to build a listing of Goods Receipt entities.
+ * Defines a class to build a listing of Goods receipt entities.
  *
  * @ingroup se_goods_receipt
  */
@@ -19,7 +19,7 @@ class GoodsReceiptListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Goods Receipt ID');
+    $header['id'] = $this->t('Goods receipt ID');
     $header['name'] = $this->t('Name');
     return $header + parent::buildHeader();
   }

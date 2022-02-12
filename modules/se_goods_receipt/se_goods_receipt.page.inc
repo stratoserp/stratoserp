@@ -4,7 +4,7 @@
  * @file
  * Contains se_goods_receipt.page.inc.
  *
- * Page callback for Goods Receipt entities.
+ * Page callback for Goods receipt entities.
  */
 
 declare(strict_types=1);
@@ -12,7 +12,7 @@ declare(strict_types=1);
 use Drupal\Core\Render\Element;
 
 /**
- * Prepares variables for Goods Receipt templates.
+ * Prepares variables for Goods receipt templates.
  *
  * Default template: se_goods_receipt.html.twig.
  *

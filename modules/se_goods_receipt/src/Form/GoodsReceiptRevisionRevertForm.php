@@ -11,21 +11,21 @@ use Drupal\se_goods_receipt\Entity\GoodsReceiptInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for reverting a Goods Receipt revision.
+ * Provides a form for reverting a Goods receipt revision.
  *
  * @ingroup se_goods_receipt
  */
 class GoodsReceiptRevisionRevertForm extends ConfirmFormBase {
 
   /**
-   * The Goods Receipt revision.
+   * The Goods receipt revision.
    *
    * @var \Drupal\se_goods_receipt\Entity\GoodsReceiptInterface
    */
   protected $revision;
 
   /**
-   * The Goods Receipt storage.
+   * The Goods receipt storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
@@ -109,12 +109,12 @@ class GoodsReceiptRevisionRevertForm extends ConfirmFormBase {
     ]);
     $this->revision->save();
 
-    $this->logger('content')->notice('Goods Receipt: reverted %title revision %revision.', [
+    $this->logger('content')->notice('Goods receipt: reverted %title revision %revision.', [
       '%title' => $this->revision->label(),
       '%revision' => $this->revision->getRevisionId(),
     ]);
     $this->messenger()
-      ->addMessage(t('Goods Receipt %title has been reverted to the revision from %revision-date.', [
+      ->addMessage(t('Goods receipt %title has been reverted to the revision from %revision-date.', [
         '%title' => $this->revision->label(),
         '%revision-date' => $this->dateFormatter->format($original_revision_timestamp),
       ]));

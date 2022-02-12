@@ -16,6 +16,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  * @ContentEntityType(
  *   id = "se_information",
  *   label = @Translation("Information"),
+ *   label_collection = @Translation("Information"),
  *   bundle_label = @Translation("Information type"),
  *   handlers = {
  *     "storage" = "Drupal\se_information\InformationStorage",
@@ -39,6 +40,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   data_table = "se_information_field_data",
  *   revision_table = "se_information_revision",
  *   revision_data_table = "se_information_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer information entities",
  *   entity_keys = {

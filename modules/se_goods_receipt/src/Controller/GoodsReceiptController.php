@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class GoodsReceiptController.
  *
- *  Returns responses for Goods Receipt routes.
+ *  Returns responses for Goods receipt routes.
  */
 class GoodsReceiptController extends ControllerBase {
 
@@ -45,10 +45,10 @@ class GoodsReceiptController extends ControllerBase {
   }
 
   /**
-   * Displays a Goods Receipt revision.
+   * Displays a Goods receipt revision.
    *
    * @param int $se_goods_receipt_revision
-   *   The Goods Receipt revision ID.
+   *   The Goods receipt revision ID.
    *
    * @return array
    *   An array suitable for drupal_render().
@@ -62,10 +62,10 @@ class GoodsReceiptController extends ControllerBase {
   }
 
   /**
-   * Page title callback for a Goods Receipt revision.
+   * Page title callback for a Goods receipt revision.
    *
    * @param int $se_goods_receipt_revision
-   *   The Goods Receipt revision ID.
+   *   The Goods receipt revision ID.
    *
    * @return string
    *   The page title.
@@ -80,10 +80,10 @@ class GoodsReceiptController extends ControllerBase {
   }
 
   /**
-   * Generates an overview table of older revisions of a Goods Receipt.
+   * Generates an overview table of older revisions of a Goods receipt.
    *
    * @param \Drupal\se_goods_receipt\Entity\GoodsReceiptInterface $se_goods_receipt
-   *   A Goods Receipt object.
+   *   A Goods receipt object.
    *
    * @return array
    *   An array as expected by drupal_render().

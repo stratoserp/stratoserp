@@ -10,7 +10,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 
 /**
- * Access controller for the Goods Receipt entity.
+ * Access controller for the Goods receipt entity.
  *
  * @see \Drupal\se_goods_receipt\Entity\GoodsReceipt.
  */

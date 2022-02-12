@@ -1,4 +1,4 @@
-# Goods Receipt routing definition
+# Goods receipt routing definition
 se_goods_receipt.settings_tab:
   route_name: se_goods_receipt.settings
   title: 'Settings'

@@ -9,7 +9,7 @@ use Drupal\se_goods_receipt\Entity\GoodsReceiptInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for reverting a Goods Receipt revision for a single trans.
+ * Provides a form for reverting a Goods receipt revision for a single trans.
  *
  * @ingroup se_goods_receipt
  */

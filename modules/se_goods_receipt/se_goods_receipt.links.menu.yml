@@ -1,14 +1,14 @@
 
-# Goods Receipt menu items definition
+# Goods receipt menu items definition
 entity.se_goods_receipt.collection:
-  title: 'Goods Receipt list'
+  title: 'Goods receipt list'
   route_name: entity.se_goods_receipt.collection
-  description: 'List Goods Receipt entities'
+  description: 'List Goods receipt entities'
   parent: system.admin_content
   weight: 100
 
 se_goods_receipt.admin.structure.settings:
-  title: 'Goods Receipt settings'
-  description: 'Configure Goods Receipt entities'
+  title: 'Goods receipt settings'
+  description: 'Configure Goods receipt entities'
   route_name: se_goods_receipt.settings
   parent: stratoserp.admin_config_stratoserp

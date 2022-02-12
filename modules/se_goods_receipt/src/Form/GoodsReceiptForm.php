@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\stratoserp\Form\StratosContentEntityForm;
 
 /**
- * Form controller for Goods Receipt edit forms.
+ * Form controller for Goods receipt edit forms.
  *
  * @ingroup se_goods_receipt
  */

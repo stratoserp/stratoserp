@@ -9,13 +9,14 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
- * Defines the Goods Receipt entity.
+ * Defines the Goods receipt entity.
  *
  * @ingroup se_goods_receipt
  *
  * @ContentEntityType(
  *   id = "se_goods_receipt",
- *   label = @Translation("Goods Receipt"),
+ *   label = @Translation("Goods receipt"),
+ *   label_collection = @Translation("Goods receipts"),
  *   handlers = {
  *     "storage" = "Drupal\se_goods_receipt\GoodsReceiptStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
@@ -38,6 +39,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *   data_table = "se_goods_receipt_field_data",
  *   revision_table = "se_goods_receipt_revision",
  *   revision_data_table = "se_goods_receipt_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer goods receipt entities",
  *   entity_keys = {
@@ -93,7 +95,7 @@ class GoodsReceipt extends StratosLinesEntityBase implements GoodsReceiptInterfa
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Goods Receipt entity.'))
+      ->setDescription(t('The user ID of author of the Goods receipt entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
@@ -118,7 +120,7 @@ class GoodsReceipt extends StratosLinesEntityBase implements GoodsReceiptInterfa
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Goods Receipt entity.'))
+      ->setDescription(t('The name of the Goods receipt entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('max_length', 128)
       ->setDefaultValue('')

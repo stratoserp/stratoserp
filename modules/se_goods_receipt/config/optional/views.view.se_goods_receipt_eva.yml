@@ -587,7 +587,7 @@ display:
           field: se_po_ref
           relationship: none
           group_type: group
-          admin_label: 'se_po_ref: Purchase Order'
+          admin_label: 'se_po_ref: Purchase order'
           plugin_id: standard
           required: false
       use_ajax: true

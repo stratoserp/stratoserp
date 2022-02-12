@@ -7,7 +7,7 @@ namespace Drupal\se_goods_receipt\Entity;
 use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
 
 /**
- * Provides an interface for defining Goods Receipt entities.
+ * Provides an interface for defining Goods receipt entities.
  *
  * @ingroup se_goods_receipt
  */

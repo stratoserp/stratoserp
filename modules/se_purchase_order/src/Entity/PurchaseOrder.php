@@ -9,13 +9,14 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
- * Defines the Purchase Order entity.
+ * Defines the Purchase order entity.
  *
  * @ingroup se_purchase_order
  *
  * @ContentEntityType(
  *   id = "se_purchase_order",
- *   label = @Translation("Purchase Order"),
+ *   label = @Translation("Purchase order"),
+ *   label_collection = @Translation("Purchase orders"),
  *   handlers = {
  *     "storage" = "Drupal\se_purchase_order\PurchaseOrderStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
@@ -38,6 +39,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *   data_table = "se_purchase_order_field_data",
  *   revision_table = "se_purchase_order_revision",
  *   revision_data_table = "se_purchase_order_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer purchase order entities",
  *   entity_keys = {

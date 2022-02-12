@@ -7,7 +7,7 @@ namespace Drupal\se_goods_receipt\Form;
 use Drupal\Core\Entity\ContentEntityDeleteForm;
 
 /**
- * Provides a form for deleting Goods Receipt entities.
+ * Provides a form for deleting Goods receipt entities.
  *
  * @ingroup se_goods_receipt
  */

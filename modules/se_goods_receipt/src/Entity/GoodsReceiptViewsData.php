@@ -7,7 +7,7 @@ namespace Drupal\se_goods_receipt\Entity;
 use Drupal\views\EntityViewsData;
 
 /**
- * Provides Views data for Goods Receipt entities.
+ * Provides Views data for Goods receipt entities.
  */
 class GoodsReceiptViewsData extends EntityViewsData {
 

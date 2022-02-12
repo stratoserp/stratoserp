@@ -11,7 +11,7 @@ dependencies:
     - se_goods_receipt
     - user
 id: se_purchase_order_goods_receipt_eva
-label: 'Purchase Order - Goods Receipt EVA'
+label: 'Purchase order - Goods receipt EVA'
 module: views
 description: ''
 tag: ''
@@ -101,7 +101,7 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
-          label: 'Goods Receipt'
+          label: 'Goods receipt'
           exclude: false
           alter:
             alter_text: false
@@ -349,7 +349,7 @@ display:
         - 'config:field.storage.se_goods_receipt.se_total'
   purchase_order_goods_receipt_eva:
     id: purchase_order_goods_receipt_eva
-    display_title: 'Purchase Order - Goods Receipt EVA'
+    display_title: 'Purchase order - Goods receipt EVA'
     display_plugin: entity_view
     position: 1
     display_options:

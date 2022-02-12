@@ -17,6 +17,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  * @ContentEntityType(
  *   id = "se_business",
  *   label = @Translation("Business"),
+ *   label_collection = @Translation("Businesses"),
  *   handlers = {
  *     "storage" = "Drupal\se_business\BusinessStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
@@ -39,6 +40,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   data_table = "se_business_field_data",
  *   revision_table = "se_business_revision",
  *   revision_data_table = "se_business_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer business entities",
  *   entity_keys = {
