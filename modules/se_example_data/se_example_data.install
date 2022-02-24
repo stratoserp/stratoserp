@@ -49,7 +49,7 @@ function se_example_data_business_setup() {
   if (!$term = se_example_data_business_term_setup()) {
     return;
   }
-  
+
   $customer_defaults = se_business_load_defaults($term);
   $customer = Business::create($customer_defaults + [
     'name' => 'Test customer 1',
@@ -90,7 +90,7 @@ function se_example_data_business_term_setup() {
     ->load('se_business.se_business.se_type_ref');
   $field->setDefaultValue(['target_uuid' => $term->uuid()]);
   $field->save();
-  
+
   return $term;
 }
 
@@ -481,8 +481,8 @@ function stratoserp_create_terms(string $taxonomy, array $terms) {
 
   // The last one will be used as the default.
   foreach ($terms as $new_term) {
-    $find_term = se_example_data_load_term_by_name($new_term, 'se_contact_type');
-    if (empty($find_term)) {
+    $term = se_example_data_load_term_by_name($new_term, $taxonomy);
+    if (empty($term)) {
       /** @var \Drupal\taxonomy\Entity\Term $term */
       $term = Term::create([
         'parent' => [],
