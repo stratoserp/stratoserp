@@ -23,7 +23,6 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *     "list_builder" = "Drupal\se_purchase_order\PurchaseOrderListBuilder",
  *     "views_data" = "Drupal\se_purchase_order\Entity\PurchaseOrderViewsData",
  *     "translation" = "Drupal\se_purchase_order\PurchaseOrderTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_purchase_order\Form\PurchaseOrderForm",
  *       "add" = "Drupal\se_purchase_order\Form\PurchaseOrderForm",

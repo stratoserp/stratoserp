@@ -23,7 +23,6 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *     "list_builder" = "Drupal\se_goods_receipt\GoodsReceiptListBuilder",
  *     "views_data" = "Drupal\se_goods_receipt\Entity\GoodsReceiptViewsData",
  *     "translation" = "Drupal\se_goods_receipt\GoodsReceiptTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_goods_receipt\Form\GoodsReceiptForm",
  *       "add" = "Drupal\se_goods_receipt\Form\GoodsReceiptForm",

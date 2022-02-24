@@ -16,13 +16,13 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  * @ContentEntityType(
  *   id = "se_timekeeping",
  *   label = @Translation("Timekeeping"),
+ *   label_collection = @Translation("Timekeeping"),
  *   handlers = {
  *     "storage" = "Drupal\se_timekeeping\TimekeepingStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\se_timekeeping\TimekeepingListBuilder",
  *     "views_data" = "Drupal\se_timekeeping\Entity\TimekeepingViewsData",
  *     "translation" = "Drupal\se_timekeeping\TimekeepingTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_timekeeping\Form\TimekeepingForm",
  *       "add" = "Drupal\se_timekeeping\Form\TimekeepingForm",
@@ -38,6 +38,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   data_table = "se_timekeeping_field_data",
  *   revision_table = "se_timekeeping_revision",
  *   revision_data_table = "se_timekeeping_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer timekeeping entities",
  *   entity_keys = {

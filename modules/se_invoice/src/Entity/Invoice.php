@@ -17,13 +17,13 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  * @ContentEntityType(
  *   id = "se_invoice",
  *   label = @Translation("Invoice"),
+ *   label_collection = @Translation("Invoices"),
  *   handlers = {
  *     "storage" = "Drupal\se_invoice\InvoiceStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\se_invoice\InvoiceListBuilder",
  *     "views_data" = "Drupal\se_invoice\Entity\InvoiceViewsData",
  *     "translation" = "Drupal\se_invoice\InvoiceTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_invoice\Form\InvoiceForm",
  *       "add" = "Drupal\se_invoice\Form\InvoiceForm",
@@ -39,6 +39,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *   data_table = "se_invoice_field_data",
  *   revision_table = "se_invoice_revision",
  *   revision_data_table = "se_invoice_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer invoice entities",
  *   entity_keys = {

@@ -23,7 +23,6 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "list_builder" = "Drupal\se_bill\BillListBuilder",
  *     "views_data" = "Drupal\se_bill\Entity\BillViewsData",
  *     "translation" = "Drupal\se_bill\BillTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_bill\Form\BillForm",
  *       "add" = "Drupal\se_bill\Form\BillForm",

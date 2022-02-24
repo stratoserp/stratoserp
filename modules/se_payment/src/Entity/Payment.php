@@ -16,13 +16,13 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  * @ContentEntityType(
  *   id = "se_payment",
  *   label = @Translation("Payment"),
+ *   label_collection = @Translation("Payments"),
  *   handlers = {
  *     "storage" = "Drupal\se_payment\PaymentStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\se_payment\PaymentListBuilder",
  *     "views_data" = "Drupal\se_payment\Entity\PaymentViewsData",
  *     "translation" = "Drupal\se_payment\PaymentTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_payment\Form\PaymentForm",
  *       "add" = "Drupal\se_payment\Form\PaymentForm",
@@ -38,6 +38,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   data_table = "se_payment_field_data",
  *   revision_table = "se_payment_revision",
  *   revision_data_table = "se_payment_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer payment entities",
  *   entity_keys = {

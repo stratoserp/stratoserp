@@ -16,13 +16,13 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  * @ContentEntityType(
  *   id = "se_ticket",
  *   label = @Translation("Ticket"),
+ *   label_collection = @Translation("Tickets"),
  *   handlers = {
  *     "storage" = "Drupal\se_ticket\TicketStorage",
  *     "view_builder" = "Drupal\se_ticket\Entity\TicketViewBuilder",
  *     "list_builder" = "Drupal\se_ticket\TicketListBuilder",
  *     "views_data" = "Drupal\se_ticket\Entity\TicketViewsData",
  *     "translation" = "Drupal\se_ticket\TicketTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_ticket\Form\TicketForm",
  *       "add" = "Drupal\se_ticket\Form\TicketForm",
@@ -38,6 +38,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   data_table = "se_ticket_field_data",
  *   revision_table = "se_ticket_revision",
  *   revision_data_table = "se_ticket_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer ticket entities",
  *   entity_keys = {

@@ -16,13 +16,13 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  * @ContentEntityType(
  *   id = "se_quote",
  *   label = @Translation("Quote"),
+ *   label_collection = @Translation("Quotes"),
  *   handlers = {
  *     "storage" = "Drupal\se_quote\QuoteStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\se_quote\QuoteListBuilder",
  *     "views_data" = "Drupal\se_quote\Entity\QuoteViewsData",
  *     "translation" = "Drupal\se_quote\QuoteTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_quote\Form\QuoteForm",
  *       "add" = "Drupal\se_quote\Form\QuoteForm",
@@ -38,6 +38,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *   data_table = "se_quote_field_data",
  *   revision_table = "se_quote_revision",
  *   revision_data_table = "se_quote_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer quote entities",
  *   entity_keys = {

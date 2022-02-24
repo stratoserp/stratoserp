@@ -16,6 +16,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  * @ContentEntityType(
  *   id = "se_subscription",
  *   label = @Translation("Subscription"),
+ *   label_collection = @Translation("Subscriptions"),
  *   bundle_label = @Translation("Subscription type"),
  *   handlers = {
  *     "storage" = "Drupal\se_subscription\SubscriptionStorage",
@@ -23,7 +24,6 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *     "list_builder" = "Drupal\se_subscription\SubscriptionListBuilder",
  *     "views_data" = "Drupal\se_subscription\Entity\SubscriptionViewsData",
  *     "translation" = "Drupal\se_subscription\SubscriptionTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_subscription\Form\SubscriptionForm",
  *       "add" = "Drupal\se_subscription\Form\SubscriptionForm",
@@ -39,6 +39,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *   data_table = "se_subscription_field_data",
  *   revision_table = "se_subscription_revision",
  *   revision_data_table = "se_subscription_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer subscription entities",
  *   entity_keys = {

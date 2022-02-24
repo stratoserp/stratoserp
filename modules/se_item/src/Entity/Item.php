@@ -16,6 +16,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  * @ContentEntityType(
  *   id = "se_item",
  *   label = @Translation("Item"),
+ *   label_collection = @Translation("Items"),
  *   bundle_label = @Translation("Item type"),
  *   handlers = {
  *     "storage" = "Drupal\se_item\ItemStorage",
@@ -23,22 +24,22 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "list_builder" = "Drupal\se_item\ItemListBuilder",
  *     "views_data" = "Drupal\se_item\Entity\ItemViewsData",
  *     "translation" = "Drupal\se_item\ItemTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_item\Form\ItemForm",
  *       "add" = "Drupal\se_item\Form\ItemForm",
  *       "edit" = "Drupal\se_item\Form\ItemForm",
  *       "delete" = "Drupal\se_item\Form\ItemDeleteForm",
  *     },
- *     "access" = "Drupal\se_item\ItemAccessControlHandler",
  *     "route_provider" = {
  *       "html" = "Drupal\se_item\ItemHtmlRouteProvider",
  *     },
+ *     "access" = "Drupal\se_item\ItemAccessControlHandler",
  *   },
  *   base_table = "se_item",
  *   data_table = "se_item_field_data",
  *   revision_table = "se_item_revision",
  *   revision_data_table = "se_item_field_revision",
+ *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer item entities",
  *   entity_keys = {

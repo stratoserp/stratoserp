@@ -20,8 +20,6 @@ class PaymentAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /** @var \Drupal\se_payment\Entity\PaymentInterface $entity */
-
     switch ($operation) {
 
       case 'view':

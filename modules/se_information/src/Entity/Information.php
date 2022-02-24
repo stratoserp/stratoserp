@@ -24,17 +24,16 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "list_builder" = "Drupal\se_information\InformationListBuilder",
  *     "views_data" = "Drupal\se_information\Entity\InformationViewsData",
  *     "translation" = "Drupal\se_information\InformationTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_information\Form\InformationForm",
  *       "add" = "Drupal\se_information\Form\InformationForm",
  *       "edit" = "Drupal\se_information\Form\InformationForm",
  *       "delete" = "Drupal\se_information\Form\InformationDeleteForm",
  *     },
- *     "access" = "Drupal\se_information\InformationAccessControlHandler",
  *     "route_provider" = {
  *       "html" = "Drupal\se_information\InformationHtmlRouteProvider",
  *     },
+ *     "access" = "Drupal\se_information\InformationAccessControlHandler",
  *   },
  *   base_table = "se_information",
  *   data_table = "se_information_field_data",

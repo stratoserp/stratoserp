@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\se_business\Entity;
 
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
@@ -24,7 +23,6 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "list_builder" = "Drupal\se_business\BusinessListBuilder",
  *     "views_data" = "Drupal\se_business\Entity\BusinessViewsData",
  *     "translation" = "Drupal\se_business\BusinessTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_business\Form\BusinessForm",
  *       "add" = "Drupal\se_business\Form\BusinessForm",

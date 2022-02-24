@@ -16,14 +16,13 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  * @ContentEntityType(
  *   id = "se_contact",
  *   label = @Translation("Contact"),
- *   label_collection = @Translation("Contactss"),
+ *   label_collection = @Translation("Contacts"),
  *   handlers = {
  *     "storage" = "Drupal\se_contact\ContactStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\se_contact\ContactListBuilder",
  *     "views_data" = "Drupal\se_contact\Entity\ContactViewsData",
  *     "translation" = "Drupal\se_contact\ContactTranslationHandler",
- *
  *     "form" = {
  *       "default" = "Drupal\se_contact\Form\ContactForm",
  *       "add" = "Drupal\se_contact\Form\ContactForm",
@@ -39,7 +38,6 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   data_table = "se_contact_field_data",
  *   revision_table = "se_contact_revision",
  *   revision_data_table = "se_contact_field_revision",
- *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   admin_permission = "administer contact entities",
  *   entity_keys = {
