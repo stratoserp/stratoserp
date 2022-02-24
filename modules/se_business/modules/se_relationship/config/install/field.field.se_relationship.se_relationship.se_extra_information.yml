@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_relationship.se_extra_information
+  module:
+    - se_relationship
+id: se_relationship.se_relationship.se_extra_information
+field_name: se_extra_information
+entity_type: se_relationship
+bundle: se_relationship
+label: 'Extra information'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

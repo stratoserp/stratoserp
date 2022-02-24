@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function se_relationship_theme() {
+  $theme = [];
+
+  $theme['se_relationship'] = [
+    'render element' => 'elements',
+    'file' => 'se_relationship.page.inc',
+    'template' => 'se_relationship',
+  ];
+
+  return $theme;
+}

@@ -1,0 +1,26 @@
+# Business Relationship routing definition
+se_relationship.settings_tab:
+  route_name: se_relationship.settings
+  title: 'Settings'
+  base_route: se_relationship.settings
+
+entity.se_relationship.canonical:
+  route_name: entity.se_relationship.canonical
+  base_route: entity.se_relationship.canonical
+  title: 'View'
+
+entity.se_relationship.edit_form:
+  route_name: entity.se_relationship.edit_form
+  base_route: entity.se_relationship.canonical
+  title: 'Edit'
+
+entity.se_relationship.version_history:
+  route_name: entity.se_relationship.version_history
+  base_route: entity.se_relationship.canonical
+  title: 'Revisions'
+
+entity.se_relationship.delete_form:
+  route_name:  entity.se_relationship.delete_form
+  base_route:  entity.se_relationship.canonical
+  title: Delete
+  weight: 10

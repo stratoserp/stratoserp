@@ -1,0 +1,28 @@
+add relationship entities:
+  title: 'Create new Relationship entities'
+
+administer relationship entities:
+  title: 'Administer Relationship entities'
+  description: 'Allow to access the administration form to configure Relationship entities.'
+  restrict access: true
+
+delete relationship entities:
+  title: 'Delete Relationship entities'
+
+edit relationship entities:
+  title: 'Edit Relationship entities'
+
+view relationship entities:
+  title: 'View Relationship entities'
+
+view all relationship revisions:
+  title: 'View all Relationship revisions'
+
+revert all relationship revisions:
+  title: 'Revert all Relationship revisions'
+  description: 'Role requires permission <em>view relationship revisions</em> and <em>edit rights</em> for relationship entities in question or <em>administer relationship entities</em>.'
+
+delete all relationship revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view relationship revisions</em> and <em>delete rights</em> for relationship entities in question or <em>administer relationship entities</em>.'
+

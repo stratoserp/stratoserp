@@ -54,6 +54,7 @@ third_party_settings:
         - group_tab_purchase_orders
         - group_tab_goods_receipts
         - group_tab_bills
+        - group_tab_relationships
       label: 'Business tabs'
       parent_name: ''
       region: content
@@ -266,6 +267,20 @@ third_party_settings:
       parent_name: group_tabs
       region: content
       weight: 27
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        formatter: closed
+        description: ''
+    group_tab_relationships:
+      children:
+        - se_relationship_eva_se_relationship_eva
+      label: Relationships
+      parent_name: group_tabs
+      region: content
+      weight: 50
       format_type: tab
       format_settings:
         classes: ''
@@ -784,6 +799,11 @@ content:
     weight: 9
     region: content
   se_quote_eva_se_quote_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  se_relationship_eva_se_relationship_eva:
     settings: {  }
     third_party_settings: {  }
     weight: 10
