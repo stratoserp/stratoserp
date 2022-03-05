@@ -13,4 +13,6 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
  */
 interface SubscriptionInterface extends StratosLinesEntityBaseInterface {
 
+  public static function loadByExternalId(string $externalId): ?Subscription;
+
 }

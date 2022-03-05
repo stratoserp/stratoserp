@@ -87,6 +87,31 @@ class Subscription extends StratosLinesEntityBase implements SubscriptionInterfa
   }
 
   /**
+   * Load a subscription entity by its external id.
+   *
+   * @param string $externalId
+   *   The unique id from an external integration.
+   *
+   * @return \Drupal\se_subscription\Entity\Subscription|bool
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public static function loadByExternalId(string $externalId): ?Subscription {
+    $subscriptionService = \Drupal::entityTypeManager()->getStorage('se_subscription');
+
+    $subscriptions = $subscriptionService->loadByProperties([
+      'se_external_id' => $externalId,
+    ]);
+
+    if (count($subscriptions) > 1) {
+      // What should we do here?
+      return NULL;
+    }
+
+    return reset($subscriptions) ?: NULL;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
