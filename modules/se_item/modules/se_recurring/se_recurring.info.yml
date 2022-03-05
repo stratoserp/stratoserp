@@ -14,11 +14,11 @@ config_devel:
     - field.field.se_item.se_recurring.se_code
     - field.field.se_item.se_recurring.se_cost_price
     - field.field.se_item.se_recurring.se_description
-    - field.field.se_item.se_recurring.se_it_ref
     - field.field.se_item.se_recurring.se_manufacturer_ref
     - field.field.se_item.se_recurring.se_product_type_ref
     - field.field.se_item.se_recurring.se_sale_category_ref
     - field.field.se_item.se_recurring.se_sell_price
+    - field.field.se_item.se_recurring.se_supplier_code
     - se_item.se_item_type.se_recurring
   optional:
     - views.view.se_item_recurring_list

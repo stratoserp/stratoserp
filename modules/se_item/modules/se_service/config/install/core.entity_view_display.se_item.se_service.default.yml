@@ -10,6 +10,7 @@ dependencies:
     - field.field.se_item.se_service.se_product_type_ref
     - field.field.se_item.se_service.se_sale_category_ref
     - field.field.se_item.se_service.se_sell_price
+    - field.field.se_item.se_service.se_supplier_code
     - se_item.se_item_type.se_service
   module:
     - field_layout
@@ -96,6 +97,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: first
+  se_supplier_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
     region: first
 hidden:
   entity_print_view_epub: true

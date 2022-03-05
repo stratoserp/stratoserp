@@ -10,6 +10,7 @@ dependencies:
     - field.field.se_item.se_service.se_product_type_ref
     - field.field.se_item.se_service.se_sale_category_ref
     - field.field.se_item.se_service.se_sell_price
+    - field.field.se_item.se_service.se_supplier_code
     - se_item.se_item_type.se_service
   module:
     - field_group
@@ -111,6 +112,14 @@ content:
     weight: 1
     region: first
     settings: {  }
+    third_party_settings: {  }
+  se_supplier_code:
+    type: string_textfield
+    weight: 10
+    region: first
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   user_id:
     type: options_select

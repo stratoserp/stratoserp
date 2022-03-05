@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_item.se_supplier_code
+    - se_item.se_item_type.se_stock
+id: se_item.se_stock.se_supplier_code
+field_name: se_supplier_code
+entity_type: se_item
+bundle: se_stock
+label: 'Supplier code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

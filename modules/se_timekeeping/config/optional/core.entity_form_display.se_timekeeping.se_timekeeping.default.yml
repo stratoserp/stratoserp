@@ -153,4 +153,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  revision_log_message: true
+  se_in_ref: true
+  user_id: true

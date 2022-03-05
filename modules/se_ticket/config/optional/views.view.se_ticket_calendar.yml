@@ -5,6 +5,8 @@ dependencies:
     - field.storage.se_ticket.se_scheduled
     - field.storage.se_ticket.se_type_ref
     - system.menu.stratos-erp
+    - taxonomy.vocabulary.se_ticket_status
+  content: {  }
   module:
     - datetime
     - datetime_range
@@ -271,7 +273,60 @@ display:
           exposed: false
           granularity: minute
       arguments: {  }
-      filters: {  }
+      filters:
+        se_status_ref_target_id:
+          id: se_status_ref_target_id
+          table: se_ticket__se_status_ref
+          field: se_status_ref_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            - 478
+          group: 1
+          exposed: true
+          expose:
+            operator_id: se_status_ref_target_id_op
+            label: 'Ticket status'
+            description: ''
+            use_operator: false
+            operator: se_status_ref_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: se_status
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: se_ticket_status
+          type: textfield
+          hierarchy: false
+          limit: true
+          error_message: true
       style:
         type: fullcalendar_view_display
         options:
@@ -304,6 +359,20 @@ display:
           bundle_type: se_ticket
           classes: ''
           color_taxonomies:
+            463: '#ff0000'
+            466: '#3a87ad'
+            477: '#3a87ad'
+            471: '#3a87ad'
+            475: '#3a87ad'
+            465: '#2eb9ff'
+            472: '#3a87ad'
+            464: '#ff0000'
+            468: '#3a87ad'
+            467: '#3a87ad'
+            479: '#3a87ad'
+            474: '#3a87ad'
+            476: '#3a87ad'
+            470: '#3a87ad'
             47: '#00a7fa'
             48: '#b05454'
             512: '#ff0000'
@@ -344,6 +413,8 @@ display:
         - 'languages:language_interface'
         - url.query_args
         - user.roles
+        - user
+        - user.permissions
       tags:
         - 'config:field.storage.se_ticket.se_scheduled'
         - 'config:field.storage.se_ticket.se_type_ref'
@@ -371,6 +442,8 @@ display:
         - 'languages:language_interface'
         - url.query_args
         - user.roles
+        - user
+        - user.permissions
       tags:
         - 'config:field.storage.se_ticket.se_scheduled'
         - 'config:field.storage.se_ticket.se_type_ref'

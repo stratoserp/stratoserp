@@ -6,12 +6,12 @@ dependencies:
     - field.field.se_item.se_recurring.se_code
     - field.field.se_item.se_recurring.se_cost_price
     - field.field.se_item.se_recurring.se_description
-    - field.field.se_item.se_recurring.se_it_ref
     - field.field.se_item.se_recurring.se_manufacturer_ref
     - field.field.se_item.se_recurring.se_product_type_ref
     - field.field.se_item.se_recurring.se_recurring_period
     - field.field.se_item.se_recurring.se_sale_category_ref
     - field.field.se_item.se_recurring.se_sell_price
+    - field.field.se_item.se_recurring.se_supplier_code
     - se_item.se_item_type.se_recurring
   module:
     - duration_field
@@ -69,14 +69,6 @@ content:
     third_party_settings: {  }
     weight: 9
     region: bottom
-  se_it_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 8
-    region: second
   se_manufacturer_ref:
     type: entity_reference_label
     label: inline
@@ -116,6 +108,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: first
+  se_supplier_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
     region: first
 hidden:
   entity_print_view_epub: true

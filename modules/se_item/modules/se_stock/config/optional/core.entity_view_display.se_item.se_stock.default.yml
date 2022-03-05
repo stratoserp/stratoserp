@@ -20,6 +20,7 @@ dependencies:
     - field.field.se_item.se_stock.se_sell_price
     - field.field.se_item.se_stock.se_serial
     - field.field.se_item.se_stock.se_sold
+    - field.field.se_item.se_stock.se_supplier_code
     - image.style.thumbnail
     - se_item.se_item_type.se_stock
   module:
@@ -200,6 +201,14 @@ content:
     third_party_settings: {  }
     weight: 17
     region: bottom
+  se_supplier_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 19
+    region: first
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true

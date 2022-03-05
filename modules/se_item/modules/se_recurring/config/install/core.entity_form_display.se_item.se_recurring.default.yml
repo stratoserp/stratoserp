@@ -6,12 +6,12 @@ dependencies:
     - field.field.se_item.se_recurring.se_code
     - field.field.se_item.se_recurring.se_cost_price
     - field.field.se_item.se_recurring.se_description
-    - field.field.se_item.se_recurring.se_it_ref
     - field.field.se_item.se_recurring.se_manufacturer_ref
     - field.field.se_item.se_recurring.se_product_type_ref
     - field.field.se_item.se_recurring.se_recurring_period
     - field.field.se_item.se_recurring.se_sale_category_ref
     - field.field.se_item.se_recurring.se_sell_price
+    - field.field.se_item.se_recurring.se_supplier_code
     - se_item.se_item_type.se_recurring
   module:
     - duration_field
@@ -91,16 +91,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  se_it_ref:
-    type: entity_reference_autocomplete
-    weight: 8
-    region: second
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   se_manufacturer_ref:
     type: options_select
     weight: 6
@@ -130,6 +120,14 @@ content:
     weight: 2
     region: first
     settings: {  }
+    third_party_settings: {  }
+  se_supplier_code:
+    type: string_textfield
+    weight: 12
+    region: first
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   user_id:
     type: options_select

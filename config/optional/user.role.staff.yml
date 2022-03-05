@@ -1,6 +1,8 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.basic_html
   module:
     - contextual
     - se_bill
