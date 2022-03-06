@@ -174,15 +174,6 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = Invoice::create($invoiceContent);
 
-    // Build the invoice title.
-    $date = new DateTimePlus('now', date_default_timezone_get());
-    $entityTitle = (string) $this->t('@business - @type - @date', [
-      '@business' => $business->getName(),
-      '@type' => $this->formatPlural(count($subscriptions), 'Subscription', 'Subscriptions'),
-      '@date' => $date->format('d/m/Y'),
-    ]);
-    $invoice->setName($entityTitle);
-
     // Set the timestamp on the invoice to the business invoice day.
     $invoice->setCreatedTime($this->businessService->getInvoiceDayTimestamp($business));
 

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\stratoserp\Entity;
 
+use Drupal\Component\Datetime\DateTimePlus;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\stratoserp\Traits\EntityTrait;
 use Drupal\user\UserInterface;
 
@@ -17,6 +20,7 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
 
   use EntityChangedTrait;
   use EntityTrait;
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -63,6 +67,10 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
     // make the owner the revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
+    }
+
+    if (empty($this->get('name')->value)) {
+      $this->set('name', $this->generateName());
     }
   }
 
@@ -124,6 +132,26 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
   public function setOwner(UserInterface $account) {
     $this->set('user_id', $account->id());
     return $this;
+  }
+
+  /**
+   * Generate a title suitable for StratosERP entities.
+   */
+  public function generateName() {
+    $name = 'Unknown';
+    if (isset($this->se_bu_ref)) {
+      $name = $this->se_bu_ref->entity->getName();
+    }
+    elseif (isset($this->se_su_ref)) {
+      $name = $this->se_su_ref->entity->getName();
+    }
+    $dateTime = new DrupalDateTime();
+
+    return $this->t('@name - @type - @date', [
+      '@name' => $name,
+      '@type' => $this->getEntityType()->getLabel(),
+      '@date' => \Drupal::service('date.formatter')->format($dateTime->getTimestamp(), 'html_date'),
+    ]);
   }
 
 }

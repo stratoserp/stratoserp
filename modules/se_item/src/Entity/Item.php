@@ -100,6 +100,25 @@ class Item extends StratosEntityBase implements ItemInterface {
   /**
    * {@inheritdoc}
    */
+  public static function loadBySupplierCode($supplierCode) {
+    $itemService = \Drupal::entityTypeManager()->getStorage('se_item');
+
+    $subscriptions = $itemService->loadByProperties([
+      'se_supplier_code' => $supplierCode,
+    ]);
+
+    if (count($subscriptions) > 1) {
+      // What should we do here?
+      return NULL;
+    }
+
+    return reset($subscriptions) ?: NULL;
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 

@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\stratoserp\Service;
 
+use Drupal\Component\Datetime\DateTimePlus;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\se_business\Entity\Business;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -14,6 +17,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Service to insert references when displaying forms.
  */
 class FormAlter {
+
+  use StringTranslationTrait;
 
   /**
    * Current request.
@@ -215,9 +220,11 @@ class FormAlter {
    *   The rendered output.
    */
   public function generateTitle(): string {
+    $dateTime = new DrupalDateTime();
+
     return t('@user - @date', [
       '@user' => \Drupal::currentUser()->getAccountName(),
-      '@date' => date('j-m-Y'),
+      '@date' => \Drupal::service('date.formatter')->format($dateTime->getTimestamp(), 'html_date'),
     ])->render();
   }
 
