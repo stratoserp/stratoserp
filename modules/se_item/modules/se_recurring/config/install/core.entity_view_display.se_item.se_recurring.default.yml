@@ -69,6 +69,14 @@ content:
     third_party_settings: {  }
     weight: 9
     region: bottom
+  se_it_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: second
   se_manufacturer_ref:
     type: entity_reference_label
     label: inline

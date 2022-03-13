@@ -45,4 +45,5 @@ config_devel:
     - views.view.se_ticket_calendar
     - views.view.se_ticket_eva
     - views.view.se_ticket_list
+    - views.view.se_ticket_my
 

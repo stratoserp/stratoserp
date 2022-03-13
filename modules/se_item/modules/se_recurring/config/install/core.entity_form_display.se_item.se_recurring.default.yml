@@ -91,6 +91,16 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  se_it_ref:
+    type: entity_reference_autocomplete
+    weight: 8
+    region: second
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   se_manufacturer_ref:
     type: options_select
     weight: 6
