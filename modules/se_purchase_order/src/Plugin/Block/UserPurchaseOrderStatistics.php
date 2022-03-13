@@ -31,9 +31,9 @@ class UserPurchaseOrderStatistics extends BlockBase {
       return [];
     }
 
-    // This is designed to run only for users.
-    if ($entity->getEntityTypeId() !== 'user') {
-      return [];
+    if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
+      $user_id = \Drupal::currentUser()->id();
+      $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
     }
 
     for ($i = 5; $i >= 0; $i--) {

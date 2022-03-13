@@ -31,11 +31,11 @@ class UserInvoiceStatistics extends BlockBase {
       return [];
     }
 
-    if ($entity->getEntityTypeId() !== 'user') {
-      return [];
+    if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
+      $user_id = \Drupal::currentUser()->id();
+      $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
     }
 
-    $total = [];
     for ($i = 5; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
