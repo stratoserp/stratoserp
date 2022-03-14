@@ -21,7 +21,7 @@ class GoodsReceiptSettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'goodsreceipt_settings';
+    return 'goods_receipt_settings';
   }
 
   /**
@@ -48,7 +48,7 @@ class GoodsReceiptSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['goodsreceipt_settings']['#markup'] = 'Settings form for Goods receipt entities. Manage field settings here.';
+    $form['goods_receipt_settings']['#markup'] = 'Settings form for Goods receipt entities. Manage field settings here.';
     return $form;
   }
 

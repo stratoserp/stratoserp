@@ -2,6 +2,7 @@
 
 namespace Drupal\se_purchase_order\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -17,7 +18,7 @@ class PurchaseOrderSettingsForm extends FormBase {
    *
    * @var \Drupal\Core\Entity\EntityTypeManager
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * Simple constructor.
@@ -33,7 +34,7 @@ class PurchaseOrderSettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'purchase order_settings';
+    return 'purchase_order_settings';
   }
 
   /**
@@ -98,7 +99,7 @@ class PurchaseOrderSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['purchase order_settings']['#markup'] = 'Default settings form for Purchase order entities. Manage field settings here.';
+    $form['purchase_order_settings']['#markup'] = 'Default settings form for Purchase order entities. Manage field settings here.';
 
     $config = $this->config('se_purchase_order.settings');
     $termOptions = [];

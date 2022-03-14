@@ -183,7 +183,7 @@ trait HtmlRouteProviderTrait {
    */
   protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
     if (!$entity_type->getBundleEntityType()) {
-      $label = str_replace(' ', '', (string) $entity_type->getLabel());
+      $label = str_replace(' ', '', ucwords((string) $entity_type->getLabel()));
       $route = new Route("/admin/structure/{$entity_type->id()}/settings");
       $route
         ->setDefaults([
