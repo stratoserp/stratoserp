@@ -15,7 +15,7 @@ use Drupal\se_report\ReportUtilityTrait;
  *   admin_label = @Translation("Timekeeping statistics per user"),
  * )
  */
-class TimekeepingStatisticsUser extends BlockBase {
+class UserTimekeepingStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
@@ -26,24 +26,24 @@ class TimekeepingStatisticsUser extends BlockBase {
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    if (!$entity = $this->getCurrentControllerEntity()) {
-      return [];
-    }
-
+    $entity = $this->getCurrentControllerEntity();
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
       $user_id = \Drupal::currentUser()->id();
       $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
     }
 
-    for ($i = 5; $i >= 0; $i--) {
+    for ($i = 1; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
+        if (!$timestamps['start']) {
+          continue;
+        }
         $query = \Drupal::entityQuery('se_timekeeping');
-        $query->condition('uid', $entity->id());
+        $query->condition('user_id', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $query->condition('se_billed', TRUE);
@@ -56,7 +56,12 @@ class TimekeepingStatisticsUser extends BlockBase {
         foreach ($timekeepingEntries as $timekeeping) {
           $total += $timekeeping->se_amount->value;
         }
-        $month_data[] = \Drupal::service('se_timekeeping.time_format')->formatDecimal($total);
+        if ($total > 0) {
+          $month_data[] = \Drupal::service('se_timekeeping.time_format')->formatDecimal($total);
+        }
+        else {
+          $month_data[] = '';
+        }
         $fg_colors[] = $fg_color;
       }
 
@@ -72,6 +77,7 @@ class TimekeepingStatisticsUser extends BlockBase {
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
+        'tension' => '0.3',
       ];
     }
 

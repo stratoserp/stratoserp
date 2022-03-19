@@ -19,7 +19,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *   }
  * )
  */
-class TimekeepingStatisticsUser extends ExtraFieldDisplayFormattedBase {
+class UserTimekeepingStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 

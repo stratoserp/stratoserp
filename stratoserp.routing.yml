@@ -2,7 +2,7 @@
 stratoserp.home:
   path: '/se'
   defaults:
-    _controller: '\Drupal\stratoserp\Controller\FrontPageController::statistics'
+    _controller: '\Drupal\stratoserp\Controller\FrontPageController::dashboard'
     _title: 'Statistics'
   options:
     no_cache: TRUE

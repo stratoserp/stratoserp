@@ -26,24 +26,25 @@ class UserQuoteStatistics extends BlockBase {
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    if (!$entity = $this->getCurrentControllerEntity()) {
-      return [];
-    }
-
+    $entity = $this->getCurrentControllerEntity();
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
       $user_id = \Drupal::currentUser()->id();
       $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
     }
 
-    for ($i = 5; $i >= 0; $i--) {
+    for ($i = 1; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
+        $month = 0;
+        if (!$timestamps['start']) {
+          continue;
+        }
         $query = \Drupal::entityQuery('se_quote');
-        $query->condition('uid', $entity->id());
+        $query->condition('user_id', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
@@ -51,12 +52,12 @@ class UserQuoteStatistics extends BlockBase {
           ->getStorage('se_quote')
           ->loadMultiple($entity_ids);
 
-        $month = 0;
         /** @var \Drupal\se_quote\Entity\Quote $quote */
         foreach ($quotes as $quote) {
           $month += $quote->se_total->value;
         }
-        $month_data[] = $month;
+
+        $month_data[] = $month ?: '';
         $fg_colors[] = $fg_color;
       }
 
@@ -72,6 +73,7 @@ class UserQuoteStatistics extends BlockBase {
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
+        'tension' => '0.3',
       ];
     }
 

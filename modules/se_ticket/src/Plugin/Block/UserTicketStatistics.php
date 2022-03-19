@@ -26,28 +26,30 @@ class UserTicketStatistics extends BlockBase {
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    if (!$entity = $this->getCurrentControllerEntity()) {
-      return [];
-    }
-
+    $entity = $this->getCurrentControllerEntity();
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
       $user_id = \Drupal::currentUser()->id();
       $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
     }
 
-    for ($i = 5; $i >= 0; $i--) {
+    for ($i = 1; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
+        if (!$timestamps['start']) {
+          continue;
+        }
+
         $query = \Drupal::entityQuery('se_ticket');
         $query->condition('user_id', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
-        $month_data[] = count($entity_ids);
+
+        $month_data[] = count($entity_ids) ?? '';
         $fg_colors[] = $fg_color;
       }
 
@@ -63,6 +65,7 @@ class UserTicketStatistics extends BlockBase {
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
+        'tension' => '0.3',
       ];
     }
 

@@ -16,11 +16,32 @@ class FrontPageController extends ControllerBase {
    *
    * @return string[]
    *   The markup to display.
+   *
+   * @todo caching
+   * @todo more stats, depending on role.
    */
-  public function statistics() {
-    return [
-      '#markup' => '<p>Business statistics to go here</p>',
+  public function dashboard() {
+
+    $layoutPluginManager = \Drupal::service('plugin.manager.core.layout');
+    $blockPluginManager = \Drupal::service('plugin.manager.block');
+
+    $layoutInstance = $layoutPluginManager->createInstance('layout_fourcol_section', []);
+
+    $regions = [
+      'first' => $blockPluginManager->createInstance('user_timekeeping_statistics', [
+        'title' => 'Timekeeping statistics',
+      ])->build(),
+
+      'second' => $blockPluginManager->createInstance('user_ticket_statistics', [
+        'title' => 'Ticket statistics',
+      ])->build(),
+
+      'third' => $blockPluginManager->createInstance('user_invoice_statistics', [
+        'title' => 'Invoice statistics',
+      ])->build(),
     ];
+
+    return $layoutInstance->build($regions);
   }
 
 }

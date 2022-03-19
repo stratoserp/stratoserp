@@ -205,11 +205,26 @@ trait ReportUtilityTrait {
       $year = (int) date('Y');
     }
 
+    if ($year == date('Y')) {
+      $end = min(12, date('m'));
+    }
+    else {
+      $end = 12;
+    }
+
     for ($i = 1; $i <= 12; $i++) {
-      $months[date('F', mktime(0, 0, 0, $i))] = [
-        'start' => mktime(0, 0, 0, $i, 1, $year),
-        'end' => mktime(0, 0, 0, $i + 1, 0, $year),
-      ];
+      if (date('m', mktime(0, 0, 0, $i)) <= $end) {
+        $months[date('F', mktime(0, 0, 0, $i))] = [
+          'start' => mktime(0, 0, 0, $i, 1, $year),
+          'end' => mktime(0, 0, 0, $i + 1, 0, $year),
+        ];
+      }
+      else {
+        $months[date('F', mktime(0, 0, 0, $i))] = [
+          'start' => FALSE,
+          'end' => FALSE,
+        ];
+      }
     }
 
     return $months;

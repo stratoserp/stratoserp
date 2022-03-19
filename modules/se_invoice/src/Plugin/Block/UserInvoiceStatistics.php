@@ -27,22 +27,23 @@ class UserInvoiceStatistics extends BlockBase {
     $datasets = [];
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    if (!$entity = $this->getCurrentControllerEntity()) {
-      return [];
-    }
-
+    $entity = $this->getCurrentControllerEntity();
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
       $user_id = \Drupal::currentUser()->id();
       $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
     }
 
-    for ($i = 5; $i >= 0; $i--) {
+    for ($i = 1; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingMonths($year) as $month => $timestamps) {
+        $month = 0;
+        if (!$timestamps['start']) {
+          continue;
+        }
         $entity_ids = \Drupal::entityQuery('se_invoice')
           ->condition('user_id', $entity->id())
           ->condition('created', $timestamps['start'], '>=')
@@ -56,7 +57,6 @@ class UserInvoiceStatistics extends BlockBase {
           $content = TRUE;
         }
 
-        $month = 0;
         if (count($invoices)) {
           $content = TRUE;
         }
@@ -65,7 +65,13 @@ class UserInvoiceStatistics extends BlockBase {
         foreach ($invoices as $invoice) {
           $month += $invoice->se_total->value;
         }
-        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw((int) ($month ?? 0));
+
+        if ($month > 0) {
+          $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw((int) ($month ?? 0));
+        }
+        else {
+          $month_data[] = '';
+        }
         $fg_colors[] = $fg_color;
       }
 
@@ -81,6 +87,7 @@ class UserInvoiceStatistics extends BlockBase {
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
+        'tension' => '0.3',
       ];
     }
 
