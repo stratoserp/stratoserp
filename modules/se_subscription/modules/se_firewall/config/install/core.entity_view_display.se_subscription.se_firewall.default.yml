@@ -14,6 +14,7 @@ dependencies:
   module:
     - duration_field
     - field_layout
+    - layout_builder
     - layout_discovery
     - link
     - se_accounting
@@ -23,6 +24,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_subscription.se_firewall.default
 targetEntityType: se_subscription
 bundle: se_firewall

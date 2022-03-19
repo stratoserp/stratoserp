@@ -1,0 +1,12 @@
+name: 'StratosERP - Statistics'
+description: 'Provides hooks and storage for generating statistics.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - stratoserp:se_business
+  - stratoserp:stratoserp
+
+config_devel:
+  install: {  }
+  optional: {  }

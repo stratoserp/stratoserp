@@ -9,6 +9,7 @@ dependencies:
     - field.field.se_bill.se_bill.se_total
   module:
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_accounting
     - se_bill
@@ -18,6 +19,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_bill.se_bill.default
 targetEntityType: se_bill
 bundle: se_bill

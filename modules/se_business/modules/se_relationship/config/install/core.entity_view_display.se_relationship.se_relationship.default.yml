@@ -7,6 +7,7 @@ dependencies:
     - field.field.se_relationship.se_relationship.se_su_ref
   module:
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_relationship
     - user
@@ -15,6 +16,9 @@ third_party_settings:
     id: layout_onecol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_relationship.se_relationship.default
 targetEntityType: se_relationship
 bundle: se_relationship

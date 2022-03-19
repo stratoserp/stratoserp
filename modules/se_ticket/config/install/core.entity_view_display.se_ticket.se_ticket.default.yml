@@ -16,6 +16,7 @@ dependencies:
     - datetime_range
     - field_layout
     - file
+    - layout_builder
     - layout_discovery
     - se_ticket
     - text
@@ -24,6 +25,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_ticket.se_ticket.default
 targetEntityType: se_ticket
 bundle: se_ticket

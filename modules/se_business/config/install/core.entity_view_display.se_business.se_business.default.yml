@@ -30,6 +30,7 @@ dependencies:
     - field_group
     - field_layout
     - geolocation
+    - layout_builder
     - layout_discovery
     - link
     - options
@@ -292,6 +293,9 @@ third_party_settings:
     id: layout_onecol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_business.se_business.default
 targetEntityType: se_business
 bundle: se_business

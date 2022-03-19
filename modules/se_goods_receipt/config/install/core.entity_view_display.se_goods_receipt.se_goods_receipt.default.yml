@@ -11,6 +11,7 @@ dependencies:
     - field.field.se_goods_receipt.se_goods_receipt.se_total
   module:
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_accounting
     - se_goods_receipt
@@ -20,6 +21,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_goods_receipt.se_goods_receipt.default
 targetEntityType: se_goods_receipt
 bundle: se_goods_receipt

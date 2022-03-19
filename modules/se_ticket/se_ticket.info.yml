@@ -46,4 +46,5 @@ config_devel:
     - views.view.se_ticket_eva
     - views.view.se_ticket_list
     - views.view.se_ticket_my
+    - views.view.se_ticket_my_block
 

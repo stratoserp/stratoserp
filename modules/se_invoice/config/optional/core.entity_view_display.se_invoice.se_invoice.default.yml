@@ -13,6 +13,7 @@ dependencies:
     - field.field.se_invoice.se_invoice.se_total
   module:
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_accounting
     - se_invoice
@@ -22,6 +23,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_invoice.se_invoice.default
 targetEntityType: se_invoice
 bundle: se_invoice

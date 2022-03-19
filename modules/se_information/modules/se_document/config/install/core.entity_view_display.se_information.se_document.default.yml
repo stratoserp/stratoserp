@@ -12,6 +12,7 @@ dependencies:
     - field_layout
     - file
     - image
+    - layout_builder
     - layout_discovery
     - text
 third_party_settings:
@@ -19,6 +20,9 @@ third_party_settings:
     id: layout_onecol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_information.se_document.default
 targetEntityType: se_information
 bundle: se_document

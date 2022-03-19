@@ -11,6 +11,7 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_total
   module:
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_accounting
     - se_item_line
@@ -20,6 +21,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_purchase_order.se_purchase_order.default
 targetEntityType: se_purchase_order
 bundle: se_purchase_order

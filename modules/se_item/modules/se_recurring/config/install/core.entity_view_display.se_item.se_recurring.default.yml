@@ -16,6 +16,7 @@ dependencies:
   module:
     - duration_field
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_accounting
     - text
@@ -24,6 +25,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_item.se_recurring.default
 targetEntityType: se_item
 bundle: se_recurring

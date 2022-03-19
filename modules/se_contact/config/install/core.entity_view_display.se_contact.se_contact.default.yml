@@ -9,6 +9,7 @@ dependencies:
     - field.field.se_contact.se_contact.se_type_ref
   module:
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_contact
 third_party_settings:
@@ -16,6 +17,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_contact.se_contact.default
 targetEntityType: se_contact
 bundle: se_contact

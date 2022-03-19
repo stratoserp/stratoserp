@@ -15,6 +15,7 @@ dependencies:
   module:
     - duration_field
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_accounting
     - se_item_line
@@ -23,6 +24,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_subscription.se_office_365.default
 targetEntityType: se_subscription
 bundle: se_office_365

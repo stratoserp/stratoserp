@@ -20,6 +20,7 @@ dependencies:
     - se_item.se_item_type.se_assembly
   module:
     - field_layout
+    - layout_builder
     - layout_discovery
     - se_accounting
     - text
@@ -28,6 +29,9 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: se_item.se_assembly.default
 targetEntityType: se_item
 bundle: se_assembly

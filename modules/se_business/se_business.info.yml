@@ -6,6 +6,7 @@ package: StratosERP
 dependencies:
   - drupal:field
   - drupal:field_layout
+  - drupal:layout_builder
   - drupal:layout_discovery
   - drupal:link
   - drupal:menu_ui
