@@ -25,7 +25,7 @@ class FrontPageController extends ControllerBase {
     $layoutPluginManager = \Drupal::service('plugin.manager.core.layout');
     $blockPluginManager = \Drupal::service('plugin.manager.block');
 
-    $layoutInstance = $layoutPluginManager->createInstance('layout_fourcol_section', []);
+    $layoutInstance = $layoutPluginManager->createInstance('layout_threecol_33_34_33', []);
 
     $regions = [
       'first' => $blockPluginManager->createInstance('user_timekeeping_statistics', [

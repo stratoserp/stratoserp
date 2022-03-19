@@ -9,7 +9,6 @@ dependencies:
     - field.field.se_bill.se_bill.se_total
   module:
     - field_layout
-    - layout_builder
     - layout_discovery
     - se_accounting
     - se_bill

@@ -14,7 +14,6 @@ dependencies:
     - se_item.se_item_type.se_service
   module:
     - field_layout
-    - layout_builder
     - layout_discovery
     - se_accounting
     - text

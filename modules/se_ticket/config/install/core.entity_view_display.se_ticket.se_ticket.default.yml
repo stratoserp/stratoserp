@@ -16,7 +16,6 @@ dependencies:
     - datetime_range
     - field_layout
     - file
-    - layout_builder
     - layout_discovery
     - se_ticket
     - text

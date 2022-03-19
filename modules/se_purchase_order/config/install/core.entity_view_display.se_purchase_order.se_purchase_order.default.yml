@@ -11,7 +11,6 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_total
   module:
     - field_layout
-    - layout_builder
     - layout_discovery
     - se_accounting
     - se_item_line

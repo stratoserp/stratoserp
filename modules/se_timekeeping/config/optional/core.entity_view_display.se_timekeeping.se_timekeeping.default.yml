@@ -15,7 +15,6 @@ dependencies:
   module:
     - datetime
     - field_layout
-    - layout_builder
     - layout_discovery
     - se_timekeeping
     - text

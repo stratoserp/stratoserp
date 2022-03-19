@@ -27,7 +27,6 @@ dependencies:
     - datetime
     - field_layout
     - image
-    - layout_builder
     - layout_discovery
     - se_accounting
     - text

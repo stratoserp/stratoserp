@@ -30,7 +30,6 @@ dependencies:
     - field_group
     - field_layout
     - geolocation
-    - layout_builder
     - layout_discovery
     - link
     - options

@@ -28,12 +28,13 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - se_open_date
         - user_id
         - revision_log_message
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 12
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -64,14 +65,14 @@ content:
     third_party_settings: {  }
   se_attachments:
     type: file_generic
-    weight: 11
+    weight: 9
     region: bottom
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
   se_body:
     type: text_textarea
-    weight: 9
+    weight: 8
     region: bottom
     settings:
       rows: 5
@@ -99,8 +100,8 @@ content:
     third_party_settings: {  }
   se_open_date:
     type: datetime_timestamp
-    weight: 5
-    region: second
+    weight: 0
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   se_owner_ref:
@@ -115,7 +116,7 @@ content:
     third_party_settings: {  }
   se_priority_ref:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 6
     region: second
     settings:
       match_operator: CONTAINS
@@ -125,13 +126,13 @@ content:
     third_party_settings: {  }
   se_scheduled:
     type: daterange_default
-    weight: 6
+    weight: 5
     region: second
     settings: {  }
     third_party_settings: {  }
   se_status_ref:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 7
     region: second
     settings:
       match_operator: CONTAINS

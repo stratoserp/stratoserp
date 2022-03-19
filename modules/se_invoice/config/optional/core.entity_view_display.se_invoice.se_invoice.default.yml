@@ -13,7 +13,6 @@ dependencies:
     - field.field.se_invoice.se_invoice.se_total
   module:
     - field_layout
-    - layout_builder
     - layout_discovery
     - se_accounting
     - se_invoice

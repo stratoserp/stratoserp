@@ -9,7 +9,6 @@ dependencies:
     - field.field.se_contact.se_contact.se_type_ref
   module:
     - field_layout
-    - layout_builder
     - layout_discovery
     - se_contact
 third_party_settings:

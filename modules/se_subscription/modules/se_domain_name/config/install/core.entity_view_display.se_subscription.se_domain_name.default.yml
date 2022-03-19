@@ -16,7 +16,6 @@ dependencies:
   module:
     - duration_field
     - field_layout
-    - layout_builder
     - layout_discovery
     - link
     - se_accounting

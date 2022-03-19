@@ -9,7 +9,6 @@ dependencies:
     - field.field.se_quote.se_quote.se_total
   module:
     - field_layout
-    - layout_builder
     - layout_discovery
     - se_accounting
     - se_item_line

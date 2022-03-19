@@ -7,7 +7,6 @@ dependencies:
     - field.field.se_relationship.se_relationship.se_su_ref
   module:
     - field_layout
-    - layout_builder
     - layout_discovery
     - se_relationship
     - user
