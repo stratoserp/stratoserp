@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_ticket.se_owner_ref
+    - field.storage.se_ticket.se_bu_ref
     - field.storage.se_ticket.se_scheduled
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_ticket_status
@@ -92,15 +92,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_owner_ref:
-          id: se_owner_ref
-          table: se_ticket__se_owner_ref
-          field: se_owner_ref
+        se_bu_ref:
+          id: se_bu_ref
+          table: se_ticket__se_bu_ref
+          field: se_bu_ref
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Owner
+          label: Business
           exclude: false
           alter:
             alter_text: false
@@ -431,7 +431,7 @@ display:
         - user
         - user.permissions
       tags:
-        - 'config:field.storage.se_ticket.se_owner_ref'
+        - 'config:field.storage.se_ticket.se_bu_ref'
         - 'config:field.storage.se_ticket.se_scheduled'
   se_ticket_my:
     id: se_ticket_my
@@ -460,5 +460,5 @@ display:
         - user
         - user.permissions
       tags:
-        - 'config:field.storage.se_ticket.se_owner_ref'
+        - 'config:field.storage.se_ticket.se_bu_ref'
         - 'config:field.storage.se_ticket.se_scheduled'
