@@ -26,6 +26,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
     $content = FALSE;
     $datasets = [];
 
+    $config = \Drupal::service('config.factory')->get('stratoserp.settings');
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
@@ -36,13 +37,14 @@ class UserPurchaseOrderStatistics extends BlockBase {
       $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
     }
 
-    for ($i = 5; $i >= 0; $i--) {
+    $timeframe = $config->get('statistics_timeframe') ?: 1;
+    for ($i = $timeframe; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
-      foreach ($this->reportingMonths($year) as $month => $timestamps) {
+      foreach ($this->reportingPeriods($year) as $timestamps) {
         $query = \Drupal::entityQuery('se_purchase_order');
         $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
@@ -76,6 +78,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
+        'tension' => '0.3',
       ];
     }
 
@@ -85,7 +88,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
 
     $build['user_po_statistics'] = [
       '#data' => [
-        'labels' => array_keys($this->reportingMonths()),
+        'labels' => array_keys($this->reportingPeriods()),
         'datasets' => $datasets,
       ],
       '#graph_type' => 'line',

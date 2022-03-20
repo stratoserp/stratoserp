@@ -190,7 +190,7 @@ trait ReportUtilityTrait {
    * Return a list of months for the year with start and end timestamps.
    *
    * @todo Make more flexible.
-   * @todo Timezones, sigh.
+   * @todo Timezones?.
    *
    * @param string $year
    *   The year to report on.
@@ -198,12 +198,73 @@ trait ReportUtilityTrait {
    * @return array
    *   Values of the months.
    */
-  public function reportingMonths($year = 0): array {
-    $months = [];
+  public function reportingPeriods($year = 0): array {
+
+    $config = \Drupal::service('config.factory')->get('stratoserp.settings');
+    $type = $config->get('statistics_style');
 
     if (empty($year)) {
       $year = (int) date('Y');
     }
+
+    switch ($type) {
+      case 'weekly':
+        return $this->reportingWeeks($year);
+
+      case 'monthly':
+      default:
+        return $this->reportingMonths($year);
+
+    }
+  }
+
+  /**
+   * Return an array for graphs.
+   *
+   * @param $year
+   *   The year to report on.
+   *
+   * @return array
+   */
+  private function reportingWeeks($year) {
+    $weeks = [];
+
+    if ($year == date('Y')) {
+      $end = min(52, date('m'));
+    }
+    else {
+      $end = 52;
+    }
+
+    for ($i = 1; $i <= 52; $i++) {
+      $week = (int) date('W');
+      if ($week <= $end) {
+        $weeks[date('l', mktime(0, 0, 0, $i))] = [
+          'start' => strtotime(sprintf('%4dW%02d', $year, $week)),
+          'end' => strtotime(sprintf('%4dW%02d', $year, $week + 1)),
+        ];
+      }
+      else {
+        $weeks[date('l', mktime(0, 0, 0, $i))] = [
+          'start' => FALSE,
+          'end' => FALSE,
+        ];
+      }
+    }
+
+    return $weeks;
+  }
+
+  /**
+   * Return an array for graphs.
+   *
+   * @param $year
+   *   The year to report on.
+   *
+   * @return array
+   */
+  private function reportingMonths($year) {
+    $months = [];
 
     if ($year == date('Y')) {
       $end = min(12, date('m'));

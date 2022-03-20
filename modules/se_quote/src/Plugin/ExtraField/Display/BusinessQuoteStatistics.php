@@ -13,9 +13,9 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "business_quote_statistics",
- *   label = @Translation("Quote statistics"),
+ *   label = @Translation("Business quote statistics"),
  *   bundles = {
- *     "se_business",
+ *     "se_business.se_business",
  *   }
  * )
  */
@@ -48,7 +48,7 @@ class BusinessQuoteStatistics extends ExtraFieldDisplayFormattedBase {
     }
 
     return [
-      ['#markup' => render($block)],
+      ['#markup' => \Drupal::service('renderer')->render($block)],
     ];
   }
 

@@ -26,6 +26,7 @@ class BusinessInvoiceStatistics extends BlockBase {
     $content = FALSE;
     $datasets = [];
 
+    $config = \Drupal::service('config.factory')->get('stratoserp.settings');
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     if (!$entity = $this->getCurrentControllerEntity()) {
       return [];
@@ -35,13 +36,14 @@ class BusinessInvoiceStatistics extends BlockBase {
       return [];
     }
 
-    for ($i = 5; $i >= 0; $i--) {
+    $timeframe = $config->get('statistics_timeframe') ?: 1;
+    for ($i = $timeframe; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
-      foreach ($this->reportingMonths($year) as $month => $timestamps) {
+      foreach ($this->reportingPeriods($year) as $timestamps) {
         $query = \Drupal::entityQuery('se_invoice');
         $query->condition('se_bu_ref', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
@@ -77,6 +79,7 @@ class BusinessInvoiceStatistics extends BlockBase {
         ],
         'pointRadius' => 5,
         'pointHoverRadius' => 10,
+        'tension' => '0.3',
       ];
     }
 
@@ -86,7 +89,7 @@ class BusinessInvoiceStatistics extends BlockBase {
 
     $build['invoice_statistics_business'] = [
       '#data' => [
-        'labels' => array_keys($this->reportingMonths()),
+        'labels' => array_keys($this->reportingPeriods()),
         'datasets' => $datasets,
       ],
       '#graph_type' => 'line',

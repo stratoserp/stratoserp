@@ -2,47 +2,47 @@
 
 declare(strict_types=1);
 
-namespace Drupal\se_invoice\Plugin\ExtraField\Display;
+namespace Drupal\se_timekeeping\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 
 /**
- * Extra field to display business invoice statistics.
+ * Extra field to display Business timekeeping statistics.
  *
  * @ExtraFieldDisplay(
- *   id = "business_invoice_statistics",
- *   label = @Translation("Business invoice statistics"),
+ *   id = "business_timekeeping_statistics",
+ *   label = @Translation("Business timekeeping statistics"),
  *   bundles = {
  *     "se_business.se_business",
  *   }
  * )
  */
-class BusinessInvoiceStatistics extends ExtraFieldDisplayFormattedBase {
+class BusinessTimekeepingStatistics extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
   /**
-   * Provide the label for the field.
+   * {@inheritdoc}
    */
   public function getLabel() {
-    return $this->t('Business invoice statistics');
+    return $this->t('Business timekeeping statistics');
   }
 
   /**
-   * Return the default display for the label.
+   * {@inheritdoc}
    */
   public function getLabelDisplay() {
     return 'above';
   }
 
   /**
-   * Show the actual statistics.
+   * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
     if (!$block = \Drupal::service('plugin.manager.block')
-      ->createInstance('business_invoice_statistics', [])
+      ->createInstance('business_timekeeping_statistics', [])
       ->build()) {
       return [];
     }

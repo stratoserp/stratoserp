@@ -26,6 +26,7 @@ class UserInvoiceStatistics extends BlockBase {
     $content = FALSE;
     $datasets = [];
 
+    $config = \Drupal::service('config.factory')->get('stratoserp.settings');
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $this->getCurrentControllerEntity();
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
@@ -33,13 +34,14 @@ class UserInvoiceStatistics extends BlockBase {
       $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
     }
 
-    for ($i = 1; $i >= 0; $i--) {
+    $timeframe = $config->get('statistics_timeframe') ?: 1;
+    for ($i = $timeframe; $i >= 0; $i--) {
       $year = date('Y') - $i;
       $month_data = [];
       $fg_colors = [];
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
-      foreach ($this->reportingMonths($year) as $month => $timestamps) {
+      foreach ($this->reportingPeriods($year) as $timestamps) {
         $month = 0;
         if (!$timestamps['start']) {
           continue;
@@ -97,7 +99,7 @@ class UserInvoiceStatistics extends BlockBase {
 
     $build['user_invoice_statistics'] = [
       '#data' => [
-        'labels' => array_keys($this->reportingMonths()),
+        'labels' => array_keys($this->reportingPeriods()),
         'datasets' => $datasets,
       ],
       '#graph_type' => 'line',

@@ -48,7 +48,7 @@ class UserTimekeepingStatistics extends ExtraFieldDisplayFormattedBase {
     }
 
     return [
-      ['#markup' => render($block)],
+      ['#markup' => \Drupal::service('renderer')->render($block)],
     ];
   }
 

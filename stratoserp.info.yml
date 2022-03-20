@@ -11,6 +11,7 @@ config_devel:
   install:
     - core.date_format.se_iso_like_format
     - system.menu.stratos-erp
+    - stratoserp.settings
     - taxonomy.vocabulary.se_manufacturer
     - taxonomy.vocabulary.se_product_type
     - taxonomy.vocabulary.se_sale_category
@@ -19,4 +20,3 @@ config_devel:
     - user.role.customer
     - user.role.staff
     - user.role.supplier
-
