@@ -22,9 +22,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: se_invoice.se_invoice.default
 targetEntityType: se_invoice
 bundle: se_invoice

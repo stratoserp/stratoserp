@@ -20,9 +20,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: se_goods_receipt.se_goods_receipt.default
 targetEntityType: se_goods_receipt
 bundle: se_goods_receipt

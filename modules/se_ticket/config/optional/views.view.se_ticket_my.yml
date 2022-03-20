@@ -6,7 +6,6 @@ dependencies:
     - field.storage.se_ticket.se_scheduled
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_ticket_status
-  content: {  }
   module:
     - datetime_range
     - se_ticket

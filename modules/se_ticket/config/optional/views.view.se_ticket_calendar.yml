@@ -7,7 +7,6 @@ dependencies:
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_ticket_status
     - taxonomy.vocabulary.se_ticket_type
-  content: {  }
   module:
     - datetime
     - datetime_range

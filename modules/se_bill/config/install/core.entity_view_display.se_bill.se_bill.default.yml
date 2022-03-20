@@ -18,9 +18,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: se_bill.se_bill.default
 targetEntityType: se_bill
 bundle: se_bill

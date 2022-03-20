@@ -16,9 +16,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: se_payment.se_payment.default
 targetEntityType: se_payment
 bundle: se_payment

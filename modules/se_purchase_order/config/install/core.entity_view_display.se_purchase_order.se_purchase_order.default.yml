@@ -20,9 +20,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: se_purchase_order.se_purchase_order.default
 targetEntityType: se_purchase_order
 bundle: se_purchase_order

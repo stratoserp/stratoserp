@@ -21,9 +21,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: se_subscription.se_anti_virus.default
 targetEntityType: se_subscription
 bundle: se_anti_virus

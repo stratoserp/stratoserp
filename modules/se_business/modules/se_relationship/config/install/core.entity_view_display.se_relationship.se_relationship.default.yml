@@ -15,9 +15,6 @@ third_party_settings:
     id: layout_onecol
     settings:
       label: ''
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: se_relationship.se_relationship.default
 targetEntityType: se_relationship
 bundle: se_relationship

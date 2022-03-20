@@ -26,9 +26,6 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: se_subscription.se_email_account.default
 targetEntityType: se_subscription
 bundle: se_email_account
