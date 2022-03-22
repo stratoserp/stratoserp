@@ -29,19 +29,32 @@ class FrontPageController extends ControllerBase {
 
     $regions = [
       'first' => $blockPluginManager->createInstance('user_timekeeping_statistics', [
-        'title' => 'Timekeeping statistics',
+        'title' => 'User timekeeping statistics',
       ])->build(),
 
       'second' => $blockPluginManager->createInstance('user_ticket_statistics', [
-        'title' => 'Ticket statistics',
+        'title' => 'User ticket statistics',
       ])->build(),
 
       'third' => $blockPluginManager->createInstance('user_invoice_statistics', [
-        'title' => 'Invoice statistics',
+        'title' => 'User invoice statistics',
       ])->build(),
     ];
 
+    if (\Drupal::currentUser()->hasPermission('access company overview')) {
+      $regions['first'][] = $blockPluginManager->createInstance('company_timekeeping_statistics', [
+        'title' => 'Company timekeeping statistics',
+      ])->build();
+      $regions['second'][] = $blockPluginManager->createInstance('company_ticket_statistics', [
+        'title' => 'Company ticket statistics',
+      ])->build();
+      $regions['third'][] = $blockPluginManager->createInstance('company_invoice_statistics', [
+        'title' => 'Company invoice statistics',
+      ])->build();
+    }
+
     return $layoutInstance->build($regions);
+
   }
 
 }

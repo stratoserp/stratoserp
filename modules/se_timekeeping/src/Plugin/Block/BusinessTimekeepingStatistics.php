@@ -85,7 +85,7 @@ class BusinessTimekeepingStatistics extends BlockBase {
       ];
     }
 
-    $build['user_timekeeping_statistics'] = [
+    $build['business_timekeeping_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingPeriods()),
         'datasets' => $datasets,
@@ -99,7 +99,7 @@ class BusinessTimekeepingStatistics extends BlockBase {
           'mode' => 'dataset',
         ],
       ],
-      '#id' => 'user_timekeeping_statistics',
+      '#id' => 'business_timekeeping_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 60,

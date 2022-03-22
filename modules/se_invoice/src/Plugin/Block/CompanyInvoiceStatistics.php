@@ -8,33 +8,25 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "Business invoice statistics" block.
+ * Provides a "Company invoice statistics" block.
  *
  * @Block(
- *   id = "business_invoice_statistics",
- *   admin_label = @Translation("Business invoice statistics"),
+ *   id = "company_invoice_statistics",
+ *   admin_label = @Translation("Company invoice statistics"),
  * )
  */
-class BusinessInvoiceStatistics extends BlockBase {
+class CompanyInvoiceStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
   /**
-   * Business invoice statistics block builder.
+   * Company invoice statistics block builder.
    */
   public function build() {
     $content = FALSE;
     $datasets = [];
 
     $config = \Drupal::service('config.factory')->get('stratoserp.settings');
-    /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    if (!$entity = $this->getCurrentControllerEntity()) {
-      return [];
-    }
-
-    if ($entity->bundle() !== 'se_business') {
-      return [];
-    }
 
     $timeframe = $config->get('statistics_timeframe') ?: 1;
     for ($i = $timeframe; $i >= 0; $i--) {
@@ -45,7 +37,6 @@ class BusinessInvoiceStatistics extends BlockBase {
 
       foreach ($this->reportingPeriods($year) as $timestamps) {
         $query = \Drupal::entityQuery('se_invoice');
-        $query->condition('se_bu_ref', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
@@ -87,7 +78,7 @@ class BusinessInvoiceStatistics extends BlockBase {
       return [];
     }
 
-    $build['business_invoice_statistics'] = [
+    $build['company_invoice_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingPeriods()),
         'datasets' => $datasets,
@@ -101,7 +92,7 @@ class BusinessInvoiceStatistics extends BlockBase {
           'mode' => 'dataset',
         ],
       ],
-      '#id' => 'business_invoice_statistics',
+      '#id' => 'company_invoice_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
         'max-age' => 0,

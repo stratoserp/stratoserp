@@ -94,7 +94,7 @@ trait UserCreateTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function createUserAndCleanup(array $roles, array $values = []) {
-    $password = user_password();
+    $password = \Drupal::service('password_generator')->generate();
 
     $values += [
       'name' => $this->userName,

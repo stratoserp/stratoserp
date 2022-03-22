@@ -12,6 +12,7 @@ permissions:
   - 'access stratoserp'
   - 'access toolbar'
   - 'access user profiles'
+  - 'access company overview'
   - 'add bill entities'
   - 'add business entities'
   - 'add contact entities'

@@ -2,39 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Drupal\se_invoice\Plugin\Block;
+namespace Drupal\se_timekeeping\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\se_report\ReportUtilityTrait;
 
 /**
- * Provides a "Business invoice statistics" block.
+ * Provides a "Company timekeeping statistics" block.
  *
  * @Block(
- *   id = "business_invoice_statistics",
- *   admin_label = @Translation("Business invoice statistics"),
+ *   id = "company_timekeeping_statistics",
+ *   admin_label = @Translation("Company timekeeping statistics"),
  * )
  */
-class BusinessInvoiceStatistics extends BlockBase {
+class CompanyTimekeepingStatistics extends BlockBase {
 
   use ReportUtilityTrait;
 
   /**
-   * Business invoice statistics block builder.
+   * User timekeeping block builder.
    */
   public function build() {
-    $content = FALSE;
     $datasets = [];
 
     $config = \Drupal::service('config.factory')->get('stratoserp.settings');
-    /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    if (!$entity = $this->getCurrentControllerEntity()) {
-      return [];
-    }
-
-    if ($entity->bundle() !== 'se_business') {
-      return [];
-    }
 
     $timeframe = $config->get('statistics_timeframe') ?: 1;
     for ($i = $timeframe; $i >= 0; $i--) {
@@ -44,26 +35,28 @@ class BusinessInvoiceStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingPeriods($year) as $timestamps) {
-        $query = \Drupal::entityQuery('se_invoice');
-        $query->condition('se_bu_ref', $entity->id());
+        if (!$timestamps['start']) {
+          continue;
+        }
+        $query = \Drupal::entityQuery('se_timekeeping');
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
+        $query->condition('se_billed', TRUE);
         $entity_ids = $query->execute();
-
-        $invoices = \Drupal::entityTypeManager()
-          ->getStorage('se_invoice')
+        $timekeepingEntries = \Drupal::entityTypeManager()
+          ->getStorage('se_timekeeping')
           ->loadMultiple($entity_ids);
         $total = 0;
-        if (count($invoices)) {
-          $content = TRUE;
+        /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timekeeping */
+        foreach ($timekeepingEntries as $timekeeping) {
+          $total += $timekeeping->se_amount->value;
         }
-        /** @var \Drupal\Core\Entity\EntityInterface $invoice */
-        foreach ($invoices as $invoice) {
-          if (is_object($invoice) && $invoice->hasField('se_total')) {
-            $total += $invoice->se_total->value;
-          }
+        if ($total > 0) {
+          $month_data[] = \Drupal::service('se_timekeeping.time_format')->formatDecimal($total);
         }
-        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($total ?? 0);
+        else {
+          $month_data[] = '';
+        }
         $fg_colors[] = $fg_color;
       }
 
@@ -83,11 +76,7 @@ class BusinessInvoiceStatistics extends BlockBase {
       ];
     }
 
-    if (!$content) {
-      return [];
-    }
-
-    $build['business_invoice_statistics'] = [
+    $build['company_timekeeping_statistics'] = [
       '#data' => [
         'labels' => array_keys($this->reportingPeriods()),
         'datasets' => $datasets,
@@ -101,10 +90,10 @@ class BusinessInvoiceStatistics extends BlockBase {
           'mode' => 'dataset',
         ],
       ],
-      '#id' => 'business_invoice_statistics',
+      '#id' => 'company_timekeeping_statistics',
       '#type' => 'chartjs_api',
       '#cache' => [
-        'max-age' => 0,
+        'max-age' => 60,
       ],
     ];
 

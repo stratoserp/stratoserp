@@ -5,3 +5,7 @@
 'access all businesses':
   title: Access all businesses
   description: Allow staff to access all businesses
+
+'access company overview':
+  title: Access company overview
+  description: Allow Owner/CEO to access company overview
