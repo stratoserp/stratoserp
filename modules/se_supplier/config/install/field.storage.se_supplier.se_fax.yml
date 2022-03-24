@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_supplier
+    - telephone
+id: se_supplier.se_fax
+field_name: se_fax
+entity_type: se_supplier
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

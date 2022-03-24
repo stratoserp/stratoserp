@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Customer type'
+vid: se_customer_type
+description: 'Customer type taxonomy'
+weight: 0

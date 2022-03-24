@@ -3,8 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.se_goods_receipt.se_total
-    - user.role.owner
-    - user.role.staff
   module:
     - eva
     - se_accounting

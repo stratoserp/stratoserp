@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_subscription.se_firewall.se_bu_ref
+    - field.field.se_subscription.se_firewall.se_cu_ref
     - field.field.se_subscription.se_firewall.se_item_lines
     - field.field.se_subscription.se_firewall.se_management_link
     - field.field.se_subscription.se_firewall.se_next_due
@@ -62,7 +62,7 @@ content:
       rows: 4
       placeholder: ''
     third_party_settings: {  }
-  se_bu_ref:
+  se_cu_ref:
     type: entity_reference_autocomplete
     weight: 1
     region: first

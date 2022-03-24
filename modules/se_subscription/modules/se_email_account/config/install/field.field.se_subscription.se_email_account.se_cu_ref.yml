@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_subscription.se_cu_ref
+    - se_subscription.se_subscription_type.se_email_account
+id: se_subscription.se_email_account.se_cu_ref
+field_name: se_cu_ref
+entity_type: se_subscription
+bundle: se_email_account
+label: Customer
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: se_customer
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+    customer_type: '5'
+field_type: entity_reference

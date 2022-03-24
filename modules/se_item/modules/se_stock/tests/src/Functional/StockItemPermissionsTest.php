@@ -16,20 +16,13 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class StockItemPermissionsTest extends FunctionalTestBase {
 
   /**
-   * Faker factory for business.
-   *
-   * @var \Faker\Factory
-   */
-  protected $business;
-
-  /**
    * List of pages to test permissions on.
    *
    * @var string[]
    */
   private array $pages = [
     '/item/add/se_stock',
-    '/se/item-list',
+    '/se/items',
   ];
 
   /**

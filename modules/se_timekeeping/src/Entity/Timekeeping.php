@@ -59,7 +59,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "revision_revert" = "/timekeeping/{se_timekeeping}/revisions/{se_timekeeping_revision}/revert",
  *     "revision_delete" = "/timekeeping/{se_timekeeping}/revisions/{se_timekeeping_revision}/delete",
  *     "translation_revert" = "/timekeeping/{se_timekeeping}/revisions/{se_timekeeping_revision}/revert/{langcode}",
- *     "collection" = "/se/timekeeping-list",
+ *     "collection" = "/se/timekeeping",
  *   },
  *   field_ui_base_route = "se_timekeeping.settings",
  *   revision_metadata_keys = {

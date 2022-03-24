@@ -881,7 +881,7 @@ display:
     display_options:
       display_description: ''
       display_extenders: {  }
-      path: se/item-list
+      path: se/items
       menu:
         type: normal
         title: Items

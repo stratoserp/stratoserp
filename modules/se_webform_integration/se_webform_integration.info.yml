@@ -5,7 +5,7 @@ core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
   - stratoserp:se_ticket
-  - stratoserp:se_business
+  - stratoserp:se_customer
   - webform:webform
   - webform_access:webform_access
   - webform_views:webform_views

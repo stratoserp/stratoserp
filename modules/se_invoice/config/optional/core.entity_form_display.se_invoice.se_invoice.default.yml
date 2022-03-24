@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_invoice.se_invoice.se_bu_ref
     - field.field.se_invoice.se_invoice.se_co_ref
+    - field.field.se_invoice.se_invoice.se_cu_ref
     - field.field.se_invoice.se_invoice.se_customer_order
     - field.field.se_invoice.se_invoice.se_item_lines
     - field.field.se_invoice.se_invoice.se_outstanding
@@ -60,8 +60,8 @@ content:
       placeholder: ''
     region: bottom
     third_party_settings: {  }
-  se_bu_ref:
-    weight: 1
+  se_co_ref:
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
@@ -70,8 +70,8 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: first
-  se_co_ref:
-    weight: 2
+  se_cu_ref:
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60

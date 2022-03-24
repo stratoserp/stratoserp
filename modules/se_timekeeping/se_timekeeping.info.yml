@@ -7,13 +7,13 @@ dependencies:
   - hook_event_dispatcher:hook_event_dispatcher
   - duration_field:duration_field
   - drupal:views
-  - stratoserp:se_business
+  - stratoserp:se_customer
   - stratoserp:se_invoice
   - stratoserp:se_ticket
 
 config_devel:
   install:
-    - field.field.se_timekeeping.se_timekeeping.se_bu_ref
+    - field.field.se_timekeeping.se_timekeeping.se_cu_ref
     - field.field.se_timekeeping.se_timekeeping.se_amount
     - field.field.se_timekeeping.se_timekeeping.se_billable
     - field.field.se_timekeeping.se_timekeeping.se_billed
@@ -21,7 +21,7 @@ config_devel:
     - field.field.se_timekeeping.se_timekeeping.se_date
     - field.field.se_timekeeping.se_timekeeping.se_it_ref
     - field.field.se_timekeeping.se_timekeeping.se_review
-    - field.storage.se_timekeeping.se_bu_ref
+    - field.storage.se_timekeeping.se_cu_ref
     - field.storage.se_timekeeping.se_amount
     - field.storage.se_timekeeping.se_billable
     - field.storage.se_timekeeping.se_billed
@@ -38,3 +38,4 @@ config_devel:
     - field.storage.se_timekeeping.se_in_ref
     - views.view.se_timekeeping_bu_eva
     - views.view.se_timekeeping_list
+    - views.view.se_timekeeping_ti_eva

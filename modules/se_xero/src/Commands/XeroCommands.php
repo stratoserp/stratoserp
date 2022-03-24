@@ -12,20 +12,20 @@ use Drush\Commands\DrushCommands;
 class XeroCommands extends DrushCommands {
 
   /**
-   * Sync up business changes since the last sync with xero.
+   * Sync up customer changes since the last sync with xero.
    *
-   * @command se:sync-business
-   * @aliases sync-business
+   * @command se:sync-customer
+   * @aliases sync-customer
    */
-  public function syncBusinesses(): ?bool {
+  public function syncCustomers(): ?bool {
     $settings = \Drupal::configFactory()->get('se_xero.settings');
     if (!$settings->get('system.enabled')) {
       return FALSE;
     }
-    $timestamp = ($settings->get('business.sync_timestamp') ?? 0);
+    $timestamp = ($settings->get('customer.sync_timestamp') ?? 0);
 
     // Retrieve list of nodes changed since last sync.
-    $ids = \Drupal::entityQuery('se_business')
+    $ids = \Drupal::entityQuery('se_customer')
       ->condition('changed', $timestamp, '>')
       ->sort('created')
       ->range(0, 20)
@@ -33,12 +33,12 @@ class XeroCommands extends DrushCommands {
 
     // Loop through list of nodes, loading and syncing.
     $service = \Drupal::service('se_xero.contact_service');
-    $storage = \Drupal::entityTypeManager()->getStorage('se_business');
+    $storage = \Drupal::entityTypeManager()->getStorage('se_customer');
     foreach ($ids as $id) {
-      /** @var \Drupal\se_business\Entity\Business $business */
-      $business = $storage->load($id);
-      $service->sync($business);
-      // $settings->set('business.sync_timestamp', $node->changed);
+      /** @var \Drupal\se_customer\Entity\Customer $customer */
+      $customer = $storage->load($id);
+      $service->sync($customer);
+      // $settings->set('customer.sync_timestamp', $node->changed);
     }
   }
 
@@ -71,7 +71,7 @@ class XeroCommands extends DrushCommands {
       if (!$service->sync($invoice)) {
         // Log error message.
       }
-      // $settings->set('business.sync_timestamp', $node->changed);
+      // $settings->set('customer.sync_timestamp', $node->changed);
     }
   }
 

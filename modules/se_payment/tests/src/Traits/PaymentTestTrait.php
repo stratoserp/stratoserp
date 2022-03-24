@@ -27,7 +27,7 @@ trait PaymentTestTrait {
   }
 
   /**
-   * Add a payment and set the business to the value passed in.
+   * Add a payment and set the customer to the value passed in.
    *
    * @param \Drupal\se_invoice\Entity\Invoice|null $invoice
    *   The invoice to associate the payment with.
@@ -60,7 +60,7 @@ trait PaymentTestTrait {
     $payment = $this->createPayment([
       'type' => 'se_payment',
       'name' => $this->paymentName,
-      'se_bu_ref' => $invoice->se_bu_ref,
+      'se_cu_ref' => $invoice->se_cu_ref,
       'se_payment_lines' => $lines,
     ]);
     self::assertNotEquals($payment, FALSE);

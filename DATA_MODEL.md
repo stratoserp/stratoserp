@@ -2,7 +2,7 @@
 
 First class entity types.
 + Bill(s)
-+ Business(s)
++ Customer(s)
 + Contact(s)
 + Goods receipt(s)
 + Quote(s)
@@ -39,14 +39,14 @@ First class entity types.
 
 ### Quote
 
-- Customer ref (Business)
+- Customer ref (Customer)
 - Contact ref(s) (Contact)
 - Item line(s) (Entity)
 - Status (Taxonomy)
 
 ### Invoice
 
-- Customer ref (Business)
+- Customer ref (Customer)
 - Contact ref(s) (Contact)
 - Item line(s) (Entity)
 - Timekeeping(s) (Timekeeping)
@@ -55,7 +55,7 @@ First class entity types.
 
 ### Payment
 
-- Customer ref (Business)
+- Customer ref (Customer)
 - Contact ref(s) (Contact)
 - Invoice ref(s) (Invoice)
 
@@ -75,17 +75,17 @@ First class entity types.
 
 ### Document
 
-- Customer ref (Business)
+- Customer ref (Customer)
 
 ## Subscriptions
 
 ### Common fields
 
-- Customer ref (Business)
+- Customer ref (Customer)
 - Item
 - Management link
 - Period
-- Supplier ref (Business)
+- Supplier ref (Customer)
 
 ### Domain hosting
 

@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_information.se_bu_ref
+    - field.storage.se_information.se_cu_ref
     - se_information.se_information_type.se_document
     - system.menu.stratos-erp
   module:
@@ -222,15 +222,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bu_ref:
-          id: se_bu_ref
-          table: se_information__se_bu_ref
-          field: se_bu_ref
+        se_cu_ref:
+          id: se_cu_ref
+          table: se_information__se_cu_ref
+          field: se_cu_ref
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Business
+          label: Customer
           exclude: false
           alter:
             alter_text: false
@@ -425,7 +425,7 @@ display:
             id: id
             created: created
             name: name
-            se_bu_ref: se_bu_ref
+            se_cu_ref: se_cu_ref
           default: id
           info:
             id:
@@ -449,7 +449,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_ref:
+            se_cu_ref:
               align: ''
               separator: ''
               empty_column: false
@@ -484,7 +484,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.se_information.se_bu_ref'
+        - 'config:field.storage.se_information.se_cu_ref'
   se_document_list:
     id: se_document_list
     display_title: 'Document list'
@@ -493,7 +493,7 @@ display:
     display_options:
       display_description: ''
       display_extenders: {  }
-      path: se/information/document-list
+      path: se/customers/document-list
       menu:
         type: normal
         title: Documents
@@ -501,7 +501,7 @@ display:
         weight: 0
         expanded: false
         menu_name: stratos-erp
-        parent: views.view.se_business_list.se_business_list
+        parent: 'views_view:views.se_customer_list.se_customer_list'
         context: '0'
     cache_metadata:
       max-age: -1
@@ -512,4 +512,4 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.se_information.se_bu_ref'
+        - 'config:field.storage.se_information.se_cu_ref'

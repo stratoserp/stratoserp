@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_contact\Traits;
 
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_contact\Entity\Contact;
 use Drupal\user\Entity\User;
 use Faker\Factory;
@@ -46,8 +46,8 @@ trait ContactTestTrait {
   /**
    * Add a contact node.
    *
-   * @param \Drupal\se_business\Entity\Business $business
-   *   The business to add the contact to.
+   * @param \Drupal\se_customer\Entity\Customer $customer
+   *   The customer to add the contact to.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
@@ -58,7 +58,7 @@ trait ContactTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addContact(Business $business, bool $allowed = TRUE) {
+  public function addContact(Customer $customer, bool $allowed = TRUE) {
     if (!isset($this->contactName)) {
       $this->contactFakerSetup();
     }
@@ -67,7 +67,7 @@ trait ContactTestTrait {
       'type' => 'se_contact',
       'name' => $this->contactName,
       'se_phone' => $this->contactPhoneNumber,
-      'se_bu_ref' => $business,
+      'se_cu_ref' => $customer,
     ]);
     self::assertNotEquals($contact, FALSE);
     $this->drupalGet($contact->toUrl());
@@ -87,7 +87,7 @@ trait ContactTestTrait {
     // Check that what we entered is shown.
     self::assertStringContainsString($this->contactName, $content);
     self::assertStringContainsString($this->contactPhoneNumber, $content);
-    self::assertStringContainsString($business->getName(), $content);
+    self::assertStringContainsString($customer->getName(), $content);
 
     return $contact;
   }
@@ -95,17 +95,17 @@ trait ContactTestTrait {
   /**
    * Add a main contact node.
    *
-   * @param \Drupal\se_business\Entity\Business $business
-   *   The business to add the contact to.
+   * @param \Drupal\se_customer\Entity\Customer $customer
+   *   The customer to add the contact to.
    *
    * @return \Drupal\se_contact\Entity\Contact
    *   The contact to return.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addMainContact(Business $business): Contact {
+  public function addMainContact(Customer $customer): Contact {
     $config = \Drupal::service('config.factory')->get('se_contact.settings');
-    $contact = $this->addContact($business);
+    $contact = $this->addContact($customer);
 
     $termId = $config->get('main_contact_term');
     if ($termId) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_ticket\Functional;
 
-use Drupal\Tests\se_business\Traits\BusinessTestTrait;
+use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_ticket\Traits\TicketTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
@@ -14,7 +14,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class TicketTestBase extends FunctionalTestBase {
 
   use TicketTestTrait;
-  use BusinessTestTrait;
+  use CustomerTestTrait;
 
   /**
    * Storage for the faker data for ticket.

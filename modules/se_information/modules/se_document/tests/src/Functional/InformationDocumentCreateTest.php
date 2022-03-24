@@ -33,7 +33,7 @@ class InformationDocumentCreateTest extends ExistingSiteBase {
    */
   public function testInformationDocumentPermissions() {
     $this->customer = $this->createUser([], NULL, FALSE);
-    $this->customer->addRole('business');
+    $this->customer->addRole('customer');
     $this->customer->save();
 
     $this->staff = $this->createUser([], NULL, FALSE);

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\se_payment\Functional;
 
 use Drupal\se_payment\Controller\PaymentController;
-use Drupal\Tests\se_business\Traits\BusinessTestTrait;
+use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_invoice\Traits\InvoiceTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 
@@ -19,7 +19,7 @@ use Drupal\Tests\se_item\Traits\ItemTestTrait;
 class PaymentCrudTest extends PaymentTestBase {
 
   use ItemTestTrait;
-  use BusinessTestTrait;
+  use CustomerTestTrait;
   use InvoiceTestTrait;
 
   /**
@@ -27,9 +27,9 @@ class PaymentCrudTest extends PaymentTestBase {
    */
   public function testPaymentAdd(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
-    $invoice = $this->addInvoice($testBusiness, $items);
+    $invoice = $this->addInvoice($testCustomer, $items);
     $this->drupalLogout();
 
     $this->drupalLogin($this->customer);
@@ -45,7 +45,7 @@ class PaymentCrudTest extends PaymentTestBase {
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
-    $invoice = $this->addInvoice($testBusiness, $items);
+    $invoice = $this->addInvoice($testCustomer, $items);
     $payment = $this->addPayment($invoice);
     self::assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
     $this->drupalLogout();
@@ -56,9 +56,9 @@ class PaymentCrudTest extends PaymentTestBase {
    */
   public function testPaymentDelete(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
-    $invoice = $this->addInvoice($testBusiness, $items);
+    $invoice = $this->addInvoice($testCustomer, $items);
     $payment = $this->addPayment($invoice);
     $this->drupalLogout();
 
@@ -83,9 +83,9 @@ class PaymentCrudTest extends PaymentTestBase {
    */
   public function testInvoiceToPayment() {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
-    $invoice = $this->addInvoice($testBusiness, $items);
+    $invoice = $this->addInvoice($testCustomer, $items);
 
     // Now create a payment from the outstanding invoice.
     $payment = \Drupal::classResolver(PaymentController::class)->createPaymentFromInvoice($invoice);
@@ -93,11 +93,11 @@ class PaymentCrudTest extends PaymentTestBase {
     $payment->save();
     $this->markEntityForCleanup($payment);
 
-    $invoice1 = $this->addInvoice($testBusiness, $items);
+    $invoice1 = $this->addInvoice($testCustomer, $items);
     $items = $this->createItems();
-    $invoice2 = $this->addInvoice($testBusiness, $items);
+    $invoice2 = $this->addInvoice($testCustomer, $items);
     $items = $this->createItems();
-    $invoice3 = $this->addInvoice($testBusiness, $items);
+    $invoice3 = $this->addInvoice($testCustomer, $items);
 
     $total = $invoice1->getTotal() + $invoice2->getTotal() + $invoice3->getTotal();
 

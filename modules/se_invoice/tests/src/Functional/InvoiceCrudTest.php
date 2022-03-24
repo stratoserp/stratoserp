@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\se_invoice\Functional;
 
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\Tests\se_business\Traits\BusinessTestTrait;
+use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 
 /**
@@ -18,30 +18,30 @@ use Drupal\Tests\se_item\Traits\ItemTestTrait;
 class InvoiceCrudTest extends InvoiceTestBase {
 
   use ItemTestTrait;
-  use BusinessTestTrait;
+  use CustomerTestTrait;
 
   /**
    * Test adding an invoice.
    */
   public function testInvoiceStockAdd(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
     $this->drupalLogout();
 
     // Ensure customers can't add invoices.
     $this->drupalLogin($this->customer);
-    $this->addInvoice($testBusiness, $items, FALSE);
+    $this->addInvoice($testCustomer, $items, FALSE);
     $this->drupalLogout();
 
     // Ensure staff can add invoices.
     $this->drupalLogin($this->staff);
-    $this->addInvoice($testBusiness, $items);
+    $this->addInvoice($testCustomer, $items);
     $this->drupalLogout();
 
     // Ensure owners can add invoices.
     $this->drupalLogin($this->owner);
-    $this->addInvoice($testBusiness, $items);
+    $this->addInvoice($testCustomer, $items);
     $this->drupalLogout();
   }
 
@@ -50,13 +50,13 @@ class InvoiceCrudTest extends InvoiceTestBase {
    */
   public function testInvoiceAdjustment(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
     $this->drupalLogout();
 
     // Add an invoice as staff.
     $this->drupalLogin($this->staff);
-    $invoice = $this->addInvoice($testBusiness, $items);
+    $invoice = $this->addInvoice($testCustomer, $items);
     $this->adjustInvoiceIncrease($invoice);
     $this->adjustInvoiceDecrease($invoice);
 
@@ -68,9 +68,9 @@ class InvoiceCrudTest extends InvoiceTestBase {
    */
   public function testInvoiceDelete(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
-    $invoice = $this->addInvoice($testBusiness, $items);
+    $invoice = $this->addInvoice($testCustomer, $items);
     $this->drupalLogout();
 
     // Ensure customers can't delete invoices.

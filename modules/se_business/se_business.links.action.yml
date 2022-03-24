@@ -1,7 +1,0 @@
-
-entity.se_business.add_form:
-  route_name: entity.se_business.add_form
-  title: 'Add Business'
-  appears_on:
-    - entity.se_business.collection
-    - 'view.se_business_list.se_business_list'

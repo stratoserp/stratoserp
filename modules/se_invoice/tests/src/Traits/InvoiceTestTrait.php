@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\se_invoice\Traits;
 
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Entity\Payment;
 use Drupal\user\Entity\User;
@@ -46,8 +46,8 @@ trait InvoiceTestTrait {
   /**
    * Add an Invoice entity.
    *
-   * @param \Drupal\se_business\Entity\Business $testBusiness
-   *   The Business to associate the Invoice with.
+   * @param \Drupal\se_customer\Entity\Customer $testCustomer
+   *   The Customer to associate the Invoice with.
    * @param array $items
    *   An array of items to use for invoice lines.
    * @param bool $allowed
@@ -60,7 +60,7 @@ trait InvoiceTestTrait {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addInvoice(Business $testBusiness, array $items = [], bool $allowed = TRUE): ?Invoice {
+  public function addInvoice(Customer $testCustomer, array $items = [], bool $allowed = TRUE): ?Invoice {
     if (!isset($this->invoiceName)) {
       $this->invoiceFakerSetup();
     }
@@ -82,7 +82,7 @@ trait InvoiceTestTrait {
     $invoice = $this->createInvoice([
       'type' => 'se_invoice',
       'name' => $this->invoiceName,
-      'se_bu_ref' => $testBusiness,
+      'se_cu_ref' => $testCustomer,
       'se_phone' => $this->invoicePhoneNumber,
       'se_email' => $this->invoiceCompanyEmail,
       'se_item_lines' => $lines,
@@ -126,14 +126,14 @@ trait InvoiceTestTrait {
    *   The Adjusted invoice.
    */
   public function adjustInvoiceIncrease(Invoice $invoice): Invoice {
-    /** @var \Drupal\se_business\Entity\Business $business */
-    $business = $invoice->getBusiness();
-    $businessOldBalance = $business->getBalance();
+    /** @var \Drupal\se_customer\Entity\Customer $customer */
+    $customer = $invoice->getCustomer();
+    $customerOldBalance = $customer->getBalance();
 
     $oldTotal = $invoice->se_total->value;
     $oldOutstanding = $invoice->se_outstanding->value;
 
-    self::assertEquals($invoice->se_total->value, $businessOldBalance);
+    self::assertEquals($invoice->se_total->value, $customerOldBalance);
 
     $newTotal = 0;
     foreach ($invoice->se_item_lines as $line) {
@@ -148,8 +148,8 @@ trait InvoiceTestTrait {
     self::assertEquals($invoice->se_total->value, $newTotal);
     self::assertEquals($invoice->se_outstanding->value, $newTotal);
 
-    $businessNewBalance = $business->getBalance();
-    self::assertEquals($invoice->se_total->value, $businessNewBalance);
+    $customerNewBalance = $customer->getBalance();
+    self::assertEquals($invoice->se_total->value, $customerNewBalance);
 
     return $invoice;
   }
@@ -164,14 +164,14 @@ trait InvoiceTestTrait {
    *   The Adjusted invoice.
    */
   public function adjustInvoiceDecrease(Invoice $invoice): Invoice {
-    /** @var \Drupal\se_business\Entity\Business $business */
-    $business = $invoice->getBusiness();
-    $businessOldBalance = $business->getBalance();
+    /** @var \Drupal\se_customer\Entity\Customer $customer */
+    $customer = $invoice->getCustomer();
+    $customerOldBalance = $customer->getBalance();
 
     $oldTotal = $invoice->se_total->value;
     $oldOutstanding = $invoice->se_outstanding->value;
 
-    self::assertEquals($invoice->se_total->value, $businessOldBalance);
+    self::assertEquals($invoice->se_total->value, $customerOldBalance);
 
     $newTotal = 0;
     foreach ($invoice->se_item_lines as $line) {
@@ -186,8 +186,8 @@ trait InvoiceTestTrait {
     self::assertEquals($invoice->se_total->value, $newTotal);
     self::assertEquals($invoice->se_outstanding->value, $newTotal);
 
-    $businessNewBalance = $business->getBalance();
-    self::assertEquals($invoice->se_total->value, $businessNewBalance);
+    $customerNewBalance = $customer->getBalance();
+    self::assertEquals($invoice->se_total->value, $customerNewBalance);
 
     return $invoice;
   }

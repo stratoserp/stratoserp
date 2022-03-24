@@ -20,7 +20,7 @@ class TicketPermissionTest extends TicketTestBase {
    */
   private array $pages = [
     '/ticket/add',
-    '/se/ticket-list',
+    '/se/tickets',
   ];
 
   /**

@@ -22,8 +22,8 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
    */
   public function testSubscriptionInvoice(): void {
     $this->drupalLogin($this->staff);
-    $customer = $this->addBusiness();
-    $supplier = $this->addBusiness('Supplier');
+    $customer = $this->addcustomer();
+    $supplier = $this->addCustomer('Supplier');
     $item = $this->addRecurringItem('P1Y');
 
     $this->subscriptionFakerSetup();
@@ -33,7 +33,7 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
     $subscription = $this->createSubscriptionContent([
       'type' => 'se_anti_virus',
       'name' => $this->subscriptionName,
-      'se_bu_ref' => $customer,
+      'se_cu_ref' => $customer,
       'se_su_ref' => $supplier,
       'se_item_lines' => [
         $item,

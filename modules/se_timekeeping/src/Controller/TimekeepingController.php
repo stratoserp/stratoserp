@@ -214,7 +214,7 @@ class TimekeepingController extends ControllerBase {
   }
 
   /**
-   * The entity submission form for timekeeping creation from a business.
+   * The entity submission form for timekeeping creation from a customer.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   Source entity to copy data from.
@@ -225,12 +225,12 @@ class TimekeepingController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function fromBusiness(EntityInterface $source): array {
+  public function fromCustomer(EntityInterface $source): array {
     $entity = Timekeeping::create([
       'bundle' => 'se_timekeeping',
     ]);
 
-    $entity->se_bu_ref = \Drupal::service('se_business.service')->lookupBusiness($source);
+    $entity->se_cu_ref = \Drupal::service('se_customer.service')->lookupCustomer($source);
 
     return $this->entityFormBuilder()->getForm($entity);
   }

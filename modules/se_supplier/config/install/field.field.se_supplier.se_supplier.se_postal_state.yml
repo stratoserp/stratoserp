@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_supplier.se_postal_state
+  module:
+    - se_supplier
+id: se_supplier.se_supplier.se_postal_state
+field_name: se_postal_state
+entity_type: se_supplier
+bundle: se_supplier
+label: 'Postal State'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

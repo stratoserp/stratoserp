@@ -8,7 +8,8 @@ declare(strict_types=1);
 
 use Drupal\se_item\Entity\Item;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
+use Drupal\se_supplier\Entity\Supplier;
 
 // Include the main include file for some functions.
 module_load_include('install', 'stratoserp');
@@ -45,56 +46,34 @@ function se_example_data_status_term_setup() {
 }
 
 function se_example_data_business_setup() {
-  // If we don't get the terms setup, just return.
-  if (!$term = se_example_data_business_term_setup()) {
-    return;
-  }
-
-  $customer_defaults = se_business_load_defaults($term);
-  $customer = Business::create($customer_defaults + [
+  $customer_defaults = se_business_load_defaults();
+  $customer = Customer::create($customer_defaults + [
     'name' => 'Test customer 1',
+      'type' => 'se_customer',
   ]);
   $customer->save();
 
-  $customer = Business::create($customer_defaults + [
+  $customer = Customer::create($customer_defaults + [
     'name' => 'Test customer 2',
+      'type' => 'se_customer',
   ]);
   $customer->save();
 
-  $supplier_term = se_example_data_load_term_by_name('Supplier', 'se_business_type');
-  $supplier_defaults = se_business_load_defaults($supplier_term);
-  $supplier = Business::create($supplier_defaults + [
+  $supplier_defaults = se_business_load_defaults();
+  $supplier = Supplier::create($supplier_defaults + [
     'name' => 'Test supplier 1',
+      'type' => 'se_supplier',
   ]);
   $supplier->save();
 
-  $supplier = Business::create($supplier_defaults + [
+  $supplier = Supplier::create($supplier_defaults + [
     'name' => 'Test supplier 2',
+      'type' => 'se_supplier',
   ]);
   $supplier->save();
 }
 
-function se_example_data_business_term_setup() {
-  $terms = [
-    'Supplier',
-    'Customer',
-  ];
-
-  if (!$term = stratoserp_create_terms('se_business_type', $terms)) {
-    return FALSE;
-  }
-
-  // Now set the last one as the default for the field.
-  $field = \Drupal::entityTypeManager()
-    ->getStorage('field_config')
-    ->load('se_business.se_business.se_type_ref');
-  $field->setDefaultValue(['target_uuid' => $term->uuid()]);
-  $field->save();
-
-  return $term;
-}
-
-  function se_example_data_contact_term_setup() {
+function se_example_data_contact_term_setup() {
   // Install some basic contact types.
   $terms = [
     'General contact',
@@ -446,20 +425,15 @@ function se_item_load_defaults($category, $product_type, $manufacturer, $type): 
 }
 
 /**
- * Helper function for adding businesses.
- *
- * @param $term
- *   Business type.
+ * Helper function for adding customers.
  *
  * @return array
  */
-function se_business_load_defaults($term): array {
+function se_business_load_defaults(): array {
   return [
-    'type' => 'se_business',
     'langcode' => 'en',
     'uid' => '1',
     'status' => 1,
-    'se_type_ref' => [['target_id' => $term->id()]],
   ];
 }
 

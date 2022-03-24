@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_quote\Traits;
 
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_quote\Entity\Quote;
 use Drupal\user\Entity\User;
 use Faker\Factory;
@@ -45,8 +45,8 @@ trait QuoteTestTrait {
   /**
    * Add a quote entity.
    *
-   * @param \Drupal\se_business\Entity\Business $testBusiness
-   *   The Business to associate the Invoice with.
+   * @param \Drupal\se_customer\Entity\Customer $testCustomer
+   *   The Customer to associate the Invoice with.
    * @param array $items
    *   An array of items to use for invoice lines.
    * @param bool $allowed
@@ -59,7 +59,7 @@ trait QuoteTestTrait {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addQuote(Business $testBusiness, array $items = [], bool $allowed = TRUE) {
+  public function addQuote(Customer $testCustomer, array $items = [], bool $allowed = TRUE) {
     if (!isset($this->quoteName)) {
       $this->quoteFakerSetup();
     }
@@ -77,9 +77,9 @@ trait QuoteTestTrait {
     /** @var \Drupal\se_quote\Entity\Quote $quote */
     $quote = $this->createQuote([
       'name' => $this->quoteName,
-      'se_bu_ref' => [
-        'target_id' => $testBusiness->id(),
-        'target_type' => 'se_business',
+      'se_cu_ref' => [
+        'target_id' => $testCustomer->id(),
+        'target_type' => 'se_customer',
       ],
       'se_phone' => $this->quotePhoneNumber,
       'se_email' => $this->quoteCompanyEmail,
@@ -110,13 +110,13 @@ trait QuoteTestTrait {
   }
 
   /**
-   * Create and save a Business entity.
+   * Create and save a Customer entity.
    *
    * @param array $settings
-   *   Array of settings to apply to the Business entity.
+   *   Array of settings to apply to the Customer entity.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface
-   *   The created Business entity.
+   *   The created Customer entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -130,13 +130,13 @@ trait QuoteTestTrait {
   }
 
   /**
-   * Create but dont save a Business entity.
+   * Create but dont save a Customer entity.
    *
    * @param array $settings
-   *   Array of settings to apply to the Business entity.
+   *   Array of settings to apply to the Customer entity.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface
-   *   The created but not yet saved Business entity.
+   *   The created but not yet saved Customer entity.
    */
   public function createQuoteContent(array $settings = []) {
     $settings += [

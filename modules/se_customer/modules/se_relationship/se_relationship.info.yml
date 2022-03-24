@@ -1,0 +1,24 @@
+name: 'StratosERP - Customer Relationship'
+description: 'Provides the relationship entity type to link Customer and Suppliers.'
+type: module
+package: StratosERP
+core_version_requirement: ^8 || ^9
+dependencies:
+  - stratoserp:se_customer
+  - drupal:text
+configure: entity.relationship.settings
+
+config_devel:
+  install:
+    - core.entity_form_display.se_relationship.se_relationship.default
+    - core.entity_view_display.se_relationship.se_relationship.default
+    - field.field.se_relationship.se_relationship.se_cu_ref
+    - field.field.se_relationship.se_relationship.se_su_ref
+    - field.field.se_relationship.se_relationship.se_extra_information
+    - field.storage.se_relationship.se_cu_ref
+    - field.storage.se_relationship.se_su_ref
+    - field.storage.se_relationship.se_extra_information
+  optional:
+    - views.view.se_relationship_list
+    - views.view.se_re_customer_eva
+    - views.view.se_re_supplier_eva

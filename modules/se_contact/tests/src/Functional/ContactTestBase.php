@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_contact\Functional;
 
-use Drupal\Tests\se_business\Traits\BusinessTestTrait;
+use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_contact\Traits\ContactTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
@@ -14,7 +14,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 class ContactTestBase extends FunctionalTestBase {
 
   use ContactTestTrait;
-  use BusinessTestTrait;
+  use CustomerTestTrait;
 
   /**
    * Faker factory for contact.

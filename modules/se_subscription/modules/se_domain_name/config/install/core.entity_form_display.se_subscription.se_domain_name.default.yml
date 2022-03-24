@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_subscription.se_domain_name.se_bu_ref
+    - field.field.se_subscription.se_domain_name.se_cu_ref
     - field.field.se_subscription.se_domain_name.se_domain_name
     - field.field.se_subscription.se_domain_name.se_external_id
     - field.field.se_subscription.se_domain_name.se_item_lines
@@ -63,7 +63,7 @@ content:
       rows: 4
       placeholder: ''
     third_party_settings: {  }
-  se_bu_ref:
+  se_cu_ref:
     type: entity_reference_autocomplete
     weight: 1
     region: first

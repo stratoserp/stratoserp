@@ -3,10 +3,10 @@ se_contact.add:
   path: '/contact/add/{source}'
   defaults:
     _title: 'Add payment'
-    _controller: '\Drupal\se_contact\Controller\ContactController::fromBusiness'
+    _controller: '\Drupal\se_contact\Controller\ContactController::fromCustomer'
   requirements:
     _permission: 'add contact entities'
   options:
     parameters:
       source:
-        type: entity:se_business
+        type: entity:se_customer

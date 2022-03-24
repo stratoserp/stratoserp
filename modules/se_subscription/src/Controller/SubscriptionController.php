@@ -9,7 +9,7 @@ use Drupal\Core\Link;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_contact\Entity\Contact;
 use Drupal\se_subscription\Entity\SubscriptionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -232,8 +232,8 @@ class SubscriptionController extends ControllerBase {
     $build = $entityController->addPage('se_subscription');
 
     // Now add in the things we want.
-    if ($businessRef = \Drupal::request()->get('se_bu_ref')) {
-      $business = Business::load($businessRef);
+    if ($customerRef = \Drupal::request()->get('se_cu_ref')) {
+      $customer = Customer::load($customerRef);
     }
 
     if ($contactRef = \Drupal::request()->get('se_co_ref')) {
@@ -243,8 +243,8 @@ class SubscriptionController extends ControllerBase {
     foreach ($build['#bundles'] as $details) {
       $link = $details['add_link'];
       $url = $link->getUrl();
-      if (isset($business)) {
-        $url->setRouteParameter('se_bu_ref', $business->id());
+      if (isset($customer)) {
+        $url->setRouteParameter('se_cu_ref', $customer->id());
       }
       if (isset($contact)) {
         $url->setRouteParameter('se_co_ref', $contact->id());

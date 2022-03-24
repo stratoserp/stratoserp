@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - se_customer
+id: se_customer.se_last_statement_date
+field_name: se_last_statement_date
+entity_type: se_customer
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

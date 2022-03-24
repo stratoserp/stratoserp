@@ -10,7 +10,7 @@ config_devel:
   install:
     - core.entity_form_display.se_subscription.se_office_365.default
     - core.entity_view_display.se_subscription.se_office_365.default
-    - field.field.se_subscription.se_office_365.se_bu_ref
+    - field.field.se_subscription.se_office_365.se_cu_ref
     - field.field.se_subscription.se_office_365.se_email_address
     - field.field.se_subscription.se_office_365.se_external_id
     - field.field.se_subscription.se_office_365.se_item_lines

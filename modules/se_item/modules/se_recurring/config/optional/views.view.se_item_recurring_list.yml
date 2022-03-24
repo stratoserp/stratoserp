@@ -684,7 +684,7 @@ display:
     display_options:
       display_description: ''
       display_extenders: {  }
-      path: se/item/recurring-list
+      path: se/items/recurring-list
       menu:
         type: normal
         title: 'Recurring items'

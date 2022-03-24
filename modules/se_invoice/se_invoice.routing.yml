@@ -23,4 +23,4 @@ se_invoice.timekeeping:
   options:
     parameters:
       source:
-        type: entity:se_business
+        type: entity:se_customer

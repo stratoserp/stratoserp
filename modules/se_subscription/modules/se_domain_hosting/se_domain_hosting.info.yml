@@ -10,7 +10,7 @@ config_devel:
   install:
     - core.entity_form_display.se_subscription.se_domain_hosting.default
     - core.entity_view_display.se_subscription.se_domain_hosting.default
-    - field.field.se_subscription.se_domain_hosting.se_bu_ref
+    - field.field.se_subscription.se_domain_hosting.se_cu_ref
     - field.field.se_subscription.se_domain_hosting.se_domain_name
     - field.field.se_subscription.se_domain_hosting.se_external_id
     - field.field.se_subscription.se_domain_hosting.se_hosting_type

@@ -14,7 +14,7 @@ namespace Drupal\Tests\se_invoice\Functional;
 class InvoicePermissionsTest extends InvoiceTestBase {
 
   /**
-   * Faker factory for business.
+   * Faker factory for customer.
    *
    * @var \Faker\Factory
    */
@@ -27,7 +27,7 @@ class InvoicePermissionsTest extends InvoiceTestBase {
    */
   private array $pages = [
     '/invoice/add',
-    '/se/invoice-list',
+    '/se/customers/invoice-list',
   ];
 
   /**

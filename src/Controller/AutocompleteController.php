@@ -9,7 +9,7 @@ use Drupal\Component\Utility\Tags;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_contact\Entity\Contact;
 use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\se_information\Entity\Information;
@@ -50,9 +50,9 @@ class AutocompleteController extends ControllerBase {
         return $this->handlespecific($type, $code);
       }
 
-      $matches = $this->findBusinesses($searchString);
+      $matches = $this->findCustomers($searchString);
       foreach (Constants::SE_ENTITY_LOOKUP as $code => $type) {
-        // Don't do business again.
+        // Don't do customer again.
         if ($code === 'bu') {
           continue;
         }
@@ -164,7 +164,7 @@ class AutocompleteController extends ControllerBase {
   }
 
   /**
-   * Return business matching text.
+   * Return customer matching text.
    *
    * @param string $text
    *   The text to search for.
@@ -176,11 +176,11 @@ class AutocompleteController extends ControllerBase {
     'value' => "string",
     'label' => "string",
   ])]
-  private function findBusinesses(string $text): array {
+  private function findCustomers(string $text): array {
     $matches = [];
 
     $text = Database::getConnection()->escapeLike($text);
-    $query = \Drupal::entityQuery('se_business')
+    $query = \Drupal::entityQuery('se_customer')
       ->accessCheck(TRUE)
       ->condition('name', '%' . $text . '%', 'LIKE')
       ->condition('se_status', TRUE)
@@ -188,21 +188,21 @@ class AutocompleteController extends ControllerBase {
 
     $itemIds = $query->execute();
     /** @var \Drupal\node\Entity\Node $item */
-    foreach (Business::loadMultiple($itemIds) as $entityId => $business) {
+    foreach (Customer::loadMultiple($itemIds) as $entityId => $customer) {
       $fields = array_filter([
-        $business->getName(),
+        $customer->getName(),
       ]);
       $key = implode(' - ', $fields);
       $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
       // Names containing commas or quotes must be wrapped in quotes.
       $key = Tags::encode($key);
-      $outputDescription = $business->getName();
+      $outputDescription = $customer->getName();
 
       $key .= ' (' . $entityId . ')';
-      $businessId = $business->id();
+      $customerId = $customer->id();
       $matches[] = [
         'value' => $key,
-        'label' => $outputDescription . " - ($businessId)",
+        'label' => $outputDescription . " - ($customerId)",
       ];
     }
 
@@ -291,7 +291,7 @@ class AutocompleteController extends ControllerBase {
       $key = Tags::encode($key);
       $fields = array_filter([
         $description,
-        $information->se_bu_ref->entity->name->value ?? NULL,
+        $information->se_cu_ref->entity->name->value ?? NULL,
         $information->getName(),
       ]);
       $output = implode(' - ', $fields);

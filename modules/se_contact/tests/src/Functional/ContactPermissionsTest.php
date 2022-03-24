@@ -14,20 +14,13 @@ namespace Drupal\Tests\se_contact\Functional;
 class ContactPermissionsTest extends ContactTestBase {
 
   /**
-   * Faker factory for business.
-   *
-   * @var \Faker\Factory
-   */
-  protected $business;
-
-  /**
    * List of pages to check permissions on.
    *
    * @var string[]
    */
   private array $pages = [
     '/contact/add',
-    '/se/contact-list',
+    '/se/customers/contact-list',
   ];
 
   /**

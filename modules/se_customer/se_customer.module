@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function se_customer_theme() {
+  $theme = [];
+
+  $theme['se_customer'] = [
+    'render element' => 'elements',
+    'file' => 'se_customer.page.inc',
+    'template' => 'se_customer',
+  ];
+
+  return $theme;
+}

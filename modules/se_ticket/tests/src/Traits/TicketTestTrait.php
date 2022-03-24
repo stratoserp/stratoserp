@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_ticket\Traits;
 
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_ticket\Entity\Ticket;
 use Drupal\user\Entity\User;
 use Faker\Factory;
@@ -27,10 +27,10 @@ trait TicketTestTrait {
   }
 
   /**
-   * Add a ticket and set the business to the value passed in.
+   * Add a ticket and set the customer to the value passed in.
    *
-   * @param \Drupal\se_business\Entity\Business|null $business
-   *   The business to associate the ticket with.
+   * @param \Drupal\se_customer\Entity\Customer|null $customer
+   *   The customer to associate the ticket with.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
@@ -41,7 +41,7 @@ trait TicketTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addTicket(Business $business = NULL, bool $allowed = TRUE): ?Ticket {
+  public function addTicket(Customer $customer = NULL, bool $allowed = TRUE): ?Ticket {
     if (!isset($this->ticketName)) {
       $this->ticketFakerSetup();
     }
@@ -50,7 +50,7 @@ trait TicketTestTrait {
     $ticket = $this->createTicket([
       'type' => 'se_ticket',
       'name' => $this->ticketName,
-      'se_bu_ref' => $business,
+      'se_cu_ref' => $customer,
     ]);
     self::assertNotEquals($ticket, FALSE);
 

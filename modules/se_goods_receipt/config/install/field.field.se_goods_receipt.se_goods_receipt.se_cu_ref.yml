@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_goods_receipt.se_cu_ref
+  module:
+    - se_goods_receipt
+id: se_goods_receipt.se_goods_receipt.se_cu_ref
+field_name: se_cu_ref
+entity_type: se_goods_receipt
+bundle: se_goods_receipt
+label: Supplier
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: se_customer
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: 0
+field_type: entity_reference

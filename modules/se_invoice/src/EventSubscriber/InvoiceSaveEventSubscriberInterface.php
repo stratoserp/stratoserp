@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
 
   /**
-   * Reduce the business balance by the amount of the old invoice.
+   * Reduce the customer balance by the amount of the old invoice.
    *
    * This needs to be done in case the amount changes on the saving
    * of this invoice.
@@ -29,7 +29,7 @@ interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
   public function invoicePresave(EntityPresaveEvent $event);
 
   /**
-   * Add the total of this invoice to the amount the business owes.
+   * Add the total of this invoice to the amount the customer owes.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
@@ -37,7 +37,7 @@ interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
   public function invoiceInsert(EntityInsertEvent $event);
 
   /**
-   * Add the total of this invoice to the amount the business owes.
+   * Add the total of this invoice to the amount the customer owes.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.
@@ -45,7 +45,7 @@ interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
   public function invoiceUpdate(EntityUpdateEvent $event);
 
   /**
-   * Remove total of this invoice from the amount the business owes.
+   * Remove total of this invoice from the amount the customer owes.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.

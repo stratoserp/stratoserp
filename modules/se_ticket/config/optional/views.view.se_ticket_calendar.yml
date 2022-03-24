@@ -485,7 +485,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/ticket-calendar
+      path: se/tickets/calendar
       menu:
         type: normal
         title: 'Ticket calendar'

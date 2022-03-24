@@ -272,12 +272,12 @@ class InvoiceController extends ControllerBase {
       'bundle' => 'se_invoice',
     ]);
 
-    // Retrieve a list of non billed timekeeping entries for this business.
+    // Retrieve a list of non billed timekeeping entries for this customer.
     $query = \Drupal::entityQuery('se_timekeeping');
 
-    $business = \Drupal::service('se_business.service')->lookupBusiness($source);
+    $customer = \Drupal::service('se_customer.service')->lookupCustomer($source);
 
-    $query->condition('se_bu_ref', $business->id())
+    $query->condition('se_cu_ref', $customer->id())
       ->condition('se_billed', TRUE, '<>')
       ->condition('se_billable', TRUE)
       ->condition('se_amount', 0, '>');
@@ -313,7 +313,7 @@ class InvoiceController extends ControllerBase {
       }
     }
 
-    $invoice->se_bu_ref = $business;
+    $invoice->se_cu_ref = $customer;
     $invoice->se_item_lines = $lines;
     $invoice->se_total = $total;
 
@@ -345,7 +345,7 @@ class InvoiceController extends ControllerBase {
       $invoice->se_item_lines->appendItem($item->getValue());
     }
 
-    $invoice->se_bu_ref = $source->se_bu_ref;
+    $invoice->se_cu_ref = $source->se_cu_ref;
     $invoice->se_co_ref = $source->se_co_ref ?? NULL;
     $invoice->se_qu_ref = $source;
     $invoice->se_total = $total;

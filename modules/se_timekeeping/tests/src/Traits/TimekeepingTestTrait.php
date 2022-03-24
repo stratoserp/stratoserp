@@ -29,7 +29,7 @@ trait TimekeepingTestTrait {
    * Add timekeeping to a ticket.
    *
    * @param \Drupal\se_ticket\Entity\Ticket $ticket
-   *   The business to associate the ticket with.
+   *   The customer to associate the ticket with.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
@@ -50,7 +50,7 @@ trait TimekeepingTestTrait {
     $timekeeping = Timekeeping::create([
       'entity_id' => $ticket->id(),
       'entity_type' => 'se_ticket',
-      'se_bu_ref' => $ticket->se_bu_ref,
+      'se_cu_ref' => $ticket->se_cu_ref,
       'se_comment' => $this->timekeepingName,
       'se_billable' => TRUE,
       'se_billed' => FALSE,

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_supplier.se_last_statement_date
+  module:
+    - datetime
+    - se_supplier
+id: se_supplier.se_supplier.se_last_statement_date
+field_name: se_last_statement_date
+entity_type: se_supplier
+bundle: se_supplier
+label: 'Last statement date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

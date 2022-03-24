@@ -9,7 +9,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -60,20 +60,20 @@ class FormAlter {
   }
 
   /**
-   * Helper function to retrieve the business.
+   * Helper function to retrieve the customer.
    *
-   * @param \Drupal\se_business\Entity\Business $business
-   *   Function can be passed in a business, or get from url.
+   * @param \Drupal\se_customer\Entity\Customer $customer
+   *   Function can be passed in a customer, or get from url.
    *
-   * @return \Drupal\se_business\Entity\Business|null
-   *   Business entity
+   * @return \Drupal\se_customer\Entity\Customer|null
+   *   Customer entity
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getBusiness(Business $business = null): ?Business {
+  public function getCustomer(Customer $customer = null): ?Customer {
     // Try and retrieve the named variable from the request.
-    if (!$value = $this->currentRequest->get('se_bu_ref')) {
+    if (!$value = $this->currentRequest->get('se_cu_ref')) {
       return NULL;
     }
 
@@ -82,7 +82,7 @@ class FormAlter {
       return NULL;
     }
 
-    if (!$entity = $this->entityTypeManager->getStorage('se_business')->load($value)) {
+    if (!$entity = $this->entityTypeManager->getStorage('se_customer')->load($value)) {
       return NULL;
     }
 
@@ -90,25 +90,25 @@ class FormAlter {
   }
 
   /**
-   * Set the business reference field on an entity form.
+   * Set the customer reference field on an entity form.
    *
    * @param array $form
    *   Form render array.
    * @param string $field
    *   The reference field to update.
-   * @param \Drupal\se_business\Entity\Business|null $business
-   *   Function can be passed in a business, or get from url.
+   * @param \Drupal\se_customer\Entity\Customer|null $customer
+   *   Function can be passed in a customer, or get from url.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function setBusinessField(array &$form, string $field, Business $business = NULL): void {
-    if ($business !== NULL) {
-      $this->setReferenceField($form, $field, $business);
+  public function setCustomerField(array &$form, string $field, Customer $customer = NULL): void {
+    if ($customer !== NULL) {
+      $this->setReferenceField($form, $field, $customer);
       return;
     }
 
-    if ($entity = $this->getBusiness($business)) {
+    if ($entity = $this->getCustomer($customer)) {
       $this->setReferenceField($form, $field, $entity);
     }
   }

@@ -22,10 +22,10 @@ class SubscriptionForm extends StratosContentEntityForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    if ($business = \Drupal::service('se.form_alter')->getBusiness()) {
+    if ($customer = \Drupal::service('se.form_alter')->getCustomer()) {
       $form['name']['widget'][0]['value']['#default_value'] =
-        $this->t('@business - @type', [
-          '@business' => $business->getName(),
+        $this->t('@customer - @type', [
+          '@customer' => $customer->getName(),
           '@type' => $this->entity->type->entity->label(),
         ]);
     }

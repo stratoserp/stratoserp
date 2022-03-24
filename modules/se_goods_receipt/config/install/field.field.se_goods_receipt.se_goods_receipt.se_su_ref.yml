@@ -16,7 +16,7 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_business'
+  handler: 'default:se_supplier'
   handler_settings:
     target_bundles: null
     sort:

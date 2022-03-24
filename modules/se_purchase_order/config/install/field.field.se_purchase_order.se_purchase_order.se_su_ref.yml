@@ -16,11 +16,11 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:se_business'
+  handler: se_supplier
   handler_settings:
     target_bundles: null
     sort:
       field: _none
       direction: ASC
-    auto_create: false
+    auto_create: 0
 field_type: entity_reference

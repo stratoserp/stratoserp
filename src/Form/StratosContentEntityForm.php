@@ -30,7 +30,7 @@ class StratosContentEntityForm extends ContentEntityForm {
     $form = parent::buildForm($form, $form_state);
 
     $formAlter = \Drupal::service('se.form_alter');
-    $formAlter->setBusinessField($form, 'se_bu_ref');
+    $formAlter->setCustomerField($form, 'se_cu_ref');
     $formAlter->setContactField($form, 'se_co_ref');
     $formAlter->setStandardText($form, 'name', $formAlter->generateTitle());
 

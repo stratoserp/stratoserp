@@ -12,14 +12,14 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
-  - stratoserp:se_business
+  - stratoserp:se_customer
   - stratoserp:se_payment_line
 
 config_devel:
   install:
-    - field.field.se_payment.se_payment.se_bu_ref
+    - field.field.se_payment.se_payment.se_cu_ref
     - field.field.se_payment.se_payment.se_total
-    - field.storage.se_payment.se_bu_ref
+    - field.storage.se_payment.se_cu_ref
     - field.storage.se_payment.se_total
     - taxonomy.vocabulary.se_payment_type
   optional:

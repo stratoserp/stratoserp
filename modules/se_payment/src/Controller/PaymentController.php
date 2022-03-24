@@ -258,7 +258,7 @@ class PaymentController extends ControllerBase {
       \Drupal::messenger()->addWarning('Unable to load default payment term.');
     }
 
-    $business = \Drupal::service('se_business.service')->lookupBusiness($source);
+    $customer = \Drupal::service('se_customer.service')->lookupCustomer($source);
 
     $total = 0;
     $query = \Drupal::entityQuery('se_invoice');
@@ -266,7 +266,7 @@ class PaymentController extends ControllerBase {
       ->condition('se_status_ref', \Drupal::service('se_invoice.service')->getOpenTerm()->id())
       ->notExists('se_status_ref');
 
-    $query->condition('se_bu_ref', $business->id())
+    $query->condition('se_cu_ref', $customer->id())
       ->condition($group);
 
     $entityIds = $query->execute();
@@ -288,7 +288,7 @@ class PaymentController extends ControllerBase {
       }
     }
 
-    $payment->se_bu_ref = $business;
+    $payment->se_cu_ref = $customer;
     $payment->se_payment_lines = $lines;
     $payment->se_total = $total;
 

@@ -6,7 +6,7 @@ namespace Drupal\Tests\se_quote\Functional;
 
 use Drupal\se_invoice\Controller\InvoiceController;
 use Drupal\se_purchase_order\Controller\PurchaseOrderController;
-use Drupal\Tests\se_business\Traits\BusinessTestTrait;
+use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 
 /**
@@ -19,27 +19,27 @@ use Drupal\Tests\se_item\Traits\ItemTestTrait;
 class QuoteCrudTest extends QuoteTestBase {
 
   use ItemTestTrait;
-  use BusinessTestTrait;
+  use CustomerTestTrait;
 
   /**
    * Test adding a quote.
    */
   public function testQuoteAdd() {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
     $this->drupalLogout();
 
     $this->drupalLogin($this->customer);
-    $this->addQuote($testBusiness, $items, FALSE);
+    $this->addQuote($testCustomer, $items, FALSE);
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
-    $this->addQuote($testBusiness, $items);
+    $this->addQuote($testCustomer, $items);
     $this->drupalLogout();
 
     $this->drupalLogin($this->owner);
-    $this->addQuote($testBusiness, $items);
+    $this->addQuote($testCustomer, $items);
     $this->drupalLogout();
   }
 
@@ -48,9 +48,9 @@ class QuoteCrudTest extends QuoteTestBase {
    */
   public function testQuoteToInvoice() {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
-    $quote = $this->addQuote($testBusiness, $items);
+    $quote = $this->addQuote($testCustomer, $items);
 
     // Now create an invoice from the Timekeeping entries.
     $invoice = \Drupal::classResolver(InvoiceController::class)->createInvoiceFromQuote($quote);
@@ -65,9 +65,9 @@ class QuoteCrudTest extends QuoteTestBase {
    */
   public function testQuoteToPurchaseOrder() {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $items = $this->createItems();
-    $quote = $this->addQuote($testBusiness, $items);
+    $quote = $this->addQuote($testCustomer, $items);
 
     // Now create an invoice from the Timekeeping entries.
     $invoice = \Drupal::classResolver(PurchaseOrderController::class)->createPurchaseOrderFromQuote($quote);

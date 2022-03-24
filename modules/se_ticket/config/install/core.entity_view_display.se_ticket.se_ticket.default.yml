@@ -4,8 +4,8 @@ dependencies:
   config:
     - field.field.se_ticket.se_ticket.se_attachments
     - field.field.se_ticket.se_ticket.se_body
-    - field.field.se_ticket.se_ticket.se_bu_ref
     - field.field.se_ticket.se_ticket.se_co_ref
+    - field.field.se_ticket.se_ticket.se_cu_ref
     - field.field.se_ticket.se_ticket.se_open_date
     - field.field.se_ticket.se_ticket.se_owner_ref
     - field.field.se_ticket.se_ticket.se_priority_ref
@@ -52,14 +52,6 @@ content:
     third_party_settings: {  }
     weight: 9
     region: bottom
-  se_bu_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: first
   se_co_ref:
     type: entity_reference_label
     label: inline
@@ -67,6 +59,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 2
+    region: first
+  se_cu_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
     region: first
   se_open_date:
     type: timestamp

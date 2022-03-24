@@ -11,8 +11,8 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\duration_field\Service\DurationService;
 use Drupal\duration_field\Service\DurationServiceInterface;
-use Drupal\se_business\Entity\Business;
-use Drupal\se_business\Service\BusinessService;
+use Drupal\se_customer\Entity\Customer;
+use Drupal\se_customer\Service\CustomerService;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_subscription\Entity\Subscription;
 
@@ -25,7 +25,7 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
 
   protected EntityTypeManagerInterface $entityTypeManager;
   protected LoggerChannel $loggerChannel;
-  protected BusinessService $businessService;
+  protected CustomerService $customerService;
   protected DurationService $durationService;
 
   /**
@@ -35,15 +35,15 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
    *   EntityTypeManager for later.
    * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
    *   Logger for later.
-   * @param \Drupal\se_business\Service\BusinessService $businessService
-   *   The business service.
+   * @param \Drupal\se_customer\Service\CustomerService $customerService
+   *   The customer service.
    * @param \Drupal\duration_field\Service\DurationService $durationService
    *   The duration service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelInterface $loggerChannel, BusinessService $businessService, DurationServiceInterface $durationService) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelInterface $loggerChannel, CustomerService $customerService, DurationServiceInterface $durationService) {
     $this->entityTypeManager = $entityTypeManager;
     $this->loggerChannel = $loggerChannel;
-    $this->businessService = $businessService;
+    $this->customerService = $customerService;
     $this->durationService = $durationService;
   }
 
@@ -53,20 +53,20 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
   public function processDateSubscriptions(): array {
     $invoices = [];
 
-    // Load the business ids for businesses that have a invoice day set.
+    // Load the customer ids for customers that have a invoice day set.
     $query = $this->entityTypeManager
-      ->getStorage('se_business')
+      ->getStorage('se_customer')
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition('se_invoice_day', 0, '>')
       ->condition('se_invoice_day', date('d'), '<=');
 
     // Load subscriptions to create line items.
-    foreach ($query->execute() as $businessId) {
-      $business = Business::load($businessId);
-      $items = $this->subscriptionsToItems($business);
+    foreach ($query->execute() as $customerId) {
+      $customer = Customer::load($customerId);
+      $items = $this->subscriptionsToItems($customer);
 
-      if (count($items) && $invoice = $this->subscriptionsToInvoice($business, $items)) {
+      if (count($items) && $invoice = $this->subscriptionsToInvoice($customer, $items)) {
         $invoices[] = $invoice;
         $this->updateDueDate($items);
       }
@@ -81,7 +81,7 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
   public function processSubscriptions(): array {
     $invoices = [];
 
-    // Build a query for subscriptions due not using business date.
+    // Build a query for subscriptions due not using customer date.
     $query = $this->entityTypeManager
       ->getStorage('se_subscription')
       ->getQuery()
@@ -90,10 +90,10 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
       ->condition('se_use_bu_due', 0);
 
     // Load subscriptions to create line items.
-    foreach ($query->execute() as $businessId) {
-      if ($business = Business::load($businessId)) {
-        $items = $this->subscriptionsToItems($business);
-        if (count($items) && $invoice = $this->subscriptionsToInvoice($business, $items)) {
+    foreach ($query->execute() as $customerId) {
+      if ($customer = Customer::load($customerId)) {
+        $items = $this->subscriptionsToItems($customer);
+        if (count($items) && $invoice = $this->subscriptionsToInvoice($customer, $items)) {
           $invoices[] = $invoice;
           $this->updateDueDate($items);
         }
@@ -122,10 +122,10 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
   }
 
   /**
-   * Process subscriptions for a specific business.
+   * Process subscriptions for a specific customer.
    *
-   * @param \Drupal\se_business\Entity\Business $business
-   *   The business we're doing subscription invoicing for.
+   * @param \Drupal\se_customer\Entity\Customer $customer
+   *   The customer we're doing subscription invoicing for.
    *
    * @return array
    *   The invoice lines.
@@ -133,23 +133,23 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  private function subscriptionsToItems(Business $business): array {
-    // Build a query for subscriptions due for this business.
+  private function subscriptionsToItems(Customer $customer): array {
+    // Build a query for subscriptions due for this customer.
     $query = $this->entityTypeManager
       ->getStorage('se_subscription')
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition('se_next_due', date('U'), '<=')
-      ->condition('se_bu_ref', $business->id());
+      ->condition('se_cu_ref', $customer->id());
 
     return $this->subscriptionsToInvoiceLines($query->execute());
   }
 
   /**
-   * Create an invoice from the subscription lines and business.
+   * Create an invoice from the subscription lines and customer.
    *
-   * @param \Drupal\se_business\Entity\Business $business
-   *   The business we're doing subscription invoicing for.
+   * @param \Drupal\se_customer\Entity\Customer $customer
+   *   The customer we're doing subscription invoicing for.
    * @param \Drupal\se_subscription\Entity\Subscription[] $subscriptions
    *   The list of subscriptions.
    *
@@ -158,24 +158,24 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function subscriptionsToInvoice(Business $business, array $subscriptions): Invoice {
+  private function subscriptionsToInvoice(Customer $customer, array $subscriptions): Invoice {
     $invoiceContent = [
       'type' => 'se_invoice',
       'name' => '',
-      'se_bu_ref' => [
-        'target_id' => $business->id(),
-        'target_type' => 'se_business',
+      'se_cu_ref' => [
+        'target_id' => $customer->id(),
+        'target_type' => 'se_customer',
       ],
-      'se_phone' => $business->se_phone,
-      'se_email' => $business->se_email,
+      'se_phone' => $customer->se_phone,
+      'se_email' => $customer->se_email,
       'se_item_lines' => $subscriptions,
     ];
 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = Invoice::create($invoiceContent);
 
-    // Set the timestamp on the invoice to the business invoice day.
-    $invoice->setCreatedTime($this->businessService->getInvoiceDayTimestamp($business));
+    // Set the timestamp on the invoice to the customer invoice day.
+    $invoice->setCreatedTime($this->customerService->getInvoiceDayTimestamp($customer));
 
     $invoice->save();
 

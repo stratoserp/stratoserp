@@ -604,7 +604,7 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-              business: '0'
+              customer: '0'
               staff: '0'
               developer: '0'
             placeholder: ''

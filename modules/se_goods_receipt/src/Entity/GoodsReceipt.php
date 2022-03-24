@@ -60,7 +60,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *     "revision_revert" = "/goods-receipt/{se_goods_receipt}/revisions/{se_goods_receipt_revision}/revert",
  *     "revision_delete" = "/goods-receipt/{se_goods_receipt}/revisions/{se_goods_receipt_revision}/delete",
  *     "translation_revert" = "/goods-receipt/{se_goods_receipt}/revisions/{se_goods_receipt_revision}/revert/{langcode}",
- *     "collection" = "/se/goods-receipt-list",
+ *     "collection" = "/se/customers/goods-receipt-list",
  *   },
  *   field_ui_base_route = "se_goods_receipt.settings",
  *   revision_metadata_keys = {

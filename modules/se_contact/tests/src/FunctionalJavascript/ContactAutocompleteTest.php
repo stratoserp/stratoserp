@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_contact\FunctionalJavascript;
 
-use Drupal\Tests\se_business\Traits\BusinessTestTrait;
+use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_contact\Traits\ContactTestTrait;
 use Drupal\Tests\se_testing\FunctionalJavascript\FunctionalJavascriptTestBase;
 
@@ -17,7 +17,7 @@ use Drupal\Tests\se_testing\FunctionalJavascript\FunctionalJavascriptTestBase;
  */
 class ContactAutocompleteTest extends FunctionalJavascriptTestBase {
 
-  use BusinessTestTrait;
+  use CustomerTestTrait;
   use ContactTestTrait;
 
   /**
@@ -30,8 +30,8 @@ class ContactAutocompleteTest extends FunctionalJavascriptTestBase {
   public function testContactSearch(): void {
 
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
-    $this->addContact($testBusiness);
+    $testCustomer = $this->addCustomer();
+    $this->addContact($testCustomer);
     $this->drupalLogout();
 
     // Make a new staff user and test they can find the contact.

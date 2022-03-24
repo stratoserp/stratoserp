@@ -8,7 +8,7 @@ dependencies:
     - taxonomy.vocabulary.se_status
   module:
     - se_accounting
-    - se_business
+    - se_customer
     - se_invoice
     - taxonomy
     - user
@@ -573,12 +573,12 @@ display:
           error_message: true
         name:
           id: name
-          table: se_business_field_data
+          table: se_customer_field_data
           field: name
-          relationship: se_bu_ref
+          relationship: se_cu_ref
           group_type: group
           admin_label: ''
-          entity_type: se_business
+          entity_type: se_customer
           entity_field: name
           plugin_id: string
           operator: contains
@@ -587,13 +587,13 @@ display:
           exposed: true
           expose:
             operator_id: name_op
-            label: Business
+            label: Customer
             description: ''
             use_operator: false
             operator: name_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: business
+            identifier: customer
             required: false
             remember: false
             multiple: false
@@ -694,13 +694,13 @@ display:
           replica: false
           query_tags: {  }
       relationships:
-        se_bu_ref:
-          id: se_bu_ref
-          table: se_invoice__se_bu_ref
-          field: se_bu_ref
+        se_cu_ref:
+          id: se_cu_ref
+          table: se_invoice__se_cu_ref
+          field: se_cu_ref
           relationship: none
           group_type: group
-          admin_label: 'se_bu_ref: Business'
+          admin_label: 'se_cu_ref: Customer'
           plugin_id: standard
           required: false
       use_ajax: true
@@ -726,15 +726,15 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/invoice-list
+      path: se/customers/invoice-list
       menu:
         type: normal
-        title: 'Invoice list'
-        description: views.view.se_business_list.se_business_list
+        title: Invoices
+        description: views.view.se_customer_list.se_customer_list
         weight: 0
         expanded: false
         menu_name: stratos-erp
-        parent: 'views_view:views.se_business_list.se_business_list'
+        parent: 'views_view:views.se_customer_list.se_customer_list'
         context: '0'
     cache_metadata:
       max-age: -1

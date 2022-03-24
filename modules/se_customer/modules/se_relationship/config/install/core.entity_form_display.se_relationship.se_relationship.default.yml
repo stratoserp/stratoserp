@@ -1,0 +1,76 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_relationship.se_relationship.se_cu_ref
+    - field.field.se_relationship.se_relationship.se_extra_information
+    - field.field.se_relationship.se_relationship.se_su_ref
+  module:
+    - field_layout
+    - layout_discovery
+    - se_relationship
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings:
+      label: ''
+id: se_relationship.se_relationship.default
+targetEntityType: se_relationship
+bundle: se_relationship
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  revision_log_message:
+    type: string_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 4
+      placeholder: ''
+    third_party_settings: {  }
+  se_cu_ref:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  se_extra_information:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  se_su_ref:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

@@ -35,8 +35,8 @@
       response(suggestions);
     }
 
-    var business = $("#edit-se-bu-ref-0-target-id").val();
-    var businessNid = business.substring(business.indexOf("(") + 1, business.indexOf(")"));
+    var customer = $("#edit-se-bu-ref-0-target-id").val();
+    var customerNid = customer.substring(customer.indexOf("(") + 1, customer.indexOf(")"));
 
     function sourceCallbackHandler(data) {
       autocomplete.cache[elementId][request.term] = data;
@@ -49,7 +49,7 @@
     } else {
       var options = $.extend({
         success: sourceCallbackHandler,
-        data: { q: request.term, se_bu_ref: businessNid }
+        data: { q: request.term, se_cu_ref: customerNid }
       }, autocomplete.ajax);
       $.ajax(this.element.attr("data-autocomplete-path"), options);
     }

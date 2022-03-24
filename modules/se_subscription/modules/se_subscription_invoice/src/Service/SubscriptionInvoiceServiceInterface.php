@@ -10,7 +10,7 @@ namespace Drupal\se_subscription_invoice\Service;
 interface SubscriptionInvoiceServiceInterface {
 
   /**
-   * Retrieve the list of businesses with subscriptions that match this day.
+   * Retrieve the list of customers with subscriptions that match this day.
    *
    * @return array
    *   And array of invoices.
@@ -22,7 +22,7 @@ interface SubscriptionInvoiceServiceInterface {
   public function processDateSubscriptions(): array;
 
   /**
-   * Process subscriptions that are not set to use the business date.
+   * Process subscriptions that are not set to use the customer date.
    *
    * @return array
    *   An array of invoices.

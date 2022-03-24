@@ -65,10 +65,10 @@
     }
 
     // Get the desired term and construct the autocomplete URL for it.
-    const business = $("#edit-se-bu-ref-0-target-id").val();
-    const businessNid = business.substring(
-      business.indexOf("(") + 1,
-      business.indexOf(")")
+    const customer = $("#edit-se-bu-ref-0-target-id").val();
+    const customerNid = customer.substring(
+      customer.indexOf("(") + 1,
+      customer.indexOf(")")
     );
 
     /**
@@ -91,7 +91,7 @@
       const options = $.extend(
         {
           success: sourceCallbackHandler,
-          data: { q: request.term, se_bu_ref: businessNid }
+          data: { q: request.term, se_cu_ref: customerNid }
         },
         autocomplete.ajax
       );

@@ -4,13 +4,14 @@ type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
-  - stratoserp:se_business
+  - stratoserp:se_customer
   - stratoserp:stratoserp
 
 config_devel:
   install:
-    - field.storage.se_information.se_bu_ref
+    - field.storage.se_information.se_cu_ref
     - field.storage.se_information.se_attachments
     - field.storage.se_information.se_body
     - field.storage.se_information.se_images
-  optional: {  }
+  optional:
+    - views.view.se_information_list

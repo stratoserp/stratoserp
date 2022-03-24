@@ -4,8 +4,8 @@ dependencies:
   module:
     - contextual
     - se_bill
-    - se_business
     - se_contact
+    - se_customer
     - se_goods_receipt
     - se_information
     - se_invoice
@@ -25,15 +25,15 @@ label: Staff
 weight: 7
 is_admin: false
 permissions:
-  - 'access all businesses'
+  - 'access all customers'
   - 'access content'
   - 'access contextual links'
   - 'access stratoserp'
   - 'access toolbar'
   - 'access user profiles'
   - 'add bill entities'
-  - 'add business entities'
   - 'add contact entities'
+  - 'add customer entities'
   - 'add goods receipt entities'
   - 'add information entities'
   - 'add invoice entities'
@@ -42,11 +42,12 @@ permissions:
   - 'add purchase order entities'
   - 'add quote entities'
   - 'add subscription entities'
+  - 'add supplier entities'
   - 'add ticket entities'
   - 'add timekeeping entities'
   - 'edit bill entities'
-  - 'edit business entities'
   - 'edit contact entities'
+  - 'edit customer entities'
   - 'edit goods receipt entities'
   - 'edit information entities'
   - 'edit invoice entities'
@@ -55,12 +56,13 @@ permissions:
   - 'edit purchase order entities'
   - 'edit quote entities'
   - 'edit subscription entities'
+  - 'edit supplier entities'
   - 'edit ticket entities'
   - 'edit timekeeping entities'
   - 'use inline mentions'
   - 'view all bill revisions'
-  - 'view all business revisions'
   - 'view all contact revisions'
+  - 'view all customer revisions'
   - 'view all goods receipt revisions'
   - 'view all information revisions'
   - 'view all invoice revisions'
@@ -72,8 +74,8 @@ permissions:
   - 'view all ticket revisions'
   - 'view all timekeeping revisions'
   - 'view bill entities'
-  - 'view business entities'
   - 'view contact entities'
+  - 'view customer entities'
   - 'view goods receipt entities'
   - 'view information entities'
   - 'view invoice entities'
@@ -83,5 +85,6 @@ permissions:
   - 'view quote entities'
   - 'view stratoserp in toolbar'
   - 'view subscription entities'
+  - 'view supplier entities'
   - 'view ticket entities'
   - 'view timekeeping entities'

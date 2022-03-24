@@ -44,9 +44,9 @@ class PaymentService {
       $invoice->save();
     }
 
-    /** @var \Drupal\se_business\Entity\Business $business */
-    $business = $payment->se_bu_ref->entity;
-    $business->adjustBalance($previousTotal - $newTotal);
+    /** @var \Drupal\se_customer\Entity\Customer $customer */
+    $customer = $payment->se_cu_ref->entity;
+    $customer->adjustBalance($previousTotal - $newTotal);
   }
 
   /**

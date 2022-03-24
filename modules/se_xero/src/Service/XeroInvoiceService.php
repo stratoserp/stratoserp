@@ -94,11 +94,11 @@ class XeroInvoiceService {
     // Setup the invoice data.
     $values = [
       'Contact' => [
-        'ContactID' => $node->business->se_xero_uuid->value,
+        'ContactID' => $node->customer->se_xero_uuid->value,
       ],
       'Type' => 'ACCREC',
       'Date' => date('Y-m-d', $node->created->value),
-      // @todo Per business due dates.
+      // @todo Per customer due dates.
       'DueDate' => date('Y-m-d', $node->created->value + (86400 * 7)),
       'LineAmountTypes' => 'Inclusive',
       'Status' => 'SUBMITTED',
@@ -144,10 +144,10 @@ class XeroInvoiceService {
       return FALSE;
     }
 
-    // See if the business already exists, add them if not.
-    $invoice->business = \Drupal::service('se_business.service')->lookupBusiness($invoice);
-    if (!isset($invoice->business->se_xero_uuid->value)) {
-      \Drupal::service('se_xero.contact_service')->sync($invoice->business);
+    // See if the customer already exists, add them if not.
+    $invoice->customer = \Drupal::service('se_customer.service')->lookupCustomer($invoice);
+    if (!isset($invoice->customer->se_xero_uuid->value)) {
+      \Drupal::service('se_xero.contact_service')->sync($invoice->customer);
     }
 
     // Setup the data structure.

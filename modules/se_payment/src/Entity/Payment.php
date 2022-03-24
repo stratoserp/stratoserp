@@ -60,7 +60,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "revision_revert" = "/payment/{se_payment}/revisions/{se_payment_revision}/revert",
  *     "revision_delete" = "/payment/{se_payment}/revisions/{se_payment_revision}/delete",
  *     "translation_revert" = "/payment/{se_payment}/revisions/{se_payment_revision}/revert/{langcode}",
- *     "collection" = "/se/payment-list",
+ *     "collection" = "/se/customers/payment-list",
  *   },
  *   field_ui_base_route = "se_payment.settings",
  *   revision_metadata_keys = {

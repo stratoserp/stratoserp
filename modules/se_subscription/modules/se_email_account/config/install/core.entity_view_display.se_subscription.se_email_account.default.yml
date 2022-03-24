@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_subscription.se_email_account.se_bu_ref
+    - field.field.se_subscription.se_email_account.se_cu_ref
     - field.field.se_subscription.se_email_account.se_email_address
     - field.field.se_subscription.se_email_account.se_email_aliases
     - field.field.se_subscription.se_email_account.se_external_id
@@ -39,7 +39,7 @@ content:
     third_party_settings: {  }
     weight: 0
     region: top
-  se_bu_ref:
+  se_cu_ref:
     type: entity_reference_label
     label: inline
     settings:

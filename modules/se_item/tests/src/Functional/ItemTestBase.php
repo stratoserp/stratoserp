@@ -30,7 +30,7 @@ class ItemTestBase extends FunctionalTestBase {
   protected CurrencyFormat $currencyFormat;
 
   /**
-   * Setup the basic business tests.
+   * Setup the basic customer tests.
    */
   protected function setUp(): void {
     parent::setUp();

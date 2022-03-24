@@ -7,7 +7,7 @@ namespace Drupal\stratoserp\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_information\Entity\Information;
 use Drupal\se_item\Entity\Item;
 use Drupal\stratoserp\Constants;
@@ -64,7 +64,7 @@ class SearchForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $build['search'] = [
-      '#title' => t('Enter business name, id of invoice or quote or simply search.'),
+      '#title' => t('Enter customer name, id of invoice or quote or simply search.'),
       '#type' => 'textfield',
       '#size' => 30,
       '#autocomplete_route_name' => 'stratoserp.search',
@@ -95,7 +95,7 @@ class SearchForm extends FormBase {
       return $this->messenger->addError(t('No search string found'));
     }
 
-    if ($this->searchLoadBusiness($values['search'], $form_state)) {
+    if ($this->searchLoadCustomer($values['search'], $form_state)) {
       return NULL;
     }
 
@@ -126,7 +126,7 @@ class SearchForm extends FormBase {
    * @return \Drupal\Core\Messenger\MessengerInterface|false
    *   A message or false if it wasn't this type.
    */
-  protected function searchLoadBusiness($search, FormStateInterface $form_state) {
+  protected function searchLoadCustomer($search, FormStateInterface $form_state) {
     // If the user has chosen a node from the popup, load it.
     if (preg_match("/.+\s\(([^!#)[a-zA-Z]+)\)/", $search, $matches)) {
       $match = $matches[1];
@@ -134,11 +134,11 @@ class SearchForm extends FormBase {
         return $this->messenger->addMessage(t('No matches found'));
       }
 
-      if (!Business::load($match)) {
+      if (!Customer::load($match)) {
         return $this->messenger->addError(t('Invalid node'));
       }
 
-      $form_state->setRedirect('entity.se_business.canonical', ['se_business' => $match]);
+      $form_state->setRedirect('entity.se_customer.canonical', ['se_customer' => $match]);
       return TRUE;
     }
 

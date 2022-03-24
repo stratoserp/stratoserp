@@ -6,7 +6,7 @@ namespace Drupal\se_invoice\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\customer;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\taxonomy\Entity\Term;
@@ -46,10 +46,10 @@ class InvoiceService {
   }
 
   /**
-   * Retrieve the outstanding invoices for a business.
+   * Retrieve the outstanding invoices for a customer.
    *
-   * @param \Drupal\se_business\Entity\Business $business
-   *   The Business entity.
+   * @param \Drupal\se_customer\Entity\customer $customer
+   *   The customer entity.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    *   The found entity.
@@ -57,9 +57,9 @@ class InvoiceService {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getOutstandingInvoices(Business $business): array {
+  public function getOutstandingInvoices(customer $customer): array {
     $query = \Drupal::entityQuery('se_invoice');
-    $query->condition('se_bu_ref', $business->id());
+    $query->condition('se_cu_ref', $customer->id());
     $query->condition('se_status_ref', $this->getOpenTerm()->id());
     $entityIds = $query->execute();
 
@@ -159,8 +159,8 @@ class InvoiceService {
    *   Invoice to update.
    */
   public function statusTotalUpdate(Invoice $invoice): void {
-    // Update the business balance.
-    if ($business = $invoice->getBusiness()) {
+    // Update the customer balance.
+    if ($customer = $invoice->getcustomer()) {
 
       // Retrieve the new invoice outstanding amount.
       $invoiceOutstanding = $invoice->getOutstanding();
@@ -168,10 +168,10 @@ class InvoiceService {
       if ($oldInvoice = $invoice->getOldInvoice()) {
         $oldOutstanding = $oldInvoice->getOutstanding();
         $difference = $invoiceOutstanding - $oldOutstanding;
-        $business->adjustBalance($difference);
+        $customer->adjustBalance($difference);
       }
       else {
-        $business->adjustBalance($invoiceOutstanding);
+        $customer->adjustBalance($invoiceOutstanding);
       }
     }
   }
@@ -183,9 +183,9 @@ class InvoiceService {
    *   Invoice to update.
    */
   public function deleteUpdate(Invoice $invoice) {
-    if ($business = $invoice->getBusiness()) {
+    if ($customer = $invoice->getcustomer()) {
       // @todo What if there were payments?
-      $business->adjustBalance($invoice->getTotal() * -1);
+      $customer->adjustBalance($invoice->getTotal() * -1);
     }
   }
 

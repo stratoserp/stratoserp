@@ -402,10 +402,10 @@ display:
           tokenize: false
       sorts: {  }
       arguments:
-        se_bu_ref_target_id:
-          id: se_bu_ref_target_id
-          table: se_quote__se_bu_ref
-          field: se_bu_ref_target_id
+        se_cu_ref_target_id:
+          id: se_cu_ref_target_id
+          table: se_quote__se_cu_ref
+          field: se_cu_ref_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -534,9 +534,9 @@ display:
     display_options:
       display_description: ''
       display_extenders: {  }
-      entity_type: se_business
+      entity_type: se_customer
       bundles:
-        - se_business
+        - se_customer
     cache_metadata:
       max-age: -1
       contexts:

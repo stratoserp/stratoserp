@@ -252,7 +252,7 @@ class GoodsReceiptController extends ControllerBase {
       }
     }
 
-    $goodsReceipt->se_bu_ref->target_id = $source->se_bu_ref->target_id;
+    $goodsReceipt->se_cu_ref->target_id = $source->se_cu_ref->target_id;
     $goodsReceipt->se_co_ref->target_id = $source->se_co_ref->target_id;
     $goodsReceipt->se_po_ref->target_id = $source->id();
 

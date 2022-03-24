@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_contact.se_contact.se_bu_ref
+    - field.field.se_contact.se_contact.se_cu_ref
     - field.field.se_contact.se_contact.se_email
     - field.field.se_contact.se_contact.se_mobile
     - field.field.se_contact.se_contact.se_phone
@@ -34,7 +34,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  se_bu_ref:
+  se_cu_ref:
     weight: 4
     label: inline
     settings:

@@ -21,8 +21,8 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
    */
   public function testTimekeepingInvoice(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
-    $testTicket = $this->addTicket($testBusiness);
+    $testCustomer = $this->addCustomer();
+    $testTicket = $this->addTicket($testCustomer);
 
     $testTimekeeping = [];
     for ($i = 0; $i < random_int(5, 10); $i++) {

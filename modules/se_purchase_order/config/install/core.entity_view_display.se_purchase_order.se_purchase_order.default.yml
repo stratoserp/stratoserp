@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_purchase_order.se_purchase_order.se_bu_ref
     - field.field.se_purchase_order.se_purchase_order.se_co_ref
+    - field.field.se_purchase_order.se_purchase_order.se_cu_ref
     - field.field.se_purchase_order.se_purchase_order.se_item_lines
     - field.field.se_purchase_order.se_purchase_order.se_qu_ref
     - field.field.se_purchase_order.se_purchase_order.se_status_ref
@@ -45,16 +45,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: bottom
-  se_bu_ref:
-    weight: 1
+  se_co_ref:
+    weight: 2
     label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: first
-  se_co_ref:
-    weight: 2
+  se_cu_ref:
+    weight: 1
     label: inline
     settings:
       link: true
@@ -103,8 +103,8 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  extra_field_business_purchase_order_statistics: true
+  extra_field_customer_purchase_order_statistics: true
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
-  extra_field_ticket_statistics_business: true
+  extra_field_ticket_statistics_customer: true
   user_id: true

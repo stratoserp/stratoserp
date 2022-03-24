@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_accounting
+    - se_customer
+id: se_customer.se_balance
+field_name: se_balance
+entity_type: se_customer
+type: se_currency
+settings: {  }
+module: se_accounting
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -20,16 +20,16 @@ class TicketSearchTest extends TicketTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
 
     $tickets = [];
     $count = 15;
     for ($i = 0; $i <= $count; $i++) {
       $this->ticketFakerSetup();
-      $tickets[] = $this->addTicket($testBusiness);
+      $tickets[] = $this->addTicket($testCustomer);
     }
 
-    $this->drupalGet('se/ticket-list');
+    $this->drupalGet('se/tickets');
     $this->assertSession()->statusCodeEquals(200);
 
     $searchTicket = random_int(0, $count);

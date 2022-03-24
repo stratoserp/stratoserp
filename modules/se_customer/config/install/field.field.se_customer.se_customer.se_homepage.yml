@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_customer.se_homepage
+  module:
+    - link
+    - se_customer
+id: se_customer.se_customer.se_homepage
+field_name: se_homepage
+entity_type: se_customer
+bundle: se_customer
+label: Homepage
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

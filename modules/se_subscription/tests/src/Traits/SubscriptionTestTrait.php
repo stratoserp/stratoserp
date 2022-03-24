@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_subscription\Traits;
 
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_item\Entity\Item;
 use Drupal\se_subscription\Entity\Subscription;
 use Drupal\user\Entity\User;
@@ -28,14 +28,14 @@ trait SubscriptionTestTrait {
   }
 
   /**
-   * Add a subscription and set the business to the value passed in.
+   * Add a subscription and set the customer to the value passed in.
    *
    * @param string $subscriptionType
    *   The subscription type we're wrangling.
-   * @param \Drupal\se_business\Entity\Business $customer
-   *   The business to associate the subscription with.
-   * @param \Drupal\se_business\Entity\Business $supplier
-   *   The business to associate the subscription with.
+   * @param \Drupal\se_customer\Entity\Customer $customer
+   *   The customer to associate the subscription with.
+   * @param \Drupal\se_customer\Entity\Customer $supplier
+   *   The customer to associate the subscription with.
    * @param \Drupal\se_item\Entity\Item $item
    *   The subscription item.
    * @param bool $allowed
@@ -47,7 +47,7 @@ trait SubscriptionTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addSubscription(string $subscriptionType, Business $customer, Business $supplier, Item $item, bool $allowed = TRUE) {
+  public function addSubscription(string $subscriptionType, Customer $customer, Customer $supplier, Item $item, bool $allowed = TRUE) {
     if (!isset($this->subscriptionName)) {
       $this->subscriptionFakerSetup();
     }
@@ -56,7 +56,7 @@ trait SubscriptionTestTrait {
     $subscription = $this->createSubscription([
       'type' => $subscriptionType,
       'name' => $this->subscriptionName,
-      'se_bu_ref' => $customer,
+      'se_cu_ref' => $customer,
       'se_su_ref' => $supplier,
       'se_item_lines' => [
         $item,

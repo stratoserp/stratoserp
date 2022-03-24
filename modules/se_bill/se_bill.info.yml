@@ -10,6 +10,7 @@ dependencies:
   - drupal:text
   - drupal:user
   - stratoserp:se_contact
+  - stratoserp:se_supplier
   - stratoserp:stratoserp
 
 config_devel:
@@ -18,12 +19,12 @@ config_devel:
     - core.entity_view_display.se_bill.se_bill.default
     - field.field.se_bill.se_bill.se_total
     - field.field.se_bill.se_bill.se_body
-    - field.field.se_bill.se_bill.se_bu_ref
+    - field.field.se_bill.se_bill.se_su_ref
     - field.field.se_bill.se_bill.se_co_ref
     - field.field.se_bill.se_bill.se_status_ref
     - field.storage.se_bill.se_total
     - field.storage.se_bill.se_body
-    - field.storage.se_bill.se_bu_ref
+    - field.storage.se_bill.se_su_ref
     - field.storage.se_bill.se_co_ref
     - field.storage.se_bill.se_status_ref
   optional:

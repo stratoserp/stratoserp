@@ -5,7 +5,7 @@ dependencies:
     - field.storage.se_timekeeping.se_amount
     - field.storage.se_timekeeping.se_billable
     - field.storage.se_timekeeping.se_billed
-    - field.storage.se_timekeeping.se_bu_ref
+    - field.storage.se_timekeeping.se_cu_ref
     - field.storage.se_timekeeping.se_date
     - field.storage.se_timekeeping.se_review
     - system.menu.stratos-erp
@@ -224,15 +224,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bu_ref:
-          id: se_bu_ref
-          table: se_timekeeping__se_bu_ref
-          field: se_bu_ref
+        se_cu_ref:
+          id: se_cu_ref
+          table: se_timekeeping__se_cu_ref
+          field: se_cu_ref
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Business
+          label: Customer
           exclude: false
           alter:
             alter_text: false
@@ -711,7 +711,7 @@ display:
             id: id
             se_date: se_date
             name: name
-            se_bu_ref: se_bu_ref
+            se_cu_ref: se_cu_ref
             se_billable: se_billable
             se_billed: se_billed
             se_review: se_review
@@ -740,7 +740,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_ref:
+            se_cu_ref:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -826,7 +826,7 @@ display:
         - 'config:field.storage.se_timekeeping.se_amount'
         - 'config:field.storage.se_timekeeping.se_billable'
         - 'config:field.storage.se_timekeeping.se_billed'
-        - 'config:field.storage.se_timekeeping.se_bu_ref'
+        - 'config:field.storage.se_timekeeping.se_cu_ref'
         - 'config:field.storage.se_timekeeping.se_date'
         - 'config:field.storage.se_timekeeping.se_review'
   page_1:
@@ -836,7 +836,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/timekeeping-list
+      path: se/timekeeping
       menu:
         type: normal
         title: Timekeeping
@@ -854,6 +854,6 @@ display:
         - 'config:field.storage.se_timekeeping.se_amount'
         - 'config:field.storage.se_timekeeping.se_billable'
         - 'config:field.storage.se_timekeeping.se_billed'
-        - 'config:field.storage.se_timekeeping.se_bu_ref'
+        - 'config:field.storage.se_timekeeping.se_cu_ref'
         - 'config:field.storage.se_timekeeping.se_date'
         - 'config:field.storage.se_timekeeping.se_review'

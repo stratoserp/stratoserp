@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_customer
+    - se_payment
+id: se_payment.se_cu_ref
+field_name: se_cu_ref
+entity_type: se_payment
+type: entity_reference
+settings:
+  target_type: se_customer
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

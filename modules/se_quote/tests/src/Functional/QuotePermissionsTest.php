@@ -20,7 +20,7 @@ class QuotePermissionsTest extends QuoteTestBase {
    */
   private array $pages = [
     '/quote/add',
-    '/se/quote-list',
+    '/se/customers/quote-list',
   ];
 
   /**

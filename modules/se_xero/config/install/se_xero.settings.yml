@@ -4,5 +4,5 @@ system:
 invoice:
   sync_timestamp: 0
   account: 0
-business:
+customer:
   sync_timestamp: 0

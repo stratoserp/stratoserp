@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.se_bill.se_bill.se_body
-    - field.field.se_bill.se_bill.se_bu_ref
     - field.field.se_bill.se_bill.se_co_ref
     - field.field.se_bill.se_bill.se_status_ref
+    - field.field.se_bill.se_bill.se_su_ref
     - field.field.se_bill.se_bill.se_total
   module:
     - field_group
@@ -64,16 +64,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: first
-  se_bu_ref:
-    weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_co_ref:
     weight: 2
     settings:
@@ -90,6 +80,16 @@ content:
     third_party_settings: {  }
     type: options_select
     region: second
+  se_su_ref:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: first
   se_total:
     weight: 5
     settings: {  }

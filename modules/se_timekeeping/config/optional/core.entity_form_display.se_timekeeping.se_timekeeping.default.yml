@@ -5,8 +5,8 @@ dependencies:
     - field.field.se_timekeeping.se_timekeeping.se_amount
     - field.field.se_timekeeping.se_timekeeping.se_billable
     - field.field.se_timekeeping.se_timekeeping.se_billed
-    - field.field.se_timekeeping.se_timekeeping.se_bu_ref
     - field.field.se_timekeeping.se_timekeeping.se_comment
+    - field.field.se_timekeeping.se_timekeeping.se_cu_ref
     - field.field.se_timekeeping.se_timekeeping.se_date
     - field.field.se_timekeeping.se_timekeeping.se_in_ref
     - field.field.se_timekeeping.se_timekeeping.se_it_ref
@@ -82,7 +82,15 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
-  se_bu_ref:
+  se_comment:
+    type: text_textarea
+    weight: 1
+    region: first
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  se_cu_ref:
     type: entity_reference_autocomplete
     weight: 3
     region: second
@@ -90,14 +98,6 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  se_comment:
-    type: text_textarea
-    weight: 1
-    region: first
-    settings:
-      rows: 5
       placeholder: ''
     third_party_settings: {  }
   se_date:

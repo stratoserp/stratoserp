@@ -1,0 +1,14 @@
+
+# Customer Relationship menu items definition
+entity.se_relationship.collection:
+  title: 'Relationship list'
+  route_name: entity.se_relationship.collection
+  description: 'List Relationship entities'
+  parent: system.admin_content
+  weight: 100
+
+se_relationship.admin.structure.settings:
+  title: 'Relationship settings'
+  description: 'Configure Relationship entities'
+  route_name: se_relationship.settings
+  parent: stratoserp.admin_config_stratoserp

@@ -4,8 +4,8 @@ dependencies:
   config:
     - field.field.se_ticket.se_ticket.se_attachments
     - field.field.se_ticket.se_ticket.se_body
-    - field.field.se_ticket.se_ticket.se_bu_ref
     - field.field.se_ticket.se_ticket.se_co_ref
+    - field.field.se_ticket.se_ticket.se_cu_ref
     - field.field.se_ticket.se_ticket.se_open_date
     - field.field.se_ticket.se_ticket.se_owner_ref
     - field.field.se_ticket.se_ticket.se_priority_ref
@@ -78,9 +78,9 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  se_bu_ref:
+  se_co_ref:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 2
     region: first
     settings:
       match_operator: CONTAINS
@@ -88,9 +88,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_co_ref:
+  se_cu_ref:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 1
     region: first
     settings:
       match_operator: CONTAINS

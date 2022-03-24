@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_relationship.se_su_ref
+  module:
+    - se_relationship
+id: se_relationship.se_relationship.se_su_ref
+field_name: se_su_ref
+entity_type: se_relationship
+bundle: se_relationship
+label: Supplier
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: se_supplier
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: 0
+field_type: entity_reference

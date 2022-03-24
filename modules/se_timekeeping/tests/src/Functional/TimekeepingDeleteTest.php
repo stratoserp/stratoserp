@@ -22,14 +22,14 @@ class TimekeepingDeleteTest extends TimekeepingTestBase {
    */
   public function testTimekeepingDelete(): void {
 
-    // Create a business for testing.
+    // Create a customer for testing.
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
-    $testTicket = $this->addTicket($testBusiness);
+    $testCustomer = $this->addCustomer();
+    $testTicket = $this->addTicket($testCustomer);
     $testTimekeeping = $this->addTimekeeping($testTicket);
     $this->drupalLogout();
 
-    // Ensure business can't delete timekeeping.
+    // Ensure customer can't delete timekeeping.
     $this->drupalLogin($this->customer);
     $this->deleteTimekeeping($testTimekeeping, FALSE);
     $this->drupalLogout();

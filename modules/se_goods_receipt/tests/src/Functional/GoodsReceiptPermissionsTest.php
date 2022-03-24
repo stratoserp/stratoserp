@@ -27,7 +27,8 @@ class GoodsReceiptPermissionsTest extends GoodsReceiptTestBase {
    */
   private array $pages = [
     '/goods-receipt/add',
-    '/se/goods-receipt-list',
+    '/se/customers/goods-receipt-list',
+    '/se/suppliers/goods-receipt-list',
   ];
 
   /**

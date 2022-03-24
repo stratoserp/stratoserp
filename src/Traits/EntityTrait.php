@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\stratoserp\Traits;
 
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 
 /**
  * Trait to provide some common things for our entities.
@@ -18,9 +18,9 @@ trait EntityTrait {
   /**
    * {@inheritdoc}
    */
-  public function getBusiness(): ?Business {
-    $businessId = $this->se_bu_ref->entity->id();
-    return Business::load($businessId);
+  public function getCustomer(): ?Customer {
+    $customerId = $this->se_cu_ref->entity->id();
+    return Customer::load($customerId);
   }
 
   /**
@@ -30,7 +30,7 @@ trait EntityTrait {
    */
   public function generateFilename(): string {
     $name_parts = [
-      $this->getBusiness()->getName(),
+      $this->getCustomer()->getName(),
       $this->getEntityType()->getLabel(),
       date('Y-m-d', (int) $this->getCreatedTime()),
       sprintf("%06d", $this->id()),

@@ -1,0 +1,70 @@
+name: 'StratosERP - Customer'
+description: 'Provides Customer content type and related configuration.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - drupal:field
+  - drupal:field_layout
+  - drupal:layout_discovery
+  - drupal:link
+  - drupal:menu_ui
+  - drupal:options
+  - drupal:path
+  - drupal:telephone
+  - drupal:text
+  - drupal:user
+  - drupal:views
+  - geolocation:geolocation
+  - stratoserp:stratoserp
+  - stratoserp:se_accounting
+
+config_devel:
+  install:
+    - core.entity_form_display.se_customer.se_customer.default
+    - core.entity_view_display.se_customer.se_customer.default
+    - field.field.se_customer.se_customer.se_address
+    - field.field.se_customer.se_customer.se_balance
+    - field.field.se_customer.se_customer.se_email
+    - field.field.se_customer.se_customer.se_email_format
+    - field.field.se_customer.se_customer.se_fax
+    - field.field.se_customer.se_customer.se_homepage
+    - field.field.se_customer.se_customer.se_invoice_day
+    - field.field.se_customer.se_customer.se_last_statement_date
+    - field.field.se_customer.se_customer.se_location
+    - field.field.se_customer.se_customer.se_mobile
+    - field.field.se_customer.se_customer.se_phone
+    - field.field.se_customer.se_customer.se_postal_address
+    - field.field.se_customer.se_customer.se_postal_postcode
+    - field.field.se_customer.se_customer.se_postal_state
+    - field.field.se_customer.se_customer.se_postal_suburb
+    - field.field.se_customer.se_customer.se_postcode
+    - field.field.se_customer.se_customer.se_reminder_days
+    - field.field.se_customer.se_customer.se_state
+    - field.field.se_customer.se_customer.se_status
+    - field.field.se_customer.se_customer.se_suburb
+    - field.field.se_customer.se_customer.se_terms
+    - field.storage.se_customer.se_address
+    - field.storage.se_customer.se_balance
+    - field.storage.se_customer.se_email
+    - field.storage.se_customer.se_email_format
+    - field.storage.se_customer.se_fax
+    - field.storage.se_customer.se_homepage
+    - field.storage.se_customer.se_invoice_day
+    - field.storage.se_customer.se_last_statement_date
+    - field.storage.se_customer.se_location
+    - field.storage.se_customer.se_mobile
+    - field.storage.se_customer.se_phone
+    - field.storage.se_customer.se_postal_address
+    - field.storage.se_customer.se_postal_postcode
+    - field.storage.se_customer.se_postal_state
+    - field.storage.se_customer.se_postal_suburb
+    - field.storage.se_customer.se_postcode
+    - field.storage.se_customer.se_reminder_days
+    - field.storage.se_customer.se_state
+    - field.storage.se_customer.se_status
+    - field.storage.se_customer.se_suburb
+    - field.storage.se_customer.se_terms
+    - taxonomy.vocabulary.se_customer_type
+  optional:
+    - views.view.se_customer_list

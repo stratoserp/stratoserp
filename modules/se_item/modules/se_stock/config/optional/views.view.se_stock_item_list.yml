@@ -650,11 +650,16 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/stock-items
+      path: se/items/stock-items
       menu:
         type: normal
         title: 'Stock items'
+        description: ''
+        weight: 0
+        expanded: false
         menu_name: stratos-erp
+        parent: 'views_view:views.se_item_list.se_item_list'
+        context: '0'
     cache_metadata:
       max-age: -1
       contexts:

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\stratoserp\Functional;
 
-use Drupal\Tests\se_business\Traits\BusinessTestTrait;
+use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
@@ -16,28 +16,28 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
  */
 class SearchTest extends FunctionalTestBase {
 
-  use BusinessTestTrait;
+  use CustomerTestTrait;
 
   /**
    * Tests summary list block admin.
    */
-  public function testSearchForBusiness() {
+  public function testSearchForCustomer() {
     $page = $this->getSession()->getPage();
     $assert = $this->assertSession();
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
 
     $this->drupalGet('<front>');
 
     $page->pressButton('Search');
     $assert->pageTextContains('No search string found');
 
-    $page->fillField('edit-search', $testBusiness->getName() . ' (' . $testBusiness->id() . ')');
+    $page->fillField('edit-search', $testCustomer->getName() . ' (' . $testCustomer->id() . ')');
     $page->pressButton('Search');
     $assert->pageTextNotContains('No search string found');
-    $assert->pageTextContains($testBusiness->getName());
+    $assert->pageTextContains($testCustomer->getName());
 
     $this->drupalLogout();
   }

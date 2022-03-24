@@ -12,4 +12,4 @@ se_contact.add:
   title: 'Add contact'
   class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
-    - entity.se_business.canonical
+    - entity.se_customer.canonical

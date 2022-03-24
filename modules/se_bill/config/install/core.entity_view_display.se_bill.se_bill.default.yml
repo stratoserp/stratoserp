@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.se_bill.se_bill.se_body
-    - field.field.se_bill.se_bill.se_bu_ref
     - field.field.se_bill.se_bill.se_co_ref
     - field.field.se_bill.se_bill.se_status_ref
+    - field.field.se_bill.se_bill.se_su_ref
     - field.field.se_bill.se_bill.se_total
   module:
     - field_layout
@@ -43,14 +43,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: top
-  se_bu_ref:
-    weight: 1
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: first
   se_co_ref:
     weight: 2
     label: inline
@@ -67,6 +59,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: second
+  se_su_ref:
+    weight: 1
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
   se_total:
     weight: 5
     label: inline
@@ -80,5 +80,5 @@ hidden:
   entity_print_view_word_docx: true
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
-  extra_field_ticket_statistics_business: true
+  extra_field_ticket_statistics_supplier: true
   user_id: true

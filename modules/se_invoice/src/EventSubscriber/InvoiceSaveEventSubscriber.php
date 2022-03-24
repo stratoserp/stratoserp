@@ -14,7 +14,7 @@ use Drupal\se_invoice\Entity\Invoice;
 /**
  * Class InvoiceSaveEventSubscriber.
  *
- * When an invoice is saved, adjust the business
+ * When an invoice is saved, adjust the customer
  * balance by the amount of the invoice.
  *
  * @see \Drupal\se_payment\EventSubscriber\PaymentSaveEventSubscriber
@@ -73,7 +73,7 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
       return;
     }
 
-    // Don't update invoice and business balance when triggered by payment.
+    // Don't update invoice and customer balance when triggered by payment.
     if ($invoice->isSkipSaveEvents()) {
       return;
     }

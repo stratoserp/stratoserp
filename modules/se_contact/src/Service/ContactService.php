@@ -41,7 +41,7 @@ class ContactService {
   }
 
   /**
-   * Given a business entity, return the main contact for that business.
+   * Given a customer entity, return the main contact for that customer.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity to return the contact for.
@@ -49,11 +49,11 @@ class ContactService {
    * @return array
    *   The list of contacts set as main contacts.
    */
-  public function loadMainContactsByBusiness(EntityInterface $entity): array {
-    // Ensure its really a business passed.
-    $business = \Drupal::service('se_business.service')->lookupBusiness($entity);
+  public function loadMainContactsByCustomer(EntityInterface $entity): array {
+    // Ensure its really a customer passed.
+    $customer = \Drupal::service('se_customer.service')->lookupCustomer($entity);
 
-    if (!$business) {
+    if (!$customer) {
       return [];
     }
 
@@ -65,7 +65,7 @@ class ContactService {
 
     // Setup the query.
     $query = \Drupal::entityQuery('se_contact')
-      ->condition('se_bu_ref', $business->id())
+      ->condition('se_cu_ref', $customer->id())
       ->condition('se_type_ref', $termId);
 
     // Return the executed query.
@@ -73,7 +73,7 @@ class ContactService {
   }
 
   /**
-   * Given a business entity, return all contacts for the business.
+   * Given a customer entity, return all contacts for the customer.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity to return the contacts for.
@@ -81,12 +81,12 @@ class ContactService {
    * @return array
    *   The list of contacts.
    */
-  public function loadContactsByBusiness(EntityInterface $entity): array {
-    // Ensure it's really a business entity.
-    $business = \Drupal::service('se_business.service')->lookupBusiness($entity);
+  public function loadContactsByCustomer(EntityInterface $entity): array {
+    // Ensure it's really a customer entity.
+    $customer = \Drupal::service('se_customer.service')->lookupCustomer($entity);
 
     return \Drupal::entityQuery('se_contact')
-      ->condition('se_bu_ref', $business->id())
+      ->condition('se_cu_ref', $customer->id())
       ->execute();
   }
 

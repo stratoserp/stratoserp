@@ -10,7 +10,7 @@ config_devel:
   install:
     - core.entity_form_display.se_subscription.se_domain_name.default
     - core.entity_view_display.se_subscription.se_domain_name.default
-    - field.field.se_subscription.se_domain_name.se_bu_ref
+    - field.field.se_subscription.se_domain_name.se_cu_ref
     - field.field.se_subscription.se_domain_name.se_domain_name
     - field.field.se_subscription.se_domain_name.se_external_id
     - field.field.se_subscription.se_domain_name.se_item_lines

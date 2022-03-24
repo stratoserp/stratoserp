@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_payment.se_bu_ref
+    - field.storage.se_payment.se_cu_ref
     - field.storage.se_payment.se_total
     - system.menu.stratos-erp
   module:
     - se_accounting
-    - se_business
+    - se_customer
     - se_payment
     - user
 id: se_payment_list
@@ -223,15 +223,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_bu_ref:
-          id: se_bu_ref
-          table: se_payment__se_bu_ref
-          field: se_bu_ref
+        se_cu_ref:
+          id: se_cu_ref
+          table: se_payment__se_cu_ref
+          field: se_cu_ref
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Business
+          label: Customer
           exclude: false
           alter:
             alter_text: false
@@ -445,12 +445,12 @@ display:
             group_items: {  }
         name:
           id: name
-          table: se_business_field_data
+          table: se_customer_field_data
           field: name
-          relationship: se_bu_ref
+          relationship: se_cu_ref
           group_type: group
           admin_label: ''
-          entity_type: se_business
+          entity_type: se_customer
           entity_field: name
           plugin_id: string
           operator: contains
@@ -459,13 +459,13 @@ display:
           exposed: true
           expose:
             operator_id: name_op
-            label: Business
+            label: Customer
             description: ''
             use_operator: false
             operator: name_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: Business
+            identifier: Customer
             required: false
             remember: false
             multiple: false
@@ -501,7 +501,7 @@ display:
             id: id
             created: created
             name: name
-            se_bu_ref: se_bu_ref
+            se_cu_ref: se_cu_ref
             se_total: se_total
           default: id
           info:
@@ -526,7 +526,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_bu_ref:
+            se_cu_ref:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -562,13 +562,13 @@ display:
           replica: false
           query_tags: {  }
       relationships:
-        se_bu_ref:
-          id: se_bu_ref
-          table: se_payment__se_bu_ref
-          field: se_bu_ref
+        se_cu_ref:
+          id: se_cu_ref
+          table: se_payment__se_cu_ref
+          field: se_cu_ref
           relationship: none
           group_type: group
-          admin_label: 'se_bu_ref: Business'
+          admin_label: 'se_cu_ref: Customer'
           plugin_id: standard
           required: false
       use_ajax: true
@@ -584,7 +584,7 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_payment.se_bu_ref'
+        - 'config:field.storage.se_payment.se_cu_ref'
         - 'config:field.storage.se_payment.se_total'
   se_payment_list:
     id: se_payment_list
@@ -593,15 +593,15 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/payment-list
+      path: se/customers/payment-list
       menu:
         type: normal
-        title: 'Payment list'
+        title: Payments
         description: ''
         weight: 0
         expanded: false
         menu_name: stratos-erp
-        parent: 'views_view:views.se_business_list.se_business_list'
+        parent: 'views_view:views.se_customer_list.se_customer_list'
         context: '0'
     cache_metadata:
       max-age: -1
@@ -612,5 +612,5 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.se_payment.se_bu_ref'
+        - 'config:field.storage.se_payment.se_cu_ref'
         - 'config:field.storage.se_payment.se_total'

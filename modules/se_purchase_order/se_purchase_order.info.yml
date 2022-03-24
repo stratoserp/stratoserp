@@ -10,7 +10,8 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
-  - stratoserp:se_business
+  - stratoserp:se_customer
+  - stratoserp:se_supplier
   - stratoserp:se_item_line
   - stratoserp:se_stock
 
@@ -18,18 +19,21 @@ config_devel:
   install:
     - core.entity_form_display.se_purchase_order.se_purchase_order.default
     - core.entity_view_display.se_purchase_order.se_purchase_order.default
-    - field.field.se_purchase_order.se_purchase_order.se_bu_ref
+    - field.field.se_purchase_order.se_purchase_order.se_cu_ref
     - field.field.se_purchase_order.se_purchase_order.se_co_ref
     - field.field.se_purchase_order.se_purchase_order.se_item_lines
     - field.field.se_purchase_order.se_purchase_order.se_qu_ref
     - field.field.se_purchase_order.se_purchase_order.se_total
     - field.field.se_purchase_order.se_purchase_order.se_su_ref
-    - field.storage.se_purchase_order.se_bu_ref
+    - field.storage.se_purchase_order.se_cu_ref
     - field.storage.se_purchase_order.se_co_ref
     - field.storage.se_purchase_order.se_item_lines
     - field.storage.se_purchase_order.se_qu_ref
     - field.storage.se_purchase_order.se_total
     - field.storage.se_purchase_order.se_su_ref
   optional:
-    - views.view.se_purchase_order_eva
-    - views.view.se_purchase_order_list
+    - views.view.se_po_customer_eva
+    - views.view.se_po_supplier_eva
+    - views.view.se_po_customer_list
+    - views.view.se_po_supplier_list
+    - views.view.se_purchase_order_goods_receipt_eva

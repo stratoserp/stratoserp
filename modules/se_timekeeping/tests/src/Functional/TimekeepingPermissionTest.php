@@ -14,19 +14,12 @@ namespace Drupal\Tests\se_timekeeping\Functional;
 class TimekeepingPermissionTest extends TimekeepingTestBase {
 
   /**
-   * Faker factory for business.
-   *
-   * @var \Faker\Factory
-   */
-  protected $business;
-
-  /**
    * List of pages to test permissions on.
    *
    * @var string[]
    */
   private array $pages = [
-    '/se/timekeeping-list',
+    '/se/timekeeping',
   ];
 
   /**

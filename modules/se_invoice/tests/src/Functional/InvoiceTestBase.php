@@ -22,7 +22,7 @@ class InvoiceTestBase extends FunctionalTestBase {
   protected $invoice;
 
   /**
-   * Setup the basic business tests.
+   * Setup the basic customer tests.
    */
   protected function setUp(): void {
     parent::setUp();

@@ -17,26 +17,26 @@ class ContactCrudTest extends ContactTestBase {
    * Add a contact as staff.
    */
   public function testContactAdd(): void {
-    // First setup a business to add the contact to.
+    // First setup a customer to add the contact to.
     $this->drupalLogin($this->staff);
-    $business = $this->addBusiness();
+    $customer = $this->addCustomer();
     $this->drupalLogout();
 
     $this->drupalLogin($this->customer);
-    $this->addContact($business, FALSE);
+    $this->addContact($customer, FALSE);
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
-    $this->addContact($business);
+    $this->addContact($customer);
     $this->drupalLogout();
 
     $this->drupalLogin($this->owner);
-    $this->addContact($business);
+    $this->addContact($customer);
     $this->drupalLogout();
   }
 
   /**
-   * Try and delete a contact as staff and business.
+   * Try and delete a contact as staff and customer.
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -45,9 +45,9 @@ class ContactCrudTest extends ContactTestBase {
   public function testContactDelete(): void {
     // Create a contact for testing.
     $this->drupalLogin($this->staff);
-    $this->businessFakerSetup();
-    $testBusiness = $this->addBusiness();
-    $testContact = $this->addContact($testBusiness);
+    $this->customerFakerSetup();
+    $testCustomer = $this->addCustomer();
+    $testContact = $this->addContact($testCustomer);
     $this->drupalLogout();
 
     // Ensure customers can't delete contacts.
@@ -56,13 +56,13 @@ class ContactCrudTest extends ContactTestBase {
     $this->drupalLogout();
 
     // Ensure staff can't delete contacts.
-    $this->drupalLogin($this->customer);
+    $this->drupalLogin($this->staff);
     $this->deleteEntity($testContact, FALSE);
     $this->drupalLogout();
 
-    // Ensure staff can delete contacts.
+    // Ensure owner can delete contacts.
     $this->drupalLogin($this->owner);
-    $this->deleteEntity($testContact, TRUE);
+    $this->deleteEntity($testContact);
     $this->drupalLogout();
   }
 

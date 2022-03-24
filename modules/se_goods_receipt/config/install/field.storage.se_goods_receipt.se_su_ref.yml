@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - se_business
+    - se_supplier
     - se_goods_receipt
 id: se_goods_receipt.se_su_ref
 field_name: se_su_ref
 entity_type: se_goods_receipt
 type: entity_reference
 settings:
-  target_type: se_business
+  target_type: se_supplier
 module: core
 locked: false
 cardinality: 1

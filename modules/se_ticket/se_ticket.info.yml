@@ -12,7 +12,7 @@ dependencies:
   - drupal:text
   - drupal:user
   - drupal:views
-  - stratoserp:se_business
+  - stratoserp:se_customer
 
 config_devel:
   install:
@@ -20,7 +20,7 @@ config_devel:
     - core.entity_view_display.se_ticket.se_ticket.default
     - field.field.se_ticket.se_ticket.se_attachments
     - field.field.se_ticket.se_ticket.se_body
-    - field.field.se_ticket.se_ticket.se_bu_ref
+    - field.field.se_ticket.se_ticket.se_cu_ref
     - field.field.se_ticket.se_ticket.se_co_ref
     - field.field.se_ticket.se_ticket.se_open_date
     - field.field.se_ticket.se_ticket.se_owner_ref
@@ -30,7 +30,7 @@ config_devel:
     - field.field.se_ticket.se_ticket.se_type_ref
     - field.storage.se_ticket.se_attachments
     - field.storage.se_ticket.se_body
-    - field.storage.se_ticket.se_bu_ref
+    - field.storage.se_ticket.se_cu_ref
     - field.storage.se_ticket.se_co_ref
     - field.storage.se_ticket.se_open_date
     - field.storage.se_ticket.se_owner_ref
@@ -46,5 +46,5 @@ config_devel:
     - views.view.se_ticket_eva
     - views.view.se_ticket_list
     - views.view.se_ticket_my
-    - views.view.se_ticket_my_block
+    # - views.view.se_ticket_my_block
 

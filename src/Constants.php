@@ -14,7 +14,7 @@ final class Constants {
   // Provide a quick way to convert from shorthand codes to useful info.
   public const SE_ENTITY_LOOKUP = [
     'bi' => ['type' => 'se_bill', 'label' => 'Bill'],
-    'bu' => ['type' => 'se_business', 'label' => 'Business'],
+    'cu' => ['type' => 'se_customer', 'label' => 'Customer'],
     'co' => ['type' => 'se_contact', 'label' => 'Contact'],
     'gr' => ['type' => 'se_goods_receipt', 'label' => 'Goods receipt'],
     'if' => ['type' => 'se_information', 'label' => 'Information'],
@@ -29,7 +29,7 @@ final class Constants {
 
   public const SE_ENTITY_TYPES = [
     'se_bill',
-    'se_business',
+    'se_customer',
     'se_contact',
     'se_goods_receipt',
     'se_information',

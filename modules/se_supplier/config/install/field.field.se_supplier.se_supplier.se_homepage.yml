@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_supplier.se_homepage
+  module:
+    - link
+    - se_supplier
+id: se_supplier.se_supplier.se_homepage
+field_name: se_homepage
+entity_type: se_supplier
+bundle: se_supplier
+label: Homepage
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

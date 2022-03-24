@@ -18,19 +18,19 @@ class TicketCrudTest extends TicketTestBase {
    */
   public function testTicketAdd(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
     $this->drupalLogout();
 
     $this->drupalLogin($this->customer);
-    $this->addTicket($testBusiness, FALSE);
+    $this->addTicket($testCustomer, FALSE);
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
-    $this->addTicket($testBusiness);
+    $this->addTicket($testCustomer);
     $this->drupalLogout();
 
     $this->drupalLogin($this->owner);
-    $this->addTicket($testBusiness);
+    $this->addTicket($testCustomer);
     $this->drupalLogout();
   }
 
@@ -39,8 +39,8 @@ class TicketCrudTest extends TicketTestBase {
    */
   public function testTicketDelete(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
-    $testTicket = $this->addTicket($testBusiness);
+    $testCustomer = $this->addCustomer();
+    $testTicket = $this->addTicket($testCustomer);
     $this->drupalLogout();
 
     // Ensure customers can't delete tickets.

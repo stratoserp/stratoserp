@@ -4,4 +4,4 @@ se_contact.settings:
   mapping:
     main_contact_term:
       type: string
-      label: 'Taxonomy term for the main contact for a business.'
+      label: 'Taxonomy term for the main contact for a customer.'

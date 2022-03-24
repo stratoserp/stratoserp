@@ -2,9 +2,9 @@
   title: Access stratoserp
   description: Allow users to access stratoserp pages
 
-'access all businesses':
-  title: Access all businesses
-  description: Allow staff to access all businesses
+'access all customers':
+  title: Access all customers
+  description: Allow staff to access all customers
 
 'access company overview':
   title: Access company overview

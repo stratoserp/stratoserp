@@ -23,20 +23,20 @@ class ContactServiceTest extends ContactTestBase {
    * Test contact lookup service.
    *
    * Ensure that the contact lookup service will return
-   * the business entity if called with a business entity.
+   * the customer entity if called with a customer entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testContactServiceWithBusiness(): void {
+  public function testContactServiceWithCustomer(): void {
 
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $business = $this->addBusiness();
-    $contact = $this->addMainContact($business);
+    $customer = $this->addCustomer();
+    $contact = $this->addMainContact($customer);
 
-    $businessContacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($business);
-    $loadedContact = reset($businessContacts);
+    $customerContacts = \Drupal::service('se_contact.service')->loadMainContactsByCustomer($customer);
+    $loadedContact = reset($customerContacts);
 
     self::assertSame(
       $loadedContact,
@@ -47,7 +47,7 @@ class ContactServiceTest extends ContactTestBase {
   }
 
   /**
-   * Test business lookup service with an invoice.
+   * Test customer lookup service with an invoice.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -57,13 +57,13 @@ class ContactServiceTest extends ContactTestBase {
     $staff = $this->setupStaffUser();
     $this->drupalLogin($staff);
 
-    $business = $this->addBusiness();
-    $contact = $this->addMainContact($business);
+    $customer = $this->addCustomer();
+    $contact = $this->addMainContact($customer);
 
     $items = $this->createItems();
-    $invoice = $this->addInvoice($business, $items);
+    $invoice = $this->addInvoice($customer, $items);
 
-    $invoiceContacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($invoice);
+    $invoiceContacts = \Drupal::service('se_contact.service')->loadMainContactsByCustomer($invoice);
     $invoiceContact = reset($invoiceContacts);
 
     self::assertSame(

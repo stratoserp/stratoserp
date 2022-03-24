@@ -5,13 +5,13 @@ core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
   - duration_field:duration_field
-  - stratoserp:se_business
+  - stratoserp:se_customer
   - stratoserp:se_item_line
   - stratoserp:stratoserp
 
 config_devel:
   install:
-    - field.storage.se_subscription.se_bu_ref
+    - field.storage.se_subscription.se_cu_ref
     - field.storage.se_subscription.se_domain_name
     - field.storage.se_subscription.se_external_id
     - field.storage.se_subscription.se_item_lines

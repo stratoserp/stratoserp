@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_bill
+    - se_supplier
+id: se_bill.se_su_ref
+field_name: se_su_ref
+entity_type: se_bill
+type: entity_reference
+settings:
+  target_type: se_supplier
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

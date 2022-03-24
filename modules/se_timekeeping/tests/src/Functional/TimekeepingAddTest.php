@@ -22,17 +22,17 @@ class TimekeepingAddTest extends TimekeepingTestBase {
    */
   public function testTimekeepingAdd(): void {
     $this->drupalLogin($this->staff);
-    $testBusiness = $this->addBusiness();
+    $testCustomer = $this->addCustomer();
 
-    $testTicket = $this->addTicket($testBusiness);
+    $testTicket = $this->addTicket($testCustomer);
     $this->drupalGet($testTicket->toUrl());
     $content = $this->getTextContent();
-    self::assertStringContainsString($testBusiness->getName(), $content);
+    self::assertStringContainsString($testCustomer->getName(), $content);
 
     $timekeeping = $this->addTimekeeping($testTicket);
     $this->drupalGet($timekeeping->toUrl());
     $content = $this->getTextContent();
-    self::assertStringContainsString($testBusiness->getName(), $content);
+    self::assertStringContainsString($testCustomer->getName(), $content);
 
     $this->drupalLogout();
   }

@@ -59,7 +59,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "revision_revert" = "/contact/{se_contact}/revisions/{se_contact_revision}/revert",
  *     "revision_delete" = "/contact/{se_contact}/revisions/{se_contact_revision}/delete",
  *     "translation_revert" = "/contact/{se_contact}/revisions/{se_contact_revision}/revert/{langcode}",
- *     "collection" = "/se/contact-list",
+ *     "collection" = "/se/customers/contact-list",
  *   },
  *   field_ui_base_route = "se_contact.settings",
  *   revision_metadata_keys = {

@@ -7,7 +7,7 @@ stratoserp.home:
   options:
     no_cache: TRUE
   requirements:
-    _permission: 'access all businesses'
+    _permission: 'access all customers'
 
 stratoserp.search_form:
   path: '/se/search'
@@ -18,7 +18,7 @@ stratoserp.search_form:
   options:
     no_cache: TRUE
   requirements:
-    _permission: 'access all businesses'
+    _permission: 'access all customers'
 
 stratoserp.search:
   path: '/se/core-search'
@@ -28,7 +28,7 @@ stratoserp.search:
   options:
     no_cache: TRUE
   requirements:
-    _permission: 'access all businesses'
+    _permission: 'access all customers'
 
 stratoserp.admin_config_stratoserp:
   path: '/admin/structure/stratoserp'

@@ -9,7 +9,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\se_bill\Entity\Bill;
-use Drupal\se_business\Entity\Business;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\se_contact\Entity\Contact;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_purchase_order\Entity\PurchaseOrder;
@@ -105,12 +105,12 @@ class NavigationBlock extends BlockBase {
         $this->destination = Url::fromUri('internal:/contact/' . $this->entity->id())
           ->toString();
       }
-      elseif ($this->entity = $parameterBag->get('se_business')) {
-        if (!$this->entity instanceof Business) {
-          $this->entity = Business::load($this->entity);
+      elseif ($this->entity = $parameterBag->get('se_customer')) {
+        if (!$this->entity instanceof Customer) {
+          $this->entity = Customer::load($this->entity);
         }
-        $this->businessLinks();
-        $this->destination = Url::fromUri('internal:/business/' . $this->entity->id())
+        $this->customerLinks();
+        $this->destination = Url::fromUri('internal:/customer/' . $this->entity->id())
           ->toString();
       }
       elseif ($this->entity = $parameterBag->get('se_quote')) {
@@ -198,7 +198,7 @@ class NavigationBlock extends BlockBase {
   private function searchLinks(): void {
     $routeParameters = $this->setRouteParameters(FALSE);
 
-    $this->items[] = Link::createFromRoute('Add business', 'entity.se_business.add_form',
+    $this->items[] = Link::createFromRoute('Add customer', 'entity.se_customer.add_form',
       $routeParameters, $this->buttonClass);
 
     $this->items[] = Link::createFromRoute('Add assembly', 'entity.se_item.add_form',
@@ -228,7 +228,7 @@ class NavigationBlock extends BlockBase {
   private function contactLinks(): void {
     $routeParameters = $this->setRouteParameters();
 
-    $this->items[] = Link::createFromRoute('Add business', 'entity.se_business.add_form',
+    $this->items[] = Link::createFromRoute('Add customer', 'entity.se_customer.add_form',
       $this->setRouteParameters(FALSE, []), $this->buttonClass);
     $this->items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $routeParameters + [
@@ -241,14 +241,14 @@ class NavigationBlock extends BlockBase {
   }
 
   /**
-   * Build a list of business links for display.
+   * Build a list of customer links for display.
    */
-  private function businessLinks(): void {
+  private function customerLinks(): void {
     $routeParameters = $this->setRouteParameters(FALSE);
 
     $this->items[] = Link::createFromRoute('Add contact', 'entity.se_contact.add_form',
       $routeParameters + [
-        'se_bu_ref' => $this->entity->id(),
+        'se_cu_ref' => $this->entity->id(),
       ], $this->buttonClass);
     $this->items[] = Link::createFromRoute('Add document', 'entity.se_information.add_form',
       $routeParameters + [
@@ -256,15 +256,15 @@ class NavigationBlock extends BlockBase {
       ], $this->buttonClass);
     $this->items[] = Link::createFromRoute('Add invoice', 'entity.se_invoice.add_form',
       $routeParameters + [
-        'se_bu_ref' => $this->entity->id(),
+        'se_cu_ref' => $this->entity->id(),
       ], $this->buttonClass);
     $this->items[] = Link::createFromRoute('Add subscription', 'entity.se_subscription.add_page',
       $routeParameters + [
-        'se_bu_ref' => $this->entity->id(),
+        'se_cu_ref' => $this->entity->id(),
       ], $this->buttonClass);
     $this->items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
       $routeParameters + [
-        'se_bu_ref' => $this->entity->id(),
+        'se_cu_ref' => $this->entity->id(),
         'source' => $this->entity->id(),
       ], $this->buttonClass);
 
@@ -353,17 +353,17 @@ class NavigationBlock extends BlockBase {
       ];
     }
 
-    // If its a business or supplier, load the main contact from the entity.
+    // If its a customer or supplier, load the main contact from the entity.
     if (isset($this->entity)) {
-      if ($this->entity->getEntityTypeId() === 'se_business') {
-        $routeParameters['se_bu_ref'] = $this->entity->id();
-        $contacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($this->entity);
+      if ($this->entity->getEntityTypeId() === 'se_customer') {
+        $routeParameters['se_cu_ref'] = $this->entity->id();
+        $contacts = \Drupal::service('se_contact.service')->loadMainContactsByCustomer($this->entity);
       }
       else {
-        // Otherwise, load the main contact from the associated business.
-        if ($business = $this->entity->getBusiness()) {
-          $routeParameters['se_bu_ref'] = $business->id();
-          $contacts = \Drupal::service('se_contact.service')->loadMainContactsByBusiness($business);
+        // Otherwise, load the main contact from the associated customer.
+        if ($customer = $this->entity->getCustomer()) {
+          $routeParameters['se_cu_ref'] = $customer->id();
+          $contacts = \Drupal::service('se_contact.service')->loadMainContactsByCustomer($customer);
         }
       }
 

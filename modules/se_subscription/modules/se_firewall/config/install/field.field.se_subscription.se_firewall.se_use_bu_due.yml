@@ -8,7 +8,7 @@ id: se_subscription.se_firewall.se_use_bu_due
 field_name: se_use_bu_due
 entity_type: se_subscription
 bundle: se_firewall
-label: 'Use business invoice date'
+label: 'Use customer invoice date'
 description: ''
 required: false
 translatable: true

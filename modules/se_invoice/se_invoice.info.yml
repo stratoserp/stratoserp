@@ -10,7 +10,7 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
-  - stratoserp:se_business
+  - stratoserp:se_customer
   - stratoserp:se_item
   - stratoserp:se_stock
   - stratoserp:se_item_line
@@ -20,14 +20,14 @@ dependencies:
 
 config_devel:
   install:
-    - field.field.se_invoice.se_invoice.se_bu_ref
+    - field.field.se_invoice.se_invoice.se_cu_ref
     - field.field.se_invoice.se_invoice.se_co_ref
     - field.field.se_invoice.se_invoice.se_customer_order
     - field.field.se_invoice.se_invoice.se_outstanding
     - field.field.se_invoice.se_invoice.se_sent
     - field.field.se_invoice.se_invoice.se_total
     - field.field.se_invoice.se_invoice.se_status_ref
-    - field.storage.se_invoice.se_bu_ref
+    - field.storage.se_invoice.se_cu_ref
     - field.storage.se_invoice.se_co_ref
     - field.storage.se_invoice.se_customer_order
     - field.storage.se_invoice.se_outstanding

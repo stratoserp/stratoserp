@@ -60,7 +60,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *     "revision_revert" = "/purchase-order/{se_purchase_order}/revisions/{se_purchase_order_revision}/revert",
  *     "revision_delete" = "/purchase-order/{se_purchase_order}/revisions/{se_purchase_order_revision}/delete",
  *     "translation_revert" = "/purchase-order/{se_purchase_order}/revisions/{se_purchase_order_revision}/revert/{langcode}",
- *     "collection" = "/se/purchase-order-list",
+ *     "collection" = "/se/customers/purchase-order-list",
  *   },
  *   field_ui_base_route = "se_purchase_order.settings",
  *   revision_metadata_keys = {

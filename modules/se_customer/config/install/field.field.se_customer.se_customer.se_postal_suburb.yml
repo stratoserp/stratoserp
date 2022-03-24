@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_customer.se_postal_suburb
+  module:
+    - se_customer
+id: se_customer.se_customer.se_postal_suburb
+field_name: se_postal_suburb
+entity_type: se_customer
+bundle: se_customer
+label: 'Postal Suburb'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

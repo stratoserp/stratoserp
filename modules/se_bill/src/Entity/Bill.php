@@ -60,7 +60,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "revision_revert" = "/bill/{se_bill}/revisions/{se_bill_revision}/revert",
  *     "revision_delete" = "/bill/{se_bill}/revisions/{se_bill_revision}/delete",
  *     "translation_revert" = "/bill/{se_bill}/revisions/{se_bill_revision}/revert/{langcode}",
- *     "collection" = "/se/bill-list",
+ *     "collection" = "/se/suppliers/bill-list",
  *   },
  *   field_ui_base_route = "se_bill.settings",
  *   revision_metadata_keys = {

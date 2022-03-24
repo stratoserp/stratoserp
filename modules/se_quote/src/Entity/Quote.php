@@ -60,7 +60,7 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *     "revision_revert" = "/quote/{se_quote}/revisions/{se_quote_revision}/revert",
  *     "revision_delete" = "/quote/{se_quote}/revisions/{se_quote_revision}/delete",
  *     "translation_revert" = "/quote/{se_quote}/revisions/{se_quote_revision}/revert/{langcode}",
- *     "collection" = "/se/quote-list",
+ *     "collection" = "/se/customers/quote-list",
  *   },
  *   field_ui_base_route = "se_quote.settings",
  *   revision_metadata_keys = {

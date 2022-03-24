@@ -12,7 +12,7 @@ use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
  *
  * @EntityReferenceSelection(
  *   id = "se_timekeeping",
- *   label = @Translation("Timekeeping: Filter timekeeping entries by business"),
+ *   label = @Translation("Timekeeping: Filter timekeeping entries by customer"),
  *   group = "se_timekeeping",
  *   weight = 1
  * )
@@ -34,11 +34,11 @@ class EntityTimekeepingSelection extends DefaultSelection {
   protected $configuration;
 
   /**
-   * The business reference id.
+   * The customer reference id.
    *
    * @var int
    */
-  protected int $business;
+  protected int $customer;
 
   /**
    * {@inheritdoc}
@@ -46,19 +46,19 @@ class EntityTimekeepingSelection extends DefaultSelection {
   public function getReferenceableEntities($match = NULL, $matchOperator = 'CONTAINS', $limit = 0) {
     $this->targetType = $this->getConfiguration()['target_type'];
 
-    // Extract the business ref from the query.
+    // Extract the customer ref from the query.
     $parameters = \Drupal::request()->query;
-    if ($parameters->has('se_bu_ref')) {
-      $this->business = (int) $parameters->get('se_bu_ref');
+    if ($parameters->has('se_cu_ref')) {
+      $this->customer = (int) $parameters->get('se_cu_ref');
     }
 
-    // Extract the business ref from the ajax request?
+    // Extract the customer ref from the ajax request?
     $parameters = \Drupal::request()->request;
-    if (empty($this->business) && (int) $parameters->has('se_bu_ref')) {
+    if (empty($this->customer) && (int) $parameters->has('se_cu_ref')) {
       $matches = [];
-      $business = $parameters->get('se_bu_ref');
-      if (preg_match("/.+\s\(([^\)]+)\)/", $business[0]['target_id'], $matches)) {
-        $this->business = (int) $matches[1];
+      $customer = $parameters->get('se_cu_ref');
+      if (preg_match("/.+\s\(([^\)]+)\)/", $customer[0]['target_id'], $matches)) {
+        $this->customer = (int) $matches[1];
       }
     }
 
@@ -123,7 +123,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
       }
     }
 
-    $query->condition('se_bu_ref', $this->business);
+    $query->condition('se_cu_ref', $this->customer);
 
     return $query;
   }

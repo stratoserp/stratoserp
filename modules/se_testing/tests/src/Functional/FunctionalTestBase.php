@@ -261,7 +261,7 @@ class FunctionalTestBase extends TestCase {
         $this->assertSession()->statusCodeEquals(403);
       }
       catch (ExpectationException $e) {
-        self::fail((string) t('Business - @page - @message', [
+        self::fail((string) t('Customer - @page - @message', [
           '@page' => $page,
           '@message' => $e->getMessage(),
         ]));

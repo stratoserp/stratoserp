@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_supplier.se_reminder_days
+  module:
+    - se_supplier
+id: se_supplier.se_supplier.se_reminder_days
+field_name: se_reminder_days
+entity_type: se_supplier
+bundle: se_supplier
+label: 'Reminder frequency in days'
+description: 'How often to send statements/reminders for outstanding balances for this customer.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 7
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
