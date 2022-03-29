@@ -22,12 +22,13 @@ dependencies:
     - geolocation
     - image
     - linkit
+    - migrate_tools
     - node
     - path
     - rest
     - se_bill
-    - se_customer
     - se_contact
+    - se_customer
     - se_goods_receipt
     - se_information
     - se_invoice
@@ -38,6 +39,7 @@ dependencies:
     - se_subscription
     - se_supplier
     - se_ticket
+    - se_timekeeping
     - stratoserp
     - system
     - taxonomy
@@ -68,8 +70,8 @@ permissions:
   - 'access webform overview'
   - 'access webform submission log'
   - 'add bill entities'
-  - 'add customer entities'
   - 'add contact entities'
+  - 'add customer entities'
   - 'add goods receipt entities'
   - 'add information entities'
   - 'add invoice entities'
@@ -130,8 +132,8 @@ permissions:
   - 'change own username'
   - 'configure geolocation'
   - 'create se_bill content'
-  - 'create se_customer content'
   - 'create se_contact content'
+  - 'create se_customer content'
   - 'create se_document content'
   - 'create se_goods_receipt content'
   - 'create se_invoice content'
@@ -155,8 +157,8 @@ permissions:
   - 'create webform'
   - 'delete all revisions'
   - 'delete any se_bill content'
-  - 'delete any se_customer content'
   - 'delete any se_contact content'
+  - 'delete any se_customer content'
   - 'delete any se_document content'
   - 'delete any se_goods_receipt content'
   - 'delete any se_invoice content'
@@ -169,8 +171,8 @@ permissions:
   - 'delete any webform'
   - 'delete any webform submission'
   - 'delete own se_bill content'
-  - 'delete own se_customer content'
   - 'delete own se_contact content'
+  - 'delete own se_customer content'
   - 'delete own se_document content'
   - 'delete own se_goods_receipt content'
   - 'delete own se_invoice content'
@@ -183,8 +185,8 @@ permissions:
   - 'delete own webform'
   - 'delete own webform submission'
   - 'delete se_bill revisions'
-  - 'delete se_customer revisions'
   - 'delete se_contact revisions'
+  - 'delete se_customer revisions'
   - 'delete se_document revisions'
   - 'delete se_goods_receipt revisions'
   - 'delete se_invoice revisions'
@@ -205,8 +207,8 @@ permissions:
   - 'delete terms in se_ticket_type'
   - 'delete terms in tags'
   - 'edit any se_bill content'
-  - 'edit any se_customer content'
   - 'edit any se_contact content'
+  - 'edit any se_customer content'
   - 'edit any se_document content'
   - 'edit any se_goods_receipt content'
   - 'edit any se_invoice content'
@@ -220,15 +222,15 @@ permissions:
   - 'edit any webform submission'
   - 'edit behavior plugin settings'
   - 'edit bill entities'
-  - 'edit customer entities'
   - 'edit contact entities'
+  - 'edit customer entities'
   - 'edit goods receipt entities'
   - 'edit information entities'
   - 'edit invoice entities'
   - 'edit item entities'
   - 'edit own se_bill content'
-  - 'edit own se_customer content'
   - 'edit own se_contact content'
+  - 'edit own se_customer content'
   - 'edit own se_document content'
   - 'edit own se_goods_receipt content'
   - 'edit own se_invoice content'
@@ -264,8 +266,8 @@ permissions:
   - 'link to any page'
   - 'revert all revisions'
   - 'revert se_bill revisions'
-  - 'revert se_customer revisions'
   - 'revert se_contact revisions'
+  - 'revert se_customer revisions'
   - 'revert se_document revisions'
   - 'revert se_goods_receipt revisions'
   - 'revert se_invoice revisions'
@@ -280,8 +282,8 @@ permissions:
   - 'synchronize configuration'
   - 'use advanced search'
   - 'view all bill revisions'
-  - 'view all customer revisions'
   - 'view all contact revisions'
+  - 'view all customer revisions'
   - 'view all goods receipt revisions'
   - 'view all information revisions'
   - 'view all invoice revisions'
@@ -296,8 +298,8 @@ permissions:
   - 'view all timekeeping revisions'
   - 'view any webform submission'
   - 'view bill entities'
-  - 'view customer entities'
   - 'view contact entities'
+  - 'view customer entities'
   - 'view goods receipt entities'
   - 'view hidden fields'
   - 'view information entities'
@@ -309,8 +311,8 @@ permissions:
   - 'view purchase order entities'
   - 'view quote entities'
   - 'view se_bill revisions'
-  - 'view se_customer revisions'
   - 'view se_contact revisions'
+  - 'view se_customer revisions'
   - 'view se_document revisions'
   - 'view se_goods_receipt revisions'
   - 'view se_invoice revisions'

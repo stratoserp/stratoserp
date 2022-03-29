@@ -36,6 +36,9 @@ class CompanyInvoiceStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingPeriods($year) as $timestamps) {
+        if (!$timestamps['start']) {
+          continue;
+        }
         $query = \Drupal::entityQuery('se_invoice');
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
@@ -54,7 +57,12 @@ class CompanyInvoiceStatistics extends BlockBase {
             $total += $invoice->se_total->value;
           }
         }
-        $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($total ?? 0);
+        if ($total > 0) {
+          $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($total ?? 0);
+        }
+        else {
+          $month_data[] = '';
+        }
         $fg_colors[] = $fg_color;
       }
 

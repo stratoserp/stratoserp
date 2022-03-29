@@ -43,12 +43,20 @@ class CustomerTicketStatistics extends BlockBase {
       [$fg_color] = $this->generateColorsDarkening(100, NULL, 50);
 
       foreach ($this->reportingPeriods($year) as $timestamps) {
+        if (!$timestamps['start']) {
+          continue;
+        }
         $query = \Drupal::entityQuery('se_ticket');
         $query->condition('se_cu_ref', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
-        $month_data[] = count($entity_ids);
+        if (count($entity_ids) > 0) {
+          $month_data[] = count($entity_ids);
+        }
+        else {
+          $month_data[] = '';
+        }
         $fg_colors[] = $fg_color;
       }
 

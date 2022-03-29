@@ -1,21 +1,41 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - contextual
+    - se_bill
+    - se_contact
+    - se_customer
+    - se_goods_receipt
+    - se_information
+    - se_invoice
+    - se_item
+    - se_payment
+    - se_purchase_order
+    - se_quote
+    - se_subscription
+    - se_supplier
+    - se_ticket
+    - se_timekeeping
+    - stratoserp
+    - system
+    - toolbar
+    - toolbar_menu
 id: owner
-label: 'Owner/CEO/CFO'
+label: Owner/CEO/CFO
 weight: 7
 is_admin: false
 permissions:
   - 'access all customers'
+  - 'access company overview'
   - 'access content'
   - 'access contextual links'
   - 'access stratoserp'
   - 'access toolbar'
   - 'access user profiles'
-  - 'access company overview'
   - 'add bill entities'
-  - 'add customer entities'
   - 'add contact entities'
+  - 'add customer entities'
   - 'add goods receipt entities'
   - 'add information entities'
   - 'add invoice entities'
@@ -28,8 +48,8 @@ permissions:
   - 'add ticket entities'
   - 'add timekeeping entities'
   - 'delete bill entities'
-  - 'delete customer entities'
   - 'delete contact entities'
+  - 'delete customer entities'
   - 'delete goods receipt entities'
   - 'delete information entities'
   - 'delete invoice entities'
@@ -42,8 +62,8 @@ permissions:
   - 'delete ticket entities'
   - 'delete timekeeping entities'
   - 'edit bill entities'
-  - 'edit customer entities'
   - 'edit contact entities'
+  - 'edit customer entities'
   - 'edit goods receipt entities'
   - 'edit information entities'
   - 'edit invoice entities'
@@ -57,8 +77,8 @@ permissions:
   - 'edit timekeeping entities'
   - 'use inline mentions'
   - 'view all bill revisions'
-  - 'view all customer revisions'
   - 'view all contact revisions'
+  - 'view all customer revisions'
   - 'view all goods receipt revisions'
   - 'view all information revisions'
   - 'view all invoice revisions'
@@ -71,8 +91,8 @@ permissions:
   - 'view all ticket revisions'
   - 'view all timekeeping revisions'
   - 'view bill entities'
-  - 'view customer entities'
   - 'view contact entities'
+  - 'view customer entities'
   - 'view goods receipt entities'
   - 'view information entities'
   - 'view invoice entities'
@@ -81,7 +101,7 @@ permissions:
   - 'view purchase order entities'
   - 'view quote entities'
   - 'view stratoserp in toolbar'
-  - 'view supplier entities'
   - 'view subscription entities'
+  - 'view supplier entities'
   - 'view ticket entities'
   - 'view timekeeping entities'
