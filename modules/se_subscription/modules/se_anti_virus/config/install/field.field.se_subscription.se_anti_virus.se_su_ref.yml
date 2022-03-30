@@ -15,12 +15,11 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: se_customer
+  handler: se_supplier
   handler_settings:
     target_bundles: null
     sort:
       field: _none
       direction: ASC
     auto_create: 0
-    customer_type: '4'
 field_type: entity_reference
