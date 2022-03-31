@@ -48,9 +48,9 @@ class FrontPageController extends ControllerBase {
       $regions['second'][] = $blockPluginManager->createInstance('company_ticket_statistics', [
         '#title' => 'Company ticket statistics',
       ])->build();
-      $regions['third'][] = $blockPluginManager->createInstance('company_invoice_statistics', [
-        '#title' => 'Company invoice statistics',
-      ])->build();
+//      $regions['third'][] = $blockPluginManager->createInstance('company_invoice_statistics', [
+//        '#title' => 'Company invoice statistics',
+//      ])->build();
     }
 
     return $layoutInstance->build($regions);

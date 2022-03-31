@@ -30,6 +30,15 @@ class SubscriptionForm extends StratosContentEntityForm {
         ]);
     }
 
+    // Based on the 'use customer invoice date' checkbox, show/hide the date.
+    $form['se_next_due']['#states'] = [
+      'invisible' => [
+        ':input[name="se_use_bu_due[value]"]' => [
+          'checked' => TRUE,
+        ],
+      ],
+    ];
+
     return $form;
   }
 
