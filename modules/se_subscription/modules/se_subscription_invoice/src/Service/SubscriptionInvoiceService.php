@@ -125,7 +125,7 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
           'd' => TRUE,
         ]);
 
-        // Two hours mean we can ignore/bypass any daylight savings shenanigans.
+        // Calculate the future date.
         $startOfDay = new \DateTime('midnight ' . $duration);
         $subscription->se_next_due->value = $startOfDay->getTimestamp();
         $subscription->save();
