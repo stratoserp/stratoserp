@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\se_subscription_invoice\Service;
 
-use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelInterface;
@@ -113,11 +112,27 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
    */
   private function updateDueDate(array $subscriptions): void {
     foreach ($subscriptions as $lines) {
-      $subscription = Subscription::load($lines['subscription_id']);
-      $seconds = $this->durationService->getSecondsFromDurationString($subscription->se_period->duration);
-      // Do we need to worry about drift?
-      $subscription->se_next_due->value += $seconds;
-      $subscription->save();
+      try {
+        $subscription = Subscription::load($lines['subscription_id']);
+
+        // Get a mktime sort of array from the duration.
+        $interval = $this->durationService->getDateIntervalFromDurationString($subscription->se_period->duration);
+
+        // Convert that into a string.
+        $duration = $this->durationService->getHumanReadableStringFromDateInterval($interval, [
+          'y' => TRUE,
+          'm' => TRUE,
+          'd' => TRUE,
+        ]);
+
+        // Two hours mean we can ignore/bypass any daylight savings shenanigans.
+        $startOfDay = new \DateTime('midnight ' . $duration);
+        $subscription->se_next_due->value = $startOfDay->getTimestamp();
+        $subscription->save();
+      }
+      catch (\Exception $e) {
+        $this->loggerChannel->critical('Unable to load subscription');
+      }
     }
   }
 
