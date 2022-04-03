@@ -1,2 +1,15 @@
 <?php
 
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
+
+/**
+ * Implements hook_file_download().
+ */
+function se_print_file_download($uri) {
+  $target = StreamWrapperManager::getTarget($uri);
+
+  return [
+    'Content-disposition' => "attachment; filename='$target'",
+  ];
+}
+

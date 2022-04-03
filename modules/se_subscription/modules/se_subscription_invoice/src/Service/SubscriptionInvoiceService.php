@@ -62,12 +62,13 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
 
     // Load subscriptions to create line items.
     foreach ($query->execute() as $customerId) {
-      $customer = Customer::load($customerId);
-      $items = $this->subscriptionsToItems($customer);
+      if ($customer = Customer::load($customerId)) {
+        $items = $this->subscriptionsToItems($customer);
 
-      if (count($items) && $invoice = $this->subscriptionsToInvoice($customer, $items)) {
-        $invoices[] = $invoice;
-        $this->updateDueDate($items);
+        if (count($items) && $invoice = $this->subscriptionsToInvoice($customer, $items)) {
+          $invoices[] = $invoice;
+          $this->updateDueDate($items);
+        }
       }
     }
 

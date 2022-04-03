@@ -5,6 +5,7 @@ core_version_requirement: ^8 || ^9
 package: StratosERP
 dependencies:
   - stratoserp:se_invoice
+  - drupal:entity_print
 
 config_devel:
   install: {  }
