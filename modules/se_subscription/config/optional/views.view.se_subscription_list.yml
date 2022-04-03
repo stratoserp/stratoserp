@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - field.storage.se_customer.se_invoice_day
+    - field.storage.se_subscription.se_cu_ref
     - field.storage.se_subscription.se_domain_name
     - field.storage.se_subscription.se_email_address
-    - field.storage.se_subscription.se_next_due
     - field.storage.se_subscription.se_period
     - system.menu.stratos-erp
   module:
@@ -222,71 +222,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        name_1:
-          id: name_1
-          table: se_customer_field_data
-          field: name
-          relationship: se_cu_ref
-          group_type: group
-          admin_label: ''
-          entity_type: se_customer
-          entity_field: name
-          plugin_id: field
-          label: Customer
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         se_domain_name:
           id: se_domain_name
           table: se_subscription__se_domain_name
@@ -403,6 +338,69 @@ display:
           type: basic_string
           settings: {  }
           group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        se_cu_ref:
+          id: se_cu_ref
+          table: se_subscription__se_cu_ref
+          field: se_cu_ref
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Customer
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -534,71 +532,6 @@ display:
             text_length: full
             separator: space
           group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        se_next_due:
-          id: se_next_due
-          table: se_subscription__se_next_due
-          field: se_next_due
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Next due date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: se_iso_like_format
-            custom_date_format: ''
-            timezone: ''
-          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -829,23 +762,19 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
             id: id
             name: name
-            name_1: name_1
             se_domain_name: se_domain_name
             se_email_address: se_domain_name
+            se_cu_ref: se_cu_ref
             created: created
             se_period: se_period
             se_next_due: se_next_due
+            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
+            name_1: name_1
             se_invoice_day: se_invoice_day
           default: '-1'
           info:
-            views_bulk_operations_bulk_form:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             id:
               sortable: true
               default_sort_order: asc
@@ -854,13 +783,6 @@ display:
               empty_column: false
               responsive: ''
             name:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            name_1:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -881,6 +803,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            se_cu_ref:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             created:
               sortable: true
               default_sort_order: asc
@@ -896,6 +825,18 @@ display:
               empty_column: false
               responsive: priority-medium
             se_next_due:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            views_bulk_operations_bulk_form:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name_1:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -949,9 +890,9 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.se_customer.se_invoice_day'
+        - 'config:field.storage.se_subscription.se_cu_ref'
         - 'config:field.storage.se_subscription.se_domain_name'
         - 'config:field.storage.se_subscription.se_email_address'
-        - 'config:field.storage.se_subscription.se_next_due'
         - 'config:field.storage.se_subscription.se_period'
   se_subscription_list:
     id: se_subscription_list
@@ -980,7 +921,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.se_customer.se_invoice_day'
+        - 'config:field.storage.se_subscription.se_cu_ref'
         - 'config:field.storage.se_subscription.se_domain_name'
         - 'config:field.storage.se_subscription.se_email_address'
-        - 'config:field.storage.se_subscription.se_next_due'
         - 'config:field.storage.se_subscription.se_period'

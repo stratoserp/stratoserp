@@ -168,7 +168,7 @@ display:
           entity_type: null
           entity_field: name
           plugin_id: field
-          label: 'Goods receipt'
+          label: 'Goods receipt name'
           exclude: false
           alter:
             alter_text: false
@@ -373,7 +373,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -505,8 +505,8 @@ display:
             id: id
             created: created
             name: name
-            se_status_ref: se_status_ref
             se_po_ref: se_po_ref
+            se_total: se_total
           default: id
           info:
             id:
@@ -530,15 +530,15 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            se_status_ref:
+            se_po_ref:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            se_po_ref:
-              sortable: true
+            se_total:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
