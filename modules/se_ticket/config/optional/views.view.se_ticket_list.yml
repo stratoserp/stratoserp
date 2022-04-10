@@ -460,6 +460,54 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        name:
+          id: name
+          table: se_ticket_field_data
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: se_ticket
+          entity_field: name
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: 'Ticket name'
+            description: ''
+            use_operator: false
+            operator: name_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+              developer: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         se_status_ref_target_id:
           id: se_status_ref_target_id
           table: se_ticket__se_status_ref
@@ -512,8 +560,8 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        name:
-          id: name
+        name_1:
+          id: name_1
           table: se_customer_field_data
           field: name
           relationship: se_cu_ref
@@ -527,11 +575,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: name_op
-            label: Name
+            operator_id: name_1_op
+            label: Customer
             description: ''
             use_operator: false
-            operator: name_op
+            operator: name_1_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: customer

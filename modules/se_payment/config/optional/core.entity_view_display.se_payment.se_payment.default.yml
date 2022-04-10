@@ -52,9 +52,6 @@ content:
     type: se_currency_formatter
     region: bottom
 hidden:
-  entity_print_view_epub: true
-  entity_print_view_pdf: true
-  entity_print_view_word_docx: true
   extra_field_customer_purchase_order_statistics: true
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
