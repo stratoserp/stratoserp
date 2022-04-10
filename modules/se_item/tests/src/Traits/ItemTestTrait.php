@@ -17,8 +17,8 @@ trait ItemTestTrait {
   protected string $itemName;
   protected string $itemCode;
   protected string $itemSerial;
-  protected int $itemCostPrice;
-  protected float $itemSellPrice;
+  protected string $itemCostPrice;
+  protected string $itemSellPrice;
 
   /**
    * Setup basic faker fields for this test trait.
@@ -29,8 +29,8 @@ trait ItemTestTrait {
     $this->itemName      = $this->faker->unique()->realText(20);
     $this->itemCode      = $this->faker->unique()->text(10);
     $this->itemSerial    = (string) $this->faker->randomNumber(5);
-    $this->itemCostPrice = $this->faker->numberBetween(5, 10);
-    $this->itemSellPrice = $this->itemCostPrice * 1.2;
+    $this->itemCostPrice = (string) $this->faker->numberBetween(5, 10);
+    $this->itemSellPrice = (string) ($this->itemCostPrice * 1.2);
 
     $this->currencyFormat = \Drupal::service('se_accounting.currency_format');
   }
@@ -185,8 +185,8 @@ trait ItemTestTrait {
     self::assertNotNull($item->se_sell_price->value);
 
     self::assertEquals($this->itemCode, $item->se_code->value);
-    self::assertEquals($this->itemCostPrice, $this->currencyFormat->formatRaw((int) $item->se_cost_price->value));
-    self::assertEquals($this->itemSellPrice, $this->currencyFormat->formatRaw((int) $item->se_sell_price->value));
+    self::assertEquals((int) $this->itemCostPrice, (int) $this->currencyFormat->formatRaw((int) $item->se_cost_price->value));
+    self::assertEquals((int) $this->itemSellPrice, (int) $this->currencyFormat->formatRaw((int) $item->se_sell_price->value));
 
     $this->drupalGet($item->toUrl());
 

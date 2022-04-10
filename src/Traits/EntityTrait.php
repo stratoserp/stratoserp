@@ -19,8 +19,11 @@ trait EntityTrait {
    * {@inheritdoc}
    */
   public function getCustomer(): ?Customer {
-    $customerId = $this->se_cu_ref->entity->id();
-    return Customer::load($customerId);
+    if (isset($this->se_cu_ref->entity)) {
+      $customerId = $this->se_cu_ref->entity->id();
+      return Customer::load($customerId);
+    }
+    return NULL;
   }
 
   /**

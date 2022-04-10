@@ -78,10 +78,17 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
       sort($data['dependencies']['config']);
     }
 
-    // Deduplicate permiossions.
+    // Deduplicate permissions.
     if (isset($data['permissions'])) {
       $data['permissions'] = array_unique($data['permissions']);
       sort($data['permissions']);
+    }
+
+    // Remove entity print links we don't use.
+    foreach (['entity_print_view_epub', 'entity_print_view_pdf', 'entity_print_view_word_docx'] as $entityPrintLink) {
+      if (isset($data['hidden'][$entityPrintLink])) {
+        unset($data['hidden'][$entityPrintLink]);
+      }
     }
 
     $event->setData($data);

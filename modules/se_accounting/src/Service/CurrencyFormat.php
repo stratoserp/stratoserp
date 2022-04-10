@@ -33,18 +33,18 @@ class CurrencyFormat {
   }
 
   /**
-   * Convert from human readable currency amount to storage cents string.
+   * Convert from human-readable currency amount to storage cents string.
    *
    * @param string $value
    *   The formatted value to be converted.
    *
-   * @return string|float
+   * @return string
    *   The string value to store.
    */
-  public function formatStorage($value): string {
+  public function formatStorage(string $value): string {
 
     // Remove thousands separator.
-    $value = str_replace(['$', ','], '', (string) $value);
+    $value = str_replace(['$', ','], '', $value);
 
     // Multiply by 100 to change to cents, dont bother with zero.
     if (!empty($value)) {
