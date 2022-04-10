@@ -82,7 +82,7 @@ class StockService {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function reconcileItems(Invoice $invoice): void {
-    $date = new DateTimePlus(NULL, date_default_timezone_get());
+    $date = new DateTimePlus('now', date_default_timezone_get());
 
     $reconcileList = $this->markItemsAvailable($invoice);
 
