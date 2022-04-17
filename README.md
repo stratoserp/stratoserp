@@ -1,6 +1,6 @@
 # StratosERP
 
-![StratosERP module tests](https://github.com/stratoserp/stratoserp/actions/workflows/main.yml/badge.svg)
+[![Tests](https://github.com/stratoserp/stratoserp/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/stratoserp/stratoserp/actions/workflows/main.yml)
 
 This repository contains the modules that are used by the StratosERP install
 profile.
