@@ -54,14 +54,14 @@ jobs:
           xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
           chromedriver --port=4444 --url-base=/wd/hub &> /tmp/chromedriver.log &
 
-      - name: Add HTTP basic auth credentials
-        run: echo ${{ secrets.COMPOSER_AUTH_JSON }} > auth.json
-
       - name: Update composer
         run: composer --verbose self-update --${{ matrix.composer-channel }}
 
       - name: Create an install using composer
         run: composer create-project stratoserp/stratos-drupal-project:9.x-dev .
+
+      - name: Add HTTP basic auth credentials
+        run: echo ${{ secrets.COMPOSER_AUTH_JSON }} > auth.json
 
       - name: Update composer dependencies to get latest versions
         run: composer update -n
