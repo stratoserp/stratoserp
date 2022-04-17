@@ -3,7 +3,7 @@
 # Based on: https://github.com/stratoserp/stratos-drupal-project/
 #
 
-name: StratosERP module tests.
+name: Tests
 
 on:
   push:
@@ -74,9 +74,11 @@ jobs:
       - name: Install modules for tests
         run: ./vendor/bin/drush pm-enable se_example_data --yes
 
-      - run: ./vendor/bin/drush runserver $SIMPLETEST_BASE_URL &
+      - name: Run a simple web server
+        run: ./vendor/bin/drush runserver $SIMPLETEST_BASE_URL &
 
-      - run: until curl -s $SIMPLETEST_BASE_URL; do true; done > /dev/null
+      - name: Wait for web server readiness
+        run: until curl -s $SIMPLETEST_BASE_URL; do true; done > /dev/null
 
       - name: Run unit tests to verify the testing setup.
         run: ./vendor/bin/phpunit --testdox
