@@ -61,7 +61,7 @@ jobs:
         run: composer create-project stratoserp/stratos-drupal-project:9.x-dev .
 
       - name: Add HTTP basic auth credentials
-        run: echo "${{ secrets.COMPOSER_AUTH_JSON }}" > auth.json
+        run: echo '${{ secrets.COMPOSER_AUTH_JSON }}' > auth.json
 
       - name: Update composer dependencies to get latest versions
         run: composer update -n
