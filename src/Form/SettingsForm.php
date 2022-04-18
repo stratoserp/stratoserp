@@ -70,7 +70,7 @@ class SettingsForm extends ConfigFormBase {
 
     $form['statistics_style'] = [
       '#type' => 'select',
-      '#title' => $this->t('Select the default timeframe for statistics graphs.'),
+      '#title' => $this->t('Select the default interval for statistics graphs.'),
       '#options' => [
         'weekly' => t('Weekly'),
         'monthly' => t('Monthly'),

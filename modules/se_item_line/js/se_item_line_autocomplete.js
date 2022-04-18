@@ -35,7 +35,7 @@
       response(suggestions);
     }
 
-    var customer = $("#edit-se-bu-ref-0-target-id").val();
+    var customer = $("#edit-se-cu-ref-0-target-id").val();
     var customerNid = customer.substring(customer.indexOf("(") + 1, customer.indexOf(")"));
 
     function sourceCallbackHandler(data) {

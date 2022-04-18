@@ -65,7 +65,7 @@
     }
 
     // Get the desired term and construct the autocomplete URL for it.
-    const customer = $("#edit-se-bu-ref-0-target-id").val();
+    const customer = $("#edit-se-cu-ref-0-target-id").val();
     const customerNid = customer.substring(
       customer.indexOf("(") + 1,
       customer.indexOf(")")
