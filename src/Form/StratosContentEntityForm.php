@@ -32,7 +32,30 @@ class StratosContentEntityForm extends ContentEntityForm {
     $formAlter = \Drupal::service('se.form_alter');
     $formAlter->setCustomerField($form, 'se_cu_ref');
     $formAlter->setContactField($form, 'se_co_ref');
-    $formAlter->setStandardText($form, 'name', $formAlter->generateTitle());
+
+    // Create a default title for most types.
+    if (!in_array($form_state->getBuildInfo()['base_form_id'], [
+      'se_customer_form',
+      'se_supplier_form',
+      'se_contact_form',
+      'se_item_form',
+    ])) {
+      $formAlter->setStandardText($form, 'name', $formAlter->generateTitle());
+    }
+
+    $userInput = $form_state->getUserInput();
+
+    // Hackery-do to remove blank entry at bottom of item line forms.
+    if ($max_delta = $form['se_item_lines']['widget']['#max_delta']) {
+      unset($form['se_item_lines']['widget'][$max_delta]);
+      $form['se_item_lines']['widget']['#max_delta'] = $max_delta - 1;
+    }
+
+    // Hackery-do to remove blank entry at bottom of payment line forms.
+    if ($max_delta = $form['se_payment_lines']['widget']['#max_delta']) {
+      unset($form['se_payment_lines']['widget'][$max_delta]);
+      $form['se_payment_lines']['widget']['#max_delta'] = $max_delta - 1;
+    }
 
     if (!$this->entity->isNew()) {
       $form['group_extra']['new_revision'] = [
