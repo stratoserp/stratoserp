@@ -77,22 +77,6 @@ function stratoserp_theme(): array {
 }
 
 /**
- * Modify field types for which remove button will be added.
- * See multiple_fields_remove_button.api.php.
- *
- * @param array $fieldTypes
- *   A list with field types.
- *
- * @return NULL;
- */
-function stratoserp_multiple_field_remove_button_field_types_alter(array &$fieldTypes) {
-  $fieldTypes[] = 'se_item_line';
-  $fieldTypes[] = 'se_payment_line';
-
-  return NULL;
-}
-
-/**
  * Implements hook_toolbar_alter().
  *
  * @see https://www.drupal.org/project/toolbar_menu/issues/2658470
