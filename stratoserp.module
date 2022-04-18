@@ -95,7 +95,9 @@ function stratoserp_multiple_field_remove_button_field_types_alter(array &$field
 /**
  * Implements hook_toolbar_alter().
  *
- * See: https://www.drupal.org/project/toolbar_menu/issues/2658470
+ * @see https://www.drupal.org/project/toolbar_menu/issues/2658470
+ * @see https://www.drupal.org/project/toolbar_menu/issues/2984790
+ * @see https://www.drupal.org/project/toolbar_menu_clean/issues/3230506#comment-14209721
  *
  * @param array $items
  *
@@ -104,7 +106,7 @@ function stratoserp_multiple_field_remove_button_field_types_alter(array &$field
 function stratoserp_toolbar_alter(array &$items) {
   $account = Drupal::currentUser();
   if (!in_array('administrator', $account->getRoles(), TRUE)) {
-    unset($items['administration']);
+    $items['administration']['tab']['#attributes']['class'][] = 'visually-hidden';
   }
 
   return NULL;
