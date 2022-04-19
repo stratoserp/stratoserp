@@ -11,23 +11,6 @@ use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 
 /**
- * Implements hook_module_implements_alter().
- *
- * Make sure that our form alter is called AFTER the same hook provided in xxx.
- */
-function se_webform_integration_module_implements_alter(&$implementations, $hook) {
-  if ($hook === 'field_widget_form_alter') {
-    // Move my_module_form_alter() to the end of the list. module_implements()
-    // iterates through $implementations with a foreach loop which PHP iterates
-    // in the order that the items were added, so to move an item to the end of
-    // the array, we remove it and then add it.
-    $group = $implementations['se_webform_integration'];
-    unset($implementations['se_webform_integration']);
-    $implementations['se_webform_integration'] = $group;
-  }
-}
-
-/**
  * If this webform is ajax, modal or a dialog, add in a
  * callback to auto close it.
  *
