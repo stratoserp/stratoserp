@@ -1,6 +1,6 @@
 
 se_goods_receipt.add:
-  path: '/gr/add/{source}'
+  path: '/gr/po/{source}'
   defaults:
     _title: 'Receive goods'
     _controller: '\Drupal\se_goods_receipt\Controller\GoodsReceiptController::fromPurchaseOrder'
@@ -10,4 +10,4 @@ se_goods_receipt.add:
   options:
     parameters:
       source:
-        type: entity:se_goods_receipt
+        type: entity:se_purchase_order

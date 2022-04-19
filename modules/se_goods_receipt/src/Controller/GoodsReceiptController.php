@@ -237,7 +237,7 @@ class GoodsReceiptController extends ControllerBase {
    * @return \Drupal\Core\Entity\EntityInterface
    *   An entity ready for the submission form.
    */
-  public function createGoodsReceiptFromPurchaseOrder(EntityInterface $source): EntityInterface {
+  public function createGoodsReceiptFromPurchaseOrder(EntityInterface $source) {
     $goodsReceipt = GoodsReceipt::create([
       'bundle' => 'se_goods_receipt',
     ]);
@@ -248,12 +248,15 @@ class GoodsReceiptController extends ControllerBase {
       // @todo ensure we're using the non-serialised item here?
       $itemCount = $itemLine->quantity;
       for ($count = 0; $count < $itemCount; $count++) {
-        $goodsReceipt->se_item_lines->appendItem($itemLine->getValue());
+        // This section assumes we are doing serial numbers for everything.
+        $values = $itemLine->getValue();
+        $values['quantity'] = 1;
+        $goodsReceipt->se_item_lines->appendItem($values);
       }
     }
 
-    $goodsReceipt->se_cu_ref->target_id = $source->se_cu_ref->target_id;
-    $goodsReceipt->se_co_ref->target_id = $source->se_co_ref->target_id;
+    $goodsReceipt->se_cu_ref = $source->se_cu_ref;
+    $goodsReceipt->se_co_ref = $source->se_co_ref;
     $goodsReceipt->se_po_ref->target_id = $source->id();
 
     return $goodsReceipt;

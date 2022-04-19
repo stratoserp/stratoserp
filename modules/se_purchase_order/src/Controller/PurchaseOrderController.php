@@ -252,10 +252,7 @@ class PurchaseOrderController extends ControllerBase {
       $destination->se_item_lines->appendItem($item->getValue());
     }
 
-    $destination->se_cu_ref->target_id = $source->se_cu_ref->target_id;
-    // @todo Why is this here?
-    $destination->se_cu_ref->target_type = $source->se_cu_ref->target_type;
-    $destination->se_co_ref->target_id = $source->se_co_ref->target_id;
+    $destination->se_cu_ref = $source->se_cu_ref;
     $destination->se_qu_ref->target_id = $source->id();
     $destination->se_total = $total;
 

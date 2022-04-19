@@ -1,6 +1,6 @@
 
 se_purchase_order.add:
-  path: '/po/add/{source}'
+  path: '/po/quote/{source}'
   defaults:
     _title: 'Add purchase order'
     _controller: '\Drupal\se_purchase_order\Controller\PurchaseOrderController::fromQuote'
@@ -10,4 +10,4 @@ se_purchase_order.add:
   options:
     parameters:
       source:
-        type: entity:se_purchase_order
+        type: entity:se_quote
