@@ -7,11 +7,32 @@ weight: 0
 uid: 1
 template: false
 archive: false
-id: wi_pc_fresh_install
+id: it_fresh_install
 title: 'PC fresh install'
-description: 'Webform procedure for PC fresh install'
+description: 'Checklist for PC fresh install'
 category: ''
-elements: "wc_backup_existing_drive:\n  '#type': checkbox\n  '#title': 'Backup existing drive'\nwc_clone_drive:\n  '#type': checkbox\n  '#title': 'Clone drive'\nwc_install_all_windows_updates:\n  '#type': checkbox\n  '#title': 'Install all windows updates'\nwc_install_anti_virus:\n  '#type': checkbox\n  '#title': 'Install anti-virus'\nwc_transfer_data_from_backup_to_freshly_installed_drive:\n  '#type': checkbox\n  '#title': 'Transfer data from backup to freshly installed drive'\nwc_install_default_applications:\n  '#type': checkbox\n  '#title': 'Install default applications'\nwc_confirm_operation_of_email:\n  '#type': checkbox\n  '#title': 'Confirm operation of email'"
+elements: |-
+  it_backup_existing_drive:
+    '#type': checkbox
+    '#title': 'Backup existing drive'
+  it_clone_drive:
+    '#type': checkbox
+    '#title': 'Clone drive'
+  it_install_all_windows_updates:
+    '#type': checkbox
+    '#title': 'Install all windows updates'
+  it_install_anti_virus:
+    '#type': checkbox
+    '#title': 'Install anti-virus'
+  it_transfer_data_from_backup_to_freshly_installed_drive:
+    '#type': checkbox
+    '#title': 'Transfer data from backup to freshly installed drive'
+  it_install_default_applications:
+    '#type': checkbox
+    '#title': 'Install default applications'
+  it_confirm_operation_of_email:
+    '#type': checkbox
+    '#title': 'Confirm operation of email'
 css: '.webform-submission-information {display: none}'
 javascript: ''
 settings:
@@ -22,35 +43,39 @@ settings:
   page_confirm_path: ''
   form_title: both
   form_submit_once: false
-  form_exception_message: ''
   form_open_message: ''
   form_close_message: ''
+  form_exception_message: ''
   form_previous_submissions: true
   form_confidential: false
   form_confidential_message: ''
-  form_remote_addr: true
   form_convert_anonymous: false
   form_prepopulate: false
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
-  form_reset: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_disable_inline_errors: false
   form_required: false
-  form_unsaved: false
-  form_disable_back: false
-  form_submit_back: false
   form_autofocus: false
   form_details_toggle: false
+  form_reset: false
   form_access_denied: default
   form_access_denied_title: ''
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
   submission_label: ''
+  submission_exception_message: ''
+  submission_locked_message: ''
   submission_log: false
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
   submission_views: {  }
   submission_views_replace: {  }
   submission_user_columns: {  }
@@ -59,11 +84,6 @@ settings:
   submission_access_denied_title: ''
   submission_access_denied_message: ''
   submission_access_denied_attributes: {  }
-  submission_exception_message: ''
-  submission_locked_message: ''
-  submission_excluded_elements: {  }
-  submission_exclude_empty: false
-  submission_exclude_empty_checkbox: false
   previous_submission_message: ''
   previous_submissions_message: ''
   autofill: false
@@ -92,9 +112,9 @@ settings:
   draft_saved_message: ''
   draft_loaded_message: ''
   confirmation_type: inline
+  confirmation_url: ''
   confirmation_title: ''
   confirmation_message: ''
-  confirmation_url: ''
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''
@@ -118,6 +138,7 @@ settings:
   results_disabled: false
   results_disabled_ignore: false
   token_update: false
+  form_remote_addr: true
 access:
   create:
     roles:
@@ -168,3 +189,4 @@ access:
     users: {  }
     permissions: {  }
 handlers: {  }
+variants: {  }

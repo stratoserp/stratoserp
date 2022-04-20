@@ -7,11 +7,17 @@ weight: 0
 uid: 1
 template: false
 archive: false
-id: wi_window_cleaning_start
-title: 'Window cleaning start'
-description: ''
+id: wc_complete
+title: 'Window cleaning complete'
+description: 'Checklist for Window cleaning complete'
 category: ''
-elements: "wc_area_to_be_cleaned_clearly_accessible:\n  '#type': checkbox\n  '#title': 'Area to be cleaned clearly accessible'\nwc_ladder_required:\n  '#type': checkbox\n  '#title': 'Ladder required'\nwc_fastening_points_for_ladder_available:\n  '#type': checkbox\n  '#title': 'Fastening points for ladder_available'\n  '#states':\n    visible:\n      ':input[name=\"wc_ladder_required\"]':\n        checked: true\nwc_water_available_onsite:\n  '#type': checkbox\n  '#title': 'Water available onsite'"
+elements: |-
+  wc_confirm_satisfaction_with_customer:
+    '#type': checkbox
+    '#title': 'Confirm satisfaction with customer'
+  wc_customer_signature:
+    '#type': webform_signature
+    '#title': 'Customer signature'
 css: '.webform-submission-information {display: none}'
 javascript: ''
 settings:
@@ -168,3 +174,4 @@ access:
     users: {  }
     permissions: {  }
 handlers: {  }
+variants: {  }

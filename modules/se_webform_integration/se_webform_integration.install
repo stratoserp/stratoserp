@@ -37,7 +37,7 @@ function se_webform_integration_install() {
 function se_webform_integration_install_attach(EntityTypeManagerInterface $entity_type_manager) {
   // Create the storage.
   $field = $entity_type_manager->getStorage('field_config')->create([
-    'field_name' => 'se_forms',
+    'field_name' => 'se_ti_forms',
     'entity_type' => 'se_ticket',
     'bundle' => 'se_ticket',
     'label' => 'Form',
@@ -50,7 +50,7 @@ function se_webform_integration_install_attach(EntityTypeManagerInterface $entit
   // Set the form display.
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
   $form_display = $entity_type_manager->getStorage('entity_form_display')->load('se_ticket.se_ticket.default');
-  $form_display->setComponent('se_forms', [
+  $form_display->setComponent('se_ti_forms', [
     'type' => 'webform_integration_entity_reference_select',
     'region' => 'bottom',
     'weight' => 20,
@@ -60,7 +60,7 @@ function se_webform_integration_install_attach(EntityTypeManagerInterface $entit
   // Add the webform field to the entity view display.
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
   $display = $entity_type_manager->getStorage('entity_view_display')->load('se_ticket.se_ticket.default');
-  $display->setComponent('se_forms', [
+  $display->setComponent('se_ti_forms', [
     'type' => 'webform_entity_reference_link',
     'region' => 'bottom',
     'label' => 'above',
@@ -88,7 +88,7 @@ function se_webform_integration_uninstall() {
   se_webform_integration_uninstall_detach($entity_type_manager);
 
   $config_storage = \Drupal::service('config.storage');
-  $config_path = drupal_get_path('module', 'se_webform_integration') . '/config/install';
+  $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'se_webform_integration') . '/config/install';
   $source = new FileStorage($config_path);
   $configs = $source->listAll();
 
@@ -113,20 +113,20 @@ function se_webform_integration_uninstall() {
 function se_webform_integration_uninstall_detach(EntityTypeManagerInterface $entity_type_manager) {
   /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
   $form_display = $entity_type_manager->getStorage('entity_form_display')->load('se_ticket.se_ticket.default');
-  $form_display->removeComponent('se_forms');
+  $form_display->removeComponent('se_ti_forms');
   $form_display->save();
 
   /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
   $display = $entity_type_manager->getStorage('entity_view_display')->load('se_ticket.se_ticket.default');
-  $display->removeComponent('se_forms');
+  $display->removeComponent('se_ti_forms');
   $display->save();
 
-  $field_storage_config = FieldStorageConfig::loadByName('se_ticket', 'se_forms');
+  $field_storage_config = FieldStorageConfig::loadByName('se_ticket', 'se_ti_forms');
   if ($field_storage_config) {
     $field_storage_config->delete();
   }
 
-  $field_config = FieldConfig::loadByName('se_ticket', 'se_ticket', 'se_forms');
+  $field_config = FieldConfig::loadByName('se_ticket', 'se_ticket', 'se_ti_forms');
   if ($field_config && !$field_config->isDeleted()) {
     $field_config->delete();
   }
