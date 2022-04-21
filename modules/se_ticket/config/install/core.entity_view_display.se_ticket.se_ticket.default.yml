@@ -43,15 +43,15 @@ content:
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    weight: 10
+    weight: 12
     region: bottom
   se_body:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
-    region: bottom
+    weight: 5
+    region: first
   se_co_ref:
     type: entity_reference_label
     label: inline
@@ -76,7 +76,7 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: second
   se_owner_ref:
     type: entity_reference_label
@@ -92,7 +92,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: second
   se_scheduled:
     type: daterange_default
@@ -102,7 +102,7 @@ content:
       format_type: medium
       separator: '-'
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: second
   se_status_ref:
     type: entity_reference_label
@@ -110,7 +110,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: second
   se_timekeeping_ti_eva_se_timekeeping_bu_eva:
     settings: {  }
@@ -120,7 +120,7 @@ content:
   se_timekeeping_ti_eva_se_timekeeping_ti_eva:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 13
     region: bottom
   se_type_ref:
     type: entity_reference_label

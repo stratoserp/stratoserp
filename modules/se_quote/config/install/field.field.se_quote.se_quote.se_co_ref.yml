@@ -18,10 +18,9 @@ default_value_callback: ''
 settings:
   handler: 'default:se_contact'
   handler_settings:
-    target_bundles:
-      se_contact: se_contact
+    target_bundles: null
     sort:
       field: _none
+      direction: ASC
     auto_create: false
-    auto_create_bundle: ''
 field_type: entity_reference

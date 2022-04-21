@@ -25,6 +25,7 @@ dependencies:
     - se_item.se_item_type.se_stock
   module:
     - datetime
+    - field_group
     - field_layout
     - image
     - layout_discovery
@@ -35,6 +36,28 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_categories:
+      children:
+        - se_product_type_ref
+        - se_manufacturer_ref
+        - se_sale_category_ref
+      label: Categories
+      parent_name: ''
+      region: second
+      weight: 10
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: se_item.se_stock.default
 targetEntityType: se_item
 bundle: se_stock
@@ -47,16 +70,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 0
-    region: top
+    region: first
   se_active:
     type: boolean
     label: inline
     settings:
-      format: default
+      format: unicode-yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 6
     region: first
   se_code:
     type: string
@@ -64,8 +87,8 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
-    region: first
+    weight: 7
+    region: second
   se_cost_price:
     type: se_currency_formatter
     label: inline
@@ -78,7 +101,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 14
     region: bottom
   se_gr_ref:
     type: entity_reference_label
@@ -95,7 +118,7 @@ content:
       image_link: ''
       image_style: thumbnail
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: bottom
   se_in_ref:
     type: entity_reference_label
@@ -103,26 +126,26 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 14
-    region: second
+    weight: 1
+    region: first
   se_it_ref:
     type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    weight: 10
+    weight: 5
     region: first
   se_lost:
     type: boolean
     label: inline
     settings:
-      format: default
+      format: unicode-yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 6
-    region: first
+    weight: 17
+    region: bottom
   se_manufacturer_ref:
     type: entity_reference_label
     label: inline
@@ -130,7 +153,7 @@ content:
       link: true
     third_party_settings: {  }
     weight: 2
-    region: top
+    region: second
   se_po_ref:
     type: entity_reference_label
     label: inline
@@ -146,7 +169,7 @@ content:
       link: true
     third_party_settings: {  }
     weight: 1
-    region: top
+    region: second
   se_sale_category_ref:
     type: entity_reference_label
     label: inline
@@ -154,7 +177,7 @@ content:
       link: true
     third_party_settings: {  }
     weight: 3
-    region: top
+    region: second
   se_sale_date:
     type: datetime_default
     label: inline
@@ -162,21 +185,21 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 9
+    weight: 3
     region: first
   se_sale_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 2
     region: first
   se_sell_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 4
     region: first
   se_serial:
     type: string
@@ -184,22 +207,22 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 5
-    region: first
+    weight: 8
+    region: second
   se_sold:
     type: boolean
     label: inline
     settings:
-      format: default
+      format: unicode-yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 6
-    region: first
+    weight: 16
+    region: bottom
   se_stock_item_by_code_eva_se_stock_item_by_code_eva:
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 18
     region: bottom
   se_supplier_code:
     type: string
@@ -207,7 +230,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 19
-    region: first
+    weight: 9
+    region: second
 hidden:
   user_id: true

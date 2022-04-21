@@ -727,8 +727,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_customer.se_balance'
         - 'config:field.storage.se_customer.se_email'
@@ -748,7 +747,8 @@ display:
         title: Customers
         description: ''
         weight: 0
-        expanded: false
+        enabled: true
+        expanded: true
         menu_name: stratos-erp
         parent: ''
         context: '0'
@@ -759,8 +759,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_customer.se_balance'
         - 'config:field.storage.se_customer.se_email'

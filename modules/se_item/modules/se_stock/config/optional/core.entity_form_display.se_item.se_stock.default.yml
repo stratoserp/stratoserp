@@ -39,18 +39,42 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - se_sold
+        - se_lost
         - user_id
         - revision_log_message
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 17
+      weight: 16
       format_type: details
       format_settings:
         classes: ''
         id: ''
         open: false
         description: ''
+        required_fields: true
+    group_categories:
+      children:
+        - se_product_type_ref
+        - se_manufacturer_ref
+        - se_sale_category_ref
+      label: Categories
+      region: second
+      parent_name: ''
+      weight: 10
+      format_type: html_element
+      format_settings:
+        classes: container-inline
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
         required_fields: true
 id: se_item.se_stock.default
 targetEntityType: se_item
@@ -60,14 +84,14 @@ content:
   name:
     type: string_textfield
     weight: 0
-    region: top
+    region: first
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   revision_log_message:
     type: string_textarea
-    weight: 1
+    weight: 20
     region: bottom
     settings:
       rows: 4
@@ -75,85 +99,34 @@ content:
     third_party_settings: {  }
   se_active:
     type: boolean_checkbox
-    weight: 18
+    weight: 6
     region: first
     settings:
       display_label: true
     third_party_settings: {  }
   se_code:
     type: string_textfield
-    weight: 3
-    region: first
+    weight: 7
+    region: second
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   se_cost_price:
     type: se_currency_widget
-    weight: 14
+    weight: 13
     region: second
     settings: {  }
     third_party_settings: {  }
   se_description:
     type: text_textarea
-    weight: 15
+    weight: 14
     region: bottom
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
   se_gr_ref:
-    type: entity_reference_autocomplete
-    weight: 13
-    region: second
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  se_images:
-    type: image_image
-    weight: 16
-    region: bottom
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  se_in_ref:
-    type: entity_reference_autocomplete
-    weight: 5
-    region: first
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  se_it_ref:
-    type: entity_reference_autocomplete
-    weight: 8
-    region: first
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  se_lost:
-    type: boolean_checkbox
-    weight: 4
-    region: first
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  se_manufacturer_ref:
-    type: options_select
-    weight: 10
-    region: second
-    settings: {  }
-    third_party_settings: {  }
-  se_po_ref:
     type: entity_reference_autocomplete
     weight: 12
     region: second
@@ -163,62 +136,113 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_product_type_ref:
+  se_images:
+    type: image_image
+    weight: 15
+    region: bottom
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  se_in_ref:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: first
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  se_it_ref:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: first
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  se_lost:
+    type: boolean_checkbox
+    weight: 18
+    region: bottom
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  se_manufacturer_ref:
     type: options_select
-    weight: 9
+    weight: 12
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_sale_category_ref:
+  se_po_ref:
+    type: entity_reference_autocomplete
+    weight: 11
+    region: second
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  se_product_type_ref:
     type: options_select
     weight: 11
     region: second
     settings: {  }
     third_party_settings: {  }
+  se_sale_category_ref:
+    type: options_select
+    weight: 13
+    region: second
+    settings: {  }
+    third_party_settings: {  }
   se_sale_date:
     type: datetime_default
-    weight: 6
+    weight: 2
     region: first
     settings: {  }
     third_party_settings: {  }
   se_sale_price:
     type: se_currency_widget
-    weight: 7
+    weight: 3
     region: first
     settings: {  }
     third_party_settings: {  }
   se_sell_price:
     type: se_currency_widget
-    weight: 2
-    region: top
+    weight: 4
+    region: first
     settings: {  }
     third_party_settings: {  }
   se_serial:
     type: string_textfield
-    weight: 1
-    region: top
+    weight: 8
+    region: second
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   se_sold:
     type: boolean_checkbox
-    weight: 4
-    region: first
+    weight: 17
+    region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   se_supplier_code:
     type: string_textfield
-    weight: 19
-    region: first
+    weight: 9
+    region: second
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete
-    weight: 0
+    weight: 19
     region: bottom
     settings:
       match_operator: CONTAINS

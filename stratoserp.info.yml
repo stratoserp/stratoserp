@@ -18,7 +18,6 @@ config_devel:
     - taxonomy.vocabulary.se_status
   optional:
     - user.role.customer
-    - user.role.developer
     - user.role.owner
     - user.role.staff
     - user.role.supplier
