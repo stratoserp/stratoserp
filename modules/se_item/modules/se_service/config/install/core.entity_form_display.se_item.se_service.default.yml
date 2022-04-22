@@ -39,6 +39,28 @@ third_party_settings:
         open: false
         description: ''
         required_fields: true
+    group_categories:
+      children:
+        - se_product_type_ref
+        - se_manufacturer_ref
+        - se_sale_category_ref
+      label: Categories
+      region: second
+      parent_name: ''
+      weight: 5
+      format_type: html_element
+      format_settings:
+        classes: container-inline
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        required_fields: true
 id: se_item.se_service.default
 targetEntityType: se_item
 bundle: se_service
@@ -47,7 +69,7 @@ content:
   name:
     type: string_textfield
     weight: 0
-    region: top
+    region: first
     settings:
       size: 60
       placeholder: ''
@@ -62,22 +84,22 @@ content:
     third_party_settings: {  }
   se_active:
     type: boolean_checkbox
-    weight: 9
+    weight: 2
     region: first
     settings:
       display_label: true
     third_party_settings: {  }
   se_code:
     type: string_textfield
-    weight: 2
-    region: first
+    weight: 3
+    region: second
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   se_cost_price:
     type: se_currency_widget
-    weight: 3
+    weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -91,19 +113,19 @@ content:
     third_party_settings: {  }
   se_manufacturer_ref:
     type: options_select
-    weight: 5
+    weight: 7
     region: second
     settings: {  }
     third_party_settings: {  }
   se_product_type_ref:
     type: options_select
-    weight: 4
+    weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
   se_sale_category_ref:
     type: options_select
-    weight: 6
+    weight: 8
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -115,8 +137,8 @@ content:
     third_party_settings: {  }
   se_supplier_code:
     type: string_textfield
-    weight: 10
-    region: first
+    weight: 4
+    region: second
     settings:
       size: 60
       placeholder: ''

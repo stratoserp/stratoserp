@@ -15,6 +15,7 @@ dependencies:
     - se_item.se_item_type.se_recurring
   module:
     - duration_field
+    - field_group
     - field_layout
     - layout_discovery
     - se_accounting
@@ -24,6 +25,28 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_categories:
+      children:
+        - se_product_type_ref
+        - se_manufacturer_ref
+        - se_sale_category_ref
+      label: Categories
+      parent_name: ''
+      region: second
+      weight: 6
+      format_type: html_element
+      format_settings:
+        classes: container-inline
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: se_item.se_recurring.default
 targetEntityType: se_item
 bundle: se_recurring
@@ -36,16 +59,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 0
-    region: top
+    region: first
   se_active:
     type: boolean
     label: inline
     settings:
-      format: default
+      format: unicode-yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 3
     region: first
   se_code:
     type: string
@@ -53,21 +76,21 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
-    region: first
+    weight: 4
+    region: second
   se_cost_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 7
     region: second
   se_description:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: bottom
   se_it_ref:
     type: entity_reference_label
@@ -83,7 +106,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 7
+    weight: 10
     region: second
   se_product_type_ref:
     type: entity_reference_label
@@ -91,7 +114,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 6
+    weight: 9
     region: second
   se_recurring_period:
     type: duration_human_display
@@ -100,7 +123,7 @@ content:
       text_length: full
       separator: space
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: first
   se_sale_category_ref:
     type: entity_reference_label
@@ -108,14 +131,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 4
+    weight: 11
     region: second
   se_sell_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: first
   se_supplier_code:
     type: string
@@ -123,7 +146,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 11
-    region: first
+    weight: 5
+    region: second
 hidden:
   user_id: true

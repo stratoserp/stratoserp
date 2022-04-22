@@ -201,13 +201,13 @@ content:
     third_party_settings: {  }
   se_sale_date:
     type: datetime_default
-    weight: 2
+    weight: 3
     region: first
     settings: {  }
     third_party_settings: {  }
   se_sale_price:
     type: se_currency_widget
-    weight: 3
+    weight: 2
     region: first
     settings: {  }
     third_party_settings: {  }

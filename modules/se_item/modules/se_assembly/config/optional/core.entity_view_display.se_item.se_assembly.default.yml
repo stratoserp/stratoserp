@@ -19,7 +19,10 @@ dependencies:
     - field.field.se_item.se_assembly.se_sold
     - se_item.se_item_type.se_assembly
   module:
+    - datetime
+    - field_group
     - field_layout
+    - image
     - layout_discovery
     - se_accounting
     - text
@@ -28,6 +31,28 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_categories:
+      children:
+        - se_product_type_ref
+        - se_manufacturer_ref
+        - se_sale_category_ref
+      label: Categories
+      parent_name: ''
+      region: second
+      weight: 8
+      format_type: html_element
+      format_settings:
+        classes: container-inline
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: se_item.se_assembly.default
 targetEntityType: se_item
 bundle: se_assembly
@@ -40,12 +65,12 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 0
-    region: top
+    region: first
   se_active:
     type: boolean
     label: inline
     settings:
-      format: default
+      format: unicode-yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
@@ -57,21 +82,48 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
-    region: first
+    weight: 6
+    region: second
   se_cost_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 2
-    region: first
+    weight: 9
+    region: second
   se_description:
     type: text_default
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 10
+    region: bottom
+  se_images:
+    type: image
+    label: inline
+    settings:
+      image_link: ''
+      image_style: ''
+    third_party_settings: {  }
+    weight: 11
+    region: bottom
+  se_in_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: first
+  se_lost:
+    type: boolean
+    label: inline
+    settings:
+      format: unicode-yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 13
     region: bottom
   se_manufacturer_ref:
     type: entity_reference_label
@@ -79,7 +131,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 7
+    weight: 14
     region: second
   se_product_type_ref:
     type: entity_reference_label
@@ -87,7 +139,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 6
+    weight: 13
     region: second
   se_sale_category_ref:
     type: entity_reference_label
@@ -95,14 +147,30 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 8
+    weight: 15
     region: second
+  se_sale_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 3
+    region: first
+  se_sale_price:
+    type: se_currency_formatter
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: first
   se_sell_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: first
   se_serial:
     type: string
@@ -110,13 +178,17 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
-    region: first
+    weight: 7
+    region: second
+  se_sold:
+    type: boolean
+    label: inline
+    settings:
+      format: unicode-yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 12
+    region: bottom
 hidden:
-  se_images: true
-  se_in_ref: true
-  se_lost: true
-  se_sale_date: true
-  se_sale_price: true
-  se_sold: true
   user_id: true

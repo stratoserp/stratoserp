@@ -13,6 +13,7 @@ dependencies:
     - field.field.se_item.se_service.se_supplier_code
     - se_item.se_item_type.se_service
   module:
+    - field_group
     - field_layout
     - layout_discovery
     - se_accounting
@@ -22,6 +23,28 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  field_group:
+    group_categories:
+      children:
+        - se_product_type_ref
+        - se_manufacturer_ref
+        - se_sale_category_ref
+      label: Categories
+      parent_name: ''
+      region: second
+      weight: 5
+      format_type: html_element
+      format_settings:
+        classes: container-inline
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: se_item.se_service.default
 targetEntityType: se_item
 bundle: se_service
@@ -34,16 +57,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 0
-    region: top
+    region: first
   se_active:
     type: boolean
     label: inline
     settings:
-      format: default
+      format: unicode-yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 2
     region: first
   se_code:
     type: string
@@ -51,14 +74,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
-    region: top
+    weight: 3
+    region: second
   se_cost_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 6
     region: second
   se_description:
     type: text_default
@@ -74,7 +97,7 @@ content:
       link: true
     third_party_settings: {  }
     weight: 5
-    region: top
+    region: second
   se_product_type_ref:
     type: entity_reference_label
     label: inline
@@ -82,7 +105,7 @@ content:
       link: true
     third_party_settings: {  }
     weight: 4
-    region: top
+    region: second
   se_sale_category_ref:
     type: entity_reference_label
     label: inline
@@ -90,13 +113,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 6
-    region: top
+    region: second
   se_sell_price:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: first
   se_supplier_code:
     type: string
@@ -104,7 +127,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 9
-    region: first
+    weight: 4
+    region: second
 hidden:
   user_id: true
