@@ -93,6 +93,13 @@ class Item extends StratosEntityBase implements ItemInterface {
   /**
    * {@inheritdoc}
    */
+  public function isUntrackedStock(): bool {
+    return $this->bundle() === 'se_untracked_stock';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function hasParent(): bool {
     return !empty($this->se_it_ref->target_id);
   }

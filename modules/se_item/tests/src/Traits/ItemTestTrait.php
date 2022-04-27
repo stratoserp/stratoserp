@@ -73,6 +73,36 @@ trait ItemTestTrait {
   }
 
   /**
+   * Add an untracked item entity.
+   *
+   * @return \Drupal\se_item\Entity\Item
+   *   The Item Content.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function addUntrackedStockItem(): Item {
+    if (!isset($this->itemName)) {
+      $this->itemFakerSetup();
+    }
+
+    $item = $this->createItem([
+      'type' => 'se_untracked_stock',
+      'name' => $this->itemName,
+      'se_code' => $this->itemCode,
+      'se_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
+      'se_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
+    ]);
+
+    self::assertNotEquals($item, FALSE);
+
+    $content = $this->checkGeneralItemAttributes($item);
+    self::assertStringContainsString($this->itemSerial, $content);
+
+    return $item;
+  }
+
+  /**
    * Add an item entity.
    *
    * @return \Drupal\se_item\Entity\Item

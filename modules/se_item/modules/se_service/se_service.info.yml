@@ -1,4 +1,4 @@
-name: 'StratosERP - Service line item'
+name: 'StratosERP - Item type - Service line item'
 description: 'Provides a selectable line item for services.'
 type: module
 core_version_requirement: ^8 || ^9

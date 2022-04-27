@@ -1,0 +1,146 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_item.se_untracked_stock.se_active
+    - field.field.se_item.se_untracked_stock.se_code
+    - field.field.se_item.se_untracked_stock.se_cost_price
+    - field.field.se_item.se_untracked_stock.se_description
+    - field.field.se_item.se_untracked_stock.se_images
+    - field.field.se_item.se_untracked_stock.se_manufacturer_ref
+    - field.field.se_item.se_untracked_stock.se_product_type_ref
+    - field.field.se_item.se_untracked_stock.se_sale_category_ref
+    - field.field.se_item.se_untracked_stock.se_sell_price
+    - field.field.se_item.se_untracked_stock.se_supplier_code
+    - image.style.thumbnail
+    - se_item.se_item_type.se_untracked_stock
+  module:
+    - datetime
+    - field_group
+    - field_layout
+    - image
+    - layout_discovery
+    - se_accounting
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings:
+      label: ''
+  field_group:
+    group_categories:
+      children:
+        - se_product_type_ref
+        - se_manufacturer_ref
+        - se_sale_category_ref
+      label: Categories
+      parent_name: ''
+      region: second
+      weight: 10
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+id: se_item.se_untracked_stock.default
+targetEntityType: se_item
+bundle: se_untracked_stock
+mode: default
+content:
+  name:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: first
+  se_active:
+    type: boolean
+    label: inline
+    settings:
+      format: unicode-yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
+    region: first
+  se_code:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: second
+  se_cost_price:
+    type: se_currency_formatter
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 13
+    region: second
+  se_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: bottom
+  se_images:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: thumbnail
+    third_party_settings: {  }
+    weight: 15
+    region: bottom
+  se_manufacturer_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: second
+  se_product_type_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: second
+  se_sale_category_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: second
+  se_sell_price:
+    type: se_currency_formatter
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: first
+  se_supplier_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
+    region: second
+hidden:
+  user_id: true

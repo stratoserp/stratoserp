@@ -1,4 +1,4 @@
-name: 'StratosERP - Recurring line item'
+name: 'StratosERP - Item type - Recurring line item'
 description: 'Provides a selectable line item for Recurring items.'
 type: module
 core_version_requirement: ^8 || ^9
