@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: se_untracked_stock
-label: Stock
+label: Untracked stock
 locked: null
 pattern: null

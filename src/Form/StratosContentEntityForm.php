@@ -46,13 +46,13 @@ class StratosContentEntityForm extends ContentEntityForm {
     $userInput = $form_state->getUserInput();
 
     // Hackery-do to remove blank entry at bottom of item line forms.
-    if ($max_delta = $form['se_item_lines']['widget']['#max_delta']) {
+    if (isset($form['se_item_lines']) && $max_delta = $form['se_item_lines']['widget']['#max_delta']) {
       unset($form['se_item_lines']['widget'][$max_delta]);
       $form['se_item_lines']['widget']['#max_delta'] = $max_delta - 1;
     }
 
     // Hackery-do to remove blank entry at bottom of payment line forms.
-    if ($max_delta = $form['se_payment_lines']['widget']['#max_delta']) {
+    if (isset($form['se_payment_lines']) && $max_delta = $form['se_payment_lines']['widget']['#max_delta']) {
       unset($form['se_payment_lines']['widget'][$max_delta]);
       $form['se_payment_lines']['widget']['#max_delta'] = $max_delta - 1;
     }
