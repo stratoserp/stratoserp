@@ -18,6 +18,7 @@ config_devel:
     - field.field.se_item.se_untracked_stock.se_sale_category_ref
     - field.field.se_item.se_untracked_stock.se_sell_price
     - field.field.se_item.se_untracked_stock.se_supplier_code
+    - field.field.se_item.se_untracked_stock.se_available
     - se_item.se_item_type.se_untracked_stock
   optional:
     - core.entity_form_display.se_item.se_unracked_stock.default

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.se_item.se_untracked_stock.se_active
+    - field.field.se_item.se_untracked_stock.se_available
     - field.field.se_item.se_untracked_stock.se_code
     - field.field.se_item.se_untracked_stock.se_cost_price
     - field.field.se_item.se_untracked_stock.se_description
@@ -15,7 +16,6 @@ dependencies:
     - image.style.thumbnail
     - se_item.se_item_type.se_untracked_stock
   module:
-    - datetime
     - field_group
     - field_layout
     - image
@@ -71,6 +71,15 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 6
+    region: first
+  se_available:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 16
     region: first
   se_code:
     type: string

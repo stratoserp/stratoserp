@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_item.se_available
+    - se_item.se_item_type.se_untracked_stock
+id: se_item.se_untracked_stock.se_available
+field_name: se_available
+entity_type: se_item
+bundle: se_untracked_stock
+label: Quantity
+description: 'Quantity of the item currently available for sale.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
