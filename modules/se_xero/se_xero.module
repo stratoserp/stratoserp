@@ -24,8 +24,8 @@ use Drupal\Core\Field\BaseFieldDefinition;
 function se_xero_entity_base_field_info(EntityTypeInterface $entity_type): array {
   $fields = [];
 
-  // Add the xero uuid field to all node types.
-  if ($entity_type->id() === 'se_customer') {
+  // Add the xero uuid field to our custom types.
+  if (in_array($entity_type->id(), ['se_customer', 'se_invoice'])) {
     // TODO Check for appropriate bundles?
     $fields['se_xero_uuid'] = BaseFieldDefinition::create('string')
       ->setLabel(t('StratosERP Xero uuid'))

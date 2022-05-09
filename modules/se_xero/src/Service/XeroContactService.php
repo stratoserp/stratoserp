@@ -7,9 +7,9 @@ namespace Drupal\se_xero\Service;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\TypedData\TypedDataManagerInterface;
-use Drupal\node\Entity\Node;
+use Drupal\se_customer\Entity\Customer;
 use Drupal\xero\Plugin\DataType\XeroItemList;
-use Drupal\xero\XeroQueryFactory;
+use Drupal\xero\XeroQuery;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
@@ -28,9 +28,9 @@ class XeroContactService {
   /**
    * A Xero query.
    *
-   * @var \Drupal\xero\XeroQueryFactory
+   * @var \Drupal\xero\XeroQuery
    */
-  protected $xeroQueryFactory;
+  protected $xeroQuery;
 
   /**
    * The typed data manager.
@@ -46,35 +46,35 @@ class XeroContactService {
    *   Logger for logging.
    * @param \Drupal\Core\TypedData\TypedDataManagerInterface $typed_data_manager
    *   Used for loading data.
-   * @param \Drupal\xero\XeroQueryFactory $xero_query_factory
+   * @param \Drupal\xero\XeroQuery $xero_query
    *   Provide ability to query Xero.
    */
-  public function __construct(LoggerInterface $logger, TypedDataManagerInterface $typed_data_manager, XeroQueryFactory $xero_query_factory) {
+  public function __construct(LoggerInterface $logger, TypedDataManagerInterface $typed_data_manager, XeroQuery $xero_query) {
     $this->logger = $logger;
     $this->typedDataManager = $typed_data_manager;
-    $this->xeroQueryFactory = $xero_query_factory;
+    $this->xeroQuery = $xero_query;
   }
 
   /**
    * Lookup a contact in Xero.
    *
-   * @param \Drupal\node\Entity\Node $node
-   *   The contact node to check for.
+   * @param \Drupal\se_customer\Entity\Customer $customer
+   *   The customer to check for.
    *
    * @return bool|\Drupal\Core\TypedData\TypedDataInterface|null
    *   The contact if they already exist in Xero.
    */
-  public function lookupContact(Node $node) {
+  public function lookupContact(Customer $customer) {
     // Check if its an existing contact and update fields vs new.
-    if (isset($node->se_xero_uuid->value) && $contact = $this->lookupByContactId($node->se_xero_uuid->value)) {
+    if (isset($customer->se_xero_uuid->value) && $contact = $this->lookupByContactId($customer->se_xero_uuid->value)) {
       return $contact;
     }
 
-    if (isset($node->se_bu_id->value) && $contact = $this->lookupByContactNumber($node->se_bu_id->value)) {
+    if (isset($customer->se_bu_id->value) && $contact = $this->lookupByContactNumber($customer->se_bu_id->value)) {
       return $contact;
     }
 
-    if (isset($node->se_bu_email->value) && $contact = $this->lookupByContactEmailAddress($node->se_bu_email->value)) {
+    if (isset($customer->se_bu_email->value) && $contact = $this->lookupByContactEmailAddress($customer->se_bu_email->value)) {
       return $contact;
     }
 
@@ -97,10 +97,9 @@ class XeroContactService {
     if ($contact_number === NULL) {
       return FALSE;
     }
-    $xeroQuery = $this->xeroQueryFactory->get();
-    $xeroQuery->setType('xero_contact');
-    $xeroQuery->addCondition('ContactNumber', $contact_number);
-    $item_list = $xeroQuery->execute();
+    $this->xeroQuery->setType('xero_contact');
+    $this->xeroQuery->addCondition('ContactNumber', $contact_number);
+    $item_list = $this->xeroQuery->execute();
 
     $result = FALSE;
     if ($item_list !== FALSE && count($item_list) !== 0) {
@@ -125,10 +124,9 @@ class XeroContactService {
     if ($contact_id === NULL) {
       return FALSE;
     }
-    $xeroQuery = $this->xeroQueryFactory->get();
-    $xeroQuery->setType('xero_contact');
-    $xeroQuery->addCondition('ContactID', $contact_id, 'guid');
-    $item_list = $xeroQuery->execute();
+    $this->xeroQuery->setType('xero_contact');
+    $this->xeroQuery->addCondition('ContactID', $contact_id, 'guid');
+    $item_list = $this->xeroQuery->execute();
 
     $result = FALSE;
     if ($item_list !== FALSE && count($item_list) !== 0) {
@@ -153,10 +151,9 @@ class XeroContactService {
     if (empty($email)) {
       return FALSE;
     }
-    $xeroQuery = $this->xeroQueryFactory->get();
-    $xeroQuery->setType('xero_contact');
-    $xeroQuery->addCondition('EmailAddress', $email);
-    $item_list = $xeroQuery->execute();
+    $this->xeroQuery->setType('xero_contact');
+    $this->xeroQuery->addCondition('EmailAddress', $email);
+    $item_list = $this->xeroQuery->execute();
 
     $result = FALSE;
     if ($item_list !== FALSE && count($item_list) !== 0) {
@@ -172,7 +169,7 @@ class XeroContactService {
    *   Provide config access.
    * @param \Drupal\xero\Plugin\DataType\XeroItemList $contacts
    *   The Item list.
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\se_customer\Entity\Customer $customer
    *   The Item list.
    *
    * @return \Drupal\xero\Plugin\DataType\XeroItemList
@@ -180,11 +177,11 @@ class XeroContactService {
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  private function setContactValues(ImmutableConfig $settings, XeroItemList $contacts, Node $node) {
+  private function setContactValues(ImmutableConfig $settings, XeroItemList $contacts, Customer $customer) {
     $values = [
-      'ContactNumber' => $node->se_bu_id->value,
-      'Name' => $node->title->value,
-      'EmailAddress' => $node->se_bu_email->value,
+      'ContactNumber' => $customer->id(),
+      'Name' => $customer->getName(),
+      'EmailAddress' => $customer->se_email->value,
       'Phones' => [],
       'IsBusiness' => TRUE,
       'DefaultCurrency' => $settings->get('system.currency'),
@@ -193,16 +190,20 @@ class XeroContactService {
     $contacts->appendItem($values);
 
     // @todo Make nicer.
-    $name = str_replace(['-', '  '], ['', ' '], $node->title->value);
+    $name = str_replace(['-', '  '], ['', ' '], $customer->getName());
     $names = explode(' ', $name);
-    if ($main_contact = \Drupal::service('se_contact.service')->loadMainContactByCustomer($node)) {
-      if (isset($main_contact->se_bu_phone->value)) {
+    $mainContacts = \Drupal::service('se_contact.service')->loadMainContactsByCustomer($customer);
+    $storage = \Drupal::entityTypeManager()->getStorage('se_contact');
+
+    /** @var \Drupal\se_contact\Entity\Contact $contact */
+    foreach ($storage->loadMultiple($mainContacts) as $contact) {
+      if (isset($contact->se_phone->value)) {
         $contacts->get(0)->get('Phones')->appendItem([
           'PhoneType' => 'DEFAULT',
-          'PhoneNumber' => $node->se_bu_phone->value,
+          'PhoneNumber' => $contact->se_phone->value,
         ]);
       }
-      $names = explode(' ', $main_contact->title);
+      $names = explode(' ', $contact->getName());
     }
     $contacts->get(0)->get('FirstName')->setValue(array_shift($names));
     $contacts->get(0)->get('LastName')->setValue(implode(' ', $names));
@@ -213,8 +214,8 @@ class XeroContactService {
   /**
    * Create a Customer/Contact in Xero.
    *
-   * @param \Drupal\node\Entity\Node $node
-   *   Node to process.
+   * @param \Drupal\se_customer\Entity\Customer $customer
+   *   Customer to process.
    *
    * @return bool
    *   The upload transaction result.
@@ -223,7 +224,7 @@ class XeroContactService {
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public function sync(Node $node) {
+  public function sync(Customer $customer) {
     $settings = \Drupal::configFactory()->get('se_xero.settings');
     if (!$settings->get('system.enabled')) {
       return FALSE;
@@ -234,27 +235,24 @@ class XeroContactService {
     /** @var \Drupal\xero\Plugin\DataType\XeroItemList $contacts */
     $contacts = $this->typedDataManager->create($list_definition, []);
 
-    // Setup the query.
-    $xeroQuery = $this->xeroQueryFactory->get();
-
     // Setup the values.
-    $contacts = $this->setContactValues($settings, $contacts, $node);
+    $contacts = $this->setContactValues($settings, $contacts, $customer);
 
-    // Check if its an existing contact that is to be updated vs new contact.
-    if ($contact = $this->lookupContact($node)) {
+    // Check if it is an existing contact that is to be updated vs new contact.
+    if ($contact = $this->lookupContact($customer)) {
       // Set the ContactID so it the values we're sending act as updates.
       $xeroQuery->setId($contact->get('ContactID')->getValue());
     }
 
-    $xeroQuery->setType('xero_contact')
+    $this->xeroQuery->setType('xero_contact')
       ->setData($contacts)
       ->setMethod('post');
 
-    $result = $xeroQuery->execute();
+    $result = $this->xeroQuery->execute();
 
     if ($result === FALSE) {
       $this->logger->log(LogLevel::ERROR, (string) new FormattableMarkup('Cannot create contact @customer, operation failed.', [
-        '@customer' => $node->title->value,
+        '@customer' => $customer->getName(),
       ]));
       return FALSE;
     }
@@ -263,12 +261,12 @@ class XeroContactService {
       /** @var \Drupal\xero\Plugin\DataType\Contact $createdXeroContact */
       $createdXeroContact = $result->get(0);
       $remote_id = $createdXeroContact->get('ContactID')->getValue();
-      $node->set('se_xero_uuid', $remote_id);
-      $node->xero_syncing = TRUE;
-      $node->save();
+      $customer->set('se_xero_uuid', $remote_id);
+      $customer->xero_syncing = TRUE;
+      $customer->save();
 
       $this->logger->log(LogLevel::INFO, (string) new FormattableMarkup('Created contact @customer with remote id @remote_id.', [
-        '@customer' => $node->title->value,
+        '@customer' => $customer->getName(),
         '@remote_id' => $remote_id,
       ]));
       return TRUE;

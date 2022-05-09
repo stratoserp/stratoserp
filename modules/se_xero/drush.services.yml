@@ -1,5 +1,6 @@
 services:
   se_xero.commands:
     class: Drupal\se_xero\Commands\XeroCommands
+    arguments: ['@account_switcher']
     tags:
       - { name: drush.command }

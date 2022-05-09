@@ -7,7 +7,6 @@ namespace Drupal\se_xero\Service;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\TypedData\TypedDataManagerInterface;
-use Drupal\node\Entity\Node;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\xero\Plugin\DataType\XeroItemList;
 use Drupal\xero\XeroQueryFactory;
@@ -62,7 +61,7 @@ class XeroInvoiceService {
    * @todo Stub needs to be completed.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The invoice node to check for.
+   *   The invoice to check for.
    *
    * @return bool
    *   Whether the invoice is already uploaded to Xero.
@@ -81,7 +80,7 @@ class XeroInvoiceService {
    *   Provide config access.
    * @param \Drupal\xero\Plugin\DataType\XeroItemList $invoices
    *   The Item list.
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The Item list.
    *
    * @return \Drupal\xero\Plugin\DataType\XeroItemList|bool
@@ -89,20 +88,20 @@ class XeroInvoiceService {
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  private function setInvoiceValues(ImmutableConfig $settings, XeroItemList $invoices, Node $node) {
+  private function setInvoiceValues(ImmutableConfig $settings, XeroItemList $invoices, Invoice $invoice) {
 
     // Setup the invoice data.
     $values = [
       'Contact' => [
-        'ContactID' => $node->customer->se_xero_uuid->value,
+        'ContactID' => $invoice->customer->se_xero_uuid->value,
       ],
       'Type' => 'ACCREC',
-      'Date' => date('Y-m-d', $node->created->value),
+      'Date' => date('Y-m-d', $invoice->created->value),
       // @todo Per customer due dates.
-      'DueDate' => date('Y-m-d', $node->created->value + (86400 * 7)),
+      'DueDate' => date('Y-m-d', $invoice->created->value + (86400 * 7)),
       'LineAmountTypes' => 'Inclusive',
       'Status' => 'SUBMITTED',
-      'InvoiceNumber' => $node->se_in_id->value,
+      'InvoiceNumber' => $invoice->se_in_id->value,
       'LineItems' => [],
     ];
     $invoices->appendItem($values);
@@ -112,8 +111,8 @@ class XeroInvoiceService {
     $invoices->get(0)->get('LineItems')->appendItem([
       'Description' => 'ERP Sale',
       'Quantity' => 1,
-      'UnitAmount' => $node->se_total->value,
-      'LineAmount' => $node->se_total->value,
+      'UnitAmount' => $invoice->se_total->value,
+      'LineAmount' => $invoice->se_total->value,
       'AccountCode' => $settings->get('invoice.account'),
     ]);
 
@@ -177,7 +176,7 @@ class XeroInvoiceService {
 
     if ($result === FALSE) {
       $this->logger->log(LogLevel::ERROR, (string) new FormattableMarkup('Cannot create invoice @invoice, operation failed.', [
-        '@invoice' => $invoice->title->value,
+        '@invoice' => $invoice->getName(),
       ]));
       return FALSE;
     }
@@ -190,7 +189,7 @@ class XeroInvoiceService {
       $invoice->save();
 
       $this->logger->log(LogLevel::INFO, (string) new FormattableMarkup('Created invoice @invoice with remote id @remote_id.', [
-        '@invoice' => $invoice->title->value,
+        '@invoice' => $invoice->getName(),
         '@remote_id' => $remote_id,
       ]));
       return TRUE;
