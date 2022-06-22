@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.se_item.se_sell_price
-    - se_item.se_item_type.se_untracked_stock
+    - field.storage.se_item.se_cost_price
+    - se_item.se_item_type.se_bulk_stock
   module:
     - se_accounting
-id: se_item.se_untracked_stock.se_sell_price
-field_name: se_sell_price
+id: se_item.se_bulk_stock.se_cost_price
+field_name: se_cost_price
 entity_type: se_item
-bundle: se_untracked_stock
-label: Price
+bundle: se_bulk_stock
+label: 'Purchase price'
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

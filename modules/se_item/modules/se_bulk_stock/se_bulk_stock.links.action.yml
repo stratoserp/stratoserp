@@ -1,8 +1,8 @@
 
-se_untracked_stock.add_form:
+se_bulk_stock.add_form:
   route_name: 'entity.se_item.add_form'
   route_parameters:
-    se_item_type: 'se_untracked_stock'
-  title: 'Add untracked stock'
+    se_item_type: 'se_bulk_stock'
+  title: 'Add bulk stock'
   appears_on:
     - entity.se_item.collection

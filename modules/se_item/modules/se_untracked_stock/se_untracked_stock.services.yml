@@ -1,4 +1,0 @@
-services:
-  se_untracked_stock.service:
-    class: Drupal\se_untracked_stock\Service\StockService
-    arguments: ['@entity_type.manager']

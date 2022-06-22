@@ -93,8 +93,8 @@ class Item extends StratosEntityBase implements ItemInterface {
   /**
    * {@inheritdoc}
    */
-  public function isUntrackedStock(): bool {
-    return $this->bundle() === 'se_untracked_stock';
+  public function isBulkStock(): bool {
+    return $this->bundle() === 'se_bulk_stock';
   }
 
   /**

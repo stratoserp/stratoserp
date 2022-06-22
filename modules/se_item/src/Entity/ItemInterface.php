@@ -22,12 +22,12 @@ interface ItemInterface extends StratosEntityBaseInterface {
   public function isStock(): bool;
 
   /**
-   * Returns if the item is an untracked stock item.
+   * Returns if the item is a bulk stock item.
    *
    * @return bool
    *   Whether the item is a stock item or not.
    */
-  public function isUntrackedStock(): bool;
+  public function isBulkStock(): bool;
 
   /**
    * Returns whether the item has a parent.

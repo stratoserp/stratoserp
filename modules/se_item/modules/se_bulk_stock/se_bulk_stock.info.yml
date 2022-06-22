@@ -1,0 +1,26 @@
+name: 'StratosERP - Item type - Bulk Stock line item'
+description: 'Provides a selectable line item for bulk stock without a serial number.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - stratoserp:se_item
+
+config_devel:
+  install:
+    - field.field.se_item.se_bulk_stock.se_active
+    - field.field.se_item.se_bulk_stock.se_code
+    - field.field.se_item.se_bulk_stock.se_cost_price
+    - field.field.se_item.se_bulk_stock.se_description
+    - field.field.se_item.se_bulk_stock.se_images
+    - field.field.se_item.se_bulk_stock.se_manufacturer_ref
+    - field.field.se_item.se_bulk_stock.se_product_type_ref
+    - field.field.se_item.se_bulk_stock.se_sale_category_ref
+    - field.field.se_item.se_bulk_stock.se_sell_price
+    - field.field.se_item.se_bulk_stock.se_supplier_code
+    - field.field.se_item.se_bulk_stock.se_available
+    - se_item.se_item_type.se_bulk_stock
+  optional:
+    - core.entity_form_display.se_item.se_bulk_stock.default
+    - core.entity_view_display.se_item.se_bulk_stock.default
+    - views.view.se_bulk_stock_item_list

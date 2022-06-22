@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.se_item.se_supplier_code
-    - se_item.se_item_type.se_untracked_stock
-id: se_item.se_untracked_stock.se_supplier_code
+    - se_item.se_item_type.se_bulk_stock
+id: se_item.se_bulk_stock.se_supplier_code
 field_name: se_supplier_code
 entity_type: se_item
-bundle: se_untracked_stock
+bundle: se_bulk_stock
 label: 'Supplier code'
 description: ''
 required: false

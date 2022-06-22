@@ -3,12 +3,12 @@ status: true
 dependencies:
   config:
     - field.storage.se_item.se_product_type_ref
-    - se_item.se_item_type.se_untracked_stock
+    - se_item.se_item_type.se_bulk_stock
     - taxonomy.vocabulary.se_product_type
-id: se_item.se_untracked_stock.se_product_type_ref
+id: se_item.se_bulk_stock.se_product_type_ref
 field_name: se_product_type_ref
 entity_type: se_item
-bundle: se_untracked_stock
+bundle: se_bulk_stock
 label: 'Product type'
 description: ''
 required: false

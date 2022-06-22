@@ -73,7 +73,7 @@ trait ItemTestTrait {
   }
 
   /**
-   * Add an untracked item entity.
+   * Add a bulk stock item entity.
    *
    * @return \Drupal\se_item\Entity\Item
    *   The Item Content.
@@ -81,23 +81,23 @@ trait ItemTestTrait {
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addUntrackedStockItem(): Item {
+  public function addBulkStockItem(): Item {
     if (!isset($this->itemName)) {
       $this->itemFakerSetup();
     }
 
     $item = $this->createItem([
-      'type' => 'se_untracked_stock',
+      'type' => 'se_bulk_stock',
       'name' => $this->itemName,
-      'se_code' => $this->itemCode,
-      'se_sell_price' => $this->currencyFormat->formatStorage($this->itemSellPrice),
-      'se_cost_price' => $this->currencyFormat->formatStorage($this->itemCostPrice),
+      'se_code' => [['value' => $this->itemCode]],
+      'se_sell_price' => [['value' => $this->currencyFormat->formatStorage($this->itemSellPrice)]],
+      'se_cost_price' => [['value' => $this->currencyFormat->formatStorage($this->itemCostPrice)]],
     ]);
 
     self::assertNotEquals($item, FALSE);
 
     $content = $this->checkGeneralItemAttributes($item);
-    self::assertStringContainsString($this->itemSerial, $content);
+    self::assertStringNotContainsString($this->itemSerial, $content);
 
     return $item;
   }
@@ -205,7 +205,7 @@ trait ItemTestTrait {
    */
   private function checkGeneralItemAttributes(Item $item): string {
 
-    // Ensure that there is no invoice associated with the brand new item.
+    // Ensure that there is no invoice associated with the new item.
     if (isset($item->se_in_ref->entity)) {
       self::assertNull($item->se_in_ref->entity);
     }

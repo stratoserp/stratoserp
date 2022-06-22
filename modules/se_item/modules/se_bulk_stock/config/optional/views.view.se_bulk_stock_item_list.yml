@@ -5,14 +5,14 @@ dependencies:
     - field.storage.se_item.se_code
     - field.storage.se_item.se_cost_price
     - field.storage.se_item.se_sell_price
-    - se_item.se_item_type.se_untracked_stock
+    - se_item.se_item_type.se_bulk_stock
     - system.menu.stratos-erp
   module:
     - se_accounting
     - se_item
     - user
-id: se_untracked_stock_item_list
-label: 'Untracked stock items'
+id: se_bulk_stock_item_list
+label: 'bulk stock items'
 module: views
 description: ''
 tag: ''
@@ -395,7 +395,7 @@ display:
           entity_field: type
           plugin_id: bundle
           value:
-            se_untracked_stock: se_untracked_stock
+            se_bulk_stock: se_bulk_stock
           expose:
             operator_limit_selection: false
             operator_list: {  }
@@ -488,10 +488,10 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: se/items/untracked-stock-items
+      path: se/items/bulk-stock-items
       menu:
         type: normal
-        title: 'Untracked stock items'
+        title: 'bulk stock items'
         description: ''
         weight: 0
         expanded: false

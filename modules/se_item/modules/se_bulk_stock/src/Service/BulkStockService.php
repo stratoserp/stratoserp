@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\se_untracked_stock\Service;
+namespace Drupal\se_bulk_stock\Service;
 
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_item\Entity\Item;
@@ -8,12 +8,12 @@ use Drupal\se_item\Entity\Item;
 /**
  * Various Stock Item related functions.
  *
- * @package Drupal\se_untracked_stock\Service
+ * @package Drupal\se_bulk_stock\Service
  */
-class UntrackedStockService {
+class BulkStockService {
 
   /**
-   * Decrease the number of untracked items available.
+   * Decrease the number of bulk items available.
    *
    * This means only a single save is required for each item.
    *
@@ -27,7 +27,7 @@ class UntrackedStockService {
       // Only operate on items that are also stock items.
       if (($itemLine->target_type === 'se_item')
         && ($item = Item::load($itemLine->target_id))
-        && $item->isUntrackedStock()) {
+        && $item->isBulkStock()) {
         $reconcileList[$item->id()] = $item;
         $item->se_available->value -= $itemLine->quantity;
       }

@@ -2,19 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.se_item.se_untracked_stock.se_active
-    - field.field.se_item.se_untracked_stock.se_available
-    - field.field.se_item.se_untracked_stock.se_code
-    - field.field.se_item.se_untracked_stock.se_cost_price
-    - field.field.se_item.se_untracked_stock.se_description
-    - field.field.se_item.se_untracked_stock.se_images
-    - field.field.se_item.se_untracked_stock.se_manufacturer_ref
-    - field.field.se_item.se_untracked_stock.se_product_type_ref
-    - field.field.se_item.se_untracked_stock.se_sale_category_ref
-    - field.field.se_item.se_untracked_stock.se_sell_price
-    - field.field.se_item.se_untracked_stock.se_supplier_code
+    - field.field.se_item.se_bulk_stock.se_active
+    - field.field.se_item.se_bulk_stock.se_available
+    - field.field.se_item.se_bulk_stock.se_code
+    - field.field.se_item.se_bulk_stock.se_cost_price
+    - field.field.se_item.se_bulk_stock.se_description
+    - field.field.se_item.se_bulk_stock.se_images
+    - field.field.se_item.se_bulk_stock.se_manufacturer_ref
+    - field.field.se_item.se_bulk_stock.se_product_type_ref
+    - field.field.se_item.se_bulk_stock.se_sale_category_ref
+    - field.field.se_item.se_bulk_stock.se_sell_price
+    - field.field.se_item.se_bulk_stock.se_supplier_code
     - image.style.thumbnail
-    - se_item.se_item_type.se_untracked_stock
+    - se_item.se_item_type.se_bulk_stock
   module:
     - field_group
     - field_layout
@@ -49,9 +49,9 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-id: se_item.se_untracked_stock.default
+id: se_item.se_bulk_stock.default
 targetEntityType: se_item
-bundle: se_untracked_stock
+bundle: se_bulk_stock
 mode: default
 content:
   name:
