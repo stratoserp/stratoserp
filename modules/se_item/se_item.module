@@ -63,7 +63,6 @@ function se_item_theme_suggestions_se_item(array $variables) {
  */
 function se_item_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
   if (isset($fields['se_code']) && in_array($bundle, Constants::SE_ITEM_BUNDLES, TRUE)) {
-    $fields['se_code']->addConstraint('UniqueItem', []);
+    $fields['se_code']->addConstraint('UniqueItem');
   }
 }
-

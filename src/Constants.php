@@ -47,6 +47,7 @@ final class Constants {
     'se_recurring',
     'se_service',
     'se_stock',
+    'se_bulk_stock',
   ];
 
 }

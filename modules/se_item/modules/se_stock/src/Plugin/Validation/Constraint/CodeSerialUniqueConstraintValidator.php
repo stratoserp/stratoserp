@@ -20,7 +20,7 @@ class CodeSerialUniqueConstraintValidator extends ConstraintValidator {
       return;
     }
 
-    if ($entity->bundle() === 'se_stock') {
+    if ($entity->bundle() === 'se_stock' && isset($entity->se_serial->value)) {
       $existing_item = \Drupal::entityQuery('se_item')
         ->condition('type', 'se_stock')
         ->condition('se_code', $entity->se_code->value)
