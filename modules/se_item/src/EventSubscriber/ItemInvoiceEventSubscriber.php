@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\se_item\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
 
 /**
@@ -26,10 +26,10 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemInvoicePresave',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'itemInvoiceInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'itemInvoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_DELETE => 'itemInvoiceDelete',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'itemInvoicePresave',
+      EntityHookEvents::ENTITY_INSERT => 'itemInvoiceInsert',
+      EntityHookEvents::ENTITY_UPDATE => 'itemInvoiceUpdate',
+      EntityHookEvents::ENTITY_DELETE => 'itemInvoiceDelete',
     ];
   }
 
@@ -47,8 +47,6 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
     if ($invoice->isSkipSaveEvents()) {
       return;
     }
-
-    $invoice->storeOldInvoice();
   }
 
   /**
