@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\se_goods_receipt\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 
 /**
@@ -23,8 +23,8 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'goodsReceiptItemsInsert',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'itemLineEntityPresave',
+      EntityHookEvents::ENTITY_INSERT => 'goodsReceiptItemsInsert',
       // HookEventDispatcherInterface::ENTITY_DELETE => '', // @todo delete.
     ];
   }

@@ -21,16 +21,16 @@ class InvoiceService {
   /**
    * The config factory.
    *
-   * @var configFactory
+   * @var \Drupal\Core\Config\ConfigFactory
    */
-  protected $configFactory;
+  protected ConfigFactory $configFactory;
 
   /**
    * The entity type manager.
    *
-   * @var entityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManager
    */
-  protected $entityTypeManager;
+  protected EntityTypeManager $entityTypeManager;
 
   /**
    * SeContactService constructor.

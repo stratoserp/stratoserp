@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\se_timekeeping\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
 
 /**
@@ -25,10 +25,10 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'timekeepingInvoiceInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_DELETE => 'timekeepingInvoiceDelete',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'timekeepingInvoicePresave',
+      EntityHookEvents::ENTITY_INSERT => 'timekeepingInvoiceInsert',
+      EntityHookEvents::ENTITY_UPDATE => 'timekeepingInvoiceUpdate',
+      EntityHookEvents::ENTITY_DELETE => 'timekeepingInvoiceDelete',
     ];
   }
 

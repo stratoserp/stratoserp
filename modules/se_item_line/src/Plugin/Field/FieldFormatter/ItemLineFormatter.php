@@ -59,6 +59,8 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $rows = [];
+    /** @var \Drupal\Core\Render\RendererInterface $renderer */
+    $renderer = \Drupal::service('renderer');
 
     $headers = [
       t('Qty'),
@@ -128,17 +130,17 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
       $display_date = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
 
-      $processed_text = \Drupal::service('renderer')->renderPlain($build);
+      $processed_text = $renderer->renderPlain($build);
       $processed = FilterProcessResult::createFromRenderArray($build)->setProcessedText((string) $processed_text);
       $processed_output = FilteredMarkup::create($processed->getProcessedText());
 
       $row = [
         $items[$delta]->quantity,
-        render($element),
+        $renderer->render($element),
         \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->price),
         $items[$delta]->serial,
         $display_date,
-        render($processed_output),
+        $processed_output,
       ];
       $rows[] = $row;
     }

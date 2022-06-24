@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_payment\Entity\Payment;
 
 /**
@@ -26,11 +26,11 @@ class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface 
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentPreAction',
-      HookEventDispatcherInterface::ENTITY_PRE_DELETE => 'paymentPreAction',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'paymentInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'paymentUpdate',
-      HookEventDispatcherInterface::ENTITY_DELETE => 'paymentDelete',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'paymentPreAction',
+      EntityHookEvents::ENTITY_PRE_DELETE => 'paymentPreAction',
+      EntityHookEvents::ENTITY_INSERT => 'paymentInsert',
+      EntityHookEvents::ENTITY_UPDATE => 'paymentUpdate',
+      EntityHookEvents::ENTITY_DELETE => 'paymentDelete',
     ];
   }
 

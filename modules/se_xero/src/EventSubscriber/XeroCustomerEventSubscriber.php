@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\se_xero\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_customer\Entity\Customer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -24,8 +24,8 @@ class XeroCustomerEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'xeroCustomerInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'xeroCustomerUpdate',
+      EntityHookEvents::ENTITY_INSERT => 'xeroCustomerInsert',
+      EntityHookEvents::ENTITY_UPDATE => 'xeroCustomerUpdate',
     ];
   }
 

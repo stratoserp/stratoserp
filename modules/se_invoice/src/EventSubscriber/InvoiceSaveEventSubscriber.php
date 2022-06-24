@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\se_invoice\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_invoice\Entity\Invoice;
 
 /**
@@ -28,12 +28,12 @@ class InvoiceSaveEventSubscriber implements InvoiceSaveEventSubscriberInterface 
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => [
+      EntityHookEvents::ENTITY_PRE_SAVE => [
         'invoicePresave', 25,
       ],
-      HookEventDispatcherInterface::ENTITY_INSERT => 'invoiceInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'invoiceUpdate',
-      HookEventDispatcherInterface::ENTITY_DELETE => 'invoiceDelete',
+      EntityHookEvents::ENTITY_INSERT => 'invoiceInsert',
+      EntityHookEvents::ENTITY_UPDATE => 'invoiceUpdate',
+      EntityHookEvents::ENTITY_DELETE => 'invoiceDelete',
     ];
   }
 
