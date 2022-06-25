@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class for Ajax controller to update the item serial/price.
  */
-class ItemsController extends ControllerBase {
+class ItemLineController extends ControllerBase {
 
   /**
    * Lookup the selected item and update the price and serial.
@@ -60,7 +60,8 @@ class ItemsController extends ControllerBase {
         break;
 
       case 'price':
-        // On price updates, nothing needs doing except total calc.
+      case 'quantity':
+        // On these updates, nothing needs doing except total calc.
         break;
 
     }

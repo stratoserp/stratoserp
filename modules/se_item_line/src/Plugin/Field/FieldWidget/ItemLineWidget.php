@@ -56,7 +56,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
         ],
       ],
       '#ajax' => [
-        'callback' => 'Drupal\se_item_line\Controller\ItemsController::updateFields',
+        'callback' => 'Drupal\se_item_line\Controller\ItemLineController::updateFields',
         'event' => 'change',
         'disable-refocus' => TRUE,
         'progress' => FALSE,
@@ -69,7 +69,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['target_type']['#options']['se_timekeeping'] = $this->t('Timekeeping');
     $build['target_type']['#weight'] = 10;
     $build['target_type']['#ajax'] = [
-      'callback' => 'Drupal\se_item_line\Controller\ItemsController::updateFields',
+      'callback' => 'Drupal\se_item_line\Controller\ItemLineController::updateFields',
       'event' => 'change',
       'disable-refocus' => TRUE,
       'progress' => FALSE,
@@ -79,7 +79,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['target_id']['#attributes']['placeholder'] = t('Item');
     $build['target_id']['#weight'] = 15;
     $build['target_id']['#ajax'] = [
-      'callback' => 'Drupal\se_item_line\Controller\ItemsController::updateFields',
+      'callback' => 'Drupal\se_item_line\Controller\ItemLineController::updateFields',
       'event' => 'autocompleteclose change',
       'disable-refocus' => TRUE,
       'progress' => FALSE,

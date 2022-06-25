@@ -43,8 +43,6 @@ class StratosContentEntityForm extends ContentEntityForm {
       $formAlter->setStandardText($form, 'name', $formAlter->generateTitle());
     }
 
-    $userInput = $form_state->getUserInput();
-
     // Hackery-do to remove blank entry at bottom of item line forms.
     if (isset($form['se_item_lines']) && $max_delta = $form['se_item_lines']['widget']['#max_delta']) {
       unset($form['se_item_lines']['widget'][$max_delta]);
