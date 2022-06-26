@@ -29,6 +29,11 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
     $type = 'se_purchase_order';
 
     $config = \Drupal::service('config.factory')->get('stratoserp.settings');
+
+    if (!$config->get('statistics_display')) {
+      return [];
+    }
+
     /** @var \Drupal\Core\Entity\EntityInterface $customer */
     if (!$customer = $this->getCurrentControllerEntity()) {
       return [];

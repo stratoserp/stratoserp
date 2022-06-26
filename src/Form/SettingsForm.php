@@ -55,6 +55,12 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $settings->get('hide_buttons'),
     ];
 
+    $form['statistics_display'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable statistics display'),
+      '#default_value' => $settings->get('statistics_display'),
+    ];
+
     $form['statistics_timeframe'] = [
       '#type' => 'select',
       '#title' => $this->t('Select the default timeframe for statistics graphs.'),
@@ -66,6 +72,13 @@ class SettingsForm extends ConfigFormBase {
         5 => t('5 Years'),
       ],
       '#default_value' => $settings->get('statistics_timeframe'),
+      '#states' => [
+        'visible' => [
+          ':input[name="statistics_display"]' => [
+            'checked' => TRUE,
+          ],
+        ],
+      ],
     ];
 
     $form['statistics_style'] = [
@@ -76,6 +89,13 @@ class SettingsForm extends ConfigFormBase {
         'monthly' => t('Monthly'),
       ],
       '#default_value' => $settings->get('statistics_style'),
+      '#states' => [
+        'visible' => [
+          ':input[name="statistics_display"]' => [
+            'checked' => TRUE,
+          ],
+        ],
+      ],
     ];
 
     return parent::buildForm($form, $form_state);
@@ -89,6 +109,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('first_contact', $form_state->getValue('first_contact'))
       ->set('hide_search', $form_state->getValue('hide_search'))
       ->set('hide_buttons', $form_state->getValue('hide_buttons'))
+      ->set('statistics_display', $form_state->getValue('statistics_display'))
       ->set('statistics_timeframe', $form_state->getValue('statistics_timeframe'))
       ->set('statistics_style', $form_state->getValue('statistics_style'))
       ->save();

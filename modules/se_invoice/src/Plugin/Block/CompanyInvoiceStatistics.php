@@ -28,6 +28,10 @@ class CompanyInvoiceStatistics extends BlockBase {
 
     $config = \Drupal::service('config.factory')->get('stratoserp.settings');
 
+    if (!$config->get('statistics_display')) {
+      return [];
+    }
+
     $timeframe = $config->get('statistics_timeframe') ?: 1;
     for ($i = $timeframe; $i >= 0; $i--) {
       $year = date('Y') - $i;

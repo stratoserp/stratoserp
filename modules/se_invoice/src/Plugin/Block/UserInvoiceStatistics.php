@@ -27,6 +27,11 @@ class UserInvoiceStatistics extends BlockBase {
     $datasets = [];
 
     $config = \Drupal::service('config.factory')->get('stratoserp.settings');
+
+    if (!$config->get('statistics_display')) {
+      return [];
+    }
+
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $this->getCurrentControllerEntity();
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
