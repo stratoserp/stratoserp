@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment_line\Controller;
 
-use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\se_accounting\Service\CurrencyFormat;
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\se_item\Entity\Item;
-use Drupal\se_timekeeping\Entity\Timekeeping;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -20,6 +17,19 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PaymentsController extends ControllerBase {
 
+  /**
+   * Lookup the selected invoice and update payment line fields.
+   *
+   * @param array $form
+   *   The form being processed.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response with appropriate details.
+   */
   public static function updateFields(array &$form, FormStateInterface $form_state, Request $request): AjaxResponse {
     $values = $form_state->getValues();
     $response = new AjaxResponse();
@@ -103,18 +113,17 @@ class PaymentsController extends ControllerBase {
     $total = 0;
     foreach ($values['se_payment_lines'] as $index => $value) {
       if (is_int($index)) {
-        $amount = $currencyService->formatStorage($value['amount']);
+        $amount = (int) $currencyService->formatStorage($value['amount']);
         if (!empty($amount)) {
           $total += $amount;
         }
       }
     }
 
-
     $response->addCommand(new InvokeCommand(
       "form input[data-drupal-selector='edit-se-total-0-value']",
       'val',
-      [$currencyService->formatDisplay((int) $total)]
+      [$currencyService->formatDisplay($total)]
     ));
 
   }

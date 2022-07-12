@@ -26,23 +26,23 @@ trait HtmlRouteProviderTrait {
     $entity_type_id = $entity_type->id();
 
     if ($history_route = $this->getHistoryRoute($entity_type)) {
-      $collection->add("entity.{$entity_type_id}.version_history", $history_route);
+      $collection->add("entity.$entity_type_id.version_history", $history_route);
     }
 
     if ($revision_route = $this->getRevisionRoute($entity_type)) {
-      $collection->add("entity.{$entity_type_id}.revision", $revision_route);
+      $collection->add("entity.$entity_type_id.revision", $revision_route);
     }
 
     if ($revert_route = $this->getRevisionRevertRoute($entity_type)) {
-      $collection->add("entity.{$entity_type_id}.revision_revert", $revert_route);
+      $collection->add("entity.$entity_type_id.revision_revert", $revert_route);
     }
 
     if ($delete_route = $this->getRevisionDeleteRoute($entity_type)) {
-      $collection->add("entity.{$entity_type_id}.revision_delete", $delete_route);
+      $collection->add("entity.$entity_type_id.revision_delete", $delete_route);
     }
 
     if ($translation_route = $this->getRevisionTranslationRevertRoute($entity_type)) {
-      $collection->add("{$entity_type_id}.revision_revert_translation_confirm", $translation_route);
+      $collection->add("$entity_type_id.revision_revert_translation_confirm", $translation_route);
     }
 
     if ($settings_form_route = $this->getSettingsFormRoute($entity_type)) {

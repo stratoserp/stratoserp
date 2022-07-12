@@ -221,10 +221,11 @@ trait ReportUtilityTrait {
   /**
    * Return an array for graphs.
    *
-   * @param $year
+   * @param int $year
    *   The year to report on.
    *
    * @return array
+   *   The array of weeks.
    */
   private function reportingWeeks($year) {
     $weeks = [];
@@ -258,10 +259,11 @@ trait ReportUtilityTrait {
   /**
    * Return an array for graphs.
    *
-   * @param $year
+   * @param int $year
    *   The year to report on.
    *
    * @return array
+   *   The array of months.
    */
   private function reportingMonths($year) {
     $months = [];
