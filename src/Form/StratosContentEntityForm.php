@@ -55,15 +55,6 @@ class StratosContentEntityForm extends ContentEntityForm {
       $form['se_payment_lines']['widget']['#max_delta'] = $max_delta - 1;
     }
 
-    if (!$this->entity->isNew()) {
-      $form['group_extra']['new_revision'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Create new revision'),
-        '#default_value' => FALSE,
-        '#weight' => -20,
-      ];
-    }
-
     return $form;
   }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\stratoserp\Service;
 
-use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
@@ -54,16 +53,13 @@ class FormAlter {
   public function __construct(RequestStack $requestStack,
                               EntityTypeManagerInterface $entityTypeManager,
                               AccountProxyInterface $currentUser) {
-    $this->entityTypeManager = $entityTypeManager;
     $this->currentRequest = $requestStack->getCurrentRequest();
+    $this->entityTypeManager = $entityTypeManager;
     $this->currentUser = $currentUser;
   }
 
   /**
    * Helper function to retrieve the customer.
-   *
-   * @param \Drupal\se_customer\Entity\Customer $customer
-   *   Function can be passed in a customer, or get from url.
    *
    * @return \Drupal\se_customer\Entity\Customer|null
    *   Customer entity
@@ -71,7 +67,7 @@ class FormAlter {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getCustomer(Customer $customer = null): ?Customer {
+  public function getCustomer(): ?Customer {
     // Try and retrieve the named variable from the request.
     if (!$value = $this->currentRequest->get('se_cu_ref')) {
       return NULL;
@@ -82,6 +78,7 @@ class FormAlter {
       return NULL;
     }
 
+    /** @var \Drupal\se_customer\Entity\Customer $entity */
     if (!$entity = $this->entityTypeManager->getStorage('se_customer')->load($value)) {
       return NULL;
     }

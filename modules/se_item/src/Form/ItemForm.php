@@ -14,12 +14,21 @@ use Drupal\stratoserp\Form\StratosContentEntityForm;
  */
 class ItemForm extends StratosContentEntityForm {
 
+  /**
+   * Build the form with some hidden fields.
+   *
+   * @param array $form
+   *   The form to be modified.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current form state.
+   *
+   * @return array
+   *   Built form.
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
     if ($this->entity->isNew()) {
-      $temp = 1;
-
       $this->hideFields($form, [
         'se_po_ref', 'se_gr_ref', 'se_in_ref',
         'se_it_ref',
@@ -31,6 +40,14 @@ class ItemForm extends StratosContentEntityForm {
     return $form;
   }
 
+  /**
+   * Hide fields helper.
+   *
+   * @param array $form
+   *   The form to be modified.
+   * @param array $fields
+   *   The fields to hide.
+   */
   private function hideFields(array &$form, array $fields) {
     foreach ($fields as $field) {
       $form[$field]['#access'] = FALSE;

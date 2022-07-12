@@ -13,5 +13,4 @@ use Drupal\stratoserp\Form\StratosContentEntityForm;
  */
 class BillForm extends StratosContentEntityForm {
 
-
 }
