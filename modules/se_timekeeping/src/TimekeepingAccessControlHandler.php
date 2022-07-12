@@ -23,17 +23,16 @@ class TimekeepingAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_timekeeping\Entity\TimekeepingInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to timekeeping entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view timekeeping entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit timekeeping entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete timekeeping entities');
     }
 

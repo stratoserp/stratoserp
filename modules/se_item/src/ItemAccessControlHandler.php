@@ -21,8 +21,12 @@ class ItemAccessControlHandler extends EntityAccessControlHandler {
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     /** @var \Drupal\se_item\Entity\ItemInterface $entity */
+
     switch ($operation) {
       case 'view':
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to item entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view item entities');
 
       case 'update':

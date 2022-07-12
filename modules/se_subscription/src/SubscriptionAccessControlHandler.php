@@ -21,8 +21,12 @@ class SubscriptionAccessControlHandler extends EntityAccessControlHandler {
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     /** @var \Drupal\se_subscription\Entity\SubscriptionInterface $entity */
+
     switch ($operation) {
       case 'view':
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to subscription entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view subscription entities');
 
       case 'update':

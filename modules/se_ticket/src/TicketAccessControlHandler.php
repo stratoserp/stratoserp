@@ -23,17 +23,16 @@ class TicketAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_ticket\Entity\TicketInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to ticket entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view ticket entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit ticket entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete ticket entities');
     }
 

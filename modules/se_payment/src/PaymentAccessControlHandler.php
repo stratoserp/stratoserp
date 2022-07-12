@@ -20,18 +20,19 @@ class PaymentAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
+    /** @var \Drupal\se_payment\Entity\PaymentInterface $entity */
+
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to payment entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view payment entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit payment entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete payment entities');
     }
 

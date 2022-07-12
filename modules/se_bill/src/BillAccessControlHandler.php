@@ -23,17 +23,16 @@ class BillAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_bill\Entity\BillInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to bill entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view bill entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit bill entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete bill entities');
     }
 

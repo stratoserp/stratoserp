@@ -23,17 +23,16 @@ class InvoiceAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_invoice\Entity\InvoiceInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to invoice entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view invoice entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit invoice entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete invoice entities');
     }
 

@@ -23,17 +23,16 @@ class CustomerAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_customer\Entity\CustomerInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to customer entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view customer entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit customer entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete customer entities');
     }
 

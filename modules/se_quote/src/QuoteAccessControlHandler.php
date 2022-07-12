@@ -23,17 +23,16 @@ class QuoteAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_quote\Entity\QuoteInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to quote entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view quote entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit quote entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete quote entities');
     }
 

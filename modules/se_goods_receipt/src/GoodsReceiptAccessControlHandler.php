@@ -23,17 +23,16 @@ class GoodsReceiptAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_goods_receipt\Entity\GoodsReceiptInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to goods receipt entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view goods receipt entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit goods receipt entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete goods receipt entities');
     }
 

@@ -21,17 +21,16 @@ class PurchaseOrderAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_purchase_order\Entity\PurchaseOrderInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to purchase order entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view purchase order entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit purchase order entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete purchase order entities');
     }
 

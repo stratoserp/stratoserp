@@ -23,17 +23,16 @@ class SupplierAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_supplier\Entity\SupplierInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to supplier entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view supplier entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit supplier entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete supplier entities');
     }
 

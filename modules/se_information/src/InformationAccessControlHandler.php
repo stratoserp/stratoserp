@@ -21,8 +21,12 @@ class InformationAccessControlHandler extends EntityAccessControlHandler {
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     /** @var \Drupal\se_information\Entity\InformationInterface $entity */
+
     switch ($operation) {
       case 'view':
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to information entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view information entities');
 
       case 'update':

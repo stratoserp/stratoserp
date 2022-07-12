@@ -23,17 +23,16 @@ class RelationshipAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_relationship\Entity\RelationshipInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to relationship entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view relationship entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit relationship entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete relationship entities');
     }
 

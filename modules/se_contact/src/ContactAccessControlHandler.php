@@ -23,17 +23,16 @@ class ContactAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\se_contact\Entity\ContactInterface $entity */
 
     switch ($operation) {
-
       case 'view':
-
+        if (!$entity->isPublished()) {
+          return AccessResult::allowedIfHasPermission($account, 'view changes to contact entities');
+        }
         return AccessResult::allowedIfHasPermission($account, 'view contact entities');
 
       case 'update':
-
         return AccessResult::allowedIfHasPermission($account, 'edit contact entities');
 
       case 'delete':
-
         return AccessResult::allowedIfHasPermission($account, 'delete contact entities');
     }
 
