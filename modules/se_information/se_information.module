@@ -7,7 +7,6 @@ declare(strict_types=1);
  * Contains se_information.module.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
