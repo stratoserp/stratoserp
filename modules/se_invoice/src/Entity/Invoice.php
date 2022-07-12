@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\se_invoice\Entity;
 
-use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
@@ -46,10 +44,12 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBase;
  *     "id" = "id",
  *     "revision" = "vid",
  *     "label" = "name",
- *     "uuid" = "uuid",
- *     "uid" = "user_id",
  *     "langcode" = "langcode",
+ *     "uuid" = "uuid",
  *     "status" = "status",
+ *     "published" = "status",
+ *     "uid" = "uid",
+ *     "owner" = "uid",
  *   },
  *   links = {
  *     "canonical" = "/invoice/{se_invoice}",
@@ -84,11 +84,15 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
 
   /**
    * Storage for item lines during save process.
+   *
+   * @var int
    */
   private int $totalStorage;
 
   /**
    * Storage for the current database version to compare with during crud.
+   *
+   * @var \Drupal\se_invoice\Entity\Invoice
    */
   private Invoice $oldInvoice;
 
@@ -179,78 +183,6 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
    */
   public function getOldInvoice(): ?Invoice {
     return $this->oldInvoice ?? NULL;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-    $fields = parent::baseFieldDefinitions($entity_type);
-
-    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Invoice entity.'))
-      ->setRevisionable(TRUE)
-      ->setSetting('target_type', 'user')
-      ->setSetting('handler', 'default')
-      ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'author',
-        'weight' => 0,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-        'weight' => 5,
-        'settings' => [
-          'match_operator' => 'CONTAINS',
-          'size' => '60',
-          'autocomplete_type' => 'tags',
-          'placeholder' => '',
-        ],
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Invoice entity.'))
-      ->setRevisionable(TRUE)
-      ->setSetting('max_length', 128)
-      ->setDefaultValue('')
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => -4,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -4,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(TRUE);
-
-    $fields['created'] = BaseFieldDefinition::create('created')
-      ->setLabel(t('Created'))
-      ->setDescription(t('The time that the entity was created.'));
-
-    $fields['changed'] = BaseFieldDefinition::create('changed')
-      ->setLabel(t('Changed'))
-      ->setDescription(t('The time that the entity was last edited.'));
-
-    $fields['revision_translation_affected'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Revision translation affected'))
-      ->setDescription(t('Indicates if the last edit of a translation belongs to current revision.'))
-      ->setReadOnly(TRUE)
-      ->setRevisionable(TRUE)
-      ->setTranslatable(TRUE);
-
-    // Make the revision field configurable.
-    // https://www.drupal.org/project/drupal/issues/2696555 will solve.
-    $fields[$entity_type->getRevisionMetadataKey('revision_log_message')]->setDisplayConfigurable('form', TRUE);
-
-    return $fields;
   }
 
 }

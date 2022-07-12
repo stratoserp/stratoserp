@@ -53,46 +53,16 @@ interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLog
   public function setCreatedTime($timestamp);
 
   /**
-   * Gets the Entity revision creation timestamp.
-   *
-   * @return int
-   *   The UNIX timestamp of when this revision was created.
-   */
-  public function getRevisionCreationTime();
-
-  /**
-   * Sets the Entity revision creation timestamp.
-   *
-   * @param int $timestamp
-   *   The UNIX timestamp of when this revision was created.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   The called Entity.
-   */
-  public function setRevisionCreationTime($timestamp);
-
-  /**
-   * Gets the Entity revision author.
-   *
-   * @return \Drupal\user\UserInterface
-   *   The user entity for the revision author.
-   */
-  public function getRevisionUser();
-
-  /**
-   * Sets the Entity revision author.
-   *
-   * @param int $uid
-   *   The user ID of the revision author.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   The called Entity.
-   */
-  public function setRevisionUserId($uid);
-
-  /**
    * Return the search prefix.
    */
   public function getSearchPrefix(): string;
+
+  /**
+   * Generate a PDF of the entity and return the path to if.
+   *
+   * @return string
+   *   Path to the generated pdf.
+   */
+  public function generatePdf(): string;
 
 }

@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Drupal\stratoserp\Entity;
 
-use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityChangedTrait;
+use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
+use Drupal\Core\Entity\RevisionableInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\stratoserp\Traits\EntityTrait;
-use Drupal\user\UserInterface;
+use Drupal\Core\Url;
+use Drupal\stratoserp\Traits\StratosEntityTrait;
+use Drupal\user\EntityOwnerTrait;
+use Fpdf\Fpdf;
 
 /**
  * Class for base functions used in the various entities.
@@ -19,7 +24,9 @@ use Drupal\user\UserInterface;
 abstract class StratosEntityBase extends RevisionableContentEntityBase implements StratosEntityBaseInterface {
 
   use EntityChangedTrait;
-  use EntityTrait;
+  use EntityOwnerTrait;
+  use EntityPublishedTrait;
+  use StratosEntityTrait;
   use StringTranslationTrait;
 
   /**
@@ -28,7 +35,7 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
     $values += [
-      'user_id' => \Drupal::currentUser()->id(),
+      'uid' => \Drupal::currentUser()->id(),
     ];
   }
 
@@ -38,10 +45,10 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
   protected function urlRouteParameters($rel) {
     $uri_route_parameters = parent::urlRouteParameters($rel);
 
-    if ($rel === 'revision_revert') {
+    if ($rel === 'revision_revert' && $this instanceof RevisionableInterface) {
       $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
     }
-    elseif ($rel === 'revision_delete') {
+    elseif ($rel === 'revision_delete' && $this instanceof RevisionableInterface) {
       $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
     }
 
@@ -105,36 +112,6 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function getOwner() {
-    return $this->get('user_id')->entity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOwnerId() {
-    return $this->get('user_id')->target_id;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setOwnerId($uid) {
-    $this->set('user_id', $uid);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setOwner(UserInterface $account) {
-    $this->set('user_id', $account->id());
-    return $this;
-  }
-
-  /**
    * Generate a title suitable for StratosERP entities.
    */
   public function generateName() {
@@ -152,6 +129,119 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
       '@type' => $this->getEntityType()->getLabel(),
       '@date' => \Drupal::service('date.formatter')->format($dateTime->getTimestamp(), 'html_date'),
     ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function generatePdf(): string {
+    $pdf = new Fpdf();
+
+    $pdf->SetXY(100, 100);
+
+    $logoPath = $this->getLogoPath();
+
+    $pdf->Image($logoPath);
+
+    $pdf->Output('F', $this->generateFilename());
+  }
+
+  /**
+   * Obtains the default logo that is configured.
+   *
+   * @return string
+   *   The rendered logo, or an url to the image file.
+   */
+  private function getLogoPath() {
+    $theme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+
+    $logoPath = theme_get_setting('logo.url', $theme);
+
+    return Url::fromUserInput($logoPath, ['absolute' => TRUE])->toString();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields += static::ownerBaseFieldDefinitions($entity_type);
+
+    $fields['name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Name'))
+      ->setDescription(t('The name of the entity.'))
+      ->setRevisionable(TRUE)
+      ->setSetting('max_length', 128)
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
+
+    $fields['status'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Publishing status'))
+      ->setDescription(t('A boolean indicating whether the entity is published.'))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'weight' => -3,
+      ])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['uid'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Authored by'))
+      ->setDescription(t('The user ID of author of the entity.'))
+      ->setRevisionable(TRUE)
+      ->setSetting('target_type', 'user')
+      ->setSetting('handler', 'default')
+      ->setTranslatable(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'author',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['created'] = BaseFieldDefinition::create('created')
+      ->setLabel(t('Authored on'))
+      ->setDescription(t('The time that the node was created.'))
+      ->setTranslatable(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'timestamp',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp',
+        'weight' => 10,
+      ])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['changed'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Changed'))
+      ->setDescription(t('The time that the node was last edited.'))
+      ->setTranslatable(TRUE);
+
+    return $fields;
   }
 
 }

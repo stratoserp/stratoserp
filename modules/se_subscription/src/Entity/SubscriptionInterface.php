@@ -13,6 +13,15 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
  */
 interface SubscriptionInterface extends StratosLinesEntityBaseInterface {
 
+  /**
+   * Load a subscription by its external id.
+   *
+   * @param string $externalId
+   *   The external id to load by.
+   *
+   * @return \Drupal\se_subscription\Entity\Subscription|null
+   *   The loaded subscription.
+   */
   public static function loadByExternalId(string $externalId): ?Subscription;
 
 }

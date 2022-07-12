@@ -9,5 +9,4 @@ namespace Drupal\stratoserp\Entity;
  */
 abstract class StratosLinesEntityBase extends StratosEntityBase implements StratosLinesEntityBaseInterface {
 
-
 }

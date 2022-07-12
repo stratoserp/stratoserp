@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\se_item\Entity;
 
-use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
 
 /**
@@ -47,10 +45,12 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *     "revision" = "vid",
  *     "bundle" = "type",
  *     "label" = "name",
- *     "uuid" = "uuid",
- *     "uid" = "user_id",
  *     "langcode" = "langcode",
+ *     "uuid" = "uuid",
  *     "status" = "status",
+ *     "published" = "status",
+ *     "uid" = "uid",
+ *     "owner" = "uid",
  *   },
  *   links = {
  *     "canonical" = "/item/{se_item}",
@@ -121,78 +121,6 @@ class Item extends StratosEntityBase implements ItemInterface {
 
     return reset($subscriptions) ?: NULL;
 
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-    $fields = parent::baseFieldDefinitions($entity_type);
-
-    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Item entity.'))
-      ->setRevisionable(TRUE)
-      ->setSetting('target_type', 'user')
-      ->setSetting('handler', 'default')
-      ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'author',
-        'weight' => 0,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-        'weight' => 5,
-        'settings' => [
-          'match_operator' => 'CONTAINS',
-          'size' => '60',
-          'autocomplete_type' => 'tags',
-          'placeholder' => '',
-        ],
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Item entity.'))
-      ->setRevisionable(TRUE)
-      ->setSetting('max_length', 128)
-      ->setDefaultValue('')
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => -4,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -4,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(TRUE);
-
-    $fields['created'] = BaseFieldDefinition::create('created')
-      ->setLabel(t('Created'))
-      ->setDescription(t('The time that the entity was created.'));
-
-    $fields['changed'] = BaseFieldDefinition::create('changed')
-      ->setLabel(t('Changed'))
-      ->setDescription(t('The time that the entity was last edited.'));
-
-    $fields['revision_translation_affected'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Revision translation affected'))
-      ->setDescription(t('Indicates if the last edit of a translation belongs to current revision.'))
-      ->setReadOnly(TRUE)
-      ->setRevisionable(TRUE)
-      ->setTranslatable(TRUE);
-
-    // Make the revision field configurable.
-    // https://www.drupal.org/project/drupal/issues/2696555 will solve.
-    $fields[$entity_type->getRevisionMetadataKey('revision_log_message')]->setDisplayConfigurable('form', TRUE);
-
-    return $fields;
   }
 
 }
