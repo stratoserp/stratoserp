@@ -88,16 +88,23 @@ class QuoteController extends ControllerBase {
    */
   public function revisionOverview(QuoteInterface $se_quote) {
     $account = $this->currentUser();
-    $se_quote_storage = $this->entityTypeManager()->getStorage('se_quote');
-
     $langcode = $se_quote->language()->getId();
     $langname = $se_quote->language()->getName();
     $languages = $se_quote->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_quote->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_quote->label()]);
+    $se_quote_storage = $this->entityTypeManager()->getStorage('se_quote');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_quote->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_quote->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all quote revisions") || $account->hasPermission('administer quote entities')));
@@ -147,6 +154,7 @@ class QuoteController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +214,10 @@ class QuoteController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-quote-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

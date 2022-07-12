@@ -88,16 +88,23 @@ class SupplierController extends ControllerBase {
    */
   public function revisionOverview(SupplierInterface $se_supplier) {
     $account = $this->currentUser();
-    $se_supplier_storage = $this->entityTypeManager()->getStorage('se_supplier');
-
     $langcode = $se_supplier->language()->getId();
     $langname = $se_supplier->language()->getName();
     $languages = $se_supplier->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_supplier->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_supplier->label()]);
+    $se_supplier_storage = $this->entityTypeManager()->getStorage('se_supplier');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_supplier->label(),
+      ]);
+    }
+    else {
+      $build['#title'] = $this->t('Revisions for %title', [
+        '%title' => $se_supplier->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all supplier revisions") || $account->hasPermission('administer supplier entities')));
@@ -147,6 +154,7 @@ class SupplierController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +214,10 @@ class SupplierController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-supplier-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

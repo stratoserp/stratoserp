@@ -92,14 +92,19 @@ class InformationController extends ControllerBase {
     $has_translations = (count($languages) > 1);
     $se_information_storage = $this->entityTypeManager()->getStorage('se_information');
 
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_information->label(),
-    ]) : $this->t('Revisions for %title', [
-      '%title' => $se_information->label(),
-    ]);
-    $header = [$this->t('Revision'), $this->t('Operations')];
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_information->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_information->label(),
+      ]);
+    }
 
+    $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all information revisions") || $account->hasPermission('administer information entities')));
     $delete_permission = (($account->hasPermission("delete all information revisions") || $account->hasPermission('administer information entities')));
 
@@ -147,6 +152,7 @@ class InformationController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +212,10 @@ class InformationController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-information-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

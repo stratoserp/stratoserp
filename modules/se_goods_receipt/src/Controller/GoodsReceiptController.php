@@ -90,16 +90,24 @@ class GoodsReceiptController extends ControllerBase {
    */
   public function revisionOverview(GoodsReceiptInterface $se_goods_receipt) {
     $account = $this->currentUser();
-    $se_goods_receipt_storage = $this->entityTypeManager()->getStorage('se_goods_receipt');
 
     $langcode = $se_goods_receipt->language()->getId();
     $langname = $se_goods_receipt->language()->getName();
     $languages = $se_goods_receipt->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_goods_receipt->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_goods_receipt->label()]);
+    $se_goods_receipt_storage = $this->entityTypeManager()->getStorage('se_goods_receipt');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_goods_receipt->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_goods_receipt->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all goods receipt revisions") || $account->hasPermission('administer goods receipt entities')));
@@ -149,6 +157,7 @@ class GoodsReceiptController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -208,7 +217,10 @@ class GoodsReceiptController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-goods-receipt-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

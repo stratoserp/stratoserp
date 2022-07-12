@@ -92,14 +92,19 @@ class ItemController extends ControllerBase {
     $has_translations = (count($languages) > 1);
     $se_item_storage = $this->entityTypeManager()->getStorage('se_item');
 
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_item->label(),
-    ]) : $this->t('Revisions for %title', [
-      '%title' => $se_item->label(),
-    ]);
-    $header = [$this->t('Revision'), $this->t('Operations')];
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_item->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_item->label(),
+      ]);
+    }
 
+    $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all item revisions") || $account->hasPermission('administer item entities')));
     $delete_permission = (($account->hasPermission("delete all item revisions") || $account->hasPermission('administer item entities')));
 
@@ -147,6 +152,7 @@ class ItemController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +212,10 @@ class ItemController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-item-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

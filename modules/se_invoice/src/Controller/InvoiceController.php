@@ -90,12 +90,12 @@ class InvoiceController extends ControllerBase {
    */
   public function revisionOverview(InvoiceInterface $se_invoice) {
     $account = $this->currentUser();
-    $se_invoice_storage = $this->entityTypeManager()->getStorage('se_invoice');
-
     $langcode = $se_invoice->language()->getId();
     $langname = $se_invoice->language()->getName();
     $languages = $se_invoice->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
+    $se_invoice_storage = $this->entityTypeManager()->getStorage('se_invoice');
+
     if ($has_translations) {
       $build['#title'] = $this->t('@langname revisions for %title', [
         '@langname' => $langname,
@@ -157,6 +157,7 @@ class InvoiceController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -216,7 +217,10 @@ class InvoiceController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-invoice-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

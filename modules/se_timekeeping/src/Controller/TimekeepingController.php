@@ -90,16 +90,23 @@ class TimekeepingController extends ControllerBase {
    */
   public function revisionOverview(TimekeepingInterface $se_timekeeping) {
     $account = $this->currentUser();
-    $se_timekeeping_storage = $this->entityTypeManager()->getStorage('se_timekeeping');
-
     $langcode = $se_timekeeping->language()->getId();
     $langname = $se_timekeeping->language()->getName();
     $languages = $se_timekeeping->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_timekeeping->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_timekeeping->label()]);
+    $se_timekeeping_storage = $this->entityTypeManager()->getStorage('se_timekeeping');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_timekeeping->label(),
+      ]);
+    }
+    else {
+      $build['#title'] = $this->t('Revisions for %title', [
+        '%title' => $se_timekeeping->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all timekeeping revisions") || $account->hasPermission('administer timekeeping entities')));
@@ -208,7 +215,10 @@ class TimekeepingController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-timekeeping-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

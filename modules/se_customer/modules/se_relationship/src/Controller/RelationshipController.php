@@ -88,16 +88,23 @@ class RelationshipController extends ControllerBase {
    */
   public function revisionOverview(RelationshipInterface $se_relationship) {
     $account = $this->currentUser();
-    $se_relationship_storage = $this->entityTypeManager()->getStorage('se_relationship');
-
     $langcode = $se_relationship->language()->getId();
     $langname = $se_relationship->language()->getName();
     $languages = $se_relationship->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_relationship->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_relationship->label()]);
+    $se_relationship_storage = $this->entityTypeManager()->getStorage('se_relationship');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_relationship->label(),
+      ]);
+    }
+    else {
+      $build['#title'] = $this->t('Revisions for %title', [
+        '%title' => $se_relationship->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all relationship revisions") || $account->hasPermission('administer relationship entities')));
@@ -147,6 +154,7 @@ class RelationshipController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +214,10 @@ class RelationshipController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-supplier-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

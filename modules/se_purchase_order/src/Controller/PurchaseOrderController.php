@@ -88,16 +88,23 @@ class PurchaseOrderController extends ControllerBase {
    */
   public function revisionOverview(PurchaseOrderInterface $se_purchase_order) {
     $account = $this->currentUser();
-    $se_purchase_order_storage = $this->entityTypeManager()->getStorage('se_purchase_order');
-
     $langcode = $se_purchase_order->language()->getId();
     $langname = $se_purchase_order->language()->getName();
     $languages = $se_purchase_order->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_purchase_order->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_purchase_order->label()]);
+    $se_purchase_order_storage = $this->entityTypeManager()->getStorage('se_purchase_order');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_purchase_order->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_purchase_order->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all purchase order revisions") || $account->hasPermission('administer purchase order entities')));
@@ -147,6 +154,7 @@ class PurchaseOrderController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +214,10 @@ class PurchaseOrderController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-purchase-order-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

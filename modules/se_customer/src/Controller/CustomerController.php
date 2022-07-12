@@ -88,16 +88,23 @@ class CustomerController extends ControllerBase {
    */
   public function revisionOverview(CustomerInterface $se_customer) {
     $account = $this->currentUser();
-    $se_customer_storage = $this->entityTypeManager()->getStorage('se_customer');
-
     $langcode = $se_customer->language()->getId();
     $langname = $se_customer->language()->getName();
     $languages = $se_customer->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_customer->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_customer->label()]);
+    $se_customer_storage = $this->entityTypeManager()->getStorage('se_customer');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_customer->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_customer->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all customer revisions") || $account->hasPermission('administer customer entities')));
@@ -147,6 +154,7 @@ class CustomerController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +214,10 @@ class CustomerController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-customer-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

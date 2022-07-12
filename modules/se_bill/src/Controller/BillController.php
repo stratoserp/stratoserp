@@ -88,16 +88,23 @@ class BillController extends ControllerBase {
    */
   public function revisionOverview(BillInterface $se_bill) {
     $account = $this->currentUser();
-    $se_bill_storage = $this->entityTypeManager()->getStorage('se_bill');
-
     $langcode = $se_bill->language()->getId();
     $langname = $se_bill->language()->getName();
     $languages = $se_bill->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_bill->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_bill->label()]);
+    $se_bill_storage = $this->entityTypeManager()->getStorage('se_bill');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_bill->label(),
+      ]);
+    }
+    else {
+      $build['#title'] = $this->t('Revisions for %title', [
+        '%title' => $se_bill->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all bill revisions") || $account->hasPermission('administer bill entities')));
@@ -147,6 +154,7 @@ class BillController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +214,10 @@ class BillController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-supplier-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

@@ -91,12 +91,12 @@ class SubscriptionController extends ControllerBase {
    */
   public function revisionOverview(SubscriptionInterface $se_subscription) {
     $account = $this->currentUser();
-    $se_subscription_storage = $this->entityTypeManager()->getStorage('se_subscription');
-
     $langcode = $se_subscription->language()->getId();
     $langname = $se_subscription->language()->getName();
     $languages = $se_subscription->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
+    $se_subscription_storage = $this->entityTypeManager()->getStorage('se_subscription');
+
     if ($has_translations) {
       $build['#title'] = $this->t('@langname revisions for %title', [
         '@langname' => $langname,
@@ -157,6 +157,7 @@ class SubscriptionController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -216,7 +217,10 @@ class SubscriptionController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-subscription-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

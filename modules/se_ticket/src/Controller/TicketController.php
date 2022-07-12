@@ -88,16 +88,23 @@ class TicketController extends ControllerBase {
    */
   public function revisionOverview(TicketInterface $se_ticket) {
     $account = $this->currentUser();
-    $se_ticket_storage = $this->entityTypeManager()->getStorage('se_ticket');
-
     $langcode = $se_ticket->language()->getId();
     $langname = $se_ticket->language()->getName();
     $languages = $se_ticket->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_ticket->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_ticket->label()]);
+    $se_ticket_storage = $this->entityTypeManager()->getStorage('se_ticket');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_ticket->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_ticket->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all ticket revisions") || $account->hasPermission('administer ticket entities')));
@@ -147,6 +154,7 @@ class TicketController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -206,7 +214,10 @@ class TicketController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-ticket-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

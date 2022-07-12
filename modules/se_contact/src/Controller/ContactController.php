@@ -90,16 +90,23 @@ class ContactController extends ControllerBase {
    */
   public function revisionOverview(ContactInterface $se_contact) {
     $account = $this->currentUser();
-    $se_contact_storage = $this->entityTypeManager()->getStorage('se_contact');
-
     $langcode = $se_contact->language()->getId();
     $langname = $se_contact->language()->getName();
     $languages = $se_contact->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_contact->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_contact->label()]);
+    $se_contact_storage = $this->entityTypeManager()->getStorage('se_contact');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_contact->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_contact->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all contact revisions") || $account->hasPermission('administer contact entities')));
@@ -149,6 +156,7 @@ class ContactController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -208,7 +216,10 @@ class ContactController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-contact-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }

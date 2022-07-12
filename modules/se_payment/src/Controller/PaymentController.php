@@ -94,16 +94,23 @@ class PaymentController extends ControllerBase {
    */
   public function revisionOverview(PaymentInterface $se_payment) {
     $account = $this->currentUser();
-    $se_payment_storage = $this->entityTypeManager()->getStorage('se_payment');
-
     $langcode = $se_payment->language()->getId();
     $langname = $se_payment->language()->getName();
     $languages = $se_payment->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
-      '@langname' => $langname,
-      '%title' => $se_payment->label(),
-    ]) : $this->t('Revisions for %title', ['%title' => $se_payment->label()]);
+    $se_payment_storage = $this->entityTypeManager()->getStorage('se_payment');
+
+    if ($has_translations) {
+      $build['#title'] = $this->t('@langname revisions for %title', [
+        '@langname' => $langname,
+        '%title' => $se_payment->label(),
+      ]);
+    }
+    else {
+      $this->t('Revisions for %title', [
+        '%title' => $se_payment->label(),
+      ]);
+    }
 
     $header = [$this->t('Revision'), $this->t('Operations')];
     $revert_permission = (($account->hasPermission("revert all payment revisions") || $account->hasPermission('administer payment entities')));
@@ -153,6 +160,7 @@ class PaymentController extends ControllerBase {
             ],
           ],
         ];
+        $this->renderer->addCacheableDependency($column['data'], $username);
         $row[] = $column;
 
         if ($latest_revision) {
@@ -212,7 +220,10 @@ class PaymentController extends ControllerBase {
       '#theme' => 'table',
       '#rows' => $rows,
       '#header' => $header,
+      '#attributes' => ['class' => 'se-paynment-revision-table'],
     ];
+
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }
