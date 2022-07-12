@@ -35,8 +35,8 @@ class UserInvoiceStatistics extends BlockBase {
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $this->getCurrentControllerEntity();
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
-      $user_id = \Drupal::currentUser()->id();
-      $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
+      $uid = \Drupal::currentUser()->id();
+      $entity = \Drupal::entityTypeManager()->getStorage('user')->load($uid);
     }
 
     $timeframe = $config->get('statistics_timeframe') ?: 1;
@@ -52,7 +52,7 @@ class UserInvoiceStatistics extends BlockBase {
           continue;
         }
         $entity_ids = \Drupal::entityQuery('se_invoice')
-          ->condition('user_id', $entity->id())
+          ->condition('uid', $entity->id())
           ->condition('created', $timestamps['start'], '>=')
           ->condition('created', $timestamps['end'], '<')
           ->execute();

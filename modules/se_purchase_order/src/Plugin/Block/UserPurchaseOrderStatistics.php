@@ -38,8 +38,8 @@ class UserPurchaseOrderStatistics extends BlockBase {
     }
 
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
-      $user_id = \Drupal::currentUser()->id();
-      $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
+      $uid = \Drupal::currentUser()->id();
+      $entity = \Drupal::entityTypeManager()->getStorage('user')->load($uid);
     }
 
     $timeframe = $config->get('statistics_timeframe') ?: 1;

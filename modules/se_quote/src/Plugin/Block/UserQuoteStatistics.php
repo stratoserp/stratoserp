@@ -34,8 +34,8 @@ class UserQuoteStatistics extends BlockBase {
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $this->getCurrentControllerEntity();
     if (!isset($entity) || $entity->getEntityTypeId() !== 'user') {
-      $user_id = \Drupal::currentUser()->id();
-      $entity = \Drupal::entityTypeManager()->getStorage('user')->load($user_id);
+      $uid = \Drupal::currentUser()->id();
+      $entity = \Drupal::entityTypeManager()->getStorage('user')->load($uid);
     }
 
     $timeframe = $config->get('statistics_timeframe') ?: 1;
@@ -51,7 +51,7 @@ class UserQuoteStatistics extends BlockBase {
           continue;
         }
         $query = \Drupal::entityQuery('se_quote');
-        $query->condition('user_id', $entity->id());
+        $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();
