@@ -44,8 +44,6 @@ trait SupplierTestTrait {
   /**
    * Add a Supplier entity.
    *
-   * @param string $type
-   *   The taxonomy type of the supplier to lookup/create.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *

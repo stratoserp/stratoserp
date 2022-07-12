@@ -44,8 +44,6 @@ trait CustomerTestTrait {
   /**
    * Add a Customer entity.
    *
-   * @param string $type
-   *   The taxonomy type of the customer to lookup/create.
    * @param bool $allowed
    *   Whether it should be allowed or not.
    *
