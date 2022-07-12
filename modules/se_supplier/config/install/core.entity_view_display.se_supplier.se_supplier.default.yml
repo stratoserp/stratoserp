@@ -813,4 +813,4 @@ content:
     weight: 10
     region: content
 hidden:
-  user_id: true
+  uid: true

@@ -3,6 +3,9 @@ status: true
 dependencies:
   config:
     - field.storage.se_invoice.se_item_lines
+    - se_item.se_item_type.se_assembly
+    - se_item.se_item_type.se_bulk_stock
+    - se_item.se_item_type.se_recurring
     - se_item.se_item_type.se_service
     - se_item.se_item_type.se_stock
   module:
@@ -19,6 +22,20 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
+  se_item:
+    handler: se_item
+    handler_settings:
+      target_bundles:
+        se_assembly: se_assembly
+        se_bulk_stock: se_bulk_stock
+        se_recurring: se_recurring
+        se_service: se_service
+        se_stock: se_stock
+      sort:
+        field: _none
+        direction: ASC
+      auto_create: 0
+      auto_create_bundle: se_service
   se_timekeeping:
     handler: se_timekeeping
     handler_settings:
@@ -27,16 +44,4 @@ settings:
         field: _none
         direction: ASC
       auto_create: 0
-      auto_create_bundle: ''
-  se_item:
-    handler: se_item
-    handler_settings:
-      target_bundles:
-        se_service: se_service
-        se_stock: se_stock
-      sort:
-        field: _none
-        direction: ASC
-      auto_create: 0
-      auto_create_bundle: se_service
 field_type: se_item_line

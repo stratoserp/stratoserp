@@ -15,6 +15,9 @@ edit timekeeping entities:
 view timekeeping entities:
   title: 'View Timekeeping entities'
 
+view changes to timekeeping entities:
+  title: 'View changes to Timekeeping entities'
+
 view all timekeeping revisions:
   title: 'View all Timekeeping revisions'
 
@@ -25,4 +28,3 @@ revert all timekeeping revisions:
 delete all timekeeping revisions:
   title: 'Delete all revisions'
   description: 'Role requires permission to <em>view Timekeeping revisions</em> and <em>delete rights</em> for timekeeping entities in question or <em>administer timekeeping entities</em>.'
-

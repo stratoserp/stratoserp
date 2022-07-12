@@ -117,6 +117,8 @@ content:
     settings:
       image_link: ''
       image_style: thumbnail
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 15
     region: bottom
@@ -233,4 +235,4 @@ content:
     weight: 9
     region: second
 hidden:
-  user_id: true
+  uid: true

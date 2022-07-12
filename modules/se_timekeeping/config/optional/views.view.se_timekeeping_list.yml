@@ -482,15 +482,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        user_id:
-          id: user_id
+        uid:
+          id: uid
           table: se_timekeeping_field_data
-          field: user_id
+          field: uid
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: se_timekeeping
-          entity_field: user_id
+          entity_field: uid
           plugin_id: field
           label: 'Authored by'
           exclude: false
@@ -657,7 +657,7 @@ display:
           id: uid
           table: users_field_data
           field: uid
-          relationship: user_id
+          relationship: uid
           group_type: group
           admin_label: ''
           entity_type: user
@@ -715,7 +715,7 @@ display:
             se_billable: se_billable
             se_billed: se_billed
             se_review: se_review
-            user_id: user_id
+            uid: uid
             se_amount: se_amount
           default: se_date
           info:
@@ -768,7 +768,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            user_id:
+            uid:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -799,15 +799,15 @@ display:
           replica: false
           query_tags: {  }
       relationships:
-        user_id:
-          id: user_id
+        uid:
+          id: uid
           table: se_timekeeping_field_data
-          field: user_id
+          field: uid
           relationship: none
           group_type: group
           admin_label: User
           entity_type: se_timekeeping
-          entity_field: user_id
+          entity_field: uid
           plugin_id: standard
           required: false
       use_ajax: true

@@ -15,6 +15,9 @@ edit purchase order entities:
 view purchase order entities:
   title: 'View Purchase order entities'
 
+view changes to purchase order entities:
+  title: 'View changes to Purchase order entities'
+
 view all purchase order revisions:
   title: 'View all Purchase order revisions'
 
@@ -27,4 +30,3 @@ delete all purchase order revisions:
   title: 'Delete all revisions'
   description: 'Role requires permission to <em>view Purchase order revisions</em> and <em>delete rights</em> for purchase order entities
    in question or <em>administer purchase order entities</em>.'
-

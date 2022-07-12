@@ -15,6 +15,9 @@ edit payment entities:
 view payment entities:
   title: 'View Payment entities'
 
+view changes to payment entities:
+  title: 'View changes to Payment entities'
+
 view all payment revisions:
   title: 'View all Payment revisions'
 
@@ -25,4 +28,3 @@ revert all payment revisions:
 delete all payment revisions:
   title: 'Delete all revisions'
   description: 'Role requires permission to <em>view Payment revisions</em> and <em>delete rights</em> for payment entities in question or <em>administer payment entities</em>.'
-

@@ -24,8 +24,7 @@ third_party_settings:
   field_group:
     group_extra:
       children:
-        - user_id
-        - revision_log_message
+        - uid
       parent_name: ''
       weight: 7
       format_type: details
@@ -137,7 +136,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  user_id:
+  uid:
     type: entity_reference_autocomplete
     weight: 8
     settings:

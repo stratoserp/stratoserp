@@ -26,8 +26,7 @@ third_party_settings:
   field_group:
     group_extra:
       children:
-        - user_id
-        - revision_log_message
+        - uid
       parent_name: ''
       weight: 13
       format_type: details
@@ -133,7 +132,7 @@ content:
     third_party_settings: {  }
     type: se_currency_widget
     region: bottom
-  user_id:
+  uid:
     type: entity_reference_autocomplete
     weight: 3
     settings:

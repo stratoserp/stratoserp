@@ -15,6 +15,9 @@ edit supplier entities:
 view supplier entities:
   title: 'View Supplier entities'
 
+view changes to supplier entities:
+  title: 'View changes to Supplier entities'
+
 view all supplier revisions:
   title: 'View all Supplier revisions'
 
@@ -25,4 +28,3 @@ revert all supplier revisions:
 delete all supplier revisions:
   title: 'Delete all revisions'
   description: 'Role requires permission to <em>view Supplier revisions</em> and <em>delete rights</em> for supplier entities in question or <em>administer supplier entities</em>.'
-

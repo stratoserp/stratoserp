@@ -41,8 +41,7 @@ third_party_settings:
       children:
         - se_sold
         - se_lost
-        - user_id
-        - revision_log_message
+        - uid
       label: Extra
       region: bottom
       parent_name: ''
@@ -240,7 +239,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  user_id:
+  uid:
     type: entity_reference_autocomplete
     weight: 19
     region: bottom

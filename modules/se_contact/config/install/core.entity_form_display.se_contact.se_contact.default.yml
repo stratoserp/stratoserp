@@ -21,8 +21,7 @@ third_party_settings:
   field_group:
     group_extra:
       children:
-        - user_id
-        - revision_log_message
+        - uid
       label: Extra
       region: bottom
       parent_name: ''
@@ -93,7 +92,7 @@ content:
     third_party_settings: {  }
     type: options_select
     region: first
-  user_id:
+  uid:
     type: entity_reference_autocomplete
     weight: 3
     settings:

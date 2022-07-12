@@ -136,4 +136,4 @@ content:
     region: first
 hidden:
   se_domain_name: true
-  user_id: true
+  uid: true

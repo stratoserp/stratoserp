@@ -24,6 +24,9 @@ edit subscription entities:
 view subscription entities:
   title: 'View Subscription entities'
 
+view changes to subscription entities:
+  title: 'View changes to Subscription entities'
+
 view all subscription revisions:
   title: 'View all Subscription revisions'
 

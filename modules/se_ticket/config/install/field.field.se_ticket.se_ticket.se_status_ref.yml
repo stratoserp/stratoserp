@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.se_ticket.se_status_ref
     - taxonomy.vocabulary.se_ticket_status
-  content: {  }
   module:
     - se_ticket
 id: se_ticket.se_ticket.se_status_ref

@@ -27,8 +27,7 @@ third_party_settings:
   field_group:
     group_extra:
       children:
-        - revision_log_message
-        - user_id
+        - uid
         - se_in_ref
       label: Extra
       region: bottom
@@ -144,7 +143,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  user_id:
+  uid:
     type: entity_reference_autocomplete
     weight: 3
     region: bottom
@@ -157,4 +156,4 @@ content:
 hidden:
   revision_log_message: true
   se_in_ref: true
-  user_id: true
+  uid: true

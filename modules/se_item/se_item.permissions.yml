@@ -24,6 +24,9 @@ edit item entities:
 view item entities:
   title: 'View Item entities'
 
+view changes to item entities:
+  title: 'View changes to Item entities'
+
 view all item revisions:
   title: 'View all Item revisions'
 

@@ -108,4 +108,4 @@ content:
     weight: 3
     region: first
 hidden:
-  user_id: true
+  uid: true

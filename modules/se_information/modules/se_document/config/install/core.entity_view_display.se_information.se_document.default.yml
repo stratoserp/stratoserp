@@ -61,8 +61,10 @@ content:
     settings:
       image_style: thumbnail
       image_link: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     type: image
     region: content
 hidden:
-  user_id: true
+  uid: true

@@ -97,4 +97,4 @@ hidden:
   extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics_customer: true
   se_su_ref: true
-  user_id: true
+  uid: true

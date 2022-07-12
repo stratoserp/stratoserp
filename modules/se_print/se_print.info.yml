@@ -3,9 +3,7 @@ description: 'Provides Printing capabilities for various other modules via FPDF'
 type: module
 core_version_requirement: ^8 || ^9
 package: StratosERP
-dependencies:
-  - stratoserp:se_invoice
-  - drupal:entity_print
+dependencies: {  }
 
 config_devel:
   install: {  }

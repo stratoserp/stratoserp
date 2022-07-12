@@ -29,7 +29,7 @@ third_party_settings:
     group_extra:
       children:
         - se_open_date
-        - user_id
+        - uid
         - revision_log_message
       label: Extra
       region: bottom
@@ -150,7 +150,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  user_id:
+  uid:
     type: entity_reference_autocomplete
     weight: 1
     region: bottom

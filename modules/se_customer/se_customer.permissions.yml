@@ -15,6 +15,9 @@ edit customer entities:
 view customer entities:
   title: 'View Customer entities'
 
+view changes to customer entities:
+  title: 'View changes to Customer entities'
+
 view all customer revisions:
   title: 'View all Customer revisions'
 
@@ -25,4 +28,3 @@ revert all customer revisions:
 delete all customer revisions:
   title: 'Delete all revisions'
   description: 'Role requires permission to <em>view Customer revisions</em> and <em>delete rights</em> for customer entities in question or <em>administer customer entities</em>.'
-
