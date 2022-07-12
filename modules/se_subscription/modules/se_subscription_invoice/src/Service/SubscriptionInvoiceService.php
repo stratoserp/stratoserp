@@ -32,11 +32,11 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   EntityTypeManager for later.
-   * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
+   * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
    *   Logger for later.
    * @param \Drupal\se_customer\Service\CustomerService $customerService
    *   The customer service.
-   * @param \Drupal\duration_field\Service\DurationService $durationService
+   * @param \Drupal\duration_field\Service\DurationServiceInterface $durationService
    *   The duration service.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelInterface $loggerChannel, CustomerService $customerService, DurationServiceInterface $durationService) {

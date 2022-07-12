@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\se_customer\Service;
 
+use Drupal\se_customer\Entity\Customer;
 use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 
+/**
+ * Interface for the customer service.
+ */
 interface CustomerServiceInterface {
 
   /**
@@ -28,6 +32,6 @@ interface CustomerServiceInterface {
    * @return int
    *   The timestamp.
    */
-  public function getInvoiceDayTimestamp($customer): int;
+  public function getInvoiceDayTimestamp(Customer $customer): int;
 
 }

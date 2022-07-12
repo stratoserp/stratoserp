@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\se_supplier\Service;
 
+use Drupal\se_supplier\Entity\Supplier;
 use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 
+/**
+ * Interface for the supplier service.
+ */
 interface SupplierServiceInterface {
 
   /**
@@ -28,6 +32,6 @@ interface SupplierServiceInterface {
    * @return int
    *   The timestamp.
    */
-  public function getInvoiceDayTimestamp($supplier): int;
+  public function getInvoiceDayTimestamp(Supplier $supplier): int;
 
 }

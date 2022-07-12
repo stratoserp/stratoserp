@@ -37,7 +37,7 @@ class StockService {
       if (empty($items)) {
         $stockItem = Item::create([
           'type' => 'se_stock',
-          'user_id' => $item->user_id->target_id,
+          'uid' => $item->uid->target_id,
           'name' => $item->name->value,
           'se_code' => ['value' => $item->se_code->value],
           'se_serial' => ['value' => ''],
