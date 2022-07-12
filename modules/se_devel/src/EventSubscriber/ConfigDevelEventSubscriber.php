@@ -85,7 +85,11 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
     }
 
     // Remove entity print links we don't use.
-    foreach (['entity_print_view_epub', 'entity_print_view_pdf', 'entity_print_view_word_docx'] as $entityPrintLink) {
+    foreach ([
+      'entity_print_view_epub',
+      'entity_print_view_pdf',
+      'entity_print_view_word_docx',
+    ] as $entityPrintLink) {
       if (isset($data['hidden'][$entityPrintLink])) {
         unset($data['hidden'][$entityPrintLink]);
       }

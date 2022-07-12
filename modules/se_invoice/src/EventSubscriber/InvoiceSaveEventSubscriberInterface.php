@@ -47,7 +47,7 @@ interface InvoiceSaveEventSubscriberInterface extends EventSubscriberInterface {
   /**
    * Remove total of this invoice from the amount the customer owes.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
    *   The event we are working with.
    */
   public function invoiceDelete(EntityDeleteEvent $event);
