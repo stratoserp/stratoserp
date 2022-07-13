@@ -79,6 +79,13 @@ class FunctionalTestBase extends TestCase {
   protected User $owner;
 
   /**
+   * Administrator user.
+   *
+   * @var \Drupal\user\Entity\User
+   */
+  protected User $administrator;
+
+  /**
    * Setup for the class.
    */
   protected function setUp(): void {
@@ -89,6 +96,7 @@ class FunctionalTestBase extends TestCase {
     $this->customer = $this->setupCustomerUser();
     $this->staff = $this->setupStaffUser();
     $this->owner = $this->setupOwnerUser();
+    $this->administrator = $this->setupAdministratorUser();
   }
 
   /**
@@ -201,6 +209,33 @@ class FunctionalTestBase extends TestCase {
     $this->assertSession()->statusCodeEquals(200);
 
     $page = $this->getCurrentPage();
+    $button = $page->findButton('Save');
+    $button->press();
+    $this->assertSession()->statusCodeEquals(200);
+  }
+
+  /**
+   * Apply changes to an entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to edit.
+   * @param array $fieldData
+   *   The field updates to do.
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
+  public function updateEntity(EntityInterface $entity, array $fieldData): void {
+    $this->drupalGet($entity->toUrl('edit-form'));
+    $this->assertSession()->statusCodeNotEquals(403);
+    $this->assertSession()->statusCodeEquals(200);
+
+    $page = $this->getCurrentPage();
+
+    foreach ($fieldData as $field => $value) {
+      $page->fillField($field, $value);
+    }
+
     $button = $page->findButton('Save');
     $button->press();
     $this->assertSession()->statusCodeEquals(200);
