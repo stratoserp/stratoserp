@@ -79,6 +79,9 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
     if (empty($this->get('name')->value)) {
       $this->set('name', $this->generateName());
     }
+
+    // Always create a new revision.
+    $this->setNewRevision(TRUE);
   }
 
   /**

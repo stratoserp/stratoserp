@@ -14,22 +14,28 @@ namespace Drupal\Tests\se_customer\Functional;
 class CustomerRevisionTest extends CustomerTestBase {
 
   /**
-   * Add and edit a customer
+   * Add and edit a customer.
    */
   public function testCustomerCreateRevisionStaff(): void {
+    // Create a revision on a customer as a staff member.
     $this->drupalLogin($this->staff);
     $testCustomer = $this->addCustomer();
     $this->updateEntity($testCustomer, ['edit-name-0-value' => 'test1']);
+
+    // But they shouldn't be able to see the revisions link.
     $this->drupalGet($testCustomer->toUrl('canonical'));
     $this->assertSession()->statusCodeEquals(200);
     $page = $this->getCurrentPage();
     $this->assertNull($page->findLink('Revisions'));
 
+    // Now check as an administrator.
     $this->drupalLogin($this->administrator);
     $this->drupalGet($testCustomer->toUrl('canonical'));
     $this->assertSession()->statusCodeEquals(200);
     $revisions = $page->findLink('Revisions');
     $this->assertNotNull($revisions);
+
+    // Who can see and review the revisions.
     $revisions->click();
     $this->assertSession()->statusCodeEquals(200);
     $page = $this->getCurrentPage();
