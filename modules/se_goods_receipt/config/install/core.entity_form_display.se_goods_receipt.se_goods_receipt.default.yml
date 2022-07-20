@@ -33,14 +33,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  revision_log_message:
-    type: string_textarea
-    weight: 5
-    settings:
-      rows: 4
-      placeholder: ''
-    region: first
-    third_party_settings: {  }
   se_body:
     type: text_textarea
     weight: 8

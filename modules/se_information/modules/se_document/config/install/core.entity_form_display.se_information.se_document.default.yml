@@ -40,6 +40,12 @@ targetEntityType: se_information
 bundle: se_document
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: first
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -81,6 +87,13 @@ content:
     third_party_settings: {  }
     type: image_image
     region: first
+  status:
+    type: boolean_checkbox
+    weight: -3
+    region: first
+    settings:
+      display_label: true
+    third_party_settings: {  }
   uid:
     type: options_select
     weight: 1

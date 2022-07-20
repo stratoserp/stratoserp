@@ -46,20 +46,18 @@ targetEntityType: se_subscription
 bundle: se_domain_name
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: first
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
     region: top
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  revision_log_message:
-    type: string_textarea
-    weight: 9
-    region: bottom
-    settings:
-      rows: 4
       placeholder: ''
     third_party_settings: {  }
   se_cu_ref:
@@ -137,6 +135,13 @@ content:
   se_use_bu_due:
     type: boolean_checkbox
     weight: 4
+    region: first
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: -3
     region: first
     settings:
       display_label: true

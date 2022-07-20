@@ -74,5 +74,4 @@ content:
     type: entity_reference_label
     region: second
 hidden:
-  created: true
   uid: true

@@ -76,20 +76,18 @@ targetEntityType: se_item
 bundle: se_assembly
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: first
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
     region: first
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  revision_log_message:
-    type: string_textarea
-    weight: 20
-    region: bottom
-    settings:
-      rows: 4
       placeholder: ''
     third_party_settings: {  }
   se_active:
@@ -206,6 +204,13 @@ content:
     type: boolean_checkbox
     weight: 17
     region: bottom
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: -3
+    region: first
     settings:
       display_label: true
     third_party_settings: {  }

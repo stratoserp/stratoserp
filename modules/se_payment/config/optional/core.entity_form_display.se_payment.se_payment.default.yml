@@ -20,7 +20,7 @@ third_party_settings:
   field_group:
     group_extra:
       children:
-        -uid
+        - uid
       parent_name: ''
       weight: 5
       format_type: details
@@ -44,14 +44,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  revision_log_message:
-    type: string_textarea
-    weight: 7
-    settings:
-      rows: 4
-      placeholder: ''
-    region: bottom
     third_party_settings: {  }
   se_cu_ref:
     weight: 1
