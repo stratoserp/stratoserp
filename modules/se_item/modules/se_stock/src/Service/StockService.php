@@ -11,21 +11,12 @@ use Drupal\se_item\Entity\Item;
  *
  * @package Drupal\se_stock\Service
  */
-class StockService {
+class StockService implements StockServiceInterface {
 
   /**
-   * Update stock item.
-   *
-   * When a stock item is saved, if it has a serial number and no existing
-   * stock item exists with no serial number, create one with no serial as
-   * a 'parent' item to be used in quotes etc.
-   *
-   * @param \Drupal\se_item\Entity\Item $item
-   *   The event we are working with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
-  public function ensureItem(Item $item) {
+  public function ensureItem(Item $item): Item {
     if (!empty($item->se_serial->value)) {
       $query = \Drupal::entityQuery('se_item')
         ->condition('type', 'se_stock')
@@ -68,18 +59,7 @@ class StockService {
   }
 
   /**
-   * Mark the items as sold.
-   *
-   * Work through the list from the pre-save and set the items to available.
-   * Then update the items in that list with the ones now on the invoice.
-   * Finally, save them all.
-   *
-   * This means only a single save is required for each item.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The invoice that is being processed.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function reconcileItems(Invoice $invoice): void {
     $date = new DateTimePlus('now', date_default_timezone_get());
@@ -98,6 +78,21 @@ class StockService {
     // Loop through the items and save them all now.
     foreach ($reconcileList as $item) {
       $item->save();
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function markItemsAvailableSave(Invoice $invoice): void {
+    foreach ($invoice->se_item_lines as $itemLine) {
+      // Only operate on items.
+      // Only operator on stock items.
+      if (($itemLine->target_type === 'se_item') && ($item = Item::load($itemLine->target_id))
+        && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
+        $this->markItemAvailable($item);
+        $item->save();
+      }
     }
   }
 
@@ -178,26 +173,6 @@ class StockService {
         ->set('se_in_ref', NULL);
     }
     return $item;
-  }
-
-  /**
-   * When deleting, just go ahead and save the items.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The invoice that is being processed.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  public function markItemsAvailableSave(Invoice $invoice): void {
-    foreach ($invoice->se_item_lines as $itemLine) {
-      // Only operate on items.
-      // Only operator on stock items.
-      if (($itemLine->target_type === 'se_item') && ($item = Item::load($itemLine->target_id))
-        && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
-        $this->markItemAvailable($item);
-        $item->save();
-      }
-    }
   }
 
 }

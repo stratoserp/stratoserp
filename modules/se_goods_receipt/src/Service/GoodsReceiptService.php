@@ -10,15 +10,10 @@ use Drupal\se_item\Entity\Item;
 /**
  * Provide simple services for goods receipts.
  */
-class GoodsReceiptService {
+class GoodsReceiptService implements GoodsReceiptServiceInterface {
 
   /**
-   * If there is a serial number, but its a new item, create as a new item.
-   *
-   * @param \Drupal\se_goods_receipt\Entity\GoodsReceipt $goodsReceipt
-   *   The goods receipt to work with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function createItems(GoodsReceipt $goodsReceipt) {
     foreach ($goodsReceipt->se_item_lines as $index => $itemLine) {
@@ -40,12 +35,7 @@ class GoodsReceiptService {
   }
 
   /**
-   * Update the lines in a goods receipt with values from the items.
-   *
-   * @param \Drupal\se_goods_receipt\Entity\GoodsReceipt $goodsReceipt
-   *   The goods receipt to work with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function updateFields(GoodsReceipt $goodsReceipt) {
     foreach ($goodsReceipt->se_item_lines as $itemLine) {

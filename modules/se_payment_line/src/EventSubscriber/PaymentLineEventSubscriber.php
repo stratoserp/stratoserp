@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment_line\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_payment\Entity\Payment;
 
 /**
@@ -22,7 +22,7 @@ class PaymentLineEventSubscriber implements PaymentLineEventSubscriberInterface 
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'paymentLineEntityPresave',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'paymentLineEntityPresave',
     ];
   }
 

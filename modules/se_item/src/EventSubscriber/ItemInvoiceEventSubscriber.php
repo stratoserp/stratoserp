@@ -26,27 +26,10 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
    */
   public static function getSubscribedEvents(): array {
     return [
-      EntityHookEvents::ENTITY_PRE_SAVE => 'itemInvoicePresave',
       EntityHookEvents::ENTITY_INSERT => 'itemInvoiceInsert',
       EntityHookEvents::ENTITY_UPDATE => 'itemInvoiceUpdate',
       EntityHookEvents::ENTITY_DELETE => 'itemInvoiceDelete',
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function itemInvoicePresave(EntityPresaveEvent $event): void {
-    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = $event->getEntity();
-    if (!($invoice instanceof Invoice)) {
-      return;
-    }
-
-    // Don't update items when called from a payment save.
-    if ($invoice->isSkipSaveEvents()) {
-      return;
-    }
   }
 
   /**

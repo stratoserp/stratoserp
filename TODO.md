@@ -91,6 +91,7 @@
 - Front page selection screen additional type searches
 - Theme improvements
 - Authentication via LDAP/AD
+- Use https://www.drupal.org/project/lazy_views/ to speed customer page loading?
 
 ## Calendar
 - Outlook & gmail sync

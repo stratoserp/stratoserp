@@ -1,38 +1,45 @@
 ## List of content/entity types
 
 First class entity types.
-+ Bill(s)
-+ Customer(s)
-+ Contact(s)
-+ Goods receipt(s)
-+ Quote(s)
-+ Invoice(s)
-+ Payment(s)
-+ Purchase order(s)
-+ Supplier(s)
-+ Ticket(s)
-+ Warranty(s)
++ Bill (incomplete)
++ Customer
++ Contact
++ Goods receipt
++ Invoice
++ Payment
++ Purchase order
++ Quote
++ Supplier
++ Ticket
++ Timekeeping
++ Warranty
 
 + Information type
   Bundles
-  + Document(s).
+  + Document.
+
++ Item type
+  Bundles
+  + Assembly
+  + Bulk_stock
+  + Recurring
+  + Service
+  + Stock
 
 + Subscription type
   Bundles
-  + Domain hosting(s)
-  + Domain name(s)
-  + Email account(s)
-  + Managed service(s)
+  + Anti Virus
+  + Backup
+  + Domain hosting
+  + Domain name
+  + Email account
+  + Firewall
+  + Managed service
+  + Office 365
+  + Phone system
 
-+ Webform(s)
++ Webform
   + Created as required
-
-+ Item(s)
-  Bundles
-  + Assembly(s)
-  + Recurring(s)
-  + Service(s)
-  + Stock items(s)
 
 
 ## Per type field overview
@@ -138,103 +145,84 @@ First class entity types.
 
 ## Event Subscribers by Module
 
-### All functions and their subscriptions
+### Event subscriptions and their subsequent functions
 
-- Goods receipt - Triggered by Goods receipt
-  - ENTITY_INSERT - itemsInsert Loop through each item and update the refs and cost.
+- Customer - Filters for Invoice or Payment types.
+  - ENTITY_INSERT - updateBalance() - update customer balance.
+  - ENTITY_UPDATE - updateBalance() - update customer balance.
+  - ENTITY_DELETE - updateBalance() - update customer balance.
 
-  - ENTITY_PRE_SAVE - itemLineEntityPresave Loop through each item received and create a new 'stock' item.
+- Devel - Filters for config save events.
+  - ConfigDevelEvents::SAVE - onConfigSave() - Stop a few things from being written to config that break stuff.
 
-- Invoice - Trigered by Invoice
-  - ENTITY_INSERT - invoiceInsert Adjust the outstanding balance for a customer based on the value of the invoice being saved.
+- Goods receipt - Filters for GoodsReceipt types.
+  - ENTITY_PRE_SAVE - createItems() - Loop through each item received and create a new 'stock' item.
+  - ENTITY_INSERT - updateFields() - Loop through each item and update the refs and cost.
 
-  - ENTITY_UPDATE - invoiceUpdate Adjust the outstanding balance for a customer based on the value of the invoice being saved.
+- Invoice - Filters for Invoice type.
+  - ENTITY_PRE_SAVE - invoicePreAction()
+    - Load a copy of the old invoice into the object for later use.
+    - Adjust the outstanding amount if the total changed.
+    - Update the invoice status.
 
-  - ENTITY_PRE_SAVE - invoicePresave Reduce the outstanding balance for a customer based on the value of the invoice being saved.
+- Item - Filters for Invoice type.
+  - ENTITY_INSERT - reconcileItems() - Check and mark items as sold/available.
+  - ENTITY_UPDATE - reconcileItems() - Check and mark items as sold/available.
+  - ENTITY_DELETE - markItemsAvailableSave() - Mark items that were sold available again.
 
-    On update, they will be re-adjusted. This is to handle removing payments.
+- Item Line - Filters for any entities with se_item_lines
+  - ENTITY_PRE_SAVE - calculateTotal() - Loop through the item lines to calculate the total.
 
-- Item - Triggered by Invoice
-  - ENTITY_INSERT - invoiceInsertMarkSold Mark items as sold.
+- Payment - Filters for Payments
+  - ENTITY_PRE_SAVE - paymentPreAction()
+    - Load a copy of the old payment into the object for later use.
+  - ENTITY_INSERT - updateInvoices() - Check and mark invoices as paid/unpaid.
+  - ENTITY_UPDATE - updateInvoices() - Check and mark invoices as paid/unpaid.
+  - ENTITY_DELETE - updateInvoices() - Check and mark invoices as paid/unpaid.
 
-  - ENTITY_UPDATE - invoiceUpdateMarkSold Mark items as sold.
+- Payment Line - Filters for Payment entities.
+  - ENTITY_PRE_SAVE - calculateTotal() - Loop through the item lines to calculate the total.
 
-  - ENTITY_PRE_SAVE - invoiceMarkAvailable When saving an invoice, in case there is an entry removed, all items already marked as sold via
-    this invoice need to be marked as available.
+- Stock - Filters for Item type, stock bundle.
+  - ENTITY_PRE_SAVE - stockItemPresave()
+    - Handle creating an item if stock is inserted with no item already existing.
+    - I suspect this really only occurs with the migration process @todo - check.
 
-    On update, they will get re-marked as sold again. This is in case an entry is removed, it then needs to be available for other invoices.
-
-- Item Line - Triggered by Bill, Goods receipt, Invoice, Quote, Purchase order
-  - ENTITY_PRE_SAVE - itemLineEntityPresave Loop through the lines on the invoice to calculate the total
-
-- Payment - Triggered by Payment
-  - ENTITY_INSERT - paymentInsert Mark invoices as paid.
-
-  - ENTITY_UPDATE - paymentUpdate Mark invoices as paid.
-
-  - ENTITY_PRE_SAVE - paymentPresave When saving a payment, in case there is an entry removed, all invoices already marked as paid via this
-    payment need to be marked as unpaid.
-
-    On update, they will get re-marked as paid again. This is in case an entry is removed, it then needs to be back in the outstanding list.
-
-- Payment Line - Triggered by Payment
-  - ENTITY_PRE_SAVE - paymentLineEntityPresave Loop through the lines on the payment to calculate the total.
-
-- Purchase order
-  - ENTITY_CREATE - purchaseOrderInsert Just a stub function, not sure there is really anything to do on PO creation.
-
-- Stock - Triggered by Stock
-  - ENTITY_PRE_SAVE - stockItemPresave Handle creating an item if stock is inserted with no item already existing.
-
-- Timekeeping - Triggered by Invoice
-  - ENTITY_INSERT - timekeepingInvoiceInsertMarkBilled Mark timekeeping entries as billed.
-
-  - ENTITY_UPDATE - timekeepingInvoiceUpdateMarkBilled Mark timekeeping entries as billed.
-
-  - ENTITY_PRE_SAVE - timekeepingInvoiceMarkNotBilled When saving an invoice, in case the timekeeping entries have been removed, they need
+- Timekeeping - Filters for Invoice type.
+  - ENTITY_PRE_SAVE - timekeepingMarkItemsUnBilled() When saving an invoice, in case the timekeeping entries have been removed, they need
     to be marked as unbilled.
-
     On update, they will get re-marked as billed again. This is in case an entry is removed, it then needs to be back in the unbilled list.
+    @todo - convert this to reconcile style like invoice.
+  - ENTITY_INSERT - timekeepingMarkItemsBilled() Mark timekeeping entries as billed.
+  - ENTITY_UPDATE - timekeepingMarkItemsBilled()  Mark timekeeping entries as billed.
 
 - Xero - Triggered by Customer, Invoice
-  - ENTITY_INSERT - xeroCustomerInsert When a customer is added, sync it to xero.
-
-  - ENTITY_UPDATE - xeroCustomerUpdate When a customer is updated, sync it to xero.
-
-  - ENTITY_INSERT - xeroInvoiceInsert When an invoice is added, sync it to xero.
-
-  - ENTITY_UPDATE - xeroInvoiceUpdate When an invoice is updated, sync it to xero.
+  - ENTITY_INSERT - xeroCustomerInsert() - When a customer is added, sync it to xero.
+  - ENTITY_UPDATE - xeroCustomerUpdate() - When a customer is updated, sync it to xero.
+  - ENTITY_INSERT - xeroInvoiceInsert() - When an invoice is added, sync it to xero.
+  - ENTITY_UPDATE - xeroInvoiceUpdate() - When an invoice is updated, sync it to xero.
 
 ## Event Subscribers by Event
 
 ### ENTITY_PRE_SAVE
 
-- Bill
-  - itemLineEntityPresave
-
 - GoodsReceipt
   - itemLineEntityPresave
 
 - Invoice
-  - itemLineEntityPresave
+  - invoicePreAction
 
 - Item
-  - itemInvoicePresave
+  - invoicePreAction
 
 - ItemLine
-  - itemLinePresave
+  - itemLineEntityPresave
 
 - Payment
-  - paymentPresave
+  - paymentPreAction
 
 - Payment Line
   - paymentLineEntityPresave
-
-- PurchaseOrder
-  - itemLineEntityPresave
-
-- Quote
-  - itemLineEntityPresave
 
 - Stock
   - stockItemPresave
@@ -245,15 +233,13 @@ First class entity types.
 ### ENTITY_INSERT
 
 - Customer
+  - entityInsert
   - xeroCustomerInsert
 
 - GoodsReceipt
   - goodsReceiptItemsInsert
 
 - Invoice
-  - itemsInsert
-  - invoiceInsert
-  - itemInvoiceSave
   - itemInvoiceInsert
   - timekeepingInvoiceInsert
   - xeroInvoiceInsert
@@ -274,9 +260,11 @@ First class entity types.
 ### ENTITY_UPDATE
 
 - Customer
+  - entityUpdate
   - xeroCustomerUpdate
 
 - Invoice
+  - itemInvoiceUpdate
   - timekeepingInvoiceUpdate
   - xeroInvoiceUpdate
 
@@ -289,3 +277,17 @@ First class entity types.
 - TimeKeeping
   - timekeepingInvoiceUpdate
 
+
+### ENTITY_DELETE
+
+- Customer
+  - entityDelete
+
+- Invoice
+  - itemInvoiceDelete
+
+- Payment
+  - paymentDelete
+
+- TimeKeeping
+  - timekeepingInvoiceDelete

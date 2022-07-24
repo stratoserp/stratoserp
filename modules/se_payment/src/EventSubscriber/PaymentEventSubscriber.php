@@ -8,7 +8,6 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Entity\Payment;
 
 /**

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\se_stock\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\se_item\Entity\Item;
 
 /**
@@ -22,7 +22,7 @@ class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'stockItemPresave',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'stockItemPresave',
     ];
   }
 

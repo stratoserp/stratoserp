@@ -40,16 +40,6 @@ interface ItemInvoiceEventSubscriberInterface extends EventSubscriberInterface {
   /**
    * When an invoice is inserted, mark all stock items as back in stock.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event we are working with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  public function itemInvoicePresave(EntityPresaveEvent $event);
-
-  /**
-   * When an invoice is inserted, mark all stock items as back in stock.
-   *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
    *   The event we are working with.
    *
