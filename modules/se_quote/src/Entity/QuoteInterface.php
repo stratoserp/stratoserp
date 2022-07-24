@@ -13,9 +13,4 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
  */
 interface QuoteInterface extends StratosLinesEntityBaseInterface {
 
-  /**
-   * Return the total quote value.
-   */
-  public function getTotal(): int;
-
 }

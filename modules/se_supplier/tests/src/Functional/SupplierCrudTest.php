@@ -17,10 +17,6 @@ class SupplierCrudTest extends SupplierTestBase {
    * Add a Supplier.
    */
   public function testSupplierAdd(): void {
-    $this->drupalLogin($this->customer);
-    $this->addSupplier(FALSE);
-    $this->drupalLogout();
-
     $this->drupalLogin($this->staff);
     $this->supplierFakerSetup();
     $this->addSupplier();

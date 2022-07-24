@@ -65,11 +65,9 @@ class CustomerInvoiceStatistics extends BlockBase {
         if (count($invoices)) {
           $content = TRUE;
         }
-        /** @var \Drupal\Core\Entity\EntityInterface $invoice */
+        /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
         foreach ($invoices as $invoice) {
-          if (is_object($invoice) && $invoice->hasField('se_total')) {
-            $total += $invoice->se_total->value;
-          }
+          $total += $invoice->getTotal();
         }
         if ($total > 0) {
           $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($total ?? 0);

@@ -17,10 +17,6 @@ class CustomerCrudTest extends CustomerTestBase {
    * Add a Customer.
    */
   public function testCustomerAdd(): void {
-    $this->drupalLogin($this->customer);
-    $this->addCustomer(FALSE);
-    $this->drupalLogout();
-
     $this->drupalLogin($this->staff);
     $this->customerFakerSetup();
     $this->addCustomer();

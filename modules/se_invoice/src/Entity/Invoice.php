@@ -106,13 +106,6 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getTotal(): int {
-    return (int) $this->se_total->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getOutstanding(): int {
     return (int) $this->se_outstanding->value;
   }
@@ -120,8 +113,8 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function setOutstanding(int $value): void {
-    $this->se_outstanding->value = (string) $value;
+  public function setOutstanding(int $value): int {
+    return $this->se_outstanding->value = $value;
   }
 
   /**
@@ -149,20 +142,6 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
    */
   public function isSkipSaveEvents(): bool {
     return $this->skipSaveEvents ?? FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function storeOldTotal($total): void {
-    $this->totalStorage = $total;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOldTotal(): int {
-    return $this->totalStorage ?? 0;
   }
 
   /**

@@ -1,5 +1,9 @@
 services:
+  se_customer.event_subscriber:
+    class: Drupal\se_customer\EventSubscriber\CustomerEventSubscriber
+    tags:
+      - { name: event_subscriber }
+
   se_customer.service:
     class: Drupal\se_customer\Service\CustomerService
     arguments: [ '@config.factory', '@entity_type.manager' ]
-

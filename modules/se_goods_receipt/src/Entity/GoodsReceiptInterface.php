@@ -13,9 +13,4 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
  */
 interface GoodsReceiptInterface extends StratosLinesEntityBaseInterface {
 
-  /**
-   * Return the total amount of the entity.
-   */
-  public function getTotal(): int;
-
 }

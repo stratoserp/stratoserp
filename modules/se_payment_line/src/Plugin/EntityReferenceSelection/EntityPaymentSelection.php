@@ -61,7 +61,7 @@ class EntityPaymentSelection extends DefaultSelection {
 
       $output[] = 'in-' . $invoice->id();
       $output[] = $invoice->getName();
-      $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $invoice->se_total->value);
+      $output[] = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $invoice->getTotal());
 
       // Format - NameCode #Serial# Desc - Price.
       $options['se_invoice'][$entityId] = implode(' ', $output);

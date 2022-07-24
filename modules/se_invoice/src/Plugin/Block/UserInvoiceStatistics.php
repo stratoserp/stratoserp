@@ -70,7 +70,7 @@ class UserInvoiceStatistics extends BlockBase {
 
         /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
         foreach ($invoices as $invoice) {
-          $month += $invoice->se_total->value;
+          $month += $invoice->getTotal();
         }
 
         if ($month > 0) {

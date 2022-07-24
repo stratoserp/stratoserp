@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 
 /**
  * Class ItemLinePresaveEventSubscriber.
@@ -21,7 +21,7 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => [
+      EntityHookEvents::ENTITY_PRE_SAVE => [
         'itemLineEntityPresave', 100,
       ],
     ];

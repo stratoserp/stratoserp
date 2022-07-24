@@ -31,8 +31,6 @@ trait PaymentTestTrait {
    *
    * @param \Drupal\se_invoice\Entity\Invoice|null $invoice
    *   The invoice to associate the payment with.
-   * @param bool $allowed
-   *   Whether it should be allowed or not.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_payment\Entity\Payment|null
    *   The Payment to return.
@@ -40,7 +38,7 @@ trait PaymentTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addPayment(Invoice $invoice = NULL, bool $allowed = TRUE) {
+  public function addPayment(Invoice $invoice = NULL) {
     if (!isset($this->paymentName)) {
       $this->paymentFakerSetup();
     }
@@ -69,12 +67,6 @@ trait PaymentTestTrait {
     $this->drupalGet($payment->toUrl());
 
     $content = $this->getTextContent();
-
-    if (!$allowed) {
-      // Equivalent to 403 status.
-      self::assertStringContainsString('Access denied', $content);
-      return NULL;
-    }
 
     // Equivalent to 200 status.
     self::assertStringContainsString('Skip to main content', $content);

@@ -79,11 +79,4 @@ class Bill extends StratosEntityBase implements BillInterface {
     return 'bi';
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getTotal(): int {
-    return (int) $this->se_total->value;
-  }
-
 }

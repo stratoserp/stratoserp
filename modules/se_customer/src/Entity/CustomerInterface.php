@@ -44,6 +44,11 @@ interface CustomerInterface extends StratosEntityBaseInterface {
   public function adjustBalance(int $value): int;
 
   /**
+   * Update the Customer balance from outstanding invoice amounts.
+   */
+  public function updateBalance(): int;
+
+  /**
    * Add a flag to a customer so that future events are not processed on it.
    *
    * Specific to Xero integration, so maybe could be handled better.

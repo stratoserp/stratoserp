@@ -30,10 +30,6 @@ class QuoteCrudTest extends QuoteTestBase {
     $items = $this->createItems();
     $this->drupalLogout();
 
-    $this->drupalLogin($this->customer);
-    $this->addQuote($testCustomer, $items, FALSE);
-    $this->drupalLogout();
-
     $this->drupalLogin($this->staff);
     $this->addQuote($testCustomer, $items);
     $this->drupalLogout();

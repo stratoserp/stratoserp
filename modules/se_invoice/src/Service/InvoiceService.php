@@ -46,42 +46,19 @@ class InvoiceService {
   }
 
   /**
-   * Retrieve the outstanding invoices for a customer.
-   *
-   * @param \Drupal\se_customer\Entity\customer $customer
-   *   The customer entity.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface[]
-   *   The found entity.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  public function getOutstandingInvoices(customer $customer): array {
-    $query = \Drupal::entityQuery('se_invoice');
-    $query->condition('se_cu_ref', $customer->id());
-    $query->condition('se_status_ref', $this->getOpenTerm()->id());
-    $entityIds = $query->execute();
-
-    return \Drupal::entityTypeManager()
-      ->getStorage('se_invoice')
-      ->loadMultiple($entityIds);
-  }
-
-  /**
    * Check if an invoice should be marked as paid.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   The Invoice entity.
-   * @param string $payment
+   * @param int|null $payment
    *   The paid amount.
    *
    * @return \Drupal\taxonomy\Entity\Term
    *   The invoice status
    */
-  public function checkInvoiceStatus(Invoice $invoice, $payment = NULL): Term {
-    if ($payment === (string) $invoice->getTotal()
-      || $payment === (string) $invoice->getOutstanding()
+  public function checkInvoiceStatus(Invoice $invoice, int $payment = NULL): Term {
+    if ($payment === $invoice->getTotal()
+      || $payment === $invoice->getOutstanding()
       || (int) $invoice->getOutstanding() === 0) {
       return $this->getClosedTerm();
     }
@@ -125,24 +102,9 @@ class InvoiceService {
    *   The invoice to work with.
    */
   public function preSave(Invoice $invoice): void {
-    // Set the outstanding amount field.
+    // Set the outstanding amount field only for new invoices.
     if ($invoice->isNew()) {
-      $invoiceTotal = $invoice->getTotal();
-      $invoice->setOutstanding($invoiceTotal);
-    }
-    else {
-      // Store the old invoice for comparisons in later events.
-      $invoice->storeOldInvoice();
-
-      // Retrieve the new invoice total.
-      $invoiceTotal = $invoice->getTotal();
-
-      // If the balance owning on this invoice is different from before, adjust.
-      if ($oldInvoice = $invoice->getOldInvoice()) {
-        $oldOutstanding = $oldInvoice->getOutstanding();
-        $difference = $invoiceTotal - $oldOutstanding;
-        $invoice->setOutstanding($oldOutstanding + $difference);
-      }
+      $invoice->setOutstanding($invoice->getTotal());
     }
 
     // Needs to be after outstanding is calculated.
@@ -158,22 +120,9 @@ class InvoiceService {
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
    *   Invoice to update.
    */
-  public function statusTotalUpdate(Invoice $invoice): void {
-    // Update the customer balance.
-    if ($customer = $invoice->getcustomer()) {
-
-      // Retrieve the new invoice outstanding amount.
-      $invoiceOutstanding = $invoice->getOutstanding();
-
-      if ($oldInvoice = $invoice->getOldInvoice()) {
-        $oldOutstanding = $oldInvoice->getOutstanding();
-        $difference = $invoiceOutstanding - $oldOutstanding;
-        $customer->adjustBalance($difference);
-      }
-      else {
-        $customer->adjustBalance($invoiceOutstanding);
-      }
-    }
+  public function statusUpdate(Invoice $invoice): void {
+    // Needs to be after outstanding is calculated.
+    $invoice->se_status_ref->entity = $this->checkInvoiceStatus($invoice);
   }
 
   /**

@@ -25,7 +25,7 @@ class PaymentLineService {
       $total += $paymentLine->amount;
     }
 
-    $payment->se_total->value = $total;
+    $payment->setTotal($total);
   }
 
 }

@@ -48,8 +48,6 @@ trait ContactTestTrait {
    *
    * @param \Drupal\se_customer\Entity\Customer $customer
    *   The customer to add the contact to.
-   * @param bool $allowed
-   *   Whether it should be allowed or not.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_contact\Entity\Contact|null
    *   The contact to return.
@@ -58,7 +56,7 @@ trait ContactTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addContact(Customer $customer, bool $allowed = TRUE) {
+  public function addContact(Customer $customer) {
     if (!isset($this->contactName)) {
       $this->contactFakerSetup();
     }
@@ -73,12 +71,6 @@ trait ContactTestTrait {
     $this->drupalGet($contact->toUrl());
 
     $content = $this->getTextContent();
-
-    if (!$allowed) {
-      // Equivalent to 403 status.
-      self::assertStringContainsString('Access denied', $content);
-      return NULL;
-    }
 
     // Equivalent to 200 status.
     self::assertStringContainsString('Skip to main content', $content);

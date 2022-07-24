@@ -260,6 +260,7 @@ class PaymentController extends ControllerBase {
    */
   public function createPaymentFromInvoice(EntityInterface $source): EntityInterface {
 
+    /** @var \Drupal\se_payment\Entity\Payment $payment */
     $payment = Payment::create([
       'bundle' => 'se_payment',
     ]);
@@ -301,7 +302,7 @@ class PaymentController extends ControllerBase {
 
     $payment->se_cu_ref = $customer;
     $payment->se_payment_lines = $lines;
-    $payment->se_total = $total;
+    $payment->setTotal($total);
 
     return $payment;
   }

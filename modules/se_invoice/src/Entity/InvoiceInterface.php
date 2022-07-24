@@ -14,11 +14,6 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
 interface InvoiceInterface extends StratosLinesEntityBaseInterface {
 
   /**
-   * Return the total invoice value.
-   */
-  public function getTotal(): int;
-
-  /**
    * Return the unpaid invoice value.
    */
   public function getOutstanding(): int;
@@ -26,7 +21,7 @@ interface InvoiceInterface extends StratosLinesEntityBaseInterface {
   /**
    * Set the unpaid invoice value.
    */
-  public function setOutstanding(int $value): void;
+  public function setOutstanding(int $value): int;
 
   /**
    * Retrieve the outstanding balance for an invoice.
@@ -48,16 +43,6 @@ interface InvoiceInterface extends StratosLinesEntityBaseInterface {
    *   Return the current setting.
    */
   public function isSkipSaveEvents(): bool;
-
-  /**
-   * Store the current invoice total for later comparison.
-   */
-  public function storeOldTotal(int $total): void;
-
-  /**
-   * Retrieve the stored total.
-   */
-  public function getOldTotal(): int;
 
   /**
    * Store the old invoice in the presave process.

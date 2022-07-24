@@ -28,11 +28,6 @@ class InvoiceCrudTest extends InvoiceTestBase {
     $items = $this->createItems();
     $this->drupalLogout();
 
-    // Ensure customers can't add invoices.
-    $this->drupalLogin($this->customer);
-    $this->addInvoice($testCustomer, $items, FALSE);
-    $this->drupalLogout();
-
     // Ensure staff can add invoices.
     $this->drupalLogin($this->staff);
     $this->addInvoice($testCustomer, $items);

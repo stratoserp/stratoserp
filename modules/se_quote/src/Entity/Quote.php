@@ -79,11 +79,4 @@ class Quote extends StratosLinesEntityBase implements QuoteInterface {
     return 'qu';
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getTotal(): int {
-    return (int) $this->se_total->value;
-  }
-
 }

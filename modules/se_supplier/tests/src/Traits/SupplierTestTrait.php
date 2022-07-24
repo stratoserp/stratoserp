@@ -44,9 +44,6 @@ trait SupplierTestTrait {
   /**
    * Add a Supplier entity.
    *
-   * @param bool $allowed
-   *   Whether it should be allowed or not.
-   *
    * @return \Drupal\se_supplier\Entity\Supplier|null
    *   The created supplier if successful.
    *
@@ -57,7 +54,7 @@ trait SupplierTestTrait {
    *
    * @todo Provide default Supplier types and test Customer & Supplier.
    */
-  public function addSupplier(bool $allowed = TRUE): ?Supplier {
+  public function addSupplier(): ?Supplier {
     if (!isset($this->supplierName)) {
       $this->supplierFakerSetup();
     }
@@ -71,12 +68,6 @@ trait SupplierTestTrait {
     $this->drupalGet($supplier->toUrl());
 
     $content = $this->getTextContent();
-
-    if (!$allowed) {
-      // Equivalent to 403 status.
-      self::assertStringContainsString('Access denied', $content);
-      return NULL;
-    }
 
     // Equivalent to 200 status.
     self::assertStringContainsString('Skip to main content', $content);

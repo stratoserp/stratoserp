@@ -79,11 +79,4 @@ class GoodsReceipt extends StratosLinesEntityBase implements GoodsReceiptInterfa
     return 'gr';
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getTotal(): int {
-    return (int) $this->se_total->value;
-  }
-
 }

@@ -79,11 +79,4 @@ class PurchaseOrder extends StratosLinesEntityBase implements PurchaseOrderInter
     return 'po';
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getTotal(): int {
-    return (int) $this->se_total->value;
-  }
-
 }

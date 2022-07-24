@@ -49,8 +49,6 @@ trait QuoteTestTrait {
    *   The Customer to associate the Invoice with.
    * @param array $items
    *   An array of items to use for invoice lines.
-   * @param bool $allowed
-   *   Whether it should be allowed or not.
    *
    * @return \Drupal\se_quote\Entity\Quote|null
    *   The Invoice to return.
@@ -59,7 +57,7 @@ trait QuoteTestTrait {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function addQuote(Customer $testCustomer, array $items = [], bool $allowed = TRUE) {
+  public function addQuote(Customer $testCustomer, array $items = []) {
     if (!isset($this->quoteName)) {
       $this->quoteFakerSetup();
     }
@@ -92,12 +90,6 @@ trait QuoteTestTrait {
     $this->drupalGet($quote->toUrl());
 
     $content = $this->getTextContent();
-
-    if (!$allowed) {
-      // Equivalent to 403 status.
-      self::assertStringContainsString('Access denied', $content);
-      return NULL;
-    }
 
     // Equivalent to 200 status.
     self::assertStringContainsString('Skip to main content', $content);

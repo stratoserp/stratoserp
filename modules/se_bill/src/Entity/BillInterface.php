@@ -13,9 +13,4 @@ use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
  */
 interface BillInterface extends StratosEntityBaseInterface {
 
-  /**
-   * Return the total amount of the entity.
-   */
-  public function getTotal(): int;
-
 }

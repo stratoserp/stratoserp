@@ -65,7 +65,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
 
         $month = 0;
         foreach ($entities as $entity) {
-          $month += $entity->se_total->value;
+          $month += $entity->getTotal();
         }
         $month_data[] = $month;
         $fg_colors[] = $fg_color;

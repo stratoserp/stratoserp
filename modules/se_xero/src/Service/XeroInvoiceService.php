@@ -111,8 +111,8 @@ class XeroInvoiceService {
     $invoices->get(0)->get('LineItems')->appendItem([
       'Description' => 'ERP Sale',
       'Quantity' => 1,
-      'UnitAmount' => $invoice->se_total->value,
-      'LineAmount' => $invoice->se_total->value,
+      'UnitAmount' => $invoice->getTotal(),
+      'LineAmount' => $invoice->getTotal(),
       'AccountCode' => $settings->get('invoice.account'),
     ]);
 

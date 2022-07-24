@@ -14,11 +14,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * For each invoice in the payment, mark it as paid.
  *
- * @see \Drupal\se_invoice\EventSubscriber\InvoiceSaveEventSubscriber
+ * @see \Drupal\se_invoice\EventSubscriber\InvoiceEventSubscriber
  *
  * @package Drupal\se_payment\EventSubscriber
  */
-interface PaymentSaveEventSubscriberInterface extends EventSubscriberInterface {
+interface PaymentEventSubscriberInterface extends EventSubscriberInterface {
 
   /**
    * Before a payment is saved or deleted, store existing payment lines.
@@ -44,7 +44,7 @@ interface PaymentSaveEventSubscriberInterface extends EventSubscriberInterface {
   public function paymentInsert(EntityInsertEvent $event);
 
   /**
-   * Whn a payment is updated, make all invoices as paid.
+   * When a payment is updated, make all invoices as paid.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event we are working with.

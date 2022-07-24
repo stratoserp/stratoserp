@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment\Entity;
 
-use Drupal\stratoserp\Entity\StratosEntityBase;
+use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
  * Defines the Payment entity.
@@ -70,7 +70,7 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
  *   }
  * )
  */
-class Payment extends StratosEntityBase implements PaymentInterface {
+class Payment extends StratosLinesEntityBase implements PaymentInterface {
 
   /**
    * Storage for payment lines during save process.
@@ -84,13 +84,6 @@ class Payment extends StratosEntityBase implements PaymentInterface {
    */
   public function getSearchPrefix(): string {
     return 'pa';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getTotal(): int {
-    return (int) $this->se_total->value;
   }
 
   /**

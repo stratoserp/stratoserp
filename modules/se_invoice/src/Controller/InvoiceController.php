@@ -319,7 +319,7 @@ class InvoiceController extends ControllerBase {
 
     $invoice->se_cu_ref = $customer;
     $invoice->se_item_lines = $lines;
-    $invoice->se_total = $total;
+    $invoice->setTotal((int) $total);
 
     return $invoice;
   }

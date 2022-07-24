@@ -22,10 +22,6 @@ class ContactCrudTest extends ContactTestBase {
     $customer = $this->addCustomer();
     $this->drupalLogout();
 
-    $this->drupalLogin($this->customer);
-    $this->addContact($customer, FALSE);
-    $this->drupalLogout();
-
     $this->drupalLogin($this->staff);
     $this->addContact($customer);
     $this->drupalLogout();

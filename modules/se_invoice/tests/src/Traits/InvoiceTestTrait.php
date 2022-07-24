@@ -50,8 +50,6 @@ trait InvoiceTestTrait {
    *   The Customer to associate the Invoice with.
    * @param array $items
    *   An array of items to use for invoice lines.
-   * @param bool $allowed
-   *   Whether it should be allowed or not.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_invoice\Entity\Invoice|null
    *   The Invoice to return.
@@ -60,7 +58,7 @@ trait InvoiceTestTrait {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addInvoice(Customer $testCustomer, array $items = [], bool $allowed = TRUE): ?Invoice {
+  public function addInvoice(Customer $testCustomer, array $items = []): ?Invoice {
     if (!isset($this->invoiceName)) {
       $this->invoiceFakerSetup();
     }
@@ -75,7 +73,7 @@ trait InvoiceTestTrait {
         'price' => $item['item']->se_sell_price->value,
       ];
       $lines[] = $line;
-      $total += $item['quantity'] * $item['item']->se_sell_price->value;
+      $total += $line['quantity'] * $line['price'];
     }
 
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
@@ -86,10 +84,14 @@ trait InvoiceTestTrait {
       'se_phone' => $this->invoicePhoneNumber,
       'se_email' => $this->invoiceCompanyEmail,
       'se_item_lines' => $lines,
+      'se_total' => $total,
+      'se_outstanding' => $total,
     ]);
     self::assertNotEquals($invoice, FALSE);
-    self::assertNotNull($invoice->se_total->value);
-    self::assertEquals($total, $invoice->se_total->value);
+    self::assertNotNull($invoice->getTotal());
+    self::assertEquals($total, $invoice->getTotal());
+    self::assertNotNull($invoice->getOutstanding());
+    self::assertEquals($invoice->getOutstanding(), $invoice->getTotal());
 
     // Ensure that the items are present and valid.
     foreach ($invoice->se_item_lines as $line) {
@@ -99,12 +101,6 @@ trait InvoiceTestTrait {
     $this->drupalGet($invoice->toUrl());
 
     $content = $this->getTextContent();
-
-    if (!$allowed) {
-      // Equivalent to 403 status.
-      self::assertStringContainsString('Access denied', $content);
-      return NULL;
-    }
 
     // Equivalent to 200 status.
     self::assertStringContainsString('Skip to main content', $content);
@@ -130,10 +126,10 @@ trait InvoiceTestTrait {
     $customer = $invoice->getCustomer();
     $customerOldBalance = $customer->getBalance();
 
-    $oldTotal = $invoice->se_total->value;
-    $oldOutstanding = $invoice->se_outstanding->value;
+    $oldTotal = $invoice->getTotal();
+    $oldOutstanding = $invoice->getOutstanding();
 
-    self::assertEquals($invoice->se_total->value, $customerOldBalance);
+    self::assertEquals($invoice->getTotal(), $customerOldBalance);
 
     $newTotal = 0;
     foreach ($invoice->se_item_lines as $line) {
@@ -143,13 +139,15 @@ trait InvoiceTestTrait {
 
     $invoice->save();
 
-    self::assertNotEquals($invoice->se_total->value, $oldTotal);
-    self::assertNotEquals($invoice->se_outstanding->value, $oldOutstanding);
-    self::assertEquals($invoice->se_total->value, $newTotal);
-    self::assertEquals($invoice->se_outstanding->value, $newTotal);
+    $invoice = Invoice::load($invoice->id());
+
+    self::assertNotEquals($invoice->getTotal(), $oldTotal);
+    self::assertNotEquals($invoice->getOutstanding(), $oldOutstanding);
+    self::assertEquals($invoice->getTotal(), $newTotal);
+    self::assertEquals($invoice->getOutstanding(), $newTotal);
 
     $customerNewBalance = $customer->getBalance();
-    self::assertEquals($invoice->se_total->value, $customerNewBalance);
+    self::assertEquals($invoice->getTotal(), $customerNewBalance);
 
     return $invoice;
   }
@@ -171,7 +169,7 @@ trait InvoiceTestTrait {
     $oldTotal = $invoice->se_total->value;
     $oldOutstanding = $invoice->se_outstanding->value;
 
-    self::assertEquals($invoice->se_total->value, $customerOldBalance);
+    self::assertEquals($invoice->getTotal(), $customerOldBalance);
 
     $newTotal = 0;
     foreach ($invoice->se_item_lines as $line) {
@@ -181,13 +179,15 @@ trait InvoiceTestTrait {
 
     $invoice->save();
 
-    self::assertNotEquals($invoice->se_total->value, $oldTotal);
-    self::assertNotEquals($invoice->se_outstanding->value, $oldOutstanding);
-    self::assertEquals($invoice->se_total->value, $newTotal);
-    self::assertEquals($invoice->se_outstanding->value, $newTotal);
+    $invoice = Invoice::load($invoice->id());
+
+    self::assertNotEquals($invoice->getTotal(), $oldTotal);
+    self::assertNotEquals($invoice->getOutstanding(), $oldOutstanding);
+    self::assertEquals($invoice->getTotal(), $newTotal);
+    self::assertEquals($invoice->getOutstanding(), $newTotal);
 
     $customerNewBalance = $customer->getBalance();
-    self::assertEquals($invoice->se_total->value, $customerNewBalance);
+    self::assertEquals($invoice->getTotal(), $customerNewBalance);
 
     return $invoice;
   }
@@ -204,8 +204,12 @@ trait InvoiceTestTrait {
    *   Whether the payment finalises the invoice.
    */
   public function checkInvoicePaymentStatus(Invoice $invoice, Payment $payment): bool {
-    self::assertEquals($invoice->se_total->value, $payment->se_total->value);
-
+    self::assertEquals($invoice->getTotal(), $payment->se_total->value);
+    self::assertEquals($invoice->getOutstanding(), 0);
+    self::assertEquals($invoice->getInvoiceBalance(), 0);
+    if ($closedTerm = \Drupal::service('se_invoice.service')->getClosedTerm()->id()) {
+      self::assertEquals($invoice->se_status_ref->target_id, $closedTerm);
+    }
     return TRUE;
   }
 

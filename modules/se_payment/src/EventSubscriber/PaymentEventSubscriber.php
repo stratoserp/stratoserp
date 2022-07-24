@@ -8,6 +8,7 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Entity\Payment;
 
 /**
@@ -15,22 +16,22 @@ use Drupal\se_payment\Entity\Payment;
  *
  * For each invoice in the payment, mark it as paid.
  *
- * @see \Drupal\se_invoice\EventSubscriber\InvoiceSaveEventSubscriber
+ * @see \Drupal\se_invoice\EventSubscriber\InvoiceEventSubscriber
  *
  * @package Drupal\se_payment\EventSubscriber
  */
-class PaymentSaveEventSubscriber implements PaymentSaveEventSubscriberInterface {
+class PaymentEventSubscriber implements PaymentEventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
-      EntityHookEvents::ENTITY_PRE_SAVE => 'paymentPreAction',
-      EntityHookEvents::ENTITY_PRE_DELETE => 'paymentPreAction',
-      EntityHookEvents::ENTITY_INSERT => 'paymentInsert',
-      EntityHookEvents::ENTITY_UPDATE => 'paymentUpdate',
-      EntityHookEvents::ENTITY_DELETE => 'paymentDelete',
+      EntityHookEvents::ENTITY_PRE_SAVE => ['paymentPreAction', 25],
+      EntityHookEvents::ENTITY_PRE_DELETE => ['paymentPreAction', 25],
+      EntityHookEvents::ENTITY_INSERT => ['paymentInsert', -25],
+      EntityHookEvents::ENTITY_UPDATE => ['paymentUpdate', -25],
+      EntityHookEvents::ENTITY_DELETE => ['paymentDelete', -25],
     ];
   }
 

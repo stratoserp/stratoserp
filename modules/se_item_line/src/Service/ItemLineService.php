@@ -7,6 +7,7 @@ namespace Drupal\se_item_line\Service;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\se_item\Entity\Item;
 use Drupal\se_timekeeping\Entity\Timekeeping;
+use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
 
 /**
  * Item line service class for common item line manipulations.
@@ -16,13 +17,13 @@ class ItemLineService {
   /**
    * Calculate the total and more of an entity with item lines.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface $entity
    *   Entity to update the totals for.
    *
    * @return \Drupal\Core\Entity\EntityInterface
    *   The updated entity.
    */
-  public function calculateTotal(EntityInterface $entity): EntityInterface {
+  public function calculateTotal(StratosLinesEntityBaseInterface $entity): EntityInterface {
     $total = 0;
 
     // If there isn't a total field, run away.
@@ -54,7 +55,7 @@ class ItemLineService {
       $total += $itemLine->quantity * $itemLine->price;
     }
 
-    $entity->se_total->value = $total;
+    $entity->setTotal((int) $total);
 
     return $entity;
   }

@@ -265,7 +265,7 @@ class PurchaseOrderController extends ControllerBase {
 
     $destination->se_cu_ref = $source->se_cu_ref;
     $destination->se_qu_ref->target_id = $source->id();
-    $destination->se_total = $total;
+    $destination->setTotal($total);
 
     return $destination;
   }

@@ -31,8 +31,6 @@ trait TicketTestTrait {
    *
    * @param \Drupal\se_customer\Entity\Customer|null $customer
    *   The customer to associate the ticket with.
-   * @param bool $allowed
-   *   Whether it should be allowed or not.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_ticket\Entity\Ticket|null
    *   The Ticket to return.
@@ -41,7 +39,7 @@ trait TicketTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addTicket(Customer $customer = NULL, bool $allowed = TRUE): ?Ticket {
+  public function addTicket(Customer $customer = NULL): ?Ticket {
     if (!isset($this->ticketName)) {
       $this->ticketFakerSetup();
     }
@@ -57,12 +55,6 @@ trait TicketTestTrait {
     $this->drupalGet($ticket->toUrl());
 
     $content = $this->getTextContent();
-
-    if (!$allowed) {
-      // Equivalent to 403 status.
-      self::assertStringContainsString('Access denied', $content);
-      return NULL;
-    }
 
     // Equivalent to 200 status.
     self::assertStringContainsString('Skip to main content', $content);

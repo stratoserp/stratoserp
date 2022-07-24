@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_payment\Functional;
 
+use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Controller\PaymentController;
 use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_invoice\Traits\InvoiceTestTrait;
@@ -32,21 +33,20 @@ class PaymentCrudTest extends PaymentTestBase {
     $invoice = $this->addInvoice($testCustomer, $items);
     $this->drupalLogout();
 
-    $this->drupalLogin($this->customer);
-    $payment = $this->addPayment($invoice, FALSE);
-    if ($payment) {
-      self::assertFalse($this->checkInvoicePaymentStatus($invoice, $payment));
-    }
-    $this->drupalLogout();
-
     $this->drupalLogin($this->staff);
     $payment = $this->addPayment($invoice);
+
+    // Need to reload the invoice before checking.
+    $invoice = Invoice::load($invoice->id());
     self::assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
     $invoice = $this->addInvoice($testCustomer, $items);
     $payment = $this->addPayment($invoice);
+
+    // Need to reload the invoice before checking.
+    $invoice = Invoice::load($invoice->id());
     self::assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
     $this->drupalLogout();
   }

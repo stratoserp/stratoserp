@@ -67,7 +67,7 @@ class CustomerPurchaseOrderStatistics extends BlockBase {
 
         $total = 0;
         foreach ($entities as $entity) {
-          $total += $entity->se_total->value;
+          $total += $entity->getTotal();
         }
         $month_data[] = \Drupal::service('se_accounting.currency_format')->formatRaw($total ?? 0);
         $fg_colors[] = $fg_color;
