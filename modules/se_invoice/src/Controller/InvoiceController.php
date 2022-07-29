@@ -234,7 +234,7 @@ class InvoiceController extends ControllerBase {
    * @return array
    *   An entity submission form.
    */
-  public function fromQuote(EntityInterface $source) {
+  public function fromQuote(EntityInterface $source): array {
     $entity = $this->createInvoiceFromQuote($source);
 
     return $this->entityFormBuilder()->getForm($entity);

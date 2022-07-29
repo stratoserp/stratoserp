@@ -29,7 +29,7 @@ trait PaymentTestTrait {
   /**
    * Add a payment and set the customer to the value passed in.
    *
-   * @param \Drupal\se_invoice\Entity\Invoice|null $invoice
+   * @param \Drupal\se_invoice\Entity\Invoice[] $invoices
    *   The invoice to associate the payment with.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_payment\Entity\Payment|null
@@ -38,29 +38,33 @@ trait PaymentTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addPayment(Invoice $invoice = NULL) {
+  public function addPayment(array $invoices) {
     if (!isset($this->paymentName)) {
       $this->paymentFakerSetup();
     }
 
     $term = \Drupal::configFactory()->getEditable('se_payment.settings')->get('default_payment_term');
 
-    $lines = [];
-    $line = [
-      'target_id' => $invoice->id(),
-      'target_type' => 'se_invoice',
-      'amount' => $invoice->se_total->value,
-      'payment_type' => $term,
-    ];
-    $lines[] = $line;
+    $payment = FALSE;
+    foreach ($invoices as $invoice) {
+      $lines = [];
+      $line = [
+        'target_id' => $invoice->id(),
+        'target_type' => 'se_invoice',
+        'amount' => $invoice->se_total->value,
+        'payment_type' => $term,
+      ];
+      $lines[] = $line;
 
-    /** @var \Drupal\se_payment\Entity\Payment $payment */
-    $payment = $this->createPayment([
-      'type' => 'se_payment',
-      'name' => $this->paymentName,
-      'se_cu_ref' => $invoice->se_cu_ref,
-      'se_payment_lines' => $lines,
-    ]);
+      /** @var \Drupal\se_payment\Entity\Payment $payment */
+      $payment = $this->createPayment([
+        'type' => 'se_payment',
+        'name' => $this->paymentName,
+        'se_cu_ref' => $invoice->se_cu_ref,
+        'se_payment_lines' => $lines,
+      ]);
+    }
+
     self::assertNotEquals($payment, FALSE);
     self::assertNotNull($payment->se_total->value);
 

@@ -20,13 +20,17 @@ class PaymentService implements PaymentServiceInterface {
 
     foreach ($payment->se_payment_lines as $paymentLine) {
       // Don't try on operate on invoices with no payment.
-      /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-      if (!empty($paymentLine->amount)
-      && $invoice = Invoice::load($paymentLine->target_id)) {
-
-        $invoice->setOutstanding($invoice->getOutstanding() - $paymentLine->amount);
-        $reconcileList[$invoice->id()] = $invoice;
+      if (!$paymentLine->amount) {
+        continue;
       }
+
+      /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+      $invoice = $reconcileList[$paymentLine->target_id]
+        ?? Invoice::load($paymentLine->target_id);
+
+      // Re-apply the payments as we update the invoice.
+      $invoice->setOutstanding($invoice->getOutstanding() - $paymentLine->amount);
+      $reconcileList[$invoice->id()] = $invoice;
     }
 
     // Loop through the invoices and save them all now.
@@ -44,13 +48,12 @@ class PaymentService implements PaymentServiceInterface {
 
     if ($oldPayment = $payment->getOldPayment()) {
       foreach ($oldPayment->se_payment_lines as $paymentLine) {
-        if ($invoice = Invoice::load($paymentLine->target_id)) {
-          $reconcileList[$invoice->id()] = $invoice;
-        }
-        else {
-          \Drupal::logger('se_payment')
-            ->error('Error loading invoice apparently in payment, this is very bad.');
-        }
+        $invoice = $reconcileList[$paymentLine->target_id]
+          ?? Invoice::load($paymentLine->target_id);
+
+        // Reverse the payments as we load the old invoices.
+        $invoice->setOutstanding($invoice->getOutstanding() + $paymentLine->amount);
+        $reconcileList[$invoice->id()] = $invoice;
       }
     }
 

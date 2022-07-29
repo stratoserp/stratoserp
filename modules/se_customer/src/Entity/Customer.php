@@ -128,7 +128,7 @@ class Customer extends StratosEntityBase implements CustomerInterface {
       $total += $invoice->se_outstanding->value;
     }
 
-    return $this->setBalance($total);
+    return $this->setBalance((int) $total);
   }
 
   /**

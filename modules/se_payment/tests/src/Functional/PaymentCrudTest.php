@@ -34,7 +34,7 @@ class PaymentCrudTest extends PaymentTestBase {
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
-    $payment = $this->addPayment($invoice);
+    $payment = $this->addPayment([$invoice]);
 
     // Need to reload the invoice before checking.
     $invoice = Invoice::load($invoice->id());
@@ -43,11 +43,36 @@ class PaymentCrudTest extends PaymentTestBase {
 
     $this->drupalLogin($this->staff);
     $invoice = $this->addInvoice($testCustomer, $items);
-    $payment = $this->addPayment($invoice);
+    $payment = $this->addPayment([$invoice]);
 
     // Need to reload the invoice before checking.
     $invoice = Invoice::load($invoice->id());
     self::assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
+    $this->drupalLogout();
+  }
+
+  /**
+   * Test paying multiple invoices with one payment.
+   */
+  public function testPaymentMultipleInvoices(): void {
+    $invoices = [];
+
+    $this->drupalLogin($this->staff);
+    $testCustomer = $this->addCustomer();
+    $items = $this->createItems();
+    $invoices[] = $this->addInvoice($testCustomer, $items);
+
+    $items = $this->createItems();
+    $invoices[] = $this->addInvoice($testCustomer, $items);
+
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->staff);
+    $payment = $this->addPayment($invoices);
+    foreach ($invoices as $invoice) {
+      $invoice = Invoice::load($invoice->id());
+      self::assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
+    }
     $this->drupalLogout();
   }
 
@@ -59,7 +84,7 @@ class PaymentCrudTest extends PaymentTestBase {
     $testCustomer = $this->addCustomer();
     $items = $this->createItems();
     $invoice = $this->addInvoice($testCustomer, $items);
-    $payment = $this->addPayment($invoice);
+    $payment = $this->addPayment([$invoice]);
     $this->drupalLogout();
 
     // Ensure customers can't delete payments.
