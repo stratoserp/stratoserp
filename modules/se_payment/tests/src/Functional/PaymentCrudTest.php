@@ -39,6 +39,10 @@ class PaymentCrudTest extends PaymentTestBase {
     // Need to reload the invoice before checking.
     $invoice = Invoice::load($invoice->id());
     self::assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
+
+    // Delete the payment so testing doesn't bork.
+    $payment->delete();
+
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
@@ -48,6 +52,7 @@ class PaymentCrudTest extends PaymentTestBase {
     // Need to reload the invoice before checking.
     $invoice = Invoice::load($invoice->id());
     self::assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
+
     $this->drupalLogout();
   }
 
@@ -73,11 +78,39 @@ class PaymentCrudTest extends PaymentTestBase {
       $invoice = Invoice::load($invoice->id());
       self::assertTrue($this->checkInvoicePaymentStatus($invoice, $payment));
     }
+
     $this->drupalLogout();
   }
 
   /**
-   * Test deleting an payment.
+   * Test paying a single invoice over multiple payments.
+   */
+  public function testPaymentMultiplePayments(): void {
+    $this->drupalLogin($this->staff);
+    $testCustomer = $this->addCustomer();
+    $items = $this->createItems();
+    $invoice = $this->addInvoice($testCustomer, $items);
+
+    $count = 10;
+    $paymentAmount = $invoice->getTotal() / $count;
+
+    $this->drupalLogin($this->staff);
+    for ($i = 0; $i < $count; $i++) {
+      $invoice = Invoice::load($invoice->id());
+      $this->addPaymentAmount($invoice, $paymentAmount);
+    }
+
+    self::assertEquals(0, $invoice->getOutstanding());
+    self::assertEquals(0, $invoice->getInvoiceBalance());
+    if ($closedTerm = \Drupal::service('se_invoice.service')->getClosedTerm()->id()) {
+      self::assertEquals($invoice->se_status_ref->target_id, $closedTerm);
+    }
+
+    $this->drupalLogout();
+  }
+
+  /**
+   * Test deleting a payment.
    */
   public function testPaymentDelete(): void {
     $this->drupalLogin($this->staff);

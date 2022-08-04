@@ -27,7 +27,7 @@ trait PaymentTestTrait {
   }
 
   /**
-   * Add a payment and set the customer to the value passed in.
+   * Add and pay the invoices passed in.
    *
    * @param \Drupal\se_invoice\Entity\Invoice[] $invoices
    *   The invoice to associate the payment with.
@@ -46,27 +46,74 @@ trait PaymentTestTrait {
     $term = \Drupal::configFactory()->getEditable('se_payment.settings')->get('default_payment_term');
 
     $payment = FALSE;
+    $customer = NULL;
+    $lines = [];
     foreach ($invoices as $invoice) {
-      $lines = [];
       $line = [
         'target_id' => $invoice->id(),
         'target_type' => 'se_invoice',
-        'amount' => $invoice->se_total->value,
+        'amount' => $invoice->getTotal(),
         'payment_type' => $term,
       ];
+      $customer = $invoice->se_cu_ref;
       $lines[] = $line;
-
-      /** @var \Drupal\se_payment\Entity\Payment $payment */
-      $payment = $this->createPayment([
-        'type' => 'se_payment',
-        'name' => $this->paymentName,
-        'se_cu_ref' => $invoice->se_cu_ref,
-        'se_payment_lines' => $lines,
-      ]);
     }
 
+    /** @var \Drupal\se_payment\Entity\Payment $payment */
+    $payment = $this->createPayment([
+      'type' => 'se_payment',
+      'name' => $this->paymentName,
+      'se_cu_ref' => $customer,
+      'se_payment_lines' => $lines,
+    ]);
+
     self::assertNotEquals($payment, FALSE);
-    self::assertNotNull($payment->se_total->value);
+    self::assertNotNull($payment->getTotal());
+
+    $this->drupalGet($payment->toUrl());
+
+    $content = $this->getTextContent();
+
+    // Equivalent to 200 status.
+    self::assertStringContainsString('Skip to main content', $content);
+    self::assertStringNotContainsString('Please fill in this field', $content);
+
+    // Check that what we entered is shown.
+    self::assertStringContainsString($this->paymentName, $content);
+
+    return $payment;
+  }
+
+  /**
+   * Add a partial payment amount to an invoice.
+   */
+  public function addPaymentAmount($invoice, $amount) {
+    if (!isset($this->paymentName)) {
+      $this->paymentFakerSetup();
+    }
+
+    $term = \Drupal::configFactory()->getEditable('se_payment.settings')->get('default_payment_term');
+
+    $payment = FALSE;
+    $lines = [];
+    $line = [
+      'target_id' => $invoice->id(),
+      'target_type' => 'se_invoice',
+      'amount' => $amount,
+      'payment_type' => $term,
+    ];
+    $lines[] = $line;
+
+    /** @var \Drupal\se_payment\Entity\Payment $payment */
+    $payment = $this->createPayment([
+      'type' => 'se_payment',
+      'name' => $this->paymentName,
+      'se_cu_ref' => $invoice->se_cu_ref,
+      'se_payment_lines' => $lines,
+    ]);
+
+    self::assertNotEquals($payment, FALSE);
+    self::assertNotNull($payment->getTotal());
 
     $this->drupalGet($payment->toUrl());
 

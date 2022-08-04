@@ -85,7 +85,7 @@ trait QuoteTestTrait {
     ]);
 
     self::assertNotEquals($quote, FALSE);
-    self::assertNotNull($quote->se_total->value);
+    self::assertNotNull($quote->getTotal());
 
     $this->drupalGet($quote->toUrl());
 

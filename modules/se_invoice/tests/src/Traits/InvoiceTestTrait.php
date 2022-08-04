@@ -166,8 +166,8 @@ trait InvoiceTestTrait {
     $customer = $invoice->getCustomer();
     $customerOldBalance = $customer->getBalance();
 
-    $oldTotal = $invoice->se_total->value;
-    $oldOutstanding = $invoice->se_outstanding->value;
+    $oldTotal = $invoice->getTotal();
+    $oldOutstanding = $invoice->getOutstanding();
 
     self::assertEquals($invoice->getTotal(), $customerOldBalance);
 
@@ -181,13 +181,13 @@ trait InvoiceTestTrait {
 
     $invoice = Invoice::load($invoice->id());
 
-    self::assertNotEquals($invoice->getTotal(), $oldTotal);
-    self::assertNotEquals($invoice->getOutstanding(), $oldOutstanding);
-    self::assertEquals($invoice->getTotal(), $newTotal);
-    self::assertEquals($invoice->getOutstanding(), $newTotal);
+    self::assertNotEquals($oldTotal, $invoice->getTotal());
+    self::assertNotEquals($oldOutstanding, $invoice->getOutstanding());
+    self::assertEquals($newTotal, $invoice->getTotal());
+    self::assertEquals($newTotal, $invoice->getOutstanding());
 
     $customerNewBalance = $customer->getBalance();
-    self::assertEquals($invoice->getTotal(), $customerNewBalance);
+    self::assertEquals($customerNewBalance, $invoice->getTotal());
 
     return $invoice;
   }
@@ -204,11 +204,20 @@ trait InvoiceTestTrait {
    *   Whether the payment finalises the invoice.
    */
   public function checkInvoicePaymentStatus(Invoice $invoice, Payment $payment): bool {
-    self::assertEquals($invoice->getTotal(), $payment->se_total->value);
-    self::assertEquals($invoice->getOutstanding(), 0);
-    self::assertEquals($invoice->getInvoiceBalance(), 0);
+    if (count($payment->se_payment_lines) > 1) {
+      foreach ($payment->se_payment_lines as $payment_line) {
+        if ($payment_line->target_id == $invoice->id()) {
+          self::assertEquals($payment_line->amount, $invoice->getTotal());
+        }
+      }
+    }
+    else {
+      self::assertEquals($payment->getTotal(), $invoice->getTotal());
+    }
+    self::assertEquals(0, $invoice->getOutstanding());
+    self::assertEquals(0, $invoice->getInvoiceBalance());
     if ($closedTerm = \Drupal::service('se_invoice.service')->getClosedTerm()->id()) {
-      self::assertEquals($invoice->se_status_ref->target_id, $closedTerm);
+      self::assertEquals($closedTerm, $invoice->se_status_ref->target_id);
     }
     return TRUE;
   }

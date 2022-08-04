@@ -139,7 +139,7 @@ class XeroInvoiceService {
     }
 
     // If the invoice has zero value, bail.
-    if ($invoice->se_total->value == 0) {
+    if ($invoice->getTotal() == 0) {
       return FALSE;
     }
 

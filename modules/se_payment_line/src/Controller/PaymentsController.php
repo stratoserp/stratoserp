@@ -85,7 +85,7 @@ class PaymentsController extends ControllerBase {
       return;
     }
 
-    $invoiceAmount = $invoice->se_total->value;
+    $invoiceAmount = $invoice->getTotal();
     $displayPrice = $currencyService->formatDisplay((int) $invoiceAmount);
 
     // Update the values so that the total gets updated as well.

@@ -61,7 +61,7 @@ class UserQuoteStatistics extends BlockBase {
 
         /** @var \Drupal\se_quote\Entity\Quote $quote */
         foreach ($quotes as $quote) {
-          $month += $quote->se_total->value;
+          $month += $quote->getTotal();
         }
 
         $month_data[] = $month ?: '';

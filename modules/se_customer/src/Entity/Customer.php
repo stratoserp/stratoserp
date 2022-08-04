@@ -124,8 +124,9 @@ class Customer extends StratosEntityBase implements CustomerInterface {
     $openInvoices = $invoiceStorage->loadMultiple($idList);
 
     $total = 0;
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     foreach ($openInvoices as $invoice) {
-      $total += $invoice->se_outstanding->value;
+      $total += $invoice->getOutstanding();
     }
 
     return $this->setBalance((int) $total);
