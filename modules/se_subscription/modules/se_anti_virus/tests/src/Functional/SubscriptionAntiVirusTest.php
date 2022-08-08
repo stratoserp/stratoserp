@@ -18,8 +18,8 @@ class SubscriptionAntiVirusTest extends SubscriptionTestBase {
    */
   public function testSubscriptionAntiVirus(): void {
     $this->drupalLogin($this->staff);
-    $customer = $this->addcustomer();
-    $supplier = $this->addcustomer('Supplier');
+    $customer = $this->addCustomer();
+    $supplier = $this->addSupplier();
     $item = $this->addRecurringItem();
 
     $this->addSubscription('se_anti_virus', $customer, $supplier, $item);

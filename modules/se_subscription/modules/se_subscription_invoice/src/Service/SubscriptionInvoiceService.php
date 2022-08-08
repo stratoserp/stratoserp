@@ -32,11 +32,11 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   EntityTypeManager for later.
-   * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
+   * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
    *   Logger for later.
    * @param \Drupal\se_customer\Service\CustomerService $customerService
    *   The customer service.
-   * @param \Drupal\duration_field\Service\DurationServiceInterface $durationService
+   * @param \Drupal\duration_field\Service\DurationService $durationService
    *   The duration service.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelInterface $loggerChannel, CustomerService $customerService, DurationServiceInterface $durationService) {
@@ -93,6 +93,7 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
     foreach ($query->execute() as $customerId) {
       if ($customer = Customer::load($customerId)) {
         $items = $this->subscriptionsToItems($customer);
+
         if (count($items) && $invoice = $this->subscriptionsToInvoice($customer, $items)) {
           $invoices[] = $invoice;
           $this->updateDueDate($items);
@@ -108,8 +109,6 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
    *
    * @param array $subscriptions
    *   The list of successful subscriptions to update.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function updateDueDate(array $subscriptions): void {
     foreach ($subscriptions as $lines) {
@@ -119,11 +118,14 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
         // Get a mktime sort of array from the duration.
         $interval = $this->durationService->getDateIntervalFromDurationString($subscription->se_period->duration);
 
-        // Convert that into a string.
+        // Convert that into a string with day resolution.
         $duration = $this->durationService->getHumanReadableStringFromDateInterval($interval, [
           'y' => TRUE,
           'm' => TRUE,
           'd' => TRUE,
+          'h' => FALSE,
+          'i' => FALSE,
+          's' => FALSE,
         ]);
 
         // Calculate the future date.

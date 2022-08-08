@@ -7,7 +7,7 @@ namespace Drupal\Tests\se_item\Functional;
 /**
  * Test for item validation.
  *
- * @coversDefault Drupal\se_stock
+ * @coversDefault Drupal\se_item
  * @group se_stock
  * @group se_item
  * @group stratoserp

@@ -11,9 +11,6 @@ use Drupal\taxonomy\Entity\Term;
 use Drupal\se_customer\Entity\Customer;
 use Drupal\se_supplier\Entity\Supplier;
 
-// Include the main include file for some functions.
-module_load_include('install', 'stratoserp');
-
 /**
  * Implements hook_install().
  */
@@ -27,6 +24,7 @@ function se_example_data_install() {
   se_example_data_service_setup();
   se_example_data_recurring_setup();
   se_example_data_stock_setup();
+  se_example_data_bulk_stock_setup();
   se_example_data_payment_term_setup();
   se_example_data_purchase_order_term_setup();
   se_example_data_quote_term_setup();
@@ -292,6 +290,20 @@ function se_example_data_stock_setup() {
   $item->save();
 }
 
+function se_example_data_bulk_stock_setup() {
+  $defaults = se_item_load_defaults('Hardware', 'Keyboard', 'Microsoft', 'se_bulk_stock');
+
+  $item = Item::create($defaults + [
+      'name' => '1 Ream - A4 Copy paper',
+      'body' => '1 Ream - A4 Copy paper',
+      'se_code' => [['value' => 'A4-PAPER']],
+      'se_sell_price' => [['value' => 4.99]],
+      'se_cost_price' => [['value' => 3.99]],
+      'se_available' => [['value' => 10]],
+    ]);
+  $item->save();
+}
+
 /**
  * Implements hook_install().
  */
@@ -416,8 +428,9 @@ function se_item_load_defaults($category, $product_type, $manufacturer, $type): 
   return [
     'type' => $type,
     'langcode' => 'en',
-    'uid' => '1',
+    'uid' => 1,
     'status' => 1,
+    'se_active' => TRUE,
     'se_sale_category_ref' => [['target_id' => $sale_category->id()]],
     'se_manufacturer_ref'  => [['target_id' => $manufacturer->id()]],
     'se_product_type_ref'  => [['target_id' => $product_type->id()]],
@@ -456,7 +469,7 @@ function stratoserp_create_terms(string $taxonomy, array $terms) {
   // The last one will be used as the default.
   foreach ($terms as $new_term) {
     $term = se_example_data_load_term_by_name($new_term, $taxonomy);
-    if (empty($term)) {
+    if (!$term) {
       /** @var \Drupal\taxonomy\Entity\Term $term */
       $term = Term::create([
         'parent' => [],

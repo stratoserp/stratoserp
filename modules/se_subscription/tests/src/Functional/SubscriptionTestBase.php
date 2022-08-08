@@ -7,6 +7,7 @@ namespace Drupal\Tests\se_subscription\Functional;
 use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 use Drupal\Tests\se_subscription\Traits\SubscriptionTestTrait;
+use Drupal\Tests\se_supplier\Traits\SupplierTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
@@ -17,6 +18,7 @@ class SubscriptionTestBase extends FunctionalTestBase {
   use CustomerTestTrait;
   use ItemTestTrait;
   use SubscriptionTestTrait;
+  use SupplierTestTrait;
 
   /**
    * Storage for the faker data for ticket.

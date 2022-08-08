@@ -7,6 +7,7 @@ namespace Drupal\Tests\se_subscription\Traits;
 use Drupal\se_customer\Entity\Customer;
 use Drupal\se_item\Entity\Item;
 use Drupal\se_subscription\Entity\Subscription;
+use Drupal\se_supplier\Entity\Supplier;
 use Drupal\user\Entity\User;
 use Faker\Factory;
 
@@ -47,10 +48,18 @@ trait SubscriptionTestTrait {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addSubscription(string $subscriptionType, Customer $customer, Customer $supplier, Item $item, bool $allowed = TRUE) {
+  public function addSubscription(string $subscriptionType, Customer $customer, Supplier $supplier, Item $item, bool $allowed = TRUE) {
     if (!isset($this->subscriptionName)) {
       $this->subscriptionFakerSetup();
     }
+
+    $line = [
+      'target_type' => 'se_item',
+      'target_id' => $item->id(),
+      'quantity' => 1,
+      'price' => $item->se_sell_price->value,
+    ];
+    $lines[] = $line;
 
     /** @var \Drupal\se_subscription\Entity\subscription $subscription */
     $subscription = $this->createSubscription([
@@ -58,9 +67,7 @@ trait SubscriptionTestTrait {
       'name' => $this->subscriptionName,
       'se_cu_ref' => $customer,
       'se_su_ref' => $supplier,
-      'se_item_lines' => [
-        $item,
-      ],
+      'se_item_lines' => $lines,
     ]);
     self::assertNotEquals($subscription, FALSE);
 

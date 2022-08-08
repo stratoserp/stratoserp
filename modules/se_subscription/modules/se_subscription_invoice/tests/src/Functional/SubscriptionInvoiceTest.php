@@ -22,8 +22,8 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
    */
   public function testSubscriptionInvoice(): void {
     $this->drupalLogin($this->staff);
-    $customer = $this->addcustomer();
-    $supplier = $this->addCustomer('Supplier');
+    $customer = $this->addCustomer();
+    $supplier = $this->addSupplier();
     $item = $this->addRecurringItem('P1Y');
 
     $this->subscriptionFakerSetup();
