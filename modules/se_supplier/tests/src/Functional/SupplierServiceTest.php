@@ -11,7 +11,7 @@ use Drupal\Tests\se_quote\Traits\QuoteTestTrait;
 /**
  * Test Supplier Service.
  *
- * @coversDefault Drupal\se_supplier
+ * @covers \Drupal\se_supplier
  * @group se_supplier
  * @group stratoserp
  */

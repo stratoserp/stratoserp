@@ -11,7 +11,7 @@ use Drupal\Tests\se_quote\Traits\QuoteTestTrait;
 /**
  * Test Customer Service.
  *
- * @coversDefault Drupal\se_customer
+ * @covers \Drupal\se_customer
  * @group se_customer
  * @group stratoserp
  */

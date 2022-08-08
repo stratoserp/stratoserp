@@ -7,7 +7,8 @@ namespace Drupal\Tests\se_supplier\Functional;
 /**
  * Test various Supplier crud operations.
  *
- * @coversDefault Drupal\se_supplier
+ * @covers \Drupal\se_supplier
+ * @uses \Drupal\se_customer\Entity\Customer
  * @group se_supplier
  * @group stratoserp
  */

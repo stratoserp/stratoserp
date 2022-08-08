@@ -10,7 +10,8 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 /**
  * Tests the main page search Javascript functionality.
  *
- * @coversDefault Drupal\stratoserp
+ * @covers \Drupal\stratoserp\Controller\AutocompleteController
+ * @uses \Drupal\stratoserp\Form\SearchForm
  * @group stratoserp_core
  * @group stratoserp
  */

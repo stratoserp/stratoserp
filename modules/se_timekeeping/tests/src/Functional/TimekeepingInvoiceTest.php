@@ -10,7 +10,10 @@ use Drupal\se_timekeeping\Entity\Timekeeping;
 /**
  * Test invoicing timekeeping.
  *
- * @coversDefault Drupal\se_timekeeping
+ * @covers \Drupal\se_timekeeping
+ * @uses \Drupal\se_accounting\Service\CurrencyFormat
+ * @uses \Drupal\se_customer\Entity\Customer
+ * @uses \Drupal\se_invoice
  * @group se_timekeeping
  * @group stratoserp
  */

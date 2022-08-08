@@ -7,7 +7,8 @@ namespace Drupal\Tests\se_ticket\Functional;
 /**
  * Ticket CRUD tests.
  *
- * @coversDefault Drupal\se_ticket
+ * @covers \Drupal\se_ticket\Entity\Ticket
+ * @uses \Drupal\se_customer\Entity\Customer
  * @group se_ticket
  * @group stratoserp
  */

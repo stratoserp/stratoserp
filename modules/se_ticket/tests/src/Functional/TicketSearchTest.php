@@ -7,7 +7,8 @@ namespace Drupal\Tests\se_ticket\Functional;
 /**
  * Class for testing ticket searching.
  *
- * @coversDefault Drupal\se_ticket
+ * @covers \Drupal\se_ticket
+ * @uses \Drupal\se_customer\Entity\Customer
  * @group se_ticket
  * @group stratoserp
  */

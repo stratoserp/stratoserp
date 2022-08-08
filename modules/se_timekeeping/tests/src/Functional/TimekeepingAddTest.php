@@ -7,7 +7,9 @@ namespace Drupal\Tests\se_timekeeping\Functional;
 /**
  * Test adding a timekeeping entry.
  *
- * @coversDefault Drupal\se_timekeeping
+ * @covers \Drupal\se_timekeeping\Entity\Timekeeping
+ * @uses \Drupal\se_customer\Entity\Customer
+ * @uses \Drupal\se_ticket\Entity\Ticket
  * @group se_timekeeping
  * @group stratoserp
  */

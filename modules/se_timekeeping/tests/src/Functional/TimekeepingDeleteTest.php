@@ -7,7 +7,8 @@ namespace Drupal\Tests\se_timekeeping\Functional;
 /**
  * Test deleting a timekeeping entry.
  *
- * @coversDefault Drupal\se_timekeeping
+ * @covers \Drupal\se_timekeeping
+ * @uses \Drupal\se_customer\Entity\Customer
  * @group se_timekeeping
  * @group stratoserp
  */

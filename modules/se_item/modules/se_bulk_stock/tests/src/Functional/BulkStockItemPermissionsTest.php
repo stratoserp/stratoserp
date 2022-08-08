@@ -9,7 +9,7 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 /**
  * Stock item permission tests.
  *
- * @coversDefault Drupal\se_bulk_stock
+ * @covers \Drupal\se_bulk_stock
  * @group se_bulk_stock
  * @group stratoserp
  */

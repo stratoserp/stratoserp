@@ -9,6 +9,13 @@ use Drupal\Tests\se_subscription\Functional\SubscriptionTestBase;
 
 /**
  * Test for creating subscriptions and invoicing them.
+ *
+ * @covers \Drupal\se_subscription_invoice\Service\SubscriptionInvoiceService
+ * @uses \Drupal\se_subscription
+ * @uses \Drupal\se_customer\Entity\Customer
+ * @uses \Drupal\se_invoice\Entity\Invoice
+ * @uses \Drupal\se_item\Entity\Item
+ * @uses \Drupal\se_supplier\Entity\Supplier
  */
 class SubscriptionInvoiceTest extends SubscriptionTestBase {
 

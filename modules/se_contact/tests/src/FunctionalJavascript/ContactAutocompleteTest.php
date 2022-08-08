@@ -11,7 +11,7 @@ use Drupal\Tests\se_testing\FunctionalJavascript\FunctionalJavascriptTestBase;
 /**
  * Test Contact autocomplete.
  *
- * @coversDefault Drupal\se_contact
+ * @covers \Drupal\se_contact
  * @group se_contact
  * @group stratoserp
  */

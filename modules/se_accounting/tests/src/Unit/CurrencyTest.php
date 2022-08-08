@@ -10,7 +10,7 @@ use Drupal\Tests\UnitTestCase;
 /**
  * Tests for the currency storage, display and raw conversion.
  *
- * @coversDefault Drupal\se_accounting
+ * @covers \Drupal\se_accounting\Service\CurrencyFormat
  * @group se_accounting
  * @group stratoserp
  */

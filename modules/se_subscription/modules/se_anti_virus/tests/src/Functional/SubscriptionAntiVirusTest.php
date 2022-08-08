@@ -2,12 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\se_subscription_invoice\Functional;
+namespace Drupal\Tests\se_subscription\Functional;
 
 use Drupal\Tests\se_subscription\Functional\SubscriptionTestBase;
 
 /**
  * Specific subscription type test.
+ *
+ * @covers \Drupal\se_subscription
+ * @uses \Drupal\se_customer\Entity\Customer
+ * @uses \Drupal\se_supplier\Entity\Supplier
  */
 class SubscriptionAntiVirusTest extends SubscriptionTestBase {
 

@@ -7,7 +7,7 @@ namespace Drupal\Tests\se_invoice\Functional;
 /**
  * Test invoice permissions.
  *
- * @coversDefault Drupal\se_invoice
+ * @covers \Drupal\se_invoice
  * @group se_invoice
  * @group stratoserp
  */

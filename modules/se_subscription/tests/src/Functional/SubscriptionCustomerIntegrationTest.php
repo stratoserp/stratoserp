@@ -6,6 +6,11 @@ namespace Drupal\Tests\se_subscription\Functional;
 
 /**
  * Test subscription integration with customer.
+ *
+ * @covers \Drupal\se_subscription
+ * @uses \Drupal\se_customer\Entity\Customer
+ * @group se_subscription
+ * @group stratoserp
  */
 class SubscriptionCustomerIntegrationTest extends SubscriptionTestBase {
 

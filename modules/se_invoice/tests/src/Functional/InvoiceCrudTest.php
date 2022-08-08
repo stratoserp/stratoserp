@@ -10,7 +10,7 @@ use Drupal\Tests\se_item\Traits\ItemTestTrait;
 /**
  * Invoice create/update/delete tests.
  *
- * @coversDefault Drupal\se_invoice
+ * @covers \Drupal\se_invoice
  * @group se_invoice
  * @group stratoserp
  */

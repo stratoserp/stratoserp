@@ -7,7 +7,8 @@ namespace Drupal\Tests\se_quote\Functional;
 /**
  * Test quote permissions.
  *
- * @coversDefault Drupal\se_invoice
+ * @covers \Drupal\se_invoice
+ * @uses \Drupal\se_customer\Entity\Customer
  * @group se_quote
  * @group stratoserp
  */

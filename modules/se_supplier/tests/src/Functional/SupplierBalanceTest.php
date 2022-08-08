@@ -7,7 +7,7 @@ namespace Drupal\Tests\se_supplier\Functional;
 /**
  * Test getting, setting and adjusting supplier outstanding balance.
  *
- * @coversDefault Drupal\se_supplier
+ * @covers \Drupal\se_supplier
  * @group se_supplier
  * @group stratoserp
  */

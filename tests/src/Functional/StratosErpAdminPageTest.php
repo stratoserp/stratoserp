@@ -9,8 +9,8 @@ use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 /**
  * Test that the settings page has attached to the ticket page.
  *
- * @coversDefault Drupal\se_o365_ticket
- * @group se_o365_ticket
+ * @covers \Drupal\stratoserp\Form\SettingsForm
+ * @group stratoserp_core
  * @group stratoserp
  */
 class StratosErpAdminPageTest extends FunctionalTestBase {

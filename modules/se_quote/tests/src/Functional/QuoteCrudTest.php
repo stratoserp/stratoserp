@@ -12,7 +12,11 @@ use Drupal\Tests\se_item\Traits\ItemTestTrait;
 /**
  * Quote create/update/delete tests.
  *
- * @coversDefault Drupal\se_quote
+ * @covers \Drupal\se_quote\Entity\Quote
+ * @uses \Drupal\se_customer\Entity\Customer
+ * @uses \Drupal\se_invoice\Entity\Invoice
+ * @uses \Drupal\se_item\Entity\Item
+ * @uses \Drupal\se_purchase_order\Entity\PurchaseOrder
  * @group se_quote
  * @group stratoserp
  */

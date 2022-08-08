@@ -10,7 +10,7 @@ use Drupal\Tests\se_item\Traits\ItemTestTrait;
 /**
  * Test Contact Service.
  *
- * @coversDefault Drupal\se_contact
+ * @covers \Drupal\se_contact
  * @group se_contact
  * @group stratoserp
  */

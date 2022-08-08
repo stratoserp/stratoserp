@@ -7,7 +7,7 @@ namespace Drupal\Tests\se_goods_receipt\Functional;
 /**
  * Goods receipt permission tests.
  *
- * @coversDefault Drupal\se_goods_receipt
+ * @covers \Drupal\se_goods_receipt
  * @group se_goods_receipt
  * @group stratoserp
  */

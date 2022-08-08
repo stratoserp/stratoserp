@@ -9,7 +9,7 @@ use Drupal\Tests\se_item\Functional\ItemTestBase;
 /**
  * Test for adding stock.
  *
- * @coversDefault Drupal\se_stock
+ * @covers \Drupal\se_stock
  * @group se_item
  * @group se_stock
  * @group stratoserp

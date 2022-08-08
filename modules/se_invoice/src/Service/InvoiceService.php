@@ -6,7 +6,6 @@ namespace Drupal\se_invoice\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\se_customer\Entity\customer;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\taxonomy\Entity\Term;

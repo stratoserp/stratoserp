@@ -9,9 +9,18 @@ use Drupal\se_customer\Entity\Customer;
 
 /**
  * Kernel Test for the customer service.
+ *
+ * @covers \Drupal\se_customer\Service\CustomerService::getInvoiceDayTimestamp
+ * @group se_customer
+ * @group stratoserp
  */
 class CustomerServiceTest extends KernelTestBase {
 
+  /**
+   * The modules to be enable.
+   *
+   * @var string[]
+   */
   public static $modules = [
     'se_customer',
     'se_accounting',

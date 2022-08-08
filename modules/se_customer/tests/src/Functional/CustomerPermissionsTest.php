@@ -7,7 +7,7 @@ namespace Drupal\Tests\se_customer\Functional;
 /**
  * Test basic permissions.
  *
- * @coversDefault Drupal\se_customer
+ * @covers \Drupal\se_customer
  * @group se_customer
  * @group stratoserp
  */

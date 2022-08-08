@@ -7,7 +7,7 @@ namespace Drupal\Tests\se_contact\Functional;
 /**
  * Test Contact Permiossions.
  *
- * @coversDefault Drupal\se_contact
+ * @covers \Drupal\se_contact
  * @group se_contact
  * @group stratoserp
  */

@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * Information document permission tests.
  *
- * @coversDefault Drupal\se_document
+ * @covers \Drupal\se_document
  * @group se_document
  * @group stratoserp
  */

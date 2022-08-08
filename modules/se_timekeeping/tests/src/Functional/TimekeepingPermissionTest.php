@@ -7,7 +7,8 @@ namespace Drupal\Tests\se_timekeeping\Functional;
 /**
  * Timekeeping permission tests.
  *
- * @coversDefault Drupal\se_timekeeping
+ * @covers \Drupal\se_timekeeping
+ * @uses \Drupal\se_customer\Entity\Customer
  * @group se_timekeeping
  * @group stratoserp
  */
