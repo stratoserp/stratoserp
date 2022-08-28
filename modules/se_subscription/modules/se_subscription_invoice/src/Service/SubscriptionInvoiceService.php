@@ -49,7 +49,7 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
   /**
    * {@inheritdoc}
    */
-  public function processDateSubscriptions(): array {
+  public function processDateSubscriptions($customerId = NULL): array {
     $invoices = [];
 
     // Load the customer ids for customers that have a invoice day set.
@@ -59,6 +59,10 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
       ->accessCheck(FALSE)
       ->condition('se_invoice_day', 0, '>')
       ->condition('se_invoice_day', date('d'), '<=');
+
+    if ($customerId) {
+      $query->condition('id', $customerId);
+    }
 
     // Load subscriptions to create line items.
     foreach ($query->execute() as $customerId) {
@@ -78,7 +82,7 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
   /**
    * {@inheritdoc}
    */
-  public function processSubscriptions(): array {
+  public function processSubscriptions($customerId = NULL): array {
     $invoices = [];
 
     // Build a query for subscriptions due not using customer date.
@@ -88,6 +92,10 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
       ->accessCheck(FALSE)
       ->condition('se_next_due', date('U'), '<=')
       ->condition('se_use_bu_due', 0);
+
+    if ($customerId) {
+      $query->condition('se_cu_ref', $customerId);
+    }
 
     // Load subscriptions to create line items.
     foreach ($query->execute() as $customerId) {

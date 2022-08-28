@@ -27,7 +27,9 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testSubscriptionInvoice(): void {
+  public function testDateSubscriptionsInvoice(): void {
+    $etm = \Drupal::entityTypeManager();
+
     $this->drupalLogin($this->staff);
     $customer = $this->addCustomer();
     $supplier = $this->addSupplier();
@@ -57,14 +59,30 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
     $subscription->save();
     $this->markEntityForCleanup($subscription);
     $sub = $subscription->id();
-    $oldCount = \Drupal::entityTypeManager()->getStorage('se_invoice')->loadByProperties([]);
+    $oldCount = $etm->getStorage('se_invoice')
+      ->getQuery()
+      ->count()
+      ->execute();
 
-    $invoices = \Drupal::service('se_subscription_invoice')->processSubscriptions();
-    $invoices = \Drupal::service('se_subscription_invoice')->processDateSubscriptions();
+    \Drupal::service('se_subscription_invoice')->processSubscriptions($customer->id());
+
+    $newCount = $etm->getStorage('se_invoice')
+      ->getQuery()
+      ->count()
+      ->execute();
+
+    // There should be no non-date ones in this test.
+    self::assertEquals($oldCount, $newCount);
+
+    \Drupal::service('se_subscription_invoice')->processDateSubscriptions($customer->id());
 
     $updated = Subscription::load($sub);
     $newTime = $updated->se_next_due->value;
-    $newCount = \Drupal::entityTypeManager()->getStorage('se_invoice')->loadByProperties([]);
+
+    $newCount = $etm->getStorage('se_invoice')
+      ->getQuery()
+      ->count()
+      ->execute();
 
     self::assertNotEquals($oldTime, $newTime);
     self::assertNotEquals($oldCount, $newCount);

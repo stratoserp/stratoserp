@@ -12,6 +12,9 @@ interface SubscriptionInvoiceServiceInterface {
   /**
    * Retrieve the list of customers with subscriptions that match this day.
    *
+   * @param int $customerId
+   *   Pass in a customer id to restrict subscription processing to a customer.
+   *
    * @return array
    *   And array of invoices.
    *
@@ -19,10 +22,13 @@ interface SubscriptionInvoiceServiceInterface {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function processDateSubscriptions(): array;
+  public function processDateSubscriptions(int $customerId): array;
 
   /**
    * Process subscriptions that are not set to use the customer date.
+   *
+   * @param int $customerId
+   *   Pass in a customer id to restrict subscription processing to a customer.
    *
    * @return array
    *   An array of invoices.
@@ -31,6 +37,6 @@ interface SubscriptionInvoiceServiceInterface {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function processSubscriptions(): array;
+  public function processSubscriptions(int $customerId): array;
 
 }
