@@ -165,9 +165,11 @@ class ItemLineController extends ControllerBase {
 
     $item_price = $item->se_sell_price->value;
     $displayPrice = $currencyService->formatDisplay((int) $item_price);
+    $item_cost = $item->se_cost_price->value;
 
     // Update the values so that the total gets updated as well.
     $values['se_item_lines'][$index]['price'] = $displayPrice;
+    $values['se_item_lines'][$index]['cost'] = $item_cost;
 
     // Create a new ajax response to set the price.
     $response->addCommand(new InvokeCommand(

@@ -58,6 +58,7 @@ trait SubscriptionTestTrait {
       'target_id' => $item->id(),
       'quantity' => 1,
       'price' => $item->se_sell_price->value,
+      'cost' => $item->se_cost_price->value,
     ];
     $lines[] = $line;
 

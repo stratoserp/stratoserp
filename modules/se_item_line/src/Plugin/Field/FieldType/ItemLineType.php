@@ -42,6 +42,14 @@ class ItemLineType extends DynamicEntityReferenceItem {
       'default' => 0,
     ];
 
+    $schema['columns']['cost'] = [
+      'description' => 'Cost of the item.',
+      'type' => 'int',
+      'length' => 11,
+      'not null' => TRUE,
+      'default' => 0,
+    ];
+
     $schema['columns']['serial'] = [
       'description' => 'Serial number for the item.',
       'type' => 'varchar_ascii',
@@ -85,6 +93,10 @@ class ItemLineType extends DynamicEntityReferenceItem {
 
     $properties['price'] = DataDefinition::create('string')
       ->setLabel(t('Price'))
+      ->setRequired(TRUE);
+
+    $properties['cost'] = DataDefinition::create('string')
+      ->setLabel(t('Cost'))
       ->setRequired(TRUE);
 
     $properties['serial'] = DataDefinition::create('string')

@@ -248,6 +248,7 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
         'quantity' => $line->quantity,
         'note' => $extra,
         'price' => $line->price,
+        'cost' => $line->cost,
         'subscription_id' => $subscription->id(),
       ];
     }

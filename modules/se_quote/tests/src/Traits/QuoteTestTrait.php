@@ -63,13 +63,16 @@ trait QuoteTestTrait {
     }
 
     $lines = [];
+    $total = 0;
     foreach ($items as $item) {
       $line = [
         'target_type' => 'se_item',
         'target_id' => $item['item']->id(),
         'quantity' => $item['quantity'],
-      ];
+        'price' => $item['item']->se_sell_price->value,
+        'cost' => $item['item']->se_cost_price->value,      ];
       $lines[] = $line;
+      $total += $line['quantity'] * $line['price'];
     }
 
     /** @var \Drupal\se_quote\Entity\Quote $quote */
@@ -86,6 +89,7 @@ trait QuoteTestTrait {
 
     self::assertNotEquals($quote, FALSE);
     self::assertNotNull($quote->getTotal());
+    self::assertEquals($total, $quote->getTotal());
 
     $this->drupalGet($quote->toUrl());
 

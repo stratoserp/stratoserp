@@ -71,6 +71,7 @@ trait InvoiceTestTrait {
         'target_id' => $item['item']->id(),
         'quantity' => $item['quantity'],
         'price' => $item['item']->se_sell_price->value,
+        'cost' => $item['item']->se_cost_price->value,
       ];
       $lines[] = $line;
       $total += $line['quantity'] * $line['price'];
@@ -96,6 +97,7 @@ trait InvoiceTestTrait {
     // Ensure that the items are present and valid.
     foreach ($invoice->se_item_lines as $line) {
       self::assertNotNull($line->price);
+      self::assertNotNull($line->cost);
     }
 
     $this->drupalGet($invoice->toUrl());

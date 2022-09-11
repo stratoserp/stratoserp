@@ -138,6 +138,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       ],
     ];
 
+    $build['cost'] = [
+      '#type' => 'textfield',
+      '#default_value' => $items[$delta]->cost,
+    ];
+
     // Add a textarea for notes, hide text format selection in after build.
     $build['note'] = [
       '#title' => t('Notes'),
@@ -224,6 +229,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       $values[$index]['quantity'] = $line['quantity'];
       $values[$index]['serial'] = $line['serial'];
       $values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
+      $values[$index]['cost'] = $line['cost'];
       $values[$index]['note'] = $line['note']['value'];
       $values[$index]['format'] = $line['note']['format'];
     }

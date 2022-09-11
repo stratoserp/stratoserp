@@ -40,6 +40,7 @@ class ItemLineService {
         && $timekeeping = Timekeeping::load($itemLine->target_id)) {
           $item = $timekeeping->se_it_ref->entity;
           $itemLine->price = $item->se_sell_price->value;
+          $itemLine->cost = $item->se_cost_price->value;
         }
       }
 
