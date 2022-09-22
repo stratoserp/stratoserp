@@ -16,6 +16,7 @@ use Drupal\Tests\se_item\Traits\ItemTestTrait;
  * @covers \Drupal\se_payment
  * @uses \Drupal\se_customer\Entity\Customer
  * @uses \Drupal\se_invoice\Entity\Invoice
+ * @uses \Drupal\se_payment\Entity\Payment
  * @uses \Drupal\se_item\Entity\Item
  * @group se_payment
  * @group stratoserp

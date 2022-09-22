@@ -25,6 +25,8 @@ interface TimekeepingInvoiceEventSubscriberInterface extends EventSubscriberInte
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The Event to handle.
    *
+   * @see \Drupal\se_invoice\Entity\Invoice
+   *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function timekeepingInvoiceInsert(EntityInsertEvent $event);
@@ -36,6 +38,8 @@ interface TimekeepingInvoiceEventSubscriberInterface extends EventSubscriberInte
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The Event to handle.
+   *
+   * @see \Drupal\se_invoice\Entity\Invoice
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -50,6 +54,8 @@ interface TimekeepingInvoiceEventSubscriberInterface extends EventSubscriberInte
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The Event to handle.
    *
+   * @see \Drupal\se_invoice\Entity\Invoice
+   *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function timekeepingInvoicePresave(EntityPresaveEvent $event);
@@ -62,6 +68,8 @@ interface TimekeepingInvoiceEventSubscriberInterface extends EventSubscriberInte
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
    *   The Event to handle.
+   *
+   * @see \Drupal\se_invoice\Entity\Invoice
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */

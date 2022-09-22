@@ -27,10 +27,7 @@ class PaymentLineEventSubscriber implements PaymentLineEventSubscriberInterface 
   }
 
   /**
-   * When saving a payment, calculate the total of the items for saving.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event we are working with.
+   * {@inheritdoc}
    */
   public function paymentLineEntityPresave(EntityPresaveEvent $event): void {
     $payment = $event->getEntity();

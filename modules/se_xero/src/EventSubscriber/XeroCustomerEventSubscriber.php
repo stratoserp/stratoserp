@@ -34,6 +34,8 @@ class XeroCustomerEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event to work with.
+   *
+   * @see \Drupal\se_customer\Entity\Customer
    */
   public function xeroCustomerInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\se_customer\Entity\Customer $customer */

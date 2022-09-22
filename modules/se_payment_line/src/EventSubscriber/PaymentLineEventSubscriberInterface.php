@@ -19,6 +19,8 @@ interface PaymentLineEventSubscriberInterface extends EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event we are working with.
+   *
+   * @see \Drupal\se_payment\Entity\Payment
    */
   public function paymentLineEntityPresave(EntityPresaveEvent $event);
 

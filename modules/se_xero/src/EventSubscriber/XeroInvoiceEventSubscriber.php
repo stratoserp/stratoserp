@@ -34,6 +34,8 @@ class XeroInvoiceEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event we are working with.
+   *
+   * @see \Drupal\se_invoice\Entity\Invoice
    */
   public function xeroInvoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */

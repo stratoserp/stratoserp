@@ -36,10 +36,6 @@ class FunctionalTestBase extends TestCase {
   // The entity creation traits need this.
   use RandomGeneratorTrait;
 
-  // Core is still using this in role creation, so it must be included here when
-  // using the UserCreationTrait.
-  use AssertLegacyTrait;
-
   // Include various StratosERP traits.
   use UserCreateTestTrait;
 
