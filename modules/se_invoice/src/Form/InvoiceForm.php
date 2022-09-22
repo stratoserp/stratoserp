@@ -37,6 +37,10 @@ class InvoiceForm extends StratosContentEntityForm {
 
     $input = $form_state->getUserInput();
     foreach ($input['se_item_lines'] as $index => $line) {
+      if ($line['target_type'] !== 'se_item') {
+        continue;
+      }
+
       $entity_id = EntityAutocomplete::extractEntityIdFromAutocompleteInput($line['target_id']);
 
       /** @var \Drupal\se_item\Entity\Item $item */

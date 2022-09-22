@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Drupal\se_item_line\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityReferenceWidget;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'se_item_line_widget' widget.
@@ -22,6 +24,21 @@ use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityRefere
  * )
  */
 class ItemLineWidget extends DynamicEntityReferenceWidget {
+
+  protected EntityTypeManager $entityTypeManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->setEntityTypeManager($container->get('entity_type.manager'));
+    return $instance;
+  }
+
+  public function setEntityTypeManager(EntityTypeManager $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
 
   /**
    * {@inheritdoc}
@@ -133,11 +150,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       ],
     ];
 
-    $build['cost'] = [
-      '#type' => 'textfield',
-      '#default_value' => $items[$delta]->cost,
-    ];
-
     // Add a textarea for notes, hide text format selection in after build.
     $build['note'] = [
       '#title' => t('Notes'),
@@ -206,6 +218,12 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
    * @todo There should be a way to do this in ItemLineType setValue().
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    // If not a full submit, return early.
+    $trigger = $form_state->getTriggeringElement();
+    if ($trigger['#type'] !== 'submit') {
+      return [];
+    }
+
     $host_type = $form_state->getFormObject()->getEntity()->getEntityTypeId();
 
     foreach ($values as $index => $line) {
@@ -221,10 +239,25 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
         $values[$index]['completed_date'] = $storage_date;
       }
 
+      // Load it and store the cost on the invoice at the time of creation.
+      switch ($values[$index]['target_type']) {
+        case 'se_item':
+          /** @var \Drupal\se_item\Entity\Item $item */
+          $item = $this->entityTypeManager->getStorage('se_item')->load($line['target_id']);
+          $values[$index]['cost'] = $item->se_cost_price->value;
+          break;
+
+        case 'se_timekeeping':
+          /** @var \Drupal\se_timekeeping\Entity\Timekeeping $timkeeping */
+          $timekeeping = $this->entityTypeManager->getStorage('se_timekeeping')->load($line['target_id']);
+          $item = $timekeeping->getItem();
+          $values[$index]['cost'] = $item->se_cost_price->value;
+          break;
+      }
+
       $values[$index]['quantity'] = $line['quantity'];
       $values[$index]['serial'] = $line['serial'];
       $values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
-      $values[$index]['cost'] = $line['cost'];
       $values[$index]['note'] = $line['note']['value'];
       $values[$index]['format'] = $line['note']['format'];
     }

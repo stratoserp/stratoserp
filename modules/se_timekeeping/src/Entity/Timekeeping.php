@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_timekeeping\Entity;
 
+use Drupal\se_item\Entity\Item;
 use Drupal\stratoserp\Entity\StratosEntityBase;
 
 /**
@@ -76,7 +77,14 @@ class Timekeeping extends StratosEntityBase implements TimekeepingInterface {
    * {@inheritdoc}
    */
   public function getSearchPrefix(): string {
-    return 'co';
+    return 'tk';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItem(): Item {
+    return $this->se_it_ref->first()->entity;
   }
 
 }
