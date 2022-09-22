@@ -62,9 +62,6 @@ jobs:
       - name: Add HTTP basic auth credentials
         run: echo '${{ secrets.COMPOSER_AUTH_JSON }}' > auth.json
 
-      - name: Update composer dependencies to get latest versions
-        run: composer update -n
-
       - name: Ensure directories for filesystem exist
         run: mkdir -p $PRIVATE_DIR $PUBLIC_DIR $TMP_DIR $BROWSERTEST_OUTPUT_DIRECTORY
 
