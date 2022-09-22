@@ -5,10 +5,7 @@
 
 name: Tests
 
-on:
-  push:
-    branches:
-      - develop
+on: push
 
 env:
   COMPOSER_MEMORY_LIMIT: -1
