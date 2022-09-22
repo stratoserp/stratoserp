@@ -104,11 +104,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
         ],
       ],
     ];
-    if ($host_type !== 'se_goods_receipt') {
-      // Disable serial field unless its a good receipt.
-      $build['serial']['#disabled'] = TRUE;
-      $build['serial']['#alt'] = t('Auto populated.');
-    }
     $build['serial']['#suffix'] = '</span>';
 
     if ($host_type === 'se_invoice') {
