@@ -80,7 +80,7 @@ class Customer extends StratosEntityBase implements CustomerInterface {
    * {@inheritdoc}
    */
   public function getSearchPrefix(): string {
-    return 'bu';
+    return 'cu';
   }
 
   /**

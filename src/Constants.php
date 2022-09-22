@@ -23,8 +23,10 @@ final class Constants {
     'pa' => ['type' => 'se_payment', 'label' => 'Payment'],
     'po' => ['type' => 'se_purchase_order', 'label' => 'Purchase order'],
     'qu' => ['type' => 'se_quote', 'label' => 'Quote'],
+    'sp' => ['type' => 'se_supplier', 'label' => 'Supplier'],
     'su' => ['type' => 'se_subscription', 'label' => 'Subscription'],
     'ti' => ['type' => 'se_ticket', 'label' => 'Ticket'],
+    'tk' => ['type' => 'se_timekeeping', 'label' => 'Timekeeping'],
   ];
 
   public const SE_ENTITY_TYPES = [

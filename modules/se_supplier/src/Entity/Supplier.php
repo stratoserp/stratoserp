@@ -80,7 +80,7 @@ class Supplier extends StratosEntityBase implements SupplierInterface {
    * {@inheritdoc}
    */
   public function getSearchPrefix(): string {
-    return 'bu';
+    return 'sp';
   }
 
   /**

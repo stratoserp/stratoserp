@@ -26,6 +26,7 @@ class TimekeepingForm extends StratosContentEntityForm {
     if ($ticket !== NULL) {
       $formAlter = \Drupal::service('se.form_alter');
       $formAlter->setReferenceField($form, 'se_ti_ref', $ticket);
+      $formAlter->setReferenceField($form, 'se_cu_ref', $ticket->getCustomer());
 
       // Add our custom redirect to stay on the ticket when submitted.
       $form['actions']['submit']['#submit'][] = '::ticketRedirect';
