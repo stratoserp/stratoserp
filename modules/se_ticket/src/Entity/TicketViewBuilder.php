@@ -20,15 +20,15 @@ class TicketViewBuilder extends EntityViewBuilder {
     $build = parent::view($entity, $view_mode, $langcode);
 
     // Generate a blank timekeeping entry form with defaults.
-    $form = \Drupal::service('entity_type.manager')
+    $formObject = \Drupal::service('entity_type.manager')
       ->getFormObject('se_timekeeping', 'default')
       ->setEntity(Timekeeping::create([]));
 
     /** @var \Drupal\se_ticket\Entity\Ticket $entity */
-    $form = \Drupal::formBuilder()->getForm($form, $entity);
+    $builtForm = \Drupal::formBuilder()->getForm($formObject, $entity);
 
-    $form['#weight'] = 100;
-    $build[] = $form;
+    $builtForm['#weight'] = 100;
+    $build[] = $builtForm;
 
     return $build;
   }

@@ -829,8 +829,8 @@ display:
         - 'config:field.storage.se_timekeeping.se_cu_ref'
         - 'config:field.storage.se_timekeeping.se_date'
         - 'config:field.storage.se_timekeeping.se_review'
-  page_1:
-    id: page_1
+  se_timekeeping_list:
+    id: se_timekeeping_list
     display_title: Page
     display_plugin: page
     position: 1

@@ -55,6 +55,17 @@ class StratosContentEntityForm extends ContentEntityForm {
       $form['se_payment_lines']['widget']['#max_delta'] = $max_delta - 1;
     }
 
+    // If the user is not an administrator, hide the revision field.
+    /** @var \Drupal\stratoserp\Entity\StratosEntityBase $entity */
+    $entity = $form_state->getFormObject()->getEntity();
+    if ($entity->isNew() || !$this->currentUser()->hasPermission('administer content')) {
+      $form['revision_information']['#access'] = FALSE;
+    }
+    // And even if they are, put it in the extra field group anyway.
+    else {
+      $form['revision_information']['#group'] = 'group_extra';
+    }
+
     return $form;
   }
 
