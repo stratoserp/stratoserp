@@ -480,7 +480,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_bill.se_total'
         - 'config:field.storage.se_bill.se_cu_ref'
@@ -507,7 +507,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_bill.se_total'
         - 'config:field.storage.se_bill.se_cu_ref'

@@ -639,7 +639,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_item.se_cost_price'
         - 'config:field.storage.se_item.se_gr_ref'
@@ -664,7 +664,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_item.se_cost_price'
         - 'config:field.storage.se_item.se_gr_ref'

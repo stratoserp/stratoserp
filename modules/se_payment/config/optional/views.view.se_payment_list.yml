@@ -384,7 +384,7 @@ display:
         options:
           perm: 'view payment entities'
       cache:
-        type: none
+        type: tag
         options: {  }
       empty: {  }
       sorts: {  }

@@ -693,7 +693,7 @@ display:
         - url
         - url.query_args
         - user
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_invoice.se_outstanding'
         - 'config:field.storage.se_invoice.se_total'
@@ -717,7 +717,7 @@ display:
         - url
         - url.query_args
         - user
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_invoice.se_outstanding'
         - 'config:field.storage.se_invoice.se_total'

@@ -384,7 +384,7 @@ display:
         options:
           perm: 'view goods receipt entities'
       cache:
-        type: none
+        type: tag
         options: {  }
       empty: {  }
       sorts: {  }

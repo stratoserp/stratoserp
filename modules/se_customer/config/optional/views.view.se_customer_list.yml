@@ -447,7 +447,7 @@ display:
         options:
           perm: 'view customer entities'
       cache:
-        type: none
+        type: tag
         options: {  }
       empty: {  }
       sorts: {  }

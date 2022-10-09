@@ -75,9 +75,9 @@ class SearchForm extends FormBase {
     ];
 
     $build['submit'] = [
-      '#title' => t('Search'),
+      '#title' => t('Load'),
       '#type' => 'submit',
-      '#value' => t('Search'),
+      '#value' => t('Load'),
     ];
 
     return $build;

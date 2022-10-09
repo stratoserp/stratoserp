@@ -32,11 +32,11 @@ class SearchTest extends FunctionalTestBase {
 
     $this->drupalGet('<front>');
 
-    $page->pressButton('Search');
+    $page->pressButton('Load');
     $assert->pageTextContains('No search string found');
 
     $page->fillField('edit-search', $testCustomer->getName() . ' (' . $testCustomer->id() . ')');
-    $page->pressButton('Search');
+    $page->pressButton('Load');
     $assert->pageTextNotContains('No search string found');
     $assert->pageTextContains($testCustomer->getName());
 

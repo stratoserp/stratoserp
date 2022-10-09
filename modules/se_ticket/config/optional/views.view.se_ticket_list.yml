@@ -388,7 +388,7 @@ display:
         options:
           perm: 'view ticket entities'
       cache:
-        type: none
+        type: tag
         options: {  }
       empty:
         area:

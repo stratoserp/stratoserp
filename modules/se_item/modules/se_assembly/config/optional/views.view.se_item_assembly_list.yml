@@ -765,7 +765,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_item.se_code'
         - 'config:field.storage.se_item.se_cost_price'
@@ -795,7 +795,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_item.se_code'
         - 'config:field.storage.se_item.se_cost_price'

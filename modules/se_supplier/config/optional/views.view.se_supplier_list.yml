@@ -447,7 +447,7 @@ display:
         options:
           perm: 'view supplier entities'
       cache:
-        type: none
+        type: tag
         options: {  }
       empty: {  }
       sorts: {  }
@@ -812,7 +812,7 @@ display:
         - url
         - url.query_args
         - user
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_supplier.se_balance'
         - 'config:field.storage.se_supplier.se_email'

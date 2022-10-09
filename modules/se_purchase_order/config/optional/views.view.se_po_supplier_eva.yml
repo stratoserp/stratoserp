@@ -522,7 +522,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_purchase_order.se_status_ref'
   se_purchase_order_eva:
@@ -543,6 +543,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_purchase_order.se_status_ref'

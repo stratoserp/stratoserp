@@ -601,7 +601,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_goods_receipt.se_status_ref'
         - 'config:field.storage.se_goods_receipt.se_su_ref'
@@ -623,7 +623,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.se_goods_receipt.se_status_ref'
         - 'config:field.storage.se_goods_receipt.se_su_ref'
