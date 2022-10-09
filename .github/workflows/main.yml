@@ -66,7 +66,7 @@ jobs:
         run: ./vendor/bin/drush -v site:install stratoserp_base --account-mail admin@example.com --account-name admin --account-pass password --site-name 'Drupal site' --site-mail site@example.com --yes --db-url=$SIMPLETEST_DB
 
       - name: Install modules for tests
-        run: ./vendor/bin/drush pm-enable se_example_data --yes
+        run: ./vendor/bin/drush pm-enable se_example_data se_subscription_invoice --yes
 
       - name: Run a simple web server
         run: ./vendor/bin/drush runserver $SIMPLETEST_BASE_URL &
