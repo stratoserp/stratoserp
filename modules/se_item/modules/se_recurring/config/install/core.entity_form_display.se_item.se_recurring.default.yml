@@ -28,7 +28,9 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - uid
+        - created
       label: Extra
       region: bottom
       parent_name: ''
@@ -69,14 +71,14 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
-    region: first
+    weight: -1
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
-    region: first
+    region: top
     settings:
       size: 60
       placeholder: ''
@@ -161,13 +163,13 @@ content:
   status:
     type: boolean_checkbox
     weight: -3
-    region: first
+    region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: options_select
-    weight: 1
+    weight: -2
     region: bottom
     settings: {  }
     third_party_settings: {  }

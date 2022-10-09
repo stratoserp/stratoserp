@@ -26,11 +26,13 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - uid
+        - created
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 8
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -46,7 +48,7 @@ third_party_settings:
       label: Categories
       region: second
       parent_name: ''
-      weight: 5
+      weight: 7
       format_type: html_element
       format_settings:
         classes: container-inline
@@ -67,28 +69,28 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
-    region: first
+    weight: 3
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
-    region: first
+    region: top
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   se_active:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: first
     settings:
       display_label: true
     third_party_settings: {  }
   se_code:
     type: string_textfield
-    weight: 3
+    weight: 5
     region: second
     settings:
       size: 60
@@ -96,13 +98,13 @@ content:
     third_party_settings: {  }
   se_cost_price:
     type: se_currency_widget
-    weight: 6
+    weight: 8
     region: second
     settings: {  }
     third_party_settings: {  }
   se_description:
     type: text_textarea
-    weight: 7
+    weight: 9
     region: bottom
     settings:
       rows: 5
@@ -128,13 +130,13 @@ content:
     third_party_settings: {  }
   se_sell_price:
     type: se_currency_widget
-    weight: 1
+    weight: 2
     region: first
     settings: {  }
     third_party_settings: {  }
   se_supplier_code:
     type: string_textfield
-    weight: 4
+    weight: 6
     region: second
     settings:
       size: 60
@@ -142,14 +144,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: -3
-    region: first
+    weight: 1
+    region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: options_select
-    weight: 1
+    weight: 2
     region: bottom
     settings: {  }
     third_party_settings: {  }

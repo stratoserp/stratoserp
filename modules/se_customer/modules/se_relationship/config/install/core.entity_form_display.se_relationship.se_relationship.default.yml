@@ -6,6 +6,7 @@ dependencies:
     - field.field.se_relationship.se_relationship.se_extra_information
     - field.field.se_relationship.se_relationship.se_su_ref
   module:
+    - field_group
     - field_layout
     - layout_discovery
     - se_relationship
@@ -14,6 +15,24 @@ third_party_settings:
     id: layout_onecol
     settings:
       label: ''
+  field_group:
+    group_extra:
+      children:
+        - status
+        - uid
+        - created
+      label: Extra
+      region: content
+      parent_name: ''
+      weight: 20
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
 id: se_relationship.se_relationship.default
 targetEntityType: se_relationship
 bundle: se_relationship
@@ -21,7 +40,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: -1
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -70,7 +89,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: -2
     region: content
     settings:
       match_operator: CONTAINS

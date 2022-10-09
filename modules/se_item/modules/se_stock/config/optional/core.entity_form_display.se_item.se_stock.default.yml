@@ -39,13 +39,13 @@ third_party_settings:
   field_group:
     group_extra:
       children:
-        - se_sold
-        - se_lost
+        - status
         - uid
+        - created
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 16
+      weight: 18
       format_type: details
       format_settings:
         classes: ''
@@ -61,7 +61,7 @@ third_party_settings:
       label: Categories
       region: second
       parent_name: ''
-      weight: 10
+      weight: 12
       format_type: html_element
       format_settings:
         classes: container-inline
@@ -82,14 +82,14 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
-    region: first
+    weight: 19
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
-    region: first
+    region: top
     settings:
       size: 60
       placeholder: ''
@@ -103,7 +103,7 @@ content:
     third_party_settings: {  }
   se_code:
     type: string_textfield
-    weight: 7
+    weight: 9
     region: second
     settings:
       size: 60
@@ -111,13 +111,13 @@ content:
     third_party_settings: {  }
   se_cost_price:
     type: se_currency_widget
-    weight: 13
+    weight: 15
     region: second
     settings: {  }
     third_party_settings: {  }
   se_description:
     type: text_textarea
-    weight: 14
+    weight: 16
     region: bottom
     settings:
       rows: 5
@@ -125,7 +125,7 @@ content:
     third_party_settings: {  }
   se_gr_ref:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 14
     region: second
     settings:
       match_operator: CONTAINS
@@ -135,7 +135,7 @@ content:
     third_party_settings: {  }
   se_images:
     type: image_image
-    weight: 15
+    weight: 17
     region: bottom
     settings:
       progress_indicator: throbber
@@ -163,20 +163,20 @@ content:
     third_party_settings: {  }
   se_lost:
     type: boolean_checkbox
-    weight: 18
-    region: bottom
+    weight: 8
+    region: first
     settings:
       display_label: true
     third_party_settings: {  }
   se_manufacturer_ref:
     type: options_select
-    weight: 12
+    weight: 3
     region: second
     settings: {  }
     third_party_settings: {  }
   se_po_ref:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 13
     region: second
     settings:
       match_operator: CONTAINS
@@ -186,13 +186,13 @@ content:
     third_party_settings: {  }
   se_product_type_ref:
     type: options_select
-    weight: 11
+    weight: 2
     region: second
     settings: {  }
     third_party_settings: {  }
   se_sale_category_ref:
     type: options_select
-    weight: 13
+    weight: 4
     region: second
     settings: {  }
     third_party_settings: {  }
@@ -216,7 +216,7 @@ content:
     third_party_settings: {  }
   se_serial:
     type: string_textfield
-    weight: 8
+    weight: 10
     region: second
     settings:
       size: 60
@@ -224,14 +224,14 @@ content:
     third_party_settings: {  }
   se_sold:
     type: boolean_checkbox
-    weight: 17
-    region: bottom
+    weight: 7
+    region: first
     settings:
       display_label: true
     third_party_settings: {  }
   se_supplier_code:
     type: string_textfield
-    weight: 9
+    weight: 11
     region: second
     settings:
       size: 60
@@ -239,14 +239,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: -3
-    region: first
+    weight: 15
+    region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: 18
     region: bottom
     settings:
       match_operator: CONTAINS

@@ -40,11 +40,13 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - uid
+        - created
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 21
+      weight: 22
       format_type: details
       format_settings:
         classes: ''
@@ -59,8 +61,8 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
-    region: first
+    weight: -1
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   name:
@@ -73,7 +75,7 @@ content:
     third_party_settings: {  }
   se_address:
     type: string_textfield
-    weight: 4
+    weight: 3
     region: first
     settings:
       size: 25
@@ -81,13 +83,13 @@ content:
     third_party_settings: {  }
   se_balance:
     type: se_currency_widget
-    weight: 8
+    weight: 7
     region: first
     settings: {  }
     third_party_settings: {  }
   se_email:
     type: email_default
-    weight: 10
+    weight: 11
     region: second
     settings:
       placeholder: ''
@@ -95,20 +97,20 @@ content:
     third_party_settings: {  }
   se_email_format:
     type: options_select
-    weight: 11
+    weight: 12
     region: second
     settings: {  }
     third_party_settings: {  }
   se_fax:
     type: telephone_default
-    weight: 12
+    weight: 13
     region: second
     settings:
       placeholder: ''
     third_party_settings: {  }
   se_homepage:
     type: link_default
-    weight: 9
+    weight: 10
     region: second
     settings:
       placeholder_url: ''
@@ -116,56 +118,32 @@ content:
     third_party_settings: {  }
   se_invoice_day:
     type: number
-    weight: 18
+    weight: 19
     region: second
     settings:
       placeholder: ''
     third_party_settings: {  }
   se_last_statement_date:
     type: datetime_default
-    weight: 19
+    weight: 20
     region: second
     settings: {  }
     third_party_settings: {  }
   se_mobile:
-    type: telephone_default
-    weight: 3
-    region: first
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  se_phone:
     type: telephone_default
     weight: 2
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
+  se_phone:
+    type: telephone_default
+    weight: 1
+    region: first
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   se_postal_address:
-    type: string_textfield
-    weight: 13
-    region: second
-    settings:
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-  se_postal_postcode:
-    type: string_textfield
-    weight: 16
-    region: second
-    settings:
-      size: 10
-      placeholder: ''
-    third_party_settings: {  }
-  se_postal_state:
-    type: string_textfield
-    weight: 15
-    region: second
-    settings:
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
-  se_postal_suburb:
     type: string_textfield
     weight: 14
     region: second
@@ -173,29 +151,46 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
+  se_postal_postcode:
+    type: string_textfield
+    weight: 17
+    region: second
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+  se_postal_state:
+    type: string_textfield
+    weight: 16
+    region: second
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+  se_postal_suburb:
+    type: string_textfield
+    weight: 15
+    region: second
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
   se_postcode:
     type: string_textfield
-    weight: 7
+    weight: 6
     region: first
     settings:
       size: 10
       placeholder: ''
     third_party_settings: {  }
-  se_state:
-    type: string_textfield
-    weight: 6
+  se_reminder_days:
+    type: number
+    weight: 9
     region: first
     settings:
-      size: 25
       placeholder: ''
     third_party_settings: {  }
-  se_status:
-    type: options_select
-    weight: 17
-    region: second
-    settings: {  }
-    third_party_settings: {  }
-  se_suburb:
+  se_state:
     type: string_textfield
     weight: 5
     region: first
@@ -203,9 +198,23 @@ content:
       size: 25
       placeholder: ''
     third_party_settings: {  }
+  se_status:
+    type: options_select
+    weight: 18
+    region: second
+    settings: {  }
+    third_party_settings: {  }
+  se_suburb:
+    type: string_textfield
+    weight: 4
+    region: first
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
   se_terms:
     type: number
-    weight: 20
+    weight: 21
     region: second
     settings:
       placeholder: ''
@@ -213,13 +222,13 @@ content:
   status:
     type: boolean_checkbox
     weight: -3
-    region: first
+    region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: -2
     region: bottom
     settings:
       match_operator: CONTAINS
@@ -229,4 +238,3 @@ content:
     third_party_settings: {  }
 hidden:
   se_location: true
-  se_reminder_days: true

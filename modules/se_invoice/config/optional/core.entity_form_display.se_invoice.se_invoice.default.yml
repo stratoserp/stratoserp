@@ -26,23 +26,31 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - uid
+        - created
+      label: Extra
+      region: bottom
       parent_name: ''
       weight: 13
       format_type: details
-      region: bottom
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
-      label: Extra
 id: se_invoice.se_invoice.default
 targetEntityType: se_invoice
 bundle: se_invoice
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: bottom
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -52,33 +60,33 @@ content:
       placeholder: ''
     third_party_settings: {  }
   se_co_ref:
+    type: entity_reference_autocomplete
     weight: 2
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_cu_ref:
+    type: entity_reference_autocomplete
     weight: 1
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_customer_order:
+    type: string_textfield
     weight: 7
+    region: second
     settings:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: second
   se_item_lines:
     type: se_item_line_widget
     weight: 10
@@ -96,51 +104,55 @@ content:
     settings: {  }
     third_party_settings: {  }
   se_qu_ref:
+    type: entity_reference_autocomplete
     weight: 8
+    region: second
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: second
   se_sent:
+    type: boolean_checkbox
     weight: 9
+    region: second
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: second
   se_status_ref:
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
     type: options_select
+    weight: 6
     region: second
-  se_total:
-    weight: 12
     settings: {  }
     third_party_settings: {  }
+  se_total:
     type: se_currency_widget
+    weight: 12
     region: bottom
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 0
+    region: bottom
+    settings:
+      display_label: true
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 1
+    region: bottom
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: bottom
     third_party_settings: {  }
 hidden:
-  created: true
   extra_field_actions_field: true
   extra_field_meta_field: true
   extra_field_revision_field: true
   path: true
   promote: true
-  status: true
   sticky: true
-  uid: true

@@ -35,9 +35,11 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - se_sold
         - se_lost
         - uid
+        - created
       label: Extra
       region: bottom
       parent_name: ''
@@ -78,8 +80,8 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
-    region: first
+    weight: 1
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   name:
@@ -139,7 +141,7 @@ content:
     third_party_settings: {  }
   se_lost:
     type: boolean_checkbox
-    weight: 18
+    weight: -1
     region: bottom
     settings:
       display_label: true
@@ -202,7 +204,7 @@ content:
     third_party_settings: {  }
   se_sold:
     type: boolean_checkbox
-    weight: 17
+    weight: -2
     region: bottom
     settings:
       display_label: true
@@ -210,13 +212,13 @@ content:
   status:
     type: boolean_checkbox
     weight: -3
-    region: first
+    region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: 0
     region: bottom
     settings:
       match_operator: CONTAINS

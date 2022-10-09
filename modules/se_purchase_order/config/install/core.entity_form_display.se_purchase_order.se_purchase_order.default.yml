@@ -24,23 +24,31 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - uid
+        - created
+      label: Extra
+      region: bottom
       parent_name: ''
       weight: 7
       format_type: details
-      region: bottom
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
-      label: Extra
 id: se_purchase_order.se_purchase_order.default
 targetEntityType: se_purchase_order
 bundle: se_purchase_order
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: bottom
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -52,74 +60,81 @@ content:
   se_body:
     type: text_textarea
     weight: 8
+    region: bottom
     settings:
       rows: 5
+      placeholder: ''
       summary_rows: 3
-      placeholder: ''
     third_party_settings: {  }
-    region: bottom
   se_co_ref:
+    type: entity_reference_autocomplete
     weight: 2
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_cu_ref:
+    type: entity_reference_autocomplete
     weight: 1
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_item_lines:
+    type: se_item_line_widget
     weight: 5
+    region: bottom
     settings:
       match_operator: CONTAINS
       size: '40'
       placeholder: ''
       match_limit: 10
     third_party_settings: {  }
-    type: se_item_line_widget
-    region: bottom
   se_qu_ref:
+    type: entity_reference_autocomplete
     weight: 4
+    region: second
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: second
   se_status_ref:
+    type: options_select
     weight: 3
+    region: second
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: second
   se_su_ref:
+    type: entity_reference_autocomplete
     weight: 10
+    region: first
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_total:
+    type: se_currency_widget
     weight: 6
+    region: bottom
     settings: {  }
     third_party_settings: {  }
-    type: se_currency_widget
+  status:
+    type: boolean_checkbox
+    weight: 0
     region: bottom
+    settings:
+      display_label: true
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -130,21 +145,18 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 1
+    region: bottom
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: bottom
     third_party_settings: {  }
 hidden:
-  created: true
   extra_field_actions_field: true
   extra_field_meta_field: true
   extra_field_revision_field: true
   path: true
   promote: true
-  status: true
   sticky: true
-  uid: true

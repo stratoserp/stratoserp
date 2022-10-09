@@ -40,6 +40,7 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - uid
       label: Extra
       region: bottom
@@ -213,13 +214,13 @@ content:
   status:
     type: boolean_checkbox
     weight: -3
-    region: first
+    region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: -2
     region: bottom
     settings:
       match_operator: CONTAINS

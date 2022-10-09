@@ -29,7 +29,9 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - uid
+        - created
       label: Extra
       region: bottom
       parent_name: ''
@@ -48,8 +50,8 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
-    region: first
+    weight: -1
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   name:
@@ -142,13 +144,13 @@ content:
   status:
     type: boolean_checkbox
     weight: -3
-    region: first
+    region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: -2
     region: bottom
     settings:
       match_operator: CONTAINS
@@ -156,5 +158,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  se_domain_name: true
+hidden: {  }

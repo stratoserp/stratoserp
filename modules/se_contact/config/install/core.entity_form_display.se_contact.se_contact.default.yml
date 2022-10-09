@@ -21,7 +21,9 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - status
         - uid
+        - created
       label: Extra
       region: bottom
       parent_name: ''
@@ -38,6 +40,12 @@ targetEntityType: se_contact
 bundle: se_contact
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: bottom
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -47,60 +55,64 @@ content:
       placeholder: ''
     third_party_settings: {  }
   se_cu_ref:
+    type: entity_reference_autocomplete
     weight: 1
+    region: first
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 40
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_email:
-    weight: 7
-    settings:
-      size: 25
-      placeholder: ''
-    third_party_settings: {  }
     type: email_default
+    weight: 7
     region: second
+    settings:
+      placeholder: ''
+      size: 25
+    third_party_settings: {  }
   se_mobile:
+    type: telephone_default
     weight: 5
+    region: second
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: telephone_default
-    region: second
   se_phone:
+    type: telephone_default
     weight: 6
+    region: second
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: telephone_default
-    region: second
   se_type_ref:
+    type: options_select
     weight: 2
+    region: first
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: first
+  status:
+    type: boolean_checkbox
+    weight: 0
+    region: bottom
+    settings:
+      display_label: true
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 1
+    region: bottom
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: first
     third_party_settings: {  }
 hidden:
-  created: true
   extra_field_actions_field: true
   extra_field_meta_field: true
   extra_field_revision_field: true
   path: true
   promote: true
-  status: true
   sticky: true
-  uid: true
