@@ -240,6 +240,24 @@ class PaymentController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
+  public function fromCustomer(EntityInterface $source): array {
+    $entity = $this->createPaymentFromCustomer($source);
+
+    return $this->entityFormBuilder()->getForm($entity);
+  }
+
+  /**
+   * Provides the entity submission form for payment creation from an invoice.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   Source entity to copy data from.
+   *
+   * @return array
+   *   An entity submission form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   public function fromInvoice(EntityInterface $source): array {
     $entity = $this->createPaymentFromInvoice($source);
 
@@ -258,7 +276,7 @@ class PaymentController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function createPaymentFromInvoice(EntityInterface $source): EntityInterface {
+  public function createPaymentFromCustomer(EntityInterface $source): EntityInterface {
 
     /** @var \Drupal\se_payment\Entity\Payment $payment */
     $payment = Payment::create([
@@ -301,6 +319,58 @@ class PaymentController extends ControllerBase {
     }
 
     $payment->se_cu_ref = $customer;
+    $payment->se_payment_lines = $lines;
+    $payment->setTotal($total);
+
+    return $payment;
+  }
+
+  /**
+   * Provides the entity for creating a payment from an invoice.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   The source invoice entity.
+   *
+   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_payment\Entity\Payment
+   *   An entity ready for the submission form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function createPaymentFromInvoice(EntityInterface $source): EntityInterface {
+
+    /** @var \Drupal\se_payment\Entity\Payment $payment */
+    $payment = Payment::create([
+      'bundle' => 'se_payment',
+    ]);
+
+    $paymentType = \Drupal::service('config.factory')->get('se_payment.settings')->get('default_payment_term');
+    if (!$paymentTerm = Term::load($paymentType)) {
+      \Drupal::messenger()->addWarning('Unable to load default payment term.');
+    }
+
+    $total = 0;
+
+    $entityIds = [$source->id()];
+
+    // Build a list of outstanding invoices and make payment lines out of them.
+    $lines = [];
+    foreach ($entityIds as $id) {
+      /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+      if ($invoice = $this->entityTypeManager()->getStorage('se_invoice')->load($id)) {
+        $outstandingAmount = $invoice->getInvoiceBalance();
+        $line = [
+          'target_id' => $invoice->id(),
+          'target_type' => 'se_invoice',
+          'amount' => $outstandingAmount,
+          'payment_type' => $paymentTerm->id() ?? '',
+        ];
+        $lines[] = $line;
+        $total += $outstandingAmount;
+      }
+    }
+
+    $payment->se_cu_ref = $source->se_cu_ref;
     $payment->se_payment_lines = $lines;
     $payment->setTotal($total);
 

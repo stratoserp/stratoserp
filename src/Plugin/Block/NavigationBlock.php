@@ -264,7 +264,10 @@ class NavigationBlock extends BlockBase {
       ], $this->buttonClass);
     $this->items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
       $routeParameters + [
-        'se_cu_ref' => $this->entity->id(),
+        'source' => $this->entity->id(),
+      ], $this->buttonClass);
+    $this->items[] = Link::createFromRoute('Add payment', 'se_payment.add',
+      $routeParameters + [
         'source' => $this->entity->id(),
       ], $this->buttonClass);
 
@@ -279,11 +282,6 @@ class NavigationBlock extends BlockBase {
    */
   private function commonLinks(array $routeParameters): void {
 
-    // @todo Fix source
-    $this->items[] = Link::createFromRoute('Add payment', 'se_payment.add',
-      $routeParameters + [
-        'source' => $this->entity->id(),
-      ], $this->buttonClass);
     $this->items[] = Link::createFromRoute('Add quote', 'entity.se_quote.add_form',
       $routeParameters + [], $this->buttonClass);
     $this->items[] = Link::createFromRoute('Add ticket', 'entity.se_ticket.add_form',
@@ -296,8 +294,13 @@ class NavigationBlock extends BlockBase {
   private function invoiceLinks(): void {
     $routeParameters = $this->setRouteParameters();
 
-    // @todo Fix source
-    $this->items[] = Link::createFromRoute('Add payment', 'se_payment.add',
+    // Only add payment link if the invoice is open.
+    $closed = \Drupal::service('se_invoice.service')->getClosedTerm();
+    if ($this->entity->se_status_ref->entity->id() == $closed->id()) {
+      return;
+    }
+
+    $this->items[] = Link::createFromRoute('Add payment', 'se_payment.invoice',
       $routeParameters + [
         'source' => $this->entity->id(),
       ], $this->buttonClass);

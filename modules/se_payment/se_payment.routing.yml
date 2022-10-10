@@ -3,7 +3,20 @@ se_payment.add:
   path: '/payment/add/{source}'
   defaults:
     _title: 'Add payment'
+    _controller: '\Drupal\se_payment\Controller\PaymentController::fromCustomer'
+  requirements:
+    _permission: 'add payment entities'
+  options:
+    parameters:
+      source:
+        type: entity:se_customer
+
+se_payment.invoice:
+  path: '/payment/invoice/{source}'
+  defaults:
+    _title: 'Add payment'
     _controller: '\Drupal\se_payment\Controller\PaymentController::fromInvoice'
+    type: se_invoice
   requirements:
     _permission: 'add payment entities'
   options:
