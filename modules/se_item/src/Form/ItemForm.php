@@ -40,18 +40,4 @@ class ItemForm extends StratosContentEntityForm {
     return $form;
   }
 
-  /**
-   * Hide fields helper.
-   *
-   * @param array $form
-   *   The form to be modified.
-   * @param array $fields
-   *   The fields to hide.
-   */
-  private function hideFields(array &$form, array $fields) {
-    foreach ($fields as $field) {
-      $form[$field]['#access'] = FALSE;
-    }
-  }
-
 }

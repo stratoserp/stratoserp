@@ -28,6 +28,12 @@ class TimekeepingForm extends StratosContentEntityForm {
       $formAlter->setReferenceField($form, 'se_ti_ref', $ticket);
       $formAlter->setReferenceField($form, 'se_cu_ref', $ticket->getCustomer());
 
+      if ($this->entity->isNew()) {
+        $this->hideFields($form, [
+          'se_in_ref',
+        ]);
+      }
+
       // Add our custom redirect to stay on the ticket when submitted.
       $form['actions']['submit']['#submit'][] = '::ticketRedirect';
     }

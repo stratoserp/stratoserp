@@ -27,6 +27,9 @@ class TicketViewBuilder extends EntityViewBuilder {
     /** @var \Drupal\se_ticket\Entity\Ticket $entity */
     $builtForm = \Drupal::formBuilder()->getForm($formObject, $entity);
 
+    // This form is on a ticket, hide the ticket selection field.
+    $builtForm['se_ti_ref']['#access'] = FALSE;
+
     $builtForm['#weight'] = 100;
     $build[] = $builtForm;
 
