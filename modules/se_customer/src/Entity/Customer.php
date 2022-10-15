@@ -102,19 +102,6 @@ class Customer extends StratosEntityBase implements CustomerInterface {
   /**
    * {@inheritdoc}
    */
-  public function adjustBalance(int $value): int {
-    if ($value === 0) {
-      return $this->getBalance();
-    }
-
-    $this->setBalance($this->getBalance() + $value);
-    $this->save();
-    return $this->getBalance();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function updateBalance(): int {
     $invoiceStorage = $this->entityTypeManager()->getStorage('se_invoice');
     $query = $invoiceStorage->getQuery();

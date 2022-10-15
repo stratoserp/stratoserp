@@ -1,0 +1,6 @@
+se_payment_line:
+  version: 1.0
+  css:
+    theme:
+      css/se_payment_line.css: {}
+  dependencies: {}

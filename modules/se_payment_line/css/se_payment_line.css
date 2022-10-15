@@ -1,0 +1,72 @@
+/**
+ * Some basic css tweaks for the payment line widget.
+ */
+
+/** Make the whole thing use flex. */
+.field--widget-se-payment-line-widget table tr td {
+  display: flex;
+}
+
+/** Remove the colon after field labels. */
+.field--widget-se-payment-line-widget table tr td label:after,
+.field--widget-se-payment-line-widget table tr td h4.label:after {
+  content: '';
+}
+
+/** Set the relative column sizes. */
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-left,
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/** Left column format tweaks. */
+/** Quantity field. */
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-left [class*="-quantity"] label {
+  display: block;
+  margin-bottom: 0;
+}
+
+/** Target type field. */
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-left [class*="-target-type"] {
+  margin: 0;
+}
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-left [class*="-target-type"] label {
+  display: block;
+}
+
+/** Fix weird space at top of Completed Date field. */
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-left div[class*="-completed-date"] {
+  margin-top: 0;
+}
+
+/** Price field. */
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-left [class*="-price"] {
+  display: flex;
+  flex-direction: column;
+  align-payments: end;
+  justify-content: end;
+}
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-left [class*="-price"] label,
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-left [class*="-price"] input {
+  display: block;
+  max-width: fit-content;
+  margin-right: 20px;
+}
+
+/** Right column format tweaks. */
+/** Notes field label. */
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-right [class*="-note-value"] label {
+  display: block;
+}
+
+/** Notes field text area. */
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-right .payment-line-node,
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-right .payment-line-node [class*="-note-value"],
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-right .payment-line-node .form-textarea-wrapper,
+.field--widget-se-payment-line-widget table tr td div.se-payment-line-right .payment-line-node .form-textarea-wrapper div {
+  display: block;
+  width: auto;
+}

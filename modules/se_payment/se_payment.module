@@ -6,8 +6,6 @@ declare(strict_types=1);
  * @file
  */
 
-use Drupal\se_payment\Entity\Payment;
-
 /**
  * Implements hook_theme().
  */
@@ -22,4 +20,3 @@ function se_payment_theme() {
 
   return $theme;
 }
-

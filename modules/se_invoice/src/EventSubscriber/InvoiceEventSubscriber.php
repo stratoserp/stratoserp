@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Drupal\se_invoice\EventSubscriber;
 
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\se_invoice\Entity\Invoice;
 
 /**
@@ -26,6 +28,8 @@ class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_PRE_SAVE => ['invoicePreAction', 25],
+      EntityHookEvents::ENTITY_INSERT => ['invoiceInsert', -25],
+      EntityHookEvents::ENTITY_UPDATE => ['invoiceUpdate', -25],
     ];
   }
 
@@ -46,8 +50,34 @@ class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
     if ($oldInvoice && $difference = $invoice->getTotal() - $oldInvoice->getTotal()) {
       $invoice->setOutstanding($invoice->getOutstanding() + $difference);
     }
+  }
 
-    \Drupal::service('se_invoice.service')->statusUpdate($invoice);
+  /**
+   * {@inheritdoc}
+   */
+  public function invoiceInsert(EntityInsertEvent $event): void {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+    if (!$invoice instanceof Invoice) {
+      return;
+    }
+
+    $customer = $invoice->getCustomer();
+    $customer->setBalance($customer->updateBalance());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function invoiceUpdate(EntityUpdateEvent $event): void {
+    /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
+    $invoice = $event->getEntity();
+    if (!$invoice instanceof Invoice) {
+      return;
+    }
+
+    $customer = $invoice->getCustomer();
+    $customer->setBalance($customer->updateBalance());
   }
 
 }

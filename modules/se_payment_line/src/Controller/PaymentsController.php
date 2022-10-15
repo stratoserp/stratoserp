@@ -6,11 +6,11 @@ namespace Drupal\se_payment_line\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\RemoveCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\se_accounting\Service\CurrencyFormat;
 use Drupal\se_invoice\Entity\Invoice;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class for Ajax controller to update the item serial/price.
@@ -24,22 +24,36 @@ class PaymentsController extends ControllerBase {
    *   The form being processed.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The request.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   The ajax response with appropriate details.
    */
-  public static function updateFields(array &$form, FormStateInterface $form_state, Request $request): AjaxResponse {
+  public static function updateFields(array &$form, FormStateInterface $form_state): AjaxResponse {
     $values = $form_state->getValues();
     $response = new AjaxResponse();
     $currencyService = \Drupal::service('se_accounting.currency_format');
 
-    // Use the triggering element to determine the line index.
-    $trigger = $request->request->get('_triggering_element_name');
+    // Get the triggering element.
+    $trigger = $form_state->getTriggeringElement();
+    if ($trigger['#type'] === 'submit') {
+      self::reCalculateTotal($response, $currencyService, $values);
+      $response->addCommand(new InvokeCommand(
+        "form #edit-submit",
+        'prop',
+        ['disabled', NULL]
+      ));
 
-    // Which we can then use with a regular expression;.
-    preg_match("/se_payment_lines\[(\d)\]\[(.*?)\].*/", $trigger, $matches);
+      return $response;
+    }
+
+    $response->addCommand(new InvokeCommand(
+      "form #edit-submit",
+      'prop',
+      ['disabled', 'true']
+    ));
+
+    // Check the trigger line with a regular expression;.
+    preg_match("/se_payment_lines\[(\d)\]\[(.*?)\].*/", $trigger['#name'], $matches);
     if (count($matches) < 3) {
       return $response;
     }

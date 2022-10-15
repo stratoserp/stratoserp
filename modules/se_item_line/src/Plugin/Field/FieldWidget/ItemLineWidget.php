@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityReferenceWidget;
+use Drupal\se_accounting\Service\CurrencyFormat;
+use Drupal\stratoserp\Traits\FormMultipleElementsTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,19 +28,34 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ItemLineWidget extends DynamicEntityReferenceWidget {
 
-  protected EntityTypeManager $entityTypeManager;
+  use FormMultipleElementsTrait;
+
+  /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected EntityTypeManagerInterface $entityTypeManager;
+
+  /**
+   * @var \Drupal\se_accounting\Service\CurrencyFormat
+   */
+  protected CurrencyFormat $currencyFormat;
+
+  /**
+   * @var \Drupal\Core\Datetime\DateFormatter
+   */
+  protected DateFormatter $dateFormatter;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->setEntityTypeManager($container->get('entity_type.manager'));
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->currencyFormat = $container->get('se_accounting.currency_format');
+    $instance->dateFormatter = $container->get('date.formatter');
     return $instance;
-  }
-
-  public function setEntityTypeManager(EntityTypeManager $entity_type_manager) {
-    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -72,12 +90,6 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
           ],
         ],
       ],
-      '#ajax' => [
-        'callback' => 'Drupal\se_item_line\Controller\ItemLineController::updateFields',
-        'event' => 'change',
-        'disable-refocus' => TRUE,
-        'progress' => FALSE,
-      ],
     ];
 
     // Changes to the target type field.
@@ -90,6 +102,8 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       'event' => 'change',
       'disable-refocus' => TRUE,
       'progress' => FALSE,
+      'speed' => 'fast',
+      'effect' => 'none',
     ];
 
     // Changes to the target_id field.
@@ -97,9 +111,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['target_id']['#weight'] = 15;
     $build['target_id']['#ajax'] = [
       'callback' => 'Drupal\se_item_line\Controller\ItemLineController::updateFields',
-      'event' => 'autocompleteclose change',
+      'event' => 'autocompleteclose',
       'disable-refocus' => TRUE,
       'progress' => FALSE,
+      'speed' => 'fast',
+      'effect' => 'none',
     ];
 
     // Display the serial field.
@@ -140,7 +156,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
     $build['price'] = [
       '#title' => t('Unit price'),
       '#type' => 'textfield',
-      '#default_value' => \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->price),
+      '#default_value' => $this->currencyFormat->formatDisplay((int) $items[$delta]->price),
       '#size' => 10,
       '#maxlength' => 20,
       '#weight' => 40,
@@ -233,7 +249,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
         $date = $line['completed_date'];
         $storage_date = '';
         if (!empty($date)) {
-          $storage_date = \Drupal::service('date.formatter')
+          $storage_date = $this->dateFormatter
             ->format($date->getTimestamp(), 'custom', 'Y-m-d', DateTimeItemInterface::STORAGE_TIMEZONE);
         }
         $values[$index]['completed_date'] = $storage_date;
@@ -257,7 +273,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
 
       $values[$index]['quantity'] = $line['quantity'];
       $values[$index]['serial'] = $line['serial'];
-      $values[$index]['price'] = \Drupal::service('se_accounting.currency_format')->formatStorage($line['price']);
+      $values[$index]['price'] = $this->currencyFormat->formatStorage($line['price']);
       $values[$index]['note'] = $line['note']['value'];
       $values[$index]['format'] = $line['note']['format'];
     }

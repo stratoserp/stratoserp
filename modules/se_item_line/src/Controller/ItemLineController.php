@@ -12,7 +12,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\se_accounting\Service\CurrencyFormat;
 use Drupal\se_item\Entity\Item;
 use Drupal\se_timekeeping\Entity\Timekeeping;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class for Ajax controller to update the item serial/price.
@@ -32,16 +31,21 @@ class ItemLineController extends ControllerBase {
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   The ajax response with appropriate details.
    */
-  public static function updateFields(array &$form, FormStateInterface $form_state, Request $request): AjaxResponse {
+  public static function updateFields(array &$form, FormStateInterface $form_state): AjaxResponse {
     $values = $form_state->getValues();
     $response = new AjaxResponse();
     $currencyService = \Drupal::service('se_accounting.currency_format');
 
-    // Use the triggering element to determine the line index.
-    $trigger = $request->request->get('_triggering_element_name');
+    // Get the triggering element.
+    $trigger = $form_state->getTriggeringElement();
+    if ($trigger['#type'] === 'submit') {
+      self:self::reCalculateTotal($response, $currencyService, $values);
 
-    // Which we can then use with a regular expression;.
-    preg_match("/se_item_lines\[(\d)\]\[(.*?)\].*/", $trigger, $matches);
+      return $response;
+    }
+
+    // Check the trigger line with a regular expression;.
+    preg_match("/se_item_lines\[(\d)\]\[(.*?)\].*/", $trigger['#name'], $matches);
     if (count($matches) < 3) {
       return $response;
     }

@@ -6,3 +6,16 @@ declare(strict_types=1);
  * @file
  */
 
+function se_payment_line_theme(): array {
+  return [
+    'se_payment_line_widget' => [
+      'variables' => [
+        'target_id' => '',
+        'amount' => '',
+        'payment_date' => '',
+        'payment_type' => '',
+      ],
+    ],
+
+  ];
+}

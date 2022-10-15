@@ -24,12 +24,6 @@ class CustomerBalanceTest extends CustomerTestBase {
     $customer->setBalance(25017);
     self::assertEquals(25017, $customer->getBalance());
 
-    $customer->adjustBalance(-5012);
-    self::assertEquals(20005, $customer->getBalance());
-
-    $customer->adjustBalance(-20005);
-    self::assertEquals(0, $customer->getBalance());
-
     $this->drupalLogout();
   }
 
