@@ -16,15 +16,15 @@ use Faker\Factory;
  */
 trait InvoiceTestTrait {
 
-  protected $invoiceName;
-  protected $invoicePhoneNumber;
-  protected $invoiceMobileNumber;
-  protected $invoiceStreetAddress;
-  protected $invoiceSuburb;
-  protected $invoiceState;
-  protected $invoicePostcode;
-  protected $invoiceUrl;
-  protected $invoiceCompanyEmail;
+  protected string $invoiceName;
+  protected string $invoicePhoneNumber;
+  protected string $invoiceMobileNumber;
+  protected string $invoiceStreetAddress;
+  protected string $invoiceSuburb;
+  protected string $invoiceState;
+  protected string $invoicePostcode;
+  protected string $invoiceUrl;
+  protected string $invoiceCompanyEmail;
 
   /**
    * Setup basic faker fields for this test trait.
@@ -51,11 +51,10 @@ trait InvoiceTestTrait {
    * @param array $items
    *   An array of items to use for invoice lines.
    *
-   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_invoice\Entity\Invoice|null
+   * @return \Drupal\se_invoice\Entity\Invoice|null The Invoice to return.
    *   The Invoice to return.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addInvoice(Customer $testCustomer, array $items = []): ?Invoice {
@@ -207,9 +206,9 @@ trait InvoiceTestTrait {
    */
   public function checkInvoicePaymentStatus(Invoice $invoice, Payment $payment): bool {
     if (count($payment->se_payment_lines) > 1) {
-      foreach ($payment->se_payment_lines as $payment_line) {
-        if ($payment_line->target_id == $invoice->id()) {
-          self::assertEquals($payment_line->amount, $invoice->getTotal());
+      foreach ($payment->se_payment_lines as $paymentLine) {
+        if ($paymentLine->target_id == $invoice->id()) {
+          self::assertEquals($paymentLine->amount, $invoice->getTotal());
         }
       }
     }
@@ -230,12 +229,12 @@ trait InvoiceTestTrait {
    * @param array $settings
    *   Array of settings to apply to the Invoice entity.
    *
-   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface
+   * @return \Drupal\se_invoice\Entity\Invoice The created Invoice entity.
    *   The created Invoice entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function createInvoice(array $settings = []) {
+  public function createInvoice(array $settings = []): Invoice {
     $invoice = $this->createInvoiceContent($settings);
 
     $invoice->save();
@@ -250,10 +249,12 @@ trait InvoiceTestTrait {
    * @param array $settings
    *   Array of settings to apply to the Invoice entity.
    *
-   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface
+   * @return \Drupal\se_invoice\Entity\Invoice The created but not yet saved Invoice entity.
    *   The created but not yet saved Invoice entity.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function createInvoiceContent(array $settings = []) {
+  public function createInvoiceContent(array $settings = []): Invoice {
     $settings += [
       'type' => 'se_invoice',
     ];

@@ -31,12 +31,16 @@ class ItemLineEntityEventSubscriber implements ItemLineEntityEventSubscriberInte
    * {@inheritdoc}
    */
   public function itemLineEntityPresave(EntityPresaveEvent $event): void {
+    /** @var \Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface $entity */
     $entity = $event->getEntity();
     if (!isset($entity->se_item_lines)) {
       return;
     }
 
-    \Drupal::service('se_item_line.service')->calculateTotal($entity);
+    /** @var \Drupal\se_item_line\Service\ItemLineServiceInterface $itemLineService */
+    $itemLineService = \Drupal::service('se_item_line.service');
+    $itemLineService->calculateTotal($entity);
+    $itemLineService->setSerialValues($entity);
   }
 
 }

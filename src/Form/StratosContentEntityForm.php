@@ -7,7 +7,9 @@ namespace Drupal\stratoserp\Form;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\stratoserp\Service\FormAlterInterface;
 use Drupal\stratoserp\Traits\RevisionableEntityTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Implement common functionality for Stratos content forms.
@@ -15,6 +17,17 @@ use Drupal\stratoserp\Traits\RevisionableEntityTrait;
 class StratosContentEntityForm extends ContentEntityForm {
 
   use RevisionableEntityTrait;
+
+  /**
+   * @var \Drupal\stratoserp\Service\FormAlterInterface
+   */
+  protected FormAlterInterface $formAlter;
+
+  public static function create(ContainerInterface $container) {
+    $instance = parent::create($container);
+    $instance->formAlter = $container->get('se.form_alter');
+    return $instance;
+  }
 
   /**
    * The current user account.
@@ -31,9 +44,8 @@ class StratosContentEntityForm extends ContentEntityForm {
 
     $form = parent::buildForm($form, $form_state);
 
-    $formAlter = \Drupal::service('se.form_alter');
-    $formAlter->setCustomerField($form, 'se_cu_ref');
-    $formAlter->setContactField($form, 'se_co_ref');
+    $this->formAlter->setCustomerField($form, 'se_cu_ref');
+    $this->formAlter->setContactField($form, 'se_co_ref');
 
     // Create a default title for most types.
     if (!in_array($form_state->getBuildInfo()['base_form_id'], [
@@ -42,7 +54,7 @@ class StratosContentEntityForm extends ContentEntityForm {
       'se_contact_form',
       'se_item_form',
     ])) {
-      $formAlter->setStandardText($form, 'name', $formAlter->generateTitle());
+      $this->formAlter->setStandardText($form, 'name', $this->formAlter->generateTitle());
     }
 
     // Hackery-do to remove blank entry at bottom of item line forms.

@@ -12,16 +12,10 @@ use Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface;
 /**
  * Item line service class for common item line manipulations.
  */
-class ItemLineService {
+class ItemLineService implements ItemLineServiceInterface {
 
   /**
-   * Calculate the total and more of an entity with item lines.
-   *
-   * @param \Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface $entity
-   *   Entity to update the totals for.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   The updated entity.
+   * {@inheritdoc}
    */
   public function calculateTotal(StratosLinesEntityBaseInterface $entity): EntityInterface {
     $total = 0;
@@ -32,7 +26,7 @@ class ItemLineService {
     }
 
     // Loop through the item lines to calculate total.
-    foreach ($entity->se_item_lines as $index => $itemLine) {
+    foreach ($entity->se_item_lines as $itemLine) {
       // If it's a timekeeping entry, and no price, load the item for price.
       if (isset($itemLine->target_id)
       && !isset($itemLine->price)) {
@@ -44,19 +38,28 @@ class ItemLineService {
         }
       }
 
-      // @todo This isn't really 'total' calculation, should be separated?
-      if (empty($itemLine->serial)) {
-        /** @var \Drupal\se_item\Entity\Item $item */
-        if (($item = Item::load($itemLine->target_id))
-        && $item->bundle() === 'se_stock') {
-          $entity->se_item_lines[$index]->serial = $item->se_serial->value;
-        }
-      }
-
       $total += $itemLine->quantity * $itemLine->price;
     }
 
     $entity->setTotal((int) $total);
+
+    return $entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSerialValues(StratosLinesEntityBaseInterface $entity): EntityInterface {
+    // Loop through the item lines to calculate total.
+    foreach ($entity->se_item_lines as $index => $itemLine) {
+      if (empty($itemLine->serial)) {
+        /** @var \Drupal\se_item\Entity\Item $item */
+        if (($item = Item::load($itemLine->target_id))
+          && $item->bundle() === 'se_stock') {
+          $entity->se_item_lines[$index]->serial = $item->se_serial->value;
+        }
+      }
+    }
 
     return $entity;
   }

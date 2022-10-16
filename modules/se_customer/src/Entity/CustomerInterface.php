@@ -32,17 +32,6 @@ interface CustomerInterface extends StratosEntityBaseInterface {
    */
   public function setBalance(int $value): int;
 
-//  /**
-//   * Adjust the Customer balance.
-//   *
-//   * @param int $value
-//   *   The amount to set the balance to.
-//   *
-//   * @return int
-//   *   The current balance.
-//   */
-//  public function adjustBalance(int $value): int;
-
   /**
    * Update the Customer balance from outstanding invoice amounts.
    */

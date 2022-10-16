@@ -71,6 +71,7 @@ class CustomerEventSubscriber implements CustomerEventSubscriberInterface {
    */
   private function mayChangeCustomerBalance(StratosEntityBaseInterface $entity) {
     // On invoice, we may not have a customer.
+    /** @var \Drupal\se_customer\Entity\CustomerInterface $customer */
     if ($customer = $entity->getCustomer()) {
       $customer->updateBalance();
     }

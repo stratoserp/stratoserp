@@ -50,6 +50,10 @@ class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
     if ($oldInvoice && $difference = $invoice->getTotal() - $oldInvoice->getTotal()) {
       $invoice->setOutstanding($invoice->getOutstanding() + $difference);
     }
+
+    if ($invoice->getOutstanding() === 0) {
+      $invoice->se_status_ref = \Drupal::service('se_invoice.service')->checkInvoiceStatus($invoice);
+    }
   }
 
   /**

@@ -144,13 +144,14 @@ class PaymentCrudTest extends PaymentTestBase {
    * Test creating a payment from an invoice.
    */
   public function testInvoiceToPayment() {
+    $paymentController = \Drupal::classResolver(PaymentController::class);
     $this->drupalLogin($this->staff);
     $testCustomer = $this->addCustomer();
     $items = $this->createItems();
     $invoice = $this->addInvoice($testCustomer, $items);
 
     // Now create a payment from the outstanding invoice.
-    $payment = \Drupal::classResolver(PaymentController::class)->createPaymentFromInvoice($invoice);
+    $payment = $paymentController->createPaymentFromInvoice($invoice);
     self::assertEquals($invoice->getTotal(), $payment->getTotal());
     $payment->save();
     $this->markEntityForCleanup($payment);
@@ -163,8 +164,8 @@ class PaymentCrudTest extends PaymentTestBase {
 
     $total = $invoice1->getTotal() + $invoice2->getTotal() + $invoice3->getTotal();
 
-    // Now create a payment from the outstanding invoice(s).
-    $payment = \Drupal::classResolver(PaymentController::class)->createPaymentFromInvoice($invoice);
+    // Now create a payment from the outstanding invoice(s) for the customer.
+    $payment = $paymentController->createPaymentFromCustomer($testCustomer);
     self::assertEquals($total, $payment->getTotal());
     $payment->save();
     $this->markEntityForCleanup($payment);

@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Service to insert references when displaying forms.
  */
-class FormAlter {
+class FormAlter implements FormAlterInterface {
 
   use StringTranslationTrait;
 
@@ -59,13 +59,7 @@ class FormAlter {
   }
 
   /**
-   * Helper function to retrieve the customer.
-   *
-   * @return \Drupal\se_customer\Entity\Customer|null
-   *   Customer entity
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * {@inheritdoc}
    */
   public function getCustomer(): ?Customer {
     // Try and retrieve the named variable from the request.
@@ -87,17 +81,7 @@ class FormAlter {
   }
 
   /**
-   * Set the customer reference field on an entity form.
-   *
-   * @param array $form
-   *   Form render array.
-   * @param string $field
-   *   The reference field to update.
-   * @param \Drupal\se_customer\Entity\Customer|null $customer
-   *   Function can be passed in a customer, or get from url.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * {@inheritdoc}
    */
   public function setCustomerField(array &$form, string $field, Customer $customer = NULL): void {
     if ($customer !== NULL) {
@@ -111,15 +95,7 @@ class FormAlter {
   }
 
   /**
-   * Set the contact reference field on an entity form.
-   *
-   * @param array $form
-   *   Form render array.
-   * @param string $field
-   *   The reference field to update.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * {@inheritdoc}
    */
   public function setContactField(array &$form, string $field): void {
     // Try and retrieve the named variable from the request.
@@ -140,15 +116,7 @@ class FormAlter {
   }
 
   /**
-   * Set the purchase order field on an entity form.
-   *
-   * @param array $form
-   *   Form render array.
-   * @param string $field
-   *   The reference field to update.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * {@inheritdoc}
    */
   public function setPurchaseOrderField(array &$form, string $field): void {
     // Try and retrieve the named variable from the request.
@@ -169,17 +137,7 @@ class FormAlter {
   }
 
   /**
-   * Alter taxonomy field on entity form.
-   *
-   * @param array $form
-   *   Form render array.
-   * @param string $field
-   *   The reference field to update.
-   * @param int $termId
-   *   The id of the term to put into the field.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * {@inheritdoc}
    */
   public function setTaxonomyField(array &$form, string $field, int $termId): void {
     /** @var \Drupal\taxonomy\Entity\Term $term */
@@ -191,14 +149,7 @@ class FormAlter {
   }
 
   /**
-   * Helper function to set a reference field value.
-   *
-   * @param array $form
-   *   Form render array.
-   * @param string $field
-   *   The reference field to update.
-   * @param object $value
-   *   Value to set the field to.
+   * {@inheritdoc}
    */
   public function setReferenceField(array &$form, string $field, object $value): void {
     // Only update if the field is empty.
@@ -211,10 +162,7 @@ class FormAlter {
   }
 
   /**
-   * Return a basic title for new entities.
-   *
-   * @return string
-   *   The rendered output.
+   * {@inheritdoc}
    */
   public function generateTitle(): string {
     $dateTime = new DrupalDateTime();
@@ -226,14 +174,7 @@ class FormAlter {
   }
 
   /**
-   * Helper function to set a text field value.
-   *
-   * @param array $form
-   *   Form render array.
-   * @param string $field
-   *   The reference field to update.
-   * @param string $value
-   *   Value to set the field to.
+   * {@inheritdoc}
    */
   public function setStandardText(array &$form, string $field, string $value): void {
     // Only update if the field is empty.
