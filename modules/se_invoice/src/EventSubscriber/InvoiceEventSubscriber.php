@@ -50,17 +50,19 @@ class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
       return;
     }
 
-    $invoice->storeOldInvoice();
-
-    // If the total changed, then the outstanding amount will need to as well.
-    $oldInvoice = $invoice->getOldInvoice();
-    if ($oldInvoice && $difference = $invoice->getTotal() - $oldInvoice->getTotal()) {
-      $invoice->setOutstanding($invoice->getOutstanding() + $difference);
+    if ($invoice->isNew()) {
+      $invoice->setOutstanding($invoice->getTotal());
+    }
+    else {
+      // If the total changed, then the outstanding amount will need to as well.
+      $oldInvoice = $invoice->storeOldInvoice();
+      if ($oldInvoice && $difference = $invoice->getTotal() - $oldInvoice->getTotal()) {
+        $invoice->setOutstanding($invoice->getOutstanding() + $difference);
+      }
     }
 
-    if ($invoice->getOutstanding() === 0) {
-      $invoice->se_status_ref = $this->invoiceService->checkInvoiceStatus($invoice);
-    }
+    // Either way, set the status.
+    $invoice->se_status_ref = $this->invoiceService->checkInvoiceStatus($invoice);
   }
 
   /**

@@ -9,16 +9,10 @@ namespace Drupal\se_timekeeping\Service;
  *
  * @package Drupal\se_timekeeping\Service
  */
-class TimeFormat {
+class TimeFormat implements TimeFormatInterface {
 
   /**
-   * Given minutes, return a nicely formatted string of hours:minutes.
-   *
-   * @param float $value
-   *   Integer number of hours.
-   *
-   * @return string
-   *   The formatted string.
+   * {@inheritdoc}
    */
   public function formatHours($value): string {
     $hours = (int) ($value / 60);
@@ -27,13 +21,7 @@ class TimeFormat {
   }
 
   /**
-   * Given minutes, return a float of hours.minutes.
-   *
-   * @param float $value
-   *   Integer number of hours.
-   *
-   * @return float
-   *   The float number.
+   * {@inheritdoc}
    */
   public function formatDecimal($value): float {
     $hours = (int) ($value / 60);

@@ -6,11 +6,12 @@ namespace Drupal\se_invoice\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\se_customer\Entity\CustomerInterface;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_invoice\Entity\InvoiceInterface;
+use Drupal\se_quote\Entity\QuoteInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,19 +21,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class InvoiceController extends ControllerBase {
 
-  /**
-   * The date formatter.
-   *
-   * @var \Drupal\Core\Datetime\DateFormatter
-   */
+  /** @var \Drupal\Core\Datetime\DateFormatter */
   protected $dateFormatter;
 
-  /**
-   * The renderer.
-   *
-   * @var \Drupal\Core\Render\Renderer
-   */
+  /** @var \Drupal\Core\Render\Renderer */
   protected $renderer;
+
+  /** @var \Drupal\Core\Logger\LoggerChannel */
+  protected $stratosLogger;
 
   /**
    * {@inheritdoc}
@@ -41,6 +37,7 @@ class InvoiceController extends ControllerBase {
     $instance = parent::create($container);
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->renderer = $container->get('renderer');
+    $instance->stratosLogger = $container->get('logger.channel.stratoserp');
     return $instance;
   }
 
@@ -228,13 +225,13 @@ class InvoiceController extends ControllerBase {
   /**
    * Provides the entity form for invoice creation from a quote.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $source
+   * @param \Drupal\se_quote\Entity\QuoteInterface $source
    *   Source entity to copy data from.
    *
    * @return array
    *   An entity submission form.
    */
-  public function fromQuote(EntityInterface $source): array {
+  public function fromQuote(QuoteInterface $source): array {
     $entity = $this->createInvoiceFromQuote($source);
 
     return $this->entityFormBuilder()->getForm($entity);
@@ -243,7 +240,7 @@ class InvoiceController extends ControllerBase {
   /**
    * Provides the entity form for creation from timekeeping entries.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $source
+   * @param \Drupal\se_customer\Entity\CustomerInterface $source
    *   The source entity.
    *
    * @return array
@@ -252,7 +249,7 @@ class InvoiceController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function fromTimekeeping(EntityInterface $source): array {
+  public function fromTimekeeping(CustomerInterface $source): array {
     $entity = $this->createInvoiceFromTimekeeping($source);
 
     return $this->entityFormBuilder()->getForm($entity);
@@ -261,25 +258,23 @@ class InvoiceController extends ControllerBase {
   /**
    * Provides the entity for invoice creation from timekeeping entries.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $source
+   * @param \Drupal\se_customer\Entity\CustomerInterface $customer
    *   The source entity.
    *
-   * @return \Drupal\Core\Entity\EntityInterface
+   * @return \Drupal\se_invoice\Entity\Invoice An entity ready for the submission form.
    *   An entity ready for the submission form.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function createInvoiceFromTimekeeping(EntityInterface $source): EntityInterface {
+  public function createInvoiceFromTimekeeping(CustomerInterface $customer): Invoice {
 
     $invoice = Invoice::create([
       'bundle' => 'se_invoice',
     ]);
 
     // Retrieve a list of non billed timekeeping entries for this customer.
-    $query = \Drupal::entityQuery('se_timekeeping');
-
-    $customer = \Drupal::service('se_customer.service')->lookupCustomer($source);
+    $query = $this->entityTypeManager()->getStorage('se_timekeeping')->getQuery();
 
     $query->condition('se_cu_ref', $customer->id())
       ->condition('se_billed', TRUE, '<>')
@@ -311,8 +306,7 @@ class InvoiceController extends ControllerBase {
           $total += $line['quantity'] * $line['price'];
         }
         else {
-          \Drupal::logger('se_timekeeping')
-            ->error('No matching item for entry @id', ['@id' => $timekeeping->id()]);
+          $this->stratosLogger->error('No matching item for entry @id', ['@id' => $timekeeping->id()]);
         }
       }
     }
@@ -327,13 +321,13 @@ class InvoiceController extends ControllerBase {
   /**
    * Provides the entity for creating an invoice from a quote.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $source
+   * @param \Drupal\se_quote\Entity\QuoteInterface $quote
    *   The source entity.
    *
-   * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_invoice\Entity\Invoice
+   * @return \Drupal\se_invoice\Entity\Invoice An entity ready for the submission form.
    *   An entity ready for the submission form.
    */
-  public function createInvoiceFromQuote(EntityInterface $source) {
+  public function createInvoiceFromQuote(QuoteInterface $quote): Invoice {
     $invoice = Invoice::create([
       'bundle' => 'se_invoice',
     ]);
@@ -345,13 +339,13 @@ class InvoiceController extends ControllerBase {
      * @var int $index
      * @var \Drupal\se_item_line\Plugin\Field\FieldType\ItemLineType $item
      */
-    foreach ($source->se_item_lines as $item) {
+    foreach ($quote->se_item_lines as $item) {
       $invoice->se_item_lines->appendItem($item->getValue());
     }
 
-    $invoice->se_cu_ref = $source->se_cu_ref;
-    $invoice->se_co_ref = $source->se_co_ref ?? NULL;
-    $invoice->se_qu_ref = $source;
+    $invoice->se_cu_ref = $quote->se_cu_ref;
+    $invoice->se_co_ref = $quote->se_co_ref ?? NULL;
+    $invoice->se_qu_ref = $quote;
     $invoice->se_total = $total;
 
     return $invoice;

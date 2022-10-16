@@ -37,17 +37,17 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected EntityTypeManagerInterface $entityTypeManager;
+  protected $entityTypeManager;
 
   /**
    * @var \Drupal\se_accounting\Service\CurrencyFormat
    */
-  protected CurrencyFormat $currencyFormat;
+  protected $currencyFormat;
 
   /**
    * @var \Drupal\Core\Datetime\DateFormatter
    */
-  protected DateFormatter $dateFormatter;
+  protected $dateFormatter;
 
   /**
    * {@inheritdoc}

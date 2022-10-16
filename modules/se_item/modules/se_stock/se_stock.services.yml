@@ -1,6 +1,7 @@
 services:
-  se_stock.item_insert:
+  se_stock.event_subscriber:
     class: Drupal\se_stock\EventSubscriber\StockItemEventSubscriber
+    arguments: ['@se_stock.service']
     tags:
       - { name: event_subscriber }
 

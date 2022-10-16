@@ -10,6 +10,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\se_invoice\Entity\Invoice;
+use Drupal\se_timekeeping\Service\TimeKeepingServiceInterface;
 
 /**
  * Class TimekeepingSaveEventSubscriber.
@@ -19,6 +20,13 @@ use Drupal\se_invoice\Entity\Invoice;
  * @package Drupal\se_timekeeping\EventSubscriber
  */
 class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscriberInterface {
+
+  /** @var \Drupal\se_timekeeping\Service\TimeKeepingServiceInterface */
+  protected TimeKeepingServiceInterface $timeKeepingService;
+
+  public function __construct(TimeKeepingServiceInterface $timeKeepingService) {
+    $this->timeKeepingService = $timeKeepingService;
+  }
 
   /**
    * {@inheritdoc}
@@ -43,8 +51,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
     }
 
     if ($oldInvoice = $invoice->getOldInvoice()) {
-      \Drupal::service('se_timekeeping.service')
-        ->timekeepingMarkItemsUnBilled($oldInvoice);
+      $this->timeKeepingService->timekeepingMarkItemsUnBilled($oldInvoice);
     }
   }
 
@@ -58,7 +65,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
       return;
     }
 
-    \Drupal::service('se_timekeeping.service')->timekeepingMarkItemsBilled($invoice);
+    $this->timeKeepingService->timekeepingMarkItemsBilled($invoice);
   }
 
   /**
@@ -72,7 +79,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
       return;
     }
 
-    \Drupal::service('se_timekeeping.service')->timekeepingMarkItemsBilled($invoice);
+    $this->timeKeepingService->timekeepingMarkItemsBilled($invoice);
   }
 
   /**
@@ -86,7 +93,7 @@ class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscr
       return;
     }
 
-    \Drupal::service('se_timekeeping.service')->timekeepingMarkItemsUnBilled($invoice);
+    $this->timeKeepingService->timekeepingMarkItemsUnBilled($invoice);
   }
 
 }

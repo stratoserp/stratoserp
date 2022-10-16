@@ -46,8 +46,10 @@ interface InvoiceInterface extends StratosLinesEntityBaseInterface {
 
   /**
    * Store the old invoice in the presave process.
+   *
+   * @return \Drupal\se_invoice\Entity\Invoice|null
    */
-  public function storeOldInvoice(): void;
+  public function storeOldInvoice(): ?Invoice;
 
   /**
    * Retrieve the old invoice when in the presave process.

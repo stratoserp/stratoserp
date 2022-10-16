@@ -147,14 +147,16 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function storeOldInvoice(): void {
+  public function storeOldInvoice(): ?Invoice {
     if ($this->isNew()) {
-      return;
+      return NULL;
     }
 
     if ($oldInvoice = self::load($this->id())) {
       $this->oldInvoice = $oldInvoice;
     }
+
+    return $oldInvoice;
   }
 
   /**

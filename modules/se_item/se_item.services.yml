@@ -1,15 +1,4 @@
 services:
-  se_item.route_subscriber:
-    class: Drupal\se_item\Routing\ItemRouteSubscriber
-    tags:
-      - { name: event_subscriber }
-
-  se_item.entity_save:
-    class: Drupal\se_item\EventSubscriber\ItemInvoiceEventSubscriber
-    arguments: ['@se_stock.service']
-    tags:
-      - { name: event_subscriber }
-
   se_item.service:
     class: Drupal\se_item\Service\ItemService
     arguments: ['@entity_type.manager']

@@ -34,7 +34,7 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
 
     // Now create an invoice from the Timekeeping entries.
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
-    $invoice = \Drupal::classResolver(InvoiceController::class)->createInvoiceFromTimekeeping($testTicket);
+    $invoice = \Drupal::classResolver(InvoiceController::class)->createInvoiceFromTimekeeping($testCustomer);
     $invoice->save();
     $this->markEntityForCleanup($invoice);
 

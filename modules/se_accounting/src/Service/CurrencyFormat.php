@@ -9,16 +9,10 @@ namespace Drupal\se_accounting\Service;
  *
  * @package Drupal\se_accounting\Service
  */
-class CurrencyFormat {
+class CurrencyFormat implements CurrencyFormatInterface {
 
   /**
-   * Convert cents string from storage to human readable currency amount.
-   *
-   * @param int $value
-   *   The value in cents to be formatted.
-   *
-   * @return string
-   *   The formatted value
+   * {@inheritdoc}
    */
   public function formatDisplay(int $value): string {
 
@@ -33,13 +27,7 @@ class CurrencyFormat {
   }
 
   /**
-   * Convert from human-readable currency amount to storage cents string.
-   *
-   * @param string $value
-   *   The formatted value to be converted.
-   *
-   * @return string
-   *   The string value to store.
+   * {@inheritdoc}
    */
   public function formatStorage(string $value): string {
 
@@ -55,13 +43,7 @@ class CurrencyFormat {
   }
 
   /**
-   * Convert a cents string from storage to a raw format for graphing.
-   *
-   * @param int $value
-   *   The value in cents to be formatted.
-   *
-   * @return string
-   *   The formatted value.
+   * {@inheritdoc}
    */
   public function formatRaw(int $value): string {
 

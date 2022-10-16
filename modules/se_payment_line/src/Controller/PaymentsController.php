@@ -6,7 +6,6 @@ namespace Drupal\se_payment_line\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Core\Ajax\RemoveCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\se_accounting\Service\CurrencyFormat;
@@ -31,6 +30,8 @@ class PaymentsController extends ControllerBase {
   public static function updateFields(array &$form, FormStateInterface $form_state): AjaxResponse {
     $values = $form_state->getValues();
     $response = new AjaxResponse();
+
+    // Need to use static services for these static functions.
     $currencyService = \Drupal::service('se_accounting.currency_format');
 
     // Get the triggering element.

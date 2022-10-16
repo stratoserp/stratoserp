@@ -29,7 +29,7 @@ class PaymentService implements PaymentServiceInterface {
         ?? Invoice::load($paymentLine->target_id);
 
       // Re-apply the payments as we update the invoice.
-      $invoice->setOutstanding($invoice->getOutstanding() - $paymentLine->amount);
+      $invoice->setOutstanding($invoice->getOutstanding() - (int) $paymentLine->amount);
       $reconcileList[$invoice->id()] = $invoice;
     }
 

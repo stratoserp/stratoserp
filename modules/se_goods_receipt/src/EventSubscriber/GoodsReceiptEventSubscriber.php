@@ -8,6 +8,7 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\se_goods_receipt\Entity\GoodsReceipt;
+use Drupal\se_goods_receipt\Service\GoodsReceiptServiceInterface;
 
 /**
  * Class GoodsReceiptInsertEventSubscriber.
@@ -17,6 +18,13 @@ use Drupal\se_goods_receipt\Entity\GoodsReceipt;
  * @package Drupal\se_goods_receipt\EventSubscriber
  */
 class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterface {
+
+  /** @var \Drupal\se_goods_receipt\Service\GoodsReceiptServiceInterface */
+  protected GoodsReceiptServiceInterface $goodsReceiptService;
+
+  public function __construct(GoodsReceiptServiceInterface $goodsReceiptService) {
+    $this->goodsReceiptService = $goodsReceiptService;
+  }
 
   /**
    * {@inheritdoc}
@@ -39,7 +47,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
     }
 
     // Ensure that the items being received exist.
-    \Drupal::service('se_goods_receipt.service')->createItems($goodsReceipt);
+    $this->goodsReceiptService->createItems($goodsReceipt);
   }
 
   /**
@@ -52,7 +60,7 @@ class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterfac
     }
 
     // Store the various references on the item.
-    \Drupal::service('se_goods_receipt.service')->updateFields($goodsReceipt);
+    $this->goodsReceiptService->updateFields($goodsReceipt);
   }
 
 }

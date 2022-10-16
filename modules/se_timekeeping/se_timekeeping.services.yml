@@ -1,11 +1,12 @@
 services:
-  se_timekeeping.time_format:
-    class: Drupal\se_timekeeping\Service\TimeFormat
+  se_timekeeping.event_subscriber:
+    class: Drupal\se_timekeeping\EventSubscriber\TimekeepingInvoiceEventSubscriber
+    arguments: ['@se_timekeeping.service']
+    tags:
+      - { name: event_subscriber }
 
   se_timekeeping.service:
     class: Drupal\se_timekeeping\Service\TimeKeepingService
 
-  se_timekeeping.items_postsave:
-    class: Drupal\se_timekeeping\EventSubscriber\TimekeepingInvoiceEventSubscriber
-    tags:
-      - { name: event_subscriber }
+  se_timekeeping.time_format:
+    class: Drupal\se_timekeeping\Service\TimeFormat

@@ -6,21 +6,14 @@ use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_item\Entity\Item;
 
 /**
- * Various Stock Item related functions.
+ * Various Bulk stock Item related functions.
  *
  * @package Drupal\se_bulk_stock\Service
  */
-class BulkStockService {
+class BulkStockService implements BulkStockServiceInterface {
 
   /**
-   * Decrease the number of bulk items available.
-   *
-   * This means only a single save is required for each item.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The invoice that is being processed.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function reconcileItems(Invoice $invoice): void {
     foreach ($invoice->se_item_lines as $itemLine) {

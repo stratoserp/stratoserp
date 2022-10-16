@@ -14,15 +14,10 @@ use Drupal\se_timekeeping\Entity\Timekeeping;
  *
  * @package Drupal\se_timekeeping\Service
  */
-class TimeKeepingService {
+class TimeKeepingService implements TimeKeepingServiceInterface {
 
   /**
-   * Loop through the invoice entries and mark the entries as billed.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The entity to update timekeeping items.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function timekeepingMarkItemsBilled(Invoice $invoice): void {
     foreach ($invoice->se_item_lines as $itemLine) {
@@ -38,12 +33,7 @@ class TimeKeepingService {
   }
 
   /**
-   * Loop through the invoice entries and mark the entries as not billed.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The entity to update timekeeping items.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function timekeepingMarkItemsUnBilled(Invoice $invoice): void {
     foreach ($invoice->se_item_lines as $itemLine) {
