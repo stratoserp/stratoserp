@@ -1,6 +1,7 @@
 services:
   se_invoice.event_subscriber:
     class: Drupal\se_invoice\EventSubscriber\InvoiceEventSubscriber
+    arguments: ['@se_invoice.service']
     tags:
       - { name: event_subscriber }
 

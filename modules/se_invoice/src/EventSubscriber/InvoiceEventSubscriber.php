@@ -9,6 +9,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\se_invoice\Entity\Invoice;
+use Drupal\se_invoice\Service\InvoiceServiceInterface;
 
 /**
  * Class InvoiceSaveEventSubscriber.
@@ -21,6 +22,12 @@ use Drupal\se_invoice\Entity\Invoice;
  * @package Drupal\se_invoice\EventSubscriber
  */
 class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
+
+  protected InvoiceServiceInterface $invoiceService;
+
+  public function __construct(InvoiceServiceInterface $invoiceService) {
+    $this->invoiceService = $invoiceService;
+  }
 
   /**
    * {@inheritdoc}
@@ -52,7 +59,7 @@ class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
     }
 
     if ($invoice->getOutstanding() === 0) {
-      $invoice->se_status_ref = \Drupal::service('se_invoice.service')->checkInvoiceStatus($invoice);
+      $invoice->se_status_ref = $this->invoiceService->checkInvoiceStatus($invoice);
     }
   }
 

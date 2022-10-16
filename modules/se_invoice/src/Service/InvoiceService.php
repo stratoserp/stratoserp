@@ -13,7 +13,7 @@ use Drupal\taxonomy\Entity\Term;
 /**
  * Service for various invoice related functions.
  */
-class InvoiceService {
+class InvoiceService implements InvoiceServiceInterface {
 
   use PaymentTrait;
 
@@ -45,15 +45,7 @@ class InvoiceService {
   }
 
   /**
-   * Check if an invoice should be marked as paid.
-   *
-   * @param \Drupal\se_invoice\Entity\Invoice $invoice
-   *   The Invoice entity.
-   * @param int|null $payment
-   *   The paid amount.
-   *
-   * @return \Drupal\taxonomy\Entity\Term
-   *   The invoice status
+   * {@inheritdoc}
    */
   public function checkInvoiceStatus(Invoice $invoice, int $payment = NULL): Term {
     if ($payment === $invoice->getTotal()
@@ -66,10 +58,7 @@ class InvoiceService {
   }
 
   /**
-   * Retrieve the term user for open status.
-   *
-   * @return \Drupal\taxonomy\Entity\Term|null
-   *   The term for open status.
+   * {@inheritdoc}
    */
   public function getOpenTerm(): ?Term {
     if ($term = $this->configFactory->get('se_invoice.settings')->get('open_term')) {
@@ -79,10 +68,7 @@ class InvoiceService {
   }
 
   /**
-   * Retrieve the term user for paid status.
-   *
-   * @return \Drupal\taxonomy\Entity\Term|null
-   *   The term for paid status.
+   * {@inheritdoc}
    */
   public function getClosedTerm(): ?Term {
     if ($term = $this->configFactory->get('se_invoice.settings')->get('closed_term')) {

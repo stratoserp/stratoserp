@@ -1,6 +1,7 @@
 services:
   se_payment.event_subscriber:
     class: Drupal\se_payment\EventSubscriber\PaymentEventSubscriber
+    arguments: ['@se_payment.service']
     tags:
       - { name: event_subscriber }
 

@@ -9,6 +9,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\se_payment\Entity\Payment;
+use Drupal\se_payment\Service\PaymentServiceInterface;
 
 /**
  * Class PaymentSaveEventSubscriber.
@@ -20,6 +21,12 @@ use Drupal\se_payment\Entity\Payment;
  * @package Drupal\se_payment\EventSubscriber
  */
 class PaymentEventSubscriber implements PaymentEventSubscriberInterface {
+
+  protected PaymentServiceInterface $paymentService;
+
+  public function __construct(PaymentServiceInterface $paymentService) {
+    $this->paymentService = $paymentService;
+  }
 
   /**
    * {@inheritdoc}
@@ -58,7 +65,7 @@ class PaymentEventSubscriber implements PaymentEventSubscriberInterface {
       return;
     }
 
-    \Drupal::service('se_payment.service')->updateInvoices($payment);
+    $this->paymentService->updateInvoices($payment);
   }
 
   /**
@@ -71,7 +78,7 @@ class PaymentEventSubscriber implements PaymentEventSubscriberInterface {
       return;
     }
 
-    \Drupal::service('se_payment.service')->updateInvoices($payment);
+    $this->paymentService->updateInvoices($payment);
   }
 
   /**
@@ -84,7 +91,7 @@ class PaymentEventSubscriber implements PaymentEventSubscriberInterface {
       return;
     }
 
-    \Drupal::service('se_payment.service')->updateInvoices($payment);
+    $this->paymentService->updateInvoices($payment);
   }
 
 }

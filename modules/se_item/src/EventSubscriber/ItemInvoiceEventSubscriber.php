@@ -7,9 +7,9 @@ namespace Drupal\se_item\EventSubscriber;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\se_invoice\Entity\Invoice;
+use Drupal\se_stock\Service\StockServiceInterface;
 
 /**
  * Class InvoiceSaveEventSubscriber.
@@ -20,6 +20,12 @@ use Drupal\se_invoice\Entity\Invoice;
  * @package Drupal\se_item\EventSubscriber
  */
 class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface {
+
+  protected StockServiceInterface $stockService;
+
+  public function __construct(StockServiceInterface $stockService) {
+    $this->stockService = $stockService;
+  }
 
   /**
    * {@inheritdoc}
@@ -47,7 +53,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
       return;
     }
 
-    \Drupal::service('se_stock.service')->reconcileItems($invoice);
+    $this->stockService->reconcileItems($invoice);
   }
 
   /**
@@ -65,7 +71,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
       return;
     }
 
-    \Drupal::service('se_stock.service')->reconcileItems($invoice);
+    $this->stockService->reconcileItems($invoice);
   }
 
   /**
@@ -78,7 +84,7 @@ class ItemInvoiceEventSubscriber implements ItemInvoiceEventSubscriberInterface 
       return;
     }
 
-    \Drupal::service('se_stock.service')->markItemsAvailableSave($invoice);
+    $this->stockService->markItemsAvailableSave($invoice);
   }
 
 }

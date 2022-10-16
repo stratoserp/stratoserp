@@ -6,6 +6,7 @@ services:
 
   se_item.entity_save:
     class: Drupal\se_item\EventSubscriber\ItemInvoiceEventSubscriber
+    arguments: ['@se_stock.service']
     tags:
       - { name: event_subscriber }
 
