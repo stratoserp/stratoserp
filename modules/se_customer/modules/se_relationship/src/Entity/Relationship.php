@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_relationship\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
 
 /**
@@ -76,6 +77,16 @@ class Relationship extends StratosEntityBase implements RelationshipInterface {
    */
   public function getSearchPrefix(): string {
     return 're';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the relationship.'));
+
+    return $fields;
   }
 
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_customer\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
 
 /**
@@ -131,6 +132,16 @@ class Customer extends StratosEntityBase implements CustomerInterface {
    */
   public function isSkipXeroEvents(): bool {
     return $this->skipCustomerXeroEvents ?? FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the customer.'));
+
+    return $fields;
   }
 
 }

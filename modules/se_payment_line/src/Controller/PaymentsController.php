@@ -101,14 +101,14 @@ class PaymentsController extends ControllerBase {
     }
 
     $invoiceAmount = $invoice->getTotal();
-    $displayPrice = $currencyService->formatDisplay((int) $invoiceAmount);
+    $displayPrice = $currencyService->formatDisplay($invoiceAmount);
 
     // Update the values so that the total gets updated as well.
     $values['se_payment_lines'][$index]['amount'] = $displayPrice;
 
     // Create a new ajax response to set the price.
     $response->addCommand(new InvokeCommand(
-      "form input[data-drupal-selector='edit-se-payment-lines-{$index}-amount']",
+      "form input[data-drupal-selector='edit-se-payment-lines-$index-amount']",
       'val',
       [$displayPrice]
     ));

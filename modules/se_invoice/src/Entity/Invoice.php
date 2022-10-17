@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_invoice\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\se_payment\Traits\PaymentTrait;
 use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
@@ -166,4 +167,14 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
     return $this->oldInvoice ?? NULL;
   }
 
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the invoice.'));
+
+    return $fields;
+  }
 }

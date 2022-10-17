@@ -39,7 +39,7 @@ class ItemLineController extends ControllerBase {
     // Get the triggering element.
     $trigger = $form_state->getTriggeringElement();
     if ($trigger['#type'] === 'submit') {
-      self:self::reCalculateTotal($response, $currencyService, $values);
+      self::reCalculateTotal($response, $currencyService, $values);
 
       return $response;
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_quote\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
@@ -77,6 +78,16 @@ class Quote extends StratosLinesEntityBase implements QuoteInterface {
    */
   public function getSearchPrefix(): string {
     return 'qu';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the quote.'));
+
+    return $fields;
   }
 
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_subscription\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
@@ -108,6 +109,16 @@ class Subscription extends StratosLinesEntityBase implements SubscriptionInterfa
     }
 
     return reset($subscriptions) ?: NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the subscription.'));
+
+    return $fields;
   }
 
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosLinesEntityBase;
 
 /**
@@ -105,6 +106,16 @@ class Payment extends StratosLinesEntityBase implements PaymentInterface {
    */
   public function getOldPayment(): ?Payment {
     return $this->oldPayment ?? NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the payment.'));
+
+    return $fields;
   }
 
 }

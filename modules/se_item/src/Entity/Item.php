@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_item\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
 
 /**
@@ -121,6 +122,16 @@ class Item extends StratosEntityBase implements ItemInterface {
 
     return reset($subscriptions) ?: NULL;
 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the item.'));
+
+    return $fields;
   }
 
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_information\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
 
 /**
@@ -81,6 +82,16 @@ class Information extends StratosEntityBase implements InformationInterface {
    */
   public function getSearchPrefix(): string {
     return 'if';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the information.'));
+
+    return $fields;
   }
 
 }

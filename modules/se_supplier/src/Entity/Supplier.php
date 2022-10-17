@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_supplier\Entity;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
 
 /**
@@ -124,6 +125,15 @@ class Supplier extends StratosEntityBase implements SupplierInterface {
    */
   public function isSkipXeroEvents(): bool {
     return $this->skipSupplierXeroEvents ?? FALSE;
+  }
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+    $fields['name']->setDescription(t('The name of the supplier.'));
+
+    return $fields;
   }
 
 }
