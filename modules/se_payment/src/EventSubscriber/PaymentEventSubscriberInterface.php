@@ -21,19 +21,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 interface PaymentEventSubscriberInterface extends EventSubscriberInterface {
 
   /**
-   * Before a payment is saved or deleted, store existing payment lines.
-   *
-   * To reconcile any payment changes on save/delete.
-   * Without this, those invoices would still show as paid.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent|\Drupal\core_event_dispatcher\Event\Entity\EntityPredeleteEvent $event
-   *   The event we are working with.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  public function paymentPreAction($event);
-
-  /**
    * When a payment is saved, mark all invoices listed as paid.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event

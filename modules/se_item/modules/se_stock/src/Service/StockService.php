@@ -16,7 +16,7 @@ class StockService implements StockServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function ensureItem(Item $item): Item {
+  public function ensureItem(Item $item): void {
     if (!empty($item->se_serial->value)) {
       $query = \Drupal::entityQuery('se_item')
         ->condition('type', 'se_stock')
@@ -54,8 +54,6 @@ class StockService implements StockServiceInterface {
     if (isset($stockItem)) {
       $item->se_it_ref->target_id = $stockItem->id();
     }
-
-    return $item;
   }
 
   /**
@@ -78,21 +76,6 @@ class StockService implements StockServiceInterface {
     // Loop through the items and save them all now.
     foreach ($reconcileList as $item) {
       $item->save();
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function markItemsAvailableSave(Invoice $invoice): void {
-    foreach ($invoice->se_item_lines as $itemLine) {
-      // Only operate on items.
-      // Only operator on stock items.
-      if (($itemLine->target_type === 'se_item') && ($item = Item::load($itemLine->target_id))
-        && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
-        $this->markItemAvailable($item);
-        $item->save();
-      }
     }
   }
 
@@ -151,6 +134,21 @@ class StockService implements StockServiceInterface {
         ->set('se_in_ref', $invoice->id());
     }
     return $item;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function markItemsAvailableSave(Invoice $invoice): void {
+    foreach ($invoice->se_item_lines as $itemLine) {
+      // Only operate on items.
+      // Only operator on stock items.
+      if (($itemLine->target_type === 'se_item') && ($item = Item::load($itemLine->target_id))
+        && in_array($item->bundle(), ['se_stock', 'se_assembly'])) {
+        $this->markItemAvailable($item);
+        $item->save();
+      }
+    }
   }
 
   /**

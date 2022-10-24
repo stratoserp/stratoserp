@@ -34,26 +34,10 @@ class PaymentEventSubscriber implements PaymentEventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      EntityHookEvents::ENTITY_PRE_SAVE => ['paymentPreAction', 25],
-      EntityHookEvents::ENTITY_PRE_DELETE => ['paymentPreAction', 25],
       EntityHookEvents::ENTITY_INSERT => ['paymentInsert', -25],
       EntityHookEvents::ENTITY_UPDATE => ['paymentUpdate', -25],
       EntityHookEvents::ENTITY_DELETE => ['paymentDelete', -25],
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function paymentPreAction($event): void {
-    /** @var \Drupal\se_payment\Entity\Payment $payment */
-    $payment = $event->getEntity();
-    if (!$payment instanceof Payment || $payment->isNew()) {
-      return;
-    }
-
-    // Store the old payment for comparisons in later events.
-    $payment->storeOldPayment();
   }
 
   /**

@@ -24,7 +24,7 @@ interface StockServiceInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function ensureItem(Item $item): Item;
+  public function ensureItem(Item $item): void;
 
   /**
    * Mark the items as sold.

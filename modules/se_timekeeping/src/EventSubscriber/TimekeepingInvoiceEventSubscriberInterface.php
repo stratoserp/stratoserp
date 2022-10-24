@@ -48,21 +48,6 @@ interface TimekeepingInvoiceEventSubscriberInterface extends EventSubscriberInte
   /**
    * Mark timekeeping entries as unbilled before saving.
    *
-   * This needs to be done in case they have been removed from the invoice,
-   * and will need to be available to be billed again.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The Event to handle.
-   *
-   * @see \Drupal\se_invoice\Entity\Invoice
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  public function timekeepingInvoicePresave(EntityPresaveEvent $event);
-
-  /**
-   * Mark timekeeping entries as unbilled before saving.
-   *
    * This needs to be done when an invoice is deleted so they
    * will need to be available to be billed again.
    *

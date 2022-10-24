@@ -11,7 +11,7 @@ use Drupal\se_timekeeping\Entity\Timekeeping;
  * Test invoicing timekeeping.
  *
  * @covers \Drupal\se_timekeeping
- * @uses \Drupal\se_accounting\Service\CurrencyFormat
+ * @uses \Drupal\se_accounting\Service\CurrencyFormatService
  * @uses \Drupal\se_customer\Entity\Customer
  * @uses \Drupal\se_invoice
  * @group se_timekeeping
@@ -23,6 +23,7 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
    * Test timekeeping invoicing.
    */
   public function testTimekeepingInvoice(): void {
+    $currencyFormatter = \Drupal::service('se_accounting.currency_format');
     $this->drupalLogin($this->staff);
     $testCustomer = $this->addCustomer();
     $testTicket = $this->addTicket($testCustomer);
@@ -54,7 +55,7 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
       self::assertNotNull($temp->se_in_ref->entity);
       self::assertEquals($temp->se_in_ref->entity->id(), $invoice->id());
     }
-    $amount = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $amount);
+    $amount = $currencyFormatter->formatDisplay((int) $amount);
 
     self::assertStringContainsString((string) "Total $amount", $page);
 
@@ -77,7 +78,7 @@ class TimekeepingInvoiceTest extends TimekeepingTestBase {
       $quantity = (int) round($timekeeping->se_amount->value / 60, 2);
       $amount += $quantity * $price;
     }
-    $amount = \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $amount);
+    $amount = $currencyFormatter->formatDisplay((int) $amount);
 
     // Fetch the invoice again.
     $this->drupalGet($invoice->toUrl());

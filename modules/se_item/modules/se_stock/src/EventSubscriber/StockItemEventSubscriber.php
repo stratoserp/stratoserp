@@ -45,16 +45,18 @@ class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
    * {@inheritdoc}
    */
   public function stockItemPresave(EntityPresaveEvent $event): void {
-    $item = $event->getEntity();
-    if (!$item instanceof Item) {
+    $entity = $event->getEntity();
+    // Unless its an item, we don't want anything to do with it.
+    if (!$entity instanceof Item) {
       return;
     }
 
-    if ($item->bundle() !== 'se_stock') {
+    // We only care about stock items at the moment.
+    if ($entity->bundle() !== 'se_stock') {
       return;
     }
 
-    $item = $this->stockService->ensureItem($item);
+    $this->stockService->ensureItem($entity);
   }
 
   /**
@@ -63,7 +65,7 @@ class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
   public function stockItemInvoiceInsert(EntityInsertEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if (!($invoice instanceof Invoice)) {
+    if (!$invoice instanceof Invoice) {
       return;
     }
 
@@ -81,7 +83,7 @@ class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
   public function stockItemInvoiceUpdate(EntityUpdateEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if (!($invoice instanceof Invoice)) {
+    if (!$invoice instanceof Invoice) {
       return;
     }
 
@@ -99,7 +101,7 @@ class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
   public function stockItemInvoiceDelete(EntityDeleteEvent $event): void {
     /** @var \Drupal\se_invoice\Entity\Invoice $invoice */
     $invoice = $event->getEntity();
-    if (!($invoice instanceof Invoice)) {
+    if (!$invoice instanceof Invoice) {
       return;
     }
 

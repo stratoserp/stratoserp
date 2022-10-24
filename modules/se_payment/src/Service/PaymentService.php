@@ -46,15 +46,17 @@ class PaymentService implements PaymentServiceInterface {
   private function loadOldInvoices(Payment $payment): array {
     $reconcileList = [];
 
-    if ($oldPayment = $payment->getOldPayment()) {
-      foreach ($oldPayment->se_payment_lines as $paymentLine) {
-        $invoice = $reconcileList[$paymentLine->target_id]
-          ?? Invoice::load($paymentLine->target_id);
+    if (!$oldPayment = $payment->getOldPayment()) {
+      return [];
+    }
 
-        // Reverse the payments as we load the old invoices.
-        $invoice->setOutstanding($invoice->getOutstanding() + $paymentLine->amount);
-        $reconcileList[$invoice->id()] = $invoice;
-      }
+    foreach ($oldPayment->se_payment_lines as $paymentLine) {
+      $invoice = $reconcileList[$paymentLine->target_id]
+        ?? Invoice::load($paymentLine->target_id);
+
+      // Reverse the payments as we load the old invoices.
+      $invoice->setOutstanding($invoice->getOutstanding() + $paymentLine->amount);
+      $reconcileList[$invoice->id()] = $invoice;
     }
 
     return $reconcileList;

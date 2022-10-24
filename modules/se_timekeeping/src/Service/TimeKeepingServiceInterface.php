@@ -16,7 +16,7 @@ interface TimeKeepingServiceInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function timekeepingMarkItemsBilled(Invoice $invoice): void;
+  public function reconcileTimekeeping(Invoice $invoice): void;
 
   /**
    * Loop through the invoice entries and mark the entries as not billed.
@@ -26,6 +26,6 @@ interface TimeKeepingServiceInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function timekeepingMarkItemsUnBilled(Invoice $invoice): void;
+  public function markTimekeepingAvailableSave(Invoice $invoice): void;
 
 }
