@@ -1,3 +1,6 @@
 services:
   se_accounting.currency_format:
-    class: Drupal\se_accounting\Service\CurrencyFormat
+    class: Drupal\se_accounting\Service\CurrencyFormatService
+
+  se_accounting.tax_amount:
+    class: Drupal\se_accounting\Service\TaxAmountService

@@ -12,7 +12,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
-use Drupal\se_accounting\Service\CurrencyFormat;
+use Drupal\se_accounting\Service\CurrencyFormatService;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\stratoserp\Traits\FormMultipleElementsTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -40,7 +40,7 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
   protected $entityTypeManager;
 
   /**
-   * @var \Drupal\se_accounting\Service\CurrencyFormat
+   * @var \Drupal\se_accounting\Service\CurrencyFormatService
    */
   protected $currencyFormat;
 

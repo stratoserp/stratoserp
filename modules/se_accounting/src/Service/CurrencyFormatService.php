@@ -9,7 +9,7 @@ namespace Drupal\se_accounting\Service;
  *
  * @package Drupal\se_accounting\Service
  */
-class CurrencyFormat implements CurrencyFormatInterface {
+class CurrencyFormatService implements CurrencyFormatServiceInterface {
 
   /**
    * {@inheritdoc}
@@ -23,7 +23,7 @@ class CurrencyFormat implements CurrencyFormatInterface {
       return (string) number_format($value / 100, 2);
     }
 
-    return '0';
+    return (string) number_format(0, 2);
   }
 
   /**

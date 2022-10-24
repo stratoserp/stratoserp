@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_accounting\Service;
 
-interface CurrencyFormatInterface {
+interface CurrencyFormatServiceInterface {
 
   /**
    * Convert cents string from storage to human readable currency amount.

@@ -23,4 +23,18 @@ abstract class StratosLinesEntityBase extends StratosEntityBase implements Strat
     return $this->se_total->value = $value;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getTax(): int {
+    return (int) $this->se_tax->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setTax(int $value): int {
+    return $this->se_tax->value = $value;
+  }
+
 }

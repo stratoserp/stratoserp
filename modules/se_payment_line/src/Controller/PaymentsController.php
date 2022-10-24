@@ -8,7 +8,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\se_accounting\Service\CurrencyFormat;
+use Drupal\se_accounting\Service\CurrencyFormatService;
 use Drupal\se_invoice\Entity\Invoice;
 
 /**
@@ -83,14 +83,14 @@ class PaymentsController extends ControllerBase {
    *
    * @param \Drupal\Core\Ajax\AjaxResponse $response
    *   The ajax response we're building.
-   * @param \Drupal\se_accounting\Service\CurrencyFormat $currencyService
+   * @param \Drupal\se_accounting\Service\CurrencyFormatService $currencyService
    *   Service for displaying currency.
    * @param array $values
    *   Form values to work with.
    * @param string $index
    *   The line index to update.
    */
-  private static function targetIdChange(AjaxResponse $response, CurrencyFormat $currencyService, array &$values, string $index): void {
+  private static function targetIdChange(AjaxResponse $response, CurrencyFormatService $currencyService, array &$values, string $index): void {
     // If there is no target selected we can return now.
     if ($values['se_payment_lines'][$index]['target_id'] === NULL) {
       return;
@@ -119,12 +119,12 @@ class PaymentsController extends ControllerBase {
    *
    * @param \Drupal\Core\Ajax\AjaxResponse $response
    *   The ajax response we're building.
-   * @param \Drupal\se_accounting\Service\CurrencyFormat $currencyService
+   * @param \Drupal\se_accounting\Service\CurrencyFormatService $currencyService
    *   Service for displaying currency.
    * @param array $values
    *   Form values to work with.
    */
-  private static function reCalculateTotal(AjaxResponse $response, CurrencyFormat $currencyService, array $values): void {
+  private static function reCalculateTotal(AjaxResponse $response, CurrencyFormatService $currencyService, array $values): void {
     $total = 0;
     foreach ($values['se_payment_lines'] as $index => $value) {
       if (is_int($index)) {

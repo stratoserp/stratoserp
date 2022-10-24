@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_item\Functional;
 
-use Drupal\se_accounting\Service\CurrencyFormat;
+use Drupal\se_accounting\Service\CurrencyFormatService;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
@@ -25,9 +25,9 @@ class ItemTestBase extends FunctionalTestBase {
   /**
    * Storage for the currency formatter.
    *
-   * @var \Drupal\se_accounting\Service\CurrencyFormat
+   * @var \Drupal\se_accounting\Service\CurrencyFormatService
    */
-  protected CurrencyFormat $currencyFormat;
+  protected CurrencyFormatService $currencyFormat;
 
   /**
    * Setup the basic customer tests.

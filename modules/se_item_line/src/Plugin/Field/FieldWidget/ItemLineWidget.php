@@ -11,7 +11,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldWidget\DynamicEntityReferenceWidget;
-use Drupal\se_accounting\Service\CurrencyFormat;
+use Drupal\se_accounting\Service\CurrencyFormatService;
 use Drupal\stratoserp\Traits\FormMultipleElementsTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -38,9 +38,9 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
-   * @var \Drupal\se_accounting\Service\CurrencyFormat
+   * @var \Drupal\se_accounting\Service\CurrencyFormatService
    */
-  protected CurrencyFormat $currencyFormat;
+  protected CurrencyFormatService $currencyFormat;
 
   /**
    * @var \Drupal\Core\Datetime\DateFormatter

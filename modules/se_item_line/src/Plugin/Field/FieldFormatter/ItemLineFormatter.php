@@ -13,8 +13,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\dynamic_entity_reference\Plugin\Field\FieldFormatter\DynamicEntityReferenceLabelFormatter;
-use Drupal\filter\FilterProcessResult;
-use Drupal\filter\Render\FilteredMarkup;
 use Drupal\se_timekeeping\Entity\Timekeeping;
 
 /**
@@ -58,43 +56,46 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
    * Re-implementation of viewElements from EntityReferenceLabelFormatter.
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
+    /** @var \Drupal\se_accounting\Service\CurrencyFormatServiceInterface $currencyFormatter */
+    $currencyFormatter = \Drupal::service('se_accounting.currency_format');
     $rows = [];
-    /** @var \Drupal\Core\Render\RendererInterface $renderer */
-    $renderer = \Drupal::service('renderer');
 
     $headers = [
-      t('Qty'),
-      t('Item'),
-      t('Price'),
-      t('Serial'),
-      t('Date'),
-      t('Notes'),
+      ['class' => 'item', 'data' => t('Item')],
+      ['class' => 'quantity', 'data' => t('Qty')],
+      ['class' => 'date', 'data' => t('Date')],
+      ['class' => 'notes', 'data' => t('Notes')],
+      ['class' => 'serial', 'data' => t('Serial')],
+      ['class' => 'price', 'data' => t('Price')],
     ];
 
-    $cache_tags = [];
+    $cacheTags = [];
 
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
       /** @var \Drupal\se_item\Entity\Item|\Drupal\se_timekeeping\Entity\Timekeeping $entity */
       $uri = $entity->toUrl();
 
-      unset($item);
+      $itemCode = '';
+      $itemDescription = '';
       switch ($entity->bundle()) {
         case 'se_timekeeping':
-          $item = $items[$delta]->target_id;
-          if ($timekeeping = Timekeeping::load($item)) {
-            $cache_tags = Cache::mergeTags($cache_tags, $timekeeping->getCacheTags());
-            $item = $timekeeping->se_it_ref->entity->se_code->value;
+          $timekeepingEntity = $items[$delta]->target_id;
+          if ($timekeeping = Timekeeping::load($timekeepingEntity)) {
+            $cacheTags = Cache::mergeTags($cacheTags, $timekeeping->getCacheTags());
+            $itemCode = $timekeeping->se_it_ref->entity->se_code->value;
+            $itemDescription = $timekeeping->se_it_ref->entity->se_description->value;
           }
           else {
-            $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
+            $cacheTags = Cache::mergeTags($cacheTags, $entity->getCacheTags());
           }
           break;
 
         case 'se_service':
         case 'se_stock':
         case 'se_recurring':
-          $item = $entity->se_code->value;
-          $cache_tags = Cache::mergeTags($cache_tags, $entity->getCacheTags());
+          $itemCode = $entity->se_code->value;
+          $itemDescription = $entity->se_description->value;
+          $cacheTags = Cache::mergeTags($cacheTags, $entity->getCacheTags());
           break;
 
         default:
@@ -103,44 +104,42 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
           continue 2;
       }
 
-      $element = [
+      $itemBuild = [
         '#type' => 'link',
-        '#title' => $item,
+        '#title' => $itemCode,
         '#url' => $uri,
         '#options' => $uri->getOptions(),
       ];
       if (!empty($items[$delta]->_attributes)) {
-        $element['#options'] += ['attributes' => []];
-        $element['#options']['attributes'] += $items[$delta]->_attributes;
+        $itemBuild['#options'] += ['attributes' => []];
+        $itemBuild['#options']['attributes'] += $items[$delta]->_attributes;
         // Unset field item attributes since they have been included in the
         // formatter output and shouldn't be rendered in the field template.
         unset($items[$delta]->_attributes);
       }
 
+      // Setup date field.
+      $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
+      $dateBuild = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
+
+
       // Transform the notes from the stored value into something
       // safe to display.
-      $build = [
+      $notesBuild = [
         '#type' => 'processed_text',
-        '#text' => $items[$delta]->note,
+        '#text' => '<p>' . nl2br($itemDescription ?: '') . '</p><p>' . nl2br($items[$delta]->note ?: '') . '</p>',
         '#format' => $items[$delta]->format,
         '#filter_types_to_skip' => [],
         '#langcode' => $items[$delta]->getLangcode(),
       ];
 
-      $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
-      $display_date = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
-
-      $processed_text = $renderer->renderPlain($build);
-      $processed = FilterProcessResult::createFromRenderArray($build)->setProcessedText((string) $processed_text);
-      $processed_output = FilteredMarkup::create($processed->getProcessedText());
-
       $row = [
-        $items[$delta]->quantity,
-        $renderer->render($element),
-        \Drupal::service('se_accounting.currency_format')->formatDisplay((int) $items[$delta]->price),
-        $items[$delta]->serial,
-        $display_date,
-        $processed_output,
+        ['class' => 'item', 'data' => $itemBuild],
+        ['class' => 'quantity', 'data' => $items[$delta]->quantity],
+        ['class' => 'date', 'data' => $dateBuild],
+        ['class' => 'notes', 'data' => $notesBuild],
+        ['class' => 'serial', 'data' => $items[$delta]->serial],
+        ['class' => 'price',  'data' => $currencyFormatter->formatDisplay((int) $items[$delta]->price)],
       ];
       $rows[] = $row;
     }
@@ -151,7 +150,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       '#rows' => $rows,
       '#header' => $headers,
       '#cache' => [
-        'tags' => $cache_tags,
+        'tags' => $cacheTags,
       ],
     ];
   }

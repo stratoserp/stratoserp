@@ -1,0 +1,43 @@
+{#
+/**
+ * @file entity-print--se-invoice.html.twig
+ * Entity print specific implementation of the invoice output.
+ *
+ * @see template_preprocess_entity_print__se_invoice()
+ *
+ * @ingroup themeable
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes.addClass('h-100') }}>
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  {{ entity_print_css }}
+</head>
+<body>
+  <div{{ attributes.addClass('entity-print-se-invoice') }}>
+
+    <div class="logo">
+      {% if site_logo %}
+        <a href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home" class="site-logo d-block">
+          <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+        </a>
+      {% endif %}
+    </div>
+
+    {% if content %}
+      {{- content -}}
+    {% endif %}
+
+    <div class="bank-details">Bank Account Details<br />
+      Account Name: iseek computing<br />
+      BSB: 065005 A/C: 10128988<br />
+    </div>
+    <div class="contact-details">Phone: 1300047335<br />
+      Email: sales@iseek.biz<br />
+      Web: https://iseek.biz
+    </div>
+
+  </div>
+</body>

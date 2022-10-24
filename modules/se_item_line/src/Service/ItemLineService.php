@@ -41,6 +41,9 @@ class ItemLineService implements ItemLineServiceInterface {
       $total += $itemLine->quantity * $itemLine->price;
     }
 
+    /** @var \Drupal\se_accounting\Service\TaxAmountServiceInterface $taxService */
+    $taxService = \Drupal::service('se_accounting.tax_amount');
+    $entity->setTax((int) $taxService->calculateTax((int) $total));
     $entity->setTotal((int) $total);
 
     return $entity;

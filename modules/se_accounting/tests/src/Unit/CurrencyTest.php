@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_accounting\Unit;
 
-use Drupal\se_accounting\Service\CurrencyFormat;
+use Drupal\se_accounting\Service\CurrencyFormatService;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests for the currency storage, display and raw conversion.
  *
- * @covers \Drupal\se_accounting\Service\CurrencyFormat
+ * @covers \Drupal\se_accounting\Service\CurrencyFormatService
  * @group se_accounting
  * @group stratoserp
  */
@@ -19,15 +19,15 @@ class CurrencyTest extends UnitTestCase {
   /**
    * Service holder var.
    *
-   * @var \Drupal\se_accounting\Service\CurrencyFormat
+   * @var \Drupal\se_accounting\Service\CurrencyFormatService
    */
-  protected CurrencyFormat $currencyService;
+  protected CurrencyFormatService $currencyService;
 
   /**
    * Setup the service holder var.
    */
   protected function setup(): void {
-    $this->currencyService = new CurrencyFormat();
+    $this->currencyService = new CurrencyFormatService();
   }
 
   /**

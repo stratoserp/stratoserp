@@ -9,13 +9,22 @@ declare(strict_types=1);
 /**
  * Implements hook_theme().
  */
-function se_invoice_theme(): array {
+function se_invoice_theme($existing, $type, $theme, $path): array {
   $theme = [];
 
   $theme['se_invoice'] = [
     'render element' => 'elements',
     'file' => 'se_invoice.page.inc',
-    'template' => 'se_invoice',
+    'template' => 'se-invoice',
+  ];
+  $theme['entity_print__se_invoice'] = [
+    'file' => 'se_invoice.page.inc',
+    'template' => 'entity-print--se-invoice',
+    'variables' => [
+      'title' => '',
+      'content' => NULL,
+      'entity_print_css' => NULL,
+    ],
   ];
 
   return $theme;
