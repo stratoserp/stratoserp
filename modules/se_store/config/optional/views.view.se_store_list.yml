@@ -7,8 +7,8 @@ dependencies:
     - field.storage.se_store.se_phone
     - system.menu.stratos-erp
   module:
-    - se_store
     - se_customer
+    - se_store
     - telephone
     - user
 id: se_store_list

@@ -2,14 +2,26 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.se_store.se_store.se_address
     - field.field.se_store.se_store.se_cu_ref
-    - field.field.se_store.se_store.se_su_ref
     - field.field.se_store.se_store.se_email
+    - field.field.se_store.se_store.se_homepage
     - field.field.se_store.se_store.se_mobile
     - field.field.se_store.se_store.se_phone
+    - field.field.se_store.se_store.se_postal_address
+    - field.field.se_store.se_store.se_postal_postcode
+    - field.field.se_store.se_store.se_postal_state
+    - field.field.se_store.se_store.se_postal_suburb
+    - field.field.se_store.se_store.se_postcode
+    - field.field.se_store.se_store.se_state
+    - field.field.se_store.se_store.se_status
+    - field.field.se_store.se_store.se_su_ref
+    - field.field.se_store.se_store.se_suburb
   module:
     - field_layout
     - layout_discovery
+    - link
+    - options
     - se_store
 third_party_settings:
   field_layout:
@@ -22,56 +34,139 @@ bundle: se_store
 mode: default
 content:
   links:
-    weight: 1
-    region: top
     settings: {  }
     third_party_settings: {  }
-  name:
-    label: inline
-    type: string
-    weight: 0
+    weight: 1
     region: top
+  name:
+    type: string
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  se_cu_ref:
-    weight: 4
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
+    weight: 0
     region: first
-  se_su_ref:
-    weight: 4
+  se_address:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: first
+  se_cu_ref:
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 7
     region: first
   se_email:
-    weight: 3
+    type: basic_string
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
-    region: first
+    weight: 9
+    region: second
+  se_homepage:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 8
+    region: second
   se_mobile:
-    weight: 1
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: first
   se_phone:
-    weight: 2
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: first
+  se_postal_address:
     type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 10
+    region: second
+  se_postal_postcode:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 13
+    region: first
+  se_postal_state:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 12
+    region: first
+  se_postal_suburb:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
+    region: second
+  se_postcode:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: first
+  se_state:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: first
+  se_status:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: first
+  se_su_ref:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 15
+    region: second
+  se_suburb:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
     region: first
 hidden:
   uid: true

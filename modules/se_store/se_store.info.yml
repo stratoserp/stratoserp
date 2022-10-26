@@ -22,18 +22,38 @@ config_devel:
   install:
     - core.entity_form_display.se_store.se_store.default
     - core.entity_view_display.se_store.se_store.default
+    - field.field.se_store.se_store.se_address
+    - field.field.se_store.se_store.se_cu_ref
     - field.field.se_store.se_store.se_email
+    - field.field.se_store.se_store.se_homepage
     - field.field.se_store.se_store.se_logo
     - field.field.se_store.se_store.se_mobile
     - field.field.se_store.se_store.se_phone
-    - field.field.se_store.se_store.se_type_ref
-    - field.field.se_store.se_store.se_cu_ref
+    - field.field.se_store.se_store.se_postal_address
+    - field.field.se_store.se_store.se_postal_postcode
+    - field.field.se_store.se_store.se_postal_state
+    - field.field.se_store.se_store.se_postal_suburb
+    - field.field.se_store.se_store.se_postcode
+    - field.field.se_store.se_store.se_state
+    - field.field.se_store.se_store.se_status
+    - field.field.se_store.se_store.se_su_ref
+    - field.field.se_store.se_store.se_suburb
+    - field.storage.se_store.se_address
+    - field.storage.se_store.se_cu_ref
     - field.storage.se_store.se_email
+    - field.storage.se_store.se_homepage
     - field.storage.se_store.se_logo
     - field.storage.se_store.se_mobile
     - field.storage.se_store.se_phone
-    - field.storage.se_store.se_type_ref
-    - field.storage.se_store.se_cu_ref
+    - field.storage.se_store.se_postal_address
+    - field.storage.se_store.se_postal_postcode
+    - field.storage.se_store.se_postal_state
+    - field.storage.se_store.se_postal_suburb
+    - field.storage.se_store.se_postcode
+    - field.storage.se_store.se_state
+    - field.storage.se_store.se_status
+    - field.storage.se_store.se_su_ref
+    - field.storage.se_store.se_suburb
   optional:
     - views.view.se_store_eva
     - views.view.se_store_list
