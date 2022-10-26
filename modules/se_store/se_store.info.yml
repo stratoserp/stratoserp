@@ -1,0 +1,39 @@
+name: 'StratosERP - Store'
+description: 'Provides Store content type and related configuration.'
+type: module
+core_version_requirement: ^8 || ^9
+package: StratosERP
+dependencies:
+  - drupal:field
+  - drupal:link
+  - drupal:menu_ui
+  - drupal:options
+  - drupal:path
+  - drupal:telephone
+  - drupal:text
+  - drupal:user
+  - drupal:views
+  - eva:eva
+  - stratoserp:se_customer
+  - stratoserp:se_supplier
+  - stratoserp:stratoserp
+
+config_devel:
+  install:
+    - core.entity_form_display.se_store.se_store.default
+    - core.entity_view_display.se_store.se_store.default
+    - field.field.se_store.se_store.se_email
+    - field.field.se_store.se_store.se_logo
+    - field.field.se_store.se_store.se_mobile
+    - field.field.se_store.se_store.se_phone
+    - field.field.se_store.se_store.se_type_ref
+    - field.field.se_store.se_store.se_cu_ref
+    - field.storage.se_store.se_email
+    - field.storage.se_store.se_logo
+    - field.storage.se_store.se_mobile
+    - field.storage.se_store.se_phone
+    - field.storage.se_store.se_type_ref
+    - field.storage.se_store.se_cu_ref
+  optional:
+    - views.view.se_store_eva
+    - views.view.se_store_list

@@ -1,0 +1,14 @@
+
+# Store menu items definition
+entity.se_store.collection:
+  title: 'Store list'
+  route_name: entity.se_store.collection
+  description: 'List Store entities'
+  parent: system.admin_content
+  weight: 100
+
+se_store.admin.structure.settings:
+  title: 'Store settings'
+  description: 'Configure Store entities'
+  route_name: se_store.settings
+  parent: stratoserp.admin_config_stratoserp

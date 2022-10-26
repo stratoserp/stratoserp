@@ -1,0 +1,26 @@
+# Store routing definition
+se_store.settings_tab:
+  route_name: se_store.settings
+  title: 'Settings'
+  base_route: se_store.settings
+
+entity.se_store.canonical:
+  route_name: entity.se_store.canonical
+  base_route: entity.se_store.canonical
+  title: 'View'
+
+entity.se_store.edit_form:
+  route_name: entity.se_store.edit_form
+  base_route: entity.se_store.canonical
+  title: 'Edit'
+
+entity.se_store.version_history:
+  route_name: entity.se_store.version_history
+  base_route: entity.se_store.canonical
+  title: 'Revisions'
+
+entity.se_store.delete_form:
+  route_name:  entity.se_store.delete_form
+  base_route:  entity.se_store.canonical
+  title: Delete
+  weight: 10

@@ -1,0 +1,15 @@
+
+entity.se_store.add_form:
+  route_name: entity.se_store.add_form
+  title: 'Add store'
+  appears_on:
+    - entity.se_store.collection
+    - 'view.se_store_list.se_store_list'
+    - 'view.se_store_eva.se_store_eva'
+
+se_store.add:
+  route_name: se_store.add
+  title: 'Add store'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
+  appears_on:
+    - entity.se_customer.canonical

@@ -1,0 +1,122 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_store.se_store.se_cu_ref
+    - field.field.se_store.se_store.se_su_ref
+    - field.field.se_store.se_store.se_email
+    - field.field.se_store.se_store.se_mobile
+    - field.field.se_store.se_store.se_phone
+  module:
+    - field_group
+    - field_layout
+    - layout_discovery
+    - se_store
+    - telephone
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings:
+      label: ''
+  field_group:
+    group_extra:
+      children:
+        - status
+        - uid
+        - created
+      label: Extra
+      region: bottom
+      parent_name: ''
+      weight: 9
+      format_type: details
+      format_settings:
+        classes: ''
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+id: se_store.se_store.default
+targetEntityType: se_store
+bundle: se_store
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: bottom
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: top
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  se_cu_ref:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: first
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 40
+      placeholder: ''
+    third_party_settings: {  }
+  se_su_ref:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: first
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 40
+      placeholder: ''
+    third_party_settings: {  }
+  se_email:
+    type: email_default
+    weight: 7
+    region: second
+    settings:
+      placeholder: ''
+      size: 25
+    third_party_settings: {  }
+  se_mobile:
+    type: telephone_default
+    weight: 5
+    region: second
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  se_phone:
+    type: telephone_default
+    weight: 6
+    region: second
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 0
+    region: bottom
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: bottom
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  extra_field_actions_field: true
+  extra_field_meta_field: true
+  extra_field_revision_field: true
+  path: true
+  promote: true
+  sticky: true

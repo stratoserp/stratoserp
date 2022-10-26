@@ -1,0 +1,30 @@
+add store entities:
+  title: 'Create new Store entities'
+
+administer store entities:
+  title: 'Administer Store entities'
+  description: 'Allow to access the administration form to configure Store entities.'
+  restrict access: true
+
+delete store entities:
+  title: 'Delete Store entities'
+
+edit store entities:
+  title: 'Edit Store entities'
+
+view store entities:
+  title: 'View Store entities'
+
+view changes to store entities:
+  title: 'View changes to Store entities'
+
+view all store revisions:
+  title: 'View all Store revisions'
+
+revert all store revisions:
+  title: 'Revert all Store revisions'
+  description: 'Role requires permission <em>view Store revisions</em> and <em>edit rights</em> for store entities in question or <em>administer store entities</em>.'
+
+delete all store revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Store revisions</em> and <em>delete rights</em> for store entities in question or <em>administer store entities</em>.'

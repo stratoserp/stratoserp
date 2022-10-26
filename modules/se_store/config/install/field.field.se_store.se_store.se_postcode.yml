@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_store.se_postcode
+  module:
+    - se_store
+id: se_store.se_store.se_postcode
+field_name: se_postcode
+entity_type: se_store
+bundle: se_store
+label: Postcode
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,4 @@
+services:
+  se_store.service:
+    class: Drupal\se_store\Service\StoreService
+    arguments: ['@config.factory', '@entity_type.manager']

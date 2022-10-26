@@ -1,0 +1,77 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.se_store.se_store.se_cu_ref
+    - field.field.se_store.se_store.se_su_ref
+    - field.field.se_store.se_store.se_email
+    - field.field.se_store.se_store.se_mobile
+    - field.field.se_store.se_store.se_phone
+  module:
+    - field_layout
+    - layout_discovery
+    - se_store
+third_party_settings:
+  field_layout:
+    id: layout_twocol
+    settings:
+      label: ''
+id: se_store.se_store.default
+targetEntityType: se_store
+bundle: se_store
+mode: default
+content:
+  links:
+    weight: 1
+    region: top
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    label: inline
+    type: string
+    weight: 0
+    region: top
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  se_cu_ref:
+    weight: 4
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  se_su_ref:
+    weight: 4
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: first
+  se_email:
+    weight: 3
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: first
+  se_mobile:
+    weight: 1
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: first
+  se_phone:
+    weight: 2
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: first
+hidden:
+  uid: true

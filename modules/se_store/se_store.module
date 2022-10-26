@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function se_store_theme() {
+  $theme = [];
+
+  $theme['se_store'] = [
+    'render element' => 'elements',
+    'file' => 'se_store.page.inc',
+    'template' => 'se-store',
+  ];
+
+  return $theme;
+}
