@@ -1,7 +1,7 @@
 name: 'StratosERP - Item type - Stock line item'
 description: 'Provides a selectable line item for stock.'
 type: module
-core_version_requirement: ^8 || ^9
+core_version_requirement:  ^8 || ^9 || ^10
 package: StratosERP
 dependencies:
   - hook_event_dispatcher:hook_event_dispatcher

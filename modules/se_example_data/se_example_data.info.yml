@@ -1,7 +1,7 @@
 name: 'StratosERP - Example data'
 description: 'StratosERP module set example data.'
 type: module
-core_version_requirement: ^8 || ^9
+core_version_requirement:  ^8 || ^9 || ^10
 package: StratosERP
 dependencies:
   - stratoserp:stratoserp

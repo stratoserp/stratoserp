@@ -1,7 +1,7 @@
 name: 'StratosERP - Subscription type - Domain hosting'
 description: 'Domain hosting subscription entity type.'
 type: module
-core_version_requirement: ^8 || ^9
+core_version_requirement:  ^8 || ^9 || ^10
 package: StratosERP
 dependencies:
   - stratoserp:se_subscription

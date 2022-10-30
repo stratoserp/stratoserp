@@ -2,7 +2,7 @@ name: 'StratosERP - Customer Relationship'
 description: 'Provides the relationship entity type to link Customer and Suppliers.'
 type: module
 package: StratosERP
-core_version_requirement: ^8 || ^9
+core_version_requirement:  ^8 || ^9 || ^10
 dependencies:
   - stratoserp:se_customer
   - drupal:text

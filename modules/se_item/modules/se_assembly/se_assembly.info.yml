@@ -1,7 +1,7 @@
 name: 'StratosERP - Item type - Assembly line item'
 description: 'Provides a selectable line item for assemblies.'
 type: module
-core_version_requirement: ^8 || ^9
+core_version_requirement:  ^8 || ^9 || ^10
 package: StratosERP
 dependencies:
   - hook_event_dispatcher:hook_event_dispatcher
@@ -29,4 +29,3 @@ config_devel:
     - core.entity_view_display.se_item.se_assembly.default
     - field.field.se_item.se_assembly.se_in_ref
     - views.view.se_item_assembly_list
-

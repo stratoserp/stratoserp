@@ -1,7 +1,7 @@
 name: 'StratosERP - Ticket'
 description: 'Provides Ticket content type and related configuration.'
 type: module
-core_version_requirement: ^8 || ^9
+core_version_requirement:  ^8 || ^9 || ^10
 package: StratosERP
 dependencies:
   - drupal:datetime_range
@@ -47,4 +47,3 @@ config_devel:
     - views.view.se_ticket_list
     - views.view.se_ticket_my
     # - views.view.se_ticket_my_block
-
