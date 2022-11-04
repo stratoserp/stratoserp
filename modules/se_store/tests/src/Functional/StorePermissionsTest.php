@@ -24,10 +24,10 @@ class StorePermissionsTest extends StoreTestBase {
   ];
 
   /**
-   * Test the basic store permissions for the default pages.
+   * Test the owner store permissions for the default pages.
    */
   public function testStorePermissions(): void {
-    $this->basicPermissionCheck($this->pages);
+    $this->ownerPermissionCheck($this->pages);
   }
 
 }

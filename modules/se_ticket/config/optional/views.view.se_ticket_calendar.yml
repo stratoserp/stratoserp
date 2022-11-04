@@ -7,6 +7,7 @@ dependencies:
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_ticket_status
     - taxonomy.vocabulary.se_ticket_type
+  content: {  }
   module:
     - datetime
     - datetime_range
@@ -244,7 +245,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -285,9 +286,7 @@ display:
           plugin_id: taxonomy_index_tid
           operator: or
           value:
-            - 478
-            - 484
-            - 485
+            - 482
           group: 1
           exposed: true
           expose:
@@ -310,7 +309,6 @@ display:
               supplier: '0'
               owner: '0'
               staff: '0'
-              developer: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -362,7 +360,6 @@ display:
               supplier: '0'
               owner: '0'
               staff: '0'
-              developer: '0'
             reduce: false
           is_grouped: false
           group_info:

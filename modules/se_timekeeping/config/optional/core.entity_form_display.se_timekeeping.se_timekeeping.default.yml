@@ -27,9 +27,10 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - se_in_ref
         - status
         - uid
-        - se_in_ref
+        - created
       label: Extra
       region: bottom
       parent_name: ''
@@ -48,8 +49,8 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
-    region: first
+    weight: 2
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   name:
@@ -144,14 +145,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: -3
+    weight: 0
     region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: -2
+    weight: 1
     region: bottom
     settings:
       match_operator: CONTAINS

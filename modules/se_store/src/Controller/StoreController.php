@@ -224,26 +224,4 @@ class StoreController extends ControllerBase {
     return $build;
   }
 
-  /**
-   * Provides the entity submission form for payment creation from an invoice.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $source
-   *   Source entity to copy data from.
-   *
-   * @return array
-   *   An entity submission form.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  public function fromcustomer(EntityInterface $source): array {
-    $entity = Store::create([
-      'bundle' => 'se_store',
-    ]);
-
-    $entity->se_cu_ref = \Drupal::service('se_customer.service')->lookupcustomer($source);
-
-    return $this->entityFormBuilder()->getForm($entity);
-  }
-
 }

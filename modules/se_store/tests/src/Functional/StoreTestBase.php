@@ -6,6 +6,7 @@ namespace Drupal\Tests\se_store\Functional;
 
 use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_store\Traits\StoreTestTrait;
+use Drupal\Tests\se_supplier\Traits\SupplierTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
 
 /**
@@ -15,6 +16,7 @@ class StoreTestBase extends FunctionalTestBase {
 
   use StoreTestTrait;
   use CustomerTestTrait;
+  use SupplierTestTrait;
 
   /**
    * Faker factory for store.

@@ -19,15 +19,16 @@ class StoreCrudTest extends StoreTestBase {
   public function testStoreAdd(): void {
     // First setup a customer to add the store to.
     $this->drupalLogin($this->staff);
-    $customer = $this->addCustomer();
+    $testCustomer = $this->addCustomer();
+    $testSupplier = $this->addSupplier();
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
-    $this->addStore($customer);
+    $this->addStore($testCustomer, $testSupplier);
     $this->drupalLogout();
 
     $this->drupalLogin($this->owner);
-    $this->addStore($customer);
+    $this->addStore($testCustomer, $testSupplier);
     $this->drupalLogout();
   }
 
@@ -40,10 +41,11 @@ class StoreCrudTest extends StoreTestBase {
    */
   public function testStoreDelete(): void {
     // Create a store for testing.
-    $this->drupalLogin($this->staff);
+    $this->drupalLogin($this->owner);
     $this->customerFakerSetup();
     $testCustomer = $this->addCustomer();
-    $testStore = $this->addStore($testCustomer);
+    $testSupplier = $this->addSupplier();
+    $testStore = $this->addStore($testCustomer, $testSupplier);
     $this->drupalLogout();
 
     // Ensure customers can't delete stores.

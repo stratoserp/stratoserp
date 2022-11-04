@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - contextual
+    - filter
     - se_bill
     - se_contact
     - se_customer
@@ -43,6 +44,7 @@ permissions:
   - 'add payment entities'
   - 'add purchase order entities'
   - 'add quote entities'
+  - 'add store entities'
   - 'add subscription entities'
   - 'add supplier entities'
   - 'add ticket entities'
@@ -58,6 +60,7 @@ permissions:
   - 'delete purchase order entities'
   - 'delete quote entities'
   - 'delete subscription entities'
+  - 'delete store entities'
   - 'delete supplier entities'
   - 'delete ticket entities'
   - 'delete timekeeping entities'
@@ -71,11 +74,13 @@ permissions:
   - 'edit payment entities'
   - 'edit purchase order entities'
   - 'edit quote entities'
+  - 'edit store entities'
   - 'edit subscription entities'
   - 'edit supplier entities'
   - 'edit ticket entities'
   - 'edit timekeeping entities'
   - 'use inline mentions'
+  - 'use text format basic_html'
   - 'view all bill revisions'
   - 'view all contact revisions'
   - 'view all customer revisions'
@@ -86,6 +91,7 @@ permissions:
   - 'view all payment revisions'
   - 'view all purchase order revisions'
   - 'view all quote revisions'
+  - 'view all store revisions'
   - 'view all subscription revisions'
   - 'view all supplier revisions'
   - 'view all ticket revisions'
@@ -101,6 +107,7 @@ permissions:
   - 'view purchase order entities'
   - 'view quote entities'
   - 'view stratoserp in toolbar'
+  - 'view store entities'
   - 'view subscription entities'
   - 'view supplier entities'
   - 'view ticket entities'

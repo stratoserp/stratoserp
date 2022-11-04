@@ -5,11 +5,10 @@ use Drupal\Core\StreamWrapper\StreamWrapperManager;
 /**
  * Implements hook_file_download().
  */
-function se_print_file_download($uri) {
+function se_print_file_download($uri): array {
   $target = StreamWrapperManager::getTarget($uri);
 
   return [
     'Content-disposition' => "attachment; filename='$target'",
   ];
 }
-

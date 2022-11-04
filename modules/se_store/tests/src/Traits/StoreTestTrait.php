@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_store\Traits;
 
+use Drupal\Core\Url;
 use Drupal\se_customer\Entity\Customer;
 use Drupal\se_store\Entity\Store;
+use Drupal\se_supplier\Entity\Supplier;
 use Drupal\user\Entity\User;
 use Faker\Factory;
 
@@ -47,25 +49,29 @@ trait StoreTestTrait {
    * Add a store node.
    *
    * @param \Drupal\se_customer\Entity\Customer $customer
-   *   The customer to add the store to.
+   *   The customer to add to the store.
+   * @param \Drupal\se_supplier\Entity\Supplier $supplier
+   *   The supplier to add to the store.
    *
    * @return \Drupal\Core\Entity\EntityBase|\Drupal\Core\Entity\EntityInterface|\Drupal\se_store\Entity\Store|null
    *   The store to return.
    *
-   * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addStore(Customer $customer) {
+  public function addStore(Customer $customer, Supplier $supplier) {
     if (!isset($this->storeName)) {
       $this->storeFakerSetup();
     }
+
+    $this->drupalGet((new Url('entity.se_store.add_form'))->toString());
 
     $store = $this->createStore([
       'type' => 'se_store',
       'name' => $this->storeName,
       'se_phone' => $this->storePhoneNumber,
       'se_cu_ref' => $customer,
+      'se_su_ref' => $supplier,
     ]);
     self::assertNotEquals($store, FALSE);
     $this->drupalGet($store->toUrl());
@@ -80,31 +86,6 @@ trait StoreTestTrait {
     self::assertStringContainsString($this->storeName, $content);
     self::assertStringContainsString($this->storePhoneNumber, $content);
     self::assertStringContainsString($customer->getName(), $content);
-
-    return $store;
-  }
-
-  /**
-   * Add a main store node.
-   *
-   * @param \Drupal\se_customer\Entity\Customer $customer
-   *   The customer to add the store to.
-   *
-   * @return \Drupal\se_store\Entity\Store
-   *   The store to return.
-   *
-   * @throws \Drupal\Core\Entity\EntityMalformedException
-   */
-  public function addMainStore(Customer $customer): Store {
-    $config = \Drupal::service('config.factory')->get('se_store.settings');
-    $store = $this->addStore($customer);
-
-    $termId = $config->get('main_store_term');
-    if ($termId) {
-      $store->se_type_ref = $termId;
-      $store->save();
-      $this->markEntityForCleanup($store);
-    }
 
     return $store;
   }

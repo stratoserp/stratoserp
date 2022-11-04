@@ -225,7 +225,7 @@ class ContactController extends ControllerBase {
   }
 
   /**
-   * Provides the entity submission form for payment creation from an invoice.
+   * Provides the entity submission form for contact creation from a customer.
    *
    * @param \Drupal\Core\Entity\EntityInterface $source
    *   Source entity to copy data from.

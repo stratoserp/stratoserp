@@ -61,6 +61,7 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
     $sub = $subscription->id();
     $oldCount = $etm->getStorage('se_invoice')
       ->getQuery()
+      ->accessCheck(FALSE)
       ->count()
       ->execute();
 
@@ -68,6 +69,7 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
 
     $newCount = $etm->getStorage('se_invoice')
       ->getQuery()
+      ->accessCheck(FALSE)
       ->count()
       ->execute();
 
@@ -81,6 +83,7 @@ class SubscriptionInvoiceTest extends SubscriptionTestBase {
 
     $newCount = $etm->getStorage('se_invoice')
       ->getQuery()
+      ->accessCheck(FALSE)
       ->count()
       ->execute();
 

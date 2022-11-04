@@ -316,6 +316,12 @@ class FunctionalTestBase extends TestCase {
       $this->drupalLogout();
     }
 
+    $this->ownerPermissionCheck($pages);
+
+  }
+
+  public function ownerPermissionCheck(array $pages): void {
+
     // Test as owner.
     foreach ($pages as $page) {
       $this->drupalLogin($this->owner);
