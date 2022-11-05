@@ -10,7 +10,7 @@ field_name: se_cu_ref
 entity_type: se_store
 bundle: se_store
 label: Customer
-description: ''
+description: 'Often there is a customer associated with the store to mark things as used for internal purposes.'
 required: false
 translatable: true
 default_value: {  }

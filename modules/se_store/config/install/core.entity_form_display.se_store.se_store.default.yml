@@ -6,6 +6,7 @@ dependencies:
     - field.field.se_store.se_store.se_cu_ref
     - field.field.se_store.se_store.se_email
     - field.field.se_store.se_store.se_homepage
+    - field.field.se_store.se_store.se_logo
     - field.field.se_store.se_store.se_mobile
     - field.field.se_store.se_store.se_phone
     - field.field.se_store.se_store.se_postal_address
@@ -17,9 +18,11 @@ dependencies:
     - field.field.se_store.se_store.se_status
     - field.field.se_store.se_store.se_su_ref
     - field.field.se_store.se_store.se_suburb
+    - image.style.thumbnail
   module:
     - field_group
     - field_layout
+    - image
     - layout_discovery
     - link
     - se_store
@@ -32,6 +35,7 @@ third_party_settings:
   field_group:
     group_extra:
       children:
+        - se_status
         - status
         - uid
         - created
@@ -53,7 +57,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 18
     region: bottom
     settings: {  }
     third_party_settings: {  }
@@ -67,7 +71,7 @@ content:
     third_party_settings: {  }
   se_address:
     type: string_textfield
-    weight: 3
+    weight: 4
     region: first
     settings:
       size: 60
@@ -75,8 +79,8 @@ content:
     third_party_settings: {  }
   se_cu_ref:
     type: entity_reference_autocomplete
-    weight: 7
-    region: first
+    weight: 14
+    region: second
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -98,6 +102,14 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  se_logo:
+    type: image_image
+    weight: 3
+    region: first
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
   se_mobile:
     type: telephone_default
@@ -123,7 +135,7 @@ content:
     third_party_settings: {  }
   se_postal_postcode:
     type: string_textfield
-    weight: 11
+    weight: 13
     region: second
     settings:
       size: 60
@@ -139,7 +151,7 @@ content:
     third_party_settings: {  }
   se_postal_suburb:
     type: string_textfield
-    weight: 13
+    weight: 11
     region: second
     settings:
       size: 60
@@ -147,7 +159,7 @@ content:
     third_party_settings: {  }
   se_postcode:
     type: string_textfield
-    weight: 4
+    weight: 7
     region: first
     settings:
       size: 60
@@ -163,8 +175,8 @@ content:
     third_party_settings: {  }
   se_status:
     type: options_select
-    weight: 14
-    region: second
+    weight: 15
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   se_su_ref:
@@ -187,14 +199,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 0
+    weight: 16
     region: bottom
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 17
     region: bottom
     settings:
       match_operator: CONTAINS

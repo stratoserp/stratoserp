@@ -6,6 +6,7 @@ dependencies:
     - field.field.se_store.se_store.se_cu_ref
     - field.field.se_store.se_store.se_email
     - field.field.se_store.se_store.se_homepage
+    - field.field.se_store.se_store.se_logo
     - field.field.se_store.se_store.se_mobile
     - field.field.se_store.se_store.se_phone
     - field.field.se_store.se_store.se_postal_address
@@ -19,9 +20,9 @@ dependencies:
     - field.field.se_store.se_store.se_suburb
   module:
     - field_layout
+    - image
     - layout_discovery
     - link
-    - options
     - se_store
 third_party_settings:
   field_layout:
@@ -52,7 +53,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: first
   se_cu_ref:
     type: entity_reference_label
@@ -60,8 +61,8 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 7
-    region: first
+    weight: 14
+    region: second
   se_email:
     type: basic_string
     label: inline
@@ -81,6 +82,17 @@ content:
     third_party_settings: {  }
     weight: 8
     region: second
+  se_logo:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 3
+    region: first
   se_mobile:
     type: string
     label: inline
@@ -112,7 +124,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 13
-    region: first
+    region: second
   se_postal_state:
     type: string
     label: above
@@ -120,7 +132,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 12
-    region: first
+    region: second
   se_postal_suburb:
     type: string
     label: above
@@ -135,7 +147,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: first
   se_state:
     type: string
@@ -143,14 +155,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 5
-    region: first
-  se_status:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 14
+    weight: 6
     region: first
   se_su_ref:
     type: entity_reference_label
@@ -166,7 +171,8 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: first
 hidden:
+  se_status: true
   uid: true

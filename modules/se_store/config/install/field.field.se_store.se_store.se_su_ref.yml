@@ -10,7 +10,7 @@ field_name: se_su_ref
 entity_type: se_store
 bundle: se_store
 label: Supplier
-description: ''
+description: 'Often there is a supplier associated with the store to use as the customer for ordering stock/internal purposes.'
 required: false
 translatable: true
 default_value: {  }
