@@ -2,14 +2,10 @@
 # List of things remaining to be implemented.
 
 ## Global non blockers
-- Change comments so they appear in the right spot for all content types.
-- Ensure consistent display on all content types.
 - End of day processing?
 - Faceted search.
-- Add more types to front page search.
-- Audit & Fix up permissions.
 - Convert to use phpmoney class?
-- Lazy loader for reports - https://www.drupal.org/project/eva/issues/3193300 - might help.
+- Lazy loader for report blocks - https://www.drupal.org/project/eva/issues/3193300 - might help.
 
 # Bugs
 
@@ -17,7 +13,7 @@
 
 ## Information
 - Provide default templates:
-  - Password record.
+  - Password record - probably should be external.
   - Troubleshooting tips.
   - Contract.
   - Users
@@ -26,8 +22,6 @@
 
 ## Invoices
 - Emailing invoices.
-- Templating invoices.
-- Printing invoices.
 
 # MVP - Minimum viable product
 ## Bill
@@ -38,14 +32,13 @@
 
 ## Goods receipt
 - Auto create bill on entry.
-- Relate to purchase orders.
 
 ## Invoices
-- Add subscription based invoices.
 - Auto emailed statements.
 
 ## Payments
 - Method of identifying which register/pos was used?
+- Related to store implementation/support.
 
 ## Item - Stock
 - Stock take list
@@ -66,10 +59,6 @@
 ## Ticket
 - Incoming email to ticket?
 - Check in on job ability - technician front end.
-
-## Timekeeping
-- Base fields same as line item
-- Calculate and store dollar value on save to be simpler when adding as line item?
 
 ## Webform
 - More example webform's
