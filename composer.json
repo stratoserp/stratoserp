@@ -14,7 +14,6 @@
     },
     "license": "GPL-2.0+",
     "require": {
-        "drupal/core": "^9.2",
         "drupal/duration_field": "^2.0",
         "drupal/dynamic_entity_reference": "^1.10",
         "drupal/eva": "^2.1",
