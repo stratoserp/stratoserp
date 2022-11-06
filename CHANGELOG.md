@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.3.0] - 2022-02-
+## [0.4.0] - 2022-11-06
+### Changed
+- Moved loading of old invoice to a core EventSubscriber
+- Provide css classes on the item line output
+
+### Added
+- Tax field & Functionality on invoice
+- Entity print invoice format
+- Store entity to provide logo, address, bank account details for invoices
+
+## [0.3.0] - 2022-02-01
 ### Changed
 - Completely switched from using nodes/comments to custom entities.
 
@@ -33,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Converted subscription to its own entity type
 - Adding reference field to items
 - Payment receipt working
-- field_ prexies to se_ to make future upgrades easier and safer
+- field_ prefixes to se_ to make future upgrades easier and safer
 - Calculate timekeeping correctly
 
 ### Removed
