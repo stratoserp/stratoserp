@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.se_store.se_store.se_address
+    - field.field.se_store.se_store.se_bank_details
+    - field.field.se_store.se_store.se_contact_details
     - field.field.se_store.se_store.se_cu_ref
     - field.field.se_store.se_store.se_email
     - field.field.se_store.se_store.se_homepage
@@ -18,12 +20,14 @@ dependencies:
     - field.field.se_store.se_store.se_status
     - field.field.se_store.se_store.se_su_ref
     - field.field.se_store.se_store.se_suburb
+    - field.field.se_store.se_store.se_tax_information
   module:
     - field_layout
     - image
     - layout_discovery
     - link
     - se_store
+    - text
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -49,12 +53,26 @@ content:
     region: first
   se_address:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 4
     region: first
+  se_bank_details:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
+    region: bottom
+  se_contact_details:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
+    region: bottom
   se_cu_ref:
     type: entity_reference_label
     label: inline
@@ -72,7 +90,7 @@ content:
     region: second
   se_homepage:
     type: link
-    label: above
+    label: inline
     settings:
       trim_length: 80
       url_only: false
@@ -111,7 +129,7 @@ content:
     region: first
   se_postal_address:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -119,7 +137,7 @@ content:
     region: second
   se_postal_postcode:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -127,7 +145,7 @@ content:
     region: second
   se_postal_state:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -135,7 +153,7 @@ content:
     region: second
   se_postal_suburb:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -143,7 +161,7 @@ content:
     region: second
   se_postcode:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -151,7 +169,7 @@ content:
     region: first
   se_state:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -167,11 +185,19 @@ content:
     region: second
   se_suburb:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 5
+    region: first
+  se_tax_information:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 18
     region: first
 hidden:
   se_status: true

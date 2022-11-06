@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_store.se_tax_information
+  module:
+    - se_store
+id: se_store.se_store.se_tax_information
+field_name: se_tax_information
+entity_type: se_store
+bundle: se_store
+label: 'Tax information'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

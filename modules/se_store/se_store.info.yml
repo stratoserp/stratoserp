@@ -23,6 +23,8 @@ config_devel:
     - core.entity_form_display.se_store.se_store.default
     - core.entity_view_display.se_store.se_store.default
     - field.field.se_store.se_store.se_address
+    - field.field.se_store.se_store.se_bank_details
+    - field.field.se_store.se_store.se_contact_details
     - field.field.se_store.se_store.se_cu_ref
     - field.field.se_store.se_store.se_email
     - field.field.se_store.se_store.se_homepage
@@ -38,7 +40,10 @@ config_devel:
     - field.field.se_store.se_store.se_status
     - field.field.se_store.se_store.se_su_ref
     - field.field.se_store.se_store.se_suburb
+    - field.field.se_store.se_store.se_tax_information
     - field.storage.se_store.se_address
+    - field.storage.se_store.se_bank_details
+    - field.storage.se_store.se_contact_details
     - field.storage.se_store.se_cu_ref
     - field.storage.se_store.se_email
     - field.storage.se_store.se_homepage
@@ -54,6 +59,6 @@ config_devel:
     - field.storage.se_store.se_status
     - field.storage.se_store.se_su_ref
     - field.storage.se_store.se_suburb
+    - field.storage.se_store.se_tax_information
   optional:
-    - views.view.se_store_eva
     - views.view.se_store_list

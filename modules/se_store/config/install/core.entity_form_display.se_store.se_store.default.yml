@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.se_store.se_store.se_address
+    - field.field.se_store.se_store.se_bank_details
+    - field.field.se_store.se_store.se_contact_details
     - field.field.se_store.se_store.se_cu_ref
     - field.field.se_store.se_store.se_email
     - field.field.se_store.se_store.se_homepage
@@ -18,6 +20,7 @@ dependencies:
     - field.field.se_store.se_store.se_status
     - field.field.se_store.se_store.se_su_ref
     - field.field.se_store.se_store.se_suburb
+    - field.field.se_store.se_store.se_tax_information
     - image.style.thumbnail
   module:
     - field_group
@@ -27,6 +30,7 @@ dependencies:
     - link
     - se_store
     - telephone
+    - text
 third_party_settings:
   field_layout:
     id: layout_twocol
@@ -42,7 +46,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 16
+      weight: 19
       format_type: details
       format_settings:
         classes: ''
@@ -71,15 +75,31 @@ content:
     third_party_settings: {  }
   se_address:
     type: string_textfield
-    weight: 4
-    region: first
+    weight: 6
+    region: second
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  se_bank_details:
+    type: text_textarea
+    weight: 17
+    region: bottom
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  se_contact_details:
+    type: text_textarea
+    weight: 18
+    region: bottom
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   se_cu_ref:
     type: entity_reference_autocomplete
-    weight: 14
+    weight: 15
     region: second
     settings:
       match_operator: CONTAINS
@@ -89,23 +109,23 @@ content:
     third_party_settings: {  }
   se_email:
     type: email_default
-    weight: 9
-    region: second
+    weight: 2
+    region: first
     settings:
       placeholder: ''
       size: 25
     third_party_settings: {  }
   se_homepage:
     type: link_default
-    weight: 8
-    region: second
+    weight: 1
+    region: first
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
   se_logo:
     type: image_image
-    weight: 3
+    weight: 5
     region: first
     settings:
       progress_indicator: throbber
@@ -113,14 +133,14 @@ content:
     third_party_settings: {  }
   se_mobile:
     type: telephone_default
-    weight: 2
+    weight: 4
     region: first
     settings:
       placeholder: ''
     third_party_settings: {  }
   se_phone:
     type: telephone_default
-    weight: 1
+    weight: 3
     region: first
     settings:
       placeholder: ''
@@ -159,16 +179,16 @@ content:
     third_party_settings: {  }
   se_postcode:
     type: string_textfield
-    weight: 7
-    region: first
+    weight: 9
+    region: second
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   se_state:
     type: string_textfield
-    weight: 6
-    region: first
+    weight: 8
+    region: second
     settings:
       size: 60
       placeholder: ''
@@ -181,7 +201,7 @@ content:
     third_party_settings: {  }
   se_su_ref:
     type: entity_reference_autocomplete
-    weight: 15
+    weight: 16
     region: second
     settings:
       match_operator: CONTAINS
@@ -191,8 +211,16 @@ content:
     third_party_settings: {  }
   se_suburb:
     type: string_textfield
-    weight: 5
-    region: first
+    weight: 7
+    region: second
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  se_tax_information:
+    type: string_textfield
+    weight: 14
+    region: second
     settings:
       size: 60
       placeholder: ''

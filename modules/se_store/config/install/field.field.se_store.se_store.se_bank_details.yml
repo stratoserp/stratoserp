@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_store.se_bank_details
+  module:
+    - se_store
+    - text
+id: se_store.se_store.se_bank_details
+field_name: se_bank_details
+entity_type: se_store
+bundle: se_store
+label: 'Bank details'
+description: 'Text to put in the bank details section on invoices.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
