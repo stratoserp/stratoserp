@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.se_invoice.pdf
     - field.field.se_invoice.se_invoice.se_co_ref
     - field.field.se_invoice.se_invoice.se_cu_ref
     - field.field.se_invoice.se_invoice.se_customer_order
@@ -22,102 +23,49 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
-id: se_invoice.se_invoice.default
+  entity_print:
+    pdf_label: 'View PDF'
+id: se_invoice.se_invoice.pdf
 targetEntityType: se_invoice
 bundle: se_invoice
-mode: default
+mode: pdf
 content:
-  extra_field_invoice_payments:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: second
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 0
     region: top
-  name:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 0
-    region: top
-  se_co_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
-    region: first
-  se_cu_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: first
-  se_customer_order:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 5
-    region: second
   se_item_lines:
     type: se_item_line_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 0
     region: bottom
   se_outstanding:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 1
     region: bottom
-  se_qu_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 6
-    region: second
-  se_sent:
-    type: boolean
-    label: inline
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 7
-    region: second
-  se_status_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: second
   se_total:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 2
     region: bottom
 hidden:
+  extra_field_invoice_payments: true
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics_customer: true
+  name: true
+  se_co_ref: true
+  se_cu_ref: true
+  se_customer_order: true
+  se_qu_ref: true
+  se_sent: true
+  se_status_ref: true
   uid: true

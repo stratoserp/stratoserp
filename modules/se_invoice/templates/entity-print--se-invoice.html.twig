@@ -18,25 +18,62 @@
 <body>
   <div{{ attributes.addClass('entity-print-se-invoice') }}>
 
+    {% if store_logo %}
     <div class="logo">
-      {% if site_logo %}
-        <a href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home" class="site-logo d-block">
-          <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
-        </a>
-      {% endif %}
+        <img src="{{ store_logo }}" alt="{{ 'Store logo'|t }}" />
+    </div>
+    {% endif %}
+
+    <div class="company-address">
+      <div class="store-name">{{ store_name }}</div>
+      <div class="store-address">{{ store_address }}</div>
+      <div class="store-suburb">{{ store_suburb }}</div>
+      <div class="store-state">{{ store_state }}</div>
+      <div class="store-postcode">{{ store_postcode }}</div>
+    </div>
+    <div class="details"><h1>Tax&nbsp;Invoice</h1>
+      <div class="tax-info">ABN: {{ tax_information }}</div>
+      <div class="invoice-date">Date: {{ invoice_date }}</div>
+      <div class="invoice-number">Invoice no: {{ invoice_number }}</div>
+    </div>
+    <div class="bill-to">
+      <strong>Bill to</strong>
+      <div class="customer-name">{{ customer_name }}</div>
+      <div class="customer-address">{{ customer_address }}</div>
+      <div class="customer-suburb">{{ customer_suburb }}</div>
+      <div class="customer-state">{{ customer_state }}</div>
+      <div class="customer-postcode">{{ customer_postcode }}</div>
+    </div>
+    <div class="info-pane">
+      <table>
+        <thead>
+          <tr>
+            <th>PO No</th>
+            <th>Terms</th>
+            <th>Due Date</th>
+            <th>Rep</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="odd">
+            <td>{{ purchase_order }}</td>
+            <td>{{ terms }}</td>
+            <td>{{ due_date }}</td>
+            <td>{{ sales_rep }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     {% if content %}
       {{- content -}}
     {% endif %}
 
-    <div class="bank-details">Bank Account Details<br />
-      Account Name: iseek computing<br />
-      BSB: 065005 A/C: 10128988<br />
+    <div class="bank-details">
+      {{ bank_details }}
     </div>
-    <div class="contact-details">Phone: 1300047335<br />
-      Email: sales@iseek.biz<br />
-      Web: https://iseek.biz
+    <div class="contact-details">
+      {{ contact_details }}
     </div>
 
   </div>
