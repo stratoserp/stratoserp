@@ -18,8 +18,10 @@ dependencies:
 config_devel:
   install:
     - field.field.se_payment.se_payment.se_cu_ref
+    - field.field.se_payment.se_payment.se_tax
     - field.field.se_payment.se_payment.se_total
     - field.storage.se_payment.se_cu_ref
+    - field.storage.se_payment.se_tax
     - field.storage.se_payment.se_total
     - taxonomy.vocabulary.se_payment_type
   optional:
