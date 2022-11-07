@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_qu_ref
     - field.field.se_purchase_order.se_purchase_order.se_status_ref
     - field.field.se_purchase_order.se_purchase_order.se_su_ref
+    - field.field.se_purchase_order.se_purchase_order.se_tax
     - field.field.se_purchase_order.se_purchase_order.se_total
   module:
     - field_group
@@ -30,7 +31,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 7
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -88,7 +89,7 @@ content:
     third_party_settings: {  }
   se_item_lines:
     type: se_item_line_widget
-    weight: 5
+    weight: 6
     region: bottom
     settings:
       match_operator: CONTAINS
@@ -98,7 +99,7 @@ content:
     third_party_settings: {  }
   se_qu_ref:
     type: entity_reference_autocomplete
-    weight: 4
+    weight: 5
     region: second
     settings:
       match_operator: CONTAINS
@@ -108,13 +109,13 @@ content:
     third_party_settings: {  }
   se_status_ref:
     type: options_select
-    weight: 3
+    weight: 4
     region: second
     settings: {  }
     third_party_settings: {  }
   se_su_ref:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 3
     region: first
     settings:
       match_operator: CONTAINS
@@ -122,9 +123,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  se_tax:
+    type: se_currency_widget
+    weight: 7
+    region: bottom
+    settings: {  }
+    third_party_settings: {  }
   se_total:
     type: se_currency_widget
-    weight: 6
+    weight: 8
     region: bottom
     settings: {  }
     third_party_settings: {  }

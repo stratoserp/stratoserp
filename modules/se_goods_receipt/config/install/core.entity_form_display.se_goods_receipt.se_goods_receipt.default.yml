@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_goods_receipt.se_goods_receipt.se_po_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_status_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_su_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_tax
     - field.field.se_goods_receipt.se_goods_receipt.se_total
   module:
     - field_layout
@@ -36,56 +37,62 @@ content:
   se_body:
     type: text_textarea
     weight: 8
+    region: bottom
     settings:
       rows: 5
+      placeholder: ''
       summary_rows: 3
-      placeholder: ''
     third_party_settings: {  }
-    region: bottom
   se_co_ref:
+    type: entity_reference_autocomplete
     weight: 2
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_cu_ref:
+    type: entity_reference_autocomplete
     weight: 1
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_item_lines:
-    weight: 7
+    type: se_item_line_widget
+    weight: 6
+    region: bottom
     settings:
       match_operator: CONTAINS
       size: '40'
       placeholder: ''
       match_limit: 10
     third_party_settings: {  }
-    type: se_item_line_widget
-    region: bottom
   se_po_ref:
+    type: entity_reference_autocomplete
     weight: 3
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: first
   se_status_ref:
     type: options_select
-    weight: 6
+    weight: 5
     region: second
+    settings: {  }
+    third_party_settings: {  }
+  se_tax:
+    type: se_currency_widget
+    weight: 7
+    region: bottom
     settings: {  }
     third_party_settings: {  }
   se_total:
@@ -105,12 +112,12 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 4
+    region: first
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: first
     third_party_settings: {  }
 hidden:
   created: true
@@ -122,4 +129,3 @@ hidden:
   se_su_ref: true
   status: true
   sticky: true
-  uid: true

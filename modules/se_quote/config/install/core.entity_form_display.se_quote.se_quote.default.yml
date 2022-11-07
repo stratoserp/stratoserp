@@ -6,6 +6,7 @@ dependencies:
     - field.field.se_quote.se_quote.se_cu_ref
     - field.field.se_quote.se_quote.se_item_lines
     - field.field.se_quote.se_quote.se_status_ref
+    - field.field.se_quote.se_quote.se_tax
     - field.field.se_quote.se_quote.se_total
   module:
     - field_group
@@ -28,7 +29,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -100,9 +101,15 @@ content:
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_total:
+  se_tax:
     type: se_currency_widget
     weight: 5
+    region: bottom
+    settings: {  }
+    third_party_settings: {  }
+  se_total:
+    type: se_currency_widget
+    weight: 6
     region: bottom
     settings: {  }
     third_party_settings: {  }

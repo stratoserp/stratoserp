@@ -17,16 +17,18 @@ config_devel:
   install:
     - core.entity_form_display.se_bill.se_bill.default
     - core.entity_view_display.se_bill.se_bill.default
-    - field.field.se_bill.se_bill.se_total
     - field.field.se_bill.se_bill.se_body
     - field.field.se_bill.se_bill.se_su_ref
     - field.field.se_bill.se_bill.se_co_ref
     - field.field.se_bill.se_bill.se_status_ref
-    - field.storage.se_bill.se_total
+    - field.field.se_bill.se_bill.se_tax
+    - field.field.se_bill.se_bill.se_total
     - field.storage.se_bill.se_body
     - field.storage.se_bill.se_su_ref
     - field.storage.se_bill.se_co_ref
     - field.storage.se_bill.se_status_ref
+    - field.storage.se_bill.se_tax
+    - field.storage.se_bill.se_total
   optional:
     - views.view.se_bill_eva
     - views.view.se_bill_list

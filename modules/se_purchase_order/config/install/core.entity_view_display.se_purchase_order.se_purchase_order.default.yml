@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_qu_ref
     - field.field.se_purchase_order.se_purchase_order.se_status_ref
     - field.field.se_purchase_order.se_purchase_order.se_su_ref
+    - field.field.se_purchase_order.se_purchase_order.se_tax
     - field.field.se_purchase_order.se_purchase_order.se_total
   module:
     - field_layout
@@ -26,78 +27,90 @@ bundle: se_purchase_order
 mode: default
 content:
   links:
-    weight: 0
-    region: top
     settings: {  }
     third_party_settings: {  }
-  name:
-    label: inline
-    type: string
     weight: 0
     region: top
+  name:
+    type: string
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: top
   se_body:
-    label: hidden
     type: text_default
-    weight: 7
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 7
     region: bottom
   se_co_ref:
-    weight: 2
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 2
     region: first
   se_cu_ref:
-    weight: 1
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 1
     region: first
   se_item_lines:
-    weight: 5
+    type: se_item_line_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: se_item_line_formatter
+    weight: 7
     region: bottom
+  se_purchase_order_goods_receipt_eva_purchase_order_goods_receipt_eva:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: first
   se_qu_ref:
-    weight: 3
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 5
     region: second
   se_status_ref:
-    weight: 4
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 6
     region: second
   se_su_ref:
-    weight: 10
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 3
     region: first
+  se_tax:
+    type: se_currency_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: bottom
   se_total:
-    weight: 6
+    type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: se_currency_formatter
+    weight: 9
     region: bottom
 hidden:
   extra_field_customer_purchase_order_statistics: true

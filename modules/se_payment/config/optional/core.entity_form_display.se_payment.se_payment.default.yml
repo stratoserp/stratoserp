@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.se_payment.se_payment.se_cu_ref
     - field.field.se_payment.se_payment.se_payment_lines
+    - field.field.se_payment.se_payment.se_tax
     - field.field.se_payment.se_payment.se_total
   module:
     - field_group
@@ -65,13 +66,19 @@ content:
     third_party_settings: {  }
   se_payment_lines:
     type: se_payment_line_widget
-    weight: 3
+    weight: 2
     region: bottom
     settings:
       match_operator: CONTAINS
       size: '60'
       placeholder: ''
       match_limit: 10
+    third_party_settings: {  }
+  se_tax:
+    type: se_currency_widget
+    weight: 3
+    region: bottom
+    settings: {  }
     third_party_settings: {  }
   se_total:
     type: se_currency_widget

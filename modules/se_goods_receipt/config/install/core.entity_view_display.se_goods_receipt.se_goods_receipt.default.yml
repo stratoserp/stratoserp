@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_goods_receipt.se_goods_receipt.se_po_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_status_ref
     - field.field.se_goods_receipt.se_goods_receipt.se_su_ref
+    - field.field.se_goods_receipt.se_goods_receipt.se_tax
     - field.field.se_goods_receipt.se_goods_receipt.se_total
   module:
     - field_layout
@@ -26,71 +27,78 @@ bundle: se_goods_receipt
 mode: default
 content:
   links:
-    weight: 0
-    region: first
     settings: {  }
     third_party_settings: {  }
-  name:
-    label: inline
-    type: string
     weight: 0
-    region: top
+    region: first
+  name:
+    type: string
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: top
   se_body:
-    label: hidden
     type: text_default
-    weight: 8
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 8
     region: bottom
   se_co_ref:
-    weight: 2
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 2
     region: first
   se_cu_ref:
-    weight: 1
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 1
     region: first
   se_item_lines:
-    weight: 5
+    type: se_item_line_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: se_item_line_formatter
+    weight: 5
     region: bottom
   se_po_ref:
-    weight: 3
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 3
     region: first
   se_status_ref:
     type: entity_reference_label
-    weight: 4
-    region: second
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-  se_total:
+    weight: 4
+    region: second
+  se_tax:
     type: se_currency_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 6
     region: bottom
+  se_total:
+    type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
+    weight: 7
+    region: bottom
 hidden:
   extra_field_customer_purchase_order_statistics: true
   extra_field_invoice_statistics_monthly: true

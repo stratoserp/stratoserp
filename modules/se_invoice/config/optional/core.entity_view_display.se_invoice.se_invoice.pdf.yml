@@ -11,8 +11,10 @@ dependencies:
     - field.field.se_invoice.se_invoice.se_qu_ref
     - field.field.se_invoice.se_invoice.se_sent
     - field.field.se_invoice.se_invoice.se_status_ref
+    - field.field.se_invoice.se_invoice.se_tax
     - field.field.se_invoice.se_invoice.se_total
   module:
+    - entity_print
     - field_layout
     - layout_discovery
     - se_accounting
@@ -49,12 +51,19 @@ content:
     third_party_settings: {  }
     weight: 1
     region: bottom
+  se_tax:
+    type: se_currency_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: bottom
   se_total:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: bottom
 hidden:
   extra_field_invoice_payments: true

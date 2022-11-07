@@ -10,8 +10,10 @@ dependencies:
     - field.field.se_invoice.se_invoice.se_qu_ref
     - field.field.se_invoice.se_invoice.se_sent
     - field.field.se_invoice.se_invoice.se_status_ref
+    - field.field.se_invoice.se_invoice.se_tax
     - field.field.se_invoice.se_invoice.se_total
   module:
+    - entity_print
     - field_layout
     - layout_discovery
     - se_accounting
@@ -22,11 +24,18 @@ third_party_settings:
     id: layout_twocol
     settings:
       label: ''
+  entity_print:
+    pdf_label: 'View PDF'
 id: se_invoice.se_invoice.default
 targetEntityType: se_invoice
 bundle: se_invoice
 mode: default
 content:
+  entity_print_view_pdf:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: bottom
   extra_field_invoice_payments:
     settings: {  }
     third_party_settings: {  }
@@ -109,12 +118,19 @@ content:
     third_party_settings: {  }
     weight: 3
     region: second
+  se_tax:
+    type: se_currency_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: bottom
   se_total:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: bottom
 hidden:
   extra_field_invoice_statistics_monthly: true
