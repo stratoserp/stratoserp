@@ -16,7 +16,7 @@
     "require": {
         "drupal/duration_field": "^2.0",
         "drupal/dynamic_entity_reference": "^1.10",
-        "drupal/eva": "^2.1",
+        "drupal/eva": "^3.0",
         "drupal/extra_field": "^2.1",
         "drupal/field_group": "^3.2",
         "drupal/geolocation": "^3.2"
