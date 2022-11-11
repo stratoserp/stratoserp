@@ -47,7 +47,7 @@ content:
     region: bottom
   se_tax:
     type: se_currency_formatter
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 3
