@@ -87,6 +87,7 @@ class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
 
     $customer = $invoice->getCustomer();
     $customer->setBalance($customer->updateBalance());
+    $invoice->setOutstanding($invoice->getInvoiceBalance());
   }
 
 }
