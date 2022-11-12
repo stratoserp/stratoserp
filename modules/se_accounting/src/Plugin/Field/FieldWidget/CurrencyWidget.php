@@ -25,6 +25,32 @@ class CurrencyWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return [
+      'input_enabled' => FALSE,
+    ] + parent::defaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state) {
+    $element['input_enabled'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Input enabled'),
+      '#default_value' => $this->getSetting('input_enabled'),
+    ];
+
+    return $element + parent::settingsForm($form, $form_state);
+  }
+
+  public function settingsSummary() {
+    return [$this->getSetting('input_enabled') ? t('Input enabled') : t('Input disabled')] + parent::settingsSummary();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $formState) {
     $value = $items[$delta]->value ?? 0;
     $element += [
@@ -33,6 +59,7 @@ class CurrencyWidget extends WidgetBase {
       '#size' => 12,
       '#maxlength' => 12,
     ];
+    $element['#disabled'] = !$this->getSetting('input_enabled') ?? FALSE;
     return ['value' => $element];
   }
 
