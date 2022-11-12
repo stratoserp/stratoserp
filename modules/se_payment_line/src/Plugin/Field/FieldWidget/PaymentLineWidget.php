@@ -16,7 +16,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\se_accounting\Service\CurrencyFormatService;
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\stratoserp\Traits\FormMultipleElementsTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,8 +30,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
-
-  use FormMultipleElementsTrait;
 
   /**
    * The entity manager.
