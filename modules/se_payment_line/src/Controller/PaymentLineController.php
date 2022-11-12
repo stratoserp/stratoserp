@@ -14,7 +14,7 @@ use Drupal\se_invoice\Entity\Invoice;
 /**
  * Class for Ajax controller to update the item serial/price.
  */
-class PaymentsController extends ControllerBase {
+class PaymentLineController extends ControllerBase {
 
   /**
    * Lookup the selected invoice and update payment line fields.

@@ -9,7 +9,8 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\se_accounting\Service\CurrencyFormat;
+use Drupal\se_accounting\Service\CurrencyFormatService;
+use Drupal\se_accounting\Service\TaxAmountService;
 use Drupal\se_item\Entity\Item;
 use Drupal\se_timekeeping\Entity\Timekeeping;
 
@@ -25,8 +26,6 @@ class ItemLineController extends ControllerBase {
    *   The form being processed.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The request.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   The ajax response with appropriate details.
@@ -35,11 +34,12 @@ class ItemLineController extends ControllerBase {
     $values = $form_state->getValues();
     $response = new AjaxResponse();
     $currencyService = \Drupal::service('se_accounting.currency_format');
+    $taxService = \Drupal::service('se_accounting.tax_amount');
 
     // Get the triggering element.
     $trigger = $form_state->getTriggeringElement();
     if ($trigger['#type'] === 'submit') {
-      self::reCalculateTotal($response, $currencyService, $values);
+      self::reCalculateTotal($response, $currencyService, $taxService, $values);
 
       return $response;
     }
@@ -71,7 +71,7 @@ class ItemLineController extends ControllerBase {
     }
 
     // Always Update the total.
-    self::reCalculateTotal($response, $currencyService, $values);
+    self::reCalculateTotal($response, $currencyService, $taxService, $values);
 
     return $response;
   }
@@ -113,14 +113,14 @@ class ItemLineController extends ControllerBase {
    *
    * @param \Drupal\Core\Ajax\AjaxResponse $response
    *   The ajax response we're building.
-   * @param \Drupal\se_accounting\Service\CurrencyFormat $currencyService
+   * @param \Drupal\se_accounting\Service\CurrencyFormatService $currencyService
    *   Service for displaying currency.
    * @param array $values
    *   Form values to work with.
    * @param string $index
    *   The line index to update.
    */
-  private static function targetIdChange(AjaxResponse $response, CurrencyFormat $currencyService, array &$values, string $index): void {
+  private static function targetIdChange(AjaxResponse $response, CurrencyFormatService $currencyService, array &$values, string $index): void {
     // If there is no target selected we can return now.
     if ($values['se_item_lines'][$index]['target_id'] === NULL) {
       return;
@@ -188,12 +188,12 @@ class ItemLineController extends ControllerBase {
    *
    * @param \Drupal\Core\Ajax\AjaxResponse $response
    *   The ajax response we're building.
-   * @param \Drupal\se_accounting\Service\CurrencyFormat $currencyService
+   * @param \Drupal\se_accounting\Service\CurrencyFormatService $currencyService
    *   Service for displaying currency.
    * @param array $values
    *   Form values to work with.
    */
-  private static function reCalculateTotal(AjaxResponse $response, CurrencyFormat $currencyService, array $values): void {
+  private static function reCalculateTotal(AjaxResponse $response, CurrencyFormatService $currencyService, TaxAmountService $taxService, array $values): void {
     $total = 0;
     foreach ($values['se_item_lines'] as $index => $value) {
       if (is_int($index) && !empty($value['target_id'])) {
@@ -203,6 +203,12 @@ class ItemLineController extends ControllerBase {
         }
       }
     }
+
+    $response->addCommand(new InvokeCommand(
+      "form input[data-drupal-selector='edit-se-tax-0-value']",
+      'val',
+      [$currencyService->formatDisplay((int) $taxService->calculateTax((int) $total))]
+    ));
 
     $response->addCommand(new InvokeCommand(
       "form input[data-drupal-selector='edit-se-total-0-value']",

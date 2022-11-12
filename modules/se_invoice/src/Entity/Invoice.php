@@ -177,4 +177,5 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
 
     return $fields;
   }
+
 }
