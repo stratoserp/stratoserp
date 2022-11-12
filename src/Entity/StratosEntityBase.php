@@ -137,35 +137,6 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
   /**
    * {@inheritdoc}
    */
-  public function generatePdf(): string {
-    $pdf = new Fpdf();
-
-    $pdf->SetXY(100, 100);
-
-    $logoPath = $this->getLogoPath();
-
-    $pdf->Image($logoPath);
-
-    $pdf->Output('F', $this->generateFilename());
-  }
-
-  /**
-   * Obtains the default logo that is configured.
-   *
-   * @return string
-   *   The rendered logo, or an url to the image file.
-   */
-  private function getLogoPath() {
-    $theme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
-
-    $logoPath = theme_get_setting('logo.url', $theme);
-
-    return Url::fromUserInput($logoPath, ['absolute' => TRUE])->toString();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields += static::ownerBaseFieldDefinitions($entity_type);

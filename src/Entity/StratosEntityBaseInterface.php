@@ -57,12 +57,4 @@ interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLog
    */
   public function getSearchPrefix(): string;
 
-  /**
-   * Generate a PDF of the entity and return the path to if.
-   *
-   * @return string
-   *   Path to the generated pdf.
-   */
-  public function generatePdf(): string;
-
 }
