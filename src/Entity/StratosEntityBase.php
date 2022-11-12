@@ -13,10 +13,8 @@ use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\Url;
 use Drupal\stratoserp\Traits\StratosEntityTrait;
 use Drupal\user\EntityOwnerTrait;
-use Fpdf\Fpdf;
 
 /**
  * Class for base functions used in the various entities.

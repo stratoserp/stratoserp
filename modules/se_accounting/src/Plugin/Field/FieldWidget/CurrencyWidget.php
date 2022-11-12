@@ -44,6 +44,9 @@ class CurrencyWidget extends WidgetBase {
     return $element + parent::settingsForm($form, $form_state);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function settingsSummary() {
     return [$this->getSetting('input_enabled') ? t('Input enabled') : t('Input disabled')] + parent::settingsSummary();
   }

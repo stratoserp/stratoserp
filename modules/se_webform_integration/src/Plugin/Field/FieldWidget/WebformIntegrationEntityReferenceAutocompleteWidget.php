@@ -28,7 +28,7 @@ class WebformIntegrationEntityReferenceAutocompleteWidget extends EntityReferenc
   public function getTargetIdElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     // Get default value.
     $referenced_entities = $items->referencedEntities();
-    $default_value = isset($referenced_entities[$delta]) ? $referenced_entities[$delta] : NULL;
+    $default_value = $referenced_entities[$delta] ?? NULL;
 
     // Append the match operation to the selection settings.
     $selection_settings = $this->getFieldSetting('handler_settings') + ['match_operator' => $this->getSetting('match_operator')];

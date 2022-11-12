@@ -20,9 +20,13 @@ use Drupal\se_timekeeping\Service\TimeKeepingServiceInterface;
  */
 class TimekeepingInvoiceEventSubscriber implements TimekeepingInvoiceEventSubscriberInterface {
 
-  /** @var \Drupal\se_timekeeping\Service\TimeKeepingServiceInterface */
+  /**
+   * @var \Drupal\se_timekeeping\Service\TimeKeepingServiceInterface*/
   protected TimeKeepingServiceInterface $timeKeepingService;
 
+  /**
+   * Simple constructor.
+   */
   public function __construct(TimeKeepingServiceInterface $timeKeepingService) {
     $this->timeKeepingService = $timeKeepingService;
   }

@@ -75,6 +75,7 @@ class TimeKeepingService implements TimeKeepingServiceInterface {
    *   The invoice to associate with the timekeeping.
    *
    * @return \Drupal\se_timekeeping\Entity\Timekeeping
+   *   The Timekeeping entry.
    */
   private function markTimekeepingInvoiced(Timekeeping $timekeeping, Invoice $invoice): Timekeeping {
     $timekeeping
@@ -87,8 +88,8 @@ class TimeKeepingService implements TimeKeepingServiceInterface {
    * Mark timekeeping available, called on invoice delete.
    *
    * @param \Drupal\se_invoice\Entity\Invoice $invoice
+   *   The invoice that containers the timekeeping entries.
    *
-   * @return void
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function markTimekeepingAvailableSave(Invoice $invoice): void {

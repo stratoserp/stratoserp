@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Drupal\se_subscription_invoice\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\duration_field\Service\DurationService;
 use Drupal\duration_field\Service\DurationServiceInterface;
 use Drupal\se_customer\Entity\Customer;
-use Drupal\se_customer\Service\CustomerService;
+use Drupal\se_customer\Service\CustomerServiceInterface;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_subscription\Entity\Subscription;
 
@@ -23,23 +21,23 @@ class SubscriptionInvoiceService implements SubscriptionInvoiceServiceInterface 
   use StringTranslationTrait;
 
   protected EntityTypeManagerInterface $entityTypeManager;
-  protected LoggerChannel $loggerChannel;
-  protected CustomerService $customerService;
-  protected DurationService $durationService;
+  protected LoggerChannelInterface $loggerChannel;
+  protected CustomerServiceInterface $customerService;
+  protected DurationServiceInterface $durationService;
 
   /**
    * Constructor for this service.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   EntityTypeManager for later.
-   * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
+   * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
    *   Logger for later.
-   * @param \Drupal\se_customer\Service\CustomerService $customerService
+   * @param \Drupal\se_customer\Service\CustomerServiceInterface $customerService
    *   The customer service.
-   * @param \Drupal\duration_field\Service\DurationService $durationService
+   * @param \Drupal\duration_field\Service\DurationServiceInterface $durationService
    *   The duration service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelInterface $loggerChannel, CustomerService $customerService, DurationServiceInterface $durationService) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelInterface $loggerChannel, CustomerServiceInterface $customerService, DurationServiceInterface $durationService) {
     $this->entityTypeManager = $entityTypeManager;
     $this->loggerChannel = $loggerChannel;
     $this->customerService = $customerService;

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\se_payment_line\Plugin\Field\FieldWidget;
 
+use Drupal\se_payment_line\Controller\PaymentLineController;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
@@ -181,9 +181,9 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
       '#value' => $this->t('Recalculate'),
       '#attributes' => ['class' => ['field-recalculate-submit']],
       '#limit_validation_errors' => $elements['add_more']['#limit_validation_errors'],
-      '#submit' => [[\Drupal\se_payment_line\Controller\PaymentLineController::class, 'updateFields']],
+      '#submit' => [[PaymentLineController::class, 'updateFields']],
       '#ajax' => [
-        'callback' => [\Drupal\se_payment_line\Controller\PaymentLineController::class, 'updateFields'],
+        'callback' => [PaymentLineController::class, 'updateFields'],
         'wrapper' => $elements['add_more']['#ajax']['wrapper'],
         'effect' => 'slide',
         'speed' => 'fast',

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\se_accounting\Service;
 
+/**
+ * Interface definitions for the tax amount service.
+ */
 interface TaxAmountServiceInterface {
 
   /**
@@ -11,7 +14,7 @@ interface TaxAmountServiceInterface {
    *
    * Simple 10% tax for Australia.
    *
-   * @param int $value;
+   * @param int $value
    *   The total value.
    *
    * @return string

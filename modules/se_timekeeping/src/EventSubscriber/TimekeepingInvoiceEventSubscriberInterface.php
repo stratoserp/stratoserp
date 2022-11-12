@@ -6,7 +6,6 @@ namespace Drupal\se_timekeeping\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

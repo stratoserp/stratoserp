@@ -6,6 +6,9 @@ namespace Drupal\se_timekeeping\Service;
 
 use Drupal\se_invoice\Entity\Invoice;
 
+/**
+ * Interface for the timekeeping service.
+ */
 interface TimeKeepingServiceInterface {
 
   /**

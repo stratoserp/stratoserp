@@ -7,6 +7,9 @@ namespace Drupal\se_accounting\EventSubscriber;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Interface for the tax event subscriber.
+ */
 interface TaxEventSubscriberInterface extends EventSubscriberInterface {
 
   /**

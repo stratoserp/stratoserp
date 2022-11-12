@@ -126,6 +126,7 @@ class Supplier extends StratosEntityBase implements SupplierInterface {
   public function isSkipXeroEvents(): bool {
     return $this->skipSupplierXeroEvents ?? FALSE;
   }
+
   /**
    * {@inheritdoc}
    */

@@ -137,15 +137,15 @@ class ItemLineController extends ControllerBase {
             new InvokeCommand(
               "form input[data-drupal-selector='edit-se-item-lines-{$index}-completed-date-date']",
               'val',
-              [$date->format('Y-m-d')]
+              [$date->format('Y-m-d')],
             )
           );
           $response->addCommand(
             new InvokeCommand(
               "form input[data-drupal-selector='edit-se-item-lines-{$index}-quantity']",
               'val',
-              [$timekeeping->se_amount]
-            ),
+              [$timekeeping->se_amount],
+            )
           );
         }
         break;
@@ -153,11 +153,13 @@ class ItemLineController extends ControllerBase {
       case 'se_item':
         /** @var \Drupal\se_item\Entity\Item $item */
         if ($item = Item::load($values['se_item_lines'][$index]['target_id'])) {
-          $response->addCommand(new InvokeCommand(
-            "form input[data-drupal-selector='edit-se-item-lines-{$index}-serial']",
-            'val',
-            [$item->se_serial->value]
-          ));
+          $response->addCommand(
+            new InvokeCommand(
+              "form input[data-drupal-selector='edit-se-item-lines-{$index}-serial']",
+              'val',
+              [$item->se_serial->value],
+            )
+          );
         }
 
         break;
@@ -190,6 +192,8 @@ class ItemLineController extends ControllerBase {
    *   The ajax response we're building.
    * @param \Drupal\se_accounting\Service\CurrencyFormatService $currencyService
    *   Service for displaying currency.
+   * @param \Drupal\se_accounting\Service\TaxAmountService $taxService
+   *   Service for calculating tax amount.
    * @param array $values
    *   Form values to work with.
    */

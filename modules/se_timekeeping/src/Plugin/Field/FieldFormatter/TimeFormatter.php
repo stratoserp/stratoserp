@@ -23,7 +23,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class TimeFormatter extends FormatterBase {
 
-  /** @var \Drupal\se_timekeeping\Service\TimeFormatInterface */
+  /**
+   * @var \Drupal\se_timekeeping\Service\TimeFormatInterface*/
   protected TimeFormatInterface $timeFormat;
 
   /**

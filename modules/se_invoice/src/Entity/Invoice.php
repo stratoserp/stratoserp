@@ -167,7 +167,6 @@ class Invoice extends StratosLinesEntityBase implements InvoiceInterface {
     return $this->oldInvoice ?? NULL;
   }
 
-
   /**
    * {@inheritdoc}
    */

@@ -35,8 +35,8 @@ trait SubscriptionTestTrait {
    *   The subscription type we're wrangling.
    * @param \Drupal\se_customer\Entity\Customer $customer
    *   The customer to associate the subscription with.
-   * @param \Drupal\se_customer\Entity\Customer $supplier
-   *   The customer to associate the subscription with.
+   * @param \Drupal\se_customer\Entity\Supplier $supplier
+   *   The supplier to associate the subscription with.
    * @param \Drupal\se_item\Entity\Item $item
    *   The subscription item.
    * @param bool $allowed

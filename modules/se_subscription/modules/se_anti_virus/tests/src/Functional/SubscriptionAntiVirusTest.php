@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_subscription\Functional;
 
-use Drupal\Tests\se_subscription\Functional\SubscriptionTestBase;
-
 /**
  * Specific subscription type test.
  *

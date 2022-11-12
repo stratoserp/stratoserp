@@ -27,9 +27,10 @@ interface ItemLineServiceInterface {
    * Assign serial values.
    *
    * @param \Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface $entity
-   *
+   *   Entity to update the serial numbers for.
    *
    * @return \Drupal\Core\Entity\EntityInterface
+   *   The updated entity.
    */
   public function setSerialValues(StratosLinesEntityBaseInterface $entity): EntityInterface;
 

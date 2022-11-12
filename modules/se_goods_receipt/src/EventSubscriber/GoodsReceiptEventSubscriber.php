@@ -19,9 +19,13 @@ use Drupal\se_goods_receipt\Service\GoodsReceiptServiceInterface;
  */
 class GoodsReceiptEventSubscriber implements GoodsReceiptEventSubscriberInterface {
 
-  /** @var \Drupal\se_goods_receipt\Service\GoodsReceiptServiceInterface */
+  /**
+   * @var \Drupal\se_goods_receipt\Service\GoodsReceiptServiceInterface*/
   protected GoodsReceiptServiceInterface $goodsReceiptService;
 
+  /**
+   * Simple constructor.
+   */
   public function __construct(GoodsReceiptServiceInterface $goodsReceiptService) {
     $this->goodsReceiptService = $goodsReceiptService;
   }

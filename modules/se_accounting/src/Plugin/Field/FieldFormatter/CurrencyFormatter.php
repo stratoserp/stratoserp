@@ -23,7 +23,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class CurrencyFormatter extends FormatterBase {
 
-  /** @var \Drupal\se_accounting\Service\CurrencyFormatServiceInterface */
+  /**
+   * @var \Drupal\se_accounting\Service\CurrencyFormatServiceInterface*/
   protected CurrencyFormatServiceInterface $currencyFormat;
 
   /**

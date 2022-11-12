@@ -22,9 +22,13 @@ use Drupal\se_stock\Service\StockServiceInterface;
  */
 class StockItemEventSubscriber implements StockItemEventSubscriberInterface {
 
-  /** @var \Drupal\se_stock\Service\StockServiceInterface */
+  /**
+   * @var \Drupal\se_stock\Service\StockServiceInterface*/
   protected StockServiceInterface $stockService;
 
+  /**
+   * Simple constructor.
+   */
   public function __construct(StockServiceInterface $stockService) {
     $this->stockService = $stockService;
   }

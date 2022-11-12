@@ -21,13 +21,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class InvoiceController extends ControllerBase {
 
-  /** @var \Drupal\Core\Datetime\DateFormatter */
+  /**
+   * @var \Drupal\Core\Datetime\DateFormatter*/
   protected $dateFormatter;
 
-  /** @var \Drupal\Core\Render\Renderer */
+  /**
+   * @var \Drupal\Core\Render\Renderer*/
   protected $renderer;
 
-  /** @var \Drupal\Core\Logger\LoggerChannel */
+  /**
+   * @var \Drupal\Core\Logger\LoggerChannel*/
   protected $stratosLogger;
 
   /**
@@ -261,7 +264,7 @@ class InvoiceController extends ControllerBase {
    * @param \Drupal\se_customer\Entity\CustomerInterface $customer
    *   The source entity.
    *
-   * @return \Drupal\se_invoice\Entity\Invoice An entity ready for the submission form.
+   * @return \Drupal\se_invoice\Entity\Invoice
    *   An entity ready for the submission form.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
@@ -324,7 +327,7 @@ class InvoiceController extends ControllerBase {
    * @param \Drupal\se_quote\Entity\QuoteInterface $quote
    *   The source entity.
    *
-   * @return \Drupal\se_invoice\Entity\Invoice An entity ready for the submission form.
+   * @return \Drupal\se_invoice\Entity\Invoice
    *   An entity ready for the submission form.
    */
   public function createInvoiceFromQuote(QuoteInterface $quote): Invoice {

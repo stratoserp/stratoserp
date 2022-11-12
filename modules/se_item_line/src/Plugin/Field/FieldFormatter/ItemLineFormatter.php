@@ -122,7 +122,6 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
       $dateBuild = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
 
-
       // Transform the notes from the stored value into something
       // safe to display.
       $notesBuild = [
@@ -139,7 +138,10 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
         ['class' => 'date', 'data' => $dateBuild],
         ['class' => 'notes', 'data' => $notesBuild],
         ['class' => 'serial', 'data' => $items[$delta]->serial],
-        ['class' => 'price',  'data' => $currencyFormatter->formatDisplay((int) $items[$delta]->price)],
+        [
+          'class' => 'price',
+          'data' => $currencyFormatter->formatDisplay((int) $items[$delta]->price),
+        ],
       ];
       $rows[] = $row;
     }

@@ -23,8 +23,7 @@ use Drupal\Core\Render\Element;
  */
 function template_preprocess_se_store(array &$variables) {
   // Fetch Store Entity Object.
-  //$se_store = $variables['elements']['#se_store'];
-
+  // $se_store = $variables['elements']['#se_store'];
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];

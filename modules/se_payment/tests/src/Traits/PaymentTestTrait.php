@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\se_payment\Traits;
 
-use Drupal\se_invoice\Entity\Invoice;
 use Drupal\se_payment\Entity\Payment;
 use Drupal\user\Entity\User;
 use Faker\Factory;

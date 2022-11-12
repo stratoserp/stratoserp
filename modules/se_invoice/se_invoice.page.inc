@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 use Drupal\Core\Render\Element;
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\user\Entity\User;
 
 /**
  * Prepares variables for Invoice templates.
@@ -25,8 +24,7 @@ use Drupal\user\Entity\User;
  */
 function template_preprocess_se_invoice(array &$variables): void {
   // Fetch Invoice Entity Object.
-  //$se_invoice = $variables['elements']['#se_invoice'];
-
+  // $se_invoice = $variables['elements']['#se_invoice'];
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     // Ditch the created stamp.
@@ -52,7 +50,7 @@ function template_preprocess_entity_print__se_invoice(array &$variables): void {
 
   // Retrieve the store and set the logo path.
   $stores = \Drupal::entityTypeManager()->getStorage('se_store')->loadByProperties([
-    'se_status' => TRUE
+    'se_status' => TRUE,
   ]);
   /** @var \Drupal\se_store\Entity\Store $store */
   $store = reset($stores);
@@ -89,8 +87,8 @@ function template_preprocess_entity_print__se_invoice(array &$variables): void {
   $variables['purchase_order'] = $invoice->se_customer_order->value;
   $variables['terms'] = $customer->se_terms->value;
   // @todo due date calculation.
-  // $variables['due_date'] = \Drupal::service('se_customer')->calculateDueDate($invoice);
-
+  // $variables['due_date'] =
+  // \Drupal::service('se_customer')->calculateDueDate($invoice);
   // Sales rep only if not anonymous.
   $creator = $invoice->getOwner();
   if ($creator->id() !== '0') {

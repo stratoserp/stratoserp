@@ -35,7 +35,7 @@ class WebformIntegrationEntityReferenceSelectWidget extends OptionsWidgetBase {
   public function getTargetIdElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     // Get default value (webform ID).
     $referenced_entities = $items->referencedEntities();
-    $default_value = isset($referenced_entities[$delta]) ? $referenced_entities[$delta] : NULL;
+    $default_value = $referenced_entities[$delta] ?? NULL;
     // Convert default_value's Webform to a simple entity_id.
     if ($default_value instanceof WebformInterface) {
       $default_value = $default_value->id();

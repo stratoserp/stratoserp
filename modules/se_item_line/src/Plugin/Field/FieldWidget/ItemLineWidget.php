@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_item_line\Plugin\Field\FieldWidget;
 
+use Drupal\se_item_line\Controller\ItemLineController;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Datetime\DateFormatter;
@@ -224,9 +225,9 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
       '#value' => $this->t('Recalculate'),
       '#attributes' => ['class' => ['field-recalculate-submit']],
       '#limit_validation_errors' => $elements['add_more']['#limit_validation_errors'],
-      '#submit' => [[\Drupal\se_item_line\Controller\ItemLineController::class, 'updateFields']],
+      '#submit' => [[ItemLineController::class, 'updateFields']],
       '#ajax' => [
-        'callback' => [\Drupal\se_item_line\Controller\ItemLineController::class, 'updateFields'],
+        'callback' => [ItemLineController::class, 'updateFields'],
         'wrapper' => $elements['add_more']['#ajax']['wrapper'],
         'effect' => 'slide',
         'speed' => 'fast',

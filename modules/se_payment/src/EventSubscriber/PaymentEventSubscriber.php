@@ -22,9 +22,14 @@ use Drupal\se_payment\Service\PaymentServiceInterface;
  */
 class PaymentEventSubscriber implements PaymentEventSubscriberInterface {
 
-  /** @var \Drupal\se_payment\Service\PaymentServiceInterface */
+  /**
+   * @var \Drupal\se_payment\Service\PaymentServiceInterface
+   */
   protected PaymentServiceInterface $paymentService;
 
+  /**
+   * Simple constructor.
+   */
   public function __construct(PaymentServiceInterface $paymentService) {
     $this->paymentService = $paymentService;
   }

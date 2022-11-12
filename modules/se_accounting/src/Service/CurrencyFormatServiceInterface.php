@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\se_accounting\Service;
 
+/**
+ * Interface definitions for the currency service.
+ */
 interface CurrencyFormatServiceInterface {
 
   /**

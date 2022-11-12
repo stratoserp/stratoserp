@@ -6,10 +6,8 @@ namespace Drupal\se_store\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\se_store\Entity\Store;
 use Drupal\se_store\Entity\StoreInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

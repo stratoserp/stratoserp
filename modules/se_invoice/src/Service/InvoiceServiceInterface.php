@@ -7,6 +7,9 @@ namespace Drupal\se_invoice\Service;
 use Drupal\se_invoice\Entity\Invoice;
 use Drupal\taxonomy\Entity\Term;
 
+/**
+ * Interface for the invoice service.
+ */
 interface InvoiceServiceInterface {
 
   /**
@@ -37,4 +40,5 @@ interface InvoiceServiceInterface {
    *   The term for paid status.
    */
   public function getClosedTerm(): ?Term;
+
 }

@@ -23,6 +23,9 @@ class StratosContentEntityForm extends ContentEntityForm {
    */
   protected FormAlterInterface $formAlter;
 
+  /**
+   * Extant the parent create function to add services.
+   */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
     $instance->formAlter = $container->get('se.form_alter');

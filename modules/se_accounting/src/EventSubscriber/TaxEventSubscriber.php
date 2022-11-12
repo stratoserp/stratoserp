@@ -9,20 +9,36 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\se_accounting\Service\TaxAmountServiceInterface;
 use Drupal\stratoserp\Constants;
 
+/**
+ * Implement an event subscriber to calculate and store tax.
+ */
 class TaxEventSubscriber implements TaxEventSubscriberInterface {
 
+  /**
+   * @var \Drupal\se_accounting\Service\TaxAmountServiceInterface
+   *  Storage for the tax amount service.
+   */
   protected TaxAmountServiceInterface $taxAmountService;
 
+  /**
+   * Simple constructor.
+   */
   public function __construct(TaxAmountServiceInterface $taxAmountService) {
     $this->taxAmountService = $taxAmountService;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_PRE_SAVE => ['taxPreAction', 25],
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function taxPreAction(EntityPresaveEvent $event): void {
     /** @var \Drupal\stratoserp\Entity\StratosLinesEntityBaseInterface $entity */
     $entity = $event->getEntity();

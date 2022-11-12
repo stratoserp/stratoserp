@@ -25,6 +25,9 @@ class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
 
   protected InvoiceServiceInterface $invoiceService;
 
+  /**
+   * Simple constructor.
+   */
   public function __construct(InvoiceServiceInterface $invoiceService) {
     $this->invoiceService = $invoiceService;
   }

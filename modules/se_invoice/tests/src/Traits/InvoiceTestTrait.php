@@ -51,7 +51,7 @@ trait InvoiceTestTrait {
    * @param array $items
    *   An array of items to use for invoice lines.
    *
-   * @return \Drupal\se_invoice\Entity\Invoice|null The Invoice to return.
+   * @return \Drupal\se_invoice\Entity\Invoice|null
    *   The Invoice to return.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
@@ -229,7 +229,7 @@ trait InvoiceTestTrait {
    * @param array $settings
    *   Array of settings to apply to the Invoice entity.
    *
-   * @return \Drupal\se_invoice\Entity\Invoice The created Invoice entity.
+   * @return \Drupal\se_invoice\Entity\Invoice
    *   The created Invoice entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -249,7 +249,7 @@ trait InvoiceTestTrait {
    * @param array $settings
    *   Array of settings to apply to the Invoice entity.
    *
-   * @return \Drupal\se_invoice\Entity\Invoice The created but not yet saved Invoice entity.
+   * @return \Drupal\se_invoice\Entity\Invoice
    *   The created but not yet saved Invoice entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException

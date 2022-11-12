@@ -9,7 +9,6 @@ use Drupal\comment\Entity\Comment;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Url;
-use Drupal\KernelTests\AssertLegacyTrait;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\se_testing\Traits\UserCreateTestTrait;
 use Drupal\Tests\RandomGeneratorTrait;
@@ -320,6 +319,9 @@ class FunctionalTestBase extends TestCase {
 
   }
 
+  /**
+   * Walk through the array and do the basic permission checks.
+   */
   public function ownerPermissionCheck(array $pages): void {
 
     // Test as owner.
