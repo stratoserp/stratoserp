@@ -13,7 +13,7 @@ class TaxAmountService implements TaxAmountServiceInterface {
    * {@inheritdoc}
    */
   public function calculateTax($value): string {
-    return (string) number_format($value / 10, 2);
+    return (string) ($value / 10);
   }
 
 }

@@ -1,4 +1,10 @@
 services:
+  se_accounting.event_subscriber:
+    class: Drupal\se_accounting\EventSubscriber\TaxEventSubscriber
+    arguments: [ '@se_accounting.tax_amount' ]
+    tags:
+      - { name: event_subscriber }
+
   se_accounting.currency_format:
     class: Drupal\se_accounting\Service\CurrencyFormatService
 

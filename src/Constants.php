@@ -52,4 +52,13 @@ final class Constants {
     'se_bulk_stock',
   ];
 
+  public const SE_TAX_ENTITIES = [
+    'se_bill',
+    'se_goods_receipt',
+    'se_invoice',
+    'se_payment',
+    'se_purchase_order',
+    'se_quote',
+  ];
+
 }

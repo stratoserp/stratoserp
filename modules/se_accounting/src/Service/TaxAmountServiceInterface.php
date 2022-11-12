@@ -9,6 +9,8 @@ interface TaxAmountServiceInterface {
   /**
    * Extract the tax amount from a total amount.
    *
+   * Simple 10% tax for Australia.
+   *
    * @param int $value;
    *   The total value.
    *
