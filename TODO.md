@@ -61,7 +61,7 @@
 - Check in on job ability - technician front end.
 
 ## Webform
-- More example webform's
+- More example webforms
 
 
 # Polish
@@ -96,7 +96,7 @@
 - SMS ability
 
 ## Information
-- Encypted password document/field type
+- Encrypted password document/field type
   https://www.drupal.org/project/encrypt_content_client ?
 
 ## Invoice features
@@ -105,12 +105,12 @@
 ## Item
 - Lookup product on supplier to check stock levels on viewing.
 - Lookup product on shopping site to get price range.
-- Provide bookmark-let, chrome add-on or similar for easy entry of product.
+- Provide bookmark-let, Chrome add-on or similar for easy entry of product.
 - Auto lookup product from barcode on amazon or similar?
-- Item type with built in 10th item free - eg ink cartridges.
+- Item type with built-in 10th item free - e.g. ink cartridges.
 
-## Pabx
-- Add PABX module with asterisk sub-module for auto importing phone records.
+## PABX
+- 3CX Integration.
 
 ## Payments
 - Auto populate invoices when Total amount typed in; or
@@ -120,7 +120,7 @@
 - Export email addresses
 
 ## Stock
-- Stocktake process
+- Stock take process
 
 ## Ticket
 - External facing dashboard for customer
@@ -135,6 +135,9 @@
 
 ## Documents
 - Integration with Nextcloud.
+
+## PABX
+- Asterisk integration.
 
 ## RMM Integration
 - Pull in records from rmm.
