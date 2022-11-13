@@ -26,7 +26,7 @@ class StratosErpAdminPageTest extends FunctionalTestBase {
    * @throws \Behat\Mink\Exception\ResponseTextException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testStratosErpAdminPageTest() {
+  public function testAdminPageTest() {
 
     $page = $this->getSession()->getPage();
     $assert = $this->assertSession();

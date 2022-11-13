@@ -84,7 +84,7 @@ class ConfigDevelEventSubscriber implements EventSubscriberInterface {
       sort($data['permissions']);
     }
 
-    // Remove entity print links we don't use.
+    // Remove entity print links.
     foreach ([
       'entity_print_view_epub',
       'entity_print_view_pdf',
