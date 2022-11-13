@@ -3,7 +3,8 @@ description: 'Provides Emailing capabilities for various other modules via entit
 type: module
 core_version_requirement:  ^8 || ^9 || ^10
 package: StratosERP
-dependencies: {  }
+dependencies:
+  - symfony_mailer:symfony_mailer
 
 config_devel:
   install: {  }

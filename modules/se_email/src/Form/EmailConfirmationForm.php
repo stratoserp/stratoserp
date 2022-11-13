@@ -9,11 +9,10 @@ use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Url;
 use Drupal\entity_print\Plugin\EntityPrintPluginManagerInterface;
 use Drupal\entity_print\PrintBuilderInterface;
-use Drupal\file\Entity\File;
 use Drupal\se_contact\Service\ContactServiceInterface;
 use Drupal\stratoserp\Entity\StratosEntityBase;
 use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
-use Drupal\symfony_mailer\Email;
+use Drupal\symfony_mailer\EmailFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -50,13 +49,19 @@ class EmailConfirmationForm extends FormBase {
   protected PrintBuilderInterface $printBuilder;
 
   /**
+   * The email factory service.
+   */
+  protected EmailFactoryInterface $emailFactory;
+
+  /**
    * Simple constructor.
    */
-  public function __construct(ContactServiceInterface $contactService, MailManagerInterface $mailManager, EntityPrintPluginManagerInterface $printEngine, PrintBuilderInterface $printBuilder) {
+  public function __construct(ContactServiceInterface $contactService, MailManagerInterface $mailManager, EntityPrintPluginManagerInterface $printEngine, PrintBuilderInterface $printBuilder, EmailFactoryInterface $emailFactory) {
     $this->contactService = $contactService;
     $this->mailManager = $mailManager;
     $this->printEngine = $printEngine;
     $this->printBuilder = $printBuilder;
+    $this->emailFactory = $emailFactory;
   }
 
   /**
@@ -68,6 +73,7 @@ class EmailConfirmationForm extends FormBase {
       $container->get('plugin.manager.mail'),
       $container->get('plugin.manager.entity_print.print_engine'),
       $container->get('entity_print.print_builder'),
+      $container->get('email_factory')
     );
   }
 
@@ -91,7 +97,7 @@ class EmailConfirmationForm extends FormBase {
 
     $form['entity'] = [
       '#type' => 'value',
-      '#value' => $source
+      '#value' => $source,
     ];
 
     $form['destinations'] = [
@@ -148,6 +154,7 @@ class EmailConfirmationForm extends FormBase {
 
     /** @var \Drupal\stratoserp\Entity\StratosEntityBaseInterface $entity */
     $entity = $values['entity'];
+    $email_text = $values['email_text'];
 
     try {
       // Create the Print engine plugin.
@@ -157,18 +164,25 @@ class EmailConfirmationForm extends FormBase {
 
       $uri = $this->printBuilder->savePrintable([$entity], $printEngine, 'private', $filename);
 
-      $file = File::create([
-        'uri' => $uri,
-        'uid' => \Drupal::currentUser()->id(),
-      ]);
+      $email = $this->emailFactory->newTypedEmail('se_email', $entity->bundle())
+        ->setFrom(\Drupal::currentUser()->getEmail())
+        ->setTo(implode(',', $values['destinations']))
+        ->attachFromPath($uri)
+        ->setSubject($entity->generateName())
+        ->setBody([
+          '#type' => 'processed_text',
+          '#text' => $email_text['value'],
+          '#format' => $email_text['format'],
+        ]);
 
-      $results = $this->createMail($values, $entity, $file);
+      $result = $email->send();
 
-      if ($results['result']) {
+      if ($result) {
         $this->messenger()->addStatus(t('Email sent.'));
       }
     }
     catch (\Exception $e) {
+      $this->messenger()->addError('Exception occured.');
     }
 
     $form_state->setRedirectUrl($entity->toUrl());
@@ -195,35 +209,6 @@ class EmailConfirmationForm extends FormBase {
     }
 
     return $url;
-  }
-
-  /**
-   * Create mail
-   * Set alter hook for key and destination.
-   *
-   * @return array
-   */
-  private function createMail($values, $entity, $file) {
-    $mail['key']      = 'se_email_key';
-    $mail['to']       = implode(',', $values['destinations']);
-    $mail['langCode'] = \Drupal::currentUser()->getPreferredLangcode();
-
-    $attachments           = new \stdClass();
-    $attachments->uri      = $file->getFileUri();
-    $attachments->filename = $file->getFilename();
-    $attachments->filemime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file->getFileUri());
-
-    $mail['params']['files'][] = $attachments;
-    $mail['params']['export_type'] = $values['email_type'];
-    $mail['params']['entity_type'] = $entity->getEntityTypeId();
-    $mail['params']['entity_id'] = $entity->id();
-    $mail['params']['subject'] = $entity->generateName();
-    $mail['params']['body'][] = $values['email_text'];
-
-    $mail['send'] = TRUE;
-
-    // Send e-mail.
-    return $this->mailManager->mail('se_email', $mail['key'], $mail['to'], $mail['langCode'], $mail['params'], NULL, $mail['send']);
   }
 
 }
