@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\se_contact\Functional;
 
+use Drupal\se_contact\Service\ContactServiceInterface;
 use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_contact\Traits\ContactTestTrait;
 use Drupal\Tests\se_testing\Functional\FunctionalTestBase;
@@ -24,11 +25,20 @@ class ContactTestBase extends FunctionalTestBase {
   protected $contact;
 
   /**
+   * Contact service for tests.
+   *
+   * @var \Drupal\se_contact\Service\ContactServiceInterface
+   */
+  protected ContactServiceInterface $contactService;
+
+  /**
    * Setup the basic contact tests.
    */
   protected function setUp(): void {
     parent::setUp();
     $this->contactFakerSetup();
+
+    $this->contactService = \Drupal::service('se_contact.service');
   }
 
 }

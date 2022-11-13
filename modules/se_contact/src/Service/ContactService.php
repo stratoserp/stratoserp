@@ -5,27 +5,35 @@ declare(strict_types=1);
 namespace Drupal\se_contact\Service;
 
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\se_customer\Service\CustomerServiceInterface;
+use Drupal\stratoserp\Entity\StratosEntityBaseInterface;
 
 /**
  * Contact service class for common contact related manipulation.
  */
-class ContactService {
+class ContactService implements ContactServiceInterface {
 
   /**
    * The config factory.
    *
-   * @var configFactory
+   * @var \Drupal\Core\Config\ConfigFactory
    */
   protected ConfigFactory $configFactory;
 
   /**
    * The entity type manager.
    *
-   * @var entityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected EntityTypeManager $entityTypeManager;
+
+  /**
+   * The customer service.
+   *
+   * @var \Drupal\se_customer\Service\CustomerServiceInterface
+   */
+  protected CustomerServiceInterface $customerService;
 
   /**
    * ContactService constructor.
@@ -34,60 +42,93 @@ class ContactService {
    *   Provide a config factory to the constructor.
    * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
    *   Provide an entityTypeManager to the constructor.
+   * @param \Drupal\se_customer\Service\CustomerServiceInterface $customerService
+   *   Provide the customer service to the constructor.
    */
-  public function __construct(ConfigFactory $configFactory, EntityTypeManager $entityTypeManager) {
+  public function __construct(ConfigFactory $configFactory, EntityTypeManager $entityTypeManager, CustomerServiceInterface $customerService) {
     $this->configFactory = $configFactory;
     $this->entityTypeManager = $entityTypeManager;
+    $this->customerService = $customerService;
   }
 
   /**
-   * Given a customer entity, return the main contact for that customer.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity to return the contact for.
-   *
-   * @return array
-   *   The list of contacts set as main contacts.
+   * {@inheritdoc}
    */
-  public function loadMainContactsByCustomer(EntityInterface $entity): array {
-    // Ensure its really a customer passed.
-    $customer = \Drupal::service('se_customer.service')->lookupCustomer($entity);
-
-    if (!$customer) {
-      return [];
-    }
-
+  public function loadMainContactsByCustomer(StratosEntityBaseInterface $entity): array {
     // If no main contact term is selected, bail.
     $config = $this->configFactory->get('se_contact.settings');
-    if (!$termId = $config->get('main_contact_term')) {
+    if (!$termId = (int) $config->get('main_contact_term')) {
       return [];
     }
 
-    // Setup the query.
-    $query = \Drupal::entityQuery('se_contact')
-      ->condition('se_cu_ref', $customer->id())
-      ->condition('se_type_ref', $termId);
+    return $this->loadContactsFromEntity($entity, $termId);
+  }
 
-    // Return the executed query.
+  /**
+   * {@inheritdoc}
+   */
+  public function loadDefaultContactsFromEntity(StratosEntityBaseInterface $entity): array {
+    $contactTypes = $this->determineContactTermId($entity->bundle());
+
+    return $this->loadContactsFromEntity($entity, $contactTypes);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function loadContactsFromEntity(StratosEntityBaseInterface $entity, int $contactType = NULL): array {
+    // Get the customer from any entity.
+    $customer = $this->customerService->lookupCustomer($entity);
+
+    $stg = $this->entityTypeManager->getStorage('se_contact');
+
+    $query = $stg->getQuery()
+      ->condition('se_cu_ref', $customer->id());
+
+    if ($contactType) {
+      $query->condition('se_type_ref', $contactType);
+    }
+
     return $query->execute();
   }
 
   /**
-   * Given a customer entity, return all contacts for the customer.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity to return the contacts for.
-   *
-   * @return array
-   *   The list of contacts.
+   * {@inheritdoc}
    */
-  public function loadContactsByCustomer(EntityInterface $entity): array {
-    // Ensure it's really a customer entity.
-    $customer = \Drupal::service('se_customer.service')->lookupCustomer($entity);
+  public function contactsToEmails(array $contactIdList): array {
+    $contactList = [];
 
-    return \Drupal::entityQuery('se_contact')
-      ->condition('se_cu_ref', $customer->id())
-      ->execute();
+    $stg = $this->entityTypeManager->getStorage('se_contact');
+
+    /** @var \Drupal\se_contact\Entity\ContactInterface $contact */
+    foreach ($stg->loadMultiple($contactIdList) as $contact) {
+      if (isset($contact->se_email->value) && stripos($contact->se_email->value, '@')) {
+        $contactList[$contact->se_email->value] = $contact->getName() . ' - ' . $contact->se_email->value;
+      }
+    }
+
+    return $contactList;
+  }
+
+  /**
+   * Given a bundle string, return the sensible contact term type id.
+   *
+   * @param string $bundle
+   *   The entity bundle type to check.
+   *
+   * @return int
+   *   The term id for the contact type.
+   */
+  protected function determineContactTermId($bundle) {
+    $config = $this->configFactory->get('se_contact.settings');
+
+    // This should be a configurable matrix sort of UI thing.
+    $type = match ($bundle) {
+      'se_invoice', 'se_statement' => 'accounting_contact_term',
+      default => 'main_contact_term',
+    };
+
+    return (int) $config->get($type);
   }
 
 }

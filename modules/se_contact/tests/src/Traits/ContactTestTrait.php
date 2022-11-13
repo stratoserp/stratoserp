@@ -23,6 +23,7 @@ trait ContactTestTrait {
   protected $contactState;
   protected $contactPostcode;
   protected $contactUrl;
+  protected $contactEmail;
   protected $contactCompanyEmail;
 
   /**
@@ -64,6 +65,7 @@ trait ContactTestTrait {
     $contact = $this->createContact([
       'type' => 'se_contact',
       'name' => $this->contactName,
+      'se_email' => $this->contactEmail,
       'se_phone' => $this->contactPhoneNumber,
       'se_cu_ref' => $customer,
     ]);

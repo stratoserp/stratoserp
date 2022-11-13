@@ -1,4 +1,4 @@
 services:
   se_contact.service:
     class: Drupal\se_contact\Service\ContactService
-    arguments: ['@config.factory', '@entity_type.manager']
+    arguments: ['@config.factory', '@entity_type.manager', '@se_customer.service']
