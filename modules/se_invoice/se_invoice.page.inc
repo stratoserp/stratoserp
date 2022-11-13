@@ -55,8 +55,10 @@ function template_preprocess_entity_print__se_invoice(array &$variables): void {
   /** @var \Drupal\se_store\Entity\Store $store */
   $store = reset($stores);
 
-  // @todo better way for this.
-  $invoice = Invoice::load(\Drupal::routeMatch()->getParameter('entity_id'));
+  // @todo better way for this?
+  if (!$invoice = $variables['content'][0][0]['#se_invoice'] ?? NULL) {
+    $invoice = Invoice::load(\Drupal::routeMatch()->getParameter('entity_id'));
+  }
   $customer = $invoice->se_cu_ref->entity;
 
   /** @var \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator */
