@@ -49,7 +49,7 @@ class QuoteSettingsForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
     // Create an editable config.
-    $config = \Drupal::configFactory()->getEditable('se_quote.settings');
+    $config = $this->configFactory()->getEditable('se_quote.settings');
 
     // Retrieve the submitted values.
     $values = $form_state->getValues();
