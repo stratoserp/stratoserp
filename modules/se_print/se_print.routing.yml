@@ -3,7 +3,7 @@ se_print.invoice:
   path: '/invoice/print/{source}'
   defaults:
     _title: 'Print invoice'
-    _controller: '\Drupal\se_print\Controller\PrintController::entity'
+    _form: '\Drupal\se_print\Form\PrintConfirmationForm'
   requirements:
     _permission: 'view invoice entities'
   options:
@@ -15,7 +15,7 @@ se_print.quote:
   path: '/quote/print/{source}'
   defaults:
     _title: 'Print quote'
-    _controller: '\Drupal\se_print\Controller\PrintController::entity'
+    _form: '\Drupal\se_print\Form\PrintConfirmationForm'
   requirements:
     _permission: 'view quote entities'
   options:
@@ -27,7 +27,7 @@ se_print.ticket:
   path: '/ticket/print/{source}'
   defaults:
     _title: 'Print ticket'
-    _controller: '\Drupal\se_print\Controller\PrintController::entity'
+    _form: '\Drupal\se_print\Form\PrintConfirmationForm'
   requirements:
     _permission: 'view ticket entities'
   options:
