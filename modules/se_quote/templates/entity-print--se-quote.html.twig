@@ -1,9 +1,9 @@
 {#
 /**
- * @file entity-print--se-invoice.html.twig
- * Entity print specific implementation of the invoice output.
+ * @file entity-print--se-quote.html.twig
+ * Entity print specific implementation of the quote output.
  *
- * @see template_preprocess_entity_print__se_invoice()
+ * @see template_preprocess_entity_print__se_quote()
  *
  * @ingroup themeable
  */
@@ -16,7 +16,7 @@
   {{ entity_print_css }}
 </head>
 <body>
-  <div{{ attributes.addClass('entity-print-se-invoice') }}>
+  <div{{ attributes.addClass('entity-print-se-quote') }}>
 
     {% if store_logo %}
     <div class="logo">
@@ -31,10 +31,10 @@
       <div class="store-state">{{ store_state }}</div>
       <div class="store-postcode">{{ store_postcode }}</div>
     </div>
-    <div class="details"><h1>Tax&nbsp;Invoice</h1>
+    <div class="details"><h1>Quote</h1>
       <div class="tax-info">ABN: {{ tax_information }}</div>
-      <div class="invoice-date">Date: {{ invoice_date }}</div>
-      <div class="invoice-number">Invoice no: {{ invoice_number }}</div>
+      <div class="quote-date">Date: {{ quote_date }}</div>
+      <div class="quote-number">Quote no: {{ quote_number }}</div>
     </div>
     <div class="bill-to">
       <strong>Bill to</strong>
@@ -48,16 +48,12 @@
       <table>
         <thead>
           <tr>
-            <th>PO No</th>
-            <th>Terms</th>
             <th>Due Date</th>
             <th>Rep</th>
           </tr>
         </thead>
         <tbody>
           <tr class="odd">
-            <td>{{ purchase_order }}</td>
-            <td>{{ terms }}</td>
             <td>{{ due_date }}</td>
             <td>{{ sales_rep }}</td>
           </tr>

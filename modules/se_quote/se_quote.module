@@ -17,6 +17,16 @@ function se_quote_theme() {
     'file' => 'se_quote.page.inc',
     'template' => 'se_quote',
   ];
+  $theme['entity_print__se_quote'] = [
+    'file' => 'se_quote.page.inc',
+    'template' => 'entity-print--se-quote',
+    'variables' => [
+      'title' => '',
+      'content' => NULL,
+      'store_logo' => NULL,
+      'entity_print_css' => NULL,
+    ],
+  ];
 
   return $theme;
 }

@@ -29,5 +29,7 @@ config_devel:
     - field.storage.se_quote.se_total
     - field.storage.se_quote.se_status_ref
   optional:
+    - core.entity_view_display.se_quote.se_quote.pdf
+    - core.entity_view_mode.se_quote.pdf
     - views.view.se_quote_eva
     - views.view.se_quote_list

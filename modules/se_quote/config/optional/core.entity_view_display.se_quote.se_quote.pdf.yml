@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.se_quote.pdf
     - field.field.se_quote.se_quote.se_co_ref
     - field.field.se_quote.se_quote.se_cu_ref
     - field.field.se_quote.se_quote.se_item_lines
@@ -22,77 +23,44 @@ third_party_settings:
       label: ''
   entity_print:
     pdf_label: 'View PDF'
-id: se_quote.se_quote.default
+id: se_quote.se_quote.pdf
 targetEntityType: se_quote
 bundle: se_quote
-mode: default
+mode: pdf
 content:
-  entity_print_view_pdf:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 7
-    region: bottom
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 0
     region: top
-  name:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 0
-    region: top
-  se_co_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
-    region: first
-  se_cu_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: first
   se_item_lines:
     type: se_item_line_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 0
     region: bottom
-  se_status_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: second
   se_tax:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 1
     region: bottom
   se_total:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 2
     region: bottom
 hidden:
   extra_field_invoice_statistics_monthly: true
   extra_field_quote_statistics_monthly: true
   extra_field_ticket_statistics: true
   extra_field_ticket_statistics_customer: true
+  name: true
+  se_co_ref: true
+  se_cu_ref: true
+  se_status_ref: true
   uid: true

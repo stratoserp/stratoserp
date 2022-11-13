@@ -23,8 +23,6 @@ use Drupal\se_invoice\Entity\Invoice;
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_se_invoice(array &$variables): void {
-  // Fetch Invoice Entity Object.
-  // $se_invoice = $variables['elements']['#se_invoice'];
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     // Ditch the created stamp.

@@ -13,8 +13,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
  *
  * Needs associated routing.yml as well.
  * examples in:
- *   se_print.links.action.yml
- *   se_print.routing.yml
+ *   se_email.links.action.yml
+ *   se_email.routing.yml
  *   se_payment.links.action.yml
  *   se_payment.routing.yml
  * .

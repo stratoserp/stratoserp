@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - se_quote
+id: se_quote.pdf
+label: PDF
+targetEntityType: se_quote
+cache: true
