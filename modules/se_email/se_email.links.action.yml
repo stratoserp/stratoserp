@@ -1,21 +1,21 @@
 
-se_print.invoice:
-  route_name: se_print.invoice
-  title: 'Print invoice'
+se_email.invoice:
+  route_name: se_email.invoice
+  title: 'Email invoice'
   class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
     - entity.se_invoice.canonical
 
-se_print.quote:
-  route_name: se_print.quote
-  title: 'Print quote'
+se_email.email_quote:
+  route_name: se_email.quote
+  title: 'Email quote'
   class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
     - entity.se_quote.canonical
 
-se_print.ticket:
-  route_name: se_print.ticket
-  title: 'Print ticket'
+se_email.email_ticket:
+  route_name: se_email.ticket
+  title: 'Email ticket'
   class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
   appears_on:
     - entity.se_ticket.canonical

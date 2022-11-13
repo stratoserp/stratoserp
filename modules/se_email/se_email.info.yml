@@ -1,5 +1,5 @@
-name: 'StratosERP - Print system'
-description: 'Provides Printing capabilities for various other modules via FPDF'
+name: 'StratosERP - Email system'
+description: 'Provides Emailing capabilities for various other modules via entity_print'
 type: module
 core_version_requirement:  ^8 || ^9 || ^10
 package: StratosERP

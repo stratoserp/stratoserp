@@ -1,9 +1,9 @@
 
-se_print.invoice:
-  path: '/invoice/print/{source}'
+se_email.invoice:
+  path: '/invoice/email/{source}'
   defaults:
-    _title: 'Print invoice'
-    _form: '\Drupal\se_print\Form\PrintConfirmationForm'
+    _title: 'Email invoice'
+    _form: '\Drupal\se_email\Form\EmailConfirmationForm'
   requirements:
     _permission: 'view invoice entities'
   options:
@@ -11,11 +11,11 @@ se_print.invoice:
       source:
         type: entity:se_invoice
 
-se_print.quote:
-  path: '/quote/print/{source}'
+se_email.quote:
+  path: '/quote/email/{source}'
   defaults:
-    _title: 'Print quote'
-    _form: '\Drupal\se_print\Form\PrintConfirmationForm'
+    _title: 'Email quote'
+    _form: '\Drupal\se_email\Form\EmailConfirmationForm'
   requirements:
     _permission: 'view quote entities'
   options:
@@ -23,11 +23,11 @@ se_print.quote:
       source:
         type: entity:se_quote
 
-se_print.ticket:
-  path: '/ticket/print/{source}'
+se_email.ticket:
+  path: '/ticket/email/{source}'
   defaults:
-    _title: 'Print ticket'
-    _form: '\Drupal\se_print\Form\PrintConfirmationForm'
+    _title: 'Email ticket'
+    _form: '\Drupal\se_email\Form\EmailConfirmationForm'
   requirements:
     _permission: 'view ticket entities'
   options:
