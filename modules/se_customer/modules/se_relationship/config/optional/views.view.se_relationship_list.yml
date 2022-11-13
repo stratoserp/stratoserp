@@ -7,6 +7,7 @@ dependencies:
     - field.storage.se_relationship.se_su_ref
   module:
     - se_relationship
+    - user
 id: se_relationship_list
 label: 'Relationship list'
 module: views

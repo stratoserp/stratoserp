@@ -24,6 +24,7 @@ settings:
       se_contact_type: se_contact_type
     sort:
       field: _none
+      direction: asc
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

@@ -5,9 +5,11 @@ dependencies:
     - field.storage.se_contact.se_email
     - field.storage.se_contact.se_mobile
     - field.storage.se_contact.se_phone
+    - taxonomy.vocabulary.se_contact_type
   module:
     - eva
     - se_contact
+    - taxonomy
     - telephone
     - user
 id: se_contact_eva
@@ -416,6 +418,57 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        se_type_ref_target_id:
+          id: se_type_ref_target_id
+          table: se_contact__se_type_ref
+          field: se_type_ref_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: se_type_ref_target_id_op
+            label: Type
+            description: ''
+            use_operator: false
+            operator: se_type_ref_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              customer: '0'
+              supplier: '0'
+              owner: '0'
+              staff: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: se_contact_type
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups: {  }
@@ -487,6 +540,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags:
         - 'config:field.storage.se_contact.se_email'
@@ -510,6 +564,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags:
         - 'config:field.storage.se_contact.se_email'
