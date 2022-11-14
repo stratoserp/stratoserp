@@ -5,7 +5,6 @@ namespace Drupal\se_email\Form;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Url;
 use Drupal\entity_print\Plugin\EntityPrintPluginManagerInterface;
 use Drupal\entity_print\PrintBuilderInterface;
@@ -26,13 +25,6 @@ class EmailConfirmationForm extends FormBase {
    * @var \Drupal\se_contact\Service\ContactServiceInterface
    */
   protected ContactServiceInterface $contactService;
-
-  /**
-   * The mail manager.
-   *
-   * @var \Drupal\Core\Mail\MailManagerInterface
-   */
-  protected MailManagerInterface $mailManager;
 
   /**
    * The print engine plugin manager.
@@ -56,9 +48,8 @@ class EmailConfirmationForm extends FormBase {
   /**
    * Simple constructor.
    */
-  public function __construct(ContactServiceInterface $contactService, MailManagerInterface $mailManager, EntityPrintPluginManagerInterface $printEngine, PrintBuilderInterface $printBuilder, EmailFactoryInterface $emailFactory) {
+  public function __construct(ContactServiceInterface $contactService, EntityPrintPluginManagerInterface $printEngine, PrintBuilderInterface $printBuilder, EmailFactoryInterface $emailFactory) {
     $this->contactService = $contactService;
-    $this->mailManager = $mailManager;
     $this->printEngine = $printEngine;
     $this->printBuilder = $printBuilder;
     $this->emailFactory = $emailFactory;
@@ -70,7 +61,6 @@ class EmailConfirmationForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('se_contact.service'),
-      $container->get('plugin.manager.mail'),
       $container->get('plugin.manager.entity_print.print_engine'),
       $container->get('entity_print.print_builder'),
       $container->get('email_factory')
@@ -182,7 +172,7 @@ class EmailConfirmationForm extends FormBase {
       }
     }
     catch (\Exception $e) {
-      $this->messenger()->addError('Exception occured.');
+      $this->messenger()->addError('Exception occurred.');
     }
 
     $form_state->setRedirectUrl($entity->toUrl());
