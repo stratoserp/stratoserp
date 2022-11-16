@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * @file
@@ -487,7 +488,7 @@ function stratoserp_create_terms(string $taxonomy, array $terms) {
 /**
  * Helper function for term setup.
  */
-function se_example_data_set_term_field_config(string $search_term, string $vocabulary, string $field): \Drupal\Core\Entity\EntityInterface {
+function se_example_data_set_term_field_config(string $search_term, string $vocabulary, string $field): EntityInterface {
   // Load the already created default status terms.
   $term = se_example_data_load_term_by_name($search_term, $vocabulary);
 

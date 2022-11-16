@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
+
 /**
  * @file
  * Provide some (un)install helpers for se_item_line.
@@ -23,7 +25,7 @@ function se_item_line_update_9001() {
       $field_storage_definition = $manager->getFieldStorageDefinition($field_name, $entity_type_id);
       $storage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
 
-      if ($storage instanceof \Drupal\Core\Entity\Sql\SqlContentEntityStorage) {
+      if ($storage instanceof SqlContentEntityStorage) {
         $table_mapping = $storage->getTableMapping([
           $field_name => $field_storage_definition,
         ]);

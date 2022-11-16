@@ -21,7 +21,7 @@ class CustomerServiceTest extends KernelTestBase {
    *
    * @var string[]
    */
-  public static $modules = [
+  protected static $modules = [
     'se_customer',
     'se_accounting',
     'stratoserp',

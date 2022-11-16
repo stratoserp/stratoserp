@@ -6,8 +6,10 @@ namespace Drupal\se_payment\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
+use Drupal\Core\Render\Renderer;
 use Drupal\Core\Url;
 use Drupal\se_payment\Entity\Payment;
 use Drupal\se_payment\Entity\PaymentInterface;
@@ -29,14 +31,14 @@ class PaymentController extends ControllerBase {
    *
    * @var \Drupal\Core\Datetime\DateFormatter
    */
-  protected $dateFormatter;
+  protected DateFormatter $dateFormatter;
 
   /**
    * The renderer.
    *
    * @var \Drupal\Core\Render\Renderer
    */
-  protected $renderer;
+  protected Renderer $renderer;
 
   /**
    * {@inheritdoc}
