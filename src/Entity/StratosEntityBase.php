@@ -116,10 +116,17 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
    * Generate a title suitable for StratosERP entities.
    */
   public function generateName() {
-    $number = $this->id();
+    if ($this->isNew()) {
+      $number = '';
+      $format = '@type - @date';
+    }
+    else {
+      $number = $this->id();
+      $format = '@type - @number - @date';
+    }
     $dateTime = new DrupalDateTime();
 
-    return $this->t('@type - @number - @date', [
+    return $this->t($format, [
       '@number' => $number,
       '@type' => $this->getEntityType()->getLabel(),
       '@date' => \Drupal::service('date.formatter')->format($dateTime->getTimestamp(), 'html_date'),
