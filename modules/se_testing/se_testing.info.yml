@@ -1,5 +1,5 @@
 name: 'StratosERP - Testing'
 description: 'Provides a set of traits for testing StratosERP.'
 type: module
-core_version_requirement:  ^8 || ^9 || ^10
+core_version_requirement:  ^9 || ^10
 package: StratosERP

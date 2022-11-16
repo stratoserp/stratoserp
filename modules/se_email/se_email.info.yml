@@ -1,7 +1,7 @@
 name: 'StratosERP - Email system'
 description: 'Provides Emailing capabilities for various other modules via entity_print'
 type: module
-core_version_requirement:  ^8 || ^9 || ^10
+core_version_requirement:  ^9 || ^10
 package: StratosERP
 dependencies:
   - symfony_mailer:symfony_mailer

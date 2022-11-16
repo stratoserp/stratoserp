@@ -1,7 +1,7 @@
 name: 'StratosERP - Basic document'
 description: 'Provides a basic document entity type and related configuration.'
 type: module
-core_version_requirement:  ^8 || ^9 || ^10
+core_version_requirement:  ^9 || ^10
 package: StratosERP
 dependencies:
   - stratoserp:se_information

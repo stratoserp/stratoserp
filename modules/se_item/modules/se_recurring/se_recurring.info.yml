@@ -1,7 +1,7 @@
 name: 'StratosERP - Item type - Recurring line item'
 description: 'Provides a selectable line item for Recurring items.'
 type: module
-core_version_requirement:  ^8 || ^9 || ^10
+core_version_requirement:  ^9 || ^10
 package: StratosERP
 dependencies:
   - stratoserp:se_item

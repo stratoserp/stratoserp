@@ -1,7 +1,7 @@
 name: 'StratosERP - Webform integration'
 description: 'Provides the ability to attach forms to tickets.'
 type: module
-core_version_requirement:  ^8 || ^9 || ^10
+core_version_requirement:  ^9 || ^10
 package: StratosERP
 dependencies:
   - stratoserp:se_ticket

@@ -1,7 +1,7 @@
 name: 'StratosERP - Bill'
 description: 'Provides Bill content type and related configuration.'
 type: module
-core_version_requirement:  ^8 || ^9 || ^10
+core_version_requirement:  ^9 || ^10
 package: StratosERP
 dependencies:
   - drupal:field
