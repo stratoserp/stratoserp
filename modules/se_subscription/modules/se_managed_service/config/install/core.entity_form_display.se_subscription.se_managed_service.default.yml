@@ -8,6 +8,7 @@ dependencies:
     - field.field.se_subscription.se_managed_service.se_next_due
     - field.field.se_subscription.se_managed_service.se_period
     - field.field.se_subscription.se_managed_service.se_su_ref
+    - field.field.se_subscription.se_managed_service.se_tax
     - field.field.se_subscription.se_managed_service.se_total
     - field.field.se_subscription.se_managed_service.se_use_bu_due
     - se_subscription.se_subscription_type.se_managed_service
@@ -33,7 +34,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -110,11 +111,19 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_total:
+  se_tax:
     type: se_currency_widget
     weight: 8
     region: bottom
-    settings: {  }
+    settings:
+      input_enabled: false
+    third_party_settings: {  }
+  se_total:
+    type: se_currency_widget
+    weight: 9
+    region: bottom
+    settings:
+      input_enabled: false
     third_party_settings: {  }
   se_use_bu_due:
     type: boolean_checkbox

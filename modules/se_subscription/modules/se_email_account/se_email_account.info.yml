@@ -19,6 +19,7 @@ config_devel:
     - field.field.se_subscription.se_email_account.se_next_due
     - field.field.se_subscription.se_email_account.se_period
     - field.field.se_subscription.se_email_account.se_su_ref
+    - field.field.se_subscription.se_email_account.se_tax
     - field.field.se_subscription.se_email_account.se_total
     - field.storage.se_subscription.se_email_address
     - field.storage.se_subscription.se_email_aliases

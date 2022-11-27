@@ -9,6 +9,7 @@ dependencies:
     - field.field.se_subscription.se_office_365.se_next_due
     - field.field.se_subscription.se_office_365.se_period
     - field.field.se_subscription.se_office_365.se_su_ref
+    - field.field.se_subscription.se_office_365.se_tax
     - field.field.se_subscription.se_office_365.se_total
     - field.field.se_subscription.se_office_365.se_use_bu_due
     - se_subscription.se_subscription_type.se_office_365
@@ -93,12 +94,19 @@ content:
     third_party_settings: {  }
     weight: 6
     region: second
-  se_total:
+  se_tax:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 9
+    region: bottom
+  se_total:
+    type: se_currency_formatter
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: bottom
   se_use_bu_due:
     type: boolean

@@ -19,6 +19,7 @@ config_devel:
     - field.field.se_subscription.se_domain_hosting.se_next_due
     - field.field.se_subscription.se_domain_hosting.se_period
     - field.field.se_subscription.se_domain_hosting.se_su_ref
+    - field.field.se_subscription.se_domain_hosting.se_tax
     - field.field.se_subscription.se_domain_hosting.se_total
     - field.storage.se_subscription.se_hosting_type
     - field.field.se_subscription.se_domain_hosting.se_use_bu_due

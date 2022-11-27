@@ -16,5 +16,6 @@ config_devel:
     - field.field.se_subscription.se_managed_service.se_next_due
     - field.field.se_subscription.se_managed_service.se_period
     - field.field.se_subscription.se_managed_service.se_su_ref
+    - field.field.se_subscription.se_managed_service.se_tax
     - field.field.se_subscription.se_managed_service.se_total
     - field.field.se_subscription.se_managed_service.se_use_bu_due

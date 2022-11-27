@@ -11,6 +11,7 @@ dependencies:
     - field.field.se_subscription.se_email_account.se_next_due
     - field.field.se_subscription.se_email_account.se_period
     - field.field.se_subscription.se_email_account.se_su_ref
+    - field.field.se_subscription.se_email_account.se_tax
     - field.field.se_subscription.se_email_account.se_total
     - field.field.se_subscription.se_email_account.se_use_bu_due
     - se_subscription.se_subscription_type.se_email_account
@@ -115,12 +116,19 @@ content:
     third_party_settings: {  }
     weight: 7
     region: second
-  se_total:
+  se_tax:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 11
+    region: bottom
+  se_total:
+    type: se_currency_formatter
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
     region: bottom
   se_use_bu_due:
     type: boolean
