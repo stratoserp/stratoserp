@@ -219,6 +219,11 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
   protected function formMultipleElements(FieldItemListInterface $items, array &$form, FormStateInterface $form_state) {
     $elements = parent::formMultipleElements($items, $form, $form_state);
 
+    // The below parts are only relevant for multiple line entries.
+    if ($items->count() <= 1) {
+      return $elements;
+    }
+
     $elements['recalculate'] = [
       '#type' => 'submit',
       '#name' => 'se_item_lines_recalculate',

@@ -119,7 +119,7 @@ class ItemLineFormatter extends DynamicEntityReferenceLabelFormatter {
       }
 
       // Setup date field.
-      $date = new DrupalDateTime($items[$delta]->completed_date, DateTimeItemInterface::STORAGE_TIMEZONE);
+      $date = new DrupalDateTime($items[$delta]->completed_date ?? '1970-01-01', DateTimeItemInterface::STORAGE_TIMEZONE);
       $dateBuild = $date->getTimestamp() !== 0 ? gmdate('Y-m-d', $date->getTimestamp()) : '';
 
       // Transform the notes from the stored value into something
