@@ -19,6 +19,7 @@ config_devel:
     - field.storage.se_subscription.se_next_due
     - field.storage.se_subscription.se_period
     - field.storage.se_subscription.se_su_ref
+    - field.storage.se_subscription.se_tax
     - field.storage.se_subscription.se_total
     - field.storage.se_subscription.se_use_bu_due
     - se_subscription.se_subscription_type.se_anti_virus
