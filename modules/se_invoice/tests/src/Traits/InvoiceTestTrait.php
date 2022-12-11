@@ -217,9 +217,7 @@ trait InvoiceTestTrait {
     }
     self::assertEquals(0, $invoice->getOutstanding());
     self::assertEquals(0, $invoice->getInvoiceBalance());
-    if ($closedTerm = \Drupal::service('se_invoice.service')->getClosedTerm()->id()) {
-      self::assertEquals($closedTerm, $invoice->se_status_ref->target_id);
-    }
+    self::assertEquals('closed', $invoice->se_status->value);
     return TRUE;
   }
 

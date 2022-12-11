@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_bill.se_status
+  module:
+    - se_bill
+    - workflows_field
+id: se_bill.se_bill.se_status
+field_name: se_status
+entity_type: se_bill
+bundle: se_bill
+label: 'Bill status'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: open
+default_value_callback: ''
+settings: {  }
+field_type: workflows_field_item

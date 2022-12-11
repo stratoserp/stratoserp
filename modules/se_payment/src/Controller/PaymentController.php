@@ -295,8 +295,8 @@ class PaymentController extends ControllerBase {
     $total = 0;
     $query = \Drupal::entityQuery('se_invoice');
     $group = $query->orConditionGroup()
-      ->condition('se_status_ref', \Drupal::service('se_invoice.service')->getOpenTerm()->id())
-      ->notExists('se_status_ref');
+      ->condition('se_status', 'open')
+      ->notExists('se_status');
 
     $query->condition('se_cu_ref', $customer->id())
       ->condition($group);

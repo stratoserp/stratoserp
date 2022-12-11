@@ -10,6 +10,8 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
+  - drupal:workflows
+  - drupal:workflows_field
   - stratoserp:se_customer
   - stratoserp:se_item
   - stratoserp:se_stock
@@ -25,17 +27,17 @@ config_devel:
     - field.field.se_invoice.se_invoice.se_customer_order
     - field.field.se_invoice.se_invoice.se_outstanding
     - field.field.se_invoice.se_invoice.se_sent
+    - field.field.se_invoice.se_invoice.se_status
     - field.field.se_invoice.se_invoice.se_tax
     - field.field.se_invoice.se_invoice.se_total
-    - field.field.se_invoice.se_invoice.se_status_ref
     - field.storage.se_invoice.se_cu_ref
     - field.storage.se_invoice.se_co_ref
     - field.storage.se_invoice.se_customer_order
     - field.storage.se_invoice.se_outstanding
     - field.storage.se_invoice.se_sent
+    - field.storage.se_invoice.se_status
     - field.storage.se_invoice.se_tax
     - field.storage.se_invoice.se_total
-    - field.storage.se_invoice.se_status_ref
   optional:
     - core.entity_form_display.se_invoice.se_invoice.default
     - core.entity_view_display.se_invoice.se_invoice.default

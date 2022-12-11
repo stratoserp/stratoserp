@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.field.se_bill.se_bill.se_body
     - field.field.se_bill.se_bill.se_co_ref
-    - field.field.se_bill.se_bill.se_status_ref
     - field.field.se_bill.se_bill.se_su_ref
     - field.field.se_bill.se_bill.se_tax
     - field.field.se_bill.se_bill.se_total
@@ -52,14 +51,6 @@ content:
     third_party_settings: {  }
     weight: 3
     region: first
-  se_status_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
-    region: second
   se_su_ref:
     type: entity_reference_label
     label: inline

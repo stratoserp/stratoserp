@@ -10,6 +10,8 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
+  - drupal:workflows
+  - drupal:workflows_field
   - stratoserp:se_item_line
   - stratoserp:se_purchase_order
   - stratoserp:se_stock

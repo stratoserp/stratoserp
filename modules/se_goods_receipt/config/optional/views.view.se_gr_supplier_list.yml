@@ -506,7 +506,6 @@ display:
             id: id
             created: created
             name: name
-            se_status_ref: se_status_ref
             se_po_ref: se_po_ref
           default: id
           info:
@@ -525,13 +524,6 @@ display:
               empty_column: false
               responsive: ''
             name:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            se_status_ref:
               sortable: true
               default_sort_order: asc
               align: ''

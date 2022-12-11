@@ -6,7 +6,6 @@ dependencies:
     - field.field.se_purchase_order.se_purchase_order.se_cu_ref
     - field.field.se_purchase_order.se_purchase_order.se_item_lines
     - field.field.se_purchase_order.se_purchase_order.se_qu_ref
-    - field.field.se_purchase_order.se_purchase_order.se_status_ref
     - field.field.se_purchase_order.se_purchase_order.se_su_ref
     - field.field.se_purchase_order.se_purchase_order.se_tax
     - field.field.se_purchase_order.se_purchase_order.se_total
@@ -106,12 +105,6 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  se_status_ref:
-    type: options_select
-    weight: 4
-    region: second
-    settings: {  }
     third_party_settings: {  }
   se_su_ref:
     type: entity_reference_autocomplete

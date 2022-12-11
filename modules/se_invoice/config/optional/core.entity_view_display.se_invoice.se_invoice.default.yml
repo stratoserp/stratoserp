@@ -9,7 +9,6 @@ dependencies:
     - field.field.se_invoice.se_invoice.se_outstanding
     - field.field.se_invoice.se_invoice.se_qu_ref
     - field.field.se_invoice.se_invoice.se_sent
-    - field.field.se_invoice.se_invoice.se_status_ref
     - field.field.se_invoice.se_invoice.se_tax
     - field.field.se_invoice.se_invoice.se_total
   module:
@@ -109,14 +108,6 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 7
-    region: second
-  se_status_ref:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
     region: second
   se_tax:
     type: se_currency_formatter

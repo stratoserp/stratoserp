@@ -57,4 +57,9 @@ interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLog
    */
   public function getSearchPrefix(): string;
 
+  /**
+   * Generate a title suitable for StratosERP entities.
+   */
+  public function generateName();
+
 }

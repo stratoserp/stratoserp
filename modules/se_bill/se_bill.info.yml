@@ -9,6 +9,8 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
+  - drupal:workflows
+  - drupal:workflows_field
   - stratoserp:se_contact
   - stratoserp:se_supplier
   - stratoserp:stratoserp
@@ -20,15 +22,16 @@ config_devel:
     - field.field.se_bill.se_bill.se_body
     - field.field.se_bill.se_bill.se_su_ref
     - field.field.se_bill.se_bill.se_co_ref
-    - field.field.se_bill.se_bill.se_status_ref
+    - field.field.se_bill.se_bill.se_status
     - field.field.se_bill.se_bill.se_tax
     - field.field.se_bill.se_bill.se_total
     - field.storage.se_bill.se_body
     - field.storage.se_bill.se_su_ref
     - field.storage.se_bill.se_co_ref
-    - field.storage.se_bill.se_status_ref
+    - field.storage.se_bill.se_status
     - field.storage.se_bill.se_tax
     - field.storage.se_bill.se_total
   optional:
     - views.view.se_bill_eva
     - views.view.se_bill_list
+    - workflows.workflow.se_bill_workflow

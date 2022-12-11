@@ -295,8 +295,7 @@ class NavigationBlock extends BlockBase {
     $routeParameters = $this->setRouteParameters();
 
     // Only add payment link if the invoice is open.
-    $closed = \Drupal::service('se_invoice.service')->getClosedTerm();
-    if ($this->entity->se_status_ref->entity->id() == $closed->id()) {
+    if ($this->entity->se_status == 'closed') {
       return;
     }
 

@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - workflows_field
+id: se_invoice_workflow
+label: Invoice
+type: workflows_field
+type_settings:
+  initial_state: open
+  states:
+    cancelled:
+      label: Cancelled
+      weight: 3
+    closed:
+      label: Closed
+      weight: 2
+    open:
+      label: Open
+      weight: 1
+    sales_order:
+      label: Sales order
+      weight: 0
+  transitions:
+    cancel:
+      label: Cancel
+      from:
+        - cancelled
+      to: cancelled
+      weight: 2
+    close:
+      label: Close
+      from:
+        - open
+      to: closed
+      weight: 1
+    open:
+      label: Invoice
+      from:
+        - sales_order
+      to: open
+      weight: 0

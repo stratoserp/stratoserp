@@ -36,7 +36,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 12
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -129,19 +129,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  se_tax:
+  se_total:
     type: se_currency_widget
     weight: 10
     region: bottom
-    settings:
-      input_enabled: false
-    third_party_settings: {  }
-  se_total:
-    type: se_currency_widget
-    weight: 11
-    region: bottom
-    settings:
-      input_enabled: false
+    settings: {  }
     third_party_settings: {  }
   se_use_bu_due:
     type: boolean_checkbox
@@ -167,4 +159,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  se_tax: true

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.se_ticket.se_status
+  module:
+    - se_ticket
+    - workflows_field
+id: se_ticket.se_ticket.se_status
+field_name: se_status
+entity_type: se_ticket
+bundle: se_ticket
+label: 'Ticket status'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: open
+default_value_callback: ''
+settings: {  }
+field_type: workflows_field_item

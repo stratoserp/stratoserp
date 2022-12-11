@@ -20,25 +20,9 @@ interface InvoiceServiceInterface {
    * @param int|null $payment
    *   The paid amount.
    *
-   * @return \Drupal\taxonomy\Entity\Term
-   *   The invoice status
+   * @return string
+   *   The invoice status.
    */
-  public function checkInvoiceStatus(Invoice $invoice, int $payment = NULL): Term;
-
-  /**
-   * Retrieve the term user for open status.
-   *
-   * @return \Drupal\taxonomy\Entity\Term|null
-   *   The term for open status.
-   */
-  public function getOpenTerm(): ?Term;
-
-  /**
-   * Retrieve the term user for paid status.
-   *
-   * @return \Drupal\taxonomy\Entity\Term|null
-   *   The term for paid status.
-   */
-  public function getClosedTerm(): ?Term;
+  public function checkInvoiceStatus(Invoice $invoice, int $payment = NULL): string;
 
 }

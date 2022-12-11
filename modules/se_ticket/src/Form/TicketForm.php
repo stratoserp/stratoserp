@@ -24,9 +24,6 @@ class TicketForm extends StratosContentEntityForm {
     $formAlter = \Drupal::service('se.form_alter');
 
     $config = $this->configFactory()->get('se_ticket.settings');
-    if ($ticket_status = $config->get('status_default_term')) {
-      $formAlter->setTaxonomyField($form, 'se_status_ref', $ticket_status);
-    }
 
     if ($ticket_priority = $config->get('priority_default_term')) {
       $formAlter->setTaxonomyField($form, 'se_priority_ref', $ticket_priority);

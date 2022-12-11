@@ -1,16 +1,12 @@
 <?php
 
 declare(strict_types=1);
+
 use Drupal\Core\Entity\EntityInterface;
-
-/**
- * @file
- */
-
-use Drupal\se_item\Entity\Item;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\se_customer\Entity\Customer;
+use Drupal\se_item\Entity\Item;
 use Drupal\se_supplier\Entity\Supplier;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_install().
@@ -19,7 +15,6 @@ function se_example_data_install() {
   se_example_data_status_term_setup();
   se_example_data_business_setup();
   se_example_data_contact_term_setup();
-  se_example_data_invoice_term_setup();
   se_example_data_item_setup();
   // se_example_data_assembly_setup();
   se_example_data_service_setup();
@@ -27,8 +22,6 @@ function se_example_data_install() {
   se_example_data_stock_setup();
   se_example_data_bulk_stock_setup();
   se_example_data_payment_term_setup();
-  se_example_data_purchase_order_term_setup();
-  se_example_data_quote_term_setup();
   se_example_data_ticket_setup();
 }
 
@@ -92,23 +85,6 @@ function se_example_data_contact_term_setup() {
   // Also set the last one as the 'main' contact term.
   $config = \Drupal::configFactory()->getEditable('se_contact.settings');
   $config->set('main_contact_term', $term->id());
-  $config->save();
-}
-
-/**
- * Implements hook_install().
- */
-function se_example_data_invoice_term_setup() {
-
-  // Load the already created default status terms.
-  $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_invoice.se_invoice.se_status_ref');
-
-  $closed_term = se_example_data_load_term_by_name('Closed', 'se_status');
-
-  // Also set the term defaults in config.
-  $config = \Drupal::configFactory()->getEditable('se_invoice.settings');
-  $config->set('open_term', $open_term->id());
-  $config->set('closed_term', $closed_term->id());
   $config->save();
 }
 
@@ -331,40 +307,6 @@ function se_example_data_payment_term_setup() {
 /**
  * Implements hook_install().
  */
-function se_example_data_purchase_order_term_setup() {
-
-  // Load the already created default status terms.
-  $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_purchase_order.se_purchase_order.se_status_ref');
-
-  $closed_term = se_example_data_load_term_by_name('Closed', 'se_status');
-
-  // Also set the term defaults.
-  $config = \Drupal::configFactory()->getEditable('se_purchase_order.settings');
-  $config->set('open_term', $open_term->id());
-  $config->set('closed_term', $closed_term->id());
-  $config->save();
-}
-
-/**
- * Implements hook_install().
- */
-function se_example_data_quote_term_setup() {
-
-  // Load the already created default status terms.
-  $open_term = se_example_data_set_term_field_config('Open', 'se_status', 'se_quote.se_quote.se_status_ref');
-
-  $closed_term = se_example_data_load_term_by_name('Closed', 'se_status');
-
-  // Also set the term defaults in config.
-  $config = \Drupal::configFactory()->getEditable('se_quote.settings');
-  $config->set('open_term', $open_term->id());
-  $config->set('closed_term', $closed_term->id());
-  $config->save();
-}
-
-/**
- * Implements hook_install().
- */
 function se_example_data_ticket_setup() {
   stratoserp_create_terms('se_ticket_priority', [
     'High',
@@ -395,15 +337,12 @@ function se_example_data_ticket_setup() {
 
   $priority_term = se_example_data_set_term_field_config('Normal', 'se_ticket_priority', 'se_ticket.se_ticket.se_priority_ref');
   $ticket_type_term = se_example_data_set_term_field_config('Onsite', 'se_ticket_type', 'se_ticket.se_ticket.se_type_ref');
-  $ticket_status_term = se_example_data_set_term_field_config('Open', 'se_ticket_status', 'se_ticket.se_ticket.se_status_ref');
 
   // Also set the term defaults in config.
   $config = \Drupal::configFactory()->getEditable('se_ticket.settings');
   $config->set('se_ticket_priority', $priority_term->id());
   $config->set('se_ticket_type', $ticket_type_term->id());
-  $config->set('se_ticket_status', $ticket_status_term->id());
   $config->save();
-
 }
 
 

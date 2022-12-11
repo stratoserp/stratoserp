@@ -10,7 +10,7 @@ dependencies:
     - field.field.se_ticket.se_ticket.se_owner_ref
     - field.field.se_ticket.se_ticket.se_priority_ref
     - field.field.se_ticket.se_ticket.se_scheduled
-    - field.field.se_ticket.se_ticket.se_status_ref
+    - field.field.se_ticket.se_ticket.se_status
     - field.field.se_ticket.se_ticket.se_type_ref
   module:
     - datetime_range
@@ -34,7 +34,7 @@ third_party_settings:
       label: Extra
       region: bottom
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -49,7 +49,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 5
     region: first
     settings: {  }
     third_party_settings: {  }
@@ -63,14 +63,14 @@ content:
     third_party_settings: {  }
   se_attachments:
     type: file_generic
-    weight: 10
+    weight: 11
     region: bottom
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
   se_body:
     type: text_textarea
-    weight: 9
+    weight: 10
     region: bottom
     settings:
       rows: 5
@@ -114,7 +114,7 @@ content:
     third_party_settings: {  }
   se_priority_ref:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 7
     region: second
     settings:
       match_operator: CONTAINS
@@ -124,19 +124,15 @@ content:
     third_party_settings: {  }
   se_scheduled:
     type: daterange_default
-    weight: 5
+    weight: 6
     region: second
     settings: {  }
     third_party_settings: {  }
-  se_status_ref:
-    type: entity_reference_autocomplete
-    weight: 7
+  se_status:
+    type: options_select
+    weight: 9
     region: second
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   se_type_ref:
     type: entity_reference_autocomplete

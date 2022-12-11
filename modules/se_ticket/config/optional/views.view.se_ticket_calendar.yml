@@ -7,7 +7,6 @@ dependencies:
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_ticket_status
     - taxonomy.vocabulary.se_ticket_type
-  content: {  }
   module:
     - datetime
     - datetime_range
@@ -276,58 +275,6 @@ display:
           granularity: minute
       arguments: {  }
       filters:
-        se_status_ref_target_id:
-          id: se_status_ref_target_id
-          table: se_ticket__se_status_ref
-          field: se_status_ref_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value:
-            - 482
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_status_ref_target_id_op
-            label: 'Ticket status'
-            description: ''
-            use_operator: false
-            operator: se_status_ref_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: se_status
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              owner: '0'
-              staff: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: se_ticket_status
-          type: textfield
-          hierarchy: false
-          limit: true
-          error_message: true
         se_type_ref_target_id:
           id: se_type_ref_target_id
           table: se_ticket__se_type_ref

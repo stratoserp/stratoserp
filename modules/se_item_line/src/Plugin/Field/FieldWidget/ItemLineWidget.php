@@ -141,7 +141,7 @@ class ItemLineWidget extends DynamicEntityReferenceWidget {
 
     if ($host_type === 'se_invoice') {
       // When the service/item was completed/delivered/done.
-      $date = new DrupalDateTime($items[$delta]->completed_date);
+      $date = new DrupalDateTime($items[$delta]->completed_date ?? '1970-01-01', DateTimeItemInterface::STORAGE_TIMEZONE);
       $build['completed_date'] = [
         '#title' => t('Completed date'),
         '#type' => 'datetime',

@@ -124,26 +124,6 @@ class TicketSettingsForm extends FormBase {
       $messenger->addMessage(t('Ticket calendar type list updated to %type_terms', ['%type_terms' => $typeTermCombined]));
     }
 
-    // Update the value if its changed.
-    if (isset($values['se_ticket_status'])
-      && ($values['se_ticket_status'] !== $config->get('se_ticket_status'))) {
-      if (!$term = $termStorage->load($values['se_ticket_status'])) {
-        $messenger->addError('Invalid term for ticket status, unable to update.');
-        return;
-      }
-
-      // Now set the last one as the default for the field.
-      if ($field = $fieldStorage->load('se_ticket.se_ticket.se_status_ref')) {
-        $field->setDefaultValue(['target_uuid' => $term->uuid()]);
-        $field->save();
-
-        $config->set('se_ticket_status', $values['se_ticket_status']);
-        $config->save();
-      }
-
-      $messenger->addMessage(t('Ticket type term updated to %status_term', ['%status_term' => $term->label()]));
-    }
-
     // Update config data if its changed.
     $statusTermLabels = [];
     if (isset($values['se_ticket_calendar_status_list'])
@@ -250,24 +230,7 @@ class TicketSettingsForm extends FormBase {
 
     // Retrieve the field and then the vocab.
     if ($field = $fieldStorage->load('se_ticket.se_ticket.se_status_ref')) {
-      $vocabulary = reset($field->getSettings()['handler_settings']['target_bundles']);
-      $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
-
-      /** @var \Drupal\taxonomy\Entity\Term $term */
-      foreach ($terms as $tid => $term) {
-        $statusOptions[$tid] = $term->getName();
-      }
-      if (!count($statusOptions)) {
-        $messenger->addWarning(t('Ticket status: No terms found in the %vocabulary vocabulary', ['%vocabulary' => $vocabulary]));
-      }
-
-      $form['se_ticket_status'] = [
-        '#title' => $this->t('Select default ticket status.'),
-        '#type' => 'select',
-        '#options' => $statusOptions,
-        '#default_value' => $config->get('se_ticket_status'),
-        '#description' => t("The vocabulary can be changed in the field configuration for 'Ticket status'"),
-      ];
+      // TODO: Looking workflow states.
 
       $form['se_ticket_calendar_status_list'] = [
         '#title' => $this->t('Select valid ticket status for calendar.'),

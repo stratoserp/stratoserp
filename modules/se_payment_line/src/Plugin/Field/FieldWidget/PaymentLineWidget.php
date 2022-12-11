@@ -104,7 +104,7 @@ class PaymentLineWidget extends EntityReferenceAutocompleteWidget {
     ];
 
     // When the service/item was completed/delivered/done.
-    $date = new DrupalDateTime($items[$delta]->completed_date);
+    $date = new DrupalDateTime($items[$delta]->completed_date ?? '1970-01-01', DateTimeItemInterface::STORAGE_TIMEZONE);
     $build['payment_date'] = [
       '#title' => t('Payment date'),
       '#type' => 'datetime',

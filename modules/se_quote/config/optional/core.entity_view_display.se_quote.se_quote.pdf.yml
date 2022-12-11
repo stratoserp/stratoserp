@@ -6,7 +6,7 @@ dependencies:
     - field.field.se_quote.se_quote.se_co_ref
     - field.field.se_quote.se_quote.se_cu_ref
     - field.field.se_quote.se_quote.se_item_lines
-    - field.field.se_quote.se_quote.se_status_ref
+    - field.field.se_quote.se_quote.se_status
     - field.field.se_quote.se_quote.se_tax
     - field.field.se_quote.se_quote.se_total
   module:
@@ -62,5 +62,5 @@ hidden:
   name: true
   se_co_ref: true
   se_cu_ref: true
-  se_status_ref: true
+  se_status: true
   uid: true

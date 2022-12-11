@@ -12,12 +12,12 @@ dependencies:
   - drupal:text
   - drupal:user
   - drupal:views
+  - drupal:workflows
+  - drupal:workflows_field
   - stratoserp:se_customer
 
 config_devel:
   install:
-    - core.entity_form_display.se_ticket.se_ticket.default
-    - core.entity_view_display.se_ticket.se_ticket.default
     - field.field.se_ticket.se_ticket.se_attachments
     - field.field.se_ticket.se_ticket.se_body
     - field.field.se_ticket.se_ticket.se_cu_ref
@@ -26,7 +26,7 @@ config_devel:
     - field.field.se_ticket.se_ticket.se_owner_ref
     - field.field.se_ticket.se_ticket.se_priority_ref
     - field.field.se_ticket.se_ticket.se_scheduled
-    - field.field.se_ticket.se_ticket.se_status_ref
+    - field.field.se_ticket.se_ticket.se_status
     - field.field.se_ticket.se_ticket.se_type_ref
     - field.storage.se_ticket.se_attachments
     - field.storage.se_ticket.se_body
@@ -36,14 +36,17 @@ config_devel:
     - field.storage.se_ticket.se_owner_ref
     - field.storage.se_ticket.se_priority_ref
     - field.storage.se_ticket.se_scheduled
-    - field.storage.se_ticket.se_status_ref
+    - field.storage.se_ticket.se_status
     - field.storage.se_ticket.se_type_ref
     - taxonomy.vocabulary.se_ticket_priority
     - taxonomy.vocabulary.se_ticket_status
     - taxonomy.vocabulary.se_ticket_type
   optional:
+    - core.entity_form_display.se_ticket.se_ticket.default
+    - core.entity_view_display.se_ticket.se_ticket.default
     - views.view.se_ticket_calendar
     - views.view.se_ticket_eva
     - views.view.se_ticket_list
     - views.view.se_ticket_my
     # - views.view.se_ticket_my_block
+    - workflows.workflow.se_ticket_workflow

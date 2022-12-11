@@ -14,6 +14,7 @@ use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\stratoserp\Traits\StratosEntityTrait;
+use Drupal\taxonomy\Plugin\views\wizard\TaxonomyTerm;
 use Drupal\user\EntityOwnerTrait;
 
 /**
@@ -113,7 +114,7 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
   }
 
   /**
-   * Generate a title suitable for StratosERP entities.
+   * {@inheritdoc}
    */
   public function generateName() {
     if ($this->isNew()) {
@@ -129,7 +130,8 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
     return $this->t($format, [
       '@number' => $number,
       '@type' => $this->getEntityType()->getLabel(),
-      '@date' => \Drupal::service('date.formatter')->format($dateTime->getTimestamp(), 'html_date'),
+      '@date' => \Drupal::service('date.formatter')
+        ->format($dateTime->getTimestamp(), 'html_date'),
     ]);
   }
 

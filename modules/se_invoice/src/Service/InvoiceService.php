@@ -47,34 +47,14 @@ class InvoiceService implements InvoiceServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function checkInvoiceStatus(Invoice $invoice, int $payment = NULL): Term {
+  public function checkInvoiceStatus(Invoice $invoice, int $payment = NULL): string {
     if ($payment === $invoice->getTotal()
       || $payment === $invoice->getOutstanding()
       || (int) $invoice->getOutstanding() === 0) {
-      return $this->getClosedTerm();
+      return 'closed';
     }
 
-    return $this->getOpenTerm();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOpenTerm(): ?Term {
-    if ($term = $this->configFactory->get('se_invoice.settings')->get('open_term')) {
-      return Term::load($term);
-    }
-    return NULL;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getClosedTerm(): ?Term {
-    if ($term = $this->configFactory->get('se_invoice.settings')->get('closed_term')) {
-      return Term::load($term);
-    }
-    return NULL;
+    return 'open';
   }
 
 }

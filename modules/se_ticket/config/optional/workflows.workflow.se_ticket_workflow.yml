@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - workflows_field
+id: se_ticket_workflow
+label: Ticket
+type: workflows_field
+type_settings:
+  initial_state: open
+  states:
+    cancelled:
+      label: Cancelled
+      weight: 3
+    closed:
+      label: Closed
+      weight: 1
+    invoiced:
+      label: Invoiced
+      weight: 2
+    open:
+      label: Open
+      weight: 0
+  transitions:
+    cancel:
+      label: Cancel
+      from:
+        - cancelled
+      to: cancelled
+      weight: 2
+    close:
+      label: Close
+      from:
+        - open
+      to: closed
+      weight: 0
+    invoice:
+      label: Invoice
+      from:
+        - open
+      to: invoiced
+      weight: 1

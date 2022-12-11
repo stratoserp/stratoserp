@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\se_timekeeping\Form;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\se_ticket\Entity\Ticket;
 use Drupal\stratoserp\Form\StratosContentEntityForm;
@@ -44,12 +45,22 @@ class TimekeepingForm extends StratosContentEntityForm {
   /**
    * Custom redirect back to the ticket.
    */
-  public static function ticketRedirect(array $form, FormStateInterface $form_state) {
+  public function ticketRedirect(array $form, FormStateInterface $form_state) {
     $ticketId = $form_state->getValue('se_ti_ref')[0]['target_id'];
     if (isset($ticketId)) {
       $form_state->setRedirect('entity.se_ticket.canonical', ['se_ticket' => $ticketId]);
     }
 
   }
+
+  /**
+   * Just updating the status of the ticket. Update the field and reload.
+   */
+  public function updateStatus(array &$form, FormStateInterface $form_state) {
+    $clicked = $form_state->getTriggeringElement();
+
+    \Drupal::messenger()->addStatus('Status updated');
+  }
+
 
 }

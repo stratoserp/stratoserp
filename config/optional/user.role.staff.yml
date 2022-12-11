@@ -1,8 +1,11 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.se_basic_html
   module:
     - contextual
+    - filter
     - se_bill
     - se_contact
     - se_customer
@@ -13,6 +16,7 @@ dependencies:
     - se_payment
     - se_purchase_order
     - se_quote
+    - se_store
     - se_subscription
     - se_supplier
     - se_ticket
@@ -61,7 +65,7 @@ permissions:
   - 'edit ticket entities'
   - 'edit timekeeping entities'
   - 'use inline mentions'
-  - 'use text format basic_html'
+  - 'use text format se_basic_html'
   - 'view all bill revisions'
   - 'view all contact revisions'
   - 'view all customer revisions'

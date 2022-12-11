@@ -118,19 +118,12 @@ content:
     third_party_settings: {  }
     weight: 7
     region: second
-  se_tax:
-    type: se_currency_formatter
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
-    weight: 11
-    region: bottom
   se_total:
     type: se_currency_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 11
     region: bottom
   se_use_bu_due:
     type: boolean
@@ -143,4 +136,6 @@ content:
     weight: 5
     region: first
 hidden:
+  se_domain_name: true
+  se_tax: true
   uid: true

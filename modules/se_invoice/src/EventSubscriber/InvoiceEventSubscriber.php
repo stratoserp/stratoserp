@@ -61,7 +61,7 @@ class InvoiceEventSubscriber implements InvoiceEventSubscriberInterface {
     }
 
     // Either way, set the status.
-    $invoice->se_status_ref = $this->invoiceService->checkInvoiceStatus($invoice);
+    $invoice->se_status = $this->invoiceService->checkInvoiceStatus($invoice);
   }
 
   /**

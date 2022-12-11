@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.se_invoice.se_cu_ref
     - field.storage.se_invoice.se_outstanding
-    - field.storage.se_invoice.se_status_ref
     - field.storage.se_invoice.se_total
     - system.menu.stratos-erp
     - taxonomy.vocabulary.se_status
@@ -351,69 +350,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        se_status_ref:
-          id: se_status_ref
-          table: se_invoice__se_status_ref
-          field: se_status_ref
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: Status
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         se_total:
           id: se_total
           table: se_invoice__se_total
@@ -646,58 +582,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        se_status_ref_target_id:
-          id: se_status_ref_target_id
-          table: se_invoice__se_status_ref
-          field: se_status_ref_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: se_status_ref_target_id_op
-            label: Status
-            description: ''
-            use_operator: false
-            operator: se_status_ref_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: status
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              customer: '0'
-              supplier: '0'
-              owner: '0'
-              staff: '0'
-              developer: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: se_status
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
         name:
           id: name
           table: se_customer_field_data
@@ -762,7 +646,6 @@ display:
             created: created
             se_cu_ref: se_cu_ref
             name: name
-            se_status_ref: se_status_ref
             se_total: se_total
             se_outstanding: se_outstanding
           default: id
@@ -800,13 +683,6 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-low
-            se_status_ref:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             se_total:
               sortable: true
               default_sort_order: desc
@@ -868,7 +744,6 @@ display:
       tags:
         - 'config:field.storage.se_invoice.se_cu_ref'
         - 'config:field.storage.se_invoice.se_outstanding'
-        - 'config:field.storage.se_invoice.se_status_ref'
         - 'config:field.storage.se_invoice.se_total'
   se_invoice_list:
     id: se_invoice_list
@@ -899,5 +774,4 @@ display:
       tags:
         - 'config:field.storage.se_invoice.se_cu_ref'
         - 'config:field.storage.se_invoice.se_outstanding'
-        - 'config:field.storage.se_invoice.se_status_ref'
         - 'config:field.storage.se_invoice.se_total'

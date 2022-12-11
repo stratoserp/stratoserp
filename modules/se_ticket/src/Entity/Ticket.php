@@ -88,7 +88,7 @@ class Ticket extends StratosEntityBase implements TicketInterface {
       ->get('se_ticket.settings')
       ->get('se_ticket_calendar_status_list') ?? [];
 
-    if (empty($openStatus) || in_array((string) $this->se_status_ref->target_id, $openStatus, TRUE)) {
+    if (empty($openStatus) || in_array($this->se_status->value, $openStatus, TRUE)) {
       return TRUE;
     }
 

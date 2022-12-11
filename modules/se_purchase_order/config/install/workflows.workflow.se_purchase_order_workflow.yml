@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - workflows_field
+id: se_purchase_order_workflow
+label: Purchase order
+type: workflows_field
+type_settings:
+  initial_state: open
+  states:
+    cancelled:
+      label: Cancelled
+      weight: 3
+    closed:
+      label: Closed
+      weight: 1
+    open:
+      label: Open
+      weight: 0
+  transitions:
+    cancel:
+      label: Cancel
+      from:
+        - open
+      to: cancelled
+      weight: 2
+    close:
+      label: Close
+      from:
+        - open
+      to: closed
+      weight: 0

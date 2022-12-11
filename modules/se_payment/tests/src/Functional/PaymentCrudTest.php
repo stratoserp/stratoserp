@@ -106,9 +106,7 @@ class PaymentCrudTest extends PaymentTestBase {
 
     self::assertEquals(0, $invoice->getOutstanding());
     self::assertEquals(0, $invoice->getInvoiceBalance());
-    if ($closedTerm = \Drupal::service('se_invoice.service')->getClosedTerm()->id()) {
-      self::assertEquals($invoice->se_status_ref->target_id, $closedTerm);
-    }
+    self::assertEquals($invoice->se_status->value, 'closed');
 
     $this->drupalLogout();
   }

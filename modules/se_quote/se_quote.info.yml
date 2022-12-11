@@ -9,6 +9,8 @@ dependencies:
   - drupal:path
   - drupal:text
   - drupal:user
+  - drupal:workflows
+  - drupal:workflows_field
   - stratoserp:se_customer
   - stratoserp:se_item_line
 
@@ -21,13 +23,13 @@ config_devel:
     - field.field.se_quote.se_quote.se_item_lines
     - field.field.se_quote.se_quote.se_total
     - field.field.se_quote.se_quote.se_tax
-    - field.field.se_quote.se_quote.se_status_ref
+    - field.field.se_quote.se_quote.se_status
     - field.storage.se_quote.se_cu_ref
     - field.storage.se_quote.se_co_ref
     - field.storage.se_quote.se_item_lines
     - field.storage.se_quote.se_tax
     - field.storage.se_quote.se_total
-    - field.storage.se_quote.se_status_ref
+    - field.storage.se_quote.se_status
   optional:
     - core.entity_view_display.se_quote.se_quote.pdf
     - core.entity_view_mode.se_quote.pdf
