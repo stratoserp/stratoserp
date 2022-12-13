@@ -6,6 +6,7 @@ namespace Drupal\se_ticket\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\workflows\Entity\Workflow;
 
 /**
  * Implementation of the Ticket settings form.
@@ -74,7 +75,9 @@ class TicketSettingsForm extends FormBase {
         $config->save();
       }
 
-      $messenger->addMessage(t('Ticket priority term updated to %priority_term', ['%priority_term' => $term->label()]));
+      $messenger->addMessage(t('Ticket priority term updated to %priority_term', [
+        '%priority_term' => $term->label()
+      ]));
     }
 
     // Update the value if its changed.
@@ -94,7 +97,9 @@ class TicketSettingsForm extends FormBase {
         $config->save();
       }
 
-      $messenger->addMessage(t('Ticket type term updated to %type_term', ['%type_term' => $term->label()]));
+      $messenger->addMessage(t('Ticket type term updated to %type_term', [
+        '%type_term' => $term->label()
+      ]));
     }
 
     // Update config data if its changed.
@@ -121,34 +126,20 @@ class TicketSettingsForm extends FormBase {
         $typeTermCombined = t('None');
       }
 
-      $messenger->addMessage(t('Ticket calendar type list updated to %type_terms', ['%type_terms' => $typeTermCombined]));
+      $messenger->addMessage(t('Ticket calendar type list updated to %type_terms', [
+        '%type_terms' => $typeTermCombined
+      ]));
     }
 
     // Update config data if its changed.
-    $statusTermLabels = [];
-    if (isset($values['se_ticket_calendar_status_list'])
-      && ($values['se_ticket_calendar_status_list'] !== $config->get('se_ticket_calendar_status_list'))) {
-
-      // Validate the terms.
-      foreach ($values['se_ticket_calendar_status_list'] as $tid) {
-        if (!$term = $termStorage->load($tid)) {
-          $messenger->addError('Invalid term for ticket status, unable to update.');
-          return;
-        }
-        $statusTermLabels[] = $term->label();
-      }
-
-      if (count($statusTermLabels)) {
-        $statusTermCombined = implode(', ', $statusTermLabels);
-      }
-      else {
-        $statusTermCombined = t('None');
-      }
+    if (isset($values['se_ticket_calendar_status_list'])) {
 
       $config->set('se_ticket_calendar_status_list', $values['se_ticket_calendar_status_list']);
       $config->save();
 
-      $messenger->addMessage(t('Ticket calendar status list updated to %status_terms', ['%status_terms' => $statusTermCombined]));
+      $messenger->addMessage(t('Ticket calendar status list updated to %status_terms', [
+        '%status_terms' => implode(',', $values['se_ticket_calendar_status_list'])
+      ]));
     }
 
   }
@@ -184,7 +175,9 @@ class TicketSettingsForm extends FormBase {
       }
 
       if (!count($priorityOptions)) {
-        $messenger->addWarning(t('Ticket priority: No terms found in the %vocabulary vocabulary', ['%vocabulary' => $vocabulary]));
+        $messenger->addWarning(t('Ticket priority: No terms found in the %vocabulary vocabulary', [
+          '%vocabulary' => $vocabulary
+        ]));
       }
 
       $form['se_ticket_priority'] = [
@@ -207,7 +200,9 @@ class TicketSettingsForm extends FormBase {
       }
 
       if (!count($typeOptions)) {
-        $messenger->addWarning(t('Ticket type: No terms found in the %vocabulary vocabulary', ['%vocabulary' => $vocabulary]));
+        $messenger->addWarning(t('Ticket type: No terms found in the %vocabulary vocabulary', [
+          '%vocabulary' => $vocabulary
+        ]));
       }
 
       $form['se_ticket_type'] = [
@@ -228,26 +223,30 @@ class TicketSettingsForm extends FormBase {
       ];
     }
 
-    // Retrieve the field and then the vocab.
-    if ($field = $fieldStorage->load('se_ticket.se_ticket.se_status_ref')) {
-      // TODO: Looking workflow states.
-
-      $form['se_ticket_calendar_status_list'] = [
-        '#title' => $this->t('Select valid ticket status for calendar.'),
-        '#type' => 'select',
-        '#multiple' => TRUE,
-        '#options' => $statusOptions,
-        '#default_value' => $config->get('se_ticket_calendar_status_list'),
-        '#description' => t("The vocabulary can be changed in the field configuration for 'Ticket status'"),
-      ];
-
-      $form['actions']['#type'] = 'actions';
-      $form['actions']['submit'] = [
-        '#type' => 'submit',
-        '#value' => $this->t('Save configuration'),
-        '#button_type' => 'primary',
-      ];
+    // Retrieve the workflow options.
+    if (!$workflow = Workflow::load('se_ticket_workflow')) {
+      $state_labels = [];
     }
+    else {
+      $state_labels = array_map(function ($state) {
+        return $state->label();
+      }, $workflow->getTypePlugin()->getStates());
+    }
+
+    $form['se_ticket_calendar_status_list'] = [
+      '#title' => $this->t('Select valid ticket status for calendar.'),
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#options' => $state_labels,
+      '#default_value' => $config->get('se_ticket_calendar_status_list'),
+    ];
+
+    $form['actions']['#type'] = 'actions';
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Save configuration'),
+      '#button_type' => 'primary',
+    ];
 
     return $form;
   }
