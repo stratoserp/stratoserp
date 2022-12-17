@@ -14,7 +14,6 @@ use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\stratoserp\Traits\StratosEntityTrait;
-use Drupal\taxonomy\Plugin\views\wizard\TaxonomyTerm;
 use Drupal\user\EntityOwnerTrait;
 
 /**

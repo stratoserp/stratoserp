@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\se_timekeeping\Form;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\se_ticket\Entity\Ticket;
 use Drupal\stratoserp\Form\StratosContentEntityForm;
+use Drupal\workflows\Entity\Workflow;
 
 /**
  * Form controller for Timekeeping edit forms.
@@ -37,6 +37,23 @@ class TimekeepingForm extends StratosContentEntityForm {
 
       // Add our custom redirect to stay on the ticket when submitted.
       $form['actions']['submit']['#submit'][] = '::ticketRedirect';
+
+      $workflow = Workflow::load('se_ticket_workflow');
+      $validTransitions = $workflow->getTypePlugin()->getTransitionsForState($ticket->se_status->value);
+
+      $count = 0;
+      /** @var \Drupal\workflows\Transition $transition */
+      foreach ($validTransitions as $transition) {
+        $count++;
+        $form['actions'][$transition->to()->id()] = [
+          '#title' => $transition->label(),
+          '#value' => $transition->label(),
+          '#name' => $transition->to()->id(),
+          '#type' => 'submit',
+          '#weight' => 40 + $count,
+          '#submit' => ['::updateStatus'],
+        ];
+      }
     }
 
     return $form;
@@ -59,8 +76,12 @@ class TimekeepingForm extends StratosContentEntityForm {
   public function updateStatus(array &$form, FormStateInterface $form_state) {
     $clicked = $form_state->getTriggeringElement();
 
+    $ticketId = $form_state->getValue('se_ti_ref')[0]['target_id'];
+    $ticket = Ticket::load($ticketId);
+    $ticket->se_status->value = $clicked['#name'];
+    $ticket->save();
+
     \Drupal::messenger()->addStatus('Status updated');
   }
-
 
 }
