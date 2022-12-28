@@ -83,7 +83,7 @@ class Ticket extends StratosEntityBase implements TicketInterface {
   /**
    * {@inheritdoc}
    */
-  public function isOpen(): bool {
+  public function isCalendarStatus(): bool {
     $openStatus = \Drupal::configFactory()
       ->get('se_ticket.settings')
       ->get('se_ticket_calendar_status_list') ?? [];
@@ -129,7 +129,7 @@ class Ticket extends StratosEntityBase implements TicketInterface {
       return FALSE;
     }
 
-    if (!$this->isOpen()) {
+    if (!$this->isCalendarStatus()) {
       return FALSE;
     }
 

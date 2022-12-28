@@ -19,7 +19,7 @@ interface TicketInterface extends StratosEntityBaseInterface {
    * @return bool
    *   Whether the ticket has the scheduled fields entered.
    */
-  public function isOpen(): bool;
+  public function isCalendarStatus(): bool;
 
   /**
    * Determine if a ticket has the scheduled fields set.
