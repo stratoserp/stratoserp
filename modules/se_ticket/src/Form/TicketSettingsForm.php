@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\se_ticket\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\workflows\Entity\Workflow;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Implementation of the Ticket settings form.
@@ -20,13 +22,28 @@ class TicketSettingsForm extends FormBase {
    *
    * @var \Drupal\Core\Entity\EntityTypeManager
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * Simple constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    */
-  public function __construct() {
-    $this->entityTypeManager = \Drupal::entityTypeManager();
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+    $this->entityTypeManager = $entityTypeManager;
+  }
+
+  /**
+   * Create function.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *
+   * @return static
+   */
+  public static function create(ContainerInterface $container) {
+    $entityTypeManager = $container->get('entity_type.manager');
+
+    return new static($entityTypeManager);
   }
 
   /**
@@ -162,7 +179,7 @@ class TicketSettingsForm extends FormBase {
     $fieldStorage = $this->entityTypeManager->getStorage('field_config');
     $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
     $messenger = $this->messenger();
-    $priorityOptions = $typeOptions = $statusOptions = [];
+    $priorityOptions = $typeOptions = [];
 
     // Retrieve the field and then the vocab.
     if ($field = $fieldStorage->load('se_ticket.se_ticket.se_priority_ref')) {
