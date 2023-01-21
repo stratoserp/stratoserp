@@ -9,6 +9,16 @@ stratoserp.home:
   requirements:
     _permission: 'access all customers'
 
+stratoserp.setup_verification:
+  path: '/se/verification'
+  defaults:
+    _controller: '\Drupal\stratoserp\Controller\SetupVerificationController::verification'
+    _title: 'Verification'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'access all customers'
+
 stratoserp.search_form:
   path: '/se/search'
   defaults:
