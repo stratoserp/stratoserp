@@ -24,13 +24,14 @@ config_devel:
     - field.field.se_contact.se_contact.se_email
     - field.field.se_contact.se_contact.se_mobile
     - field.field.se_contact.se_contact.se_phone
-    - field.field.se_contact.se_contact.se_type_ref
     - field.field.se_contact.se_contact.se_cu_ref
     - field.storage.se_contact.se_email
     - field.storage.se_contact.se_mobile
     - field.storage.se_contact.se_phone
-    - field.storage.se_contact.se_type_ref
     - field.storage.se_contact.se_cu_ref
   optional:
+    - field.field.se_contact.se_contact.se_type_ref
+    - field.storage.se_contact.se_type_ref
+    - taxonomy.vocabulary.se_contact_type
     - views.view.se_contact_eva
     - views.view.se_contact_list

@@ -19,15 +19,20 @@ class ContactCrudTest extends ContactTestBase {
   public function testContactAdd(): void {
     // First setup a customer to add the contact to.
     $this->drupalLogin($this->staff);
-    $customer = $this->addCustomer();
+    $testCustomer = $this->addCustomer();
+
+    // Ensure the 'Add contact' link is visible.
+    $this->drupalGet($testCustomer->toUrl());
+    $session = $this->assertSession();
+    $session->pageTextContains('Add contact');
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);
-    $this->addContact($customer);
+    $this->addContact($testCustomer);
     $this->drupalLogout();
 
     $this->drupalLogin($this->owner);
-    $this->addContact($customer);
+    $this->addContact($testCustomer);
     $this->drupalLogout();
   }
 

@@ -6,3 +6,24 @@ declare(strict_types=1);
  * @file
  */
 
+use Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Remove the taxonomy vocabularies on uninstall.
+ */
+function se_ticket_uninstall(): void {
+  if ($vocabulary = Vocabulary::load('se_ticket_priority')) {
+    $vocabulary->delete();
+  }
+  if ($vocabulary = Vocabulary::load('se_ticket_status')) {
+    $vocabulary->delete();
+  }
+  if ($vocabulary = Vocabulary::load('se_ticket_type')) {
+    $vocabulary->delete();
+  }
+
+  // Also remove the workflow.
+  if ($workflow = \Drupal\workflows\Entity\Workflow::load('se_ticket_workflow')) {
+    $workflow->delete();
+  }
+}
