@@ -6,6 +6,7 @@ namespace Drupal\stratoserp\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -16,7 +17,7 @@ class SetupVerificationController extends ControllerBase {
    *
    * @var \Drupal\Core\Entity\EntityTypeManager
    */
-  protected EntityTypeManagerInterface $entityTypeManager;
+  protected $entityTypeManager;
 
   /**
    * Simple constructor.
@@ -53,7 +54,7 @@ class SetupVerificationController extends ControllerBase {
   public function verification() {
 
     $terms = [];
-    $build = [];
+    $build = $items = [];
 
     $config = $this->config('se_ticket.settings');
     $fieldStorage = $this->entityTypeManager->getStorage('field_config');
@@ -65,7 +66,7 @@ class SetupVerificationController extends ControllerBase {
 
       // If the vocabulary isn't set...
       if (!isset($vocabulary)) {
-        $build['priority_vocab'] = Url::fromRoute('entity.field_config.se_ticket_field_edit_form', [
+        $items['priority_vocab'] = Link::createFromRoute($this->t('Set the vocabulary'), 'entity.field_config.se_ticket_field_edit_form', [
           'field_config' => 'se_ticket.se_ticket.se_priority_ref',
         ]);
       }
@@ -75,14 +76,14 @@ class SetupVerificationController extends ControllerBase {
 
       // If there are no terms...
       if (!count($terms)) {
-        $build['priority_terms'] = Url::fromRoute('entity.taxonomy_vocabulary.overview_form', [
+        $items['priority_terms'] = Link::createFromRoute($this->t('Add some termsm'), 'entity.taxonomy_vocabulary.overview_form', [
           'taxonomy_vocabulary' => $vocabulary,
         ]);
       }
 
       // If the default priority isn't set...
       if (!$config->get('se_ticket_priority')) {
-        $build['priority_default'] = Url::fromRoute('se_ticket.settings', []);
+        $items['priority_default'] = Link::createFromRoute($this->t('Set default priority'), 'se_ticket.settings');
       }
     }
 
@@ -92,8 +93,13 @@ class SetupVerificationController extends ControllerBase {
       $terms = $termStorage->loadByProperties(['vid' => $vocabulary]);
     }
 
-    return $build;
+    $build['navigation_block'] = [
+      '#theme' => 'item_list',
+      '#attributes' => ['class' => 'list-inline local-actions'],
+      '#items' => $items,
+    ];
 
+    return $build;
   }
 
 }
