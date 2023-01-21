@@ -1,0 +1,12 @@
+
+se_ticket.add:
+  path: '/ticket/add/{source}'
+  defaults:
+    _title: 'Add contact'
+    _controller: '\Drupal\se_ticket\Controller\TicketController::fromCustomer'
+  requirements:
+    _permission: 'add ticket entities'
+  options:
+    parameters:
+      source:
+        type: entity:se_customer
