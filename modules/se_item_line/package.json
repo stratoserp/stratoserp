@@ -40,7 +40,7 @@
     "glob-parent": ">=5.1.2",
     "minimist": "^1.2.6",
     "mkdirp": "^0.5.1",
-    "nightwatch": "^1.7.11",
+    "nightwatch": "^2.6.10",
     "pac-resolver": ">=5.0.0",
     "path-parse": ">=1.0.7",
     "prettier": "^1.14.0",
