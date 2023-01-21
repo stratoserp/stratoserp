@@ -262,6 +262,10 @@ class NavigationBlock extends BlockBase {
       $routeParameters + [
         'se_cu_ref' => $this->entity->id(),
       ], $this->buttonClass);
+    $this->items[] = Link::createFromRoute('Add ticket', 'entity.se_ticket.add_form',
+      $routeParameters + [
+        'source' => $this->entity->id(),
+      ], $this->buttonClass);
     $this->items[] = Link::createFromRoute('Invoice timekeeping', 'se_invoice.timekeeping',
       $routeParameters + [
         'source' => $this->entity->id(),
