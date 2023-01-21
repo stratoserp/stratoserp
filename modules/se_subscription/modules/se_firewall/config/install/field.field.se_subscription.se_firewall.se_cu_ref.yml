@@ -22,5 +22,4 @@ settings:
       field: _none
       direction: ASC
     auto_create: 0
-    customer_type: '5'
 field_type: entity_reference
