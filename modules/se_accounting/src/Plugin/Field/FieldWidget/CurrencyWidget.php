@@ -27,7 +27,7 @@ class CurrencyWidget extends WidgetBase {
    */
   public static function defaultSettings() {
     return [
-      'input_enabled' => FALSE,
+      'input_enabled' => TRUE,
     ] + parent::defaultSettings();
   }
 
