@@ -6,8 +6,10 @@ namespace Drupal\se_ticket\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\se_ticket\Entity\Ticket;
 use Drupal\se_ticket\Entity\TicketInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -220,6 +222,28 @@ class TicketController extends ControllerBase {
     $build['pager'] = ['#type' => 'pager'];
 
     return $build;
+  }
+
+  /**
+   * Provides the entity submission form for ticket creation from a customer.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $source
+   *   Source entity to copy data from.
+   *
+   * @return array
+   *   An entity submission form.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function fromcustomer(EntityInterface $source): array {
+    $entity = Ticket::create([
+      'bundle' => 'se_ticket',
+    ]);
+
+    $entity->se_cu_ref = \Drupal::service('se_customer.service')->lookupcustomer($source);
+
+    return $this->entityFormBuilder()->getForm($entity);
   }
 
 }

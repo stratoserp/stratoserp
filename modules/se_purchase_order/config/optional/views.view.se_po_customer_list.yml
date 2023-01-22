@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.se_purchase_order.se_total
     - system.menu.stratos-erp
-    - taxonomy.vocabulary.se_customer_type
   module:
     - se_accounting
     - se_customer

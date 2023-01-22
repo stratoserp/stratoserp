@@ -10,10 +10,6 @@ use Drupal\stratoserp\Entity\StratosEntityBase;
 /**
  * Defines the Customer entity.
  *
- * Note that this could be converted to use bundles and separate the customer
- * and suppliers to different types, but in the end, there would still only
- * be one field different, so leaving that for now.
- *
  * @ingroup se_customer
  *
  * @ContentEntityType(

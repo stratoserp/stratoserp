@@ -20,6 +20,11 @@ class TicketCrudTest extends TicketTestBase {
   public function testTicketAdd(): void {
     $this->drupalLogin($this->staff);
     $testCustomer = $this->addCustomer();
+
+    // Ensure the 'Add ticket' link is visible.
+    $this->drupalGet($testCustomer->toUrl());
+    $session = $this->assertSession();
+    $session->pageTextContains('Add ticket');
     $this->drupalLogout();
 
     $this->drupalLogin($this->staff);

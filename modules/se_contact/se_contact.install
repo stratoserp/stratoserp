@@ -6,3 +6,13 @@ declare(strict_types=1);
  * @file
  */
 
+use Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Remove the taxonomy vocabulary on uninstall.
+ */
+function se_contact_uninstall(): void {
+  if ($vocabulary = Vocabulary::load('se_contact_type')) {
+    $vocabulary->delete();
+  }
+}

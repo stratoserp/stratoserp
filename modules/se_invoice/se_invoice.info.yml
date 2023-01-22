@@ -18,7 +18,6 @@ dependencies:
   - stratoserp:se_item_line
   - stratoserp:se_payment
   - stratoserp:se_service
-  - views_data_export:views_data_export
 
 config_devel:
   install:

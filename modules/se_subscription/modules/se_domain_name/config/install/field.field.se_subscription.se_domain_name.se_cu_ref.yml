@@ -23,5 +23,4 @@ settings:
       direction: ASC
     auto_create: 0
     auto_create_bundle: ''
-    customer_type: '5'
 field_type: entity_reference

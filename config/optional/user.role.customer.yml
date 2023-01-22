@@ -10,13 +10,4 @@ weight: 4
 is_admin: null
 permissions:
   - 'access content'
-  - 'access printer-friendly version'
   - 'access stratoserp'
-  - 'add job'
-  - 'edit own job'
-  - 'erp contact list'
-  - 'job list'
-  - 'maintain own subscriptions'
-  - 'manage own subscriptions'
-  - 'subscribe to content'
-  - 'view erp google map'

@@ -25,6 +25,7 @@
         "roave/security-advisories": "dev-latest"
     },
     "suggest": {
+        "drupal/admin_toolbar": "^3.3",
         "drupal/xero": "dev-2.x"
     },
     "minimum-stability": "dev"

@@ -26,6 +26,11 @@ class TimekeepingAddTest extends TimekeepingTestBase {
     $this->drupalLogin($this->staff);
     $testCustomer = $this->addCustomer();
 
+    // Ensure the 'Invoice timekeeping' link is visible.
+    $this->drupalGet($testCustomer->toUrl());
+    $session = $this->assertSession();
+    $session->pageTextContains('Invoice timekeeping');
+
     $testTicket = $this->addTicket($testCustomer);
     $this->drupalGet($testTicket->toUrl());
     $content = $this->getTextContent();

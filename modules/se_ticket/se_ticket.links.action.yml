@@ -5,3 +5,10 @@ entity.se_ticket.add_form:
   appears_on:
     - entity.se_ticket.collection
     - 'view.se_ticket_list.se_ticket_list'
+
+se_ticket.add:
+  route_name: se_ticket.add
+  title: 'Add ticket'
+  class: 'Drupal\stratoserp\LocalAction\SourceIdLocalAction'
+  appears_on:
+    - entity.se_customer.canonical

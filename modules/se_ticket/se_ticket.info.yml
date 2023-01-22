@@ -38,15 +38,15 @@ config_devel:
     - field.storage.se_ticket.se_scheduled
     - field.storage.se_ticket.se_status
     - field.storage.se_ticket.se_type_ref
-    - taxonomy.vocabulary.se_ticket_priority
-    - taxonomy.vocabulary.se_ticket_status
-    - taxonomy.vocabulary.se_ticket_type
+    - workflows.workflow.se_ticket_workflow
   optional:
     - core.entity_form_display.se_ticket.se_ticket.default
     - core.entity_view_display.se_ticket.se_ticket.default
+    - taxonomy.vocabulary.se_ticket_priority
+    - taxonomy.vocabulary.se_ticket_status
+    - taxonomy.vocabulary.se_ticket_type
     - views.view.se_ticket_calendar
     - views.view.se_ticket_eva
     - views.view.se_ticket_list
     - views.view.se_ticket_my
     # - views.view.se_ticket_my_block
-    - workflows.workflow.se_ticket_workflow

@@ -25,6 +25,12 @@ class InvoiceCrudTest extends InvoiceTestBase {
   public function testInvoiceStockAdd(): void {
     $this->drupalLogin($this->staff);
     $testCustomer = $this->addCustomer();
+
+    // Ensure the 'Add invoice' link is visible.
+    $this->drupalGet($testCustomer->toUrl());
+    $session = $this->assertSession();
+    $session->pageTextContains('Add invoice');
+
     $items = $this->createItems();
     $this->drupalLogout();
 
