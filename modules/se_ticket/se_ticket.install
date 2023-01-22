@@ -17,16 +17,14 @@ use Drupal\workflows\Entity\Workflow;
  */
 function se_ticket_install() {
   \Drupal::messenger()->addStatus(t('The StratosERP Ticket module requires at least one priority, status and type term to function correctly. Please @add_priority_terms, @add_status_terms, @add_type_terms.', [
-    ':type_name' => 'se_payment_type',
-    ':type' => 'taxonomy',
     '@add_priority_terms' => Link::createFromRoute(t('Add a ticket priority'), 'entity.taxonomy_vocabulary.overview_form', [
-      'taxonomy_vocabulary' => 'se_payment_type',
+      'taxonomy_vocabulary' => 'se_ticket_priority',
     ])->toString(),
     '@add_status_terms' => Link::createFromRoute(t('Add a ticket status'), 'entity.taxonomy_vocabulary.overview_form', [
-      'taxonomy_vocabulary' => 'se_payment_type',
+      'taxonomy_vocabulary' => 'se_ticket_status',
     ])->toString(),
     '@add_type_terms' => Link::createFromRoute(t('Add a ticket type'), 'entity.taxonomy_vocabulary.overview_form', [
-      'taxonomy_vocabulary' => 'se_payment_type',
+      'taxonomy_vocabulary' => 'se_ticket_type',
     ])->toString(),
   ]));
 
