@@ -65,6 +65,5 @@ config_devel:
     - field.storage.se_supplier.se_status
     - field.storage.se_supplier.se_suburb
     - field.storage.se_supplier.se_terms
-    - taxonomy.vocabulary.se_supplier_type
   optional:
     - views.view.se_supplier_list

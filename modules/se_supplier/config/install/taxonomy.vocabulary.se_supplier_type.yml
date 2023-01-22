@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Supplier type'
-vid: se_supplier_type
-description: 'Supplier type taxonomy'
-weight: 0
