@@ -7,6 +7,7 @@ dependencies:
   - duration_field:duration_field
   - stratoserp:se_customer
   - stratoserp:se_item_line
+  - stratoserp:se_supplier
   - stratoserp:stratoserp
 
 config_devel:
