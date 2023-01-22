@@ -3,8 +3,6 @@ description: 'Provides accounting utilities and helpers.'
 type: module
 core_version_requirement:  ^9 || ^10
 package: StratosERP
-dependencies:
-  - stratoserp:stratoserp
 
 config_devel:
   install: {  }

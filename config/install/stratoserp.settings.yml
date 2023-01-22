@@ -3,3 +3,4 @@ hide_search: 0
 hide_buttons: 0
 statistics_timeframe: '2'
 statistics_style: monthly
+verify_setup_complete: 1

@@ -4,26 +4,148 @@ declare(strict_types=1);
 
 /**
  * @file
+ *
+ * Ticket install functions.
  */
 
+use Drupal\Core\Link;
 use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\workflows\Entity\Workflow;
 
 /**
- * Remove the taxonomy vocabularies on uninstall.
+ * Use hook_install to display some instructions to the user.
  */
-function se_ticket_uninstall(): void {
-  if ($vocabulary = Vocabulary::load('se_ticket_priority')) {
-    $vocabulary->delete();
-  }
-  if ($vocabulary = Vocabulary::load('se_ticket_status')) {
-    $vocabulary->delete();
-  }
-  if ($vocabulary = Vocabulary::load('se_ticket_type')) {
-    $vocabulary->delete();
+function se_ticket_install() {
+  \Drupal::messenger()->addStatus(t('The StratosERP Ticket module requires at least one priority, status and type term to function correctly. Please @add_priority_terms, @add_status_terms, @add_type_terms.', [
+    ':type_name' => 'se_payment_type',
+    ':type' => 'taxonomy',
+    '@add_priority_terms' => Link::createFromRoute(t('Add a ticket priority'), 'entity.taxonomy_vocabulary.overview_form', [
+      'taxonomy_vocabulary' => 'se_payment_type',
+    ])->toString(),
+    '@add_status_terms' => Link::createFromRoute(t('Add a ticket status'), 'entity.taxonomy_vocabulary.overview_form', [
+      'taxonomy_vocabulary' => 'se_payment_type',
+    ])->toString(),
+    '@add_type_terms' => Link::createFromRoute(t('Add a ticket type'), 'entity.taxonomy_vocabulary.overview_form', [
+      'taxonomy_vocabulary' => 'se_payment_type',
+    ])->toString(),
+  ]));
+
+  \Drupal::service('se.setup_status')->checkSetupStatus();
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function se_ticket_requirements($phase) {
+  // Can only do these checks on a built Drupal instance.
+  if (isset($GLOBALS['install_state'])) {
+    return [];
   }
 
-  // Also remove the workflow.
-  if ($workflow = \Drupal\workflows\Entity\Workflow::load('se_ticket_workflow')) {
-    $workflow->delete();
+  $requirements = [];
+
+  if ($phase === 'install') {
+    if (\Drupal::moduleHandler()->moduleExists('taxonomy')) {
+      if (Vocabulary::load('se_ticket_priority')) {
+        $requirements += se_ticket_already_exists_error('se_ticket_priority', 'taxonomy');
+      }
+      if (Vocabulary::load('se_ticket_status')) {
+        $requirements += se_ticket_already_exists_error('se_ticket_status', 'taxonomy');
+      }
+      if (Vocabulary::load('se_ticket_type')) {
+        $requirements += se_ticket_already_exists_error('se_ticket_type', 'taxonomy');
+      }
+    }
+
+    // Check workflow doesn't already exist.
+    if (\Drupal::moduleHandler()->moduleExists('workflows')) {
+      if (Workflow::load('se_ticket_workflow')) {
+        $requirements[] = se_ticket_already_exists_error('se_ticket_workflow', 'workflow');
+      }
+    }
   }
+
+  if ($phase === 'runtime') {
+    if (!\Drupal::moduleHandler()->moduleExists('taxonomy')) {
+      return [];
+    }
+
+    $entityTypeManager = \Drupal::entityTypeManager();
+    $priority_terms = $entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'se_ticket_priority']);
+    if (count($priority_terms) === 0) {
+      $requirements += se_ticket_no_terms_exist_warning('se_ticket_priority', 'taxonomy');
+    }
+    $status_terms = $entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'se_ticket_status']);
+    if (count($status_terms) === 0) {
+      $requirements += se_ticket_no_terms_exist_warning('se_ticket_status', 'taxonomy');
+    }
+    $type_terms = $entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'se_ticket_type']);
+    if (count($type_terms) === 0) {
+      $requirements += se_ticket_no_terms_exist_warning('se_ticket_type', 'taxonomy');
+    }
+  }
+
+  // Sort all requirements alphabetically.
+  ksort($requirements);
+
+  return $requirements;
+}
+
+/**
+ * Preformatted error for existing vocabulary/workflow.
+ *
+ * @param $type_name
+ *   The existing vocabulary/workflow name.
+ * @param $type
+ *   The actual type.
+ *
+ * @return array[]
+ */
+function se_ticket_already_exists_error($type_name, $type) {
+  return [
+    $type_name => [
+      'description' => t('The StratosERP Ticket module installs a :type <b>:type_name</b>, please @remove.', [
+        ':type_name' => $type_name,
+        ':type' => $type,
+        '@remove' => Link::createFromRoute(t('Remove the existing vocabulary'), 'entity.taxonomy_vocabulary.edit_form', [
+          'taxonomy_vocabulary' => $type_name,
+        ])->toString()
+      ]),
+      'severity' => REQUIREMENT_ERROR,
+    ]
+  ];
+}
+
+/**
+ * Preformatted warning for missing terms in the vocabularies.
+ *
+ * @param $type_name
+ *   The existing vocabulary name.
+ * @param $type
+ *   The actual type.
+ *
+ * @return array[]
+ */
+function se_ticket_no_terms_exist_warning($type_name, $type) {
+  return [
+    $type_name . '_term_count' => [
+      'title' => t('Missing terms', [
+        ':type' => $type_name,
+      ]),
+      'value' => t('The StratosERP Ticket module requires at least one term in the :type <b>:type_name</b> to function correctly. Please @add_terms.', [
+        ':type_name' => $type_name,
+        ':type' => $type,
+        '@add_terms' => Link::createFromRoute(t('Add some terms'), 'entity.taxonomy_vocabulary.overview_form', [
+          'taxonomy_vocabulary' => $type_name,
+        ])->toString(),
+      ]),
+      'severity' => REQUIREMENT_ERROR,
+    ]
+  ];
 }

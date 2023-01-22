@@ -7,6 +7,8 @@ namespace Drupal\stratoserp\Form;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\stratoserp\Service\SetupStatusInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Allow show/hide some parts of the custom navigation block.
@@ -14,6 +16,20 @@ use Drupal\Core\Form\FormStateInterface;
  * @todo Should this be configurable at the per user level instead?
  */
 class SettingsForm extends ConfigFormBase {
+
+  /**
+   * @var \Drupal\stratoserp\Service\SetupStatusInterface
+   */
+  protected SetupStatusInterface $setupStatus;
+
+  /**
+   * Extend the parent create function to add services.
+   */
+  public static function create(ContainerInterface $container) {
+    $instance = parent::create($container);
+    $instance->setupStatus = $container->get('se.setup_status');
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
@@ -35,6 +51,17 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $settings = $this->config('stratoserp.settings');
+
+    $setupComplete = $this->setupStatus->checkSetupStatus();
+    $this->setupStatus->setupStatusError();
+
+    $form['verify_setup_complete'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Verify that setup is complete on form display.'),
+      '#default_value' => $settings->get('verify_setup_complete') ?: TRUE,
+      '#attributes' => ['disabled' => !$setupComplete],
+      '#description' => t('If this setting is not editable, there is are errors that need to be addressed. Once this field is editable, its safe to disable it for a tiny performance improvement.'),
+    ];
 
     $form['first_contact'] = [
       '#type' => 'checkbox',
@@ -106,6 +133,7 @@ class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('stratoserp.settings')
+      ->set('verify_setup_complete', $form_state->getValue('verify_setup_complete'))
       ->set('first_contact', $form_state->getValue('first_contact'))
       ->set('hide_search', $form_state->getValue('hide_search'))
       ->set('hide_buttons', $form_state->getValue('hide_buttons'))
@@ -114,6 +142,9 @@ class SettingsForm extends ConfigFormBase {
       ->set('statistics_style', $form_state->getValue('statistics_style'))
       ->save();
     parent::submitForm($form, $form_state);
+
+    // Check/Update status on each save.
+    $this->setupStatus->checkSetupStatus();
 
     Cache::invalidateTags(['stratoserp_navigation_block']);
   }

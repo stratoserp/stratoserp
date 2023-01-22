@@ -4,6 +4,7 @@ type: module
 core_version_requirement:  ^9 || ^10
 package: StratosERP
 dependencies:
+  - drupal:taxonomy
   - hook_event_dispatcher:core_event_dispatcher
   - field_group:field_group
 

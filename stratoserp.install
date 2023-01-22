@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 /**
  * @file
+ *
+ * StratosERP install functions.
  */
+
+use Drupal\Core\Link;
+use Drupal\taxonomy\Entity\Vocabulary;
 
 /**
  * Implementation of hook_install().
@@ -32,4 +37,123 @@ function stratoserp_install() {
     }
   } catch (Exception $e) {
   }
+
+  \Drupal::service('se.setup_status')->checkSetupStatus();
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function stratoserp_requirements($phase) {
+  // Can only do these checks on a built Drupal instance.
+  if (isset($GLOBALS['install_state'])) {
+    return [];
+  }
+
+  if (!\Drupal::moduleHandler()->moduleExists('taxonomy')) {
+    return [];
+  }
+
+  $requirements = [];
+
+  if ($phase === 'install') {
+    if (Vocabulary::load('se_manufacturer')) {
+      $requirements += stratoserp_already_exists_error('se_manufacturer', 'taxonomy');
+    }
+    if (Vocabulary::load('se_product_type')) {
+      $requirements += stratoserp_already_exists_error('se_product_type', 'taxonomy');
+    }
+    if (Vocabulary::load('se_sale_category')) {
+      $requirements += stratoserp_already_exists_error('se_sale_category', 'taxonomy');
+    }
+    if (Vocabulary::load('se_status')) {
+      $requirements += stratoserp_already_exists_error('se_status', 'taxonomy');
+    }
+  }
+
+  if ($phase === 'runtime') {
+    $entityTypeManager = \Drupal::entityTypeManager();
+    $priority_terms = $entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'se_manufacturer']);
+    if (count($priority_terms) === 0) {
+      $requirements += stratoserp_no_terms_exist_warning('se_manufacturer', 'taxonomy');
+    }
+    $status_terms = $entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'se_product_type']);
+    if (count($status_terms) === 0) {
+      $requirements += stratoserp_no_terms_exist_warning('se_product_type', 'taxonomy');
+    }
+    $type_terms = $entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'se_sale_category']);
+    if (count($type_terms) === 0) {
+      $requirements += stratoserp_no_terms_exist_warning('se_sale_category', 'taxonomy');
+    }
+    $type_terms = $entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'se_status']);
+    if (count($type_terms) === 0) {
+      $requirements += stratoserp_no_terms_exist_warning('se_status', 'taxonomy');
+    }
+  }
+
+  // Sort all requirements alphabetically.
+  ksort($requirements);
+
+  return $requirements;
+}
+
+/**
+ * Preformatted error for existing vocabulary/workflow.
+ *
+ * @param $type_name
+ *   The existing vocabulary/workflow name.
+ * @param $type
+ *   The actual type.
+ *
+ * @return array[]
+ */
+function stratoserp_already_exists_error($type_name, $type) {
+  return [
+    $type_name => [
+      'description' => t('The StratosERP Core module installs a :type <b>:type_name</b>, please @remove.', [
+        ':type_name' => $type_name,
+        ':type' => $type,
+        '@remove' => Link::createFromRoute(t('Remove the existing vocabulary'), 'entity.taxonomy_vocabulary.edit_form', [
+          'taxonomy_vocabulary' => $type_name,
+        ])->toString()
+      ]),
+      'severity' => REQUIREMENT_ERROR,
+    ]
+  ];
+}
+
+/**
+ * Preformatted warning for missing terms in the vocabularies.
+ *
+ * @param $type_name
+ *   The existing vocabulary name.
+ * @param $type
+ *   The actual type.
+ *
+ * @return array[]
+ */
+function stratoserp_no_terms_exist_warning($type_name, $type) {
+  return [
+    $type_name . '_term_count' => [
+      'title' => t('Missing terms', [
+        ':type' => $type_name,
+      ]),
+      'value' => t('The StratosERP Core module requires at least one term in the :type <b>:type_name</b> to function correctly. Please @add_terms.', [
+        ':type_name' => $type_name,
+        ':type' => $type,
+        '@add_terms' => Link::createFromRoute(t('Add some terms'), 'entity.taxonomy_vocabulary.overview_form', [
+          'taxonomy_vocabulary' => $type_name,
+        ])->toString(),
+      ]),
+      'severity' => REQUIREMENT_ERROR,
+    ]
+  ];
 }

@@ -8,6 +8,7 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\stratoserp\Service\FormAlterInterface;
+use Drupal\stratoserp\Service\SetupStatusInterface;
 use Drupal\stratoserp\Traits\RevisionableEntityTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -24,11 +25,18 @@ class StratosContentEntityForm extends ContentEntityForm {
   protected FormAlterInterface $formAlter;
 
   /**
-   * Extant the parent create function to add services.
+   * @var \Drupal\stratoserp\Service\SetupStatusInterface
+   */
+  protected SetupStatusInterface $setupStatus;
+
+  /**
+   * Extend the parent create function to add services.
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
     $instance->formAlter = $container->get('se.form_alter');
+    $instance->setupStatus = $container->get('se.setup_status');
+
     return $instance;
   }
 
@@ -44,6 +52,12 @@ class StratosContentEntityForm extends ContentEntityForm {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $hideFields = [];
+
+    // Only do the setup checks if the user has it enabled (default).
+    if (!$this->configFactory()->get('stratoserp.settings')->get('verify_setup_complete')) {
+      // Check if there are incomplete setup steps and warn the user.
+      $this->setupStatus->setupStatusError();
+    }
 
     $form = parent::buildForm($form, $form_state);
 

@@ -4,5 +4,79 @@ declare(strict_types=1);
 
 /**
  * @file
+ *
+ * Payment install functions.
  */
 
+use Drupal\Core\Link;
+use Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Use hook_install to display some instructions to the user.
+ */
+function se_payment_install() {
+  \Drupal::messenger()->addStatus(t('The StratosERP Payment module requires at least one payment type term to function correctly. Please @add_terms.', [
+    ':type_name' => 'se_payment_type',
+    ':type' => 'taxonomy',
+    '@add_terms' => Link::createFromRoute(t('Add a payment type'), 'entity.taxonomy_vocabulary.overview_form', [
+      'taxonomy_vocabulary' => 'se_payment_type',
+    ])->toString(),
+  ]));
+
+  \Drupal::service('se.setup_status')->checkSetupStatus();
+}
+
+/**
+ * Remove the taxonomy vocabulary on uninstall.
+ */
+function se_payment_requirements($phase) {
+  // Can only do these checks on a built Drupal instance.
+  if (isset($GLOBALS['install_state'])) {
+    return [];
+  }
+
+  if (!\Drupal::moduleHandler()->moduleExists('taxonomy')) {
+    return [];
+  }
+
+  if ($phase === 'install') {
+    if (Vocabulary::load('se_payment_type')) {
+      return [
+        'se_payment' => [
+          'description' => t('The StratosERP Payment module installs a :type <b>:type_name</b>, please @remove.', [
+            ':type_name' => 'se_payment_type',
+            ':type' => 'taxonomy',
+            '@remove' => Link::createFromRoute(t('Remove the existing vocabulary'), 'entity.taxonomy_vocabulary.edit_form', [
+              'taxonomy_vocabulary' => 'se_payment_type',
+            ])->toString()
+          ]),
+          'severity' => REQUIREMENT_ERROR,
+        ],
+      ];
+    }
+  }
+
+  if ($phase === 'runtime') {
+    $entityTypeManager = \Drupal::entityTypeManager();
+    $payment_terms = $entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'se_payment_type']);
+    if (count($payment_terms) === 0) {
+      return [
+        'se_payment_term_count' => [
+          'title' => t('Missing terms', [
+            ':type' => 'se_payment_type',
+          ]),
+          'value' => t('The StratosERP Payment module requires at least one term in the :type <b>:type_name</b> to function correctly. Please @add_terms.', [
+            ':type_name' => 'se_payment_type',
+            ':type' => 'taxonomy',
+            '@add_terms' => Link::createFromRoute(t('Add some terms'), 'entity.taxonomy_vocabulary.overview_form', [
+              'taxonomy_vocabulary' => 'se_payment_type',
+            ])->toString(),
+          ]),
+          'severity' => REQUIREMENT_ERROR,
+        ],
+      ];
+    }
+  }
+}

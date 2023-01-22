@@ -4,6 +4,10 @@ services:
     tags:
       - { name: event_subscriber }
 
+  se.setup_status:
+    class: Drupal\stratoserp\Service\SetupStatus
+    arguments: ['@config.factory', '@messenger', '@module_handler']
+
   se.form_alter:
     class: Drupal\stratoserp\Service\FormAlter
     arguments: ['@request_stack', '@entity_type.manager', '@current_user']
