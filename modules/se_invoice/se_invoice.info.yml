@@ -12,6 +12,7 @@ dependencies:
   - drupal:user
   - drupal:workflows
   - drupal:workflows_field
+  - stratoserp:se_contact
   - stratoserp:se_customer
   - stratoserp:se_item
   - stratoserp:se_stock
