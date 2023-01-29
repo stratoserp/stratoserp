@@ -15,18 +15,19 @@ use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\Tests\UiHelperTrait;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\TestCase;
+use weitzman\DrupalTestTraits\BrowserKitTrait;
 use weitzman\DrupalTestTraits\DrupalTrait;
 use weitzman\DrupalTestTraits\Entity\NodeCreationTrait;
 use weitzman\DrupalTestTraits\Entity\TaxonomyCreationTrait;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
-use weitzman\DrupalTestTraits\GoutteTrait;
 
 /**
  * Our own functional test base class.
  */
 class FunctionalTestBase extends TestCase {
+
+  use BrowserKitTrait;
   use DrupalTrait;
-  use GoutteTrait;
   use NodeCreationTrait;
   use UserCreationTrait;
   use TaxonomyCreationTrait;

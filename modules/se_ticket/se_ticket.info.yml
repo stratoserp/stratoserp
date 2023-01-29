@@ -14,8 +14,8 @@ dependencies:
   - drupal:views
   - drupal:workflows
   - drupal:workflows_field
+  - stratoserp:se_contact
   - stratoserp:se_customer
-  - stratoserp:se_timekeeping
 
 config_devel:
   install:

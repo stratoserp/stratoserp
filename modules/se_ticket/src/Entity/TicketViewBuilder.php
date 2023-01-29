@@ -61,6 +61,11 @@ class TicketViewBuilder extends EntityViewBuilder {
   public function view(EntityInterface $entity, $view_mode = 'full', $langcode = NULL) {
     $build = parent::view($entity, $view_mode, $langcode);
 
+    // If timekeeping isn't enabled, don't try and build the timekeeping form.
+    if (!\Drupal::moduleHandler()->moduleExists('se_timekeeping')) {
+      return $build;
+    }
+
     // Generate a blank timekeeping entry form with defaults.
     $formObject = $this->entityTypeManager
       ->getFormObject('se_timekeeping', 'default')
