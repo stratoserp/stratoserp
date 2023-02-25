@@ -22,15 +22,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class InvoiceController extends ControllerBase {
 
   /**
-   * @var \Drupal\Core\Datetime\DateFormatter*/
+   * @var \Drupal\Core\Datetime\DateFormatter
+   */
   protected $dateFormatter;
 
   /**
-   * @var \Drupal\Core\Render\Renderer*/
+   * @var \Drupal\Core\Render\Renderer
+   */
   protected $renderer;
 
   /**
-   * @var \Drupal\Core\Logger\LoggerChannel*/
+   * @var \Drupal\Core\Logger\LoggerChannel
+   */
   protected $stratosLogger;
 
   /**
@@ -283,6 +286,7 @@ class InvoiceController extends ControllerBase {
       ->condition('se_billed', TRUE, '<>')
       ->condition('se_billable', TRUE)
       ->condition('se_amount', 0, '>');
+    $query->accessCheck(FALSE);
     $entityIds = $query->execute();
 
     $total = 0;

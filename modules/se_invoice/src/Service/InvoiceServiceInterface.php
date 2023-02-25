@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\se_invoice\Service;
 
 use Drupal\se_invoice\Entity\Invoice;
-use Drupal\taxonomy\Entity\Term;
 
 /**
  * Interface for the invoice service.

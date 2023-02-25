@@ -88,6 +88,7 @@ class ContactService implements ContactServiceInterface {
     if ($contactType) {
       $query->condition('se_type_ref', $contactType);
     }
+    $query->accessCheck(FALSE);
 
     return $query->execute();
   }

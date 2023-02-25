@@ -104,6 +104,7 @@ class Customer extends StratosEntityBase implements CustomerInterface {
     $query = $invoiceStorage->getQuery();
     $query->condition('se_cu_ref', $this->id());
     $query->condition('se_outstanding', 0, '<>');
+    $query->accessCheck(FALSE);
     $idList = $query->execute();
     $openInvoices = $invoiceStorage->loadMultiple($idList);
 

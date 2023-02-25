@@ -32,7 +32,9 @@ class FrontPageController extends ControllerBase {
    * Simple constructor.
    *
    * @param \Drupal\Core\Layout\LayoutPluginManagerInterface $layoutPluginManager
+   *   The Layout plugin manager.
    * @param \Drupal\Core\Block\BlockManagerInterface $blockManager
+   *   The Block manager.
    */
   public function __construct(LayoutPluginManagerInterface $layoutPluginManager, BlockManagerInterface $blockManager) {
     $this->layoutPluginManager = $layoutPluginManager;
@@ -43,6 +45,7 @@ class FrontPageController extends ControllerBase {
    * Create function.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
    *
    * @return static
    */

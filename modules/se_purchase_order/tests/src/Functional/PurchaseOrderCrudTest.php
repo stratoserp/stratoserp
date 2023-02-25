@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\Tests\se_purchase_order\Functional;
 
 use Drupal\se_goods_receipt\Controller\GoodsReceiptController;
-use Drupal\se_goods_receipt\Entity\GoodsReceipt;
 use Drupal\Tests\se_customer\Traits\CustomerTestTrait;
 use Drupal\Tests\se_item\Traits\ItemTestTrait;
 
@@ -24,7 +23,7 @@ class PurchaseOrderCrudTest extends PurchaseOrderTestBase {
   use CustomerTestTrait;
 
   /**
-   * Add a customer, quote, purchase order
+   * Add a customer, items, purchase order.
    */
   public function testPurchaseOrderAdd() {
     $this->drupalLogin($this->staff);
@@ -42,8 +41,10 @@ class PurchaseOrderCrudTest extends PurchaseOrderTestBase {
     $this->drupalLogout();
   }
 
+  /**
+   * Add a customer, items, purchase order, goods receipt.
+   */
   public function testPurchaseOrderToGoodsReceipt() {
-    $this->drupalLogin($this->staff);
     $this->drupalLogin($this->staff);
     $testCustomer = $this->addCustomer();
     $items = $this->createItems();

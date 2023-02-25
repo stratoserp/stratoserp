@@ -7,6 +7,7 @@ namespace Drupal\stratoserp\Entity;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\user\EntityOwnerInterface;
 
 /**
@@ -60,6 +61,6 @@ interface StratosEntityBaseInterface extends ContentEntityInterface, RevisionLog
   /**
    * Generate a title suitable for StratosERP entities.
    */
-  public function generateName();
+  public function generateName(): TranslatableMarkup;
 
 }

@@ -9,6 +9,9 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Messenger\MessengerInterface;
 
+/**
+ * Setup status class.
+ */
 class SetupStatus implements SetupStatusInterface {
 
   /**

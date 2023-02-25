@@ -13,6 +13,7 @@ use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\stratoserp\Traits\StratosEntityTrait;
 use Drupal\user\EntityOwnerTrait;
 
@@ -115,23 +116,26 @@ abstract class StratosEntityBase extends RevisionableContentEntityBase implement
   /**
    * {@inheritdoc}
    */
-  public function generateName() {
+  public function generateName(): TranslatableMarkup {
+    $dateTime = new DrupalDateTime();
     if ($this->isNew()) {
       $number = '';
-      $format = '@type - @date';
+      return $this->t('@type - @date', [
+        '@number' => $number,
+        '@type' => $this->getEntityType()->getLabel(),
+        '@date' => \Drupal::service('date.formatter')
+          ->format($dateTime->getTimestamp(), 'html_date'),
+      ]);
     }
     else {
       $number = $this->id();
-      $format = '@type - @number - @date';
+      return $this->t('@type - @number - @date', [
+        '@number' => $number,
+        '@type' => $this->getEntityType()->getLabel(),
+        '@date' => \Drupal::service('date.formatter')
+          ->format($dateTime->getTimestamp(), 'html_date'),
+      ]);
     }
-    $dateTime = new DrupalDateTime();
-
-    return $this->t($format, [
-      '@number' => $number,
-      '@type' => $this->getEntityType()->getLabel(),
-      '@date' => \Drupal::service('date.formatter')
-        ->format($dateTime->getTimestamp(), 'html_date'),
-    ]);
   }
 
   /**

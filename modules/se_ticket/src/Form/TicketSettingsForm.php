@@ -28,6 +28,7 @@ class TicketSettingsForm extends FormBase {
    * Simple constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entitytype manager.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
@@ -37,6 +38,7 @@ class TicketSettingsForm extends FormBase {
    * Create function.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container interface.
    *
    * @return static
    */
@@ -93,7 +95,7 @@ class TicketSettingsForm extends FormBase {
       }
 
       $messenger->addMessage(t('Ticket priority term updated to %priority_term', [
-        '%priority_term' => $term->label()
+        '%priority_term' => $term->label(),
       ]));
     }
 
@@ -115,7 +117,7 @@ class TicketSettingsForm extends FormBase {
       }
 
       $messenger->addMessage(t('Ticket type term updated to %type_term', [
-        '%type_term' => $term->label()
+        '%type_term' => $term->label(),
       ]));
     }
 
@@ -144,7 +146,7 @@ class TicketSettingsForm extends FormBase {
       }
 
       $messenger->addMessage(t('Ticket calendar type list updated to %type_terms', [
-        '%type_terms' => $typeTermCombined
+        '%type_terms' => $typeTermCombined,
       ]));
     }
 
@@ -155,7 +157,7 @@ class TicketSettingsForm extends FormBase {
       $config->save();
 
       $messenger->addMessage(t('Ticket calendar status list updated to %status_terms', [
-        '%status_terms' => implode(',', $values['se_ticket_calendar_status_list'])
+        '%status_terms' => implode(',', $values['se_ticket_calendar_status_list']),
       ]));
     }
 
@@ -193,7 +195,7 @@ class TicketSettingsForm extends FormBase {
 
       if (!count($priorityOptions)) {
         $messenger->addWarning(t('Ticket priority: No terms found in the %vocabulary vocabulary', [
-          '%vocabulary' => $vocabulary
+          '%vocabulary' => $vocabulary,
         ]));
       }
 
@@ -218,7 +220,7 @@ class TicketSettingsForm extends FormBase {
 
       if (!count($typeOptions)) {
         $messenger->addWarning(t('Ticket type: No terms found in the %vocabulary vocabulary', [
-          '%vocabulary' => $vocabulary
+          '%vocabulary' => $vocabulary,
         ]));
       }
 
