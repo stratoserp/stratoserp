@@ -44,6 +44,7 @@ class CompanyInvoiceStatistics extends BlockBase {
           continue;
         }
         $query = \Drupal::entityQuery('se_invoice');
+        $query->accessCheck(TRUE);
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();

@@ -51,6 +51,7 @@ class UserQuoteStatistics extends BlockBase {
           continue;
         }
         $query = \Drupal::entityQuery('se_quote');
+        $query->accessCheck(TRUE);
         $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');

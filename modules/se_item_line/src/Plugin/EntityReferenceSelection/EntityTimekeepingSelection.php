@@ -113,7 +113,7 @@ class EntityTimekeepingSelection extends DefaultSelection {
     // unset conditions.
     /** @var \Drupal\Core\Entity\Query\Sql\Query $query */
     $query = parent::buildEntityQuery(NULL, $matchOperator);
-
+    $query->accessCheck(TRUE);
     $entityType = $this->entityTypeManager->getDefinition($this->targetType);
 
     if (isset($match) && $labelKey = $entityType->getKey('label')) {

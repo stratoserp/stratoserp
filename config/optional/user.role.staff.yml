@@ -64,7 +64,6 @@ permissions:
   - 'edit supplier entities'
   - 'edit ticket entities'
   - 'edit timekeeping entities'
-  - 'use inline mentions'
   - 'use text format se_basic_html'
   - 'view all bill revisions'
   - 'view all contact revisions'

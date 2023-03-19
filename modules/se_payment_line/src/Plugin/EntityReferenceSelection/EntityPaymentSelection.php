@@ -91,7 +91,7 @@ class EntityPaymentSelection extends DefaultSelection {
     // unset conditions.
     /** @var \Drupal\Core\Entity\Query\Sql\Query $query */
     $query = parent::buildEntityQuery(NULL, $match_operator);
-
+    $query->accessCheck(TRUE);
     $entity_type = $this->entityTypeManager->getDefinition($this->targetType);
 
     if (isset($match) && $label_key = $entity_type->getKey('label')) {

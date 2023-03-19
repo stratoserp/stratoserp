@@ -52,6 +52,7 @@ class UserInvoiceStatistics extends BlockBase {
           continue;
         }
         $entity_ids = \Drupal::entityQuery('se_invoice')
+          ->accessCheck(TRUE)
           ->condition('uid', $entity->id())
           ->condition('created', $timestamps['start'], '>=')
           ->condition('created', $timestamps['end'], '<')

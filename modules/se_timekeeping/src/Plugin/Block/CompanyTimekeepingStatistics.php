@@ -43,6 +43,7 @@ class CompanyTimekeepingStatistics extends BlockBase {
           continue;
         }
         $query = \Drupal::entityQuery('se_timekeeping');
+        $query->accessCheck(TRUE);
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $query->condition('se_billed', TRUE);

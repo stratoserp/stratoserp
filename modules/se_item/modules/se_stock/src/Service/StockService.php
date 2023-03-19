@@ -19,6 +19,7 @@ class StockService implements StockServiceInterface {
   public function ensureItem(Item $item): void {
     if (!empty($item->se_serial->value)) {
       $query = \Drupal::entityQuery('se_item')
+        ->accessCheck(TRUE)
         ->condition('type', 'se_stock')
         ->notExists('se_serial')
         ->condition('se_code', $item->se_code->value);

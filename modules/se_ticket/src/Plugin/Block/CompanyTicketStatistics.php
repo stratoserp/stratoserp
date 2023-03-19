@@ -43,6 +43,7 @@ class CompanyTicketStatistics extends BlockBase {
           continue;
         }
         $query = \Drupal::entityQuery('se_ticket');
+        $query->accessCheck(TRUE);
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');
         $entity_ids = $query->execute();

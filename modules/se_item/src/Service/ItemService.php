@@ -43,6 +43,7 @@ class ItemService {
    */
   public function findByCode($code) {
     return \Drupal::entityQuery('se_item')
+      ->accessCheck(TRUE)
       ->condition('se_code', $code)
       ->execute();
   }

@@ -50,6 +50,7 @@ class UserTimekeepingStatistics extends BlockBase {
           continue;
         }
         $query = \Drupal::entityQuery('se_timekeeping');
+        $query->accessCheck(TRUE);
         $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');

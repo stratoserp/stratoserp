@@ -50,6 +50,7 @@ class CustomerQuoteStatistics extends BlockBase {
 
       foreach ($this->reportingPeriods($year) as $timestamps) {
         $query = \Drupal::entityQuery('se_quote');
+        $query->accessCheck(TRUE);
         $query->condition('se_cu_ref', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');

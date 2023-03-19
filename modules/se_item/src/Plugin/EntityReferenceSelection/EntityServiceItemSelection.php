@@ -129,7 +129,7 @@ class EntityServiceItemSelection extends DefaultSelection {
     // unset conditions.
     /** @var \Drupal\Core\Entity\Query\Sql\Query $query */
     $query = parent::buildEntityQuery(NULL, $match_operator);
-
+    $query->accessCheck(TRUE);
     // Include virtual items, or not.
     if ($this->virtualOnly) {
       $query->notExists('se_serial');

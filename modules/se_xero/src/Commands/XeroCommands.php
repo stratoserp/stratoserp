@@ -46,6 +46,7 @@ class XeroCommands extends DrushCommands {
 
     // Retrieve list of customers changed since last sync.
     $ids = \Drupal::entityQuery('se_customer')
+      ->accessCheck(TRUE)
       ->condition('changed', $timestamp, '>')
       ->sort('created')
       ->range(0, 20)
@@ -78,6 +79,7 @@ class XeroCommands extends DrushCommands {
 
     // Retrieve list of nodes changed since last sync.
     $ids = \Drupal::entityQuery('se_invoice')
+      ->accessCheck(TRUE)
       ->condition('changed', $timestamp, '>')
       ->sort('created')
       ->range(0, 20)

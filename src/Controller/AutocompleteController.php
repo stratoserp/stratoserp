@@ -226,6 +226,7 @@ class AutocompleteController extends ControllerBase {
 
     $text = Database::getConnection()->escapeLike($text);
     $query = \Drupal::entityQuery('se_item')
+      ->accessCheck(TRUE)
       ->condition($field, '%' . $text . '%', 'LIKE')
       ->range(0, 10);
 
@@ -274,6 +275,7 @@ class AutocompleteController extends ControllerBase {
 
     $text = Database::getConnection()->escapeLike($text);
     $query = \Drupal::entityQuery('se_information')
+      ->accessCheck(TRUE)
       ->condition($field, '%' . $text . '%', 'LIKE')
       ->range(0, 10);
 

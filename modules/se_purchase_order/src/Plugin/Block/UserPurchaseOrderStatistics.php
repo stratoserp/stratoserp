@@ -51,6 +51,7 @@ class UserPurchaseOrderStatistics extends BlockBase {
 
       foreach ($this->reportingPeriods($year) as $timestamps) {
         $query = \Drupal::entityQuery('se_purchase_order');
+        $query->accessCheck(TRUE);
         $query->condition('uid', $entity->id());
         $query->condition('created', $timestamps['start'], '>=');
         $query->condition('created', $timestamps['end'], '<');

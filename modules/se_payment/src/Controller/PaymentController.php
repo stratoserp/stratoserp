@@ -294,6 +294,7 @@ class PaymentController extends ControllerBase {
 
     $total = 0;
     $query = \Drupal::entityQuery('se_invoice');
+    $query->accessCheck(TRUE);
     $group = $query->orConditionGroup()
       ->condition('se_status', 'open')
       ->notExists('se_status');
