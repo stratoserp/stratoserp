@@ -8,6 +8,7 @@ se_item_line:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/once
     - core/drupalSettings
     - core/drupal.ajax
     - core/jquery.ui.autocomplete
